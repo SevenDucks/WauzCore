@@ -1,1 +1,1 @@
-# Wauzland
+# WauzCore
