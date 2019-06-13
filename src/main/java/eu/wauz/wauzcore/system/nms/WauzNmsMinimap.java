@@ -61,7 +61,7 @@ public class WauzNmsMinimap {
         mapView.setWorld(player.getWorld());
         mapView.setCenterX(player.getLocation().getBlockX());
 		mapView.setCenterZ(player.getLocation().getBlockZ());
-        mapView.setScale(Scale.CLOSE);
+        mapView.setScale(Scale.CLOSEST);
         
         net.minecraft.server.v1_13_R2.ItemStack craftItemStack = CraftItemStack.asNMSCopy(mapItem);
 		ItemWorldMap itemWorldMap = (ItemWorldMap) craftItemStack.getItem();

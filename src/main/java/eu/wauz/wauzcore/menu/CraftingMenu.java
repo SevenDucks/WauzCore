@@ -97,7 +97,7 @@ public class CraftingMenu implements WauzInventory {
 			return;
 		}
 		
-		String name = ChatColor.translateAlternateColorCodes('§', CraftingConfigurator.getItemName(itemIndex));
+		String name = CraftingConfigurator.getItemName(itemIndex);
 		List<String> lores = CraftingConfigurator.getItemLores(itemIndex);
 		int amount = CraftingConfigurator.getItemAmount(itemIndex);
 		int level = CraftingConfigurator.getItemLevel(itemIndex);

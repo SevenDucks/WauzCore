@@ -6,6 +6,7 @@ import org.bukkit.craftbukkit.v1_13_R2.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.system.ChatFormatter;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_13_R2.ChatMessage;
 import net.minecraft.server.v1_13_R2.ChatMessageType;
@@ -34,7 +35,7 @@ public class WauzNmsClient {
 			player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 		
 		IChatBaseComponent comp = ChatSerializer
-				.a("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"§bClick Here\","
+				.a("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"" + ChatFormatter.ICON_PGRPH + "bClick Here\","
 						+ "\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"Run Command\"},"
 						+ "\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/" + command + "\"}}]}");
         PacketPlayOutChat ppoc = new PacketPlayOutChat(comp);
@@ -49,7 +50,7 @@ public class WauzNmsClient {
 			player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 		
 		IChatBaseComponent comp = ChatSerializer
-				.a("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"§bClick Here\","
+				.a("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"" + ChatFormatter.ICON_PGRPH + "bClick Here\","
 						+ "\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"Open URL\"},"
 						+ "\"clickEvent\":{\"action\":\"open_url\",\"value\":\"" + url + "\"}}]}");
         PacketPlayOutChat ppoc = new PacketPlayOutChat(comp);

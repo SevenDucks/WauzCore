@@ -41,7 +41,7 @@ public class Indicator {
 		if(exp <= 0)
 			return;
 		
-		spawnIndicator(location, ChatColor.LIGHT_PURPLE + "" + exp + "EXP");
+		spawnIndicator(location, ChatColor.LIGHT_PURPLE + "" + exp + " EXP");
 	}
 	
 	public static void spawnTestIndicator(Location location) {

@@ -19,6 +19,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
+import net.md_5.bungee.api.ChatColor;
 
 public class WauzPlayerSkillMechanics {
 	
@@ -30,7 +31,7 @@ public class WauzPlayerSkillMechanics {
 				Entity entity = new ArrayList<>(nearbyEntites).get(0);
 				if(!entity.getType().equals(EntityType.ARMOR_STAND) &&
 						entity.getCustomName() != null &&
-						entity.getCustomName().contains("§b")) {
+						entity.getCustomName().contains("" + ChatColor.AQUA)) {
 					target = entity;
 					break;
 				}
@@ -48,7 +49,7 @@ public class WauzPlayerSkillMechanics {
 		for(Entity entity : location.getWorld().getNearbyEntities(location, radius, radius, radius))
 			if(!entity.getType().equals(EntityType.ARMOR_STAND) &&
 					entity.getCustomName() != null &&
-					entity.getCustomName().contains("§b") &&
+					entity.getCustomName().contains("" + ChatColor.AQUA) &&
 					!excludes.contains(entity))
 				targets.add(entity);
 		return targets;

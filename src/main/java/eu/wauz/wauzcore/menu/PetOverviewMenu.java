@@ -195,7 +195,7 @@ public class PetOverviewMenu implements WauzInventory {
 			return;
 		
 		String type = scroll.getItemMeta().getLore().get(0);
-		type = type.replaceAll("§a", "");	
+		type = type.replaceAll("" + ChatColor.GREEN, "");	
 		addPet(player, scroll, type);
 	}
 	

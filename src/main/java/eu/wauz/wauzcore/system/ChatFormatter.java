@@ -16,9 +16,15 @@ import net.md_5.bungee.api.ChatColor;
 
 public class ChatFormatter {
 	
+	public static final String ICON_PGRPH = "\u00A7";
+	
 	public static final String ICON_DEGRS = "\u00B0";
 	
 	public static final String ICON_CARET = "\u00BB";
+	
+	public static final String ICON_BULLT = "\u2022";
+	
+	public static final String ICON_DIAMS = "\u2666";
 	
 	public static final String ICON_HEART = "\u2764";
 	

@@ -15,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.data.PlayerConfigurator;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
 import net.md_5.bungee.api.ChatColor;
@@ -55,32 +56,39 @@ public class WauzIdentifier {
 // Set Item Rarity
 		
 		String rareName = null;
+		String rareStars = null;
+		String x = ChatFormatter.ICON_DIAMS;
 		ChatColor color = null;
 		double rare = 0;
 		
 		if(rarity <= 550) {
 			color = ChatColor.GREEN;
 			rareName = "Normal ";
+			rareStars = ChatColor.YELLOW +x + ChatColor.GRAY +x +x +x +x;
 			rare = 1.00;
 		}
 		else if(rarity <= 800) {
 			color = ChatColor.BLUE;
 			rareName = "Magic ";
+			rareStars = ChatColor.YELLOW +x +x + ChatColor.GRAY +x +x +x;
 			rare = 1.50;
 		}
 		else if(rarity <= 920) {
 			color = ChatColor.GOLD;
 			rareName = "Rare ";
+			rareStars = ChatColor.YELLOW +x +x +x + ChatColor.GRAY +x +x;
 			rare = 2.00;
 		}
 		else if(rarity <= 975) {
 			color = ChatColor.DARK_PURPLE;
 			rareName = "Epic ";
+			rareStars = ChatColor.YELLOW +x +x +x +x + ChatColor.GRAY +x;
 			rare = 2.50;
 		}
 		else if(rarity <= 999) {
 			color = ChatColor.DARK_RED;
 			rareName = "Unique ";
+			rareStars = ChatColor.YELLOW +x +x +x +x +x;
 			rare = 3.00;
 		}
 		
@@ -91,15 +99,15 @@ public class WauzIdentifier {
 		
 		if(name.contains("T1")) {
 			tier = 1;
-			tierName = "Lesser ";
+			tierName = "Lesser" + ChatColor.GRAY + " T1 " + ChatColor.WHITE;
 		}
 		else if(name.contains("T2")) {
 			tier = 2;
-			tierName = "Greater ";
+			tierName = "Greater" + ChatColor.GRAY + " T2 " + ChatColor.WHITE;
 		}
 		else if(name.contains("T3")) {
 			tier = 3;
-			tierName = "Angelic ";
+			tierName = "Angelic" + ChatColor.GRAY + " T3 " + ChatColor.WHITE;
 		}
 		
 // Generate Identified Item
@@ -131,13 +139,13 @@ public class WauzIdentifier {
 		
 		String mainStatString = "";
 		if(equip.getType().equals("Weapon")) {	
-			lores.add(ChatColor.WHITE + tierName + rareName + "Weapon");
+			lores.add(ChatColor.WHITE + tierName + rareName + "Weapon " + rareStars);
 			lores.add("");
 			mainStatString = "Attack:" + ChatColor.RED + " " + attack + scalingString;
 			lores.add(mainStatString);
 		}
 		else if(equip.getType().equals("Armor")) {		
-			lores.add(ChatColor.WHITE + tierName + rareName + "Armor");
+			lores.add(ChatColor.WHITE + tierName + rareName + "Armor " + rareStars);
 			lores.add("");
 			mainStatString = "Defense:" + ChatColor.BLUE + " " + defense + scalingString;
 			lores.add(mainStatString);
@@ -253,22 +261,27 @@ public class WauzIdentifier {
 // Set Rune Rarity
 		
 		String rareName = null;
+		String rareStars = null;
+		String x = ChatFormatter.ICON_DIAMS;
 		ChatColor color = null;
 		double rare = 0;
 				
 		if(rarity <= 800) {
 			color = ChatColor.GREEN;
 			rareName = "Whispering ";
+			rareStars = ChatColor.GREEN +x + ChatColor.GRAY +x +x;
 			rare = 1.00;
 		}
 		else if(rarity <= 975) {
 			color = ChatColor.BLUE;
 			rareName = "Screaming ";
+			rareStars = ChatColor.GREEN +x +x + ChatColor.GRAY +x;
 			rare = 1.50;
 		}
 		else if(rarity <= 999) {
 			color = ChatColor.GOLD;
 			rareName = "Deafening ";
+			rareStars = ChatColor.GREEN +x +x +x;
 			rare = 2.00;
 		}
 				
@@ -279,15 +292,15 @@ public class WauzIdentifier {
 				
 		if(name.contains("T1")) {
 			tier = 8;
-			tierName = "Lesser ";
+			tierName = "Lesser" + ChatColor.GRAY + " T1 " + ChatColor.WHITE;
 		}
 		else if(name.contains("T2")) {
 			tier = 12;
-			tierName = "Greater ";
+			tierName = "Greater" + ChatColor.GRAY + " T2 " + ChatColor.WHITE;
 		}
 		else if(name.contains("T3")) {
 			tier = 16;
-			tierName = "Angelic ";
+			tierName = "Angelic" + ChatColor.GRAY + " T3 " + ChatColor.WHITE;
 		}
 		
 // Generate Identified Rune
@@ -301,7 +314,7 @@ public class WauzIdentifier {
 		int power = (int) ((2+r/1.5)*tier*rare);
 		
 		List<String> lores = new ArrayList<String>();
-		lores.add(ChatColor.WHITE + tierName + rareName + "Rune");
+		lores.add(ChatColor.WHITE + tierName + rareName + "Rune " + rareStars);
 		lores.add("");
 		lores.add(ChatColor.GRAY + "Can be inserted into Equipment,");
 		lores.add(ChatColor.GRAY + "which possesses an empty Rune Slot.");

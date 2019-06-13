@@ -14,6 +14,7 @@ import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
+import net.md_5.bungee.api.ChatColor;
 
 public class DungeonItemGrapplingHook {
 
@@ -59,7 +60,7 @@ public class DungeonItemGrapplingHook {
 			for(final Entity entity : nearbyEntites) {
 				if(!entity.getType().equals(EntityType.ARMOR_STAND) &&
 						entity.getCustomName() != null &&
-						entity.getCustomName().contains("§b")) {
+						entity.getCustomName().contains("" + ChatColor.AQUA)) {
 					
 					entity.teleport(entity.getLocation().add(0, 0.5, 0));
 					event.getEntity().setVelocity(WauzPlayerSkillMechanics.getVectorForPoints(player.getLocation(), entity.getLocation()));

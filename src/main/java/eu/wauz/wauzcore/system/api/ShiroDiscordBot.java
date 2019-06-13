@@ -44,7 +44,9 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	
 	private Guild guild;
 	
-	private TextChannel botChannel;
+	private TextChannel generalChannel;
+	
+	private TextChannel botsChannel;
 	
 	private AudioManager audioManager;
 	
@@ -73,7 +75,8 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			jda = jdaBuilder.buildBlocking();
 			jda.addEventListener(this);
 			guild = jda.getGuildById(272417655938351106L);
-			botChannel = jda.getTextChannelById(574219369530261514L);
+			generalChannel = jda.getTextChannelById(272417655938351106L);
+			botsChannel = jda.getTextChannelById(574219369530261514L);
 			audioManager = guild.getAudioManager();
 			configureLavaPlayer();
 		}
@@ -87,16 +90,8 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		jda.shutdownNow();
 	}
 	
-	private boolean isTavernChannel(MessageChannel channel) {
-		return channel.getName().contains("tavern");
-	}
-	
 	public void sendMessage(String message) {
-		List<TextChannel> textChannels = jda.getTextChannels();
-		for(TextChannel channel : textChannels) {
-			if(isTavernChannel(channel))
-				channel.sendMessage(message).queue();
-		}
+		generalChannel.sendMessage(message).queue();
 	}
 
 	@Override
@@ -110,7 +105,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			
 // Minecraft Chat Connector
 			
-			if(isTavernChannel(channel) && !message.startsWith("**Minecraft**")) {
+			if(channel.getId().equals(generalChannel.getId()) && !message.startsWith("**Minecraft**")) {
 				ChatFormatter.discord(message, user.getName(), isMaster(id));
 			}
 			
@@ -119,8 +114,8 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			if(!StringUtils.startsWithIgnoreCase(message, "shiro")) {
 				return;
 			}
-			if(!channel.getId().equals(botChannel.getId()) && WauzCore.IP.equals("145.239.149.128")) {
-				channel.sendMessage("No! Try this again here: " + botChannel.getAsMention()).queue();;
+			if(!channel.getId().equals(botsChannel.getId()) && WauzCore.IP.equals("31.214.208.243")) {
+				channel.sendMessage("No! Try this again here: " + botsChannel.getAsMention()).queue();;
 				return;
 			}
 			if(StringUtils.startsWith(message, "shiro servers") && isMaster(id)) {
@@ -131,7 +126,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 				channel.sendMessage(executeCommand(message)).queue();
 				return;
 			}
-			if(!WauzCore.IP.equals("145.239.149.128")) {
+			if(!WauzCore.IP.equals("31.214.208.243")) {
 				return;
 			}
 			
@@ -159,7 +154,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			
 // Fun Stuff
 			
-			else if(StringUtils.containsAny(message.toLowerCase(), "marc", "märc", "clara", "clarc", "gay", "gae"))
+			else if(StringUtils.containsAny(message.toLowerCase(), "marc", "clara", "clarc", "gay", "gae"))
 				channel.sendMessage("Marc is really, really gay!").queue();
 			
 			else if(StringUtils.containsAny(message.toLowerCase(), "good girl", "pat"))

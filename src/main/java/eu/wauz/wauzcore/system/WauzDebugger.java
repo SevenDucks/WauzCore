@@ -65,7 +65,9 @@ public class WauzDebugger {
 		ItemMeta im = itemStack.getItemMeta();
 		im.setDisplayName(ChatColor.DARK_RED + "Noble Phantasm");
 		List<String> lores = new ArrayList<String>();
-		lores.add(ChatColor.WHITE + "Debuggers Unique Weapon");
+		String x = ChatFormatter.ICON_DIAMS;
+		String rareStars = ChatColor.YELLOW +x +x +x +x +x;
+		lores.add(ChatColor.WHITE + "Debuggers" + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Unique Weapon " + rareStars);
 		lores.add("");
 		lores.add("Attack:" + ChatColor.RED + " 10 " + ChatColor.DARK_GRAY
 				+ "(" + ChatColor.YELLOW + "lvl " + ChatColor.AQUA + "1" + ChatColor.DARK_GRAY + ")");

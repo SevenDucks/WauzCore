@@ -46,7 +46,7 @@ public class DungeonItemBombBag {
 			for(final Entity entity : nearbyEntites) {
 				if(!entity.getType().equals(EntityType.ARMOR_STAND) &&
 						entity.getCustomName() != null &&
-						entity.getCustomName().contains("§b")) {
+						entity.getCustomName().contains("" + ChatColor.AQUA)) {
 					
 					WauzPlayerSkillMechanics.throwBackEntity(entity, centerLocation, 1.2);
 					

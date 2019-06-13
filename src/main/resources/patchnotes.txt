@@ -2,6 +2,7 @@ Patch 50X: Rapid Racing
 
 Patch 506: Menacing Mobs
 	Miscellaneous
+	  - Item Rarity shown with Diamond Icons
 	  - Minimap (Unstable Beta)
 
 Patch 505: Graceful Guilds

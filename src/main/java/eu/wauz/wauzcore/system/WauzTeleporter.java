@@ -67,7 +67,7 @@ public class WauzTeleporter {
 			return;
 		}	
 		String type = ItemUtils.getInstanceMapType(event.getItem());
-		String name = event.getItem().getItemMeta().getDisplayName().replaceAll("�r", "");
+		String name = event.getItem().getItemMeta().getDisplayName().replaceAll("" + ChatColor.RESET, "");
 		event.getItem().setAmount(event.getItem().getAmount() - 1);
 		
 		// Handles TamingMenu.unsummon() and Effect.PORTAL_TRAVEL
