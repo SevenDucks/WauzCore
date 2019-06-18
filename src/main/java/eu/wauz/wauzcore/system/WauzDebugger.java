@@ -23,7 +23,11 @@ public class WauzDebugger {
 	}
 	
 	public static void log(String message) {
-		Bukkit.getLogger().info("[WauzCore][Debug] " + message);
+		Bukkit.getLogger().info("[WauzCore Debug] " + message);
+	}
+	
+	public static void catchException(Class<?> clazz, Exception e) {
+		Bukkit.getLogger().warning("[WauzCore Catcher] Irrelevant Exception in " + clazz.getName() + ": " + e.getMessage());
 	}
 	
 	public static boolean toggleDebugMode(Player player) {

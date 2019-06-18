@@ -13,8 +13,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.data.PlayerConfigurator;
 import eu.wauz.wauzcore.data.ShopConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
@@ -206,7 +207,7 @@ public class ShopBuilder implements WauzInventory {
 		}
 		
 		long priceOld = price;
-		price = (int) ((float) price * (float) PlayerConfigurator.getCharacterTradingFloat(player));
+		price = (int) ((float) price * (float) PlayerPassiveSkillConfigurator.getTradingFloat(player));
 		
 		WauzDebugger.log(player, "Item-Price: " + price + " (" + priceOld + ")");
 		

@@ -10,6 +10,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;
+import eu.wauz.wauzcore.system.WauzDebugger;
 
 public class SkillTheStar implements WauzPlayerSkill {
 	
@@ -50,7 +51,7 @@ public class SkillTheStar implements WauzPlayerSkill {
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 		            public void run() {
 		            	try {
-		            		if(target == null || target.isDead())
+		            		if(target == null || !target.isValid())
 		            			return;
 		            		
 		            		Location location = target.getLocation();
@@ -62,7 +63,7 @@ public class SkillTheStar implements WauzPlayerSkill {
 		            			WauzPlayerSkillMechanics.callPlayerMagicDamageEvent(player, target, 1.5);
 		            	}
 		            	catch (NullPointerException e) {
-		            		
+		            		WauzDebugger.catchException(getClass(), e);
 		            	}
 		            }
 				}, iterator * 4);

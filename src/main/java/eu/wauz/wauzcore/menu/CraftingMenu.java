@@ -18,7 +18,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.CraftingConfigurator;
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.InventoryItemRemover;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
@@ -35,7 +35,7 @@ public class CraftingMenu implements WauzInventory {
 	
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CraftingMenu());
-		Integer playerCraftingLevel = PlayerConfigurator.getCharacterCraftingSkill(player);
+		Integer playerCraftingLevel = PlayerPassiveSkillConfigurator.getCraftingSkill(player);
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Crafting Menu" +
 				ChatColor.DARK_RED + ChatColor.BOLD + " Level " + playerCraftingLevel);
 		
@@ -55,7 +55,7 @@ public class CraftingMenu implements WauzInventory {
 	
 	public static void listRecipes(Player player, int page) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CraftingMenu());
-		Integer playerCraftingLevel = PlayerConfigurator.getCharacterCraftingSkill(player);
+		Integer playerCraftingLevel = PlayerPassiveSkillConfigurator.getCraftingSkill(player);
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Crafting Page "
 				+ page + " " + ChatColor.DARK_RED + ChatColor.BOLD + " Level " + playerCraftingLevel);
 		
@@ -116,7 +116,7 @@ public class CraftingMenu implements WauzInventory {
 			ChatColor finished = ChatColor.RED;
 			
 			for(ItemStack itemStack : player.getInventory().getContents()) {
-				if((itemStack != null) && ItemUtils.isMaterial(itemStack) && ItemUtils.isSpecificItem(itemStack, itemName))
+				if((itemStack != null) && ItemUtils.isMaterialItem(itemStack) && ItemUtils.isSpecificItem(itemStack, itemName))
 					itemAmount = itemAmount + itemStack.getAmount();
 			}
 			
@@ -256,7 +256,7 @@ public class CraftingMenu implements WauzInventory {
 		}
 		
 		if(increasesLevel)
-			PlayerConfigurator.increaseCharacterCraftingSkill(player);
+			PlayerPassiveSkillConfigurator.increaseCraftingSkill(player);
 		player.getInventory().addItem(itemStack);
 		
 		listRecipes(player, getIndex(player.getOpenInventory()));

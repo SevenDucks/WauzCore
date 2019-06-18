@@ -187,7 +187,7 @@ public class WauzSigns {
 	        		atTravelDestination(entity, targetLocation);
 	        	}
 	        	catch (NullPointerException e) {
-	        		
+	        		WauzDebugger.catchException(getClass(), e);
 	        	}
 	        }
 		}, 10);

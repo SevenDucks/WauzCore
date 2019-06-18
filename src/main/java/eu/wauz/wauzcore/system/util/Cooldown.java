@@ -2,7 +2,7 @@ package eu.wauz.wauzcore.system.util;
 
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 

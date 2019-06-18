@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.ChatFormatter;
@@ -155,7 +155,7 @@ public class WauzIdentifier {
 		
 		if(Chance.oneIn(3)) {
 			int enhancementLevel = 0;
-			int luck = PlayerConfigurator.getCharacterLuck(player);
+			int luck = PlayerPassiveSkillConfigurator.getLuck(player);
 			WauzDebugger.log(player, "Rolling for Enhancement with: " + luck + "% Luck");
 			while(luck >= 100) {
 				enhancementLevel++;

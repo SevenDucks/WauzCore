@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;

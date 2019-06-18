@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.data;
+package eu.wauz.wauzcore.data.players;
 
 import java.util.List;
 

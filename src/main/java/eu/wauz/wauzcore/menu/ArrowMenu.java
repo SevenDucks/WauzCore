@@ -17,7 +17,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;

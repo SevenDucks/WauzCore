@@ -14,7 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
@@ -124,7 +125,7 @@ public class WauzMenu implements WauzInventory {
 			im.setDisplayName(ChatColor.GOLD + "Crafting");
 			List<String> lores = new ArrayList<String>();
 			lores.add(ChatColor.DARK_PURPLE + "Crafting Level: " + ChatColor.YELLOW
-				+ PlayerConfigurator.getCharacterCraftingSkill(player) + " / " + WauzCore.MAX_CRAFTING_SKILL);
+				+ PlayerPassiveSkillConfigurator.getCraftingSkill(player) + " / " + WauzCore.MAX_CRAFTING_SKILL);
 			lores.add("");
 			lores.add(ChatColor.GRAY + "Make new Items out of Materials.");
 			lores.add(ChatColor.GRAY + "Craft Items to learn new Recipes.");
@@ -154,13 +155,13 @@ public class WauzMenu implements WauzInventory {
 			im.setDisplayName(ChatColor.GOLD + "Skills");
 			List<String> lores = new ArrayList<String>();
 			lores.add(ChatColor.DARK_PURPLE + "Spent Skillpoints: " + ChatColor.YELLOW
-					+ PlayerConfigurator.getCharacterSpentStatpoints(player) + " / "
-					+ PlayerConfigurator.getCharacterTotalStatpoints(player));
+					+ PlayerPassiveSkillConfigurator.getSpentStatpoints(player) + " / "
+					+ PlayerPassiveSkillConfigurator.getTotalStatpoints(player));
 			lores.add("");
 			lores.add(ChatColor.GRAY + "Spend Points to improve your Stats.");
 			lores.add(ChatColor.GRAY + "You gain 2 Points per Level-Up!");
 			im.setLore(lores);
-			if(PlayerConfigurator.getCharacterUnusedStatpoints(player) > 0) {
+			if(PlayerPassiveSkillConfigurator.getUnusedStatpoints(player) > 0) {
 				WauzDebugger.log(player, "Detected Unused Skillpoints");
 				im.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
 				im.addItemFlags(ItemFlag.HIDE_ENCHANTS);

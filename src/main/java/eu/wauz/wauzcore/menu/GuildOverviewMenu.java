@@ -18,7 +18,7 @@ import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventGuildDemoteMember;
 import eu.wauz.wauzcore.events.WauzPlayerEventGuildKick;
 import eu.wauz.wauzcore.events.WauzPlayerEventGuildLeave;
@@ -312,9 +312,6 @@ public class GuildOverviewMenu implements WauzInventory {
 		else if(HeadUtils.isHeadMenuItem(clicked, "Building: Guildhall")) {
 			if(event.getClick().toString().contains("RIGHT")) {
 				InstanceManager.enterGuild(player);
-			}
-			else {
-				
 			}
 		}
 		

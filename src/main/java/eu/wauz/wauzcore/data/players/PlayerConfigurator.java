@@ -1,14 +1,11 @@
-package eu.wauz.wauzcore.data;
+package eu.wauz.wauzcore.data.players;
 
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.api.ConfigurationUtils;
-import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
-import eu.wauz.wauzcore.players.calc.DamageCalculator;
-import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
 public class PlayerConfigurator extends ConfigurationUtils {
@@ -75,7 +72,7 @@ public class PlayerConfigurator extends ConfigurationUtils {
 		return playerConfigGetBoolean(player, "char" + slot + ".exists", false);
 	}
 	
-	public static String getLastPlayed(OfflinePlayer player, int slot) {
+	public static String getLastCharacterLogin(OfflinePlayer player, int slot) {
 		return WauzDateUtils.formatTimeSince(playerConfigGetLong(player, "char" + slot + ".lastplayed", false));
 	}
 	
@@ -143,7 +140,7 @@ public class PlayerConfigurator extends ConfigurationUtils {
 	}
 	
 	public static void levelUpCharacter(Player player) {
-		playerConfigSet(player, "stats.points.total", getCharacterTotalStatpoints(player) + 2, true);
+		playerConfigSet(player, "stats.points.total", PlayerPassiveSkillConfigurator.getTotalStatpoints(player) + 2, true);
 		playerConfigSet(player, "level", player.getLevel(), true);
 	}
 	
@@ -267,230 +264,6 @@ public class PlayerConfigurator extends ConfigurationUtils {
 	
 	public static void setArrowAmount(Player player, String type, int amount) {
 		playerConfigSet(player, "arrows.amount." + type, amount, true);
-	}
-	
-// Passive Skills
-	
-	public static int getCharacterTotalStatpoints(Player player) {
-		return playerConfigGetInt(player, "stats.points.total", true);
-	}
-	
-	public static int getCharacterSpentStatpoints(Player player) {
-		return playerConfigGetInt(player, "stats.points.spent", true);
-	}
-	
-	public static int getCharacterUnusedStatpoints(Player player) {
-		return getCharacterTotalStatpoints(player) - getCharacterSpentStatpoints(player);
-	}
-	
-	public static void increaseCharacterSpentSkillpoints(Player player) {
-		playerConfigSet(player, "stats.points.spent", getCharacterSpentStatpoints(player) + 1, true);
-	}
-	
-// Passive Skill - Health
-	
-	public static int getCharacterHealthStatpoints(Player player) {
-		return playerConfigGetInt(player, "stats.healthpts", true);
-	}
- 	
-	public static int getCharacterHealth(Player player) {
-		return playerConfigGetInt(player, "stats.health", true);
-	}
-	
-	public static void increaseCharacterHealth(Player player) {
-		increaseCharacterSpentSkillpoints(player);
-		playerConfigSet(player, "stats.healthpts", getCharacterHealthStatpoints(player) + 1, true);
-		
-		int health = getCharacterHealth(player) + 5;			
-		playerConfigSet(player, "stats.health", health, true);
-		WauzPlayerDataPool.getPlayer(player).setMaxHealth(health);
-		DamageCalculator.setHealth(player, health);
-	}
-	
-// Passive Skill - Trading
-	
-	public static int getCharacterTradingStatpoints(Player player) {
-		return playerConfigGetInt(player, "stats.tradingpts", true);
-	}
-	
-	public static int getCharacterTrading(Player player) {
-		return playerConfigGetInt(player, "stats.trading", true);
-	}
-	
-	public static float getCharacterTradingFloat(Player player) {
-		return (float) ((float) playerConfigGetInt(player, "stats.trading", true) / 100);
-	}
-	
-	public static void increaseCharacterTrading(Player player) {
-		increaseCharacterSpentSkillpoints(player);
-		playerConfigSet(player, "stats.tradingpts", getCharacterTradingStatpoints(player) + 1, true);
-		
-		playerConfigSet(player, "stats.trading", getCharacterTrading(player) + 10, true);
-	}
-	
-// Passive Skill - Luck
-	
-	public static int getCharacterLuckStatpoints(Player player) {
-		return playerConfigGetInt(player, "stats.luckpts", true);
-	}
-	
-	public static int getCharacterLuck(Player player) {
-		return playerConfigGetInt(player, "stats.luck", true);
-	}
-	
-	public static void increaseCharacterLuck(Player player) {
-		increaseCharacterSpentSkillpoints(player);
-		playerConfigSet(player, "stats.luckpts", getCharacterLuckStatpoints(player) + 1, true);
-		
-		playerConfigSet(player, "stats.luck", getCharacterLuck(player) + 10, true);
-	}
-	
-// Passive Skill - Mana
-	
-	public static int getCharacterManaStatpoints(Player player) {
-		return playerConfigGetInt(player, "stats.manapts", true);
-	}
-	
-	public static int getCharacterMana(Player player) {
-		return playerConfigGetInt(player, "stats.mana", true);
-	}
-	
-	public static void increaseCharacterMana(Player player) {
-		increaseCharacterSpentSkillpoints(player);
-		int statpoints = getCharacterManaStatpoints(player) + 1;
-		playerConfigSet(player, "stats.manapts", statpoints, true);
-				
-		if(statpoints <= 40) {
-			int mana = getCharacterMana(player) + 1;			
-			playerConfigSet(player, "stats.mana", mana, true);
-			WauzPlayerDataPool.getPlayer(player).setMaxMana(mana);
-			ManaCalculator.updateManaItem(player);
-		}
-	}
-	
-// Passive Skill - Strength
-	
-	public static int getCharacterStrengthStatpoints(Player player) {
-		return playerConfigGetInt(player, "stats.strengthpts", true);
-	}
-	
-	public static int getCharacterStrength(Player player) {
-		return playerConfigGetInt(player, "stats.strength", true);
-	}
-	
-	public static float getCharacterStrengthFloat(Player player) {
-		return (float) ((float) playerConfigGetInt(player, "stats.strength", true) / 100);
-	}
-	
-	public static void increaseCharacterStrength(Player player) {
-		increaseCharacterSpentSkillpoints(player);
-		int statpoints = getCharacterStrengthStatpoints(player) + 1;
-		playerConfigSet(player, "stats.strengthpts", statpoints, true);
-		
-		if(statpoints <= 40) {
-			playerConfigSet(player, "stats.strength", getCharacterStrength(player) + 5, true);
-		}
-	}
-
-// Passive Skill - Agility
-	
-	public static int getCharacterAgilityStatpoints(Player player) {
-		return playerConfigGetInt(player, "stats.agilitypts", true);
-	}
-	
-	public static int getCharacterAgility(Player player) {
-		return playerConfigGetInt(player, "stats.agility", true);
-	}
-	
-	public static void increaseCharacterAgility(Player player) {
-		increaseCharacterSpentSkillpoints(player);
-		int statpoints = getCharacterAgilityStatpoints(player) + 1;
-		playerConfigSet(player, "stats.agilitypts", statpoints, true);
-		
-		if(statpoints <= 40) {
-			playerConfigSet(player, "stats.agility", getCharacterAgility(player) + 1, true);
-		}
-	}
-	
-// Crafting Skill
-	
-	public static Integer getCharacterCraftingSkill(Player player) {
-		return playerConfigGetInt(player, "skills.crafting", true);
-	}
-	
-	public static void increaseCharacterCraftingSkill(Player player) {
-		try {
-			Integer characterCraftingSkill = getCharacterCraftingSkill(player);
-			playerConfigSet(player, "skills.crafting", characterCraftingSkill + 1, true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-// Weapon Skill - Sword
-	
-	public static Integer getCharacterSwordSkill(Player player) {
-		return playerConfigGetInt(player, "skills.sword", true);
-	}
-	
-	public static Integer getCharacterSwordSkillMax(Player player) {
-		return playerConfigGetInt(player, "skills.swordmax", true);
-	}
-	
-	public static void increaseCharacterSwordSkill(Player player) {
-		try {
-			Integer characterSwordSkill = getCharacterSwordSkill(player);
-			Integer characterSwordSkillMax = getCharacterSwordSkillMax(player);
-			if(characterSwordSkill < characterSwordSkillMax) {
-				playerConfigSet(player, "skills.sword", characterSwordSkill + 1, true);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-// Weapon Skill - Axe
-	
-	public static Integer getCharacterAxeSkill(Player player) {
-		return playerConfigGetInt(player, "skills.axe", true);
-	}
-	
-	public static Integer getCharacterAxeSkillMax(Player player) {
-		return playerConfigGetInt(player, "skills.axemax", true);
-	}
-	
-	public static void increaseCharacterAxeSkill(Player player) {
-		try {
-			Integer characterAxeSkill = getCharacterAxeSkill(player);
-			Integer characterAxeSkillMax = getCharacterAxeSkillMax(player);
-			if(characterAxeSkill < characterAxeSkillMax) {
-				playerConfigSet(player, "skills.axe", characterAxeSkill + 1, true);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-// Weapon Skill Staff
-	
-	public static Integer getCharacterStaffSkill(Player player) {
-		return playerConfigGetInt(player, "skills.staff", true);
-	}
-	
-	public static Integer getCharacterStaffSkillMax(Player player) {
-		return playerConfigGetInt(player, "skills.staffmax", true);
-	}
-	
-	public static void increaseCharacterStaffSkill(Player player) {
-		try {
-			Integer characterStaffSkill = getCharacterStaffSkill(player);
-			Integer characterStaffSkillMax = getCharacterStaffSkillMax(player);
-			if(characterStaffSkill < characterStaffSkillMax) {
-				playerConfigSet(player, "skills.staff", characterStaffSkill + 1, true);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 // Quests - Options

@@ -19,6 +19,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzPlayerSkillMechanics {
@@ -114,7 +115,7 @@ public class WauzPlayerSkillMechanics {
 	        		}
 	        	}
 	        	catch (NullPointerException e) {
-	        		
+	        		WauzDebugger.catchException(getClass(), e);
 	        	}
 	        }
 		}, interval);

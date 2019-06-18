@@ -4,7 +4,7 @@ import java.util.Random;
 
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.PetOptionsMenu;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import net.md_5.bungee.api.ChatColor;

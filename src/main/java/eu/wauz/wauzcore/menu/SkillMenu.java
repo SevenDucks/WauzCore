@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
@@ -26,13 +26,13 @@ public class SkillMenu implements WauzInventory {
 	
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new SkillMenu());
-		int pts = PlayerConfigurator.getCharacterUnusedStatpoints(player);
+		int pts = PlayerPassiveSkillConfigurator.getUnusedStatpoints(player);
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Passive Skills "
 				+ ChatColor.DARK_RED + ChatColor.BOLD + pts + " Points");
 		
 		int spent;
 		
-		spent = PlayerConfigurator.getCharacterHealthStatpoints(player);
+		spent = PlayerPassiveSkillConfigurator.getHealthStatpoints(player);
 		{
 			ItemStack item = HeadUtils.getSkillHealthItem(spent);			
 			ItemMeta im = item.getItemMeta();
@@ -44,13 +44,13 @@ public class SkillMenu implements WauzInventory {
 			lores.add(ChatColor.GRAY + "Also instantly refills your Hitpoints.");
 			lores.add("");
 			lores.add(ChatColor.WHITE + "Maximum HP: " + ChatColor.RED
-					+ PlayerConfigurator.getCharacterHealth(player));
+					+ PlayerPassiveSkillConfigurator.getHealth(player));
 			im.setLore(lores);
 			item.setItemMeta(im);
 			menu.setItem(0, item);
 		}
 		
-		spent = PlayerConfigurator.getCharacterTradingStatpoints(player);
+		spent = PlayerPassiveSkillConfigurator.getTradingStatpoints(player);
 		{
 			ItemStack item = HeadUtils.getSkillTradingItem(spent);	
 			ItemMeta im = item.getItemMeta();
@@ -62,13 +62,13 @@ public class SkillMenu implements WauzInventory {
 			lores.add(ChatColor.GRAY + "Applies for all ways of gaining Coins.");
 			lores.add("");
 			lores.add(ChatColor.WHITE + "Coin Multiplier: " + ChatColor.GOLD
-					+ PlayerConfigurator.getCharacterTrading(player) + "%");
+					+ PlayerPassiveSkillConfigurator.getTrading(player) + "%");
 			im.setLore(lores);
 			item.setItemMeta(im);
 			menu.setItem(1, item);
 		}
 		
-		spent = PlayerConfigurator.getCharacterLuckStatpoints(player);
+		spent = PlayerPassiveSkillConfigurator.getLuckStatpoints(player);
 		{
 			ItemStack item = HeadUtils.getSkillLuckItem(spent);	
 			ItemMeta im = item.getItemMeta();
@@ -80,13 +80,13 @@ public class SkillMenu implements WauzInventory {
 			lores.add(ChatColor.GRAY + "Enhanced Equipment has special Effects.");
 			lores.add("");
 			lores.add(ChatColor.WHITE + "Enhance-Rate: " + ChatColor.YELLOW
-					+ PlayerConfigurator.getCharacterLuck(player) + "%");
+					+ PlayerPassiveSkillConfigurator.getLuck(player) + "%");
 			im.setLore(lores);
 			item.setItemMeta(im);
 			menu.setItem(2, item);
 		}
 		
-		spent = PlayerConfigurator.getCharacterManaStatpoints(player);
+		spent = PlayerPassiveSkillConfigurator.getManaStatpoints(player);
 		{
 			ItemStack item = HeadUtils.getSkillMagicItem(spent);	
 			ItemMeta im = item.getItemMeta();
@@ -98,14 +98,14 @@ public class SkillMenu implements WauzInventory {
 			lores.add(ChatColor.GRAY + "Additionally adds a 5% Bonus to Staff Fighting.");
 			lores.add("");
 			lores.add(ChatColor.WHITE + "Maximum MP: " + ChatColor.LIGHT_PURPLE
-					+ PlayerConfigurator.getCharacterMana(player)
+					+ PlayerPassiveSkillConfigurator.getMana(player)
 					+ ChatColor.GRAY + " (Max: 50)");
 			im.setLore(lores);
 			item.setItemMeta(im);
 			menu.setItem(3, item);
 		}
 		
-		spent = PlayerConfigurator.getCharacterStrengthStatpoints(player);
+		spent = PlayerPassiveSkillConfigurator.getStrengthStatpoints(player);
 		{
 			ItemStack item = HeadUtils.getSkillStrengthItem(spent);	
 			ItemMeta im = item.getItemMeta();
@@ -117,14 +117,14 @@ public class SkillMenu implements WauzInventory {
 			lores.add(ChatColor.GRAY + "Additionally adds a 5% Bonus to Axe Combat.");
 			lores.add("");
 			lores.add(ChatColor.WHITE + "Defense Multiplier: " + ChatColor.BLUE
-					+ PlayerConfigurator.getCharacterStrength(player) + "%"
+					+ PlayerPassiveSkillConfigurator.getStrength(player) + "%"
 					+ ChatColor.GRAY + " (Max: 300%)");
 			im.setLore(lores);
 			item.setItemMeta(im);
 			menu.setItem(4, item);
 		}
 		
-		spent = PlayerConfigurator.getCharacterAgilityStatpoints(player);
+		spent = PlayerPassiveSkillConfigurator.getAgilityStatpoints(player);
 		{
 			ItemStack item = HeadUtils.getSkillAgilityItem(spent);	
 			ItemMeta im = item.getItemMeta();
@@ -136,7 +136,7 @@ public class SkillMenu implements WauzInventory {
 			lores.add(ChatColor.GRAY + "Additionally adds a 5% Bonus to Sword Art.");
 			lores.add("");
 			lores.add(ChatColor.WHITE + "Evasion/Crit-Chance: " + ChatColor.AQUA
-					+ PlayerConfigurator.getCharacterAgility(player) + "%"
+					+ PlayerPassiveSkillConfigurator.getAgility(player) + "%"
 					+ ChatColor.GRAY + " (Max: 40%)");
 			im.setLore(lores);
 			item.setItemMeta(im);
@@ -149,11 +149,11 @@ public class SkillMenu implements WauzInventory {
 			im.setDisplayName(ChatColor.DARK_RED + "Staff Fighting");
 			List<String> lores = new ArrayList<String>();
 			lores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
-					+ formatter.format((float) ((float) PlayerConfigurator.getCharacterStaffSkill(player) / 1000)) + "%"
+					+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getStaffSkill(player) / 1000)) + "%"
 					+ ChatColor.GRAY + " (Max: "
-					+ (int) (PlayerConfigurator.getCharacterStaffSkillMax(player) / 1000) + "%)");
+					+ (int) (PlayerPassiveSkillConfigurator.getStaffSkillMax(player) / 1000) + "%)");
 			lores.add(ChatColor.GRAY + "Multiplied by "
-					+ ((float) PlayerConfigurator.getCharacterManaStatpoints(player) * 5 / 100 + 1) + " from Magic");
+					+ ((float) PlayerPassiveSkillConfigurator.getManaStatpoints(player) * 5 / 100 + 1) + " from Magic");
 			lores.add("");
 			lores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
 			lores.add(ChatColor.GRAY + "will increase your skill and thus");
@@ -170,11 +170,11 @@ public class SkillMenu implements WauzInventory {
 			im.setDisplayName(ChatColor.DARK_RED + "Axe Combat");
 			List<String> lores = new ArrayList<String>();
 			lores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
-					+ formatter.format((float) ((float) PlayerConfigurator.getCharacterAxeSkill(player) / 1000)) + "%"
+					+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getAxeSkill(player) / 1000)) + "%"
 					+ ChatColor.GRAY + " (Max: "
-					+ (int) (PlayerConfigurator.getCharacterAxeSkillMax(player) / 1000) + "%)");
+					+ (int) (PlayerPassiveSkillConfigurator.getAxeSkillMax(player) / 1000) + "%)");
 			lores.add(ChatColor.GRAY + "Multiplied by "
-					+ ((float) PlayerConfigurator.getCharacterStrengthStatpoints(player) * 5 / 100 + 1) + " from Strength");
+					+ ((float) PlayerPassiveSkillConfigurator.getStrengthStatpoints(player) * 5 / 100 + 1) + " from Strength");
 			lores.add("");
 			lores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
 			lores.add(ChatColor.GRAY + "will increase your skill and thus");
@@ -191,11 +191,11 @@ public class SkillMenu implements WauzInventory {
 			im.setDisplayName(ChatColor.DARK_RED + "Sword Art");
 			List<String> lores = new ArrayList<String>();
 			lores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
-				+ formatter.format((float) ((float) PlayerConfigurator.getCharacterSwordSkill(player) / 1000)) + "%"
+				+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getSwordSkill(player) / 1000)) + "%"
 				+ ChatColor.GRAY + " (Max: "
-				+ (int) (PlayerConfigurator.getCharacterSwordSkillMax(player) / 1000) + "%)");
+				+ (int) (PlayerPassiveSkillConfigurator.getSwordSkillMax(player) / 1000) + "%)");
 			lores.add(ChatColor.GRAY + "Multiplied by "
-				+ ((float) PlayerConfigurator.getCharacterAgilityStatpoints(player) * 5 / 100 + 1) + " from Agility");
+				+ ((float) PlayerPassiveSkillConfigurator.getAgilityStatpoints(player) * 5 / 100 + 1) + " from Agility");
 			lores.add("");
 			lores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
 			lores.add(ChatColor.GRAY + "will increase your skill and thus");
@@ -218,8 +218,8 @@ public class SkillMenu implements WauzInventory {
 		if(clicked == null || !clicked.getType().equals(Material.PLAYER_HEAD))
 			return;
 		
-		Integer total = PlayerConfigurator.getCharacterTotalStatpoints(player);
-		Integer spent = PlayerConfigurator.getCharacterSpentStatpoints(player);
+		Integer total = PlayerPassiveSkillConfigurator.getTotalStatpoints(player);
+		Integer spent = PlayerPassiveSkillConfigurator.getSpentStatpoints(player);
 		Integer pts = total - spent;
 
 		try {
@@ -230,37 +230,37 @@ public class SkillMenu implements WauzInventory {
 			}
 			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Health")) {
-				PlayerConfigurator.increaseCharacterHealth(player);
+				PlayerPassiveSkillConfigurator.increaseHealth(player);
 				SkillMenu.open(player);
 				return;
 			}
 			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Trading")) {
-				PlayerConfigurator.increaseCharacterTrading(player);
+				PlayerPassiveSkillConfigurator.increaseTrading(player);
 				SkillMenu.open(player);
 				return;
 			}
 			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Luck")) {
-				PlayerConfigurator.increaseCharacterLuck(player);
+				PlayerPassiveSkillConfigurator.increaseLuck(player);
 				SkillMenu.open(player);
 				return;
 			}
 			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Magic")) {
-				PlayerConfigurator.increaseCharacterMana(player);
+				PlayerPassiveSkillConfigurator.increaseMana(player);
 				SkillMenu.open(player);
 				return;
 			}	
 			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Strength")) {
-				PlayerConfigurator.increaseCharacterStrength(player);
+				PlayerPassiveSkillConfigurator.increaseStrength(player);
 				SkillMenu.open(player);
 				return;
 			}
 			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Agility")) {
-				PlayerConfigurator.increaseCharacterAgility(player);
+				PlayerPassiveSkillConfigurator.increaseAgility(player);
 				SkillMenu.open(player);
 				return;
 			}	

@@ -13,9 +13,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.GuildConfigurator;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.GuildConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;

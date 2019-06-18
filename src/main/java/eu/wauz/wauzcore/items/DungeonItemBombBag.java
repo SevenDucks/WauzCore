@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import net.md_5.bungee.api.ChatColor;
 
@@ -58,7 +59,7 @@ public class DungeonItemBombBag {
 			            		entity.getWorld().playEffect(entity.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
 			            	}
 			            	catch (NullPointerException e) {
-			            		
+			            		WauzDebugger.catchException(getClass(), e);
 			            	}
 			            }
 					}, 7);

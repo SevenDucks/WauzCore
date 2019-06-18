@@ -12,7 +12,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventCharacterDelete;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
@@ -59,7 +59,7 @@ public class CharacterSlotMenu implements WauzInventory {
 					+ PlayerConfigurator.getLevelString(player, slotId));
 			lores.add("");
 			lores.add(ChatColor.GRAY + "Last Played: " + ChatColor.GREEN
-					+ PlayerConfigurator.getLastPlayed(player, slotId) + " ago");
+					+ PlayerConfigurator.getLastCharacterLogin(player, slotId) + " ago");
 			if(slotId > 20000)
 				lores.add(ChatColor.GRAY + "End of Season: " + ChatColor.RED
 						+ WauzDateUtils.getTimeTillNextSeason());

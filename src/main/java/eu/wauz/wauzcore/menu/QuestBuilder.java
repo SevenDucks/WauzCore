@@ -20,7 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestAccept;
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestCancel;
 import eu.wauz.wauzcore.items.ItemUtils;

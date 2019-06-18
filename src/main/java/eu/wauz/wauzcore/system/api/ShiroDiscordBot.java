@@ -22,6 +22,7 @@ import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.ChatFormatter;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -115,7 +116,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 				return;
 			}
 			if(!channel.getId().equals(botsChannel.getId()) && WauzCore.IP.equals("31.214.208.243")) {
-				channel.sendMessage("No! Try this again here: " + botsChannel.getAsMention()).queue();;
+				channel.sendMessage("No! Try this again here: " + botsChannel.getAsMention()).queue();
 				return;
 			}
 			if(StringUtils.startsWith(message, "shiro servers") && isMaster(id)) {
@@ -167,7 +168,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 				channel.sendMessage("Baka!").queue();
 		}
 		catch(Exception e) {
-
+			WauzDebugger.catchException(getClass(), e);
 		}
 	}
 	

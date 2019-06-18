@@ -14,7 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.InventoryStringConverter;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
@@ -40,9 +41,9 @@ public class CharacterManager {
 		player.setExp((float) (PlayerConfigurator.getCharacterExperience(player) / 100F));
 		player.setLevel(PlayerConfigurator.getCharacterLevel(player));
 		
-		pd.setMaxHealth(PlayerConfigurator.getCharacterHealth(player));
+		pd.setMaxHealth(PlayerPassiveSkillConfigurator.getHealth(player));
 		if(wauzMode.equals(WauzMode.MMORPG))
-			pd.setMaxMana(PlayerConfigurator.getCharacterMana(player));
+			pd.setMaxMana(PlayerPassiveSkillConfigurator.getMana(player));
 		
 		Location spawn = PlayerConfigurator.getCharacterSpawn(player);
 		Location destination = PlayerConfigurator.getCharacterLocation(player);

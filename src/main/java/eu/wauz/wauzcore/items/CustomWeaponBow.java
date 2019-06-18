@@ -20,7 +20,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.ArrowMenu;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;
@@ -107,7 +107,7 @@ public class CustomWeaponBow {
 	        		}
 	        	}
 	        	catch (NullPointerException e) {
-	        		
+	        		WauzDebugger.catchException(getClass(), e);
 	        	}
 	        }
 		}, 1);

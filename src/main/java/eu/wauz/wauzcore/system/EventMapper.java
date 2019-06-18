@@ -58,7 +58,7 @@ public class EventMapper {
 	        			WauzDebugger.log(player, "Canceled Pet Sit");
 	            	}
 	            	catch (NullPointerException e) {
-	            		
+	            		WauzDebugger.catchException(getClass(), e);
 	            	}
 	            }
 			}, 10);

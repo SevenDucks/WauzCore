@@ -22,7 +22,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -85,7 +86,7 @@ public class DamageCalculator {
 			damage = applyAttackBonus(unmodifiedDamage, player, itemStack.getType().name());
 		}
 		
-		boolean isCritical = Chance.percent(PlayerConfigurator.getCharacterAgility(player));
+		boolean isCritical = Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player));
 		float multiplier = 1;
 		if(isCritical) {
 			multiplier += 1 + ItemUtils.getEnhancementCritMultiplier(player.getEquipment().getItemInMainHand());
@@ -128,7 +129,7 @@ public class DamageCalculator {
 		if(pd == null || player.getNoDamageTicks() != 0)
 			return;
 		
-		if(Chance.percent(PlayerConfigurator.getCharacterAgility(player))) {
+		if(Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player))) {
 			event.setDamage(0);
 			
 			ValueIndicator.spawnEvadeIndicator(player);
@@ -242,32 +243,32 @@ public class DamageCalculator {
 		
 		float multiplier = 1;
 		if(weaponType.contains("SWORD")) {
-			multiplier = (float) ((float) PlayerConfigurator.getCharacterSwordSkill(player) / 100000)
-					* ((float) PlayerConfigurator.getCharacterAgilityStatpoints(player) * 5 / 100 + 1);
+			multiplier = (float) ((float) PlayerPassiveSkillConfigurator.getSwordSkill(player) / 100000)
+					* ((float) PlayerPassiveSkillConfigurator.getAgilityStatpoints(player) * 5 / 100 + 1);
 			
 			if(Chance.oneIn(INCREASE_SKILL_CHANCE))
-				PlayerConfigurator.increaseCharacterSwordSkill(player);
+				PlayerPassiveSkillConfigurator.increaseSwordSkill(player);
 		}
 		else if(weaponType.contains("AXE")) {
-			multiplier = (float) ((float) PlayerConfigurator.getCharacterAxeSkill(player) / 100000)
-					* ((float) PlayerConfigurator.getCharacterStrengthStatpoints(player) * 5 / 100 + 1);
+			multiplier = (float) ((float) PlayerPassiveSkillConfigurator.getAxeSkill(player) / 100000)
+					* ((float) PlayerPassiveSkillConfigurator.getStrengthStatpoints(player) * 5 / 100 + 1);
 			
 			if(Chance.oneIn(INCREASE_SKILL_CHANCE))
-				PlayerConfigurator.increaseCharacterAxeSkill(player);
+				PlayerPassiveSkillConfigurator.increaseAxeSkill(player);
 		}
 		else if(weaponType.contains("HOE")) {
-			multiplier = (float) ((float) PlayerConfigurator.getCharacterStaffSkill(player) / 100000)
-					* ((float) PlayerConfigurator.getCharacterManaStatpoints(player) * 5 / 100 + 1);
+			multiplier = (float) ((float) PlayerPassiveSkillConfigurator.getStaffSkill(player) / 100000)
+					* ((float) PlayerPassiveSkillConfigurator.getManaStatpoints(player) * 5 / 100 + 1);
 			
 			if(Chance.oneIn(INCREASE_SKILL_CHANCE))
-				PlayerConfigurator.increaseCharacterStaffSkill(player);
+				PlayerPassiveSkillConfigurator.increaseStaffSkill(player);
 		}
 		WauzDebugger.log(player, "Base Multiplier: " + formatter.format(multiplier));	
 		return (int) ((float) damage * (float) multiplier);
 	}
 	
 	private static int applyDefendBonus(int resist, Player player) {
-		float multiplier = PlayerConfigurator.getCharacterStrengthFloat(player);
+		float multiplier = PlayerPassiveSkillConfigurator.getStrengthFloat(player);
 		
 		int petSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
 		if(petSlot >= 0)

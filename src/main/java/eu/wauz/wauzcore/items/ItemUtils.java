@@ -55,13 +55,13 @@ public class ItemUtils {
 	public static boolean isSpecificItem(ItemStack itemStack, String itemName) {
 		return hasDisplayName(itemStack) && ChatColor.stripColor(itemStack.getItemMeta().getDisplayName()).equals(ChatColor.stripColor(itemName));
 	}
-
-	public static boolean isMaterial(ItemStack itemStack) {
-		return hasLore(itemStack) && doesLoreContain(itemStack, "Material");
-	}
 	
 	public static boolean isBanner(ItemStack itemStack) {
 		return itemStack.hasItemMeta() && itemStack.getItemMeta() instanceof BannerMeta;
+	}
+	
+	public static boolean isMaterialItem(ItemStack itemStack) {
+		return hasLore(itemStack) && doesLoreContain(itemStack, "Material");
 	}
 	
 	public static boolean isQuestItem(ItemStack itemStack) {

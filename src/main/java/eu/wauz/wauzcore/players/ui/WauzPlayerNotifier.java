@@ -7,7 +7,7 @@ import java.util.Random;
 
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
@@ -27,7 +27,7 @@ public class WauzPlayerNotifier {
 		
 		try {
 			if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
-				int unusedPoints = PlayerConfigurator.getCharacterUnusedStatpoints(player);
+				int unusedPoints = PlayerPassiveSkillConfigurator.getUnusedStatpoints(player);
 				if(unusedPoints > 0) {
 					WauzNmsClient.nmsChatCommand(player, "menu skills",
 							ChatColor.YELLOW + "You have " + unusedPoints +

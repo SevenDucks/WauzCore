@@ -108,7 +108,10 @@ public class WauzPlayerData {
 	}
 
 	public void decreaseTemperatureResistance() {
-		if(resistanceHeat != 0) resistanceHeat--; if(resistanceCold != 0) resistanceCold--;
+		if(resistanceHeat != 0)
+			resistanceHeat--;
+		if(resistanceCold != 0)
+			resistanceCold--;
 	}
 	
 	public void decreasePvPProtection() {
