@@ -1,8 +1,10 @@
-package eu.wauz.wauzcore.players;
+package eu.wauz.wauzcore.players.ui;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.players.WauzPlayerData;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -13,7 +15,8 @@ public class WauzPlayerActionBar {
 	
 	public static void update(Player player) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 		
 		String timeString = ChatColor.AQUA + ChatFormatter.ICON_CARET + " " + WauzDateUtils.getServerTime() + "   ";
 		

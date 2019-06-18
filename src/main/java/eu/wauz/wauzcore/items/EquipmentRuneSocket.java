@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -45,13 +46,14 @@ public class EquipmentRuneSocket {
 		
 		if(itemMaterial.contains("CHESTPLATE"))
 			itemType = "Armor";
-		else if(itemMaterial.contains("SWORD") || itemMaterial.contains("AXE") || itemMaterial.contains("HOE")) {
+		else if(itemMaterial.contains("_SWORD") || itemMaterial.contains("_AXE") || itemMaterial.contains("_HOE") || itemMaterial.equals("BOW")) {
 			itemType = "Weapon";
 		}
 		
-		if(itemType == "Unknown" || runePower == 0) return false;
-		double runeDecimal = (double) ((double) runePower / (double) 100);
+		if(itemType == "Unknown" || runePower == 0)
+			return false;
 		
+		double runeDecimal = (double) ((double) runePower / (double) 100);
 		WauzDebugger.log(player, "Rune-Power: " + runePower + " (" + runeDecimal + ")");
 		WauzDebugger.log(player, "Item-Type: " + itemType);
 		
@@ -119,8 +121,10 @@ public class EquipmentRuneSocket {
 			if(valid) {
 				im.setLore(newLores);
 				itemStack.setItemMeta(im);
-				return true;
-			} else return false;
+				
+				player.getWorld().playEffect(player.getLocation(), Effect.EXTINGUISH, 0);
+			}
+			return valid;
 		}
 		
 // Apply Rune Effect ~ KNOWLEDGE ~
@@ -145,8 +149,8 @@ public class EquipmentRuneSocket {
 			if(valid) {
 				im.setLore(newLores);
 				itemStack.setItemMeta(im);
-				return true;
-			} else return false;
+			}
+			return valid;
 		}
 		
 		return false;

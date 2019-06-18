@@ -68,19 +68,22 @@ import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
-import eu.wauz.wauzcore.players.DamageCalculator;
-import eu.wauz.wauzcore.players.FoodCalculator;
+import eu.wauz.wauzcore.mobs.MenacingMobs;
+import eu.wauz.wauzcore.mobs.MobEventMapper;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
-import eu.wauz.wauzcore.players.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.calc.DamageCalculator;
+import eu.wauz.wauzcore.players.calc.FoodCalculator;
+import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
+import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.EventMapper;
-import eu.wauz.wauzcore.system.MobModifier;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
+import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobSpawnEvent;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzListener implements Listener {
@@ -202,6 +205,7 @@ public class WauzListener implements Listener {
 	@EventHandler
 	public void onWorldEnter(PlayerChangedWorldEvent event) {
 		WauzNoteBlockPlayer.play(event.getPlayer());
+		WauzPlayerBossBar.clearBar(event.getPlayer());
 		WauzPlayerScoreboard.scheduleScoreboard(event.getPlayer());
 		WauzNmsMinimap.init(event.getPlayer());
 	}
@@ -269,6 +273,7 @@ public class WauzListener implements Listener {
 			event.setCancelled(true);
 			return;
 		}
+		WauzPlayerBossBar playerBossBar = WauzPlayerBossBar.getBossBar(event.getEntity());
 		if(event instanceof EntityDamageByEntityEvent) {
 			EntityDamageByEntityEvent entityEvent = (EntityDamageByEntityEvent) event;
 			
@@ -280,43 +285,57 @@ public class WauzListener implements Listener {
 				event.setCancelled(true);
 				return;
 			}
-			if(!WauzMode.isMMORPG(event.getEntity()))
+			if(!WauzMode.isMMORPG(event.getEntity())) {
 				return;
-			if(entityEvent.getDamager() instanceof Player)
+			}
+			if(entityEvent.getDamager() instanceof Player) {
 				DamageCalculator.attack(entityEvent);
-			if(event.getEntity() instanceof Player)
+				if(playerBossBar != null)
+					playerBossBar.addPlayer((Player) entityEvent.getDamager(), entityEvent.getDamage());
+			}
+			if(event.getEntity() instanceof Player) {
 				DamageCalculator.reflect(entityEvent);
+			}
 		}
 		if(event.getEntity() instanceof Player && WauzMode.isMMORPG(event.getEntity())) {
 			event.setCancelled(true);
 			DungeonItemChickenGlider.cancelFallDamage(event);
 			DamageCalculator.defend(event);
 		}
+		DamageCalculator.removeDamageModifiers(event);
+		if(playerBossBar != null) {
+			playerBossBar.updateBossBar(event.getDamage());
+		}
 	}
 
 	@EventHandler
 	public void onHeal(EntityRegainHealthEvent event) {
-		if (event.getEntity() instanceof Player && WauzMode.isMMORPG(event.getEntity()))
+		if (event.getEntity() instanceof Player && WauzMode.isMMORPG(event.getEntity())) {
 			DamageCalculator.heal(event);
+		}
+		WauzPlayerBossBar playerBossBar = WauzPlayerBossBar.getBossBar(event.getEntity());
+		if(playerBossBar != null) {
+			playerBossBar.updateBossBar(- event.getAmount());
+		}
 	}
 
 	@EventHandler
 	public void onKill(EntityDeathEvent event) {
-		if (event.getEntity().getKiller() != null && WauzMode.isMMORPG(event.getEntity().getKiller()))
+		if (event.getEntity().getKiller() != null && WauzMode.isMMORPG(event.getEntity().getKiller())) {
 			DamageCalculator.kill(event);
+		}
 	}
 
 // MythicMobs Listeners
 
-	// @EventHandler
-	// public void onMythicSpawn(MythicMobSpawnEvent event) {
-	// if(event.getMobType().getDisplayName().contains("<Prefix>"))
-	// MobModifier.rollRarity(event);
-	// }
+	 @EventHandler
+	 public void onMythicSpawn(MythicMobSpawnEvent event) {
+		 MenacingMobs.addMenacingMob(event.getEntity(), event.getMobType());
+	 }
 
 	@EventHandler
 	public void onMythicDeath(MythicMobDeathEvent event) {
-		if (StringUtils.isNotBlank(event.getEntity().getCustomName())) MobModifier.deathEvent(event);
+		if (StringUtils.isNotBlank(event.getEntity().getCustomName())) MobEventMapper.deathEvent(event);
 	}
 
 // Inventory Listeners

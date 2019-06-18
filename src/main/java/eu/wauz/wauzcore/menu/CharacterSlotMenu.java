@@ -79,10 +79,11 @@ public class CharacterSlotMenu implements WauzInventory {
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
 		
-		if(clicked == null ||
-				(!clicked.getType().equals(Material.TOTEM_OF_UNDYING) && !clicked.getType().equals(Material.BARRIER)))
+		if(pd == null)
+			return;
+		
+		if(clicked == null || (!clicked.getType().equals(Material.TOTEM_OF_UNDYING) && !clicked.getType().equals(Material.BARRIER)))
 			return;
 
 		int slotId = Integer.parseInt(clicked.getItemMeta().getDisplayName().split(" ")[1]);

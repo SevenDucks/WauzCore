@@ -5,7 +5,7 @@ import java.util.List;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.PlayerConfigurator;
-import eu.wauz.wauzcore.players.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzQuest;
 import net.md_5.bungee.api.ChatColor;
 

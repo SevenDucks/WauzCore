@@ -250,17 +250,17 @@ public class InstanceManager {
 	}
 	
 	private static boolean removeInstance(File file) {
-	    if(file.exists()) {
-	        File files[] = file.listFiles();
-	        for(int i = 0; i < files.length; i++) {
-	            if(files[i].isDirectory()) {
-	                removeInstance(files[i]);
-	            } else {
-	                files[i].delete();
-	            }
-	        }
-	    }
-	    return(file.delete());
+		if(file.exists()) {
+		    File files[] = file.listFiles();
+		    for(int i = 0; i < files.length; i++) {
+		        if(files[i].isDirectory()) {
+		            removeInstance(files[i]);
+		        } else {
+		            files[i].delete();
+		        }
+		    }
+		}
+		return file.delete();
 	}
 	
 }

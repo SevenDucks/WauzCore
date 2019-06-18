@@ -8,10 +8,10 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.PlayerConfigurator;
-import eu.wauz.wauzcore.players.Indicator;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
-import eu.wauz.wauzcore.players.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.ui.ValueIndicator;
+import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -81,7 +81,7 @@ public class WauzRewards {
 		double amplifiedxp = applyExperienceBonus(player, earnedxp);
 		
 		if(location != null)
-			Indicator.spawnExpIndicator(location, (int) (amplifiedxp * 100));
+			ValueIndicator.spawnExpIndicator(location, (int) (amplifiedxp * 100));
 		
 		double currentxp = PlayerConfigurator.getCharacterExperience(player);
 		currentxp = currentxp + amplifiedxp;

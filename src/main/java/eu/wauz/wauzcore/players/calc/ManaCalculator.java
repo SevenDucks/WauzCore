@@ -1,10 +1,12 @@
-package eu.wauz.wauzcore.players;
+package eu.wauz.wauzcore.players.calc;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.players.WauzPlayerData;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
@@ -12,7 +14,8 @@ public class ManaCalculator {
 
 	public static void updateManaItem(Player player) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null || pd.getMaxMana() == 0) return;
+		if(pd == null || pd.getMaxMana() == 0)
+			return;
 		
 		ItemStack mana = pd.getMana() < 1
 				? new ItemStack(Material.CLOCK, 1)
@@ -29,7 +32,8 @@ public class ManaCalculator {
 	
 	public static void regenerateMana(Player player) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 		
 		if(pd.getMaxMana() > pd.getMana())
 			pd.setMana(pd.getMana() + 1);
@@ -39,7 +43,8 @@ public class ManaCalculator {
 	
 	public static void regenerateMana(Player player, int amount) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 		
 		if(pd.getMaxMana() > pd.getMana() + amount)
 			pd.setMana(pd.getMana() + amount);

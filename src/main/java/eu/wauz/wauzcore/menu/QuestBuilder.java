@@ -29,9 +29,9 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.QuestRequirementChecker;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
-import eu.wauz.wauzcore.players.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzQuest;
 import net.md_5.bungee.api.ChatColor;
@@ -145,9 +145,9 @@ public class QuestBuilder implements WauzInventory {
             @Override
             public int compare(WauzQuest quest0, WauzQuest quest1)
             {
-                double distance0 = quest0.getQuestPoint().distanceSq(playerPoint);
-                double distance1 = quest1.getQuestPoint().distanceSq(playerPoint);
-                return Double.compare(distance0, distance1);
+				double distance0 = quest0.getQuestPoint().distanceSq(playerPoint);
+				double distance1 = quest1.getQuestPoint().distanceSq(playerPoint);
+				return Double.compare(distance0, distance1);
             }
 
         };

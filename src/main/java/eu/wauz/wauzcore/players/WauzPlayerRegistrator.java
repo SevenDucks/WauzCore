@@ -10,6 +10,9 @@ import org.bukkit.permissions.PermissionAttachment;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.PlayerConfigurator;
+import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
+import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
+import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import net.md_5.bungee.api.ChatColor;
@@ -73,6 +76,7 @@ public class WauzPlayerRegistrator {
 	}
 	
 	public static void logout(Player player) {
+		WauzPlayerBossBar.clearBar(player);
 		PlayerConfigurator.setLastPlayed(player);
 		CharacterManager.logoutCharacter(player);
 	}
@@ -84,7 +88,8 @@ public class WauzPlayerRegistrator {
         }});
 		
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 		
 		pd.setResistanceHeat((short) 0);
 		pd.setResistanceCold((short) 0);

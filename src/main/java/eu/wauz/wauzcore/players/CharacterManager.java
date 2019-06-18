@@ -20,6 +20,8 @@ import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.QuestBuilder;
 import eu.wauz.wauzcore.menu.TabardMenu;
+import eu.wauz.wauzcore.players.calc.DamageCalculator;
+import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -31,7 +33,8 @@ public class CharacterManager {
 	
 	public static void loginCharacter(final Player player, WauzMode wauzMode) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 
 		player.setGameMode(wauzMode.equals(WauzMode.SURVIVAL) ? GameMode.SURVIVAL : GameMode.ADVENTURE);
 		player.setExp((float) (PlayerConfigurator.getCharacterExperience(player) / 100F));
@@ -144,7 +147,8 @@ public class CharacterManager {
 	
 	public static void createCharacter(final Player player, WauzMode wauzMode) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 		
 		String characterSlot = null;
 		if(pd.getSelectedCharacterSlot() != null)
@@ -170,10 +174,6 @@ public class CharacterManager {
 		Location spawnLocation = core.getServer().getWorld(characterWorld).getSpawnLocation();
 		String characterPosition = (spawnLocation.getX() + 0.5) + " " + spawnLocation.getY() + " " + (spawnLocation.getZ() + 0.5);
 		
-		if(wauzMode.equals(WauzMode.SURVIVAL)) {
-			player.setGameMode(GameMode.SURVIVAL);
-		}
-		
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			player.setGameMode(GameMode.ADVENTURE);
 			player.setExp(0);
@@ -187,7 +187,7 @@ public class CharacterManager {
 			player.setFoodLevel(20);
 			player.setSaturation(10);
 		}
-		if(wauzMode.equals(WauzMode.SURVIVAL)) {
+		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
 			player.setGameMode(GameMode.SURVIVAL);
 			player.setExp(0);
 			player.setLevel(0);

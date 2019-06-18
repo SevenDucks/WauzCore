@@ -28,7 +28,8 @@ public class WauzNoteBlockPlayer {
 	
 	private static void play(Player player, File soundtrackFile) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 		
 		SongPlayer currentSongPlayer = pd.getSongPlayer();
 		if(currentSongPlayer != null)

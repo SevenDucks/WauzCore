@@ -25,7 +25,8 @@ public class DungeonItemGrapplingHook {
 		Location target = null;
 
 		for(Block block : player.getLineOfSight(null, 15)) {
-			if(pull(block, event)) return;
+			if(pull(block, event))
+				return;
 
 			if(block.getType().equals(Material.SPONGE)) {
 				target = block.getLocation();

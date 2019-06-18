@@ -7,9 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 
-import eu.wauz.wauzcore.players.DamageCalculator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;

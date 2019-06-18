@@ -51,9 +51,8 @@ public class WauzDialog implements WauzInventory {
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
 		
-		if(clicked == null)
+		if(pd == null || clicked == null)
 			return;
 		
 		else if(HeadUtils.isHeadMenuItem(clicked, "CONFIRM")) {

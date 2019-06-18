@@ -36,7 +36,8 @@ public class WauzMenu implements WauzInventory {
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Wauzland Main Menu");
 		
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 
 		MenuUtils.setCurrencyDisplay(menu, player, 0);
 		

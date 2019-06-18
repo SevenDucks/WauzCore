@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.players;
+package eu.wauz.wauzcore.players.ui;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -12,7 +12,7 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Chance;
 import net.md_5.bungee.api.ChatColor;
 
-public class Indicator {
+public class ValueIndicator {
 	
 	public static void spawnDamageIndicator(Entity entity, Integer damage) {
 		spawnDamageIndicator(entity, damage, false);

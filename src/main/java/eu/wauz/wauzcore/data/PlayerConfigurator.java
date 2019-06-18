@@ -5,10 +5,10 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.api.ConfigurationUtils;
-import eu.wauz.wauzcore.players.DamageCalculator;
-import eu.wauz.wauzcore.players.ManaCalculator;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.players.calc.DamageCalculator;
+import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
 public class PlayerConfigurator extends ConfigurationUtils {

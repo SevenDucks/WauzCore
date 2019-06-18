@@ -31,7 +31,8 @@ public class InventoryItemRemover {
 		for(ItemStack itemStack : inventory.getContents()) {			
 			if(ItemUtils.isSpecificItem(itemStack, itemName)) {	
 				itemAmount = removeItemsGetRemaining(itemStack, itemAmount);
-				if(itemAmount == 0) return;
+				if(itemAmount == 0)
+					return;
 			}		
 		}
 	}

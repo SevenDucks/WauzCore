@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.players;
+package eu.wauz.wauzcore.players.ui;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -19,6 +19,9 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.util.QuestRequirementChecker;
+import eu.wauz.wauzcore.players.WauzPlayerData;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;

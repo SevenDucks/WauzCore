@@ -11,9 +11,9 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.items.ItemUtils;
-import eu.wauz.wauzcore.players.ManaCalculator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import net.md_5.bungee.api.ChatColor;
@@ -41,7 +41,8 @@ public class WauzPlayerSkillExecutor {
 	public static boolean execute(Player player, ItemStack itemStack, String skillId) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
 		WauzPlayerSkill skill = playerSkillMap.get(skillId);
-		if(pd == null || skill == null) return false;
+		if(pd == null || skill == null)
+			return false;
 		
 		boolean skillReady = pd.isSkillReady(player, skillId);
 		int manaCost = player.hasPermission("wauz.debug.magic") ? 0 : skill.getManaCost();

@@ -1,10 +1,13 @@
-package eu.wauz.wauzcore.players;
+package eu.wauz.wauzcore.players.calc;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import eu.wauz.wauzcore.players.WauzPlayerData;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.util.Chance;
@@ -15,7 +18,8 @@ public class ClimateCalculator {
 	
 	public static void temperature(Player player) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 		
 		byte playerTemperature = pd.getHeat();
 		WauzRegion region = pd.getRegion();

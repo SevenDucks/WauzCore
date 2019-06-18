@@ -18,7 +18,7 @@ import org.bukkit.event.block.SignChangeEvent;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.RegionConfigurator;
-import eu.wauz.wauzcore.players.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;

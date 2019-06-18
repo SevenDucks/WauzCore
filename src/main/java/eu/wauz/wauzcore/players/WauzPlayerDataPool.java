@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 public class WauzPlayerDataPool {

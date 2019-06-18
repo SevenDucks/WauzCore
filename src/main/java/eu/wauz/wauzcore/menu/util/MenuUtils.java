@@ -129,11 +129,15 @@ public class MenuUtils {
 			}
 			
 			ItemStack scroll = (player.getItemOnCursor());
-			if(!validScrollMaterials.contains(scroll.getType())) return;
+			if(!validScrollMaterials.contains(scroll.getType()))
+				return;
+			
 			String scrollName = scroll.getItemMeta().getDisplayName();
 			
 			if(scrollName.contains("Scroll of Wisdom")) {
-				if(!itemName.contains("Unidentified") || itemName.contains("Scroll")) return;			
+				if(!itemName.contains("Unidentified") || itemName.contains("Scroll"))
+						return;			
+				
 				event.setCancelled(true);
 				scroll.setAmount(scroll.getAmount() - 1);
 				if(itemName.contains("Item")) WauzIdentifier.identifyItem(event);
@@ -143,7 +147,9 @@ public class MenuUtils {
 			}
 			
 			else if(scrollName.contains("Scroll of Fortune")) {
-				if(itemName.contains("Scroll")) return;
+				if(itemName.contains("Scroll"))
+					return;
+				
 				if(ShopBuilder.sell((Player) player, itemStack, false)) {
 					scroll.setAmount(scroll.getAmount() - 1);
 					event.setCancelled(true);
@@ -151,7 +157,9 @@ public class MenuUtils {
 			}
 			
 			else if(scrollName.contains("Scroll of Toughness")) {
-				if(itemName.contains("Scroll")) return;
+				if(itemName.contains("Scroll"))
+					return;
+				
 				if(ShopBuilder.repair((Player) player, itemStack, false)) {
 					scroll.setAmount(scroll.getAmount() - 1);
 					event.setCancelled(true);
@@ -159,7 +167,9 @@ public class MenuUtils {
 			}
 			
 			else if(scrollName.contains("Scroll of Regret")) {
-				if(itemName.contains("Scroll")) return;
+				if(itemName.contains("Scroll"))
+					return;
+				
 				if(EquipmentRuneSocket.clearAllSockets(event)) {
 					scroll.setAmount(scroll.getAmount() - 1);
 					event.setCancelled(true);

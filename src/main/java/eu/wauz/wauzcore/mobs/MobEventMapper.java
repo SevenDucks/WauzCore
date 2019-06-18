@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.system;
+package eu.wauz.wauzcore.mobs;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +14,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
+import eu.wauz.wauzcore.system.WauzCommandExecutor;
 import eu.wauz.wauzcore.system.util.Chance;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.adapters.bukkit.BukkitAdapter;
@@ -25,17 +26,7 @@ import io.lumine.xikage.mythicmobs.drops.DropTable;
 import io.lumine.xikage.mythicmobs.drops.LootBag;
 import net.md_5.bungee.api.ChatColor;
 
-public class MobModifier {
-
-//	public static void rollRarity(MythicMobSpawnEvent event) {
-//		MythicMob mob = event.getMobType();
-//		if (Chance.percent(50)) {
-//			event.getEntity().setCustomName(mob.getDisplayName().replace("<Prefix>", ChatColor.LIGHT_PURPLE + "Elite "));
-//		} else {
-//			event.getEntity().setCustomName(mob.getDisplayName().replace("<Prefix>", ""));
-//		}
-//		Bukkit.getLogger().info("MythicMob Spawned: " + event.getEntity().getCustomName());
-//	}
+public class MobEventMapper {
 	
 	public static void deathEvent(MythicMobDeathEvent event) {
 		String mobId = event.getEntity().getUniqueId().toString();
@@ -44,7 +35,7 @@ public class MobModifier {
 		if(mobOwner != null)
 			PetOverviewMenu.unregPet(mobOwner, mobId);
 		if(StringUtils.contains(event.getEntity().getCustomName(), "Strongbox"))
-			MobModifier.openStrongbox(event);
+			MobEventMapper.openStrongbox(event);
 		if(WauzCommandExecutor.eventTravelMap.containsKey(mobId))
 			WauzCommandExecutor.eventTravelMap.remove(mobId);
 	}

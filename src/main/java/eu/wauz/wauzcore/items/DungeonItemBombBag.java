@@ -22,7 +22,9 @@ import net.md_5.bungee.api.ChatColor;
 public class DungeonItemBombBag {
 
 	public static void use(final ProjectileHitEvent event) {
-		if(event.getEntity().getShooter() != null && !(event.getEntity().getShooter() instanceof Player)) return;
+		if(event.getEntity().getShooter() != null && !(event.getEntity().getShooter() instanceof Player))
+			return;
+		
 		Entity entity = event.getEntity();
 		entity.getWorld().createExplosion(entity.getLocation(), 0);
 		
@@ -66,7 +68,9 @@ public class DungeonItemBombBag {
 	}
 
 	public static void returnBomb(final ProjectileLaunchEvent event) {
-		if(event.getEntity().getShooter() != null && !(event.getEntity().getShooter() instanceof Player)) return;
+		if(event.getEntity().getShooter() != null && !(event.getEntity().getShooter() instanceof Player))
+			return;
+		
 		final Player player = (Player) event.getEntity().getShooter();
 
 		if(!Cooldown.playerBombThrow(player)) {

@@ -1,6 +1,9 @@
-package eu.wauz.wauzcore.players;
+package eu.wauz.wauzcore.players.calc;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -9,6 +12,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
@@ -20,6 +24,10 @@ import org.bukkit.metadata.FixedMetadataValue;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.PlayerConfigurator;
 import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.players.WauzPlayerData;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.ui.ValueIndicator;
+import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
@@ -49,8 +57,10 @@ public class DamageCalculator {
 		}
 		else {
 			ItemStack itemStack = player.getEquipment().getItemInMainHand();
-			if((itemStack.getType().equals(Material.AIR)) || (itemStack.getItemMeta().getLore() == null)) {
-				Indicator.spawnDamageIndicator(event.getEntity(), (int) event.getDamage());
+			if((itemStack.getType().equals(Material.AIR)) || !ItemUtils.hasLore(itemStack)) {
+				event.setDamage(1);
+				removeDamageModifiers(event);
+				ValueIndicator.spawnDamageIndicator(event.getEntity(), 1);
 				return;
 			}
 			
@@ -73,7 +83,6 @@ public class DamageCalculator {
 			damage = ItemUtils.getBaseAtk(itemStack);
 			unmodifiedDamage = (int) (damage * magicMultiplier);
 			damage = applyAttackBonus(unmodifiedDamage, player, itemStack.getType().name());
-			event.setDamage(damage);
 		}
 		
 		boolean isCritical = Chance.percent(PlayerConfigurator.getCharacterAgility(player));
@@ -86,11 +95,14 @@ public class DamageCalculator {
 		}
 		WauzDebugger.log(player, "Randomized Multiplier: " + formatter.format(multiplier) + (isCritical ? " CRIT" : ""));
 		damage = (int) ((float) damage * (float) multiplier);
+		damage = damage < 1 ? 1 : damage;
+		event.setDamage(damage);
+		removeDamageModifiers(event);
 		
-		Indicator.spawnDamageIndicator(event.getEntity(), damage, isCritical);
+		ValueIndicator.spawnDamageIndicator(event.getEntity(), damage, isCritical);
 		
 		WauzDebugger.log(player, "You inflicted " + damage + " (" + unmodifiedDamage + ") damage!");
-		WauzDebugger.log(player, "Cause: " + event.getCause());
+		WauzDebugger.log(player, "Cause: " + event.getCause() + " " + event.getFinalDamage());
 	}
 	
 	public static void reflect(EntityDamageByEntityEvent event) {
@@ -119,7 +131,7 @@ public class DamageCalculator {
 		if(Chance.percent(PlayerConfigurator.getCharacterAgility(player))) {
 			event.setDamage(0);
 			
-			Indicator.spawnEvadeIndicator(player);
+			ValueIndicator.spawnEvadeIndicator(player);
 			player.setNoDamageTicks(10);
 			
 			WauzDebugger.log(player, "You evaded an attack!");
@@ -158,17 +170,18 @@ public class DamageCalculator {
 		if(hp < 0) hp = 0;
 		setHealth(player, hp);
 		
-		Indicator.spawnDamageIndicator(player, damage);
+		ValueIndicator.spawnDamageIndicator(player, damage);
 		player.setNoDamageTicks(10);
 		
 		WauzDebugger.log(player, "You took " + damage + " (" + unmodifiedDamage + ") damage!");
-		WauzDebugger.log(player, "Cause: " + event.getCause());
+		WauzDebugger.log(player, "Cause: " + event.getCause() + " " + event.getFinalDamage());
 	}
 	
 	public static void heal(EntityRegainHealthEvent event) {
 		Player player = (Player) event.getEntity();
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 		
 		int heal = (int) event.getAmount();
 		
@@ -177,7 +190,7 @@ public class DamageCalculator {
 		if(hp > pd.getMaxHealth()) hp = pd.getMaxHealth();
 		setHealth(player, hp);
 		
-		Indicator.spawnHealIndicator(player.getLocation(), heal);
+		ValueIndicator.spawnHealIndicator(player.getLocation(), heal);
 		
 		WauzDebugger.log(player, "You restored " + heal + " health!");
 	}
@@ -192,6 +205,16 @@ public class DamageCalculator {
 		int onKillMP = ItemUtils.getEnhancementOnKillMP(player.getEquipment().getItemInMainHand());
 		if(onKillMP > 0)
 			ManaCalculator.regenerateMana(player, onKillMP);
+	}
+	
+	public static void removeDamageModifiers(EntityDamageEvent event) {
+		List<DamageModifier> damageModifiers = Arrays.asList(DamageModifier.values()).stream()
+				.filter(damageModifier -> event.isApplicable(damageModifier))
+				.collect(Collectors.toList());
+		
+		for(int iterator = 0; iterator < damageModifiers.size(); iterator++) {
+			event.setDamage(damageModifiers.get(iterator), iterator == 0 ? event.getDamage() : 0);
+		}
 	}
 	
 	public static void setHealth(Player player, int hp) {
@@ -256,14 +279,16 @@ public class DamageCalculator {
 	
 	public static boolean hasPvPProtection(Player player) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return false;
+		if(pd == null)
+			return false;
 		
 		return pd.getResistancePvsP() > 0;
 	}
 	
 	public static void decreasePvPProtection(Player player) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 		
 		pd.decreasePvPProtection();
 	}
@@ -271,7 +296,8 @@ public class DamageCalculator {
 	public static void increasePvPProtection(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 		
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		if(ItemUtils.containsPvPProtectionModifier(itemStack)) {

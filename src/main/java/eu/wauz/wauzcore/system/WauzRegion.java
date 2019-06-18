@@ -12,9 +12,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.RegionConfigurator;
-import eu.wauz.wauzcore.players.DamageCalculator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
@@ -36,7 +36,8 @@ public class WauzRegion {
 	
 	public static void regionCheck(Player player) {
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		if(pd == null)
+			return;
 		
 		WauzRegion currentRegion = pd.getRegion();
 		WauzRegion newRegion = null;

@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.players;
+package eu.wauz.wauzcore.players.calc;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -9,6 +9,8 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.players.WauzPlayerData;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 

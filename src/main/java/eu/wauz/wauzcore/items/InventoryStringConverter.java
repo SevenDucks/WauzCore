@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.players.DamageCalculator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 public class InventoryStringConverter {

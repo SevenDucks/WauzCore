@@ -36,8 +36,8 @@ public class WauzIdentifier {
 	
 	public static void identifyItem(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
-		ItemStack item = event.getCurrentItem();	
-		String name = item.getItemMeta().getDisplayName();
+		ItemStack itemStack = event.getCurrentItem();	
+		String name = itemStack.getItemMeta().getDisplayName();
 		
 		Random random = new Random();
 		String verb = equipNames.get(random.nextInt(equipNames.size()));
@@ -50,7 +50,7 @@ public class WauzIdentifier {
 		double power = 0;
 		Equipment equip = material.get(random.nextInt(material.size()));
 		
-		item.setType(equip.getMaterial());
+		itemStack.setType(equip.getMaterial());
 		power = equip.getDamage();
 		
 // Set Item Rarity
@@ -114,7 +114,7 @@ public class WauzIdentifier {
 	
 		identifiedName =  color + verb + equip.getName();
 		
-		ItemMeta im = item.getItemMeta();
+		ItemMeta im = itemStack.getItemMeta();
 		im.setDisplayName(identifiedName);
 		
 		double randomizer = random.nextDouble();
@@ -233,7 +233,8 @@ public class WauzIdentifier {
 				lores.add("");
 				lores.add(EMPTY_SKILL_SLOT);
 			}
-			
+		}
+		if(rare >= 1.5)	{
 			lores.add("");
 			lores.add(EMPTY_RUNE_SLOT);
 			if(rare >= 2.5)
@@ -242,7 +243,7 @@ public class WauzIdentifier {
 		
 		im.setLore(lores);	
 		im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		item.setItemMeta(im);
+		itemStack.setItemMeta(im);
 		
 		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
 	}

@@ -53,7 +53,9 @@ public class CharacterWorldMenu implements WauzInventory {
 		ItemStack clicked = event.getCurrentItem();
 		Player player = (Player) event.getWhoClicked();
 		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null) return;
+		
+		if(pd == null)
+			return;
 		
 		if(clicked == null || !clicked.getType().toString().endsWith("CONCRETE"))
 			return;

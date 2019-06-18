@@ -19,7 +19,7 @@ import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
-import eu.wauz.wauzcore.players.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
@@ -90,7 +90,8 @@ public class ShopBuilder implements WauzInventory {
 		final Player player = (Player) event.getWhoClicked();
 		
 		if(clicked == null || clicked.getType().equals(Material.SIGN)) {
-			event.setCancelled(true); return;
+			event.setCancelled(true);
+			return;
 		}
 		
 // Sell or Repair Item on Cursor

@@ -15,13 +15,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import eu.wauz.wauzcore.data.RegionConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEventListener;
 import eu.wauz.wauzcore.players.CharacterManager;
-import eu.wauz.wauzcore.players.ClimateCalculator;
-import eu.wauz.wauzcore.players.DamageCalculator;
-import eu.wauz.wauzcore.players.ManaCalculator;
-import eu.wauz.wauzcore.players.WauzPlayerActionBar;
-import eu.wauz.wauzcore.players.WauzPlayerNotifier;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
-import eu.wauz.wauzcore.players.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.calc.ClimateCalculator;
+import eu.wauz.wauzcore.players.calc.DamageCalculator;
+import eu.wauz.wauzcore.players.calc.ManaCalculator;
+import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
+import eu.wauz.wauzcore.players.ui.WauzPlayerNotifier;
+import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzCommandExecutor;
 import eu.wauz.wauzcore.system.WauzRegion;
@@ -216,10 +216,10 @@ public class WauzCore extends JavaPlugin {
 	}
 	
 	private static String getByteUnit(long bytes) {
-	    if (bytes < 1024)
-	    	return bytes + " B";
-	    int exp = (int) (Math.log(bytes) / Math.log(1024));
-	    return String.format("%.1f %sB", bytes / Math.pow(1024, exp), ("KMGTPE").charAt(exp - 1));
+		if (bytes < 1024)
+			return bytes + " B";
+		int exp = (int) (Math.log(bytes) / Math.log(1024));
+		return String.format("%.1f %sB", bytes / Math.pow(1024, exp), ("KMGTPE").charAt(exp - 1));
 	}
 
 }

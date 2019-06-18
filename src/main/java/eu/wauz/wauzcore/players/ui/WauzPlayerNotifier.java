@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.players;
+package eu.wauz.wauzcore.players.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
