@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import eu.wauz.wauzcore.data.api.ConfigurationUtils;
+import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 
-public class RegionConfigurator extends ConfigurationUtils {
+public class RegionConfigurator extends GlobalConfigurationUtils {
 	
 // Keys
 	

@@ -2,12 +2,12 @@ package eu.wauz.wauzcore.data.players;
 
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.api.ConfigurationUtils;
+import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
 
-public class PlayerPassiveSkillConfigurator extends ConfigurationUtils {
+public class PlayerPassiveSkillConfigurator extends PlayerConfigurationUtils {
 	
 // Passive Skills
 

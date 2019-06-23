@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.bukkit.potion.PotionEffectType;
 
-import eu.wauz.wauzcore.data.api.ConfigurationUtils;
+import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 
-public class CraftingConfigurator extends ConfigurationUtils {
+public class CraftingConfigurator extends GlobalConfigurationUtils {
 	
 // General Parameters
 	

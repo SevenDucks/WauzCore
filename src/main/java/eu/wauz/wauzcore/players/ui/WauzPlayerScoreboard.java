@@ -18,6 +18,7 @@ import org.bukkit.scoreboard.Team;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.menu.util.QuestRequirementChecker;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -161,33 +162,33 @@ public class WauzPlayerScoreboard {
 		
 		if(!PlayerConfigurator.getHideSpecialQuestsForCharacter(player)) {
 			if(!slotm.equals("none")) {
-				int phase = PlayerConfigurator.getCharacterQuestPhase(player, slotm);
+				int phase = PlayerQuestConfigurator.getQuestPhase(player, slotm);
 				rowStrings.addAll(generateQuestObjectiveList(player, "", slotm, phase, ChatColor.DARK_PURPLE));
 			}
 			
 			if(!cmpn1.equals("none")) {
-				int phase = PlayerConfigurator.getCharacterQuestPhase(player, cmpn1);
+				int phase = PlayerQuestConfigurator.getQuestPhase(player, cmpn1);
 				rowStrings.addAll(generateQuestObjectiveList(player, "    ", cmpn1, phase, ChatColor.DARK_AQUA));
 			}
 			
 			if(!cmpn2.equals("none")) {
-				int phase = PlayerConfigurator.getCharacterQuestPhase(player, cmpn2);
+				int phase = PlayerQuestConfigurator.getQuestPhase(player, cmpn2);
 				rowStrings.addAll(generateQuestObjectiveList(player, "     ", cmpn2, phase, ChatColor.DARK_AQUA));
 			}
 		}
 		
 		if(!slot1.equals("none")) {
-			int phase = PlayerConfigurator.getCharacterQuestPhase(player, slot1);
+			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot1);
 			rowStrings.addAll(generateQuestObjectiveList(player, " ", slot1, phase, ChatColor.GOLD));
 		}
 		
 		if(!slot2.equals("none")) {
-			int phase = PlayerConfigurator.getCharacterQuestPhase(player, slot2);
+			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot2);
 			rowStrings.addAll(generateQuestObjectiveList(player, "  ", slot2, phase, ChatColor.GOLD));
 		}
 		
 		if(!slot3.equals("none")) {
-			int phase = PlayerConfigurator.getCharacterQuestPhase(player, slot3);
+			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot3);
 			rowStrings.addAll(generateQuestObjectiveList(player, "   ", slot3, phase, ChatColor.GOLD));
 		}
 		

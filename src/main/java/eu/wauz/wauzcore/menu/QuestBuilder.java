@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -21,6 +20,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestAccept;
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestCancel;
 import eu.wauz.wauzcore.items.ItemUtils;
@@ -53,38 +53,38 @@ public class QuestBuilder implements WauzInventory {
 		String slot3 = PlayerConfigurator.getCharacterRunningDailyQuest3(player);
 		
 		if(!slotm.equals("none")) {
-			int phase = PlayerConfigurator.getCharacterQuestPhase(player, slotm);
+			int phase = PlayerQuestConfigurator.getQuestPhase(player, slotm);
 			menu.setItem(0, generateQuest(player, slotm, phase, Material.MAGENTA_CONCRETE));
 		}else
 			menu.setItem(0, generateEmptyQust("Main"));
 		
 		if(!cmpn1.equals("none")) {
-			int phase = PlayerConfigurator.getCharacterQuestPhase(player, cmpn1);
+			int phase = PlayerQuestConfigurator.getQuestPhase(player, cmpn1);
 			menu.setItem(1, generateQuest(player, cmpn1, phase, Material.LIGHT_BLUE_CONCRETE));
 		}else
 			menu.setItem(1, generateEmptyQust("Campaign"));
 		
 		if(!cmpn2.equals("none")) {
-			int phase = PlayerConfigurator.getCharacterQuestPhase(player, cmpn2);
+			int phase = PlayerQuestConfigurator.getQuestPhase(player, cmpn2);
 			menu.setItem(2, generateQuest(player, cmpn2, phase, Material.LIGHT_BLUE_CONCRETE));
 		}else
 			menu.setItem(2, generateEmptyQust("Campaign"));
 		
 		
 		if(!slot1.equals("none")) {
-			int phase = PlayerConfigurator.getCharacterQuestPhase(player, slot1);
+			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot1);
 			menu.setItem(3, generateQuest(player, slot1, phase, Material.YELLOW_CONCRETE));
 		}else
 			menu.setItem(3, generateEmptyQust("Daily"));	
 		
 		if(!slot2.equals("none")) {
-			int phase = PlayerConfigurator.getCharacterQuestPhase(player, slot2);
+			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot2);
 			menu.setItem(4, generateQuest(player, slot2, phase, Material.YELLOW_CONCRETE));
 		}else
 			menu.setItem(4, generateEmptyQust("Daily"));
 		
 		if(!slot3.equals("none")) {
-			int phase = PlayerConfigurator.getCharacterQuestPhase(player, slot3);
+			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot3);
 			menu.setItem(5, generateQuest(player, slot3, phase, Material.YELLOW_CONCRETE));
 		}else
 			menu.setItem(5, generateEmptyQust("Daily"));
@@ -155,7 +155,7 @@ public class QuestBuilder implements WauzInventory {
 		for(int level = player.getLevel(); level <= WauzCore.MAX_PLAYER_LEVEL; level++) {
 			List<WauzQuest> quests = WauzQuest.getQuestsForLevel(level);
 			quests = quests.stream()
-					.filter(quest -> StringUtils.equalsAny(PlayerConfigurator.getCharacterQuestPhaseString(player, quest.getQuestName()), "0", null))
+					.filter(quest -> PlayerQuestConfigurator.getQuestPhase(player, quest.getQuestName()) == 0)
 					.filter(quest -> !quest.getType().toUpperCase().equals("MAIN"))
 					.collect(Collectors.toList());
 			
@@ -293,16 +293,16 @@ public class QuestBuilder implements WauzInventory {
 			
 			String questName = ItemUtils.getStringBetweenFromLore(clicked, "Questgiver: ", " at ");
 			WauzQuest quest = WauzQuest.getQuest(questName);
+			int phase = PlayerQuestConfigurator.getQuestPhase(player, questName);
 			
 			if(ItemUtils.doesLoreContain(clicked, "Right Click to Cancel") && event.getClick().toString().contains("RIGHT")) {
 				WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
 				pd.setWauzPlayerEventName("Cancel Quest");
 				pd.setWauzPlayerEvent(new WauzPlayerEventQuestCancel(questName));
 				clicked.setType(Material.WRITABLE_BOOK);
-				WauzDialog.open(player, generateUnacceptedQuest(player, quest, PlayerConfigurator.getCharacterQuestPhase(player, questName), false));
+				WauzDialog.open(player, generateUnacceptedQuest(player, quest, phase, false));
 			}
 			else {
-				int phase = PlayerConfigurator.getCharacterQuestPhase(player, questName);
 				new QuestRequirementChecker(player, quest, phase).trackQuestObjective();
 			}
 		}
@@ -373,33 +373,23 @@ public class QuestBuilder implements WauzInventory {
 		
 // Check Cooldown of Daily-Quests
 		
-		String phaseString = PlayerConfigurator.getCharacterQuestPhaseString(player, questName);
-		if(phaseString == null) {
-			phaseString = "0";
-			PlayerConfigurator.setCharacterQuestPhase(player, questName, 0);
-		}
+		int phase = PlayerQuestConfigurator.getQuestPhase(player, questName);
+		long cooldown = PlayerQuestConfigurator.getQuestCooldown(player, questName);
+		long millis = System.currentTimeMillis() - cooldown;
 		
-		if(phaseString.contains("c")) {
-			String[] parts = phaseString.split(" ");
-			Long old = Long.parseLong(parts[1]);
-			Long now = System.currentTimeMillis();
-
-			if(!((now-old) > 14400000)) {
-				long millis = 14400000 - (now-old);
-				long hours = TimeUnit.MILLISECONDS.toHours(millis);
-				long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
-				
-				if(hours > 0)
-					player.sendMessage(ChatColor.RED + "You have to wait " + (hours + 1) + " hour/s before you can do this quest again!");
-				else
-					player.sendMessage(ChatColor.RED + "You have to wait " + (minutes + 1) + " minute/s before you can do this quest again!");
-				return;
-			}
+		if(phase == 0 && millis < 14400000) {
+			millis = 14400000 - millis;
+			long hours = TimeUnit.MILLISECONDS.toHours(millis);
+			long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
 			
-			PlayerConfigurator.setCharacterQuestPhase(player, questName, 0);	
+			if(hours > 0)
+				player.sendMessage(ChatColor.RED + "You have to wait " + (hours + 1) + " hour/s before you can do this quest again!");
+			else
+				player.sendMessage(ChatColor.RED + "You have to wait " + (minutes + 1) + " minute/s before you can do this quest again!");
+			return;
 		}
 		
-		if(phaseString.contains("done")) {
+		if(!type.equals("daily") && PlayerQuestConfigurator.isQuestCompleted(player, questName)) {
 			List<String> lores = quest.getCompletedDialog();
 			for(String lore : lores) {
 				player.sendMessage((questGiver + lore).replaceAll("player", player.getName()));
@@ -408,7 +398,6 @@ public class QuestBuilder implements WauzInventory {
 		
 		String questDisplayName = quest.getDisplayName();
 		int phaseAmount = quest.getPhaseAmount();
-		int phase = PlayerConfigurator.getCharacterQuestPhase(player, questName);
 		
 		WauzDebugger.log(player, "Phase: " + phase + " / " + phaseAmount);
 		
@@ -417,8 +406,9 @@ public class QuestBuilder implements WauzInventory {
 		if(phase == 0) {
 			WauzPlayerEventQuestAccept event = new WauzPlayerEventQuestAccept(quest, questSlot, questGiver);
 			
-			if(type.equals("main"))
+			if(type.equals("main")) {
 				event.execute(player);
+			}
 			else {
 				WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
 				pd.setWauzPlayerEventName("Accept Quest");
@@ -437,27 +427,28 @@ public class QuestBuilder implements WauzInventory {
 		
 // Complete or Continue Quest-Chain
 		
-		if(phase != phaseAmount) {
+		if(phase < phaseAmount) {
 			try {
 				phase++;
-				PlayerConfigurator.setCharacterQuestPhase(player, questName, phase);
+				PlayerQuestConfigurator.setQuestPhase(player, questName, phase);
 				List<String> lores = quest.getPhaseDialog(phase);
 				for(String lore : lores) {
 					player.sendMessage((questGiver + lore).replaceAll("player", player.getName()));
 				}
-			} catch(Exception e) {
+			}
+			catch(Exception e) {
 				e.printStackTrace();
 				return;
 			}
-		} else {
+		}
+		else {
 			try {
+				PlayerQuestConfigurator.setQuestPhase(player, questName, 0);
 				PlayerConfigurator.setCharacterQuestSlot(player, questSlot, "none");
-				if(type.equals("daily"))
-					PlayerConfigurator.setCharacterQuestCooldown(player, questName);
-				else
-					PlayerConfigurator.setCharacterQuestDone(player, questName);
-				
-				PlayerConfigurator.addCharacterCompletedQuests(player);
+				if(type.equals("daily")) {
+					PlayerQuestConfigurator.setQuestCooldown(player, questName);
+				}
+				PlayerQuestConfigurator.addQuestCompletions(player, questName);
 				player.getWorld().playEffect(player.getLocation(), Effect.DRAGON_BREATH, 0);
 				player.sendMessage(ChatColor.GREEN + "You completed [" + questDisplayName + "]");
 				WauzRewards.level(player, quest.getLevel(), 2.5 * phaseAmount, questLocation);
@@ -466,7 +457,8 @@ public class QuestBuilder implements WauzInventory {
 				for(String lore : lores) {
 					player.sendMessage((questGiver + lore).replaceAll("player", player.getName()));
 				}
-			} catch(Exception e) {
+			}
+			catch(Exception e) {
 				e.printStackTrace();
 				return;
 			}

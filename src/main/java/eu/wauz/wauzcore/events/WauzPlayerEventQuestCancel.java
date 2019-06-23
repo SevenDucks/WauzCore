@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.events;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzQuest;
 import net.md_5.bungee.api.ChatColor;
@@ -51,8 +52,8 @@ public class WauzPlayerEventQuestCancel implements WauzPlayerEvent {
 					questSlot = "quest.running.daily3";
 			}
 			
+			PlayerQuestConfigurator.setQuestPhase(player, questName, 0);
 			PlayerConfigurator.setCharacterQuestSlot(player, questSlot, "none");
-			PlayerConfigurator.setCharacterQuestPhase(player, questName, 0);
 			
 			WauzPlayerScoreboard.scheduleScoreboard(player);
 			player.sendMessage(ChatColor.DARK_PURPLE + "[" + quest.getDisplayName() + "] was canceled!");

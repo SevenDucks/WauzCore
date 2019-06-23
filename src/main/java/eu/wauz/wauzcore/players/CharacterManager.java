@@ -59,27 +59,7 @@ public class CharacterManager {
 		
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			ManaCalculator.updateManaItem(player);
-			
-			ItemStack equipped = new ItemStack(Material.CLOCK);
-			ItemMeta iim = equipped.getItemMeta();
-			iim.setDisplayName(ChatColor.RED + "No Item Equipped");
-			equipped.setItemMeta(iim);
-			player.getInventory().setItem(7, equipped);
-	
-			ItemStack menu = new ItemStack(Material.NETHER_STAR, 1);
-			ItemMeta mim = menu.getItemMeta();
-			mim.setDisplayName(ChatColor.GOLD + "Open Menu");
-			menu.setItemMeta(mim);
-			player.getInventory().setItem(8, menu);
-			
-			ItemStack wmap = new ItemStack(Material.FILLED_MAP, 1);
-			ItemMeta wim = wmap.getItemMeta();
-			wim.setDisplayName(ChatColor.GOLD + "Explorer Map");
-			wmap.setItemMeta(wim);
-			player.getEquipment().setItemInOffHand(wmap);
-			WauzNmsMinimap.init(player);
-			
-			TabardMenu.equipSelectedTabard(player);
+			equipCharacterItems(player);
 			
 			try {
 				WauzPlayerGuild guild = PlayerConfigurator.getGuild(player);
@@ -300,33 +280,15 @@ public class CharacterManager {
 		player.getInventory().clear();
 		
 		if(wauzMode.equals(WauzMode.MMORPG)) {
-			ItemStack equipped = new ItemStack(Material.CLOCK, 1);
-			ItemMeta iim = equipped.getItemMeta();
-			iim.setDisplayName(ChatColor.RED + "No Item Equipped");
-			equipped.setItemMeta(iim);
-			player.getInventory().setItem(7, equipped);
-	
-			ItemStack menu = new ItemStack(Material.NETHER_STAR, 1);
-			ItemMeta mim = menu.getItemMeta();
-			mim.setDisplayName(ChatColor.GOLD + "Open Menu");
-			menu.setItemMeta(mim);
-			player.getInventory().setItem(8, menu);
+			equipCharacterItems(player);
 			
-			ItemStack wmap = new ItemStack(Material.FILLED_MAP, 1);
-			ItemMeta wim = wmap.getItemMeta();
-			wim.setDisplayName(ChatColor.GOLD + "Explorer Map");
-			wmap.setItemMeta(wim);
-			player.getEquipment().setItemInOffHand(wmap);
-			WauzNmsMinimap.init(player);
-			
-			TabardMenu.equipSelectedTabard(player);
-			
-			if(characterWorld == "Wauzland")
+			if(characterWorld.equals("Wauzland")) {
 				QuestBuilder.accept(player, "Yamir");
-			
+			}
 			try {
 				WauzRewards.daily(player);
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -336,6 +298,29 @@ public class CharacterManager {
 		player.setCompassTarget(spawn);
 		player.setBedSpawnLocation(spawn, true);
 		player.teleport(spawn);
+	}
+	
+	private static void equipCharacterItems(Player player) {
+		ItemStack equipped = new ItemStack(Material.CLOCK);
+		ItemMeta iim = equipped.getItemMeta();
+		iim.setDisplayName(ChatColor.RED + "No Item Equipped");
+		equipped.setItemMeta(iim);
+		player.getInventory().setItem(7, equipped);
+
+		ItemStack menu = new ItemStack(Material.NETHER_STAR);
+		ItemMeta mim = menu.getItemMeta();
+		mim.setDisplayName(ChatColor.GOLD + "Open Menu");
+		menu.setItemMeta(mim);
+		player.getInventory().setItem(8, menu);
+		
+		ItemStack wmap = new ItemStack(Material.FILLED_MAP);
+		ItemMeta wim = wmap.getItemMeta();
+		wim.setDisplayName(ChatColor.GOLD + "Explorer Map");
+		wmap.setItemMeta(wim);
+		player.getEquipment().setItemInOffHand(wmap);
+		WauzNmsMinimap.init(player);
+		
+		TabardMenu.equipSelectedTabard(player);
 	}
 
 }

@@ -2,14 +2,14 @@ package eu.wauz.wauzcore.data;
 
 import java.util.List;
 
-import eu.wauz.wauzcore.data.api.ConfigurationUtils;
+import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 
-public class QuestConfigurator extends ConfigurationUtils {
+public class QuestConfigurator extends GlobalConfigurationUtils {
 	
 // Quest Files
 	
 	public static List<String> getQuestNameList() {
-		return ConfigurationUtils.getQuestNameList();
+		return GlobalConfigurationUtils.getQuestNameList();
 	}
 
 // General Parameters

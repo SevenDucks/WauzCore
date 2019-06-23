@@ -4,18 +4,18 @@ import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.data.api.ConfigurationUtils;
+import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
 
-public class GuildConfigurator extends ConfigurationUtils {
+public class GuildConfigurator extends PlayerConfigurationUtils {
 
 // Guild Files
 	
 	public static List<String> getGuildUuidList() {
-		return ConfigurationUtils.getGuildUuidList();
+		return PlayerConfigurationUtils.getGuildUuidList();
 	}
 	
 	public static void deleteGuild(String guild) {
-		ConfigurationUtils.deleteGuild(guild);
+		PlayerConfigurationUtils.deleteGuild(guild);
 	}
 	
 // General Parameters

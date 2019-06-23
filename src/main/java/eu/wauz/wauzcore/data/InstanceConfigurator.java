@@ -6,10 +6,10 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.World;
 
-import eu.wauz.wauzcore.data.api.ConfigurationUtils;
+import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 import net.md_5.bungee.api.ChatColor;
 
-public class InstanceConfigurator extends ConfigurationUtils {
+public class InstanceConfigurator extends GlobalConfigurationUtils {
 	
 // Command Strings
 	

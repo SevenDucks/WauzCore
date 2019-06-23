@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzQuest;
 import net.md_5.bungee.api.ChatColor;
@@ -27,8 +28,8 @@ public class WauzPlayerEventQuestAccept implements WauzPlayerEvent {
 	public boolean execute(Player player) {
 		try {
 			String questName = quest.getQuestName();
+			PlayerQuestConfigurator.setQuestPhase(player, questName, 1);
 			PlayerConfigurator.setCharacterQuestSlot(player, questSlot, questName);
-			PlayerConfigurator.setCharacterQuestPhase(player, questName, 1);
 			
 			List<String> lores = quest.getPhaseDialog(1);
 			for(String lore : lores) {

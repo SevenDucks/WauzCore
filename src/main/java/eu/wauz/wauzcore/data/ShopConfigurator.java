@@ -2,9 +2,9 @@ package eu.wauz.wauzcore.data;
 
 import java.util.List;
 
-import eu.wauz.wauzcore.data.api.ConfigurationUtils;
+import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 
-public class ShopConfigurator extends ConfigurationUtils {
+public class ShopConfigurator extends GlobalConfigurationUtils {
 	
 // General Parameters
 	

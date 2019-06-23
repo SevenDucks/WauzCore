@@ -4,11 +4,11 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.api.ConfigurationUtils;
+import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
-public class PlayerConfigurator extends ConfigurationUtils {
+public class PlayerConfigurator extends PlayerConfigurationUtils {
 	
 // General Parameters
 	
@@ -284,7 +284,15 @@ public class PlayerConfigurator extends ConfigurationUtils {
 		playerConfigSet(player, "options.hideCompletedQuests", value, true);
 	}
 	
-// Quests - Quest Slots
+// Quests
+	
+	public static long getCharacterCompletedQuests(Player player) {
+		return playerConfigGetLong(player, "quest.completed", true);
+	}
+	
+	public static void addCharacterCompletedQuests(Player player) {
+		playerConfigSet(player, "quest.completed", getCharacterCompletedQuests(player) + 1, true);
+	}
 	
 	public static void setCharacterQuestSlot(Player player, String questSlot, String questName) {
 		playerConfigSet(player, questSlot, questName, true);
@@ -312,36 +320,6 @@ public class PlayerConfigurator extends ConfigurationUtils {
 	
 	public static String getCharacterRunningDailyQuest3(Player player) {
 		return playerConfigGetString(player, "quest.running.daily3", true);
-	}
-	
-// Quests - Progress
-	
-	public static long getCharacterCompletedQuests(Player player) {
-		return playerConfigGetLong(player, "quest.completed", true);
-	}
-	
-	public static void addCharacterCompletedQuests(Player player) {
-		playerConfigSet(player, "quest.completed", getCharacterCompletedQuests(player) + 1, true);
-	}
-	
-	public static int getCharacterQuestPhase(Player player, String questName) {
-		return playerConfigGetInt(player, "quest." + questName, true);
-	}
-	
-	public static String getCharacterQuestPhaseString(Player player, String questName) {
-		return playerConfigGetString(player, "quest." + questName, true);
-	}
-	
-	public static void setCharacterQuestPhase(Player player, String questName, int phase) {
-		playerConfigSet(player, "quest." + questName, phase, true);
-	}
-	
-	public static void setCharacterQuestCooldown(Player player, String questName) {
-		playerConfigSet(player, "quest." + questName, "c " + System.currentTimeMillis(), true);
-	}
-	
-	public static void setCharacterQuestDone(Player player, String questName) {
-		playerConfigSet(player, "quest." + questName, "done", true);
 	}
 	
 // Pets

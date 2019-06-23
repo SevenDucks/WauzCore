@@ -4,7 +4,7 @@ Patch 506: Menacing Mobs
 	New Feature: Equip Rarity Modifiers
 	  - 1 in 150 Chance to occur
 	  - Primal, increases Stats beyond Maximum
-	  - Stable, lower Stats, but infinite Durability
+	  - Stable, low Stats, but infinite Durability
 
 	New Feature: Menacing Modifiers
 	  - Some Mobs can spawn in Menacing Variants
