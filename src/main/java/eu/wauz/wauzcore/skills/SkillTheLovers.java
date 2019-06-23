@@ -10,8 +10,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.execution.SkillParticle;
 
 public class SkillTheLovers implements WauzPlayerSkill {
 	
@@ -50,11 +50,11 @@ public class SkillTheLovers implements WauzPlayerSkill {
 			if(!block.getType().equals(Material.AIR)) break;
 		}
 		
-		List<Entity> targets = WauzPlayerSkillMechanics.getTargetsInRadius(location, 5);
-		WauzPlayerSkillMechanics.spawnParticleHelix(location, new WauzPlayerSkillParticle(Particle.SMOKE_NORMAL), 1.5, 3.5);
+		List<Entity> targets = SkillUtils.getTargetsInRadius(location, 5);
+		SkillUtils.spawnParticleHelix(location, new SkillParticle(Particle.SMOKE_NORMAL), 1.5, 3.5);
 		for(Entity target : targets) {
-			WauzPlayerSkillMechanics.spawnParticleLine(target.getLocation(), location, new WauzPlayerSkillParticle(Particle.CRIT_MAGIC), 3);
-			WauzPlayerSkillMechanics.throwEntity(target, location);
+			SkillUtils.spawnParticleLine(target.getLocation(), location, new SkillParticle(Particle.CRIT_MAGIC), 3);
+			SkillUtils.throwEntity(target, location);
 		}
 		return targets.size() > 0;
 	}

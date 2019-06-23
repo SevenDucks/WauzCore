@@ -75,7 +75,7 @@ import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;
+import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
@@ -182,7 +182,7 @@ public class WauzListener implements Listener {
 			Location location = player.getLocation();
 			player.setVelocity(location.getDirection().multiply(1.2).setY(1.2));
 			location.getWorld().playSound(location, Sound.ENTITY_BLAZE_SHOOT, 1, 0.2f);
-			new WauzPlayerSkillParticle(Particle.CLOUD).spawn(location, 20);
+			new SkillParticle(Particle.CLOUD).spawn(location, 20);
 		}
 	}
 	

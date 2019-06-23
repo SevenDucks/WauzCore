@@ -1,8 +1,26 @@
 Patch 50X: Rapid Racing
 
 Patch 506: Menacing Mobs
+	New Feature: Equip Rarity Modifiers
+	  - 1 in 150 Chance to occur
+	  - Primal, increases Stats beyond Maximum
+	  - Stable, lower Stats, but infinite Durability
+
+	New Feature: Menacing Modifiers
+	  - Some Mobs can spawn in Menacing Variants
+	  - Shown by Golden Glow and Healthbar
+	  - Menacing Mobs have 1 to 2 Prefixes / Mods
+	  
+	Added Mob Modifiers
+	  - Explosive, Explodes on Death
+	  - Deflecting, Knocks back Attacker when hit
+	  - Massive, Only takes 20% of Damage
+	  - Ravenous, Chases Player with 200% Speed
+	  - Splitting, Splits into 4 Mobs on Death
+
 	Miscellaneous
 	  - Item Rarity shown with Diamond Icons
+	  - New Enemy Health Bars
 	  - Minimap (Unstable Beta)
 
 Patch 505: Graceful Guilds

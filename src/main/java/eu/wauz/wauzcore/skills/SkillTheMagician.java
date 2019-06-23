@@ -9,7 +9,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
 
 public class SkillTheMagician implements WauzPlayerSkill {
 	
@@ -48,9 +48,9 @@ public class SkillTheMagician implements WauzPlayerSkill {
 			if(!block.getType().equals(Material.AIR)) break;
 		}
 		
-		List<Entity> targets = WauzPlayerSkillMechanics.getTargetsInRadius(location, 4);
-		WauzPlayerSkillMechanics.createExplosion(location, 8);
-		WauzPlayerSkillMechanics.callPlayerMagicDamageEvent(player, targets, 1.5);
+		List<Entity> targets = SkillUtils.getTargetsInRadius(location, 4);
+		SkillUtils.createExplosion(location, 8);
+		SkillUtils.callPlayerMagicDamageEvent(player, targets, 1.5);
 		
 		return targets.size() > 0;
 	}

@@ -29,7 +29,7 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Cooldown;
@@ -94,6 +94,10 @@ public class DamageCalculator {
 		else {
 			multiplier += Chance.negativePositive(0.15f);
 		}
+		
+		if(entity.hasMetadata("wzModMassive"))
+			multiplier = 0.2f * multiplier;
+		
 		WauzDebugger.log(player, "Randomized Multiplier: " + formatter.format(multiplier) + (isCritical ? " CRIT" : ""));
 		damage = (int) ((float) damage * (float) multiplier);
 		damage = damage < 1 ? 1 : damage;
@@ -101,6 +105,9 @@ public class DamageCalculator {
 		removeDamageModifiers(event);
 		
 		ValueIndicator.spawnDamageIndicator(event.getEntity(), damage, isCritical);
+		
+		if(entity.hasMetadata("wzModDeflecting"))
+			SkillUtils.throwBackEntity(player, entity.getLocation(), 1.2);
 		
 		WauzDebugger.log(player, "You inflicted " + damage + " (" + unmodifiedDamage + ") damage!");
 		WauzDebugger.log(player, "Cause: " + event.getCause() + " " + event.getFinalDamage());
@@ -118,7 +125,7 @@ public class DamageCalculator {
 			
 			if(reflectionDamage > 0) {
 				WauzDebugger.log(player, "Reflecting " + reflectionDamage + " damage!");
-				WauzPlayerSkillMechanics.callPlayerFixedDamageEvent(player, damagable, reflectionDamage);
+				SkillUtils.callPlayerFixedDamageEvent(player, damagable, reflectionDamage);
 			}
 		}
 	}

@@ -22,8 +22,8 @@ import org.bukkit.util.Vector;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.ArrowMenu;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.util.Cooldown;
@@ -102,7 +102,7 @@ public class CustomWeaponBow {
 	        public void run() {
 	        	try {
 	        		if(arrow != null && !arrow.isOnGround() && arrow.isValid()) {
-	        			new WauzPlayerSkillParticle(color).spawn(arrow.getLocation(), 1);
+	        			new SkillParticle(color).spawn(arrow.getLocation(), 1);
 	        			spawnArrowTrail(arrow, color);
 	        		}
 	        	}
@@ -140,33 +140,33 @@ public class CustomWeaponBow {
 		
 		if(arrowType.equals("normal")) {
 			WauzDebugger.log(player, "Normal Arrow Hit");
-			WauzPlayerSkillMechanics.callPlayerFixedDamageEvent(player, entity, arrowDamage);
+			SkillUtils.callPlayerFixedDamageEvent(player, entity, arrowDamage);
 		}
 		else if(arrowType.equals("reinforced")) {
 			WauzDebugger.log(player, "Reinforced Arrow Hit");
-			WauzPlayerSkillMechanics.callPlayerFixedDamageEvent(player, entity, arrowDamage * 2);
+			SkillUtils.callPlayerFixedDamageEvent(player, entity, arrowDamage * 2);
 		}
 		else if(arrowType.equals("fire")) {
 			WauzDebugger.log(player, "Fire Arrow Hit");
-			WauzPlayerSkillMechanics.callPlayerFixedDamageEvent(player, entity, arrowDamage);
-			WauzPlayerSkillMechanics.callPlayerDamageOverTimeEvent(player, entity, Color.ORANGE, arrowDamage / 2 + 1, 5, 20);
+			SkillUtils.callPlayerFixedDamageEvent(player, entity, arrowDamage);
+			SkillUtils.callPlayerDamageOverTimeEvent(player, entity, Color.ORANGE, arrowDamage / 2 + 1, 5, 20);
 		}
 		else if(arrowType.equals("ice")) {
 			WauzDebugger.log(player, "Ice Arrow Hit");
-			WauzPlayerSkillMechanics.callPlayerFixedDamageEvent(player, entity, arrowDamage);
-			WauzPlayerSkillMechanics.callPlayerDamageOverTimeEvent(player, entity, Color.AQUA, 0, 5, 20);
-			WauzPlayerSkillMechanics.addPotionEffect(entity, PotionEffectType.SLOW, 6, 2);
+			SkillUtils.callPlayerFixedDamageEvent(player, entity, arrowDamage);
+			SkillUtils.callPlayerDamageOverTimeEvent(player, entity, Color.AQUA, 0, 5, 20);
+			SkillUtils.addPotionEffect(entity, PotionEffectType.SLOW, 6, 2);
 		}
 		else if(arrowType.equals("shock")) {
 			WauzDebugger.log(player, "Shock Arrow Hit");
-			WauzPlayerSkillMechanics.callPlayerFixedDamageEvent(player, entity, arrowDamage);
-			WauzPlayerSkillMechanics.throwBackEntity(entity, arrow.getLocation(), 2);
+			SkillUtils.callPlayerFixedDamageEvent(player, entity, arrowDamage);
+			SkillUtils.throwBackEntity(entity, arrow.getLocation(), 2);
 		}
 		else if(arrowType.equals("bomb")) {
 			WauzDebugger.log(player, "Bomb Arrow Hit");
-			List<Entity> targets = WauzPlayerSkillMechanics.getTargetsInRadius(entity.getLocation(), 2.5);
-			WauzPlayerSkillMechanics.callPlayerFixedDamageEvent(player, targets, arrowDamage);
-			WauzPlayerSkillMechanics.createExplosion(entity.getLocation(), 5);
+			List<Entity> targets = SkillUtils.getTargetsInRadius(entity.getLocation(), 2.5);
+			SkillUtils.callPlayerFixedDamageEvent(player, targets, arrowDamage);
+			SkillUtils.createExplosion(entity.getLocation(), 5);
 		}
 	}
 

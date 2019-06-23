@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
 
 public class SkillTheWorld implements WauzPlayerSkill {
 	
@@ -42,12 +42,12 @@ public class SkillTheWorld implements WauzPlayerSkill {
 	@Override
 	public boolean executeSkill(final Player player) {
 		Location location = player.getLocation();
-		WauzPlayerSkillMechanics.throwEntityIntoAir(player, 0.6);
+		SkillUtils.throwEntityIntoAir(player, 0.6);
 		
-		List<Entity> targets = WauzPlayerSkillMechanics.getTargetsInRadius(location, 6);
-		WauzPlayerSkillMechanics.addPotionEffect(targets, PotionEffectType.SLOW, 5, 200);
-		WauzPlayerSkillMechanics.addPotionEffect(targets, PotionEffectType.JUMP, 5, 200);
-		WauzPlayerSkillMechanics.addPotionEffect(targets, PotionEffectType.GLOWING, 5, 200);
+		List<Entity> targets = SkillUtils.getTargetsInRadius(location, 6);
+		SkillUtils.addPotionEffect(targets, PotionEffectType.SLOW, 5, 200);
+		SkillUtils.addPotionEffect(targets, PotionEffectType.JUMP, 5, 200);
+		SkillUtils.addPotionEffect(targets, PotionEffectType.GLOWING, 5, 200);
 		
 		return targets.size() > 0;
 	}

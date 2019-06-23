@@ -7,14 +7,18 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.skills.execution.SkillParticle;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
@@ -49,6 +53,8 @@ public class WauzPlayerBossBar {
 	
 	private BossBar bossBar;
 	
+	private SkillParticle particle = null;
+	
 	public WauzPlayerBossBar(Entity entity, List<String> modifiers, double maxHealth, boolean raidBoss) {
 		if(!(entity instanceof Damageable))
 			return;
@@ -59,12 +65,16 @@ public class WauzPlayerBossBar {
 		this.maxHealth = maxHealth;
 		
 		BarColor barColor;
-		if(raidBoss)
+		if(raidBoss) {
 			barColor = BarColor.PINK;
-		else if(modifiers.size() > 0)
+		}
+		else if(modifiers.size() > 0) {
 			barColor = BarColor.YELLOW;
-		else
+			particle = new SkillParticle(Color.ORANGE);
+		}
+		else {
 			barColor = BarColor.RED;
+		}
 		
 		bossBar = Bukkit.createBossBar(getTitle((int) Math.ceil(damageable.getHealth())), barColor, BarStyle.SEGMENTED_6);
 		bossBar.setProgress(1);
@@ -128,6 +138,10 @@ public class WauzPlayerBossBar {
 	        					bossBarPlayerLinks.remove(player);
 	        				}
 	        			}
+	        			if(particle != null)
+	        				SkillUtils.spawnParticleCircle(damageable.getLocation(), particle, 1, 8);
+	        			if(damageable.hasMetadata("wzModRavenous"))
+	        				SkillUtils.addPotionEffect(damageable, PotionEffectType.SPEED, 2, 4);
 	        			doPlayerChecks();
 	        		}
 	        		else {

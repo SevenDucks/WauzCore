@@ -56,7 +56,7 @@ public class WauzPlayerSkillExecutor {
 			message += player.getName() + " casted (" + skill.getSkillId() + ")";
 			message += success ? " Hit!" : " Miss!";
 			
-			for(Player playerInRadius : WauzPlayerSkillMechanics.getPlayersInRadius(player.getLocation(), 24)) {
+			for(Player playerInRadius : SkillUtils.getPlayersInRadius(player.getLocation(), 24)) {
 				playerInRadius.sendMessage(message);
 			}
 			

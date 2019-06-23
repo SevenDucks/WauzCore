@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import net.md_5.bungee.api.ChatColor;
@@ -51,7 +51,7 @@ public class DungeonItemBombBag {
 						entity.getCustomName() != null &&
 						entity.getCustomName().contains("" + ChatColor.AQUA)) {
 					
-					WauzPlayerSkillMechanics.throwBackEntity(entity, centerLocation, 1.2);
+					SkillUtils.throwBackEntity(entity, centerLocation, 1.2);
 					
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			            public void run() {

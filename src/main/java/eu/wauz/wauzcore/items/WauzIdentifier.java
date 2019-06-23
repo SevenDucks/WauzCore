@@ -43,53 +43,75 @@ public class WauzIdentifier {
 		String verb = equipNames.get(random.nextInt(equipNames.size()));
 		int rarity = random.nextInt(1000);
 	
-		String identifiedName = null;
-
 // Set Item Material
 		
-		double power = 0;
+		double typeMultiplicator = 0;
 		Equipment equip = material.get(random.nextInt(material.size()));
 		
 		itemStack.setType(equip.getMaterial());
-		power = equip.getDamage();
+		typeMultiplicator = equip.getDamage();
+		
+		ItemMeta im = itemStack.getItemMeta();
 		
 // Set Item Rarity
 		
-		String rareName = null;
-		String rareStars = null;
+		String rareName;
+		String rareStars = "";
 		String x = ChatFormatter.ICON_DIAMS;
 		ChatColor color = null;
-		double rare = 0;
+		double rarityMultiplicator = 0;
+		double baseMultiplicator;
+		
+		if(Chance.oneIn(150)) {
+			if(Chance.oneIn(2)) {
+				rareName = "Primal ";
+				rareStars = "" + ChatColor.RED;
+				baseMultiplicator = 3.5;
+			}
+			else {
+				rareName = "Stable ";
+				rareStars = "" + ChatColor.DARK_AQUA;
+				baseMultiplicator = 1.5;
+				
+				im.setUnbreakable(true);
+				im.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+			}
+		}
+		else {
+			rareName = "";
+			rareStars = "" + ChatColor.YELLOW;
+			baseMultiplicator = 2 + random.nextDouble();
+		}
 		
 		if(rarity <= 550) {
 			color = ChatColor.GREEN;
-			rareName = "Normal ";
-			rareStars = ChatColor.YELLOW +x + ChatColor.GRAY +x +x +x +x;
-			rare = 1.00;
+			rareName += "Normal ";
+			rareStars += x + ChatColor.GRAY +x +x +x +x;
+			rarityMultiplicator = 1.00;
 		}
 		else if(rarity <= 800) {
 			color = ChatColor.BLUE;
-			rareName = "Magic ";
-			rareStars = ChatColor.YELLOW +x +x + ChatColor.GRAY +x +x +x;
-			rare = 1.50;
+			rareName += "Magic ";
+			rareStars += x +x + ChatColor.GRAY +x +x +x;
+			rarityMultiplicator = 1.50;
 		}
 		else if(rarity <= 920) {
 			color = ChatColor.GOLD;
-			rareName = "Rare ";
-			rareStars = ChatColor.YELLOW +x +x +x + ChatColor.GRAY +x +x;
-			rare = 2.00;
+			rareName += "Rare ";
+			rareStars += x +x +x + ChatColor.GRAY +x +x;
+			rarityMultiplicator = 2.00;
 		}
 		else if(rarity <= 975) {
 			color = ChatColor.DARK_PURPLE;
-			rareName = "Epic ";
-			rareStars = ChatColor.YELLOW +x +x +x +x + ChatColor.GRAY +x;
-			rare = 2.50;
+			rareName += "Epic ";
+			rareStars += x +x +x +x + ChatColor.GRAY +x;
+			rarityMultiplicator = 2.50;
 		}
 		else if(rarity <= 999) {
 			color = ChatColor.DARK_RED;
-			rareName = "Unique ";
-			rareStars = ChatColor.YELLOW +x +x +x +x +x;
-			rare = 3.00;
+			rareName += "Unique ";
+			rareStars += x +x +x +x +x;
+			rarityMultiplicator = 3.00;
 		}
 		
 // Set Item Tier
@@ -110,17 +132,11 @@ public class WauzIdentifier {
 			tierName = "Angelic" + ChatColor.GRAY + " T3 " + ChatColor.WHITE;
 		}
 		
-// Generate Identified Item
-	
-		identifiedName =  color + verb + equip.getName();
-		
-		ItemMeta im = itemStack.getItemMeta();
-		im.setDisplayName(identifiedName);
-		
-		double randomizer = random.nextDouble();
-		int attack = (int) (((2+randomizer)*(power))*((Math.pow(2, tier))*rare));
+		im.setDisplayName(color + verb + equip.getName());	
 		
 // Scaling and Main Stat
+		
+		int attack = (int) ((double) (baseMultiplicator) * (double) (typeMultiplicator) * (double) (Math.pow(2, tier)) * (double) (rarityMultiplicator));
 		
 		List<String> lores = new ArrayList<String>();
 		
@@ -228,16 +244,16 @@ public class WauzIdentifier {
 			lores.add(ChatColor.GRAY + "Click while Sneaking to switch Arrows");
 			lores.add(ChatColor.GRAY + "Right Click to shoot Arrows");
 		}
-		else if(rare >= 1.5) {
+		else if(rarityMultiplicator >= 1.5) {
 			if(equip.getType().equals("Weapon") && Chance.oneIn(2)) {
 				lores.add("");
 				lores.add(EMPTY_SKILL_SLOT);
 			}
 		}
-		if(rare >= 1.5)	{
+		if(rarityMultiplicator >= 1.5)	{
 			lores.add("");
 			lores.add(EMPTY_RUNE_SLOT);
-			if(rare >= 2.5)
+			if(rarityMultiplicator >= 2.5)
 				lores.add(EMPTY_RUNE_SLOT);
 		}
 		

@@ -9,8 +9,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.execution.SkillParticle;
 
 public class SkillTheEmpress implements WauzPlayerSkill {
 	
@@ -43,7 +43,7 @@ public class SkillTheEmpress implements WauzPlayerSkill {
 
 	@Override
 	public boolean executeSkill(final Player player) {
-		Entity target = WauzPlayerSkillMechanics.getTargetInLine(player, 5);
+		Entity target = SkillUtils.getTargetInLine(player, 5);
 		
 		if(target != null) {
 			lightningChain(player, player, target, 3, new ArrayList<Entity>());
@@ -58,12 +58,12 @@ public class SkillTheEmpress implements WauzPlayerSkill {
 		originLocation.setY(originLocation.getY() + 1);
 		targetLocation.setY(targetLocation.getY() + 1);
 		
-		WauzPlayerSkillMechanics.spawnParticleLine(originLocation, targetLocation, new WauzPlayerSkillParticle(Particle.SPELL_WITCH), 3);
-		WauzPlayerSkillMechanics.callPlayerMagicDamageEvent(player, target, 2);
+		SkillUtils.spawnParticleLine(originLocation, targetLocation, new SkillParticle(Particle.SPELL_WITCH), 3);
+		SkillUtils.callPlayerMagicDamageEvent(player, target, 2);
 		
 		if(remainingChains > 0) {
 			excludes.add(target);
-			List<Entity> nextTargets = WauzPlayerSkillMechanics.getTargetsInRadius(target.getLocation(), 5, excludes);
+			List<Entity> nextTargets = SkillUtils.getTargetsInRadius(target.getLocation(), 5, excludes);
 			if(nextTargets.size() > 0)
 				lightningChain(player, target, nextTargets.get(0), remainingChains - 1, excludes);
 		}

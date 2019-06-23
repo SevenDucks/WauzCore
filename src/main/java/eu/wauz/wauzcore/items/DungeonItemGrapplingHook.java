@@ -13,7 +13,7 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class DungeonItemGrapplingHook {
@@ -40,7 +40,7 @@ public class DungeonItemGrapplingHook {
 		}
 
 		player.teleport(player.getLocation().add(0, 0.5, 0));
-		final Vector vector = WauzPlayerSkillMechanics.getVectorForPoints(player.getLocation(), target);
+		final Vector vector = SkillUtils.getVectorForPoints(player.getLocation(), target);
 		event.getEntity().setVelocity(vector);
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
@@ -64,11 +64,11 @@ public class DungeonItemGrapplingHook {
 						entity.getCustomName().contains("" + ChatColor.AQUA)) {
 					
 					entity.teleport(entity.getLocation().add(0, 0.5, 0));
-					event.getEntity().setVelocity(WauzPlayerSkillMechanics.getVectorForPoints(player.getLocation(), entity.getLocation()));
+					event.getEntity().setVelocity(SkillUtils.getVectorForPoints(player.getLocation(), entity.getLocation()));
 					
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			            public void run() {
-			            	entity.setVelocity(WauzPlayerSkillMechanics.getVectorForPoints(entity.getLocation(), player.getLocation()));
+			            	entity.setVelocity(SkillUtils.getVectorForPoints(entity.getLocation(), player.getLocation()));
 			            	event.getEntity().remove();
 			            }
 					}, 10);	

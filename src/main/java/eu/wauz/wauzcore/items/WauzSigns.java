@@ -19,8 +19,8 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.RegionConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
@@ -181,7 +181,7 @@ public class WauzSigns {
 	    				entity.remove();
 	    			}
 	    			else {
-	    				WauzPlayerSkillMechanics.spawnParticleHelix(entity.getLocation(), new WauzPlayerSkillParticle(Particle.PORTAL), 1.5, 5);
+	    				SkillUtils.spawnParticleHelix(entity.getLocation(), new SkillParticle(Particle.PORTAL), 1.5, 5);
 	    			}
 
 	        		atTravelDestination(entity, targetLocation);

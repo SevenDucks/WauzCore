@@ -11,8 +11,8 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.execution.SkillParticle;
 
 public class SkillTheHighPriestess implements WauzPlayerSkill {
 	
@@ -45,12 +45,12 @@ public class SkillTheHighPriestess implements WauzPlayerSkill {
 
 	@Override
 	public boolean executeSkill(final Player player) {
-		List<Player> targets = WauzPlayerSkillMechanics.getPlayersInRadius(player.getLocation(), 6);
+		List<Player> targets = SkillUtils.getPlayersInRadius(player.getLocation(), 6);
 		for(Player target : targets) {
 			WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
 			if(pd == null) continue;
 			
-			WauzPlayerSkillMechanics.spawnParticleHelix(target.getLocation(), new WauzPlayerSkillParticle(Particle.HEART), 1, 3.5);
+			SkillUtils.spawnParticleHelix(target.getLocation(), new SkillParticle(Particle.HEART), 1, 3.5);
 			
 			EntityRegainHealthEvent event = new EntityRegainHealthEvent(target, pd.getMaxHealth() / 5, RegainReason.MAGIC);
 			DamageCalculator.heal(event);

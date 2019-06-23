@@ -5,17 +5,17 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 
-public class WauzPlayerSkillParticle {
+public class SkillParticle {
 	
 	Particle particle;
 	
 	Color color;
 	
-	public WauzPlayerSkillParticle(Particle particle) {
+	public SkillParticle(Particle particle) {
 		this.particle = particle;
 	}
 	
-	public WauzPlayerSkillParticle(Color color) {
+	public SkillParticle(Color color) {
 		this.color = color;
 	}
 	

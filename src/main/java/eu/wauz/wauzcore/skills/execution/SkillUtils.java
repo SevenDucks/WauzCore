@@ -7,6 +7,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
@@ -16,13 +17,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
-public class WauzPlayerSkillMechanics {
+public class SkillUtils {
 	
 	public static Entity getTargetInLine(Player player, int range) {
 		Entity target = null;
@@ -72,7 +74,7 @@ public class WauzPlayerSkillMechanics {
 	public static void addPotionEffect(Entity entity, PotionEffectType potionEffectType,  int duration, int amplifier) {
 		if(entity instanceof LivingEntity) {
 			PotionEffect potionEffect = new PotionEffect(potionEffectType, duration * 20, amplifier);
-			((LivingEntity) entity).addPotionEffect(potionEffect);
+			((LivingEntity) entity).addPotionEffect(potionEffect, true);
 		}
 	}
 	
@@ -96,9 +98,9 @@ public class WauzPlayerSkillMechanics {
 	
 	public static void callPlayerFixedDamageEvent(Player player, Entity entity, double damage) {
 		if(entity instanceof Damageable && player.getWorld().equals(entity.getWorld())) {
-			Damageable damagable = (Damageable) entity;
-			damagable.setMetadata("wzFixedDmg", new FixedMetadataValue(WauzCore.getInstance(), true));
-			damagable.damage(damage, player);
+			Damageable damageable = (Damageable) entity;
+			damageable.setMetadata("wzFixedDmg", new FixedMetadataValue(WauzCore.getInstance(), true));
+			damageable.damage(damage, player);
 		}
 	}
 	
@@ -107,7 +109,7 @@ public class WauzPlayerSkillMechanics {
 	        public void run() {
 	        	try {
 	        		if(player != null && player.isValid() && entity != null && entity.isValid()) {
-	        			spawnParticleHelix(entity.getLocation(), new WauzPlayerSkillParticle(color), 0.5, 2.5);
+	        			spawnParticleHelix(entity.getLocation(), new SkillParticle(color), 0.5, 2.5);
 	        			if(damage > 0)
 	        				callPlayerFixedDamageEvent(player, entity, damage);
 	        			if(ticks - 1 > 0)
@@ -121,7 +123,7 @@ public class WauzPlayerSkillMechanics {
 		}, interval);
 	}
 	
-	public static void spawnParticleLine(Location origin, Location target, WauzPlayerSkillParticle particle, int amount) {
+	public static void spawnParticleLine(Location origin, Location target, SkillParticle particle, int amount) {
         Vector targetVector = target.toVector();
         origin.setDirection(targetVector.subtract(origin.toVector()));
         
@@ -135,7 +137,19 @@ public class WauzPlayerSkillMechanics {
         }
 	}
 	
-	public static void spawnParticleHelix(Location origin, WauzPlayerSkillParticle particle, double radius, double height) {
+	public static void spawnParticleCircle(Location origin, SkillParticle particle, double radius, int amount) {
+		World world = origin.getWorld();
+        double increment = (2 * Math.PI) / amount;
+        for(int i = 0; i < amount; i++)
+        {
+            double angle = i * increment;
+            double x = origin.getX() + (radius * Math.cos(angle));
+            double z = origin.getZ() + (radius * Math.sin(angle));
+            particle.spawn(new Location(world, x, origin.getY() + 0.5, z), 1);
+        }
+	}
+	
+	public static void spawnParticleHelix(Location origin, SkillParticle particle, double radius, double height) {
 		for(double y = 0; y <= height; y += 0.1) {
 			double x = radius * Math.cos(y * 5);
 			double z = radius * Math.sin(y * 5);
@@ -143,6 +157,29 @@ public class WauzPlayerSkillMechanics {
 			Location location = new Location(origin.getWorld(), origin.getX() + x, origin.getY() + y, origin.getZ() + z);
 			particle.spawn(location, 1);
 		}
+	}
+	
+	public static void spawnParticleWave(Location origin, SkillParticle particle, double length){
+		new BukkitRunnable(){
+			
+			double t = Math.PI / 4;
+			
+			public void run(){
+				t = t + 0.1 * Math.PI;
+				for (double theta = 0; theta <= 2 * Math.PI; theta = theta + Math.PI / 8) {
+					double x = t * Math.cos(theta);
+					double y = 2 * Math.exp(- 0.1 * t) * Math.sin(t) + 1.5;
+					double z = t * Math.sin(theta);
+					origin.add(x,y,z);
+					particle.spawn(origin, 1);
+					origin.subtract(x,y,z);
+				}
+				if (t > length){
+					this.cancel();
+				}
+			}
+			
+		}.runTaskTimer(WauzCore.getInstance(), 0, 1);
 	}
 	
 	public static void createExplosion(Location location, float power) {
@@ -194,5 +231,32 @@ public class WauzPlayerSkillMechanics {
 		double vZ = (intensity / t) * (l1.getZ() - l2.getZ());
 		return new Vector(vX, intensity / 3.0, vZ);
     }
+	
+//	public static final Vector rotateVectorAroundAxisX(Vector v, double angle) {
+//		double y, z, cos, sin;
+//		cos = Math.cos(angle);
+//		sin = Math.sin(angle);
+//		y = v.getY() * cos - v.getZ() * sin;
+//		z = v.getY() * sin + v.getZ() * cos;
+//		return v.setY(y).setZ(z);
+//	}
+//	
+//	public static final Vector rotateVectorAroundAxisY(Vector v, double angle) {
+//		double x, z, cos, sin;
+//		cos = Math.cos(angle);
+//		sin = Math.sin(angle);
+//		x = v.getX() * cos + v.getZ() * sin;
+//		z = v.getX() * -sin + v.getZ() * cos;
+//		return v.setX(x).setZ(z);
+//	}
+//	
+//	public static final Vector rotateVectorAroundAxisZ(Vector v, double angle) {
+//		double x, y, cos, sin;
+//		cos = Math.cos(angle);
+//		sin = Math.sin(angle);
+//		x = v.getX() * cos - v.getY() * sin;
+//		y = v.getX() * sin + v.getY() * cos;
+//		return v.setX(x).setY(y);
+//	}
 
 }

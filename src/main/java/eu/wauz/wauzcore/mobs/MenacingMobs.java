@@ -7,7 +7,9 @@ import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
+import org.bukkit.metadata.FixedMetadataValue;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.system.util.Chance;
 import io.lumine.xikage.mythicmobs.io.MythicConfig;
@@ -15,7 +17,7 @@ import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 
 public class MenacingMobs {
 	
-	private static String[] possibleModifiers = {"Deflecting", "Splitting"};
+	private static String[] possibleModifiers = {"Deflecting", "Explosive", "Massive", "Ravenous", "Splitting"};
 	
 	public static void addMenacingMob(Entity entity, MythicMob mythicMob) {
 		MenacingMobsConfig config = new MenacingMobsConfig(mythicMob.getConfig());
@@ -23,6 +25,9 @@ public class MenacingMobs {
 		
 		if(config.isEnableModifiers()) {
 			modifiers = getRandomModifiers(config.isEnableSecondModifier() ? 2 : 1);
+			for(String modifier : modifiers) {
+				entity.setMetadata("wzMod" + modifier, new FixedMetadataValue(WauzCore.getInstance(), true));
+			}
 		}
 		if(config.isEnableHealthBar()) {
 			new WauzPlayerBossBar(entity, modifiers, mythicMob.getBaseHealth(), config.isEnableRaidHealthBar());
@@ -59,7 +64,7 @@ public class MenacingMobs {
 			
 			for(String modifier : modifiers) {
 				if(StringUtils.equalsIgnoreCase(modifier, "MenacingChance")) {
-					enableModifiers = Chance.oneIn(2);
+					enableModifiers = Chance.oneIn(20);
 					enableSecondModifier = enableModifiers && Chance.oneIn(4);
 				}
 				else if(StringUtils.startsWithIgnoreCase(modifier, "CustomBossBar")) {

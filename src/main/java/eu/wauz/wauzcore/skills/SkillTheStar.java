@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillMechanics;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillParticle;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
 public class SkillTheStar implements WauzPlayerSkill {
@@ -43,7 +43,7 @@ public class SkillTheStar implements WauzPlayerSkill {
 
 	@Override
 	public boolean executeSkill(final Player player) {
-		final Entity target = WauzPlayerSkillMechanics.getTargetInLine(player, 5);
+		final Entity target = SkillUtils.getTargetInLine(player, 5);
 		
 		if(target != null) {
 			for(int iterator = 0; iterator != 12; iterator++) {
@@ -57,10 +57,10 @@ public class SkillTheStar implements WauzPlayerSkill {
 		            		Location location = target.getLocation();
 		            		location.setY(location.getY() + 1);
 		            		
-		            		new WauzPlayerSkillParticle(Particle.SWEEP_ATTACK).spawn(location, 2);
+		            		new SkillParticle(Particle.SWEEP_ATTACK).spawn(location, 2);
 		            		
 		            		if(finalIterator == 2 || finalIterator == 6 || finalIterator == 10)
-		            			WauzPlayerSkillMechanics.callPlayerMagicDamageEvent(player, target, 1.5);
+		            			SkillUtils.callPlayerMagicDamageEvent(player, target, 1.5);
 		            	}
 		            	catch (NullPointerException e) {
 		            		WauzDebugger.catchException(getClass(), e);
