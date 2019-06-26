@@ -132,8 +132,8 @@ public class DamageCalculator {
 	
 	public static void defend(EntityDamageEvent event) {
 		Player player = (Player) event.getEntity();
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null || player.getNoDamageTicks() != 0)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null || player.getNoDamageTicks() != 0)
 			return;
 		
 		if(Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player))) {
@@ -174,7 +174,7 @@ public class DamageCalculator {
 		
 		event.setDamage(0);
 		if(damage < 1) damage = 1;
-		int hp = pd.getHealth() - damage;
+		int hp = playerData.getHealth() - damage;
 		if(hp < 0) hp = 0;
 		setHealth(player, hp);
 		
@@ -187,15 +187,15 @@ public class DamageCalculator {
 	
 	public static void heal(EntityRegainHealthEvent event) {
 		Player player = (Player) event.getEntity();
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 		
 		int heal = (int) event.getAmount();
 		
 		event.setAmount(0);
-		int hp = pd.getHealth() + heal;
-		if(hp > pd.getMaxHealth()) hp = pd.getMaxHealth();
+		int hp = playerData.getHealth() + heal;
+		if(hp > playerData.getMaxHealth()) hp = playerData.getMaxHealth();
 		setHealth(player, hp);
 		
 		ValueIndicator.spawnHealIndicator(player.getLocation(), heal);
@@ -226,18 +226,18 @@ public class DamageCalculator {
 	}
 	
 	public static void setHealth(Player player, int hp) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
 		if(hp == 0) {
 			player.setHealth(0);
-			pd.setHealth(pd.getMaxHealth());
+			playerData.setHealth(playerData.getMaxHealth());
 			WauzPlayerActionBar.update(player);
 			return;
 		}
 		
-		pd.setHealth(hp);
-		hp = (hp * 20) / pd.getMaxHealth();
-		if(hp == 20 && pd.getHealth() > pd.getMaxHealth()) hp = 19;
+		playerData.setHealth(hp);
+		hp = (hp * 20) / playerData.getMaxHealth();
+		if(hp == 20 && playerData.getHealth() > playerData.getMaxHealth()) hp = 19;
 		if(hp == 0) hp = 1;
 		player.setHealth(hp);
 		WauzPlayerActionBar.update(player);
@@ -286,25 +286,25 @@ public class DamageCalculator {
 	}
 	
 	public static boolean hasPvPProtection(Player player) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return false;
 		
-		return pd.getResistancePvsP() > 0;
+		return playerData.getResistancePvsP() > 0;
 	}
 	
 	public static void decreasePvPProtection(Player player) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 		
-		pd.decreasePvPProtection();
+		playerData.decreasePvPProtection();
 	}
 	
 	public static void increasePvPProtection(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 		
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
@@ -318,7 +318,7 @@ public class DamageCalculator {
 			}
 			
 			long addedPvsPRes = ItemUtils.getPvPProtection(itemStack);
-			pd.setResistancePvsP(FoodCalculator.parseEffectTicksToShort(pd.getResistancePvsP(), addedPvsPRes));
+			playerData.setResistancePvsP(FoodCalculator.parseEffectTicksToShort(playerData.getResistancePvsP(), addedPvsPRes));
 			
 			itemStack.setAmount(itemStack.getAmount() - 1);
 			player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_LAND, 0);

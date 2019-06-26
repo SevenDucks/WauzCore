@@ -47,12 +47,12 @@ public class SkillTheHighPriestess implements WauzPlayerSkill {
 	public boolean executeSkill(final Player player) {
 		List<Player> targets = SkillUtils.getPlayersInRadius(player.getLocation(), 6);
 		for(Player target : targets) {
-			WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-			if(pd == null) continue;
+			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+			if(playerData == null) continue;
 			
 			SkillUtils.spawnParticleHelix(target.getLocation(), new SkillParticle(Particle.HEART), 1, 3.5);
 			
-			EntityRegainHealthEvent event = new EntityRegainHealthEvent(target, pd.getMaxHealth() / 5, RegainReason.MAGIC);
+			EntityRegainHealthEvent event = new EntityRegainHealthEvent(target, playerData.getMaxHealth() / 5, RegainReason.MAGIC);
 			DamageCalculator.heal(event);
 		}
 		return true;

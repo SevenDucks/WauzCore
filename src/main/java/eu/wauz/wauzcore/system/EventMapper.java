@@ -78,9 +78,9 @@ public class EventMapper {
 		
 		else if(name[0].contains("(I)")) {
 			WauzDebugger.log(player, "Clicked Inn NPC '" + name[1] + "'");
-			WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-			pd.setWauzPlayerEventName("Change Home");
-			pd.setWauzPlayerEvent(new WauzPlayerEventHomeChange(event.getRightClicked(), false));
+			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+			playerData.setWauzPlayerEventName("Change Home");
+			playerData.setWauzPlayerEvent(new WauzPlayerEventHomeChange(event.getRightClicked(), false));
 			WauzDialog.open(player);
 		}
 		

@@ -227,22 +227,21 @@ public class WauzPlayerScoreboard {
 					team.setColor(org.bukkit.ChatColor.GREEN);
 				}
 				
-				WauzPlayerData pd = WauzPlayerDataPool.getPlayer(online);
-				if(pd == null) {
+				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(online);
+				WauzPlayerData ownData = WauzPlayerDataPool.getPlayer(player);
+				if(playerData == null) {
 					team.setSuffix(ChatColor.RED + " " + online.getHealth() + " / 20 " + ChatFormatter.ICON_HEART);
 				}
 				else {
-					team.setSuffix(ChatColor.RED + " " + pd.getHealth() + " / " + pd.getMaxHealth() + " " + ChatFormatter.ICON_HEART);
+					team.setSuffix(ChatColor.RED + " " + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + ChatFormatter.ICON_HEART);
 				}
-				
-				WauzPlayerData ownPd = WauzPlayerDataPool.getPlayer(player);
-				if(ownPd.isInGroup() && pd.isInGroup() && StringUtils.equals(ownPd.getGroupUuidString(), pd.getGroupUuidString())) {
+				if(ownData.isInGroup() && playerData.isInGroup() && StringUtils.equals(ownData.getGroupUuidString(), playerData.getGroupUuidString())) {
 					team.setPrefix(ChatColor.BLUE + "GROUP ");
 				}
 				else {
-					WauzPlayerGuild ownPg = PlayerConfigurator.getGuild(player);
-					WauzPlayerGuild pg = PlayerConfigurator.getGuild(online);
-					if(ownPg != null && pg != null && StringUtils.equals(ownPg.getGuildUuidString(), pg.getGuildUuidString())) {
+					WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(online);
+					WauzPlayerGuild ownGuild = PlayerConfigurator.getGuild(player);
+					if(ownGuild != null && playerGuild != null && StringUtils.equals(ownGuild.getGuildUuidString(), playerGuild.getGuildUuidString())) {
 						team.setPrefix(ChatColor.GREEN + "GUILD ");
 					}
 				}

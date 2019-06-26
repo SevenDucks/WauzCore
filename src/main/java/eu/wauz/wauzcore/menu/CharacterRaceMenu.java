@@ -43,16 +43,16 @@ public class CharacterRaceMenu implements WauzInventory {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(pd == null)
+		if(playerData == null)
 			return;
 		
 		if(clicked == null || !clicked.getType().toString().endsWith("CONCRETE"))
 			return;
 		
 		else if(clicked.getItemMeta().getDisplayName().contains("Human")) {
-			pd.setSelectedCharacterRace("Human");
+			playerData.setSelectedCharacterRace("Human");
 			CharacterManager.createCharacter(player, WauzMode.MMORPG);
 			player.closeInventory();
 		}

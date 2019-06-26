@@ -101,15 +101,15 @@ public class TabardMenu implements WauzInventory {
 		
 		switch (tabardName) {
 		case "Guild Tabard":
-			WauzPlayerGuild pg = PlayerConfigurator.getGuild(player);
-			if(pg == null)
+			WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
+			if(playerGuild == null)
 				return null;
-			tabd = pg.getGuildTabard();
+			tabd = playerGuild.getGuildTabard();
 			bm = (BannerMeta) tabd.getItemMeta();
 			bm.setDisplayName(ChatColor.WHITE + "Guild Tabard");
 			lores = new ArrayList<String>();
 			lores.add("");
-			lores.add(ChatColor.GREEN + "Guild: " + pg.getGuildName());
+			lores.add(ChatColor.GREEN + "Guild: " + playerGuild.getGuildName());
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
 			bm.setLore(lores);

@@ -22,8 +22,8 @@ public class WauzPlayerDataPool {
 	}
 	
 	public static boolean isCharacterSelected(Player player) {
-		WauzPlayerData pd = getPlayer(player);
-		return !WauzMode.inHub(player) && pd != null && pd.isCharacterSelected();
+		WauzPlayerData playerData = getPlayer(player);
+		return !WauzMode.inHub(player) && playerData != null && playerData.isCharacterSelected();
 	}
 
 }

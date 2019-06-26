@@ -33,13 +33,6 @@ public class ChatFormatter {
 	public static String global(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		
-		ChatColor rank;
-		if(player.hasPermission("wauz.system")) {
-			rank = ChatColor.GOLD;
-		} else {
-			rank = ChatColor.GREEN;
-		}
-		
 		String level;
 		if(WauzMode.inHub(player)) {
 			level = "Hub";
@@ -51,7 +44,8 @@ public class ChatFormatter {
 			level = "" + player.getLevel();
 		}
 		
-		String msg = ChatColor.WHITE + "[" + rank + player.getDisplayName() + ChatColor.WHITE + " (" +
+		ChatColor rankColor = getMinecraftRankColor(player);
+		String msg = ChatColor.WHITE + "[" + rankColor + player.getDisplayName() + ChatColor.WHITE + " (" +
 					 ChatColor.AQUA  + level + ChatColor.WHITE + ")] " +
 					 ChatColor.GRAY + event.getMessage();
 		
@@ -60,73 +54,71 @@ public class ChatFormatter {
 	}
 	
 	public static boolean group(Player player, String message) {
-		WauzPlayerGroup pg = WauzPlayerGroupPool.getGroup(player);
-		if(pg == null) {
-			player.sendMessage(ChatColor.RED + "You are not in a group!");
-			return true;
-		}
-		if(StringUtils.isBlank(message)) {
-			player.sendMessage(ChatColor.RED + "Please specify the text to send!");
+		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(player);
+		if(!validateGroupMessage(player, playerGroup, message, false)) {
 			return false;
 		}
 		
-		ChatColor rank;
-		if(player.hasPermission("wauz.system")) {
-			rank = ChatColor.GOLD;
-		} else {
-			rank = ChatColor.GREEN;
-		}
-		
-		String msg = ChatColor.WHITE + "[" + rank + player.getDisplayName() + ChatColor.WHITE + " (" +
+		ChatColor rankColor = getMinecraftRankColor(player);
+		String msg = ChatColor.WHITE + "[" + rankColor + player.getDisplayName() + ChatColor.WHITE + " (" +
 				 ChatColor.BLUE + "Group" + ChatColor.WHITE + ")] " +
 				 ChatColor.GRAY + message;
 		
-		for(Player member : pg.getPlayers())
+		for(Player member : playerGroup.getPlayers())
 			member.sendMessage(msg);
 		
 		return true;
 	}
 	
 	public static boolean guild(Player player, String message) {
-		WauzPlayerGuild pg = PlayerConfigurator.getGuild(player);
-		if(pg == null) {
-			player.sendMessage(ChatColor.RED + "You are not in a guild!");
-			return true;
-		}
-		if(StringUtils.isBlank(message)) {
-			player.sendMessage(ChatColor.RED + "Please specify the text to send!");
+		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
+		if(!validateGroupMessage(player, playerGuild, message, true)) {
 			return false;
 		}
 		
-		ChatColor rank;
-		if(player.hasPermission("wauz.system")) {
-			rank = ChatColor.GOLD;
-		} else {
-			rank = ChatColor.GREEN;
-		}
-		
-		String msg = ChatColor.WHITE + "[" + rank + player.getDisplayName() + ChatColor.WHITE + " (" +
+		ChatColor rankColor = getMinecraftRankColor(player);
+		String msg = ChatColor.WHITE + "[" + rankColor + player.getDisplayName() + ChatColor.WHITE + " (" +
 				 ChatColor.GREEN + "Guild" + ChatColor.WHITE + ")] " +
 				 ChatColor.GRAY + message;
 		
-		pg.sendMessageToGuildMembers(msg);
+		playerGuild.sendMessageToGuildMembers(msg);
 		
 		return true;
 	}
 	
 	public static void discord(String message, String user, boolean admin) {
-		ChatColor rank;
+		ChatColor rankColor;
 		if(admin) {
-			rank = ChatColor.GOLD;
+			rankColor = ChatColor.GOLD;
 		} else {
-			rank = ChatColor.GREEN;
+			rankColor = ChatColor.GREEN;
 		}
 		
-		String msg = ChatColor.WHITE + "[" + rank + user + ChatColor.WHITE + " (" +
+		String msg = ChatColor.WHITE + "[" + rankColor + user + ChatColor.WHITE + " (" +
 				 ChatColor.DARK_AQUA  + "Discord" + ChatColor.WHITE + ")] " +
 				 ChatColor.GRAY + message;
 		
 		Bukkit.broadcastMessage(msg);
+	}
+	
+	public static ChatColor getMinecraftRankColor(Player player) {
+		if(player.hasPermission("wauz.system")) {
+			return ChatColor.GOLD;
+		} else {
+			return ChatColor.GREEN;
+		}
+	}
+	
+	public static boolean validateGroupMessage(Player player, Object groupObject, String message, boolean isGuild) {
+		if(groupObject == null) {
+			player.sendMessage(ChatColor.RED + "You are not in a " + (isGuild ? "group!" : "group!"));
+			return false;
+		}
+		if(StringUtils.isBlank(message)) {
+			player.sendMessage(ChatColor.RED + "Please specify the text to send!");
+			return false;
+		}
+		return true;
 	}
 
 }

@@ -296,9 +296,9 @@ public class QuestBuilder implements WauzInventory {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, questName);
 			
 			if(ItemUtils.doesLoreContain(clicked, "Right Click to Cancel") && event.getClick().toString().contains("RIGHT")) {
-				WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-				pd.setWauzPlayerEventName("Cancel Quest");
-				pd.setWauzPlayerEvent(new WauzPlayerEventQuestCancel(questName));
+				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+				playerData.setWauzPlayerEventName("Cancel Quest");
+				playerData.setWauzPlayerEvent(new WauzPlayerEventQuestCancel(questName));
 				clicked.setType(Material.WRITABLE_BOOK);
 				WauzDialog.open(player, generateUnacceptedQuest(player, quest, phase, false));
 			}
@@ -410,9 +410,9 @@ public class QuestBuilder implements WauzInventory {
 				event.execute(player);
 			}
 			else {
-				WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-				pd.setWauzPlayerEventName("Accept Quest");
-				pd.setWauzPlayerEvent(event);
+				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+				playerData.setWauzPlayerEventName("Accept Quest");
+				playerData.setWauzPlayerEvent(event);
 				WauzDialog.open(player, generateUnacceptedQuest(player, quest, 1, false));
 			}
 			return;

@@ -30,23 +30,16 @@ import net.md_5.bungee.api.ChatColor;
 public class TabardBuilder implements WauzInventory {
 	
 	public static void open(Player player) {
-		WauzPlayerGuild pg = PlayerConfigurator.getGuild(player);
-		if(pg == null) {
-			player.sendMessage(ChatColor.RED + "You are not in a guild!");
-			player.closeInventory();
-			return;
-		}
-		if(!pg.isGuildOfficer(player)) {
-			player.sendMessage(ChatColor.RED + "You are no guild-officer!");
-			player.closeInventory();
+		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
+		if(!GuildOverviewMenu.validateOfficerAccess(player, playerGuild)) {
 			return;
 		}
 		
 		ItemStack tabard = new ItemStack(Material.WHITE_BANNER);
 		ItemMeta im = tabard.getItemMeta();
-		im.setDisplayName(ChatColor.GREEN + pg.getGuildName() + " Tabard");
+		im.setDisplayName(ChatColor.GREEN + playerGuild.getGuildName() + " Tabard");
 		tabard.setItemMeta(im);
-		open(player, new TabardBuilder(tabard, pg.getGuildUuidString()));
+		open(player, new TabardBuilder(tabard, playerGuild.getGuildUuidString()));
 	}
 	
 	public static void open(Player player, TabardBuilder tabardBuilder) {
@@ -133,9 +126,9 @@ public class TabardBuilder implements WauzInventory {
 		
 		else if(page.equals("overview")) {
 			if(HeadUtils.isHeadMenuItem(clicked, "Save Guild Tabard")) {
-				WauzPlayerGuild pg = WauzPlayerGuild.getGuild(guildUuidString);
-				if(pg != null) {
-					pg.setGuildTabard(player, tabard);
+				WauzPlayerGuild playerGuild = WauzPlayerGuild.getGuild(guildUuidString);
+				if(playerGuild != null) {
+					playerGuild.setGuildTabard(player, tabard);
 					GuildConfigurator.setGuildTabard(guildUuidString, tabard);
 					GuildOverviewMenu.open(player);
 				}

@@ -19,9 +19,9 @@ public class WauzPlayerEventGuildPromoteOfficer implements WauzPlayerEvent {
 	@Override
 	public boolean execute(Player player) {
 		try {
-			WauzPlayerGuild pg = PlayerConfigurator.getGuild(player);
-			if(pg != null) {
-				pg.promoteToOfficer(player, member);
+			WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
+			if(playerGuild != null) {
+				playerGuild.promoteToOfficer(player, member);
 				GuildOverviewMenu.open(player);
 			}
 			else {

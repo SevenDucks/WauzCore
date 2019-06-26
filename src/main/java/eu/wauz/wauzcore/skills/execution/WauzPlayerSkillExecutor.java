@@ -39,16 +39,16 @@ public class WauzPlayerSkillExecutor {
 	}
 	
 	public static boolean execute(Player player, ItemStack itemStack, String skillId) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		WauzPlayerSkill skill = playerSkillMap.get(skillId);
-		if(pd == null || skill == null)
+		if(playerData == null || skill == null)
 			return false;
 		
-		boolean skillReady = pd.isSkillReady(player, skillId);
+		boolean skillReady = playerData.isSkillReady(player, skillId);
 		int manaCost = player.hasPermission("wauz.debug.magic") ? 0 : skill.getManaCost();
 		
 		if(skillReady && ManaCalculator.useMana(player, manaCost)) {
-			pd.updateSkillCooldown(player, skillId);
+			playerData.updateSkillCooldown(player, skillId);
 			player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
 			
 			boolean success = skill.executeSkill(player);

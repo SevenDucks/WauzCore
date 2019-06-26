@@ -316,9 +316,9 @@ public class GuildOverviewMenu implements WauzInventory {
 		}
 		
 		else if(clicked.getType().equals(Material.BARRIER)) {
-			WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-			pd.setWauzPlayerEventName("Leave Guild");
-			pd.setWauzPlayerEvent(new WauzPlayerEventGuildLeave());
+			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+			playerData.setWauzPlayerEventName("Leave Guild");
+			playerData.setWauzPlayerEvent(new WauzPlayerEventGuildLeave());
 			WauzDialog.open(player);
 		}
 		
@@ -328,40 +328,54 @@ public class GuildOverviewMenu implements WauzInventory {
 		}
 		
 		else if(clicked.getType().equals(Material.PLAYER_HEAD)) {
-			SkullMeta sm = (SkullMeta) clicked.getItemMeta();
-			OfflinePlayer member = sm.getOwningPlayer();
+			SkullMeta skullMeta = (SkullMeta) clicked.getItemMeta();
+			OfflinePlayer member = skullMeta.getOwningPlayer();
 			if(member == null || !ItemUtils.hasLore(clicked))
 				return;
 			
 			if(event.getClick().toString().contains("RIGHT")) {
 				if(ItemUtils.doesLoreContain(clicked, "Right Click to demote to Member")) {
-					WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-					pd.setWauzPlayerEventName("Demote");
-					pd.setWauzPlayerEvent(new WauzPlayerEventGuildDemoteMember(member));
+					WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+					playerData.setWauzPlayerEventName("Demote");
+					playerData.setWauzPlayerEvent(new WauzPlayerEventGuildDemoteMember(member));
 					WauzDialog.open(player, clicked);
 				}
 				else if(ItemUtils.doesLoreContain(clicked, "Right Click to Kick")) {
-					WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-					pd.setWauzPlayerEventName("Kick");
-					pd.setWauzPlayerEvent(new WauzPlayerEventGuildKick(member));
+					WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+					playerData.setWauzPlayerEventName("Kick");
+					playerData.setWauzPlayerEvent(new WauzPlayerEventGuildKick(member));
 					WauzDialog.open(player, clicked);
 				}
 			}
 			else {
 				if(ItemUtils.doesLoreContain(clicked, "Left Click to promote to Officer")) {
-					WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-					pd.setWauzPlayerEventName("Promote");
-					pd.setWauzPlayerEvent(new WauzPlayerEventGuildPromoteOfficer(member));
+					WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+					playerData.setWauzPlayerEventName("Promote");
+					playerData.setWauzPlayerEvent(new WauzPlayerEventGuildPromoteOfficer(member));
 					WauzDialog.open(player, clicked);
 				}
 				else if(ItemUtils.doesLoreContain(clicked, "Left Click to promote to Leader")) {
-					WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-					pd.setWauzPlayerEventName("Promote");
-					pd.setWauzPlayerEvent(new WauzPlayerEventGuildPromoteLeader(member));
+					WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+					playerData.setWauzPlayerEventName("Promote");
+					playerData.setWauzPlayerEvent(new WauzPlayerEventGuildPromoteLeader(member));
 					WauzDialog.open(player, clicked);
 				}
 			}
 		}
+	}
+	
+	public static boolean validateOfficerAccess(Player player, WauzPlayerGuild playerGuild) {
+		if(playerGuild == null) {
+			player.sendMessage(ChatColor.RED + "You are not in a guild!");
+			player.closeInventory();
+			return false;
+		}
+		if(!playerGuild.isGuildOfficer(player)) {
+			player.sendMessage(ChatColor.RED + "You are no guild-officer!");
+			player.closeInventory();
+			return false;
+		}
+		return true;
 	}
 
 }

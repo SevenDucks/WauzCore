@@ -51,11 +51,11 @@ public class FoodCalculator {
 		}
 		
 		if(ItemUtils.containsTemperatureModifier(itemStack)) {
-			WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 			long addedHeatRes = ItemUtils.getHeatResistance(itemStack);
-			pd.setResistanceHeat(parseEffectTicksToShort(pd.getResistanceHeat(), addedHeatRes));
+			playerData.setResistanceHeat(parseEffectTicksToShort(playerData.getResistanceHeat(), addedHeatRes));
 			long addedColdRes = ItemUtils.getColdResistance(itemStack);
-			pd.setResistanceCold(parseEffectTicksToShort(pd.getResistanceCold(), addedColdRes));
+			playerData.setResistanceCold(parseEffectTicksToShort(playerData.getResistanceCold(), addedColdRes));
 		}
 	}
 	

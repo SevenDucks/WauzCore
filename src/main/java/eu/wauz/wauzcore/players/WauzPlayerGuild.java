@@ -64,8 +64,8 @@ public class WauzPlayerGuild {
 				leader.sendMessage(ChatColor.RED + "You can't do that here!");
 				return true;
 			}
-			WauzPlayerGuild pg = PlayerConfigurator.getGuild(leader);
-			if(pg != null) {
+			WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(leader);
+			if(playerGuild != null) {
 				leader.sendMessage(ChatColor.RED + "You are already in a guild!");
 				return true;
 			}
@@ -112,8 +112,8 @@ public class WauzPlayerGuild {
 				player.sendMessage(ChatColor.RED + "You can't do that here!");
 				return true;
 			}
-			WauzPlayerGuild pg = PlayerConfigurator.getGuild(player);
-			if(pg != null) {
+			WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
+			if(playerGuild != null) {
 				player.sendMessage(ChatColor.RED + "You are already in a guild!");
 				return true;
 			}
@@ -121,21 +121,21 @@ public class WauzPlayerGuild {
 				player.sendMessage(ChatColor.RED + "Please specify a guild-name!");
 				return false;
 			}
-			pg = getGuildByName(guildName);
-			if(pg == null) {
+			playerGuild = getGuildByName(guildName);
+			if(playerGuild == null) {
 				player.sendMessage(ChatColor.RED + "This guild-name is not valid!");
 				return true;
 			}
 			String applicantUuidString = player.getUniqueId().toString();
-			if(pg.getApplicantUuidStrings().contains(applicantUuidString)) {
+			if(playerGuild.getApplicantUuidStrings().contains(applicantUuidString)) {
 				player.sendMessage(ChatColor.RED + "You already applied for that guild!");
 				return true;
 			}
 			
-			pg.addApplicant(applicantUuidString);
-			pg.sendMessageToGuildMembers(ChatColor.YELLOW + "New application for " + pg.getGuildName()
+			playerGuild.addApplicant(applicantUuidString);
+			playerGuild.sendMessageToGuildMembers(ChatColor.YELLOW + "New application for " + playerGuild.getGuildName()
 					+ " by " + player.getName() + "!");
-			player.sendMessage(ChatColor.GREEN + "You applied for " + pg.getGuildName() + "!");
+			player.sendMessage(ChatColor.GREEN + "You applied for " + playerGuild.getGuildName() + "!");
 			return true;
 		}
 		catch(Exception e) {

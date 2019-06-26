@@ -87,13 +87,13 @@ public class WauzPlayerRegistrator {
         	player.sendTitle(ChatColor.DARK_RED + "" + ChatColor.BOLD + "YOU DIED", "", 10, 70, 20);
         }});
 		
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 		
-		pd.setResistanceHeat((short) 0);
-		pd.setResistanceCold((short) 0);
-		pd.setResistancePvsP((short) 0);
+		playerData.setResistanceHeat((short) 0);
+		playerData.setResistanceCold((short) 0);
+		playerData.setResistancePvsP((short) 0);
 		WauzPlayerActionBar.update(player);
 	}
 

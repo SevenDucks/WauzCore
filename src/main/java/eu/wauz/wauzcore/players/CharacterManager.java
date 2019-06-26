@@ -33,17 +33,17 @@ public class CharacterManager {
 	private static WauzCore core = WauzCore.getInstance();
 	
 	public static void loginCharacter(final Player player, WauzMode wauzMode) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 
 		player.setGameMode(wauzMode.equals(WauzMode.SURVIVAL) ? GameMode.SURVIVAL : GameMode.ADVENTURE);
 		player.setExp((float) (PlayerConfigurator.getCharacterExperience(player) / 100F));
 		player.setLevel(PlayerConfigurator.getCharacterLevel(player));
 		
-		pd.setMaxHealth(PlayerPassiveSkillConfigurator.getHealth(player));
+		playerData.setMaxHealth(PlayerPassiveSkillConfigurator.getHealth(player));
 		if(wauzMode.equals(WauzMode.MMORPG))
-			pd.setMaxMana(PlayerPassiveSkillConfigurator.getMana(player));
+			playerData.setMaxMana(PlayerPassiveSkillConfigurator.getMana(player));
 		
 		Location spawn = PlayerConfigurator.getCharacterSpawn(player);
 		Location destination = PlayerConfigurator.getCharacterLocation(player);
@@ -77,30 +77,30 @@ public class CharacterManager {
 	
 	public static void logoutCharacter(final Player player) {
 		player.setGameMode(GameMode.ADVENTURE);
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
 		if(WauzMode.isMMORPG(player)) {
 			PetOverviewMenu.unsummon(player);
 		}
 		
-		if(pd.isInGroup()) {
-			WauzPlayerGroupPool.getGroup(pd.getGroupUuidString()).removePlayer(player);
-			pd.setGroupUuidString(null);
+		if(playerData.isInGroup()) {
+			WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString()).removePlayer(player);
+			playerData.setGroupUuidString(null);
 		}
 		
 		saveCharacter(player);
 		
-		pd.setSelectedCharacterSlot(null);
-		pd.setSelectedCharacterWorld(null);
-		pd.setSelectedCharacterRace(null);
+		playerData.setSelectedCharacterSlot(null);
+		playerData.setSelectedCharacterWorld(null);
+		playerData.setSelectedCharacterRace(null);
 		
 	    player.setExp(0);
 		player.setLevel(0);
 
-		pd.setMaxHealth(20);
+		playerData.setMaxHealth(20);
 		DamageCalculator.setHealth(player, 20);
-		pd.setMaxMana(0);
-		pd.setMana(0);
+		playerData.setMaxMana(0);
+		playerData.setMana(0);
 		
 		player.setFoodLevel(20);
 		player.setSaturation(20);
@@ -127,25 +127,25 @@ public class CharacterManager {
 	}
 	
 	public static void createCharacter(final Player player, WauzMode wauzMode) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 		
 		String characterSlot = null;
-		if(pd.getSelectedCharacterSlot() != null)
-			characterSlot = pd.getSelectedCharacterSlot();
+		if(playerData.getSelectedCharacterSlot() != null)
+			characterSlot = playerData.getSelectedCharacterSlot();
 		else
 			return;
 		
 		String characterWorld = null;
-		if(pd.getSelectedCharacterWorld() != null)
-			characterWorld = pd.getSelectedCharacterWorld();
+		if(playerData.getSelectedCharacterWorld() != null)
+			characterWorld = playerData.getSelectedCharacterWorld();
 		else
 			return;
 		
 		String characterRace = null;
-		if(pd.getSelectedCharacterRace() != null)
-			characterRace = pd.getSelectedCharacterRace();
+		if(playerData.getSelectedCharacterRace() != null)
+			characterRace = playerData.getSelectedCharacterRace();
 		else
 			return;
 		
@@ -160,10 +160,10 @@ public class CharacterManager {
 			player.setExp(0);
 			player.setLevel(1);
 			
-			pd.setMaxHealth(10);
-			pd.setHealth(10);
-			pd.setMaxMana(10);
-			pd.setMana(10);
+			playerData.setMaxHealth(10);
+			playerData.setHealth(10);
+			playerData.setMaxMana(10);
+			playerData.setMana(10);
 			
 			player.setFoodLevel(20);
 			player.setSaturation(10);
@@ -267,7 +267,7 @@ public class CharacterManager {
 		}
 		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
 			playerDataConfig.set("pvp.resticks", 720);
-			pd.setResistancePvsP((short) 720);
+			playerData.setResistancePvsP((short) 720);
 		}
 		
 		try {

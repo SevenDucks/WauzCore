@@ -23,9 +23,9 @@ public class WauzDialog implements WauzInventory {
 
 	public static void open(Player player, ItemStack infoItemStack) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzDialog());
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Confirm: "
-				+ pd.getWauzPlayerEventName());
+				+ playerData.getWauzPlayerEventName());
 		
 		ItemStack confirm = HeadUtils.getConfirmItem();
 		ItemMeta cim = confirm.getItemMeta();
@@ -50,13 +50,13 @@ public class WauzDialog implements WauzInventory {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(pd == null || clicked == null)
+		if(playerData == null || clicked == null)
 			return;
 		
 		else if(HeadUtils.isHeadMenuItem(clicked, "CONFIRM")) {
-			pd.getWauzPlayerEvent().execute(player);
+			playerData.getWauzPlayerEvent().execute(player);
 		}
 		
 		else if(HeadUtils.isHeadMenuItem(clicked, "DECLINE")) {

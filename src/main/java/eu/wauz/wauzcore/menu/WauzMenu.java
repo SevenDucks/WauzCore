@@ -36,8 +36,8 @@ public class WauzMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Wauzland Main Menu");
 		
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 
 		MenuUtils.setCurrencyDisplay(menu, player, 0);
@@ -47,7 +47,7 @@ public class WauzMenu implements WauzInventory {
 			ItemMeta im = port.getItemMeta();
 			im.setDisplayName(ChatColor.GOLD + "Travelling");
 			List<String> lores = new ArrayList<String>();
-			WauzRegion region = pd.getRegion();
+			WauzRegion region = playerData.getRegion();
 			lores.add(ChatColor.DARK_PURPLE + "Region: " + ChatColor.YELLOW
 					+ (region != null ?  region.getTitle() : "(None)"));
 			lores.add("");

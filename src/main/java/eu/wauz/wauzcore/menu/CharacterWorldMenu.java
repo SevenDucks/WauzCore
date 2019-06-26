@@ -52,22 +52,22 @@ public class CharacterWorldMenu implements WauzInventory {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		Player player = (Player) event.getWhoClicked();
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(pd == null)
+		if(playerData == null)
 			return;
 		
 		if(clicked == null || !clicked.getType().toString().endsWith("CONCRETE"))
 			return;
 		
 		else if(clicked.getItemMeta().getDisplayName().contains("Wauzland")) {
-			pd.setSelectedCharacterWorld("Wauzland");
-			pd.setSelectedCharacterRace("Human");
+			playerData.setSelectedCharacterWorld("Wauzland");
+			playerData.setSelectedCharacterRace("Human");
 			CharacterManager.createCharacter(player, WauzMode.MMORPG);
 		}
 		else if(clicked.getItemMeta().getDisplayName().contains("Dalyreos")) {
-			pd.setSelectedCharacterWorld("Dalyreos");
-			pd.setSelectedCharacterRace("Human");
+			playerData.setSelectedCharacterWorld("Dalyreos");
+			playerData.setSelectedCharacterRace("Human");
 			CharacterManager.createCharacter(player, WauzMode.MMORPG);
 		}
 	}

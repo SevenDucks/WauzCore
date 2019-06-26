@@ -35,41 +35,18 @@ public class GroupMenu implements WauzInventory {
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new GroupMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Group Overview");
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(pd.isInGroup()) {
-			WauzPlayerGroup pg = WauzPlayerGroupPool.getGroup(pd.getGroupUuidString());
+		if(playerData.isInGroup()) {
+			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
 			
-			ItemStack grps = HeadUtils.getGroupItem();
-			ItemMeta gim = grps.getItemMeta();
-			gim.setDisplayName(ChatColor.BLUE + "Group");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Mode: " + ChatColor.YELLOW
-					+ pg.getWauzMode());
-			lores.add(ChatColor.DARK_PURPLE + "Leader: " + ChatColor.YELLOW
-					+ Bukkit.getPlayer(UUID.fromString(pg.getAdminUuidString())).getName());
-			lores.add(ChatColor.DARK_PURPLE + "Players: " + ChatColor.YELLOW
-					+ pg.getPlayerAmount() + " / 5");
-			lores.add("");
-			for(String lore : pg.getWrappedGroupDescription())
-				lores.add(ChatColor.GRAY + lore);
-			lores.add("");
-			lores.add(pg.isPasswordProtected() ? ChatColor.RED + "Password: "
-					+ pg.getGroupPassword() : ChatColor.GREEN + "No Password");
-			lores.add("");
-			lores.add(ChatColor.DARK_PURPLE + "Commands:");
-			lores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "group " + ChatColor.GRAY + "Open the Group Menu");
-			lores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "grp [text] " + ChatColor.GRAY + "Send Message in Group Chat");
-			lores.add(ChatColor.GOLD + "/" + ChatColor.WHITE + "desc [text] " + ChatColor.GRAY + "Set the Group Description");
-			lores.add("");
-			lores.add(ChatColor.DARK_GRAY + "UUID: " + pg.getGroupUuidString());
-			gim.setLore(lores);
-			grps.setItemMeta(gim);
-			menu.setItem(0, grps);
+			ItemStack groupItemStack = HeadUtils.getGroupItem();
+			setGroupItemMeta(groupItemStack, playerGroup, true);
+			menu.setItem(0, groupItemStack);
 			
 			int playerNumber = 1;
-			for(Player member : pg.getPlayers()) {
-				boolean isGroupLeader = pg.isGroupAdmin(member);
+			for(Player member : playerGroup.getPlayers()) {
+				boolean isGroupLeader = playerGroup.isGroupAdmin(member);
 				String name = isGroupLeader
 					? ChatColor.GOLD + member.getName() + " [Leader]"
 					: ChatColor.YELLOW + member.getName() + " [Member]";
@@ -86,7 +63,7 @@ public class GroupMenu implements WauzInventory {
 				playerNumber++;
 			}
 			
-			if(pg.isGroupAdmin(player)) {
+			if(playerGroup.isGroupAdmin(player)) {
 				ItemStack promote = new ItemStack(Material.GOLDEN_HELMET);
 				ItemMeta pim = promote.getItemMeta();
 				pim.setDisplayName(ChatColor.RED + "Change Leader");
@@ -135,37 +112,53 @@ public class GroupMenu implements WauzInventory {
 			String wauzMode = WauzMode.getMode(player.getWorld().getName()).toString();
 			
 			int groupNumber = 2;
-			for(WauzPlayerGroup pg : groups) {
+			for(WauzPlayerGroup playerGroup : groups) {
 				if(groupNumber >= inventorySize)
 					break;
 				
-				ItemStack grp = new ItemStack(pg.isFull() || !pg.getWauzMode().equals(wauzMode) ? Material.BLACK_CONCRETE :
-						(pg.isPasswordProtected() ? Material.YELLOW_CONCRETE : Material.LIME_CONCRETE));
-				ItemMeta gim = grp.getItemMeta();
-				gim.setDisplayName(ChatColor.BLUE + "Group");
-				List<String> lores = new ArrayList<String>();
-				lores.add(ChatColor.DARK_PURPLE + "Mode: " + ChatColor.YELLOW
-						+ pg.getWauzMode());
-				lores.add(ChatColor.DARK_PURPLE + "Leader: " + ChatColor.YELLOW
-						+ Bukkit.getPlayer(UUID.fromString(pg.getAdminUuidString())).getName());
-				lores.add(ChatColor.DARK_PURPLE + "Players: " + ChatColor.YELLOW
-						+ pg.getPlayerAmount() + " / 5");
-				lores.add("");
-				for(String lore : pg.getWrappedGroupDescription())
-					lores.add(ChatColor.GRAY + lore);
-				lores.add("");
-				lores.add(pg.isPasswordProtected() ? ChatColor.RED + "Password Protected" : ChatColor.GREEN + "No Password");
-				lores.add("");
-				lores.add(ChatColor.DARK_GRAY + "UUID: " + pg.getGroupUuidString());
-				gim.setLore(lores);
-				grp.setItemMeta(gim);
-				menu.setItem(groupNumber, grp);
+				ItemStack groupItemStack = new ItemStack(playerGroup.isFull() || !playerGroup.getWauzMode().equals(wauzMode) ? Material.BLACK_CONCRETE :
+						(playerGroup.isPasswordProtected() ? Material.YELLOW_CONCRETE : Material.LIME_CONCRETE));
+				setGroupItemMeta(groupItemStack, playerGroup, false);
+				menu.setItem(groupNumber, groupItemStack);
 				groupNumber++;
 			}
 		}
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
+	}
+	
+	public static void setGroupItemMeta(ItemStack groupItemStack, WauzPlayerGroup playerGroup, boolean insideGroup) {
+		ItemMeta gim = groupItemStack.getItemMeta();
+		gim.setDisplayName(ChatColor.BLUE + "Group");
+		List<String> lores = new ArrayList<String>();
+		lores.add(ChatColor.DARK_PURPLE + "Mode: " + ChatColor.YELLOW
+				+ playerGroup.getWauzMode());
+		lores.add(ChatColor.DARK_PURPLE + "Leader: " + ChatColor.YELLOW
+				+ Bukkit.getPlayer(UUID.fromString(playerGroup.getAdminUuidString())).getName());
+		lores.add(ChatColor.DARK_PURPLE + "Players: " + ChatColor.YELLOW
+				+ playerGroup.getPlayerAmount() + " / 5");
+		lores.add("");
+		for(String lore : playerGroup.getWrappedGroupDescription())
+			lores.add(ChatColor.GRAY + lore);
+		lores.add("");
+		if(insideGroup) {
+			lores.add(playerGroup.isPasswordProtected() ? ChatColor.RED + "Password: "
+					+ playerGroup.getGroupPassword() : ChatColor.GREEN + "No Password");
+			lores.add("");
+			lores.add(ChatColor.DARK_PURPLE + "Commands:");
+			lores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "group " + ChatColor.GRAY + "Open the Group Menu");
+			lores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "grp [text] " + ChatColor.GRAY + "Send Message in Group Chat");
+			lores.add(ChatColor.GOLD + "/" + ChatColor.WHITE + "desc [text] " + ChatColor.GRAY + "Set the Group Description");
+		}
+		else {
+			lores.add(playerGroup.isPasswordProtected() ? ChatColor.RED
+					+ "Password Protected" : ChatColor.GREEN + "No Password");
+		}
+		lores.add("");
+		lores.add(ChatColor.DARK_GRAY + "UUID: " + playerGroup.getGroupUuidString());
+		gim.setLore(lores);
+		groupItemStack.setItemMeta(gim);
 	}
 	
 	public static void passwordInput(Player player, String groupUuidString, String passwordString) {
@@ -197,12 +190,12 @@ public class GroupMenu implements WauzInventory {
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Group: "
 				+ (promote ? "Promote" : "Kick"));
 		
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		WauzPlayerGroup pg = WauzPlayerGroupPool.getGroup(pd.getGroupUuidString());
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
 		
 		int playerNumber = 1;
-		for(Player member : pg.getPlayers()) {
-			if(pg.isGroupAdmin(member))
+		for(Player member : playerGroup.getPlayers()) {
+			if(playerGroup.isGroupAdmin(member))
 				continue;
 			
 			ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
@@ -229,10 +222,10 @@ public class GroupMenu implements WauzInventory {
 		// Create Group
 		else if(clicked.getType().equals(Material.LIGHT_BLUE_CONCRETE)) {
 			if(clicked.getItemMeta().getDisplayName().contains("Open")) {
-				WauzPlayerGroup pg = new WauzPlayerGroup(player);
-				WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-				pd.setGroupUuidString(pg.getGroupUuidString());
-				WauzPlayerGroupPool.regGroup(pg);
+				WauzPlayerGroup playerGroup = new WauzPlayerGroup(player);
+				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+				playerData.setGroupUuidString(playerGroup.getGroupUuidString());
+				WauzPlayerGroupPool.regGroup(playerGroup);
 				open(player);
 			}
 			else
@@ -249,10 +242,10 @@ public class GroupMenu implements WauzInventory {
 		// Join Open Group
 		else if(clicked.getType().equals(Material.LIME_CONCRETE)) {
 			String groupUuidString = ItemUtils.getStringFromLore(clicked, "UUID", 1);
-			WauzPlayerGroup pg = WauzPlayerGroupPool.getGroup(groupUuidString);
-			WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-			pg.addPlayer(player);
-			pd.setGroupUuidString(groupUuidString);
+			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(groupUuidString);
+			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+			playerGroup.addPlayer(player);
+			playerData.setGroupUuidString(groupUuidString);
 			open(player);
 		}
 		
@@ -264,11 +257,11 @@ public class GroupMenu implements WauzInventory {
 			if(ItemUtils.hasLore(clicked)) {
 				String groupUuidString = ItemUtils.getStringFromLore(clicked, "UUID", 1);
 				if(passwordString.length() == 5) {
-					WauzPlayerGroup pg = WauzPlayerGroupPool.getGroup(groupUuidString);
-					if(passwordString.equals(pg.getGroupPassword())) {
-						WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-						pg.addPlayer(player);
-						pd.setGroupUuidString(groupUuidString);
+					WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(groupUuidString);
+					if(passwordString.equals(playerGroup.getGroupPassword())) {
+						WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+						playerGroup.addPlayer(player);
+						playerData.setGroupUuidString(groupUuidString);
 						open(player);
 					}
 					else {
@@ -284,11 +277,11 @@ public class GroupMenu implements WauzInventory {
 			else {
 				WauzDebugger.log(player, "Password: " + passwordString + ", Length: " + passwordString.length());
 				if(passwordString.length() == 5) {
-					WauzPlayerGroup pg = new WauzPlayerGroup(player);
-					WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-					pd.setGroupUuidString(pg.getGroupUuidString());
-					pg.setGroupPassword(passwordString);
-					WauzPlayerGroupPool.regGroup(pg);
+					WauzPlayerGroup playerGroup = new WauzPlayerGroup(player);
+					WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+					playerData.setGroupUuidString(playerGroup.getGroupUuidString());
+					playerGroup.setGroupPassword(passwordString);
+					WauzPlayerGroupPool.regGroup(playerGroup);
 					open(player);
 				}
 				else
@@ -314,11 +307,11 @@ public class GroupMenu implements WauzInventory {
 			String inventoryName = player.getOpenInventory().getTitle();
 			
 			if(inventoryName.contains("Promote")) {
-				WauzPlayerData pd = WauzPlayerDataPool.getPlayer(target);
-				WauzPlayerGroup pg = WauzPlayerGroupPool.getGroup(pd.getGroupUuidString());
-				if(pg != null) {
-					pg.setAdminUuidString(target.getUniqueId().toString());
-					for(Player member : pg.getPlayers()) {
+				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(target);
+				WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+				if(playerGroup != null) {
+					playerGroup.setAdminUuidString(target.getUniqueId().toString());
+					for(Player member : playerGroup.getPlayers()) {
 						member.sendMessage(ChatColor.GREEN + player.getName() + " promoted "
 								+ target.getName() + " to the group-leader!");
 					}
@@ -330,13 +323,13 @@ public class GroupMenu implements WauzInventory {
 			}
 			
 			else if(inventoryName.contains("Kick")) {
-				WauzPlayerData pd = WauzPlayerDataPool.getPlayer(target);
-				WauzPlayerGroup pg = WauzPlayerGroupPool.getGroup(pd.getGroupUuidString());
-				if(pg != null) {
-					pg.removePlayer(target);
-					pd.setGroupUuidString(null);
+				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(target);
+				WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+				if(playerGroup != null) {
+					playerGroup.removePlayer(target);
+					playerData.setGroupUuidString(null);
 					target.sendMessage(ChatColor.RED + player.getName() + " kicked you out of the group!");
-					for(Player member : pg.getPlayers()) {
+					for(Player member : playerGroup.getPlayers()) {
 						member.sendMessage(ChatColor.RED + player.getName() + " kicked "
 								+ target.getName() + " out of the group!");
 					}
@@ -362,11 +355,11 @@ public class GroupMenu implements WauzInventory {
 		}
 		
 		else if(clicked.getType().equals(Material.BARRIER)) {
-			WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-			WauzPlayerGroup pg = WauzPlayerGroupPool.getGroup(pd.getGroupUuidString());
-			if(pg != null) {
-				pg.removePlayer(player);
-				pd.setGroupUuidString(null);
+			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+			if(playerGroup != null) {
+				playerGroup.removePlayer(player);
+				playerData.setGroupUuidString(null);
 				open(player);
 			}
 			else {

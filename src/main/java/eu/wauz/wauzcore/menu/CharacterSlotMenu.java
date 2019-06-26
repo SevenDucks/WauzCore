@@ -78,31 +78,31 @@ public class CharacterSlotMenu implements WauzInventory {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(pd == null)
+		if(playerData == null)
 			return;
 		
 		if(clicked == null || (!clicked.getType().equals(Material.TOTEM_OF_UNDYING) && !clicked.getType().equals(Material.BARRIER)))
 			return;
 
 		int slotId = Integer.parseInt(clicked.getItemMeta().getDisplayName().split(" ")[1]);
-		pd.setSelectedCharacterSlot("char" + slotId);		
+		playerData.setSelectedCharacterSlot("char" + slotId);		
 		
 		String clickedName = clicked.getItemMeta().getDisplayName();
 		if(clickedName.contains("" + ChatColor.RED))
 			if(slotId > 20000) {
-				pd.setSelectedCharacterWorld("Survival");
-				pd.setSelectedCharacterRace(WauzDateUtils.getSurvivalSeason());
+				playerData.setSelectedCharacterWorld("Survival");
+				playerData.setSelectedCharacterRace(WauzDateUtils.getSurvivalSeason());
 				CharacterManager.createCharacter(player, WauzMode.SURVIVAL);
 			}
 			else
 				CharacterWorldMenu.open(player);
 		else if(event.getClick().toString().contains("RIGHT")) {
-			String characterSlot = pd.getSelectedCharacterSlot();
+			String characterSlot = playerData.getSelectedCharacterSlot();
 			String characterSlotNumber = characterSlot.substring(4, 5);
-			pd.setWauzPlayerEventName("Delete Char " + characterSlotNumber);
-			pd.setWauzPlayerEvent(new WauzPlayerEventCharacterDelete());
+			playerData.setWauzPlayerEventName("Delete Char " + characterSlotNumber);
+			playerData.setWauzPlayerEvent(new WauzPlayerEventCharacterDelete());
 			WauzDialog.open(player, getCharacterSlot(player, event.getSlot() / 2, false));
 		}
 		else

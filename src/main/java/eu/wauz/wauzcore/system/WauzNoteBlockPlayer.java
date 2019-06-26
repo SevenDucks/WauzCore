@@ -27,11 +27,11 @@ public class WauzNoteBlockPlayer {
 	}
 	
 	private static void play(Player player, File soundtrackFile) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 		
-		SongPlayer currentSongPlayer = pd.getSongPlayer();
+		SongPlayer currentSongPlayer = playerData.getSongPlayer();
 		if(currentSongPlayer != null)
 			currentSongPlayer.destroy();
 		
@@ -45,11 +45,11 @@ public class WauzNoteBlockPlayer {
 			songPlayer.setPlaying(true);
 			
 			WauzDebugger.log(player, "Loaded Soundtrack: " + soundtrackFile.getAbsolutePath());
-			pd.setSongPlayer(songPlayer);
+			playerData.setSongPlayer(songPlayer);
 		}
 		else {
 			WauzDebugger.log(player, "No Soundtrack found: " + soundtrackFile.getAbsolutePath());
-			pd.setSongPlayer(null);
+			playerData.setSongPlayer(null);
 		}
 	}
 

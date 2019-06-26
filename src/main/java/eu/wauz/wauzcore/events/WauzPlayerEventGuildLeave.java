@@ -12,10 +12,10 @@ public class WauzPlayerEventGuildLeave implements WauzPlayerEvent {
 	@Override
 	public boolean execute(Player player) {
 		try {
-			WauzPlayerGuild pg = PlayerConfigurator.getGuild(player);
-			if(pg != null) {
+			WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
+			if(playerGuild != null) {
 				PlayerConfigurator.setGuild(player, "none");
-				pg.removePlayer(player);
+				playerGuild.removePlayer(player);
 				GuildOverviewMenu.open(player);
 			}
 			else {

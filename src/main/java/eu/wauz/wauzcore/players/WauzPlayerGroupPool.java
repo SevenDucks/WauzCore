@@ -12,11 +12,11 @@ public class WauzPlayerGroupPool {
 	private static HashMap<String, WauzPlayerGroup> storage = new HashMap<String, WauzPlayerGroup>();
 	
 	public static WauzPlayerGroup getGroup(Player player) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null || StringUtils.isBlank(pd.getGroupUuidString()))
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null || StringUtils.isBlank(playerData.getGroupUuidString()))
 			return null;
 		else
-			return getGroup(pd.getGroupUuidString());
+			return getGroup(playerData.getGroupUuidString());
 	}
 	
 	public static WauzPlayerGroup getGroup(String groupUuidString) {

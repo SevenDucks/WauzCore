@@ -1,7 +1,7 @@
 name: WauzCore
 main: eu.wauz.wauzcore.WauzCore
 website: http://wauz.eu/
-version: Pallasite.6.Pre
+version: Pallasite.7.Pre
 api-version: 1.13
 author: Nikolas Keller
 depend: [MythicMobs, NoteBlockAPI]

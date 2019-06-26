@@ -35,11 +35,11 @@ public class WauzRegion {
 	}
 	
 	public static void regionCheck(Player player) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 		
-		WauzRegion currentRegion = pd.getRegion();
+		WauzRegion currentRegion = playerData.getRegion();
 		WauzRegion newRegion = null;
 		
 		if(currentRegion == null)
@@ -47,7 +47,7 @@ public class WauzRegion {
 		else
 			newRegion = getNewRegion(player.getLocation(), currentRegion, false);
 		
-		pd.setRegion(newRegion);
+		playerData.setRegion(newRegion);
 		if(currentRegion != newRegion)
 			if(newRegion != null)
 				newRegion.enter(player);

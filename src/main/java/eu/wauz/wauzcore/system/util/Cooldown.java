@@ -33,9 +33,9 @@ public class Cooldown {
 	}
 	
 	private static boolean getAndUpdateCooldownFromCache(Player player, String actionId, Long cooldown) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd != null && pd.isActionReady(player, actionId)) {
-			pd.updateActionCooldown(player, actionId, cooldown);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData != null && playerData.isActionReady(player, actionId)) {
+			playerData.updateActionCooldown(player, actionId, cooldown);
 			return true;
 		}
 		else

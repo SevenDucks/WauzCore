@@ -95,15 +95,15 @@ public class PetOptionsMenu implements WauzInventory {
 			int level = PlayerConfigurator.getCharacterPetIntelligence(player, petSlot);
 			int levelMax = PlayerConfigurator.getCharacterPetIntelligenceMax(player, petSlot);
 			
-			ItemStack sinv;
+			ItemStack intelligenceSkillItemStack;
 			if(level == 0)
-				sinv = new ItemStack(Material.PORKCHOP);
+				intelligenceSkillItemStack = new ItemStack(Material.PORKCHOP);
 			else if(level < levelMax)
-				sinv = new ItemStack(Material.COOKED_PORKCHOP, level);
+				intelligenceSkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, level);
 			else
-				sinv = new ItemStack(Material.COOKED_BEEF, level);
+				intelligenceSkillItemStack = new ItemStack(Material.COOKED_BEEF, level);
 			
-			ItemMeta im = sinv.getItemMeta();
+			ItemMeta im = intelligenceSkillItemStack.getItemMeta();
 			im.setDisplayName(ChatColor.DARK_GREEN + "Intelligence");
 			List<String> lores = new ArrayList<String>();
 			lores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + level + " / " + levelMax + ChatColor.GRAY + " (Max: 10)");
@@ -116,23 +116,23 @@ public class PetOptionsMenu implements WauzInventory {
 			lores.add("");
 			lores.add(ChatColor.WHITE + "Intelligence: " + ChatColor.DARK_AQUA + (level * 10) + "%");
 			im.setLore(lores);
-			sinv.setItemMeta(im);
-			menu.setItem(3, sinv);
+			intelligenceSkillItemStack.setItemMeta(im);
+			menu.setItem(3, intelligenceSkillItemStack);
 		}
 		
 		{
 			int level = PlayerConfigurator.getCharacterPetDexterity(player, petSlot);
 			int levelMax = PlayerConfigurator.getCharacterPetDexterityMax(player, petSlot);
 			
-			ItemStack sspd;
+			ItemStack speedSkillItemStack;
 			if(level == 0)
-				sspd = new ItemStack(Material.PORKCHOP);
+				speedSkillItemStack = new ItemStack(Material.PORKCHOP);
 			else if(level < levelMax)
-				sspd = new ItemStack(Material.COOKED_PORKCHOP, level);
+				speedSkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, level);
 			else
-				sspd = new ItemStack(Material.COOKED_BEEF, level);
+				speedSkillItemStack = new ItemStack(Material.COOKED_BEEF, level);
 			
-			ItemMeta im = sspd.getItemMeta();
+			ItemMeta im = speedSkillItemStack.getItemMeta();
 			im.setDisplayName(ChatColor.DARK_GREEN + "Dexterity");
 			List<String> lores = new ArrayList<String>();
 			lores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + level + " / " + levelMax + ChatColor.GRAY + " (Max: 10)");
@@ -145,23 +145,23 @@ public class PetOptionsMenu implements WauzInventory {
 			lores.add("");
 			lores.add(ChatColor.WHITE + "Dexterity: " + ChatColor.DARK_AQUA + (level * 10) + "%");
 			im.setLore(lores);
-			sspd.setItemMeta(im);
-			menu.setItem(4, sspd);
+			speedSkillItemStack.setItemMeta(im);
+			menu.setItem(4, speedSkillItemStack);
 		}
 		
 		{
 			int level = PlayerConfigurator.getCharacterPetAbsorption(player, petSlot);
 			int levelMax = PlayerConfigurator.getCharacterPetAbsorptionMax(player, petSlot);
 			
-			ItemStack sinv;
+			ItemStack absorptionSkillItemStack;
 			if(level == 0)
-				sinv = new ItemStack(Material.PORKCHOP);
+				absorptionSkillItemStack = new ItemStack(Material.PORKCHOP);
 			else if(level < levelMax)
-				sinv = new ItemStack(Material.COOKED_PORKCHOP, level);
+				absorptionSkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, level);
 			else
-				sinv = new ItemStack(Material.COOKED_BEEF, level);
+				absorptionSkillItemStack = new ItemStack(Material.COOKED_BEEF, level);
 			
-			ItemMeta im = sinv.getItemMeta();
+			ItemMeta im = absorptionSkillItemStack.getItemMeta();
 			im.setDisplayName(ChatColor.DARK_GREEN + "Absorption");
 			List<String> lores = new ArrayList<String>();
 			lores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + level + " / " + levelMax + ChatColor.GRAY + " (Max: 10)");
@@ -174,8 +174,8 @@ public class PetOptionsMenu implements WauzInventory {
 			lores.add("");
 			lores.add(ChatColor.WHITE + "Absorption: " + ChatColor.DARK_AQUA + (level * 10) + "%");
 			im.setLore(lores);
-			sinv.setItemMeta(im);
-			menu.setItem(5, sinv);
+			absorptionSkillItemStack.setItemMeta(im);
+			menu.setItem(5, absorptionSkillItemStack);
 		}
 		
 		{
@@ -284,16 +284,16 @@ public class PetOptionsMenu implements WauzInventory {
 	}
 	
 	public static void discard(Player player, Integer petSlot) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
-		pd.setWauzPlayerEventName("Release " + petType);
-		pd.setWauzPlayerEvent(new WauzPlayerEventPetDelete(petSlot));
+		playerData.setWauzPlayerEventName("Release " + petType);
+		playerData.setWauzPlayerEvent(new WauzPlayerEventPetDelete(petSlot));
 		WauzDialog.open(player);
 	}
 	
 	public static void move(Player player, int fromIndex, int toIndex, boolean openMenu) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		String characterSlot = pd.getSelectedCharacterSlot();
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		String characterSlot = playerData.getSelectedCharacterSlot();
 		
 		Integer activePetSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
 		if(activePetSlot != -1 && (activePetSlot == fromIndex || activePetSlot == toIndex)) {
@@ -409,10 +409,10 @@ public class PetOptionsMenu implements WauzInventory {
 		if(breedStack.getItemMeta().getLore().get(3).contains("Disallowed"))
 			return;
 		
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
-		pd.setWauzPlayerEventName("Breed " + petType);
-		pd.setWauzPlayerEvent(new WauzPlayerEventPetBreed(petSlot));
+		playerData.setWauzPlayerEventName("Breed " + petType);
+		playerData.setWauzPlayerEvent(new WauzPlayerEventPetBreed(petSlot));
 		WauzDialog.open(player);
 	}
 

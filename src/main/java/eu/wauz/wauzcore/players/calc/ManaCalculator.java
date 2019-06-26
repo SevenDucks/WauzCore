@@ -13,16 +13,16 @@ import net.md_5.bungee.api.ChatColor;
 public class ManaCalculator {
 
 	public static void updateManaItem(Player player) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null || pd.getMaxMana() == 0)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null || playerData.getMaxMana() == 0)
 			return;
 		
-		ItemStack mana = pd.getMana() < 1
+		ItemStack mana = playerData.getMana() < 1
 				? new ItemStack(Material.CLOCK, 1)
-				: new ItemStack(Material.DIAMOND, pd.getMana());
+				: new ItemStack(Material.DIAMOND, playerData.getMana());
 
 		ItemMeta mim = mana.getItemMeta();
-		String manaString = pd.getMana() + " / " + pd.getMaxMana();
+		String manaString = playerData.getMana() + " / " + playerData.getMaxMana();
 		mim.setDisplayName(ChatColor.LIGHT_PURPLE + "Mana Points: " + manaString);
 		mana.setItemMeta(mim);
 		player.getInventory().setItem(6, mana);
@@ -31,36 +31,36 @@ public class ManaCalculator {
 	}
 	
 	public static void regenerateMana(Player player) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 		
-		if(pd.getMaxMana() > pd.getMana())
-			pd.setMana(pd.getMana() + 1);
+		if(playerData.getMaxMana() > playerData.getMana())
+			playerData.setMana(playerData.getMana() + 1);
 		
 		updateManaItem(player);
 	}
 	
 	public static void regenerateMana(Player player, int amount) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 		
-		if(pd.getMaxMana() > pd.getMana() + amount)
-			pd.setMana(pd.getMana() + amount);
+		if(playerData.getMaxMana() > playerData.getMana() + amount)
+			playerData.setMana(playerData.getMana() + amount);
 		else
-			pd.setMana(pd.getMaxMana());
+			playerData.setMana(playerData.getMaxMana());
 		
 		updateManaItem(player);
 	}
 	
 	public static boolean useMana(Player player, int amount) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null || (pd.getMana() - amount) < 0) {
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null || (playerData.getMana() - amount) < 0) {
 			player.sendMessage(ChatColor.RED + "Not enough Mana! " + amount + " Points are needed!");
 			return false;
 		}
-		pd.setMana(pd.getMana() - amount);
+		playerData.setMana(playerData.getMana() - amount);
 		updateManaItem(player);
 		return true;
 	}

@@ -12,8 +12,8 @@ public class WauzPlayerEventCharacterDelete implements WauzPlayerEvent {
 
 	@Override
 	public boolean execute(Player player) {
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		String characterSlot = pd.getSelectedCharacterSlot();
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		String characterSlot = playerData.getSelectedCharacterSlot();
 		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + ".yml");
 		try {
 			playerDataFile.delete();

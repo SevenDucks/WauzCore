@@ -27,22 +27,15 @@ public class GuildApplicationMenu implements WauzInventory {
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	
 	public static void open(Player player) {
-		WauzPlayerGuild pg = PlayerConfigurator.getGuild(player);
-		if(pg == null) {
-			player.sendMessage(ChatColor.RED + "You are not in a guild!");
-			player.closeInventory();
-			return;
-		}
-		if(!pg.isGuildOfficer(player)) {
-			player.sendMessage(ChatColor.RED + "You are no guild-officer!");
-			player.closeInventory();
+		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
+		if(!GuildOverviewMenu.validateOfficerAccess(player, playerGuild)) {
 			return;
 		}
 		
 		WauzInventoryHolder holder = new WauzInventoryHolder(new GuildApplicationMenu());
 		Inventory menu = Bukkit.createInventory(holder, 27, ChatColor.BLACK + "" + ChatColor.BOLD + "Guild Applications");
 		
-		List<OfflinePlayer> applicants = pg.getApplicantUuidStrings().stream()
+		List<OfflinePlayer> applicants = playerGuild.getApplicantUuidStrings().stream()
 				.map(uuid -> Bukkit.getOfflinePlayer(UUID.fromString(uuid)))
 				.filter(offlinePlayer -> offlinePlayer != null)
 				.collect(Collectors.toList());
@@ -55,7 +48,7 @@ public class GuildApplicationMenu implements WauzInventory {
 			sm.setOwningPlayer(applicant);
 			List<String> slores = new ArrayList<String>();
 			slores.add(ChatColor.GRAY + "Left Click to Accept, "
-					+ "Free Slots: " + (pg.getMaxMemberAmount() - pg.getMemberAmount()));
+					+ "Free Slots: " + (playerGuild.getMaxMemberAmount() - playerGuild.getMemberAmount()));
 			slores.add(ChatColor.GRAY + "Right Click to Reject");
 			slores.add("");
 			slores.add(ChatColor.GRAY + "Last Online: " + (applicant.isOnline()

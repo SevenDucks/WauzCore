@@ -28,8 +28,8 @@ public class TravellingMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new TravellingMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Travelling Menu");
 		
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-		if(pd == null)
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null)
 			return;
 		
 		{

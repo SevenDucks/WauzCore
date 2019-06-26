@@ -19,9 +19,9 @@ public class WauzPlayerEventGuildDemoteMember implements WauzPlayerEvent {
 	@Override
 	public boolean execute(Player player) {
 		try {
-			WauzPlayerGuild pg = PlayerConfigurator.getGuild(player);
-			if(pg != null) {
-				pg.demoteToMember(player, member);
+			WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
+			if(playerGuild != null) {
+				playerGuild.demoteToMember(player, member);
 				GuildOverviewMenu.open(player);
 			}
 			else {

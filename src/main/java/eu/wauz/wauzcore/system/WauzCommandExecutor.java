@@ -195,12 +195,12 @@ public class WauzCommandExecutor {
 			Player player = (Player) sender;
 			String message = StringUtils.join(args, " ");
 			
-			WauzPlayerGroup pg = WauzPlayerGroupPool.getGroup(player);
-			if(pg == null) {
+			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(player);
+			if(playerGroup == null) {
 				player.sendMessage(ChatColor.RED + "You are not in a group!");
 				return true;
 			}
-			if(!pg.isGroupAdmin(player)) {
+			if(!playerGroup.isGroupAdmin(player)) {
 				player.sendMessage(ChatColor.RED + "You are not the group-leader!");
 				return true;
 			}
@@ -209,7 +209,7 @@ public class WauzCommandExecutor {
 				return false;
 			}
 			else {
-				pg.setGroupDescription(player, message);
+				playerGroup.setGroupDescription(player, message);
 				return true;
 			}
 		}
@@ -224,12 +224,12 @@ public class WauzCommandExecutor {
 			Player player = (Player) sender;
 			String message = StringUtils.join(args, " ");
 			
-			WauzPlayerGuild pg = PlayerConfigurator.getGuild(player);
-			if(pg == null) {
+			WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
+			if(playerGuild == null) {
 				player.sendMessage(ChatColor.RED + "You are not in a guild!");
 				return true;
 			}
-			if(!pg.isGuildOfficer(player)) {
+			if(!playerGuild.isGuildOfficer(player)) {
 				player.sendMessage(ChatColor.RED + "You are no guild-officer!");
 				return true;
 			}
@@ -238,8 +238,8 @@ public class WauzCommandExecutor {
 				return false;
 			}
 			else {
-				GuildConfigurator.setGuildDescription(pg.getGuildUuidString(), message);
-				pg.setGuildDescription(player, message);
+				GuildConfigurator.setGuildDescription(playerGuild.getGuildUuidString(), message);
+				playerGuild.setGuildDescription(player, message);
 				return true;
 			}
 		}

@@ -101,9 +101,9 @@ public class WauzNmsMinimap {
 	    					for(int z = 0; z <= 9; z++)
 	    						mapCanvas.setPixel(x, z, (byte) 0);
 	    				
-	    				WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
-	    				if(pd != null && pd.getRegion() != null)
-	    					mapCanvas.drawText(1, 1, MinecraftFont.Font, pd.getRegion().getTitle());
+	    				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+	    				if(playerData != null && playerData.getRegion() != null)
+	    					mapCanvas.drawText(1, 1, MinecraftFont.Font, playerData.getRegion().getTitle());
 	    				else if(WauzMode.isInstance(mapView.getWorld().getName()))
 	    					mapCanvas.drawText(1, 1, MinecraftFont.Font, InstanceConfigurator.getInstanceWorldName(mapView.getWorld()));
 	    				else

@@ -23,19 +23,19 @@ public class InventoryStringConverter {
 		File playerDataFile = new File(playerDirectory, WauzPlayerDataPool.getPlayer(player).getSelectedCharacterSlot() + ".yml");
 		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
 		
-		WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
 		playerDataConfig.set("lastplayed", System.currentTimeMillis());
 		
 		if(WauzMode.isMMORPG(player)) {
-			playerDataConfig.set("stats.current.health", pd.getHealth());
-			playerDataConfig.set("stats.current.mana", pd.getMana());
+			playerDataConfig.set("stats.current.health", playerData.getHealth());
+			playerDataConfig.set("stats.current.mana", playerData.getMana());
 		}
 		else {
 			playerDataConfig.set("stats.current.health", player.getHealth());
 			playerDataConfig.set("level", player.getLevel());
 			playerDataConfig.set("reput.exp", player.getExp() * 100F);
-			playerDataConfig.set("pvp.resticks", pd.getResistancePvsP());
+			playerDataConfig.set("pvp.resticks", playerData.getResistancePvsP());
 		}
 		playerDataConfig.set("stats.current.hunger", player.getFoodLevel());
 		playerDataConfig.set("stats.current.saturation", player.getSaturation());
@@ -55,17 +55,17 @@ public class InventoryStringConverter {
 		File playerDataFile = new File(playerDirectory, WauzPlayerDataPool.getPlayer(player).getSelectedCharacterSlot() + ".yml");
 		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
     	
-    	WauzPlayerData pd = WauzPlayerDataPool.getPlayer(player);
+    	WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
     	
     	if(WauzMode.isMMORPG(player)) {
-    		pd.setMana(playerDataConfig.getInt("stats.current.mana"));
+    		playerData.setMana(playerDataConfig.getInt("stats.current.mana"));
     		DamageCalculator.setHealth(player, playerDataConfig.getInt("stats.current.health"));
     	}
     	else {
     		player.setHealth(playerDataConfig.getInt("stats.current.health"));
     		player.setLevel(playerDataConfig.getInt("level"));
     		player.setExp((float) (playerDataConfig.getDouble("reput.exp") / 100F));
-    		pd.setResistancePvsP((short) playerDataConfig.getInt("pvp.resticks"));
+    		playerData.setResistancePvsP((short) playerDataConfig.getInt("pvp.resticks"));
     	}
     	player.setFoodLevel(playerDataConfig.getInt("stats.current.hunger"));
     	player.setSaturation((float) playerDataConfig.getDouble("stats.current.saturation"));

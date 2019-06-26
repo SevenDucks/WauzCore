@@ -55,9 +55,9 @@ public class WauzRewards {
 	}
 	
 	public static void level(Player player, int tier, double earnedxp, Location location, boolean shared) throws Exception {
-		WauzPlayerGroup pg = WauzPlayerGroupPool.getGroup(player);
-		if(pg != null && !shared)
-			for(Player member : pg.getPlayers())
+		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(player);
+		if(playerGroup != null && !shared)
+			for(Player member : playerGroup.getPlayers())
 				level(member, tier, earnedxp / 4, null, true);
 		
 		if(player == null || player.getLevel() > tier || player.getLevel() >= WauzCore.MAX_PLAYER_LEVEL)
