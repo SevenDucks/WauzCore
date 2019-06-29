@@ -64,26 +64,26 @@ public class GroupMenu implements WauzInventory {
 			}
 			
 			if(playerGroup.isGroupAdmin(player)) {
-				ItemStack promote = new ItemStack(Material.GOLDEN_HELMET);
-				ItemMeta pim = promote.getItemMeta();
-				pim.setDisplayName(ChatColor.RED + "Change Leader");
-				pim.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-				promote.setItemMeta(pim);
-				menu.setItem(6, promote);
+				ItemStack promoteItemStack = new ItemStack(Material.GOLDEN_HELMET);
+				ItemMeta promoteItemMeta = promoteItemStack.getItemMeta();
+				promoteItemMeta.setDisplayName(ChatColor.RED + "Change Leader");
+				promoteItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+				promoteItemStack.setItemMeta(promoteItemMeta);
+				menu.setItem(6, promoteItemStack);
 				
-				ItemStack kick = new ItemStack(Material.IRON_BOOTS);
-				ItemMeta kim = kick.getItemMeta();
-				kim.setDisplayName(ChatColor.RED + "Kick Member");
-				kim.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-				kick.setItemMeta(kim);
-				menu.setItem(7, kick);
+				ItemStack kickItemStack = new ItemStack(Material.IRON_BOOTS);
+				ItemMeta kickItemMeta = kickItemStack.getItemMeta();
+				kickItemMeta.setDisplayName(ChatColor.RED + "Kick Member");
+				kickItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+				kickItemStack.setItemMeta(kickItemMeta);
+				menu.setItem(7, kickItemStack);
 			}
 			
-			ItemStack quit = new ItemStack(Material.BARRIER);
-			ItemMeta qim = quit.getItemMeta();
-			qim.setDisplayName(ChatColor.RED + "Leave Group");
-			quit.setItemMeta(qim);
-			menu.setItem(8, quit);
+			ItemStack leaveItemStack = new ItemStack(Material.BARRIER);
+			ItemMeta leaveItemMeta = leaveItemStack.getItemMeta();
+			leaveItemMeta.setDisplayName(ChatColor.RED + "Leave Group");
+			leaveItemStack.setItemMeta(leaveItemMeta);
+			menu.setItem(8, leaveItemStack);
 		}
 		else {
 			List<WauzPlayerGroup> groups = WauzPlayerGroupPool.getGroups();
@@ -97,17 +97,17 @@ public class GroupMenu implements WauzInventory {
 			
 			menu = Bukkit.createInventory(holder, inventorySize, ChatColor.BLACK + "" + ChatColor.BOLD + "Group List");
 			
-			ItemStack create = new ItemStack(Material.LIGHT_BLUE_CONCRETE);
-			ItemMeta cim = create.getItemMeta();
-			cim.setDisplayName(ChatColor.BLUE + "Create Open Group");
-			create.setItemMeta(cim);
-			menu.setItem(0, create);
+			ItemStack createItemStack = new ItemStack(Material.LIGHT_BLUE_CONCRETE);
+			ItemMeta createItemMeta = createItemStack.getItemMeta();
+			createItemMeta.setDisplayName(ChatColor.BLUE + "Create Open Group");
+			createItemStack.setItemMeta(createItemMeta);
+			menu.setItem(0, createItemStack);
 			
-			ItemStack createPw = new ItemStack(Material.LIGHT_BLUE_CONCRETE);
-			ItemMeta cimPw = createPw.getItemMeta();
-			cimPw.setDisplayName(ChatColor.YELLOW + "Create Password Group");
-			createPw.setItemMeta(cimPw);
-			menu.setItem(1, createPw);
+			ItemStack createWithPasswordItemStack = new ItemStack(Material.LIGHT_BLUE_CONCRETE);
+			ItemMeta createWithPasswordItemMeta = createWithPasswordItemStack.getItemMeta();
+			createWithPasswordItemMeta.setDisplayName(ChatColor.YELLOW + "Create Password Group");
+			createWithPasswordItemStack.setItemMeta(createWithPasswordItemMeta);
+			menu.setItem(1, createWithPasswordItemStack);
 			
 			String wauzMode = WauzMode.getMode(player.getWorld().getName()).toString();
 			
@@ -129,8 +129,8 @@ public class GroupMenu implements WauzInventory {
 	}
 	
 	public static void setGroupItemMeta(ItemStack groupItemStack, WauzPlayerGroup playerGroup, boolean insideGroup) {
-		ItemMeta gim = groupItemStack.getItemMeta();
-		gim.setDisplayName(ChatColor.BLUE + "Group");
+		ItemMeta groupItemMeta = groupItemStack.getItemMeta();
+		groupItemMeta.setDisplayName(ChatColor.BLUE + "Group");
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.DARK_PURPLE + "Mode: " + ChatColor.YELLOW
 				+ playerGroup.getWauzMode());
@@ -157,8 +157,8 @@ public class GroupMenu implements WauzInventory {
 		}
 		lores.add("");
 		lores.add(ChatColor.DARK_GRAY + "UUID: " + playerGroup.getGroupUuidString());
-		gim.setLore(lores);
-		groupItemStack.setItemMeta(gim);
+		groupItemMeta.setLore(lores);
+		groupItemStack.setItemMeta(groupItemMeta);
 	}
 	
 	public static void passwordInput(Player player, String groupUuidString, String passwordString) {
@@ -168,17 +168,17 @@ public class GroupMenu implements WauzInventory {
 		
 		int slot = 0;
 		while(slot < 9) {
-			ItemStack number = new ItemStack(Material.GRAY_CONCRETE);
-			ItemMeta im = number.getItemMeta();
-			im.setDisplayName(ChatColor.RESET + "" + (slot + 1));
+			ItemStack passwordNumberItemStack = new ItemStack(Material.GRAY_CONCRETE);
+			ItemMeta passwordNumberItemMeta = passwordNumberItemStack.getItemMeta();
+			passwordNumberItemMeta.setDisplayName(ChatColor.RESET + "" + (slot + 1));
 			if(groupUuidString != null) {
 				List<String> lores = new ArrayList<String>();
 				lores.add("");
 				lores.add(ChatColor.DARK_GRAY + "UUID: " + groupUuidString);
-				im.setLore(lores);
+				passwordNumberItemMeta.setLore(lores);
 			}
-			number.setItemMeta(im);
-			menu.setItem(slot, number);
+			passwordNumberItemStack.setItemMeta(passwordNumberItemMeta);
+			menu.setItem(slot, passwordNumberItemStack);
 			slot++;
 		}
 		

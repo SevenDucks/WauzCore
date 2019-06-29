@@ -83,12 +83,12 @@ public class QuestRequirementChecker {
 			
 			PlayerConfigurator.setDungeonItemTrackerDestination(player, location, trackerName);
 			
-			ItemStack tracker = new ItemStack(Material.COMPASS);
-			ItemMeta im = tracker.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getDungeonItemTrackerDestinationName(player));
-			im.setUnbreakable(true);
-			tracker.setItemMeta(im);
-			player.getInventory().setItem(7, tracker);
+			ItemStack trackerItemStack = new ItemStack(Material.COMPASS);
+			ItemMeta trackerItemMeta = trackerItemStack.getItemMeta();
+			trackerItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getDungeonItemTrackerDestinationName(player));
+			trackerItemMeta.setUnbreakable(true);
+			trackerItemStack.setItemMeta(trackerItemMeta);
+			player.getInventory().setItem(7, trackerItemStack);
 			player.closeInventory();
 			
 			player.setCompassTarget(location);

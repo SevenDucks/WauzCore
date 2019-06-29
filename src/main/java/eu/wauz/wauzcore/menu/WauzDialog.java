@@ -27,17 +27,17 @@ public class WauzDialog implements WauzInventory {
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Confirm: "
 				+ playerData.getWauzPlayerEventName());
 		
-		ItemStack confirm = HeadUtils.getConfirmItem();
-		ItemMeta cim = confirm.getItemMeta();
-		cim.setDisplayName(ChatColor.GREEN + "CONFIRM");
-		confirm.setItemMeta(cim);
-		menu.setItem(0, confirm);
+		ItemStack confirmItemStack = HeadUtils.getConfirmItem();
+		ItemMeta confirmItemMeta = confirmItemStack.getItemMeta();
+		confirmItemMeta.setDisplayName(ChatColor.GREEN + "CONFIRM");
+		confirmItemStack.setItemMeta(confirmItemMeta);
+		menu.setItem(0, confirmItemStack);
 		
-		ItemStack decline = HeadUtils.getDeclineItem();
-		ItemMeta dim = decline.getItemMeta();
-		dim.setDisplayName(ChatColor.RED + "DECLINE");
-		decline.setItemMeta(dim);
-		menu.setItem(8, decline);
+		ItemStack declineItemStack = HeadUtils.getDeclineItem();
+		ItemMeta declineItemMeta = declineItemStack.getItemMeta();
+		declineItemMeta.setDisplayName(ChatColor.RED + "DECLINE");
+		declineItemStack.setItemMeta(declineItemMeta);
+		menu.setItem(8, declineItemStack);
 		
 		if(infoItemStack != null)
 			menu.setItem(4, infoItemStack);

@@ -35,9 +35,9 @@ public class WauzPlayerData {
 	
 	private Integer maxMana = 0;
 	
-	private Map<String, Long> skillCoolddownMap = new HashMap<>();
+	private Map<String, Long> skillCooldownMap = new HashMap<>();
 	
-	private Map<String, Long> actionCoolddownMap = new HashMap<>();
+	private Map<String, Long> actionCooldownMap = new HashMap<>();
 	
 	private String pet;
 	
@@ -151,7 +151,7 @@ public class WauzPlayerData {
 	}
 	
 	public boolean isSkillReady(Player player, String skillId) {
-		Long cooldown = skillCoolddownMap.get(skillId);
+		Long cooldown = skillCooldownMap.get(skillId);
 		if(cooldown == null || cooldown <= System.currentTimeMillis())
 			return true;
 		long remaining = (cooldown - System.currentTimeMillis()) / 1000;
@@ -162,16 +162,16 @@ public class WauzPlayerData {
 	
 	public void updateSkillCooldown(Player player, String skillId) {
 		Long cooldown = (long) (player.hasPermission("wauz.debug.magic") ? 1 : WauzPlayerSkillExecutor.playerSkillMap.get(skillId).getCooldownSeconds());
-		skillCoolddownMap.put(skillId, cooldown * 1000 + System.currentTimeMillis());
+		skillCooldownMap.put(skillId, cooldown * 1000 + System.currentTimeMillis());
 	}
 	
 	public boolean isActionReady(Player player, String actionId) {
-		Long cooldown = actionCoolddownMap.get(actionId);
+		Long cooldown = actionCooldownMap.get(actionId);
 		return cooldown == null || cooldown <= System.currentTimeMillis();
 	}
 	
 	public void updateActionCooldown(Player player, String actionId, Long cooldown) {
-		actionCoolddownMap.put(actionId, cooldown + System.currentTimeMillis());
+		actionCooldownMap.put(actionId, cooldown + System.currentTimeMillis());
 	}
 
 	public String getPet() {

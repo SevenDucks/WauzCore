@@ -79,14 +79,14 @@ public class DungeonItemBombBag {
 			return;
 		}
 		
-		final ItemStack bomb = new ItemStack(Material.SNOWBALL, 1);
-		ItemMeta bim = bomb.getItemMeta();
-		bim.setDisplayName(ChatColor.DARK_AQUA + "Bag of Bombs");
-		bomb.setItemMeta(bim);
+		final ItemStack bombItemStack = new ItemStack(Material.SNOWBALL, 1);
+		ItemMeta bombItemMeta = bombItemStack.getItemMeta();
+		bombItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Bag of Bombs");
+		bombItemStack.setItemMeta(bombItemMeta);
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
             public void run() {
-        		player.getInventory().setItem(7, bomb);
+        		player.getInventory().setItem(7, bombItemStack);
             }
 		}, 3);
 	}

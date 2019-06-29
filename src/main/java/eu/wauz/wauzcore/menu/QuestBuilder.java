@@ -89,44 +89,38 @@ public class QuestBuilder implements WauzInventory {
 		}else
 			menu.setItem(5, generateEmptyQust("Daily"));
 		
-		{
-			ItemStack find = new ItemStack(Material.BOOKSHELF);
-			ItemMeta im = find.getItemMeta();
-			im.setDisplayName(ChatColor.BLUE + "Quest Finder");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Find quests near your location.");
-			im.setLore(lores);
-			find.setItemMeta(im);
-			menu.setItem(6, find);
-		}
+		ItemStack questFinderItemStack = new ItemStack(Material.BOOKSHELF);
+		ItemMeta questFinderItemMeta = questFinderItemStack.getItemMeta();
+		questFinderItemMeta.setDisplayName(ChatColor.BLUE + "Quest Finder");
+		List<String> questFinderLores = new ArrayList<String>();
+		questFinderLores.add(ChatColor.GRAY + "Find quests near your location.");
+		questFinderItemMeta.setLore(questFinderLores);
+		questFinderItemStack.setItemMeta(questFinderItemMeta);
+		menu.setItem(6, questFinderItemStack);
 		
-		{
-			boolean active = PlayerConfigurator.getHideSpecialQuestsForCharacter(player);
-			ItemStack optn = new ItemStack(active ? Material.GREEN_CONCRETE : Material.RED_CONCRETE);
-			ItemMeta im = optn.getItemMeta();
-			im.setDisplayName(ChatColor.GREEN + "Hide Special Quests");
-			List<String> lores = new ArrayList<String>();
-			lores.add(active ?
-				ChatColor.GREEN + "ON " + ChatColor.GRAY + "Only Daily-Quests are shown in the sidebar!" :
-				ChatColor.RED + "OFF " + ChatColor.GRAY + "All Quest-Types are shown in the sidebar!");
-			im.setLore(lores);
-			optn.setItemMeta(im);
-			menu.setItem(7, optn);
-		}
+		boolean hideSpecialQuests = PlayerConfigurator.getHideSpecialQuestsForCharacter(player);
+		ItemStack hideSpecialQuestsItemStack = new ItemStack(hideSpecialQuests ? Material.GREEN_CONCRETE : Material.RED_CONCRETE);
+		ItemMeta hideSpecialQuestsItemMeta = hideSpecialQuestsItemStack.getItemMeta();
+		hideSpecialQuestsItemMeta.setDisplayName(ChatColor.GREEN + "Hide Special Quests");
+		List<String> hideSpecialQuestLores = new ArrayList<String>();
+		hideSpecialQuestLores.add(hideSpecialQuests ?
+			ChatColor.GREEN + "ON " + ChatColor.GRAY + "Only Daily-Quests are shown in the sidebar!" :
+			ChatColor.RED + "OFF " + ChatColor.GRAY + "All Quest-Types are shown in the sidebar!");
+		hideSpecialQuestsItemMeta.setLore(hideSpecialQuestLores);
+		hideSpecialQuestsItemStack.setItemMeta(hideSpecialQuestsItemMeta);
+		menu.setItem(7, hideSpecialQuestsItemStack);
 		
-		{
-			boolean active = PlayerConfigurator.getHideCompletedQuestsForCharacter(player);
-			ItemStack optn = new ItemStack(active ? Material.GREEN_CONCRETE : Material.RED_CONCRETE);
-			ItemMeta im = optn.getItemMeta();
-			im.setDisplayName(ChatColor.GREEN + "Hide Completed Quests");
-			List<String> lores = new ArrayList<String>();
-			lores.add(active ?
-				ChatColor.GREEN + "ON " + ChatColor.GRAY + "Completed Quests are hidden in the sidebar!" :
-				ChatColor.RED + "OFF " + ChatColor.GRAY + "Completed Quests are shown in the sidebar!");
-			im.setLore(lores);
-			optn.setItemMeta(im);
-			menu.setItem(8, optn);
-		}
+		boolean hideCompletedQuests = PlayerConfigurator.getHideCompletedQuestsForCharacter(player);
+		ItemStack hideCompletedQuestsItemStack = new ItemStack(hideCompletedQuests ? Material.GREEN_CONCRETE : Material.RED_CONCRETE);
+		ItemMeta hideComletedQuestsItemMeta = hideCompletedQuestsItemStack.getItemMeta();
+		hideComletedQuestsItemMeta.setDisplayName(ChatColor.GREEN + "Hide Completed Quests");
+		List<String> hideCompletedQuestsLores = new ArrayList<String>();
+		hideCompletedQuestsLores.add(hideCompletedQuests ?
+			ChatColor.GREEN + "ON " + ChatColor.GRAY + "Completed Quests are hidden in the sidebar!" :
+			ChatColor.RED + "OFF " + ChatColor.GRAY + "Completed Quests are shown in the sidebar!");
+		hideComletedQuestsItemMeta.setLore(hideCompletedQuestsLores);
+		hideCompletedQuestsItemStack.setItemMeta(hideComletedQuestsItemMeta);
+		menu.setItem(8, hideCompletedQuestsItemStack);
 		
 		player.openInventory(menu);		
 	}
@@ -180,74 +174,74 @@ public class QuestBuilder implements WauzInventory {
 	public static ItemStack generateQuest(Player player, String questName, int phase, Material colorMaterial) {
 		WauzQuest quest = WauzQuest.getQuest(questName);
 		
-		ItemStack stack = new ItemStack(colorMaterial);
-		ItemMeta im = stack.getItemMeta();
-		im.setDisplayName(ChatColor.GOLD + quest.getDisplayName());
+		ItemStack questItemStack = new ItemStack(colorMaterial);
+		ItemMeta questItemMeta = questItemStack.getItemMeta();
+		questItemMeta.setDisplayName(ChatColor.GOLD + quest.getDisplayName());
 		
-		List<String> lores = new ArrayList<String>();
+		List<String> questLores = new ArrayList<String>();
 		
 		int level = quest.getLevel();
-		lores.add(ChatColor.GRAY + "Questgiver: " + questName.substring(0,1).toUpperCase() + questName.substring(1) + " at " + quest.getCoordinates());
-		lores.add(ChatColor.GRAY + "Level " + level + " [" + quest.getType().toUpperCase() + "] Quest");
-		lores.add("");
+		questLores.add(ChatColor.GRAY + "Questgiver: " + questName.substring(0,1).toUpperCase() + questName.substring(1) + " at " + quest.getCoordinates());
+		questLores.add(ChatColor.GRAY + "Level " + level + " [" + quest.getType().toUpperCase() + "] Quest");
+		questLores.add("");
 		
 		for(String lore : quest.getPhaseDialog(phase))
-			lores.add(ChatColor.WHITE + lore.replaceAll("player", player.getName()));
-		lores.add("");
+			questLores.add(ChatColor.WHITE + lore.replaceAll("player", player.getName()));
+		questLores.add("");
 		
 		QuestRequirementChecker questRequirementChecker = new QuestRequirementChecker(player, quest, phase);
-		lores.addAll(questRequirementChecker.getItemStackLores());
+		questLores.addAll(questRequirementChecker.getItemStackLores());
 		
 		boolean isMainQuest = colorMaterial.equals(Material.MAGENTA_CONCRETE);
 		
 		if(quest.getRequirementAmount(phase) > 0)
-			lores.add("");
-		lores.add(ChatColor.GRAY + (isMainQuest ? "" : "Left ") + "Click to Track Objective");
+			questLores.add("");
+		questLores.add(ChatColor.GRAY + (isMainQuest ? "" : "Left ") + "Click to Track Objective");
 		
 		if(!isMainQuest)
-			lores.add(ChatColor.GRAY + "Right Click to Cancel");
+			questLores.add(ChatColor.GRAY + "Right Click to Cancel");
 		
-		im.setLore(lores);
-		stack.setItemMeta(im);
-		return stack;
+		questItemMeta.setLore(questLores);
+		questItemStack.setItemMeta(questItemMeta);
+		return questItemStack;
 	}
 	
 // Generate a free Quest-Slot
 	
 	public static ItemStack generateEmptyQust(String type) {
-		ItemStack stack = new ItemStack(Material.WHITE_CONCRETE);
-		ItemMeta im = stack.getItemMeta();
-		im.setDisplayName(ChatColor.DARK_GRAY + "No " + type + "-Quest in progress...");
-		stack.setItemMeta(im);
-		return stack;
+		ItemStack emptyQuestItemStack = new ItemStack(Material.WHITE_CONCRETE);
+		ItemMeta emptyQuestItemMeta = emptyQuestItemStack.getItemMeta();
+		emptyQuestItemMeta.setDisplayName(ChatColor.DARK_GRAY + "No " + type + "-Quest in progress...");
+		emptyQuestItemStack.setItemMeta(emptyQuestItemMeta);
+		return emptyQuestItemStack;
 	}
 	
 	public static ItemStack generateUnacceptedQuest(Player player, WauzQuest quest, int phase, boolean trackable) {
-		ItemStack stack = new ItemStack(Material.WRITABLE_BOOK);
-		ItemMeta im = stack.getItemMeta();
-		im.setDisplayName(ChatColor.GOLD + quest.getDisplayName());
+		ItemStack unacceptedQuestItemStack = new ItemStack(Material.WRITABLE_BOOK);
+		ItemMeta unacceptedQuestItemMeta = unacceptedQuestItemStack.getItemMeta();
+		unacceptedQuestItemMeta.setDisplayName(ChatColor.GOLD + quest.getDisplayName());
 		
-		List<String> lores = new ArrayList<String>();
+		List<String> unacceptedQuestLores = new ArrayList<String>();
 		
 		int level = quest.getLevel();
 		String questName = quest.getQuestName();
 		
-		lores.add(ChatColor.GRAY + "Questgiver: " + questName.substring(0,1).toUpperCase() + questName.substring(1) + " at " + quest.getCoordinates());
-		lores.add(ChatColor.GRAY + "Level " + level + " [" + quest.getType().toUpperCase() + "] Quest");
-		lores.add("");
+		unacceptedQuestLores.add(ChatColor.GRAY + "Questgiver: " + questName.substring(0,1).toUpperCase() + questName.substring(1) + " at " + quest.getCoordinates());
+		unacceptedQuestLores.add(ChatColor.GRAY + "Level " + level + " [" + quest.getType().toUpperCase() + "] Quest");
+		unacceptedQuestLores.add("");
 		
 		QuestRequirementChecker questRequirementChecker = new QuestRequirementChecker(player, quest, phase);
-		lores.addAll(questRequirementChecker.getItemStackLoresUnaccepted());
+		unacceptedQuestLores.addAll(questRequirementChecker.getItemStackLoresUnaccepted());
 		
 		if(trackable) {
 			if(quest.getRequirementAmount(phase) > 0)
-				lores.add("");
-			lores.add(ChatColor.GRAY + "Left Click to Track Objective");
+				unacceptedQuestLores.add("");
+			unacceptedQuestLores.add(ChatColor.GRAY + "Left Click to Track Objective");
 		}
 		
-		im.setLore(lores);
-		stack.setItemMeta(im);
-		return stack;
+		unacceptedQuestItemMeta.setLore(unacceptedQuestLores);
+		unacceptedQuestItemStack.setItemMeta(unacceptedQuestItemMeta);
+		return unacceptedQuestItemStack;
 	}
 	
 // Select Quest or Option

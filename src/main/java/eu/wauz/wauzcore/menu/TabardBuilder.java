@@ -35,11 +35,11 @@ public class TabardBuilder implements WauzInventory {
 			return;
 		}
 		
-		ItemStack tabard = new ItemStack(Material.WHITE_BANNER);
-		ItemMeta im = tabard.getItemMeta();
-		im.setDisplayName(ChatColor.GREEN + playerGuild.getGuildName() + " Tabard");
-		tabard.setItemMeta(im);
-		open(player, new TabardBuilder(tabard, playerGuild.getGuildUuidString()));
+		ItemStack bannerItemStack = new ItemStack(Material.WHITE_BANNER);
+		ItemMeta bannerItemMeta = bannerItemStack.getItemMeta();
+		bannerItemMeta.setDisplayName(ChatColor.GREEN + playerGuild.getGuildName() + " Tabard");
+		bannerItemStack.setItemMeta(bannerItemMeta);
+		open(player, new TabardBuilder(bannerItemStack, playerGuild.getGuildUuidString()));
 	}
 	
 	public static void open(Player player, TabardBuilder tabardBuilder) {
@@ -48,41 +48,31 @@ public class TabardBuilder implements WauzInventory {
 		
 		tabardBuilder.page = "overview";
 		
-		{
-			ItemStack save = HeadUtils.getConfirmItem();
-			ItemMeta im = save.getItemMeta();
-			im.setDisplayName(ChatColor.GREEN + "Save Guild Tabard");
-			save.setItemMeta(im);
-			menu.setItem(0, save);
-		}
+		ItemStack saveItemStack = HeadUtils.getConfirmItem();
+		ItemMeta saveItemMeta = saveItemStack.getItemMeta();
+		saveItemMeta.setDisplayName(ChatColor.GREEN + "Save Guild Tabard");
+		saveItemStack.setItemMeta(saveItemMeta);
+		menu.setItem(0, saveItemStack);
 		
-		{
-			ItemStack layr = new ItemStack(Material.DRIED_KELP);
-			ItemMeta im = layr.getItemMeta();
-			im.setDisplayName(ChatColor.GOLD + "Add New Layer");
-			layr.setItemMeta(im);
-			menu.setItem(3, layr);
-		}
+		ItemStack layerItemStack = new ItemStack(Material.DRIED_KELP);
+		ItemMeta layerItemMeta = layerItemStack.getItemMeta();
+		layerItemMeta.setDisplayName(ChatColor.GOLD + "Add New Layer");
+		layerItemStack.setItemMeta(layerItemMeta);
+		menu.setItem(3, layerItemStack);
 		
-		{
-			menu.setItem(4, tabardBuilder.getTabard());
-		}
+		menu.setItem(4, tabardBuilder.getTabard());
 		
-		{
-			ItemStack colr = new ItemStack(Material.CYAN_DYE);
-			ItemMeta im = colr.getItemMeta();
-			im.setDisplayName(ChatColor.AQUA + "Change Base Color");
-			colr.setItemMeta(im);
-			menu.setItem(5, colr);
-		}
+		ItemStack colorItemStack = new ItemStack(Material.CYAN_DYE);
+		ItemMeta colorItemMeta = colorItemStack.getItemMeta();
+		colorItemMeta.setDisplayName(ChatColor.AQUA + "Change Base Color");
+		colorItemStack.setItemMeta(colorItemMeta);
+		menu.setItem(5, colorItemStack);
 		
-		{
-			ItemStack close = HeadUtils.getDeclineItem();
-			ItemMeta im = close.getItemMeta();
-			im.setDisplayName(ChatColor.RED + "Close Tabard Builder");
-			close.setItemMeta(im);
-			menu.setItem(8, close);
-		}
+		ItemStack closeItemStack = HeadUtils.getDeclineItem();
+		ItemMeta closeItemMeta = closeItemStack.getItemMeta();
+		closeItemMeta.setDisplayName(ChatColor.RED + "Close Tabard Builder");
+		closeItemStack.setItemMeta(closeItemMeta);
+		menu.setItem(8, closeItemStack);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);

@@ -32,70 +32,58 @@ public class TravellingMenu implements WauzInventory {
 		if(playerData == null)
 			return;
 		
-		{
-			ItemStack port = new ItemStack(Material.ENDER_EYE);
-			ItemMeta im = port.getItemMeta();
-			im.setDisplayName(ChatColor.GREEN + "Nexus Portal");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Sends you back to the Nexus Hub,");
-			lores.add(ChatColor.GRAY + "where you can select your characters.");
-			im.setLore(lores);
-			port.setItemMeta(im);
-			menu.setItem(0, port);
-		}
+		ItemStack portNexusItemStack = new ItemStack(Material.ENDER_EYE);
+		ItemMeta portNexusItemMeta = portNexusItemStack.getItemMeta();
+		portNexusItemMeta.setDisplayName(ChatColor.GREEN + "Nexus Portal");
+		List<String> portNexusLores = new ArrayList<String>();
+		portNexusLores.add(ChatColor.GRAY + "Sends you back to the Nexus Hub,");
+		portNexusLores.add(ChatColor.GRAY + "where you can select your characters.");
+		portNexusItemMeta.setLore(portNexusLores);
+		portNexusItemStack.setItemMeta(portNexusItemMeta);
+		menu.setItem(0, portNexusItemStack);
 		
-		{
-			ItemStack port = new ItemStack(Material.ENDER_PEARL);
-			ItemMeta im = port.getItemMeta();
-			im.setDisplayName(ChatColor.GREEN + "Spawn Portal");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Sends you to your Overworld Spawn.");
-			lores.add(ChatColor.GRAY + "Use it when stuck or for quick-travel.");
-			im.setLore(lores);
-			port.setItemMeta(im);
-			menu.setItem(1, port);
-		}
+		ItemStack portSpawnItemStack = new ItemStack(Material.ENDER_PEARL);
+		ItemMeta portSpawnItemMeta = portSpawnItemStack.getItemMeta();
+		portSpawnItemMeta.setDisplayName(ChatColor.GREEN + "Spawn Portal");
+		List<String> portSpawnLores = new ArrayList<String>();
+		portSpawnLores.add(ChatColor.GRAY + "Sends you to your Overworld Spawn.");
+		portSpawnLores.add(ChatColor.GRAY + "Use it when stuck or for quick-travel.");
+		portSpawnItemMeta.setLore(portSpawnLores);
+		portSpawnItemStack.setItemMeta(portSpawnItemMeta);
+		menu.setItem(1, portSpawnItemStack);
 		
-		{
-			ItemStack port = new ItemStack(Material.MAGMA_CREAM);
-			ItemMeta im = port.getItemMeta();
-			im.setDisplayName(ChatColor.GREEN + "Hearthstone");
-			List<String> lores = new ArrayList<String>();
-			String region = PlayerConfigurator.getCharacterHearthstoneRegion(player);
-			region = StringUtils.isNotBlank(region) ? ChatColor.GREEN + region : ChatColor.DARK_GRAY + "(None)";
-			lores.add(ChatColor.GRAY + "Sends you to your home: " + region);
-			lores.add(ChatColor.GRAY + "Speak to an (" + ChatColor.RED + "I" + ChatColor.GRAY + ")nnkeeper to change it.");
-			im.setLore(lores);
-			port.setItemMeta(im);
-			menu.setItem(2, port);
-		}
+		ItemStack portHomeItemStack = new ItemStack(Material.MAGMA_CREAM);
+		ItemMeta portHomeItemMeta = portHomeItemStack.getItemMeta();
+		portHomeItemMeta.setDisplayName(ChatColor.GREEN + "Hearthstone");
+		List<String> portHomeLores = new ArrayList<String>();
+		String region = PlayerConfigurator.getCharacterHearthstoneRegion(player);
+		region = StringUtils.isNotBlank(region) ? ChatColor.GREEN + region : ChatColor.DARK_GRAY + "(None)";
+		portHomeLores.add(ChatColor.GRAY + "Sends you to your home: " + region);
+		portHomeLores.add(ChatColor.GRAY + "Speak to an (" + ChatColor.RED + "I" + ChatColor.GRAY + ")nnkeeper to change it.");
+		portHomeItemMeta.setLore(portHomeLores);
+		portHomeItemStack.setItemMeta(portHomeItemMeta);
+		menu.setItem(2, portHomeItemStack);
 		
 		boolean inInstance = player.getWorld().getName().contains("Instance");
-		{
-			ItemStack port = new ItemStack(inInstance ? Material.OAK_DOOR : Material.IRON_DOOR);
-			ItemMeta im = port.getItemMeta();
-			im.setDisplayName(ChatColor.YELLOW + "Leave Instance" + (inInstance ? "" : ChatColor.RED + " (Disabled)"));
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Leave the instance and return to the");
-			lores.add(ChatColor.GRAY + "place, from where you entered it.");
-			im.setLore(lores);
-			port.setItemMeta(im);
-			menu.setItem(3, port);
-		}
+		ItemStack portInstanceExitItemStack = new ItemStack(inInstance ? Material.OAK_DOOR : Material.IRON_DOOR);
+		ItemMeta portInstanceExitItemMeta = portInstanceExitItemStack.getItemMeta();
+		portInstanceExitItemMeta.setDisplayName(ChatColor.YELLOW + "Leave Instance" + (inInstance ? "" : ChatColor.RED + " (Disabled)"));
+		List<String> portInstanceExitLore = new ArrayList<String>();
+		portInstanceExitLore.add(ChatColor.GRAY + "Leave the instance and return to the");
+		portInstanceExitLore.add(ChatColor.GRAY + "place, from where you entered it.");
+		portInstanceExitItemMeta.setLore(portInstanceExitLore);
+		portInstanceExitItemStack.setItemMeta(portInstanceExitItemMeta);
+		menu.setItem(3, portInstanceExitItemStack);
 		
-		{
-			ItemStack omap = new ItemStack(Material.MAP);
-			ItemMeta im = omap.getItemMeta();
-			im.setDisplayName(ChatColor.BLUE + "Overview Map");
-			List<String> lores = new ArrayList<String>();
-			String region = PlayerConfigurator.getCharacterHearthstoneRegion(player);
-			region = StringUtils.isNotBlank(region) ? ChatColor.GREEN + region : ChatColor.DARK_GRAY + "(None)";
-			lores.add(ChatColor.GRAY + "Sends a link in chat to the Overview Map,");
-			lores.add(ChatColor.GRAY + "where you can see your position.");
-			im.setLore(lores);
-			omap.setItemMeta(im);
-			menu.setItem(7, omap);
-		}
+		ItemStack mapItemStack = new ItemStack(Material.MAP);
+		ItemMeta mapItemMeta = mapItemStack.getItemMeta();
+		mapItemMeta.setDisplayName(ChatColor.BLUE + "Overview Map");
+		List<String> mapLores = new ArrayList<String>();
+		mapLores.add(ChatColor.GRAY + "Sends a link in chat to the Overview Map,");
+		mapLores.add(ChatColor.GRAY + "where you can see your position.");
+		mapItemMeta.setLore(mapLores);
+		mapItemStack.setItemMeta(mapItemMeta);
+		menu.setItem(7, mapItemStack);
 		
 		MenuUtils.setComingSoon(menu, "Lore Collection", 8);
 		

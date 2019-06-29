@@ -47,9 +47,9 @@ public class CharacterSlotMenu implements WauzInventory {
 	
 	private static ItemStack getCharacterSlot(Player player, int slotId, boolean deletable) {
 		boolean characterExists = PlayerConfigurator.doesCharacterExist(player, slotId);
-		ItemStack slot = new ItemStack(Material.TOTEM_OF_UNDYING);
-		ItemMeta im = slot.getItemMeta();
-		im.setDisplayName((characterExists ? ChatColor.GOLD : ChatColor.RED) + "Slot " + slotId);
+		ItemStack slotItemStack = new ItemStack(Material.TOTEM_OF_UNDYING);
+		ItemMeta slotItemMeta = slotItemStack.getItemMeta();
+		slotItemMeta.setDisplayName((characterExists ? ChatColor.GOLD : ChatColor.RED) + "Slot " + slotId);
 		List<String> lores = new ArrayList<String>();
 		
 		if(characterExists) {
@@ -69,9 +69,9 @@ public class CharacterSlotMenu implements WauzInventory {
 		else
 			lores.add(ChatColor.GRAY + "Empty");
 		
-		im.setLore(lores);
-		slot.setItemMeta(im);
-		return slot;
+		slotItemMeta.setLore(lores);
+		slotItemStack.setItemMeta(slotItemMeta);
+		return slotItemStack;
 	}
 	
 	public void selectMenuPoint(InventoryClickEvent event) {

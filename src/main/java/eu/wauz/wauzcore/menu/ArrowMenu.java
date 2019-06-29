@@ -44,25 +44,25 @@ public class ArrowMenu implements WauzInventory {
 	}
 	
 	private static ItemStack getArrowType(Player player, String selectedArrowType, String arrowType, Material material) {
-		ItemStack arrows = new ItemStack(material);
-		ItemMeta im = arrows.getItemMeta();
-		im.setDisplayName(ChatColor.WHITE + StringUtils.capitalize(arrowType) + " Arrows");
+		ItemStack arrowItemStack = new ItemStack(material);
+		ItemMeta arrowItemMeta = arrowItemStack.getItemMeta();
+		arrowItemMeta.setDisplayName(ChatColor.WHITE + StringUtils.capitalize(arrowType) + " Arrows");
 		List<String> lores = new ArrayList<String>();
 		lores.add(getArrowDescription(arrowType));
 		lores.add("");
 		lores.add(ChatColor.GRAY + "Amount Left: " + PlayerConfigurator.getArrowAmount(player, arrowType) + " Arrows");
-		im.setLore(lores);
+		arrowItemMeta.setLore(lores);
 		if(selectedArrowType.equals(arrowType)) {
-			im.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
-			im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+			arrowItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
+			arrowItemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		}
 		PotionType arrowTipPotion = getArrowTipPotion(arrowType);
 		if(arrowTipPotion != null) {
-			((PotionMeta) im).setBasePotionData(new PotionData(arrowTipPotion));
-			im.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+			((PotionMeta) arrowItemMeta).setBasePotionData(new PotionData(arrowTipPotion));
+			arrowItemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 		}
-		arrows.setItemMeta(im);
-		return arrows;
+		arrowItemStack.setItemMeta(arrowItemMeta);
+		return arrowItemStack;
 	}
 	
 	private static String getArrowDescription(String arrowType) {

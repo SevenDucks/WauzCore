@@ -80,22 +80,22 @@ public class TabardMenu implements WauzInventory {
 	
 	public static void equipSelectedTabard(Player player) {
 		String tabardName = PlayerConfigurator.getCharacterTabard(player);
-		ItemStack tabd = getTabardByName(player, tabardName);
-		if(tabd == null || tabd.getType().equals(Material.BARRIER)) {
-			tabd = null;
+		ItemStack bannerItemStack = getTabardByName(player, tabardName);
+		if(bannerItemStack == null || bannerItemStack.getType().equals(Material.BARRIER)) {
+			bannerItemStack = null;
 		}
 		else {
-			ItemMeta im = tabd.getItemMeta();
-			String tabardDisplay = ChatColor.stripColor(im.getDisplayName());
-			im.setDisplayName(ChatColor.RESET + "Cosmetic Item [" + tabardDisplay + "]");
-			tabd.setItemMeta(im);
+			ItemMeta bannerItemMeta = bannerItemStack.getItemMeta();
+			String tabardDisplay = ChatColor.stripColor(bannerItemMeta.getDisplayName());
+			bannerItemMeta.setDisplayName(ChatColor.RESET + "Cosmetic Item [" + tabardDisplay + "]");
+			bannerItemStack.setItemMeta(bannerItemMeta);
 		}
-		player.getEquipment().setHelmet(tabd);
+		player.getEquipment().setHelmet(bannerItemStack);
 	}
 	
 	private static ItemStack getTabardByName(Player player, String tabardName) {
-		ItemStack tabd;
-		BannerMeta bm;
+		ItemStack bannerItemStack;
+		BannerMeta bannerMeta;
 		List<String> lores;
 		List<Pattern> patterns;
 		
@@ -104,43 +104,43 @@ public class TabardMenu implements WauzInventory {
 			WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
 			if(playerGuild == null)
 				return null;
-			tabd = playerGuild.getGuildTabard();
-			bm = (BannerMeta) tabd.getItemMeta();
-			bm.setDisplayName(ChatColor.WHITE + "Guild Tabard");
+			bannerItemStack = playerGuild.getGuildTabard();
+			bannerMeta = (BannerMeta) bannerItemStack.getItemMeta();
+			bannerMeta.setDisplayName(ChatColor.WHITE + "Guild Tabard");
 			lores = new ArrayList<String>();
 			lores.add("");
 			lores.add(ChatColor.GREEN + "Guild: " + playerGuild.getGuildName());
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
-			bm.setLore(lores);
-			tabd.setItemMeta(bm);
-			return tabd;
+			bannerMeta.setLore(lores);
+			bannerItemStack.setItemMeta(bannerMeta);
+			return bannerItemStack;
 			
 		case "Republic Wauzland":
-			tabd = new ItemStack(Material.WHITE_BANNER);
-			bm = (BannerMeta) tabd.getItemMeta();
-			bm.setDisplayName(ChatColor.WHITE + "Republic Wauzland");
+			bannerItemStack = new ItemStack(Material.WHITE_BANNER);
+			bannerMeta = (BannerMeta) bannerItemStack.getItemMeta();
+			bannerMeta.setDisplayName(ChatColor.WHITE + "Republic Wauzland");
 			lores = new ArrayList<String>();
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
-			bm.setLore(lores);
+			bannerMeta.setLore(lores);
 			patterns = new ArrayList<Pattern>();
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.TRIANGLE_BOTTOM));
 			patterns.add(new Pattern(DyeColor.WHITE, PatternType.TRIANGLES_BOTTOM));
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.STRIPE_RIGHT));
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.STRIPE_LEFT));
-			bm.setPatterns(patterns);
-			tabd.setItemMeta(bm);
-			return tabd;
+			bannerMeta.setPatterns(patterns);
+			bannerItemStack.setItemMeta(bannerMeta);
+			return bannerItemStack;
 			
 		case "Eternal Empire":
-			tabd = new ItemStack(Material.YELLOW_BANNER);
-			bm = (BannerMeta) tabd.getItemMeta();
-			bm.setDisplayName(ChatColor.WHITE + "Eternal Empire");
+			bannerItemStack = new ItemStack(Material.YELLOW_BANNER);
+			bannerMeta = (BannerMeta) bannerItemStack.getItemMeta();
+			bannerMeta.setDisplayName(ChatColor.WHITE + "Eternal Empire");
 			lores = new ArrayList<String>();
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
-			bm.setLore(lores);
+			bannerMeta.setLore(lores);
 			patterns = new ArrayList<Pattern>();
 			patterns.add(new Pattern(DyeColor.YELLOW, PatternType.HALF_HORIZONTAL));
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.TRIANGLE_TOP));
@@ -148,18 +148,18 @@ public class TabardMenu implements WauzInventory {
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.HALF_HORIZONTAL_MIRROR));
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.BORDER));
 			patterns.add(new Pattern(DyeColor.RED, PatternType.GRADIENT_UP));
-			bm.setPatterns(patterns);
-			tabd.setItemMeta(bm);		
-			return tabd;
+			bannerMeta.setPatterns(patterns);
+			bannerItemStack.setItemMeta(bannerMeta);		
+			return bannerItemStack;
 			
 		case "Dark Legion":
-			tabd = new ItemStack(Material.BLUE_BANNER);
-			bm = (BannerMeta) tabd.getItemMeta();
-			bm.setDisplayName(ChatColor.WHITE + "Dark Legion");
+			bannerItemStack = new ItemStack(Material.BLUE_BANNER);
+			bannerMeta = (BannerMeta) bannerItemStack.getItemMeta();
+			bannerMeta.setDisplayName(ChatColor.WHITE + "Dark Legion");
 			lores = new ArrayList<String>();
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
-			bm.setLore(lores);
+			bannerMeta.setLore(lores);
 			patterns = new ArrayList<Pattern>();
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.STRIPE_SMALL));
 			patterns.add(new Pattern(DyeColor.BLUE, PatternType.CURLY_BORDER));
@@ -167,21 +167,21 @@ public class TabardMenu implements WauzInventory {
 			patterns.add(new Pattern(DyeColor.LIGHT_BLUE, PatternType.RHOMBUS_MIDDLE));
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.FLOWER));
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.TRIANGLES_BOTTOM));
-			bm.setPatterns(patterns);
-			tabd.setItemMeta(bm);
-			return tabd;
+			bannerMeta.setPatterns(patterns);
+			bannerItemStack.setItemMeta(bannerMeta);
+			return bannerItemStack;
 			
 		default:
-			tabd = new ItemStack(Material.BARRIER);
-			ItemMeta im = tabd.getItemMeta();
-			im.setDisplayName(ChatColor.WHITE + "No Tabard");
+			bannerItemStack = new ItemStack(Material.BARRIER);
+			ItemMeta bannerItemMeta = bannerItemStack.getItemMeta();
+			bannerItemMeta.setDisplayName(ChatColor.WHITE + "No Tabard");
 			lores = new ArrayList<String>();
 			lores.add(ChatColor.GRAY + "Unequips Current Tabard");
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
-			im.setLore(lores);
-			tabd.setItemMeta(im);
-			return tabd;
+			bannerItemMeta.setLore(lores);
+			bannerItemStack.setItemMeta(bannerItemMeta);
+			return bannerItemStack;
 		}
 	}
 

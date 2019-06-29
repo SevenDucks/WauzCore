@@ -21,7 +21,7 @@ public class EquipmentRuneSocket {
 		Player player = (Player) event.getWhoClicked();
 		
 		ItemStack itemStack = event.getCurrentItem();
-		ItemMeta im = itemStack.getItemMeta();
+		ItemMeta itemMeta = itemStack.getItemMeta();
 		String itemMaterial = itemStack.getType().toString();
 		String itemType = "Unknown";
 		
@@ -119,8 +119,8 @@ public class EquipmentRuneSocket {
 				newLores.add(lore);
 			}			
 			if(valid) {
-				im.setLore(newLores);
-				itemStack.setItemMeta(im);
+				itemMeta.setLore(newLores);
+				itemStack.setItemMeta(itemMeta);
 				
 				player.getWorld().playEffect(player.getLocation(), Effect.EXTINGUISH, 0);
 			}
@@ -147,8 +147,8 @@ public class EquipmentRuneSocket {
 				newLores.add(lore);
 			}			
 			if(valid) {
-				im.setLore(newLores);
-				itemStack.setItemMeta(im);
+				itemMeta.setLore(newLores);
+				itemStack.setItemMeta(itemMeta);
 			}
 			return valid;
 		}
@@ -162,11 +162,11 @@ public class EquipmentRuneSocket {
 		WauzPlayerSkill skill = WauzPlayerSkillExecutor.playerSkillMap.get(skillName);
 		
 		ItemStack itemStack = event.getCurrentItem();
-		ItemMeta im = itemStack.getItemMeta();
+		ItemMeta itemMeta = itemStack.getItemMeta();
 		
 		if(ItemUtils.hasSkillgemSocket(itemStack)) {
 			List<String> newLores = new ArrayList<>();
-			for(String lore : im.getLore()) {
+			for(String lore : itemMeta.getLore()) {
 				if(lore.contains(ChatColor.DARK_RED + "Empty")) {
 					newLores.add(ChatColor.WHITE + "Skillgem (" + ChatColor.LIGHT_PURPLE + skill.getSkillId() + ChatColor.WHITE + ")");
 					newLores.add(ChatColor.WHITE + skill.getSkillDescription());
@@ -174,8 +174,8 @@ public class EquipmentRuneSocket {
 				}
 				newLores.add(lore);
 			}
-			im.setLore(newLores);
-			itemStack.setItemMeta(im);
+			itemMeta.setLore(newLores);
+			itemStack.setItemMeta(itemMeta);
 			return true;
 		}
 		
@@ -186,7 +186,7 @@ public class EquipmentRuneSocket {
 		Player player = (Player) event.getWhoClicked();
 		
 		ItemStack itemStack = event.getCurrentItem();
-		ItemMeta im = itemStack.getItemMeta();
+		ItemMeta itemMeta = itemStack.getItemMeta();
 		
 		boolean valid = false;
 		if(!ItemUtils.hasLore(itemStack))
@@ -197,7 +197,7 @@ public class EquipmentRuneSocket {
 		int defManus = ItemUtils.getRuneDefBoost(itemStack);
 		
 		List<String> newLores = new ArrayList<>();
-		for(String lore : im.getLore()) {
+		for(String lore : itemMeta.getLore()) {
 			if(skipLines > 0) {
 				skipLines--;
 				continue;
@@ -235,8 +235,8 @@ public class EquipmentRuneSocket {
 		}
 		
 		if(valid) {
-			im.setLore(newLores);
-			itemStack.setItemMeta(im);
+			itemMeta.setLore(newLores);
+			itemStack.setItemMeta(itemMeta);
 		}
 		return valid;
 	}

@@ -33,178 +33,160 @@ public class SkillMenu implements WauzInventory {
 		int spent;
 		
 		spent = PlayerPassiveSkillConfigurator.getHealthStatpoints(player);
-		{
-			ItemStack item = HeadUtils.getSkillHealthItem(spent);			
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_GREEN + "Health");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Increases Maximum Hitpoints by 5.");
-			lores.add(ChatColor.GRAY + "Also instantly refills your Hitpoints.");
-			lores.add("");
-			lores.add(ChatColor.WHITE + "Maximum HP: " + ChatColor.RED
-					+ PlayerPassiveSkillConfigurator.getHealth(player));
-			im.setLore(lores);
-			item.setItemMeta(im);
-			menu.setItem(0, item);
-		}
+		ItemStack skillHealthItemStack = HeadUtils.getSkillHealthItem(spent);			
+		ItemMeta skillHealthItemMeta = skillHealthItemStack.getItemMeta();
+		skillHealthItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Health");
+		List<String> skillHealthLores = new ArrayList<String>();
+		skillHealthLores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
+		skillHealthLores.add("");
+		skillHealthLores.add(ChatColor.GRAY + "Increases Maximum Hitpoints by 5.");
+		skillHealthLores.add(ChatColor.GRAY + "Also instantly refills your Hitpoints.");
+		skillHealthLores.add("");
+		skillHealthLores.add(ChatColor.WHITE + "Maximum HP: " + ChatColor.RED
+				+ PlayerPassiveSkillConfigurator.getHealth(player));
+		skillHealthItemMeta.setLore(skillHealthLores);
+		skillHealthItemStack.setItemMeta(skillHealthItemMeta);
+		menu.setItem(0, skillHealthItemStack);
 		
 		spent = PlayerPassiveSkillConfigurator.getTradingStatpoints(player);
-		{
-			ItemStack item = HeadUtils.getSkillTradingItem(spent);	
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_GREEN + "Trading");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Increases Sell Income by 10%.");
-			lores.add(ChatColor.GRAY + "Applies for all ways of gaining Coins.");
-			lores.add("");
-			lores.add(ChatColor.WHITE + "Coin Multiplier: " + ChatColor.GOLD
-					+ PlayerPassiveSkillConfigurator.getTrading(player) + "%");
-			im.setLore(lores);
-			item.setItemMeta(im);
-			menu.setItem(1, item);
-		}
+		ItemStack skillTradingItemStack = HeadUtils.getSkillTradingItem(spent);	
+		ItemMeta skillTradingItemMeta = skillTradingItemStack.getItemMeta();
+		skillTradingItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Trading");
+		List<String> skillTradingLores = new ArrayList<String>();
+		skillTradingLores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
+		skillTradingLores.add("");
+		skillTradingLores.add(ChatColor.GRAY + "Increases Sell Income by 10%.");
+		skillTradingLores.add(ChatColor.GRAY + "Applies for all ways of gaining Coins.");
+		skillTradingLores.add("");
+		skillTradingLores.add(ChatColor.WHITE + "Coin Multiplier: " + ChatColor.GOLD
+				+ PlayerPassiveSkillConfigurator.getTrading(player) + "%");
+		skillTradingItemMeta.setLore(skillTradingLores);
+		skillTradingItemStack.setItemMeta(skillTradingItemMeta);
+		menu.setItem(1, skillTradingItemStack);
 		
 		spent = PlayerPassiveSkillConfigurator.getLuckStatpoints(player);
-		{
-			ItemStack item = HeadUtils.getSkillLuckItem(spent);	
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_GREEN + "Luck");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Increases Rate on every 3rd Identify by 10%.");
-			lores.add(ChatColor.GRAY + "Enhanced Equipment has special Effects.");
-			lores.add("");
-			lores.add(ChatColor.WHITE + "Enhance-Rate: " + ChatColor.YELLOW
-					+ PlayerPassiveSkillConfigurator.getLuck(player) + "%");
-			im.setLore(lores);
-			item.setItemMeta(im);
-			menu.setItem(2, item);
-		}
+		ItemStack skillLuckItemStack = HeadUtils.getSkillLuckItem(spent);	
+		ItemMeta skillLuckItemMeta = skillLuckItemStack.getItemMeta();
+		skillLuckItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Luck");
+		List<String> skillLuckLores = new ArrayList<String>();
+		skillLuckLores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
+		skillLuckLores.add("");
+		skillLuckLores.add(ChatColor.GRAY + "Increases Rate on every 3rd Identify by 10%.");
+		skillLuckLores.add(ChatColor.GRAY + "Enhanced Equipment has special Effects.");
+		skillLuckLores.add("");
+		skillLuckLores.add(ChatColor.WHITE + "Enhance-Rate: " + ChatColor.YELLOW
+				+ PlayerPassiveSkillConfigurator.getLuck(player) + "%");
+		skillLuckItemMeta.setLore(skillLuckLores);
+		skillLuckItemStack.setItemMeta(skillLuckItemMeta);
+		menu.setItem(2, skillLuckItemStack);
 		
 		spent = PlayerPassiveSkillConfigurator.getManaStatpoints(player);
-		{
-			ItemStack item = HeadUtils.getSkillMagicItem(spent);	
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_GREEN + "Magic");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Increases Maximum Mana Points by 1.");
-			lores.add(ChatColor.GRAY + "Additionally adds a 5% Bonus to Staff Fighting.");
-			lores.add("");
-			lores.add(ChatColor.WHITE + "Maximum MP: " + ChatColor.LIGHT_PURPLE
-					+ PlayerPassiveSkillConfigurator.getMana(player)
-					+ ChatColor.GRAY + " (Max: 50)");
-			im.setLore(lores);
-			item.setItemMeta(im);
-			menu.setItem(3, item);
-		}
+		ItemStack skillMagicItemStack = HeadUtils.getSkillMagicItem(spent);	
+		ItemMeta skillMagicItemMeta = skillMagicItemStack.getItemMeta();
+		skillMagicItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Magic");
+		List<String> skillMagicLores = new ArrayList<String>();
+		skillMagicLores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
+		skillMagicLores.add("");
+		skillMagicLores.add(ChatColor.GRAY + "Increases Maximum Mana Points by 1.");
+		skillMagicLores.add(ChatColor.GRAY + "Additionally adds a 5% Bonus to Staff Fighting.");
+		skillMagicLores.add("");
+		skillMagicLores.add(ChatColor.WHITE + "Maximum MP: " + ChatColor.LIGHT_PURPLE
+				+ PlayerPassiveSkillConfigurator.getMana(player)
+				+ ChatColor.GRAY + " (Max: 50)");
+		skillMagicItemMeta.setLore(skillMagicLores);
+		skillMagicItemStack.setItemMeta(skillMagicItemMeta);
+		menu.setItem(3, skillMagicItemStack);
 		
 		spent = PlayerPassiveSkillConfigurator.getStrengthStatpoints(player);
-		{
-			ItemStack item = HeadUtils.getSkillStrengthItem(spent);	
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_GREEN + "Strength");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Increases Defense from Equip by 5%.");
-			lores.add(ChatColor.GRAY + "Additionally adds a 5% Bonus to Axe Combat.");
-			lores.add("");
-			lores.add(ChatColor.WHITE + "Defense Multiplier: " + ChatColor.BLUE
-					+ PlayerPassiveSkillConfigurator.getStrength(player) + "%"
-					+ ChatColor.GRAY + " (Max: 300%)");
-			im.setLore(lores);
-			item.setItemMeta(im);
-			menu.setItem(4, item);
-		}
+		ItemStack skillStrengthItemStack = HeadUtils.getSkillStrengthItem(spent);	
+		ItemMeta skillStrengthItemMeta = skillStrengthItemStack.getItemMeta();
+		skillStrengthItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Strength");
+		List<String> skillStrengthLores = new ArrayList<String>();
+		skillStrengthLores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
+		skillStrengthLores.add("");
+		skillStrengthLores.add(ChatColor.GRAY + "Increases Defense from Equip by 5%.");
+		skillStrengthLores.add(ChatColor.GRAY + "Additionally adds a 5% Bonus to Axe Combat.");
+		skillStrengthLores.add("");
+		skillStrengthLores.add(ChatColor.WHITE + "Defense Multiplier: " + ChatColor.BLUE
+				+ PlayerPassiveSkillConfigurator.getStrength(player) + "%"
+				+ ChatColor.GRAY + " (Max: 300%)");
+		skillStrengthItemMeta.setLore(skillStrengthLores);
+		skillStrengthItemStack.setItemMeta(skillStrengthItemMeta);
+		menu.setItem(4, skillStrengthItemStack);
 		
 		spent = PlayerPassiveSkillConfigurator.getAgilityStatpoints(player);
-		{
-			ItemStack item = HeadUtils.getSkillAgilityItem(spent);	
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_GREEN + "Agility");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Increases Evasion/Crit-Chance by 1%.");
-			lores.add(ChatColor.GRAY + "Additionally adds a 5% Bonus to Sword Art.");
-			lores.add("");
-			lores.add(ChatColor.WHITE + "Evasion/Crit-Chance: " + ChatColor.AQUA
-					+ PlayerPassiveSkillConfigurator.getAgility(player) + "%"
-					+ ChatColor.GRAY + " (Max: 40%)");
-			im.setLore(lores);
-			item.setItemMeta(im);
-			menu.setItem(5, item);
-		}
+		ItemStack skillAgilityItemStack = HeadUtils.getSkillAgilityItem(spent);	
+		ItemMeta skillAgilityItemMeta = skillAgilityItemStack.getItemMeta();
+		skillAgilityItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Agility");
+		List<String> skillAgilityLores = new ArrayList<String>();
+		skillAgilityLores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
+		skillAgilityLores.add("");
+		skillAgilityLores.add(ChatColor.GRAY + "Increases Evasion/Crit-Chance by 1%.");
+		skillAgilityLores.add(ChatColor.GRAY + "Additionally adds a 5% Bonus to Sword Art.");
+		skillAgilityLores.add("");
+		skillAgilityLores.add(ChatColor.WHITE + "Evasion/Crit-Chance: " + ChatColor.AQUA
+				+ PlayerPassiveSkillConfigurator.getAgility(player) + "%"
+				+ ChatColor.GRAY + " (Max: 40%)");
+		skillAgilityItemMeta.setLore(skillAgilityLores);
+		skillAgilityItemStack.setItemMeta(skillAgilityItemMeta);
+		menu.setItem(5, skillAgilityItemStack);
 		
-		{
-			ItemStack item = new ItemStack(Material.IRON_HOE, 1);
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_RED + "Staff Fighting");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
-					+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getStaffSkill(player) / 1000)) + "%"
-					+ ChatColor.GRAY + " (Max: "
-					+ (int) (PlayerPassiveSkillConfigurator.getStaffSkillMax(player) / 1000) + "%)");
-			lores.add(ChatColor.GRAY + "Multiplied by "
-					+ ((float) PlayerPassiveSkillConfigurator.getManaStatpoints(player) * 5 / 100 + 1) + " from Magic");
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
-			lores.add(ChatColor.GRAY + "will increase your skill and thus");
-			lores.add(ChatColor.GRAY + "the damage dealt with them.");
-			im.setLore(lores);
-			im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-			item.setItemMeta(im);
-			menu.setItem(6, item);
-		}
-		
-		{
-			ItemStack item = new ItemStack(Material.IRON_AXE, 1);
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_RED + "Axe Combat");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
-					+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getAxeSkill(player) / 1000)) + "%"
-					+ ChatColor.GRAY + " (Max: "
-					+ (int) (PlayerPassiveSkillConfigurator.getAxeSkillMax(player) / 1000) + "%)");
-			lores.add(ChatColor.GRAY + "Multiplied by "
-					+ ((float) PlayerPassiveSkillConfigurator.getStrengthStatpoints(player) * 5 / 100 + 1) + " from Strength");
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
-			lores.add(ChatColor.GRAY + "will increase your skill and thus");
-			lores.add(ChatColor.GRAY + "the damage dealt with them.");
-			im.setLore(lores);
-			im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-			item.setItemMeta(im);
-			menu.setItem(7, item);
-		}
-		
-		{
-			ItemStack item = new ItemStack(Material.IRON_SWORD, 1);
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_RED + "Sword Art");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
-				+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getSwordSkill(player) / 1000)) + "%"
+		ItemStack skillWeaponStaffItemStack = new ItemStack(Material.IRON_HOE, 1);
+		ItemMeta skillWeaponStaffItemMeta = skillWeaponStaffItemStack.getItemMeta();
+		skillWeaponStaffItemMeta.setDisplayName(ChatColor.DARK_RED + "Staff Fighting");
+		List<String> skillWeaponStaffLores = new ArrayList<String>();
+		skillWeaponStaffLores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
+				+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getStaffSkill(player) / 1000)) + "%"
 				+ ChatColor.GRAY + " (Max: "
-				+ (int) (PlayerPassiveSkillConfigurator.getSwordSkillMax(player) / 1000) + "%)");
-			lores.add(ChatColor.GRAY + "Multiplied by "
-				+ ((float) PlayerPassiveSkillConfigurator.getAgilityStatpoints(player) * 5 / 100 + 1) + " from Agility");
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
-			lores.add(ChatColor.GRAY + "will increase your skill and thus");
-			lores.add(ChatColor.GRAY + "the damage dealt with them.");
-			im.setLore(lores);
-			im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-			item.setItemMeta(im);
-			menu.setItem(8, item);
-		}
+				+ (int) (PlayerPassiveSkillConfigurator.getStaffSkillMax(player) / 1000) + "%)");
+		skillWeaponStaffLores.add(ChatColor.GRAY + "Multiplied by "
+				+ ((float) PlayerPassiveSkillConfigurator.getManaStatpoints(player) * 5 / 100 + 1) + " from Magic");
+		skillWeaponStaffLores.add("");
+		skillWeaponStaffLores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
+		skillWeaponStaffLores.add(ChatColor.GRAY + "will increase your skill and thus");
+		skillWeaponStaffLores.add(ChatColor.GRAY + "the damage dealt with them.");
+		skillWeaponStaffItemMeta.setLore(skillWeaponStaffLores);
+		skillWeaponStaffItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		skillWeaponStaffItemStack.setItemMeta(skillWeaponStaffItemMeta);
+		menu.setItem(6, skillWeaponStaffItemStack);
+		
+		ItemStack skillWeaponAxeItemStack = new ItemStack(Material.IRON_AXE, 1);
+		ItemMeta skillWeaponAxeItemMeta = skillWeaponAxeItemStack.getItemMeta();
+		skillWeaponAxeItemMeta.setDisplayName(ChatColor.DARK_RED + "Axe Combat");
+		List<String> skillWeaponAxeLores = new ArrayList<String>();
+		skillWeaponAxeLores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
+				+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getAxeSkill(player) / 1000)) + "%"
+				+ ChatColor.GRAY + " (Max: "
+				+ (int) (PlayerPassiveSkillConfigurator.getAxeSkillMax(player) / 1000) + "%)");
+		skillWeaponAxeLores.add(ChatColor.GRAY + "Multiplied by "
+				+ ((float) PlayerPassiveSkillConfigurator.getStrengthStatpoints(player) * 5 / 100 + 1) + " from Strength");
+		skillWeaponAxeLores.add("");
+		skillWeaponAxeLores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
+		skillWeaponAxeLores.add(ChatColor.GRAY + "will increase your skill and thus");
+		skillWeaponAxeLores.add(ChatColor.GRAY + "the damage dealt with them.");
+		skillWeaponAxeItemMeta.setLore(skillWeaponAxeLores);
+		skillWeaponAxeItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		skillWeaponAxeItemStack.setItemMeta(skillWeaponAxeItemMeta);
+		menu.setItem(7, skillWeaponAxeItemStack);
+		
+		ItemStack skillWeaponSwordItemStack = new ItemStack(Material.IRON_SWORD, 1);
+		ItemMeta skillWeaponSwordItemMeta = skillWeaponSwordItemStack.getItemMeta();
+		skillWeaponSwordItemMeta.setDisplayName(ChatColor.DARK_RED + "Sword Art");
+		List<String> skillWeaponSwordLores = new ArrayList<String>();
+		skillWeaponSwordLores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
+			+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getSwordSkill(player) / 1000)) + "%"
+			+ ChatColor.GRAY + " (Max: "
+			+ (int) (PlayerPassiveSkillConfigurator.getSwordSkillMax(player) / 1000) + "%)");
+		skillWeaponSwordLores.add(ChatColor.GRAY + "Multiplied by "
+			+ ((float) PlayerPassiveSkillConfigurator.getAgilityStatpoints(player) * 5 / 100 + 1) + " from Agility");
+		skillWeaponSwordLores.add("");
+		skillWeaponSwordLores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
+		skillWeaponSwordLores.add(ChatColor.GRAY + "will increase your skill and thus");
+		skillWeaponSwordLores.add(ChatColor.GRAY + "the damage dealt with them.");
+		skillWeaponSwordItemMeta.setLore(skillWeaponSwordLores);
+		skillWeaponSwordItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		skillWeaponSwordItemStack.setItemMeta(skillWeaponSwordItemMeta);
+		menu.setItem(8, skillWeaponSwordItemStack);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);

@@ -301,23 +301,23 @@ public class CharacterManager {
 	}
 	
 	private static void equipCharacterItems(Player player) {
-		ItemStack equipped = new ItemStack(Material.CLOCK);
-		ItemMeta iim = equipped.getItemMeta();
-		iim.setDisplayName(ChatColor.RED + "No Item Equipped");
-		equipped.setItemMeta(iim);
-		player.getInventory().setItem(7, equipped);
+		ItemStack clockItemStack = new ItemStack(Material.CLOCK);
+		ItemMeta clockItemMeta = clockItemStack.getItemMeta();
+		clockItemMeta.setDisplayName(ChatColor.RED + "No Item Equipped");
+		clockItemStack.setItemMeta(clockItemMeta);
+		player.getInventory().setItem(7, clockItemStack);
 
-		ItemStack menu = new ItemStack(Material.NETHER_STAR);
-		ItemMeta mim = menu.getItemMeta();
-		mim.setDisplayName(ChatColor.GOLD + "Open Menu");
-		menu.setItemMeta(mim);
-		player.getInventory().setItem(8, menu);
+		ItemStack mainMenuItemStack = new ItemStack(Material.NETHER_STAR);
+		ItemMeta mainMenuItemMeta = mainMenuItemStack.getItemMeta();
+		mainMenuItemMeta.setDisplayName(ChatColor.GOLD + "Open Menu");
+		mainMenuItemStack.setItemMeta(mainMenuItemMeta);
+		player.getInventory().setItem(8, mainMenuItemStack);
 		
-		ItemStack wmap = new ItemStack(Material.FILLED_MAP);
-		ItemMeta wim = wmap.getItemMeta();
-		wim.setDisplayName(ChatColor.GOLD + "Explorer Map");
-		wmap.setItemMeta(wim);
-		player.getEquipment().setItemInOffHand(wmap);
+		ItemStack mapItemStack = new ItemStack(Material.FILLED_MAP);
+		ItemMeta mapItemMeta = mapItemStack.getItemMeta();
+		mapItemMeta.setDisplayName(ChatColor.GOLD + "Explorer Map");
+		mapItemStack.setItemMeta(mapItemMeta);
+		player.getEquipment().setItemInOffHand(mapItemStack);
 		WauzNmsMinimap.init(player);
 		
 		TabardMenu.equipSelectedTabard(player);

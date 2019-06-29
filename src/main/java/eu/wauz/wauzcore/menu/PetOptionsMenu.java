@@ -45,162 +45,144 @@ public class PetOptionsMenu implements WauzInventory {
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Pet Options"
 				+ " \"" + petSlot + "\" " + ChatColor.DARK_PURPLE + petType);
 		
-		{
-			ItemStack sumn = new ItemStack(Material.LEAD);
-			ItemMeta im = sumn.getItemMeta();
-			im.setDisplayName(ChatColor.GREEN + "Summon " + petType);
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Summon your Pet into the world!");
-			lores.add(ChatColor.GRAY + "Your currently active Pet will be unsummoned.");
-			im.setLore(lores);
-			sumn.setItemMeta(im);
-			menu.setItem(0, sumn);
-		}
+		ItemStack summonItemStack = new ItemStack(Material.LEAD);
+		ItemMeta summonItemMeta = summonItemStack.getItemMeta();
+		summonItemMeta.setDisplayName(ChatColor.GREEN + "Summon " + petType);
+		List<String> summonLores = new ArrayList<String>();
+		summonLores.add(ChatColor.GRAY + "Summon your Pet into the world!");
+		summonLores.add(ChatColor.GRAY + "Your currently active Pet will be unsummoned.");
+		summonItemMeta.setLore(summonLores);
+		summonItemStack.setItemMeta(summonItemMeta);
+		menu.setItem(0, summonItemStack);
 		
-		{
-			ItemStack bred = new ItemStack(Material.EGG);
-			ItemMeta im = bred.getItemMeta();
-			im.setDisplayName(ChatColor.LIGHT_PURPLE + "Breed " + petType);
-			List<String> lores = new ArrayList<String>();
-			String disallowString = PlayerConfigurator.getCharcterPetBreedingDisallowString(player, petSlot);
-			lores.add(ChatColor.GRAY + "Combine Pets to raise the Offspring's max Stats.");
-			lores.add(ChatColor.GRAY + "WARNING: Both Parents will be lost!");
-			lores.add("");
-			if(StringUtils.isNotBlank(disallowString)) {
-				lores.add(ChatColor.RED + "Disallowed: " + disallowString);
-				lores.add("");
-			}
-			lores.add(ChatColor.DARK_GRAY + "The Pet will be moved to the Breeding Station.");
-			lores.add(ChatColor.DARK_GRAY + "You can't take it back, once inside.");
-			lores.add(ChatColor.DARK_GRAY + "Once two Pets are inside they will lay an Egg.");
-			lores.add(ChatColor.DARK_GRAY + "After a long Cooldown you can claim the Newborn.");
-			im.setLore(lores);
-			bred.setItemMeta(im);
-			menu.setItem(1, bred);
+		ItemStack breedingItemStack = new ItemStack(Material.EGG);
+		ItemMeta breedingItemMeta = breedingItemStack.getItemMeta();
+		breedingItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Breed " + petType);
+		List<String> breedingLores = new ArrayList<String>();
+		String disallowString = PlayerConfigurator.getCharcterPetBreedingDisallowString(player, petSlot);
+		breedingLores.add(ChatColor.GRAY + "Combine Pets to raise the Offspring's max Stats.");
+		breedingLores.add(ChatColor.GRAY + "WARNING: Both Parents will be lost!");
+		breedingLores.add("");
+		if(StringUtils.isNotBlank(disallowString)) {
+			breedingLores.add(ChatColor.RED + "Disallowed: " + disallowString);
+			breedingLores.add("");
 		}
+		breedingLores.add(ChatColor.DARK_GRAY + "The Pet will be moved to the Breeding Station.");
+		breedingLores.add(ChatColor.DARK_GRAY + "You can't take it back, once inside.");
+		breedingLores.add(ChatColor.DARK_GRAY + "Once two Pets are inside they will lay an Egg.");
+		breedingLores.add(ChatColor.DARK_GRAY + "After a long Cooldown you can claim the Newborn.");
+		breedingItemMeta.setLore(breedingLores);
+		breedingItemStack.setItemMeta(breedingItemMeta);
+		menu.setItem(1, breedingItemStack);
 		
-		{
-			ItemStack disc = new ItemStack(Material.BARRIER);
-			ItemMeta im = disc.getItemMeta();
-			im.setDisplayName(ChatColor.RED + "Discard " + petType);
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Release your Pet to the Wildness.");
-			lores.add(ChatColor.GRAY + "WARNING: Cannot be restored!");
-			im.setLore(lores);
-			disc.setItemMeta(im);
-			menu.setItem(2, disc);
-		}
+		ItemStack discardItemStack = new ItemStack(Material.BARRIER);
+		ItemMeta discardItemMeta = discardItemStack.getItemMeta();
+		discardItemMeta.setDisplayName(ChatColor.RED + "Discard " + petType);
+		List<String> discardLores = new ArrayList<String>();
+		discardLores.add(ChatColor.GRAY + "Release your Pet to the Wildness.");
+		discardLores.add(ChatColor.GRAY + "WARNING: Cannot be restored!");
+		discardItemMeta.setLore(discardLores);
+		discardItemStack.setItemMeta(discardItemMeta);
+		menu.setItem(2, discardItemStack);
 		
-		{
-			int level = PlayerConfigurator.getCharacterPetIntelligence(player, petSlot);
-			int levelMax = PlayerConfigurator.getCharacterPetIntelligenceMax(player, petSlot);
-			
-			ItemStack intelligenceSkillItemStack;
-			if(level == 0)
-				intelligenceSkillItemStack = new ItemStack(Material.PORKCHOP);
-			else if(level < levelMax)
-				intelligenceSkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, level);
-			else
-				intelligenceSkillItemStack = new ItemStack(Material.COOKED_BEEF, level);
-			
-			ItemMeta im = intelligenceSkillItemStack.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_GREEN + "Intelligence");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + level + " / " + levelMax + ChatColor.GRAY + " (Max: 10)");
-			lores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerConfigurator.getCharacterPetIntelligenceExpNeeded(player, petSlot));
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Adds 10% Bonus Experience Points per Level.");
-			lores.add(ChatColor.GRAY + "This Boost is only applied while your Pet is active.");
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Drag Food-Items here, to feed your Pet.");
-			lores.add("");
-			lores.add(ChatColor.WHITE + "Intelligence: " + ChatColor.DARK_AQUA + (level * 10) + "%");
-			im.setLore(lores);
-			intelligenceSkillItemStack.setItemMeta(im);
-			menu.setItem(3, intelligenceSkillItemStack);
-		}
+		int intelligenceLevel = PlayerConfigurator.getCharacterPetIntelligence(player, petSlot);
+		int intelligenceLevelMax = PlayerConfigurator.getCharacterPetIntelligenceMax(player, petSlot);
 		
-		{
-			int level = PlayerConfigurator.getCharacterPetDexterity(player, petSlot);
-			int levelMax = PlayerConfigurator.getCharacterPetDexterityMax(player, petSlot);
-			
-			ItemStack speedSkillItemStack;
-			if(level == 0)
-				speedSkillItemStack = new ItemStack(Material.PORKCHOP);
-			else if(level < levelMax)
-				speedSkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, level);
-			else
-				speedSkillItemStack = new ItemStack(Material.COOKED_BEEF, level);
-			
-			ItemMeta im = speedSkillItemStack.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_GREEN + "Dexterity");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + level + " / " + levelMax + ChatColor.GRAY + " (Max: 10)");
-			lores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerConfigurator.getCharacterPetDexterityExpNeeded(player, petSlot));
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Adds 10% per Level to your Movement Speed.");
-			lores.add(ChatColor.GRAY + "This Boost is only applied while your Pet is active.");
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Drag Food-Items here, to feed your Pet.");
-			lores.add("");
-			lores.add(ChatColor.WHITE + "Dexterity: " + ChatColor.DARK_AQUA + (level * 10) + "%");
-			im.setLore(lores);
-			speedSkillItemStack.setItemMeta(im);
-			menu.setItem(4, speedSkillItemStack);
-		}
+		ItemStack intelligenceSkillItemStack;
+		if(intelligenceLevel == 0)
+			intelligenceSkillItemStack = new ItemStack(Material.PORKCHOP);
+		else if(intelligenceLevel < intelligenceLevelMax)
+			intelligenceSkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, intelligenceLevel);
+		else
+			intelligenceSkillItemStack = new ItemStack(Material.COOKED_BEEF, intelligenceLevel);
 		
-		{
-			int level = PlayerConfigurator.getCharacterPetAbsorption(player, petSlot);
-			int levelMax = PlayerConfigurator.getCharacterPetAbsorptionMax(player, petSlot);
-			
-			ItemStack absorptionSkillItemStack;
-			if(level == 0)
-				absorptionSkillItemStack = new ItemStack(Material.PORKCHOP);
-			else if(level < levelMax)
-				absorptionSkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, level);
-			else
-				absorptionSkillItemStack = new ItemStack(Material.COOKED_BEEF, level);
-			
-			ItemMeta im = absorptionSkillItemStack.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_GREEN + "Absorption");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + level + " / " + levelMax + ChatColor.GRAY + " (Max: 10)");
-			lores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerConfigurator.getCharacterPetAbsorptionExpNeeded(player, petSlot));
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Absorbs 10% of your Armor per Level from Damage.");
-			lores.add(ChatColor.GRAY + "This Boost is only applied while your Pet is active.");
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Drag Food-Items here, to feed your Pet.");
-			lores.add("");
-			lores.add(ChatColor.WHITE + "Absorption: " + ChatColor.DARK_AQUA + (level * 10) + "%");
-			im.setLore(lores);
-			absorptionSkillItemStack.setItemMeta(im);
-			menu.setItem(5, absorptionSkillItemStack);
-		}
+		ItemMeta intelligenceSkillItemMeta = intelligenceSkillItemStack.getItemMeta();
+		intelligenceSkillItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Intelligence");
+		List<String> intelligenceSkillLores = new ArrayList<String>();
+		intelligenceSkillLores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + intelligenceLevel + " / " + intelligenceLevelMax + ChatColor.GRAY + " (Max: 10)");
+		intelligenceSkillLores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerConfigurator.getCharacterPetIntelligenceExpNeeded(player, petSlot));
+		intelligenceSkillLores.add("");
+		intelligenceSkillLores.add(ChatColor.GRAY + "Adds 10% Bonus Experience Points per Level.");
+		intelligenceSkillLores.add(ChatColor.GRAY + "This Boost is only applied while your Pet is active.");
+		intelligenceSkillLores.add("");
+		intelligenceSkillLores.add(ChatColor.GRAY + "Drag Food-Items here, to feed your Pet.");
+		intelligenceSkillLores.add("");
+		intelligenceSkillLores.add(ChatColor.WHITE + "Intelligence: " + ChatColor.DARK_AQUA + (intelligenceLevel * 10) + "%");
+		intelligenceSkillItemMeta.setLore(intelligenceSkillLores);
+		intelligenceSkillItemStack.setItemMeta(intelligenceSkillItemMeta);
+		menu.setItem(3, intelligenceSkillItemStack);
 		
-		{
-			ItemStack move = HeadUtils.getPrevItem();
-			ItemMeta im = move.getItemMeta();
-			im.setDisplayName(ChatColor.YELLOW + "Move LEFT");
-			move.setItemMeta(im);
-			menu.setItem(6, move);
-		}
+		int dexterityLevel = PlayerConfigurator.getCharacterPetDexterity(player, petSlot);
+		int dexterityLevelMax = PlayerConfigurator.getCharacterPetDexterityMax(player, petSlot);
 		
-		{
-			ItemStack move = HeadUtils.getNextItem();
-			ItemMeta im = move.getItemMeta();
-			im.setDisplayName(ChatColor.YELLOW + "Move RIGHT");
-			move.setItemMeta(im);
-			menu.setItem(8, move);
-		}
+		ItemStack dexteritySkillItemStack;
+		if(dexterityLevel == 0)
+			dexteritySkillItemStack = new ItemStack(Material.PORKCHOP);
+		else if(dexterityLevel < dexterityLevelMax)
+			dexteritySkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, dexterityLevel);
+		else
+			dexteritySkillItemStack = new ItemStack(Material.COOKED_BEEF, dexterityLevel);
 		
-		{
-			ItemStack back = new ItemStack(Material.PUFFERFISH_SPAWN_EGG);
-			ItemMeta im = back.getItemMeta();
-			im.setDisplayName(ChatColor.BLUE + "Back to Pet-Selection");
-			back.setItemMeta(im);
-			menu.setItem(7, back);
-		}
+		ItemMeta dexteritySkillItemMeta = dexteritySkillItemStack.getItemMeta();
+		dexteritySkillItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Dexterity");
+		List<String> dexteritySkillLores = new ArrayList<String>();
+		dexteritySkillLores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + dexterityLevel + " / " + dexterityLevelMax + ChatColor.GRAY + " (Max: 10)");
+		dexteritySkillLores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerConfigurator.getCharacterPetDexterityExpNeeded(player, petSlot));
+		dexteritySkillLores.add("");
+		dexteritySkillLores.add(ChatColor.GRAY + "Adds 10% per Level to your Movement Speed.");
+		dexteritySkillLores.add(ChatColor.GRAY + "This Boost is only applied while your Pet is active.");
+		dexteritySkillLores.add("");
+		dexteritySkillLores.add(ChatColor.GRAY + "Drag Food-Items here, to feed your Pet.");
+		dexteritySkillLores.add("");
+		dexteritySkillLores.add(ChatColor.WHITE + "Dexterity: " + ChatColor.DARK_AQUA + (dexterityLevel * 10) + "%");
+		dexteritySkillItemMeta.setLore(dexteritySkillLores);
+		dexteritySkillItemStack.setItemMeta(dexteritySkillItemMeta);
+		menu.setItem(4, dexteritySkillItemStack);
+		
+		int absorptionLevel = PlayerConfigurator.getCharacterPetAbsorption(player, petSlot);
+		int absorptionLevelMax = PlayerConfigurator.getCharacterPetAbsorptionMax(player, petSlot);
+		
+		ItemStack absorptionSkillItemStack;
+		if(absorptionLevel == 0)
+			absorptionSkillItemStack = new ItemStack(Material.PORKCHOP);
+		else if(absorptionLevel < absorptionLevelMax)
+			absorptionSkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, absorptionLevel);
+		else
+			absorptionSkillItemStack = new ItemStack(Material.COOKED_BEEF, absorptionLevel);
+		
+		ItemMeta absorptionSkillItemMeta = absorptionSkillItemStack.getItemMeta();
+		absorptionSkillItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Absorption");
+		List<String> absorptionSkillLores = new ArrayList<String>();
+		absorptionSkillLores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + absorptionLevel + " / " + absorptionLevelMax + ChatColor.GRAY + " (Max: 10)");
+		absorptionSkillLores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerConfigurator.getCharacterPetAbsorptionExpNeeded(player, petSlot));
+		absorptionSkillLores.add("");
+		absorptionSkillLores.add(ChatColor.GRAY + "Absorbs 10% of your Armor per Level from Damage.");
+		absorptionSkillLores.add(ChatColor.GRAY + "This Boost is only applied while your Pet is active.");
+		absorptionSkillLores.add("");
+		absorptionSkillLores.add(ChatColor.GRAY + "Drag Food-Items here, to feed your Pet.");
+		absorptionSkillLores.add("");
+		absorptionSkillLores.add(ChatColor.WHITE + "Absorption: " + ChatColor.DARK_AQUA + (absorptionLevel * 10) + "%");
+		absorptionSkillItemMeta.setLore(absorptionSkillLores);
+		absorptionSkillItemStack.setItemMeta(absorptionSkillItemMeta);
+		menu.setItem(5, absorptionSkillItemStack);
+		
+		ItemStack moveLeftItemStack = HeadUtils.getPrevItem();
+		ItemMeta moveLeftItemMeta = moveLeftItemStack.getItemMeta();
+		moveLeftItemMeta.setDisplayName(ChatColor.YELLOW + "Move LEFT");
+		moveLeftItemStack.setItemMeta(moveLeftItemMeta);
+		menu.setItem(6, moveLeftItemStack);
+		
+		ItemStack moveRightItemStack = HeadUtils.getNextItem();
+		ItemMeta moveRightItemMeta = moveRightItemStack.getItemMeta();
+		moveRightItemMeta.setDisplayName(ChatColor.YELLOW + "Move RIGHT");
+		moveRightItemStack.setItemMeta(moveRightItemMeta);
+		menu.setItem(8, moveRightItemStack);
+		
+		ItemStack backItemStack = new ItemStack(Material.PUFFERFISH_SPAWN_EGG);
+		ItemMeta backItemMeta = backItemStack.getItemMeta();
+		backItemMeta.setDisplayName(ChatColor.BLUE + "Back to Pet-Selection");
+		backItemStack.setItemMeta(backItemMeta);
+		menu.setItem(7, backItemStack);
 		
 		player.openInventory(menu);
 	}

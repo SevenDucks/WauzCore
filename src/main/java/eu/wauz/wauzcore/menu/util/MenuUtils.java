@@ -32,9 +32,9 @@ public class MenuUtils {
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	
 	public static void setCurrencyDisplay(Inventory menu, Player player, int index) {
-		ItemStack reps = HeadUtils.getMoneyItem();
-		ItemMeta im = reps.getItemMeta();
-		im.setDisplayName(ChatColor.GREEN + "Currency");
+		ItemStack currencyItemStack = HeadUtils.getMoneyItem();
+		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
+		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Currency");
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.GOLD + formatter.format(PlayerConfigurator.getCharacterCoins(player))
 			+ ChatColor.DARK_PURPLE + " Coins of Wauzland");
@@ -48,45 +48,45 @@ public class MenuUtils {
 			+ ChatColor.DARK_PURPLE + " Eternal Empire");
 		lores.add(ChatColor.BLUE + formatter.format(PlayerConfigurator.getCharacterRepDarkLegion(player))
 			+ ChatColor.DARK_PURPLE + " Dark Legion");
-		im.setLore(lores);
-		reps.setItemMeta(im);
-		menu.setItem(index, reps);
+		currencyItemMeta.setLore(lores);
+		currencyItemStack.setItemMeta(currencyItemMeta);
+		menu.setItem(index, currencyItemStack);
 	}
 	
 	public static void setGlobalCurrencyDisplay(Inventory menu, Player player, int index) {
-		ItemStack reps = HeadUtils.getMoneyItem();
-		ItemMeta im = reps.getItemMeta();
-		im.setDisplayName(ChatColor.GREEN + "Currency");
+		ItemStack currencyItemStack = HeadUtils.getMoneyItem();
+		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
+		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Currency");
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.GOLD + formatter.format(PlayerConfigurator.getTokens(player))
 			+ ChatColor.DARK_PURPLE + " Tokens");
-		im.setLore(lores);
-		reps.setItemMeta(im);
-		menu.setItem(index, reps);
+		currencyItemMeta.setLore(lores);
+		currencyItemStack.setItemMeta(currencyItemMeta);
+		menu.setItem(index, currencyItemStack);
 	}
 	
 	public static void setComingSoon(Inventory menu, String lore, int index) {
-		ItemStack soon = new ItemStack(Material.SIGN);
-		ItemMeta im = soon.getItemMeta();
-		im.setDisplayName(ChatColor.RED + "Coming Soon");
+		ItemStack soonItemStack = new ItemStack(Material.SIGN);
+		ItemMeta soonItemMeta = soonItemStack.getItemMeta();
+		soonItemMeta.setDisplayName(ChatColor.RED + "Coming Soon");
 		if(StringUtils.isNotBlank(lore)) {
 			List<String> lores = new ArrayList<String>();
 			lores.add(lore);
-			im.setLore(lores);
+			soonItemMeta.setLore(lores);
 		}
-		soon.setItemMeta(im);
-		menu.setItem(index, soon);
+		soonItemStack.setItemMeta(soonItemMeta);
+		menu.setItem(index, soonItemStack);
 	}
 	
 	public static void setBorders(Inventory menu) {
-		ItemStack border = new ItemStack(Material.IRON_BARS);
-		ItemMeta bim = border.getItemMeta();
-		bim.setDisplayName(" ");
-		border.setItemMeta(bim);
+		ItemStack borderItemStack = new ItemStack(Material.IRON_BARS);
+		ItemMeta borderItemMeta = borderItemStack.getItemMeta();
+		borderItemMeta.setDisplayName(" ");
+		borderItemStack.setItemMeta(borderItemMeta);
 		
 		for(int slot = 0; slot < menu.getSize(); slot++) {
 			if(menu.getItem(slot) == null)
-				menu.setItem(slot, border);
+				menu.setItem(slot, borderItemStack);
 		}
 	}
 	

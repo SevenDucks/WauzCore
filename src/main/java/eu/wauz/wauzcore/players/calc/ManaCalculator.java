@@ -17,15 +17,15 @@ public class ManaCalculator {
 		if(playerData == null || playerData.getMaxMana() == 0)
 			return;
 		
-		ItemStack mana = playerData.getMana() < 1
+		ItemStack manaItemStack = playerData.getMana() < 1
 				? new ItemStack(Material.CLOCK, 1)
 				: new ItemStack(Material.DIAMOND, playerData.getMana());
 
-		ItemMeta mim = mana.getItemMeta();
+		ItemMeta manaItemMeta = manaItemStack.getItemMeta();
 		String manaString = playerData.getMana() + " / " + playerData.getMaxMana();
-		mim.setDisplayName(ChatColor.LIGHT_PURPLE + "Mana Points: " + manaString);
-		mana.setItemMeta(mim);
-		player.getInventory().setItem(6, mana);
+		manaItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Mana Points: " + manaString);
+		manaItemStack.setItemMeta(manaItemMeta);
+		player.getInventory().setItem(6, manaItemStack);
 		
 		WauzDebugger.log(player, "Mana: " + manaString);
 	}

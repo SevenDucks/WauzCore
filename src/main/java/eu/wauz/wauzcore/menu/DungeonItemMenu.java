@@ -23,106 +23,114 @@ public class DungeonItemMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new DungeonItemMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Dungeon Items");
 		
-		ItemStack unobtained = new ItemStack(Material.BARRIER, 1);
-		ItemMeta uim = unobtained.getItemMeta();
-		uim.setDisplayName(ChatColor.RED + "Unobtained Item");
-		unobtained.setItemMeta(uim);
+		ItemStack unobtainedItemStack = new ItemStack(Material.BARRIER, 1);
+		ItemMeta unobtainedItemMeta = unobtainedItemStack.getItemMeta();
+		unobtainedItemMeta.setDisplayName(ChatColor.RED + "Unobtained Item");
+		unobtainedItemStack.setItemMeta(unobtainedItemMeta);
 		
 // Load obtained Dungeon-Items
 		
-		{
-			ItemStack empty = new ItemStack(Material.CLOCK);
-			ItemMeta im = empty.getItemMeta();
-			im.setDisplayName(ChatColor.RED + "Unequip Item");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Unequip your current Dungeon Item");
-			lores.add(ChatColor.GRAY + "and replace it with a clock.");
-			lores.add("");
-			lores.add(ChatColor.YELLOW + "Default Selection");
-			im.setLore(lores);
-			empty.setItemMeta(im);
-			menu.setItem(1, empty);
-		}
+		ItemStack clockItemStack = new ItemStack(Material.CLOCK);
+		ItemMeta clockItemMeta = clockItemStack.getItemMeta();
+		clockItemMeta.setDisplayName(ChatColor.RED + "Unequip Item");
+		List<String> clockLores = new ArrayList<String>();
+		clockLores.add(ChatColor.GRAY + "Unequip your current Dungeon Item");
+		clockLores.add(ChatColor.GRAY + "and replace it with a clock.");
+		clockLores.add("");
+		clockLores.add(ChatColor.YELLOW + "Default Selection");
+		clockItemMeta.setLore(clockLores);
+		clockItemStack.setItemMeta(clockItemMeta);
+		menu.setItem(1, clockItemStack);
 		
-		{
-			ItemStack tracker = new ItemStack(Material.COMPASS);
-			ItemMeta im = tracker.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_AQUA + "Location Tracker");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Points towards a tracked Location or Quest");
-			lores.add(ChatColor.GRAY + "that can be selected in your Questlog.");
-			lores.add("");
-			lores.add(ChatColor.YELLOW + "Tracked: " + PlayerConfigurator.getDungeonItemTrackerDestinationName(player));
-			im.setLore(lores);
-			tracker.setItemMeta(im);
-			menu.setItem(2, tracker);
-		}
+		ItemStack trackerItemStack = new ItemStack(Material.COMPASS);
+		ItemMeta trackerItemMeta = trackerItemStack.getItemMeta();
+		trackerItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Location Tracker");
+		List<String> trackerLores = new ArrayList<String>();
+		trackerLores.add(ChatColor.GRAY + "Points towards a tracked Location or Quest");
+		trackerLores.add(ChatColor.GRAY + "that can be selected in your Questlog.");
+		trackerLores.add("");
+		trackerLores.add(ChatColor.YELLOW + "Tracked: " + PlayerConfigurator.getDungeonItemTrackerDestinationName(player));
+		trackerItemMeta.setLore(trackerLores);
+		trackerItemStack.setItemMeta(trackerItemMeta);
+		menu.setItem(2, trackerItemStack);
 		
 		boolean unlockAll = player.hasPermission("wauz.debug.ditems");
 						
 		if(unlockAll || PlayerConfigurator.getDungeonItemHookString(player).equals("obtained")) {
-			ItemStack hook = new ItemStack(Material.FISHING_ROD);
-			ItemMeta im = hook.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_AQUA + "Grappling Hook");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Pull yourself towards Sponges");
-			lores.add(ChatColor.GRAY + "or grab distant Enemies.");
-//			lores.add("");
-//			lores.add(ChatColor.RED + "Found in Frostskull-Fortress");
-			im.setLore(lores);
-			hook.setItemMeta(im);
-			menu.setItem(4, hook);
+			ItemStack hookItemStack = new ItemStack(Material.FISHING_ROD);
+			ItemMeta hookItemMeta = hookItemStack.getItemMeta();
+			hookItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Grappling Hook");
+			List<String> hookLores = new ArrayList<String>();
+			hookLores.add(ChatColor.GRAY + "Pull yourself towards Sponges");
+			hookLores.add(ChatColor.GRAY + "or grab distant Enemies.");
+			if(player.getWorld().getName().equals("Wauzland")) {
+				hookLores.add("");
+				hookLores.add(ChatColor.RED + "Found in Frostskull-Fortress");
+			}
+			hookItemMeta.setLore(hookLores);
+			hookItemStack.setItemMeta(hookItemMeta);
+			menu.setItem(4, hookItemStack);
 		}
-		else
-			menu.setItem(4, unobtained);
+		else {
+			menu.setItem(4, unobtainedItemStack);
+		}
 
 		if(unlockAll || PlayerConfigurator.getDungeonItemBombString(player).equals("obtained")) {
-			ItemStack bomb = new ItemStack(Material.SNOWBALL);
-			ItemMeta im = bomb.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_AQUA + "Bag of Bombs");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Blow up Sponges in your way");
-			lores.add(ChatColor.GRAY + "or bomb nearby Enemies to the side");
-//			lores.add("");
-//			lores.add(ChatColor.RED + "Found in Hellfire-Kettle");
-			im.setLore(lores);
-			bomb.setItemMeta(im);
-			menu.setItem(5, bomb);
+			ItemStack bombItemStack = new ItemStack(Material.SNOWBALL);
+			ItemMeta bombItemMeta = bombItemStack.getItemMeta();
+			bombItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Bag of Bombs");
+			List<String> bombLores = new ArrayList<String>();
+			bombLores.add(ChatColor.GRAY + "Blow up Sponges in your way");
+			bombLores.add(ChatColor.GRAY + "or bomb nearby Enemies to the side");
+			if(player.getWorld().getName().equals("Wauzland")) {
+				bombLores.add("");
+				bombLores.add(ChatColor.RED + "Found in Hellfire-Kettle");
+			}
+			bombItemMeta.setLore(bombLores);
+			bombItemStack.setItemMeta(bombItemMeta);
+			menu.setItem(5, bombItemStack);
 		}
-		else
-			menu.setItem(5, unobtained);
+		else {
+			menu.setItem(5, unobtainedItemStack);
+		}
 
 		if(unlockAll || PlayerConfigurator.getDungeonItemTrodString(player).equals("obtained")) {
-			ItemStack trod = new ItemStack(Material.BLAZE_ROD);
-			ItemMeta im = trod.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_AQUA + "Thunder Rod");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Let Lightning  Strike on Sponges,");
-			lores.add(ChatColor.GRAY + "to power them and trigger Mechanisms.");
-//			lores.add("");
-//			lores.add(ChatColor.RED + "Found in Angelblood-Temple");
-			im.setLore(lores);
-			trod.setItemMeta(im);
-			menu.setItem(6, trod);
+			ItemStack trodItemStack = new ItemStack(Material.BLAZE_ROD);
+			ItemMeta trodItemMeta = trodItemStack.getItemMeta();
+			trodItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Thunder Rod");
+			List<String> trodLores = new ArrayList<String>();
+			trodLores.add(ChatColor.GRAY + "Let Lightning  Strike on Sponges,");
+			trodLores.add(ChatColor.GRAY + "to power them and trigger Mechanisms.");
+			if(player.getWorld().getName().equals("Wauzland")) {
+				trodLores.add("");
+				trodLores.add(ChatColor.RED + "Found in Angelblood-Temple");
+			}
+			trodItemMeta.setLore(trodLores);
+			trodItemStack.setItemMeta(trodItemMeta);
+			menu.setItem(6, trodItemStack);
 		}
-		else
-			menu.setItem(6, unobtained);
+		else {
+			menu.setItem(6, unobtainedItemStack);
+		}
 
 		if(unlockAll || PlayerConfigurator.getDungeonItemGlidString(player).equals("obtained")) {
-			ItemStack glid = new ItemStack(Material.FEATHER);
-			ItemMeta im = glid.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_AQUA + "Chicken Glider");
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Use on a Sponge you are standing on,");
-			lores.add(ChatColor.GRAY + "to ascend. While holding it you can glide.");
-//			lores.add("");
-//			lores.add(ChatColor.RED + "Found in Blackplague-Fountain");
-			im.setLore(lores);
-			glid.setItemMeta(im);
-			menu.setItem(7, glid);
+			ItemStack glidItemStack = new ItemStack(Material.FEATHER);
+			ItemMeta glidItemMeta = glidItemStack.getItemMeta();
+			glidItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Chicken Glider");
+			List<String> glidLores = new ArrayList<String>();
+			glidLores.add(ChatColor.GRAY + "Use on a Sponge you are standing on,");
+			glidLores.add(ChatColor.GRAY + "to ascend. While holding it you can glide.");
+			if(player.getWorld().getName().equals("Wauzland")) {
+				glidLores.add("");
+				glidLores.add(ChatColor.RED + "Found in Blackplague-Fountain");
+			}
+			glidItemMeta.setLore(glidLores);
+			glidItemStack.setItemMeta(glidItemMeta);
+			menu.setItem(7, glidItemStack);
 		}
-		else
-			menu.setItem(7, unobtained);
+		else {
+			menu.setItem(7, unobtainedItemStack);
+		}
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -139,62 +147,62 @@ public class DungeonItemMenu implements WauzInventory {
 // Check Dungeon-Items
 		
 		else if(clicked.getType().equals(Material.CLOCK)) {
-			ItemStack empty = new ItemStack(Material.CLOCK);
-			ItemMeta im = empty.getItemMeta();
-			im.setDisplayName(ChatColor.RED + "No Item Equipped");
-			im.setUnbreakable(true);
-			empty.setItemMeta(im);
-			player.getInventory().setItem(7, empty);
+			ItemStack clockItemStack = new ItemStack(Material.CLOCK);
+			ItemMeta clockItemMeta = clockItemStack.getItemMeta();
+			clockItemMeta.setDisplayName(ChatColor.RED + "No Item Equipped");
+			clockItemMeta.setUnbreakable(true);
+			clockItemStack.setItemMeta(clockItemMeta);
+			player.getInventory().setItem(7, clockItemStack);
 			player.closeInventory();
 		}
 		
 		else if(clicked.getType().equals(Material.COMPASS)) {
-			ItemStack tracker = new ItemStack(Material.COMPASS);
-			ItemMeta im = tracker.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getDungeonItemTrackerDestinationName(player));
-			im.setUnbreakable(true);
-			tracker.setItemMeta(im);
-			player.getInventory().setItem(7, tracker);
+			ItemStack trackerItemStack = new ItemStack(Material.COMPASS);
+			ItemMeta trackerItemMeta = trackerItemStack.getItemMeta();
+			trackerItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getDungeonItemTrackerDestinationName(player));
+			trackerItemMeta.setUnbreakable(true);
+			trackerItemStack.setItemMeta(trackerItemMeta);
+			player.getInventory().setItem(7, trackerItemStack);
 			player.closeInventory();
 		}
 		
 		else if(clicked.getType().equals(Material.FISHING_ROD)) {
-			ItemStack hook = new ItemStack(Material.FISHING_ROD);
-			ItemMeta im = hook.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_AQUA + "Grappling Hook");
-			im.setUnbreakable(true);
-			hook.setItemMeta(im);
-			player.getInventory().setItem(7, hook);
+			ItemStack hookItemStack = new ItemStack(Material.FISHING_ROD);
+			ItemMeta hookItemMeta = hookItemStack.getItemMeta();
+			hookItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Grappling Hook");
+			hookItemMeta.setUnbreakable(true);
+			hookItemStack.setItemMeta(hookItemMeta);
+			player.getInventory().setItem(7, hookItemStack);
 			player.closeInventory();
 		}
 
 		else if(clicked.getType().equals(Material.SNOWBALL)) {
-			ItemStack bomb = new ItemStack(Material.SNOWBALL);
-			ItemMeta im = bomb.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_AQUA + "Bag of Bombs");
-			im.setUnbreakable(true);
-			bomb.setItemMeta(im);
-			player.getInventory().setItem(7, bomb);
+			ItemStack bombItemStack = new ItemStack(Material.SNOWBALL);
+			ItemMeta bombItemMeta = bombItemStack.getItemMeta();
+			bombItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Bag of Bombs");
+			bombItemMeta.setUnbreakable(true);
+			bombItemStack.setItemMeta(bombItemMeta);
+			player.getInventory().setItem(7, bombItemStack);
 			player.closeInventory();
 		}
 						
 		else if(clicked.getType().equals(Material.BLAZE_ROD)) {
-			ItemStack trod = new ItemStack(Material.BLAZE_ROD);
-			ItemMeta im = trod.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_AQUA + "Thunder Rod");
-			im.setUnbreakable(true);
-			trod.setItemMeta(im);
-			player.getInventory().setItem(7, trod);
+			ItemStack trodItemStack = new ItemStack(Material.BLAZE_ROD);
+			ItemMeta trodItemMeta = trodItemStack.getItemMeta();
+			trodItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Thunder Rod");
+			trodItemMeta.setUnbreakable(true);
+			trodItemStack.setItemMeta(trodItemMeta);
+			player.getInventory().setItem(7, trodItemStack);
 			player.closeInventory();
 		}
 						
 		else if(clicked.getType().equals(Material.FEATHER)) {
-			ItemStack glid = new ItemStack(Material.FEATHER);
-			ItemMeta im = glid.getItemMeta();
-			im.setDisplayName(ChatColor.DARK_AQUA + "Chicken Glider");
-			im.setUnbreakable(true);
-			glid.setItemMeta(im);
-			player.getInventory().setItem(7, glid);
+			ItemStack glidItemStack = new ItemStack(Material.FEATHER);
+			ItemMeta glidItemMeta = glidItemStack.getItemMeta();
+			glidItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Chicken Glider");
+			glidItemMeta.setUnbreakable(true);
+			glidItemStack.setItemMeta(glidItemMeta);
+			player.getInventory().setItem(7, glidItemStack);
 			player.closeInventory();
 		}	
 	}

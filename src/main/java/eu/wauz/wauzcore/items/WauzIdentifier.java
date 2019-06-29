@@ -51,7 +51,7 @@ public class WauzIdentifier {
 		itemStack.setType(equip.getMaterial());
 		typeMultiplicator = equip.getDamage();
 		
-		ItemMeta im = itemStack.getItemMeta();
+		ItemMeta itemMeta = itemStack.getItemMeta();
 		
 // Set Item Rarity
 		
@@ -73,8 +73,8 @@ public class WauzIdentifier {
 				rareStars = "" + ChatColor.DARK_AQUA;
 				baseMultiplicator = 1.5;
 				
-				im.setUnbreakable(true);
-				im.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+				itemMeta.setUnbreakable(true);
+				itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 			}
 		}
 		else {
@@ -132,7 +132,7 @@ public class WauzIdentifier {
 			tierName = "Angelic" + ChatColor.GRAY + " T3 " + ChatColor.WHITE;
 		}
 		
-		im.setDisplayName(color + verb + equip.getName());	
+		itemMeta.setDisplayName(color + verb + equip.getName());	
 		
 // Scaling and Main Stat
 		
@@ -211,7 +211,7 @@ public class WauzIdentifier {
 						WauzDebugger.log(player, "Rolled Crit Multiplier");
 					}
 					
-					im.setDisplayName(im.getDisplayName() + " of " + enhancementName + " + " + enhancementLevel);
+					itemMeta.setDisplayName(itemMeta.getDisplayName() + " of " + enhancementName + " + " + enhancementLevel);
 					lores.add("Enhancement:" + ChatColor.RED + " " + enhancementDescription);
 				}
 				
@@ -227,7 +227,7 @@ public class WauzIdentifier {
 						WauzDebugger.log(player, "Rolled Defense Boost: " + defense + " -> " + (int) newDefense);
 					}
 					
-					im.setDisplayName(im.getDisplayName() + " of " + enhancementName + " + " + enhancementLevel);
+					itemMeta.setDisplayName(itemMeta.getDisplayName() + " of " + enhancementName + " + " + enhancementLevel);
 					lores.add("Enhancement:" + ChatColor.BLUE + " " + enhancementDescription);
 				}
 				
@@ -257,17 +257,17 @@ public class WauzIdentifier {
 				lores.add(EMPTY_RUNE_SLOT);
 		}
 		
-		im.setLore(lores);	
-		im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		itemStack.setItemMeta(im);
+		itemMeta.setLore(lores);	
+		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		itemStack.setItemMeta(itemMeta);
 		
 		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
 	}
 	
 	public static void identifyRune(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
-		ItemStack item = event.getCurrentItem();	
-		String name = item.getItemMeta().getDisplayName();
+		ItemStack itemStack = event.getCurrentItem();	
+		String name = itemStack.getItemMeta().getDisplayName();
 		
 		Random random = new Random();
 		String rune = runeNames.get(random.nextInt(runeNames.size()));
@@ -324,11 +324,10 @@ public class WauzIdentifier {
 		
 		identifiedName =  color + "Rune of " + rune;
 			
-		ItemMeta im = item.getItemMeta();
-		im.setDisplayName(identifiedName);
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		itemMeta.setDisplayName(identifiedName);
 			
-		double r = random.nextDouble();
-		int power = (int) ((2+r/1.5)*tier*rare);
+		int power = (int) ((2 + random.nextDouble() / 1.5) * tier * rare);
 		
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.WHITE + tierName + rareName + "Rune " + rareStars);
@@ -338,23 +337,23 @@ public class WauzIdentifier {
 		lores.add("");
 		lores.add("Might:" + ChatColor.YELLOW + " " + power);
 		
-		im.setLore(lores);	
-		item.setItemMeta(im);
-		item.setType(Material.FIREWORK_STAR);
+		itemMeta.setLore(lores);	
+		itemStack.setItemMeta(itemMeta);
+		itemStack.setType(Material.FIREWORK_STAR);
 		
 		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
 	}
 	
 	public static void identifyShrine(InventoryClickEvent event) {
-		ItemStack item = event.getCurrentItem();	
+		ItemStack itemStack = event.getCurrentItem();	
 		
 		Random random = new Random();
 		String shrineName = ChatColor.RESET 
 				+ shrineNames.get(random.nextInt(shrineNames.size())) + "-" 
 				+ shrineNames.get(random.nextInt(shrineNames.size())) + " Shrine";
 		
-		ItemMeta im = item.getItemMeta();
-		im.setDisplayName(shrineName);
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		itemMeta.setDisplayName(shrineName);
 		
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.RED + "Shrine Map");
@@ -364,20 +363,20 @@ public class WauzIdentifier {
 		lores.add(ChatColor.GRAY + "Right Click to enter Shrine.");
 		lores.add(ChatColor.GRAY + "Map resets upon Death.");
 		
-		im.setLore(lores);	
-		item.setItemMeta(im);
-		item.setType(Material.PAPER);
+		itemMeta.setLore(lores);	
+		itemStack.setItemMeta(itemMeta);
+		itemStack.setType(Material.PAPER);
 	}
 	
 	public static void identifySkillgem(InventoryClickEvent event) {
-		ItemStack item = event.getCurrentItem();
+		ItemStack itemStack = event.getCurrentItem();
 		
 		Random random = new Random();
 		List<String> skills = new ArrayList<>(WauzPlayerSkillExecutor.playerSkillMap.keySet());
 		String skillgemName = skills.get(random.nextInt(skills.size()));
 		
-		ItemMeta im = item.getItemMeta();
-		im.setDisplayName(ChatColor.DARK_RED + "Skillgem: " + ChatColor.LIGHT_PURPLE + skillgemName);
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		itemMeta.setDisplayName(ChatColor.DARK_RED + "Skillgem: " + ChatColor.LIGHT_PURPLE + skillgemName);
 		
 		WauzPlayerSkill skill = WauzPlayerSkillExecutor.playerSkillMap.get(skillgemName);
 		
@@ -389,9 +388,9 @@ public class WauzIdentifier {
 		lores.add(ChatColor.WHITE + skill.getSkillDescription());
 		lores.add(ChatColor.WHITE + skill.getSkillStats());
 		
-		im.setLore(lores);
-		item.setItemMeta(im);
-		item.setType(Material.REDSTONE);
+		itemMeta.setLore(lores);
+		itemStack.setItemMeta(itemMeta);
+		itemStack.setType(Material.REDSTONE);
 	}
 	
 }

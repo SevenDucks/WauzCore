@@ -40,11 +40,11 @@ public class CraftingMenu implements WauzInventory {
 				ChatColor.DARK_RED + ChatColor.BOLD + " Level " + playerCraftingLevel);
 		
 		for(int index = 1; index <= MAX_PAGE; index++) {
-			ItemStack page = new ItemStack(Material.FLINT_AND_STEEL);
-			ItemMeta im = page.getItemMeta();
-			im.setDisplayName(ChatColor.GOLD + "Page " + index);
-			page.setItemMeta(im);
-			menu.setItem(index - 1, page);
+			ItemStack pageItemStack = new ItemStack(Material.FLINT_AND_STEEL);
+			ItemMeta pageItemMeta = pageItemStack.getItemMeta();
+			pageItemMeta.setDisplayName(ChatColor.GOLD + "Page " + index);
+			pageItemStack.setItemMeta(pageItemMeta);
+			menu.setItem(index - 1, pageItemStack);
 		}
 		for(int index = MAX_PAGE + 1; index <= 9; index++) {
 			MenuUtils.setComingSoon(menu, null, index - 1);
@@ -63,29 +63,23 @@ public class CraftingMenu implements WauzInventory {
 			generateRecipe(menu, player, playerCraftingLevel, index + ((page - 1) * 6), index);
 		}
 		
-		{
-			ItemStack move = HeadUtils.getPrevItem();
-			ItemMeta im = move.getItemMeta();
-			im.setDisplayName(ChatColor.YELLOW + "Page PREV");
-			move.setItemMeta(im);
-			menu.setItem(6, move);
-		}
-		
-		{
-			ItemStack move = HeadUtils.getNextItem();
-			ItemMeta im = move.getItemMeta();
-			im.setDisplayName(ChatColor.YELLOW + "Page NEXT");
-			move.setItemMeta(im);
-			menu.setItem(8, move);
-		}
-		
-		{
-			ItemStack back = new ItemStack(Material.FLINT_AND_STEEL);
-			ItemMeta im = back.getItemMeta();
-			im.setDisplayName(ChatColor.BLUE + "Back to Page-Selection");
-			back.setItemMeta(im);
-			menu.setItem(7, back);
-		}
+		ItemStack prevItemStack = HeadUtils.getPrevItem();
+		ItemMeta prevItemMeta = prevItemStack.getItemMeta();
+		prevItemMeta.setDisplayName(ChatColor.YELLOW + "Page PREV");
+		prevItemStack.setItemMeta(prevItemMeta);
+		menu.setItem(6, prevItemStack);
+	
+		ItemStack nextItemStack = HeadUtils.getNextItem();
+		ItemMeta nextItemMeta = nextItemStack.getItemMeta();
+		nextItemMeta.setDisplayName(ChatColor.YELLOW + "Page NEXT");
+		nextItemStack.setItemMeta(nextItemMeta);
+		menu.setItem(8, nextItemStack);
+	
+		ItemStack backItemStack = new ItemStack(Material.FLINT_AND_STEEL);
+		ItemMeta backItemMeta = backItemStack.getItemMeta();
+		backItemMeta.setDisplayName(ChatColor.BLUE + "Back to Page-Selection");
+		backItemStack.setItemMeta(backItemMeta);
+		menu.setItem(7, backItemStack);
 		
 		player.openInventory(menu);
 	}
@@ -131,31 +125,31 @@ public class CraftingMenu implements WauzInventory {
 		if((level + 10) >= playerCraftingLevel && playerCraftingLevel < WauzCore.MAX_CRAFTING_SKILL) 
 			lores.add(ChatColor.YELLOW + "Increases Crafting Level");
 		
-		ItemStack stack = new ItemStack(Material.getMaterial(material), amount);
-		ItemMeta im = stack.getItemMeta();
-		im.setDisplayName(name);
-		im.setLore(lores);
-		if(im instanceof PotionMeta) {
+		ItemStack recipeItemStack = new ItemStack(Material.getMaterial(material), amount);
+		ItemMeta recipeItemMeta = recipeItemStack.getItemMeta();
+		recipeItemMeta.setDisplayName(name);
+		recipeItemMeta.setLore(lores);
+		if(recipeItemMeta instanceof PotionMeta) {
 			PotionEffectType potionType  = CraftingConfigurator.getPotionType(itemIndex);
 			int potionLevel = CraftingConfigurator.getPotionLevel(itemIndex);
 			int potionDuration = CraftingConfigurator.getPotionDuration(itemIndex);
-			((PotionMeta) im).addCustomEffect(new PotionEffect(potionType, potionDuration, potionLevel), true);
+			((PotionMeta) recipeItemMeta).addCustomEffect(new PotionEffect(potionType, potionDuration, potionLevel), true);
 		}
-		stack.setItemMeta(im);
-		menu.setItem(baseIndex, stack);
+		recipeItemStack.setItemMeta(recipeItemMeta);
+		menu.setItem(baseIndex, recipeItemStack);
 	}
 	
 	public static void getLocked(Inventory menu, int level, int itemIndex, int baseIndex) {
-		ItemStack lock = new ItemStack(Material.BARRIER);
-		ItemMeta im = lock.getItemMeta();
-		im.setDisplayName(ChatColor.RED + "Recipe Locked");
+		ItemStack lockedItemStack = new ItemStack(Material.BARRIER);
+		ItemMeta lockedItemMeta = lockedItemStack.getItemMeta();
+		lockedItemMeta.setDisplayName(ChatColor.RED + "Recipe Locked");
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.YELLOW + "Required Crafting Level: " + level);
 		lores.add("");
 		lores.add(ChatColor.DARK_GRAY + "Index: " + itemIndex);
-		im.setLore(lores);
-		lock.setItemMeta(im);
-		menu.setItem(baseIndex, lock);
+		lockedItemMeta.setLore(lores);
+		lockedItemStack.setItemMeta(lockedItemMeta);
+		menu.setItem(baseIndex, lockedItemStack);
 	}
 	
 	public void selectMenuPoint(InventoryClickEvent event) {

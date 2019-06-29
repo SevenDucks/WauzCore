@@ -36,85 +36,78 @@ public class PetOverviewMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new PetOverviewMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Pet Overview");
 		
-		ItemStack empty = new ItemStack(Material.BARRIER);
-		ItemMeta eim = empty.getItemMeta();
-		eim.setDisplayName(ChatColor.RED + "Empty Pet Slot");
-		empty.setItemMeta(eim);
+		ItemStack emptySlotItemStack = new ItemStack(Material.BARRIER);
+		ItemMeta emptySlotItemMeta = emptySlotItemStack.getItemMeta();
+		emptySlotItemMeta.setDisplayName(ChatColor.RED + "Empty Pet Slot");
+		emptySlotItemStack.setItemMeta(emptySlotItemMeta);
 		
 		for(int petSlot = 0; petSlot < 5; petSlot++) {
 			String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
 			if(!petType.equals("none")) {
-				ItemStack pet = new ItemStack(highlightedSlot == petSlot ? Material.PARROT_SPAWN_EGG : Material.CHICKEN_SPAWN_EGG);
-				ItemMeta im = pet.getItemMeta();
-				im.setDisplayName(ChatColor.GREEN + petType);
+				ItemStack petItemStack = new ItemStack(highlightedSlot == petSlot ? Material.PARROT_SPAWN_EGG : Material.CHICKEN_SPAWN_EGG);
+				ItemMeta petItemMeta = petItemStack.getItemMeta();
+				petItemMeta.setDisplayName(ChatColor.GREEN + petType);
 				List<String> lores = new ArrayList<String>();
 				lores.add(ChatColor.GRAY + "Click for Pet-Options");
 				lores.add("");
 				lores.add(ChatColor.DARK_GRAY + "Index: " + petSlot);
-				im.setLore(lores);
-				pet.setItemMeta(im);
-				menu.setItem(petSlot, pet);
-			}
-			else
-				menu.setItem(petSlot, empty);
-		}
-		
-		{
-			ItemStack sumn = new ItemStack(Material.STRING);
-			ItemMeta im = sumn.getItemMeta();
-			im.setDisplayName(ChatColor.RED + "Unsummon Active Pet");
-			sumn.setItemMeta(im);
-			menu.setItem(5, sumn);
-		}
-		
-		{
-			String petType = PlayerConfigurator.getCharacterPetType(player, 6);
-			boolean emptySlot = petType.equals("none");
-			
-			ItemStack pet = new ItemStack(emptySlot ? Material.GHAST_SPAWN_EGG : Material.SHEEP_SPAWN_EGG);
-			ItemMeta im = pet.getItemMeta();
-			im.setDisplayName(emptySlot ? ChatColor.RED + "Free Breeding Slot" : ChatColor.GREEN + petType);
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Breeding Slot A");
-			im.setLore(lores);
-			pet.setItemMeta(im);
-			menu.setItem(6, pet);
-		}
-		
-		{
-			String petType = PlayerConfigurator.getCharacterPetType(player, 8);
-			boolean emptySlot = petType.equals("none");
-			
-			ItemStack pet = new ItemStack(emptySlot ? Material.GHAST_SPAWN_EGG : Material.SHEEP_SPAWN_EGG);
-			ItemMeta im = pet.getItemMeta();
-			im.setDisplayName(emptySlot ? ChatColor.RED + "Free Breeding Slot" : ChatColor.GREEN + petType);
-			List<String> lores = new ArrayList<String>();
-			lores.add(ChatColor.GRAY + "Breeding Slot B");
-			im.setLore(lores);
-			pet.setItemMeta(im);
-			menu.setItem(8, pet);
-		}
-		
-		{
-			ItemStack bred = new ItemStack(Material.EGG);
-			ItemMeta im = bred.getItemMeta();
-			long hatchTime = PlayerConfigurator.getCharacterPetBreedingHatchTime(player);
-			if(hatchTime == 0) {
-				im.setDisplayName(ChatColor.RED + "No Egg in Breeding Station");
-			}
-			else if(hatchTime > System.currentTimeMillis()) {
-				hatchTime += 1000 - System.currentTimeMillis();
-				String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(hatchTime),
-			            TimeUnit.MILLISECONDS.toMinutes(hatchTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(hatchTime)),
-			            TimeUnit.MILLISECONDS.toSeconds(hatchTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(hatchTime)));
-				im.setDisplayName(ChatColor.YELLOW + "Breeding... " + hms + " Hours Remain");
+				petItemMeta.setLore(lores);
+				petItemStack.setItemMeta(petItemMeta);
+				menu.setItem(petSlot, petItemStack);
 			}
 			else {
-				im.setDisplayName(ChatColor.GREEN + "Click to hatch Pet");
+				menu.setItem(petSlot, emptySlotItemStack);
 			}
-			bred.setItemMeta(im);
-			menu.setItem(7, bred);
 		}
+		
+		ItemStack unsummonItemStack = new ItemStack(Material.STRING);
+		ItemMeta unsummonItemMeta = unsummonItemStack.getItemMeta();
+		unsummonItemMeta.setDisplayName(ChatColor.RED + "Unsummon Active Pet");
+		unsummonItemStack.setItemMeta(unsummonItemMeta);
+		menu.setItem(5, unsummonItemStack);
+		
+		String parentAPetType = PlayerConfigurator.getCharacterPetType(player, 6);
+		boolean parentSlotAIsEmpty = parentAPetType.equals("none");
+		
+		ItemStack parentAItemStack = new ItemStack(parentSlotAIsEmpty ? Material.GHAST_SPAWN_EGG : Material.SHEEP_SPAWN_EGG);
+		ItemMeta parentAItemMeta = parentAItemStack.getItemMeta();
+		parentAItemMeta.setDisplayName(parentSlotAIsEmpty ? ChatColor.RED + "Free Breeding Slot" : ChatColor.GREEN + parentAPetType);
+		List<String> parentALores = new ArrayList<String>();
+		parentALores.add(ChatColor.GRAY + "Breeding Slot A");
+		parentAItemMeta.setLore(parentALores);
+		parentAItemStack.setItemMeta(parentAItemMeta);
+		menu.setItem(6, parentAItemStack);
+		
+		String parentBPetType = PlayerConfigurator.getCharacterPetType(player, 8);
+		boolean parentSlotBIsEmpty = parentBPetType.equals("none");
+		
+		ItemStack parentBItemStack = new ItemStack(parentSlotBIsEmpty ? Material.GHAST_SPAWN_EGG : Material.SHEEP_SPAWN_EGG);
+		ItemMeta parentBItemMeta = parentBItemStack.getItemMeta();
+		parentBItemMeta.setDisplayName(parentSlotBIsEmpty ? ChatColor.RED + "Free Breeding Slot" : ChatColor.GREEN + parentBPetType);
+		List<String> parentBLores = new ArrayList<String>();
+		parentBLores.add(ChatColor.GRAY + "Breeding Slot B");
+		parentBItemMeta.setLore(parentBLores);
+		parentBItemStack.setItemMeta(parentBItemMeta);
+		menu.setItem(8, parentBItemStack);
+		
+		ItemStack childItemStack = new ItemStack(Material.EGG);
+		ItemMeta childItemMeta = childItemStack.getItemMeta();
+		long hatchTime = PlayerConfigurator.getCharacterPetBreedingHatchTime(player);
+		if(hatchTime == 0) {
+			childItemMeta.setDisplayName(ChatColor.RED + "No Egg in Breeding Station");
+		}
+		else if(hatchTime > System.currentTimeMillis()) {
+			hatchTime += 1000 - System.currentTimeMillis();
+			String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(hatchTime),
+		            TimeUnit.MILLISECONDS.toMinutes(hatchTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(hatchTime)),
+		            TimeUnit.MILLISECONDS.toSeconds(hatchTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(hatchTime)));
+			childItemMeta.setDisplayName(ChatColor.YELLOW + "Breeding... " + hms + " Hours Remain");
+		}
+		else {
+			childItemMeta.setDisplayName(ChatColor.GREEN + "Click to hatch Pet");
+		}
+		childItemStack.setItemMeta(childItemMeta);
+		menu.setItem(7, childItemStack);
 		
 		player.openInventory(menu);
 	}

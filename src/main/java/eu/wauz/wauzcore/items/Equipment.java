@@ -118,11 +118,11 @@ public class Equipment {
 	
 	private static ItemStack getCosmeticItem(Material material) {
 		ItemStack itemStack = new ItemStack(material);
-		ItemMeta im = itemStack.getItemMeta();
-		im.setDisplayName(ChatColor.RESET + "Cosmetic Item");
-		im.setUnbreakable(true);
-		im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		itemStack.setItemMeta(im);
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		itemMeta.setDisplayName(ChatColor.RESET + "Cosmetic Item");
+		itemMeta.setUnbreakable(true);
+		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		itemStack.setItemMeta(itemMeta);
 		return itemStack;
 	}
 

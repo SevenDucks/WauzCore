@@ -66,8 +66,8 @@ public class WauzDebugger {
 			return false;
 		
 		ItemStack itemStack = new ItemStack(Material.DIAMOND_HOE);
-		ItemMeta im = itemStack.getItemMeta();
-		im.setDisplayName(ChatColor.DARK_RED + "Noble Phantasm");
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		itemMeta.setDisplayName(ChatColor.DARK_RED + "Noble Phantasm");
 		List<String> lores = new ArrayList<String>();
 		String x = ChatFormatter.ICON_DIAMS;
 		String rareStars = ChatColor.YELLOW +x +x +x +x +x;
@@ -82,9 +82,9 @@ public class WauzDebugger {
 		lores.add("");
 		lores.add(ChatColor.WHITE + "Rune Slot (" + ChatColor.GREEN + "Empty" + ChatColor.WHITE + ")");
 		lores.add(ChatColor.WHITE + "Rune Slot (" + ChatColor.GREEN + "Empty" + ChatColor.WHITE + ")");
-		im.setLore(lores);
-		im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		itemStack.setItemMeta(im);
+		itemMeta.setLore(lores);
+		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		itemStack.setItemMeta(itemMeta);
 		
 		player.getInventory().addItem(itemStack);
 		return true;
