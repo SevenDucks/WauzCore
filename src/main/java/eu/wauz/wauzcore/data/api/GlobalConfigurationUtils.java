@@ -140,6 +140,12 @@ public class GlobalConfigurationUtils {
 		return instanceDataConfig.getStringList(path);
 	}
 	
+	protected static int instanceConfigGetInt(String instance, String path) {
+		File instanceDataFile = new File(core.getDataFolder(), "InstanceData/" + instance + ".yml");
+		FileConfiguration instanceDataConfig = YamlConfiguration.loadConfiguration(instanceDataFile);	
+		return instanceDataConfig.getInt(path);
+	}
+	
 	protected static void instanceWorldConfigSet(World world, String path, Object value) {
 		try {
 			File instanceDataFile = new File(world.getWorldFolder(), "InstanceWorldData.yml");
@@ -156,6 +162,12 @@ public class GlobalConfigurationUtils {
 		File instanceDataFile = new File(world.getWorldFolder(), "InstanceWorldData.yml");
 		FileConfiguration instanceDataConfig = YamlConfiguration.loadConfiguration(instanceDataFile);	
 		return instanceDataConfig.getString(path);
+	}
+	
+	protected static int instanceWorldConfigGetInt(World world, String path) {
+		File instanceDataFile = new File(world.getWorldFolder(), "InstanceWorldData.yml");
+		FileConfiguration instanceDataConfig = YamlConfiguration.loadConfiguration(instanceDataFile);	
+		return instanceDataConfig.getInt(path);
 	}
 	
 	protected static Set<String> instanceWorldConfigGetKeys(World world, String path) {

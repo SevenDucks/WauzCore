@@ -6,10 +6,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
@@ -156,13 +158,24 @@ public class WauzTeleporter {
 			}
 				
 		}
-		if(targetWorldName.contains("Instance") && Bukkit.getWorld(targetWorldName).getPlayers().size() >= 5) {
-			player.sendMessage(ChatColor.RED + "This instance is already full!");
-			player.closeInventory();
-			return;
+		if(targetWorldName.contains("Instance")) {
+			World world = target.getWorld();
+			int maxPlayers = InstanceConfigurator.getInstanceWorldMaximumPlayers(world);
+			if(maxPlayers > 0 && world.getPlayers().size() >= maxPlayers) {
+				player.sendMessage(ChatColor.RED + "This instance is already full!");
+				player.closeInventory();
+				return;
+			}
+			int maxDeaths = InstanceConfigurator.getInstanceWorldMaximumDeaths(world);
+			if(maxDeaths > 0 && InstanceConfigurator.getInstanceWorldPlayerDeathCount(world, player) >= maxDeaths) {
+				player.sendMessage(ChatColor.RED + "You already died too much in this instance!");
+				player.closeInventory();
+				return;
+			}
 		}
-		if(!playerWorldName.contains("Instance"))
+		if(!playerWorldName.contains("Instance")) {
 			PlayerConfigurator.setCharacterLocation(player, player.getLocation());
+		}
 		PetOverviewMenu.unsummon(player);
 		player.teleport(target.getLocation());
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);

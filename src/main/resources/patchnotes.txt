@@ -1,5 +1,9 @@
 Patch 50X: Rapid Racing
 
+Patch 507: Skill Pack 1 
+	Miscellaneous
+	  - You can now Respawn 3 times in a Dungeon
+
 Patch 506: Menacing Mobs
 	New Feature: Equip Rarity Modifiers
 	  - 1 in 150 Chance to occur

@@ -3,12 +3,15 @@ package eu.wauz.wauzcore.players;
 import java.io.File;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
@@ -82,14 +85,36 @@ public class WauzPlayerRegistrator {
 	}
 	
 	public static void respawn(final Player player) {
+		boolean allowRespawn = false;
+		World world = player.getWorld();
+		int maxDeaths = InstanceConfigurator.getInstanceWorldMaximumDeaths(world);
+		if(maxDeaths > 0) {
+			int deathCount = InstanceConfigurator.getInstanceWorldPlayerDeathCount(world, player) + 1;
+			InstanceConfigurator.setInstanceWorldPlayerDeathCount(world, player, deathCount);
+			if(deathCount <= maxDeaths) {
+				player.sendMessage(ChatColor.RED + "Youd respawned " + deathCount + " / " + maxDeaths + " times in this instance!");
+				allowRespawn = true;
+			}
+		}
+		
+		final boolean respawnInCurrentWorld = allowRespawn;
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(core, new Runnable() { public void run() {
-        	WauzNmsClient.nmsRepsawn(player);
+			if(respawnInCurrentWorld) {
+				Location spawnLocation = player.getBedSpawnLocation();
+				player.setBedSpawnLocation(new Location(world, 0.5, 5, 0.5), true);
+				WauzNmsClient.nmsRepsawn(player);
+				player.setBedSpawnLocation(spawnLocation, true);
+			}
+			else {
+				WauzNmsClient.nmsRepsawn(player);
+			}
         	player.sendTitle(ChatColor.DARK_RED + "" + ChatColor.BOLD + "YOU DIED", "", 10, 70, 20);
         }});
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null)
+		if(playerData == null) {
 			return;
+		}
 		
 		playerData.setResistanceHeat((short) 0);
 		playerData.setResistanceCold((short) 0);

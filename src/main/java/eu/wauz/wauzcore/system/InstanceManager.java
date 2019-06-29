@@ -68,6 +68,8 @@ public class InstanceManager {
 		InstanceConfigurator.setInstanceWorldName(instance, instanceName);
 		String instanceType = InstanceConfigurator.getInstanceType(instanceName);
 		InstanceConfigurator.setInstanceWorldType(instance, instanceType);
+		InstanceConfigurator.setInstanceWorldMaximumPlayers(instance, InstanceConfigurator.getMaximumPlayers(instanceName));
+		InstanceConfigurator.setInstanceWorldMaximumDeaths(instance, InstanceConfigurator.getMaximumDeaths(instanceName));
 		
 		if(instanceType.equals("Keys"))
 			for(String keyId : InstanceConfigurator.getKeyNameList(instanceName))
@@ -121,6 +123,8 @@ public class InstanceManager {
 			instance = core.getServer().createWorld(new WorldCreator(instanceId));
 			InstanceConfigurator.setInstanceWorldName(instance, guild.getGuildName() + " Guildhall");
 			InstanceConfigurator.setInstanceWorldType(instance, "Guild");
+			InstanceConfigurator.setInstanceWorldMaximumPlayers(instance, 0);
+			InstanceConfigurator.setInstanceWorldMaximumDeaths(instance, 0);
 		}
 		
 		player.teleport(new Location(instance, 0.5, 5, 0.5));
@@ -147,6 +151,8 @@ public class InstanceManager {
 		
 		InstanceConfigurator.setInstanceWorldName(instance, "Survival");
 		InstanceConfigurator.setInstanceWorldType(instance, "Survival");
+		InstanceConfigurator.setInstanceWorldMaximumPlayers(instance, 0);
+		InstanceConfigurator.setInstanceWorldMaximumDeaths(instance, 0);
 		
 		WauzDebugger.log(player, "Spawn Location: "
 				+ spawnLocation.getX() + " "
