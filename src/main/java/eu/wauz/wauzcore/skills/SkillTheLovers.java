@@ -8,6 +8,7 @@ import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
@@ -43,7 +44,7 @@ public class SkillTheLovers implements WauzPlayerSkill {
 	}
 
 	@Override
-	public boolean executeSkill(final Player player) {
+	public boolean executeSkill(final Player player, ItemStack weapon) {
 		Location location = null;
 		for(Block block : player.getLineOfSight(null, 12)) {
 			location = block.getLocation();

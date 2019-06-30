@@ -51,7 +51,7 @@ public class WauzPlayerSkillExecutor {
 			playerData.updateSkillCooldown(player, skillId);
 			player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
 			
-			boolean success = skill.executeSkill(player);
+			boolean success = skill.executeSkill(player, itemStack);
 			String message = "[" + ChatColor.LIGHT_PURPLE + "Skill" + ChatColor.RESET + "] " + ChatColor.GRAY;
 			message += player.getName() + " casted (" + skill.getSkillId() + ")";
 			message += success ? " Hit!" : " Miss!";

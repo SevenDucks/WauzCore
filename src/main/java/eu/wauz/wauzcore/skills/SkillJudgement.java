@@ -2,19 +2,19 @@ package eu.wauz.wauzcore.skills;
 
 import java.util.List;
 
+import org.bukkit.Color;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 
-public class SkillTheMagician implements WauzPlayerSkill {
+public class SkillJudgement implements WauzPlayerSkill {
 	
-	public static String SKILL_NAME = "The Magician I";
+	public static String SKILL_NAME = "Judgement XX";
 
 	@Override
 	public String getSkillId() {
@@ -28,30 +28,28 @@ public class SkillTheMagician implements WauzPlayerSkill {
 
 	@Override
 	public String getSkillDescriptionEffect() {
-		return "Explosion Circle";
+		return "Shockwave";
 	}
 
 	@Override
 	public int getCooldownSeconds() {
-		return 15;
+		return 25;
 	}
 
 	@Override
 	public int getManaCost() {
-		return 5;
+		return 6;
 	}
 
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
-		Location location = null;
-		for(Block block : player.getLineOfSight(null, 12)) {
-			location = block.getLocation();
-			if(!block.getType().equals(Material.AIR)) break;
-		}
+		Location location = player.getLocation();
+		List<Entity> targets = SkillUtils.getTargetsInRadius(location, 8);
 		
-		List<Entity> targets = SkillUtils.getTargetsInRadius(location, 4);
-		SkillUtils.createExplosion(location, 8);
-		SkillUtils.callPlayerMagicDamageEvent(player, targets, 1.5);
+		SkillParticle particle = new SkillParticle(Color.TEAL);
+		SkillUtils.spawnParticleWave(location, particle, 12);
+		SkillUtils.callPlayerMagicDamageEvent(player, targets, 1);
+		SkillUtils.throwEntitiesIntoAir(targets, 1.4);
 		
 		return targets.size() > 0;
 	}

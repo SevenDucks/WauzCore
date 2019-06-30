@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
@@ -42,7 +43,7 @@ public class SkillTheEmpress implements WauzPlayerSkill {
 	}
 
 	@Override
-	public boolean executeSkill(final Player player) {
+	public boolean executeSkill(final Player player, ItemStack weapon) {
 		Entity target = SkillUtils.getTargetInLine(player, 5);
 		
 		if(target != null) {

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
@@ -40,11 +41,11 @@ public class SkillWheelOfFortune implements WauzPlayerSkill {
 	}
 
 	@Override
-	public boolean executeSkill(final Player player) {
+	public boolean executeSkill(final Player player, ItemStack weapon) {
 		Map<String, WauzPlayerSkill> playerSkillMap = WauzPlayerSkillExecutor.playerSkillMap;
 		List<WauzPlayerSkill> playerSkills = new ArrayList<>(playerSkillMap.values());
 		
-		return playerSkills.get(new Random().nextInt(playerSkills.size())).executeSkill(player);
+		return playerSkills.get(new Random().nextInt(playerSkills.size())).executeSkill(player, weapon);
 	}
 
 }

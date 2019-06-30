@@ -20,7 +20,7 @@
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
 
-		<!-- MythicMobs-API -->
+		<!-- MythicMobsAPI -->
 		<repository>
 			<id>lumine-repo</id>
 			<url>http://mvn.lumine.io/repository/maven-snapshots/</url>
@@ -37,6 +37,12 @@
 		<repository>
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
+		</repository>
+		
+		<!-- LibsDisguisesAPI -->
+		<repository>
+		    <id>md5</id>
+		    <url>http://repo.md-5.net/content/groups/public</url>
 		</repository>
 		
 		<!-- SkullCreator -->
@@ -102,6 +108,7 @@
 			<version>1.3.17</version>
 			<scope>compile</scope>
 		</dependency>
+		
 
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -114,12 +121,21 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.8.1</version>
 		</dependency>
+		
 
 		<dependency>
 			<groupId>com.github.koca2000</groupId>
 			<artifactId>NoteBlockAPI</artifactId>
 			<version>-SNAPSHOT</version>
 		</dependency>
+
+<!--
+		<dependency>
+		    <groupId>LibsDisguises</groupId>
+		    <artifactId>LibsDisguises</artifactId>
+		    <version>9.8.2</version>
+		</dependency>
+-->		
 		
 		<dependency>
 	        <groupId>com.deanveloper</groupId>

@@ -1,6 +1,14 @@
 Patch 50X: Rapid Racing
 
-Patch 507: Skill Pack 1 
+Patch 507: Skill Pack 1
+	Added Skills
+	  - The Hierphant V
+	    > Single Target Damage over Time
+	  - Temperance XIV
+	    > Restores 8 Mana Points
+	  - Judgement XX
+	    > Catapults Enemies into the Air
+
 	Miscellaneous
 	  - You can now Respawn 3 times in a Dungeon
 

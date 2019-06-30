@@ -6,6 +6,7 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
+import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -44,7 +45,7 @@ public class SkillTheHighPriestess implements WauzPlayerSkill {
 	}
 
 	@Override
-	public boolean executeSkill(final Player player) {
+	public boolean executeSkill(final Player player, ItemStack weapon) {
 		List<Player> targets = SkillUtils.getPlayersInRadius(player.getLocation(), 6);
 		for(Player target : targets) {
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);

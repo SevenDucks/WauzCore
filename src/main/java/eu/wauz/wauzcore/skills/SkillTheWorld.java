@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
@@ -40,7 +41,7 @@ public class SkillTheWorld implements WauzPlayerSkill {
 	}
 
 	@Override
-	public boolean executeSkill(final Player player) {
+	public boolean executeSkill(final Player player, ItemStack weapon) {
 		Location location = player.getLocation();
 		SkillUtils.throwEntityIntoAir(player, 0.6);
 		

@@ -160,7 +160,7 @@ public class SkillUtils {
 	}
 	
 	public static void spawnParticleWave(Location origin, SkillParticle particle, double length){
-		new BukkitRunnable(){
+		new BukkitRunnable() {
 			
 			double t = Math.PI / 4;
 			
@@ -170,15 +170,37 @@ public class SkillUtils {
 					double x = t * Math.cos(theta);
 					double y = 2 * Math.exp(- 0.1 * t) * Math.sin(t) + 1.5;
 					double z = t * Math.sin(theta);
-					origin.add(x,y,z);
+					origin.add(x, y, z);
 					particle.spawn(origin, 1);
-					origin.subtract(x,y,z);
+					origin.subtract(x, y, z);
 				}
-				if (t > length){
+				if (t > length) {
 					this.cancel();
 				}
 			}
 			
+		}.runTaskTimer(WauzCore.getInstance(), 0, 1);
+	}
+	
+	public static void spawnParticleSphere(Location origin, SkillParticle particle, double radius) {
+		new BukkitRunnable() {
+			
+			double phi = 0;
+			
+			public void run() {
+				phi += Math.PI / 10;
+				for(double theta = 0; theta <= 2 * Math.PI; theta += Math.PI / 20) {
+					double x = radius * Math.cos(theta) * Math.sin(phi);
+					double y = radius * Math.cos(phi) + 1.5;
+					double z = radius * Math.sin(theta) * Math.sin(phi);
+					origin.add(x, y, z);
+					particle.spawn(origin, 1);
+					origin.subtract(x, y, z);
+				}
+				if(phi > 2 * Math.PI) {
+					this.cancel();
+				}
+			}
 		}.runTaskTimer(WauzCore.getInstance(), 0, 1);
 	}
 	
@@ -202,6 +224,11 @@ public class SkillUtils {
 		Vector vector = getVectorForPoints(entity.getLocation(), new Location(entity.getWorld(), x, y, z));
 		entity.teleport(entity.getLocation().add(0, 0.5, 0));
 		entity.setVelocity(vector);
+	}
+	
+	public static void throwEntitiesIntoAir(List<Entity> entities, double force) {
+		for(Entity entity : entities)
+			throwEntityIntoAir(entity, force);
 	}
 	
 	public static void throwEntityIntoAir(Entity entity, double force) {

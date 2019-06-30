@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.skills.execution;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -28,6 +29,6 @@ public interface WauzPlayerSkill {
 	
 	public int getManaCost();
 	
-	public boolean executeSkill(Player player);
+	public boolean executeSkill(Player player, ItemStack weapon);
 
 }
