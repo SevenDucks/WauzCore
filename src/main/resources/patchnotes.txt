@@ -1,0 +1,359 @@
+Patch 50X: Rapid Racing
+
+Patch 507: Skill Pack 1
+	Added Skills
+	  - The Hierphant V
+	    > Single Target Damage over Time
+	  - Temperance XIV
+	    > Restores 8 Mana Points
+	  - Judgement XX
+	    > Catapults Enemies into the Air
+
+	Miscellaneous
+	  - You can now Respawn 3 times in a Dungeon
+
+Patch 506: Menacing Mobs
+	New Feature: Equip Rarity Modifiers
+	  - 1 in 150 Chance to occur
+	  - Primal, increases Stats beyond Maximum
+	  - Stable, low Stats, but infinite Durability
+
+	New Feature: Menacing Modifiers
+	  - Some Mobs can spawn in Menacing Variants
+	  - Shown by Golden Glow and Healthbar
+	  - Menacing Mobs have 1 to 2 Prefixes / Mods
+	  
+	Added Mob Modifiers
+	  - Explosive, Explodes on Death
+	  - Deflecting, Knocks back Attacker when hit
+	  - Massive, Only takes 20% of Damage
+	  - Ravenous, Chases Player with 200% Speed
+	  - Splitting, Splits into 4 Mobs on Death
+
+	Miscellaneous
+	  - Item Rarity shown with Diamond Icons
+	  - New Enemy Health Bars
+	  - Minimap (Unstable Beta)
+
+Patch 505: Graceful Guilds
+	New Feature: Guilds
+	 - Includes Chat, Descriptions and Roles
+	 - Customizable Guild Tabards / Banners
+	 - Private Instace (Guildhall)
+	
+	Improved Feature: Groups
+	 - Groups also in Survival with /group
+	 - Group Chat with /grp [text]
+	 - Group Descriptions with /desc [text]
+	 - 25% EXP Share in Group
+	 - See Group-Members Life in Tablist
+
+	Miscellaneous
+	  - Some Menu Reworks
+	  - Unused Skillpoints Notification
+	  - Berry and Coin Drops
+	  - Temperature per Region
+
+Patch 504: Arts of Archery
+	New Weapon: Bows
+	  - Normal Arrows, Infinite Amount
+	  - Reinforced Arrows, Double Damage
+	  - Fire Arrows, Damage over Time
+	  - Ice Arrows, Slowness
+	  - Shock Arrows, Knockback
+	  - Bomb Arrows, Area Explosion
+	
+	New Scrolls
+	  - Comfort, Sets Home Location
+	  - Regret, Resets Equip Sockets
+	  
+	Survival+ PvP
+	  - Now available for Everyone
+	  - 1h Protection for new Chars
+	  - Duration extendable in Token Shop
+	  - Limit for earned Tokens per Day
+	  
+	Miscellaneous
+	  - Cosmetic Armor from Equip
+	  - Level Requirements on Equip
+	  - Removed Lag Spikes on World Enter
+	  - Faster Gameservers
+
+Patch 503: Survival Evolved
+	New Gamemode: Survival+
+	  - Vanilla-like Survival
+	  - New Map each Season (90 Days)
+	  - Epic Custom World Generation
+	  - Survival Instances (Nether, End)
+	  - PvP Prototype (only for Testers)
+	  
+	New Feature: Score and Tokens
+	  - Increases by Leveling in Survival
+	  - Score is only for Showoff
+	  - Tokens can be used in Shops
+	  - Tokens can be used throughout Modes
+	
+	Miscellaneous
+	  - Automated Daily Server Restarts
+	  - Double-Jump in Hub
+	  - Changed some Chat Formats and Messages
+	  - New Commands: /hub /spawn /home
+
+Patch 502: Quest for Glory
+	Lobby Rework
+	  - New Roman Style Lobby
+	  - Support for Future Gamemodes
+	  
+	Quest-Menu Rework
+	  - Accept & Cancel Quests per Dialog
+	  - Quest Tracker in Form of a Compass
+	  - Quest Finder in Menu
+	  - Completed Quest Counter in Menu
+	  
+	Miscellaneous
+	  - Overview Map Link in Travelling Menu
+	  - EXP Gain and Heal Indicators
+
+Patch 501: Precious Pets
+	Minecraft Update
+	  - Server now runs on Spigot 1.13.2
+	  - New WauzCore Version: "Pallasite"
+	  
+	New Feature: Pet Stats
+	  - Can be increased by Feeding
+	  - Only apply while Pet is Active
+	  - Stat: Intelligence
+	    > Bonus Experience
+	  - Stat: Dexterity
+	    > Bonus Speed
+	  - Stat: Absorption
+	    > Bonus Defense
+	    
+	New Feature: Breeding
+	  - Requires 2 Pets with 1-3 maxed Stats
+	  - Offspring has increased max Stats
+	  - Based on Parent Stats and Type
+	  - Parents Die
+	  - Egg has a Cooldown before it hatches
+	  
+	Miscellaneous
+	  - Reworked Fast Travel
+	    > Now Faster and less Buggy
+
+Patch 419: Devilish Dungeons
+	New Feature: Locks and Keys
+	  - Keys are shared per Instance
+	    > Party Members can use Keys of Others
+		> Key Display in Scoreboard
+	  - Keys are used to unlock Dungeon Passages
+	  - Keys are dropped by Minibosses
+	  
+	New Feature: Strongboxes
+	  - Spawn in Dungeons
+	  - Are Guarded by Waves of Enemies
+	  - Grant Equipment on Completion
+	  
+	Enhancements
+	  - Added Suffix "of Numbing"
+	    > Defense Boost
+	  - Added Suffix "of Ferocity"
+	    > Crit Multiplier
+
+	Passive Skills
+	  - Reworked Agility
+	    > Now adds Crit and Evasion Chance
+
+Patch 418: Craft & Combat
+	Improved Feature: Crafting
+	  - Reworked Crafting Menu
+	  - You can now craft different Potions
+	  - Crafted Food can be consumed Instantly
+	  - Crafted Food can restore Health
+	  
+	New Feature: Enhancements
+	  - Based on new Passive "Luck"
+	  - Enhanced Equipment has a Suffix and Level
+	  - Enhanced Equipment has special Effects
+	  - When Luck > 100% e.g. 150%
+	    > Guaranteed +1 Suffix on every 3rd Equip
+	    > 50% Chance to be a +2 Suffix
+	  - Added Suffix "of Destruction"
+	    > Attack Boost
+	  - Added Suffix "of Nourishment"
+	    > Health on Kill
+	  - Added Suffix "of Consumption"
+	    > Mana on Kill
+	  
+	Runes
+	  - New Rune "Thorns"
+	    > Reflects Damage back to Enemies
+	  
+	Added Skills
+	  - The High Priestess II
+	    > Heals all Players in Range
+	  - The Lovers VI
+	    > Pulls everything to focused Spot
+
+Patch 417: Great Divide
+	New Feature: Regions and Music
+	  - World divided into Regions
+	  - Regions can have Sub-Regions
+	  - Each Region has its own Music Theme
+	  - Music is played through Noteblocks
+	  - Instances also got own Themes
+	  
+	New Feature: Hearthstone
+	  - Teleports you to your Home-Region
+	  - Innkeepers in most Cities
+	    > Talk to them, to change your Home
+	
+	Passive Skills
+	  - Divided Dmg to multiple Stats 
+	  - Reworked Strength
+	    > Increases Armor and AxeDmg
+	  - Added Magic
+	    > Increases Mana and StaffDmg
+	  - Added Agility
+	    > Increases (Soon Evasion and) SwordDmg
+
+Patch 416: Bararaq Saiqa
+	New Feature: Skillgems
+	  - Rare Drop From Enemies
+	  - Can be socketed into some Weapons
+	  - Execute Skill on right-click
+	  - Uses up "Mana" and has cooldown
+	  - Mana regenerates over time
+	  
+	Added Skills
+	  - Magician I
+	    > Creates big Explosion
+	  - The Empress III
+	    > Chaining Lightning Magic
+	  - Wheel Of Fortune X
+	    > Random
+	  - The Star XVII
+	    > Strong Multipunch
+	  - The World XXI
+	    > Freezes Time for 5 secs
+
+Patch 415: Better Together
+	New Feature: Groups
+	  - Up to five Members
+	  - Members can warp & play Instances together
+	  - Leaders can kick or promote Members
+	  - Leaders can set a Group-Password
+
+	Dungeon Items
+	  - Chicken Glider now includes Chicken
+	  - Bombs now throw back Enemies
+	  
+	Runes
+	  - New Rune "Knowledge"
+	    > Increases Experience-Gain
+
+Patch 414: Advanced Craftsmanship
+	New Feature: Crafting
+	  - Collect Materials which spawn in World
+	  - Craft with them to increase Crafting Skill
+	  - Higher Skill means more Recipes
+	  
+	New Feature: Temperature Resistance
+	  - Gained from certain craftable Items
+	  - Protects from Heat or Cold
+	
+	Miscellaneous
+	  - Confirm Dialog when Deleting important Stuff
+	  - Quests don't remove ALL Quest-Items anymore
+	  - Diablo like Popup Damage-Numbers
+	  - Player Profiles in WebApp
+
+Patch 413: Battle Tendency
+	Combat
+	  - Weapon-Skill
+	    > Increases by fighting with Weapon-Type
+	    > Grants a Damage-Bonus to this Type
+	  - Weapon-Scaling
+	    > Stats when Identifying scale to lvl
+	  - Added passive Skill "Strength"
+		> Increases Atk and Def from Equip
+	
+	Pets
+	  - You can now unsummon Pets
+	  - Pet-Positions in Menu got switchable
+	  - Added ridable Pets
+	
+	Miscellaneous
+	  - Heat Display only shows when "critic"
+	  - Improved some Character-Mechanics
+	  - Improved WebApp
+
+Patch 412: Split Personality
+	New Scrolls
+	  - Fortune, Sells Items
+	  - Toughness, Repairs Items
+	 
+	New Feature: Character Menu
+	  - Up to three Characters
+	  - Each has unique Inventory, Level etc.
+	  - 2 choosable Races (only optical)
+	  
+	Maps
+	  - Added Unidentified Shrine Maps
+	    > Rare Drop from Enemies
+	    > Random generated Mini-Dungeons in Future
+	    > Random Name, Rooms, Enemies, Boss
+	    > Currently not useable
+	 
+	Miscellaneous
+	  - Added Coordinates Display
+
+Patch 411
+	Menu Mechanics
+	  - Preparations for the Crafting-Update
+	  - Preparations for the Travelling-Update
+	  
+	Quests
+	  - Added MMO-Style Quest-Sidebar
+	  - New Type: Campaign Quest
+	  
+	Bugfixes
+	  - You can't grapple Quest-NPCs etc anymore
+	  - You can't use Maps while mounted anymore
+	  - Some Healthbar + Display Fixes
+	  - Pets aren't drowning in low Water now
+	  - Pets can now attack enemies
+	  - Vanilla-Crafting deactivated
+
+Patch 410
+	New Feature: Maps
+	  - Added Dungeon Map Items
+	    > Creates an Instanced Dungeon on use
+	    > Maps are consumed on use
+	    > If you die it resets
+	
+	New Feature: Pets
+	  - Taming Menu allows Summonig and Discarding
+	    > You have multiple Slots for Pets
+	    > You can only have one active Pet at a time
+	  - Added Summoning Scrolls
+	    > Learns you to summon a Pet
+
+Patch 409
+	Menu Mechanics
+	  - The Main Menu got a new Layout
+	  - Added Descriptions to Dungeon Items
+	  - Added passive Skill "Trading"
+		> Increases Sell-Income
+	
+	New Feature: Runes
+	  - You can now find and Identify Runes
+	  - Equipment can now have Rune-Slots
+	  - New Rune "Power"
+		> Increases Main-Stat of Equipment
+		
+	Shops
+	  - Shopkeepers can now repair Items
+	  - Removed Income from selling bought Items
+		
+	Bugfixes
+	  - Armor is now working correctly
