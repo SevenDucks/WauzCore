@@ -1,1 +1,13 @@
-/target/
+# Eclipse stuff
+/.classpath
+/.project
+/.settings
+
+# Maven build
+/target
+
+# Various other potential build files
+/build
+/bin
+/dist
+/manifest.mf
