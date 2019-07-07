@@ -10,8 +10,10 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.players.WauzPlayerGuildTabCompleter;
 import eu.wauz.wauzcore.skills.SkillJudgement;
+import eu.wauz.wauzcore.skills.SkillStrength;
 import eu.wauz.wauzcore.skills.SkillTemperance;
 import eu.wauz.wauzcore.skills.SkillTheEmpress;
+import eu.wauz.wauzcore.skills.SkillTheHermit;
 import eu.wauz.wauzcore.skills.SkillTheHierophant;
 import eu.wauz.wauzcore.skills.SkillTheHighPriestess;
 import eu.wauz.wauzcore.skills.SkillTheLovers;
@@ -66,6 +68,8 @@ public class WauzLoader {
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheEmpress.SKILL_NAME, new SkillTheEmpress());				// Tarot (03) III
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheHierophant.SKILL_NAME, new SkillTheHierophant());		// Tarot (05) V
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheLovers.SKILL_NAME, new SkillTheLovers());				// Tarot (06) VI
+		WauzPlayerSkillExecutor.playerSkillMap.put(SkillStrength.SKILL_NAME, new SkillStrength());					// Tarot (08) VIII
+		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheHermit.SKILL_NAME, new SkillTheHermit());				// Tarot (09) IX
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillWheelOfFortune.SKILL_NAME, new SkillWheelOfFortune());		// Tarot (10) X
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTemperance.SKILL_NAME, new SkillTemperance());				// Tarot (14) XIV
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheStar.SKILL_NAME, new SkillTheStar());					// Tarot (17) XVII

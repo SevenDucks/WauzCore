@@ -1,9 +1,13 @@
 Patch 50X: Rapid Racing
 
-Patch 507: Skill Pack 1
+Patch 507: Skill Pack I
 	Added Skills
 	  - The Hierphant V
 	    > Single Target Damage over Time
+	  - Strength VIII
+	    > 15 Second Damage Boost
+	  - The Hermit IX
+	    > 15 Second Evasion Shield
 	  - Temperance XIV
 	    > Restores 8 Mana Points
 	  - Judgement XX

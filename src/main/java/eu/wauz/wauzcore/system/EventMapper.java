@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.system;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -17,6 +18,7 @@ import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.CustomWeaponBow;
 import eu.wauz.wauzcore.items.DungeonItemChickenGlider;
 import eu.wauz.wauzcore.items.DungeonItemThunderRod;
+import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.menu.CharacterSlotMenu;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
@@ -166,7 +168,8 @@ public class EventMapper {
 	public static void menu(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
 		String inventoryName = ChatColor.stripColor(player.getOpenInventory().getTitle());
-		WauzDebugger.log(player, "You clicked in Inventory: " + inventoryName);
+		String inventoryType = event.getInventory().getType().toString();
+		WauzDebugger.log(player, "You clicked in Inventory: " + inventoryName + " " + inventoryType);
 		
 		if(event.getInventory().getHolder() instanceof WauzInventoryHolder) {
 			WauzInventoryHolder holder = (WauzInventoryHolder) event.getInventory().getHolder();
@@ -175,6 +178,11 @@ public class EventMapper {
 			holder.selectMenuPoint(event);
 		}
 		if(WauzMode.isMMORPG(player)) {
+			ItemStack clicked = event.getCurrentItem();
+			if(ItemUtils.isSpecificItem(clicked, "Trashcan") && ItemUtils.isNotAir(player.getItemOnCursor())) {
+				player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_BURN, 1, 1);
+				player.setItemOnCursor(null);
+			}
 			MenuUtils.onSpecialItemInventoryClick(event);
 		}
 	}

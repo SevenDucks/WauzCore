@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.system.util.WauzFileUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzPlayerEventCharacterDelete implements WauzPlayerEvent {
@@ -15,8 +16,10 @@ public class WauzPlayerEventCharacterDelete implements WauzPlayerEvent {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		String characterSlot = playerData.getSelectedCharacterSlot();
 		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + ".yml");
+		File playerDataQuestFiles = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + "-quests");
 		try {
 			playerDataFile.delete();
+			WauzFileUtils.removeFilesRecursive(playerDataQuestFiles);
 			player.sendMessage(ChatColor.DARK_PURPLE + "Character succesfully deleted!");
 			player.closeInventory();
 			return true;

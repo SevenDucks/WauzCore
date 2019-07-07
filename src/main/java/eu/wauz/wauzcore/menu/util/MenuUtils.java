@@ -10,6 +10,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -25,11 +27,35 @@ import eu.wauz.wauzcore.items.WauzIdentifier;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.ShopBuilder;
 import eu.wauz.wauzcore.menu.WauzMenu;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
 public class MenuUtils {
 	
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
+	
+	public static void constructPlayerInventory(InventoryOpenEvent event) {
+		Player player = (Player) event.getPlayer();
+		Inventory inventory = event.getInventory();
+		
+		setTrashcan(inventory, 1, 2, 3, 4);
+		inventory.setItem(0, new ItemStack(Material.END_PORTAL));
+		
+		WauzDebugger.log(player, "Constructed Player Inventory");
+	}
+	
+	public static void disposePlayerInventory(InventoryCloseEvent event) {
+		Player player = (Player) event.getPlayer();
+		Inventory inventory = event.getInventory();
+		
+		inventory.setItem(0, null);
+		inventory.setItem(1, null);
+		inventory.setItem(2, null);
+		inventory.setItem(3, null);
+		inventory.setItem(4, null);
+		
+		WauzDebugger.log(player, "Disposed Player Inventory");
+	}
 	
 	public static void setCurrencyDisplay(Inventory menu, Player player, int index) {
 		ItemStack currencyItemStack = HeadUtils.getMoneyItem();
@@ -63,6 +89,19 @@ public class MenuUtils {
 		currencyItemMeta.setLore(lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
 		menu.setItem(index, currencyItemStack);
+	}
+	
+	public static void setTrashcan(Inventory menu, int... indexes) {
+		ItemStack trashcanItemStack = new ItemStack(Material.BARRIER);
+		ItemMeta trashcanItemMeta = trashcanItemStack.getItemMeta();
+		trashcanItemMeta.setDisplayName(ChatColor.RED + "Trashcan");
+		List<String> lores = new ArrayList<String>();
+		lores.add(ChatColor.DARK_PURPLE + "Drag Items here, to destroy them.");
+		trashcanItemMeta.setLore(lores);
+		trashcanItemStack.setItemMeta(trashcanItemMeta);
+		for(int index : indexes) {
+			menu.setItem(index, trashcanItemStack);
+		}
 	}
 	
 	public static void setComingSoon(Inventory menu, String lore, int index) {

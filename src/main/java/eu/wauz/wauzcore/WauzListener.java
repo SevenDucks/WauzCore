@@ -41,6 +41,9 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -56,6 +59,7 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.event.world.WorldInitEvent;
+import org.bukkit.inventory.Inventory;
 import org.spigotmc.event.entity.EntityMountEvent;
 
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
@@ -78,6 +82,7 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.EventMapper;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
@@ -335,10 +340,32 @@ public class WauzListener implements Listener {
 
 	@EventHandler
 	public void onMythicDeath(MythicMobDeathEvent event) {
-		if (StringUtils.isNotBlank(event.getEntity().getCustomName())) MobEventMapper.deathEvent(event);
+		if(StringUtils.isNotBlank(event.getEntity().getCustomName())) {
+			MobEventMapper.deathEvent(event);
+		}
 	}
 
 // Inventory Listeners
+	
+	@EventHandler
+	public void onInventoryOpen(InventoryOpenEvent event) {
+		Player player = (Player) event.getPlayer();
+		Inventory inventory = event.getInventory();
+		WauzDebugger.log(player, "Opened Inventory  " + inventory.getType().toString());
+		if(WauzMode.isMMORPG(player) && inventory.getType().equals(InventoryType.CRAFTING)) {
+			MenuUtils.constructPlayerInventory(event);
+		}
+	}
+	
+	@EventHandler
+	public void onInventoryClose(InventoryCloseEvent event) {
+		Player player = (Player) event.getPlayer();
+		Inventory inventory = event.getInventory();
+		WauzDebugger.log(player, "Closed Inventory " + inventory.getType().toString());
+		if(WauzMode.isMMORPG(player) && inventory.getType().equals(InventoryType.CRAFTING)) {
+			MenuUtils.disposePlayerInventory(event);
+		}
+	}
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {

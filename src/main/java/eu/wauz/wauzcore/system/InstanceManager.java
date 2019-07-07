@@ -32,6 +32,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.util.WauzFileUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class InstanceManager {
@@ -243,7 +244,7 @@ public class InstanceManager {
 	public static void closeInstance(World world) {
 	    if(world.getWorldFolder().toString().contains("Instance")) {
 			Bukkit.getServer().unloadWorld(world, true);
-			removeInstance(world.getWorldFolder());
+			WauzFileUtils.removeFilesRecursive(world.getWorldFolder());
 	    }
 	}
 	
@@ -251,22 +252,8 @@ public class InstanceManager {
 		File rootDirectory = new File(Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", ""));
 		for(File file : rootDirectory.listFiles()) {
 			if(file.getName().startsWith("WzInstance"))
-				removeInstance(file);
+				WauzFileUtils.removeFilesRecursive(file);
 		}
-	}
-	
-	private static boolean removeInstance(File file) {
-		if(file.exists()) {
-		    File files[] = file.listFiles();
-		    for(int i = 0; i < files.length; i++) {
-		        if(files[i].isDirectory()) {
-		            removeInstance(files[i]);
-		        } else {
-		            files[i].delete();
-		        }
-		    }
-		}
-		return file.delete();
 	}
 	
 }

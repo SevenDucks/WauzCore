@@ -20,6 +20,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
@@ -136,7 +137,7 @@ public class DamageCalculator {
 		if(playerData == null || player.getNoDamageTicks() != 0)
 			return;
 		
-		if(Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player))) {
+		if(player.hasPotionEffect(PotionEffectType.INVISIBILITY) || Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player))) {
 			event.setDamage(0);
 			
 			ValueIndicator.spawnEvadeIndicator(player);
@@ -270,6 +271,11 @@ public class DamageCalculator {
 			if(Chance.oneIn(INCREASE_SKILL_CHANCE))
 				PlayerPassiveSkillConfigurator.increaseStaffSkill(player);
 		}
+		
+		if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
+			multiplier *= 1.5;
+		}
+		
 		WauzDebugger.log(player, "Base Multiplier: " + formatter.format(multiplier));	
 		return (int) ((float) damage * (float) multiplier);
 	}

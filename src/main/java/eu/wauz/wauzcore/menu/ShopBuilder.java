@@ -64,8 +64,7 @@ public class ShopBuilder implements WauzInventory {
 			ItemMeta repairItemMeta = repairItemStack.getItemMeta();
 			repairItemMeta.setDisplayName(ChatColor.BLUE + "Repair Items");
 			List<String> repairLores = new ArrayList<String>();
-			repairLores.add(ChatColor.DARK_PURPLE + "Drag Items here,");
-			repairLores.add(ChatColor.DARK_PURPLE + "to repair them for Coins.");
+			repairLores.add(ChatColor.DARK_PURPLE + "Drag Items here, to repair them for Coins.");
 			repairItemMeta.setLore(repairLores);
 			repairItemStack.setItemMeta(repairItemMeta);
 			menu.setItem(7, repairItemStack);
@@ -76,8 +75,7 @@ public class ShopBuilder implements WauzInventory {
 			ItemMeta sellItemMeta = sellItemStack.getItemMeta();
 			sellItemMeta.setDisplayName(ChatColor.RED + "Sell Items");
 			List<String> sellLores = new ArrayList<String>();
-			sellLores.add(ChatColor.DARK_PURPLE + "Drag Items here,");
-			sellLores.add(ChatColor.DARK_PURPLE + "to trade them for Coins.");
+			sellLores.add(ChatColor.DARK_PURPLE + "Drag Items here, to trade them for Coins.");
 			sellItemMeta.setLore(sellLores);
 			sellItemStack.setItemMeta(sellItemMeta);
 			menu.setItem(8, sellItemStack);
