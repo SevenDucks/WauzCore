@@ -50,6 +50,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -64,12 +65,12 @@ import org.spigotmc.event.entity.EntityMountEvent;
 
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.items.CustomWeaponBow;
-import eu.wauz.wauzcore.items.DungeonItemBombBag;
-import eu.wauz.wauzcore.items.DungeonItemChickenGlider;
-import eu.wauz.wauzcore.items.DungeonItemGrapplingHook;
 import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
+import eu.wauz.wauzcore.items.dungeon.DungeonItemBombBag;
+import eu.wauz.wauzcore.items.dungeon.DungeonItemChickenGlider;
+import eu.wauz.wauzcore.items.dungeon.DungeonItemGrapplingHook;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.mobs.MenacingMobs;
@@ -329,6 +330,11 @@ public class WauzListener implements Listener {
 		if (event.getEntity().getKiller() != null && WauzMode.isMMORPG(event.getEntity().getKiller())) {
 			DamageCalculator.kill(event);
 		}
+	}
+	
+	@EventHandler
+	public void onItemDamage(PlayerItemDamageEvent event) {
+		event.setCancelled(true);
 	}
 
 // MythicMobs Listeners

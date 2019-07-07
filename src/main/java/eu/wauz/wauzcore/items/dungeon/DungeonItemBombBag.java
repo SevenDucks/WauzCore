@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.items;
+package eu.wauz.wauzcore.items.dungeon;
 
 import java.util.Collection;
 

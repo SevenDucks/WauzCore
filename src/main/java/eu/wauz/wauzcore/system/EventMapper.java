@@ -16,10 +16,10 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.CustomWeaponBow;
-import eu.wauz.wauzcore.items.DungeonItemChickenGlider;
-import eu.wauz.wauzcore.items.DungeonItemThunderRod;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.items.WauzSigns;
+import eu.wauz.wauzcore.items.dungeon.DungeonItemChickenGlider;
+import eu.wauz.wauzcore.items.dungeon.DungeonItemThunderRod;
 import eu.wauz.wauzcore.menu.CharacterSlotMenu;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.QuestBuilder;
@@ -180,7 +180,7 @@ public class EventMapper {
 		if(WauzMode.isMMORPG(player)) {
 			ItemStack clicked = event.getCurrentItem();
 			if(ItemUtils.isSpecificItem(clicked, "Trashcan") && ItemUtils.isNotAir(player.getItemOnCursor())) {
-				player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_BURN, 1, 1);
+				player.playSound(player.getLocation(), Sound.BLOCK_METAL_BREAK, 1, 1);
 				player.setItemOnCursor(null);
 			}
 			MenuUtils.onSpecialItemInventoryClick(event);

@@ -13,8 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
@@ -22,8 +20,8 @@ import org.bukkit.util.Vector;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.ArrowMenu;
-import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.SkillParticle;
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.util.Cooldown;
@@ -70,14 +68,7 @@ public class CustomWeaponBow {
         arrow.setVelocity(vector);
         spawnArrowTrail(arrow, getArrowColor(arrowType));
         
-        Damageable damageable = (Damageable) bow.getItemMeta();
-		int durability = damageable.getDamage() + 1;
-		int maxDurability = bow.getType().getMaxDurability();
-		damageable.setDamage(durability);
-		bow.setItemMeta((ItemMeta) damageable);
-		if(durability >= maxDurability) {
-			bow.setAmount(0);
-		}
+        DurabilityCalculator.takeDamage(player, bow, false);
 	}
 	
 	private static Color getArrowColor(String arrowType) {

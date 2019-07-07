@@ -1,6 +1,10 @@
 Patch 50X: Rapid Racing
 
 Patch 507: Skill Pack I
+    Enhancements
+	  - Added Suffix "of XXX"
+	    > YYY
+
 	Added Skills
 	  - The Hierphant V
 	    > Single Target Damage over Time
@@ -15,6 +19,7 @@ Patch 507: Skill Pack I
 
 	Miscellaneous
 	  - You can now Respawn 3 times in a Dungeon
+	  - Trashcan in Player Inventory
 
 Patch 506: Menacing Mobs
 	New Feature: Equip Rarity Modifiers

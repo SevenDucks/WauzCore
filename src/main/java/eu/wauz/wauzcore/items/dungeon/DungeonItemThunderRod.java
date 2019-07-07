@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.items;
+package eu.wauz.wauzcore.items.dungeon;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

@@ -18,13 +18,13 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -53,15 +53,17 @@ public class DamageCalculator {
 		int damage = 1;
 		int unmodifiedDamage = (int) event.getDamage();
 		double magicMultiplier = 1;
+		boolean isMagic = false;
 		
+		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		if(fixedDamage) {
 			damage = (int) event.getDamage();
 		}
 		else {
-			ItemStack itemStack = player.getEquipment().getItemInMainHand();
 			if((itemStack.getType().equals(Material.AIR)) || !ItemUtils.hasLore(itemStack)) {
 				event.setDamage(1);
 				removeDamageModifiers(event);
+				DurabilityCalculator.takeDamage(player, itemStack, false);
 				ValueIndicator.spawnDamageIndicator(event.getEntity(), 1);
 				return;
 			}
@@ -70,6 +72,7 @@ public class DamageCalculator {
 			WauzDebugger.log(player, "Required Level: " + requiredLevel);
 			if(player.getLevel() < requiredLevel) {
 				event.setCancelled(true);
+				DurabilityCalculator.takeDamage(player, itemStack, false);
 				player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
 				return;
 			}
@@ -80,6 +83,7 @@ public class DamageCalculator {
 					magicMultiplier = wzMagicValue;
 				entity.setMetadata("wzMagic", new FixedMetadataValue(WauzCore.getInstance(), 0d));
 				WauzDebugger.log(player, "Magic damage-multiplier: " + magicMultiplier);
+				isMagic = true;
 			}
 			
 			damage = ItemUtils.getBaseAtk(itemStack);
@@ -105,6 +109,9 @@ public class DamageCalculator {
 		event.setDamage(damage);
 		removeDamageModifiers(event);
 		
+		if(!isMagic) {
+			DurabilityCalculator.takeDamage(player, itemStack, false);
+		}
 		ValueIndicator.spawnDamageIndicator(event.getEntity(), damage, isCritical);
 		
 		if(entity.hasMetadata("wzModDeflecting"))
@@ -118,7 +125,7 @@ public class DamageCalculator {
 		Player player = (Player) event.getEntity();
 		
 		if(event.getDamager() instanceof Damageable) {
-			Damageable damagable = (Damageable) event.getDamager();
+			Damageable damageable = (Damageable) event.getDamager();
 			
 			int reflectionDamage = 0;
 			reflectionDamage += ItemUtils.getReflectionDamage(player.getEquipment().getItemInMainHand());
@@ -126,7 +133,7 @@ public class DamageCalculator {
 			
 			if(reflectionDamage > 0) {
 				WauzDebugger.log(player, "Reflecting " + reflectionDamage + " damage!");
-				SkillUtils.callPlayerFixedDamageEvent(player, damagable, reflectionDamage);
+				SkillUtils.callPlayerFixedDamageEvent(player, damageable, reflectionDamage);
 			}
 		}
 	}
@@ -155,21 +162,7 @@ public class DamageCalculator {
 			int defense = ItemUtils.getBaseDef(itemStack);
 			if(defense > 0 ) {
 				damage = (int) (damage - applyDefendBonus(defense, player));
-				
-				org.bukkit.inventory.meta.Damageable damageable = (org.bukkit.inventory.meta.Damageable) itemStack.getItemMeta();
-				int durability = damageable.getDamage() + 1;
-				int maxDurability = itemStack.getType().getMaxDurability();
-				damageable.setDamage(durability);
-				itemStack.setItemMeta((ItemMeta) damageable);
-				
-				if(durability >= maxDurability) {
-					player.getEquipment().setChestplate(null);
-					player.getEquipment().setLeggings(null);
-					player.getEquipment().setBoots(null);
-					player.sendMessage(ChatColor.RED + "Your armor just broke!");
-				}
-				else if(durability + 10 == maxDurability)
-					player.sendMessage(ChatColor.RED + "Your armor is about to break!");
+				DurabilityCalculator.takeDamage(player, itemStack, true);
 			}
 		}
 		

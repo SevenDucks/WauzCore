@@ -7,9 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -61,14 +60,7 @@ public class WauzPlayerSkillExecutor {
 			}
 			
 			if(itemStack != null) {
-				Damageable damageable = (Damageable) itemStack.getItemMeta();
-				int durability = damageable.getDamage() + 1;
-				int maxDurability = itemStack.getType().getMaxDurability();
-				damageable.setDamage(durability);
-				itemStack.setItemMeta((ItemMeta) damageable);
-				
-				if(durability >= maxDurability)
-					itemStack.setAmount(itemStack.getAmount() - 1);
+				DurabilityCalculator.takeDamage(player, itemStack, false);
 			}
 		}
 		return true;
