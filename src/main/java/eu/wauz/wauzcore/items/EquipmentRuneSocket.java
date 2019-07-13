@@ -54,15 +54,17 @@ public class EquipmentRuneSocket {
 			return false;
 		
 		double runeDecimal = (double) ((double) runePower / (double) 100);
+		runeDecimal = runeDecimal * (1 + ItemUtils.getEnhancementRuneEffectivenessMultiplier(itemStack));
 		WauzDebugger.log(player, "Rune-Power: " + runePower + " (" + runeDecimal + ")");
 		WauzDebugger.log(player, "Item-Type: " + itemType);
+		
+		lores = itemStack.getItemMeta().getLore();
+		List<String> newLores = new ArrayList<>();
 		
 // Apply Rune Effect ~ POWER ~ THORNS ~
 		
 		if(runeName.contains("Power") || runeName.contains("Thorns")) {		
-			lores = itemStack.getItemMeta().getLore();
-			List<String> newLores = new ArrayList<>();
-			double bonusPower = 00;
+			double bonusPower = 0;
 			
 			for(String lore : lores) {
 				
@@ -118,20 +120,11 @@ public class EquipmentRuneSocket {
 				
 				newLores.add(lore);
 			}			
-			if(valid) {
-				itemMeta.setLore(newLores);
-				itemStack.setItemMeta(itemMeta);
-				
-				player.getWorld().playEffect(player.getLocation(), Effect.EXTINGUISH, 0);
-			}
-			return valid;
 		}
 		
 // Apply Rune Effect ~ KNOWLEDGE ~
 		
 		else if(runeName.contains("Knowledge")) {
-			lores = itemStack.getItemMeta().getLore();
-			List<String> newLores = new ArrayList<>();
 			double bonusKnowledge = ((runeDecimal * 50) < 1) ? (1) : (runeDecimal * 50);
 			
 			for(String lore : lores) {
@@ -146,14 +139,15 @@ public class EquipmentRuneSocket {
 				
 				newLores.add(lore);
 			}			
-			if(valid) {
-				itemMeta.setLore(newLores);
-				itemStack.setItemMeta(itemMeta);
-			}
-			return valid;
 		}
 		
-		return false;
+		if(valid) {
+			itemMeta.setLore(newLores);
+			itemStack.setItemMeta(itemMeta);
+			
+			player.getWorld().playEffect(player.getLocation(), Effect.EXTINGUISH, 0);
+		}
+		return valid;
 	}
 	
 	public static boolean insertSkillgem(InventoryClickEvent event) {

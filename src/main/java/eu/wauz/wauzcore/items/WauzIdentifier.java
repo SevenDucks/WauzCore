@@ -51,6 +51,7 @@ public class WauzIdentifier {
 		
 		itemStack.setType(equip.getMaterial());
 		typeMultiplicator = equip.getDamage();
+		int maxDurability = equip.getDurability();
 		
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		
@@ -168,16 +169,6 @@ public class WauzIdentifier {
 			lores.add(mainStatString);
 		}
 		
-// Set Durability
-		
-		Damageable damageable = (Damageable) itemMeta;
-		damageable.setDamage(0);
-		
-		int maxDurability = equip.getDurability();
-		String durabilityString = "Durability:" + ChatColor.DARK_GREEN + " " + maxDurability;
-		durabilityString += " " + ChatColor.DARK_GRAY + "/" + ChatColor.DARK_GREEN + " " + maxDurability;
-		lores.add(durabilityString);
-		
 // Add Enhancements
 		
 		if(Chance.oneIn(3)) {
@@ -196,7 +187,7 @@ public class WauzIdentifier {
 				String enhancementDescription = "";
 				
 				if(equip.getType().equals("Weapon")) {
-					int enhancementType = random.nextInt(4);
+					int enhancementType = random.nextInt(5);
 					
 					if(enhancementType == 0) {
 						enhancementName = "Destruction";
@@ -221,13 +212,18 @@ public class WauzIdentifier {
 						enhancementDescription = (enhancementLevel * 20) + " " + ChatColor.GRAY + "% Crit Multiplier";
 						WauzDebugger.log(player, "Rolled Crit Multiplier");
 					}
+					else if(enhancementType ==  4) {
+						enhancementName = "Expertise";
+						enhancementDescription = (enhancementLevel * 15) + " " + ChatColor.GRAY + "% Skill Damage";
+						WauzDebugger.log(player, "Rolled Skill Damage");
+					}
 					
 					itemMeta.setDisplayName(itemMeta.getDisplayName() + " of " + enhancementName + " + " + enhancementLevel);
 					lores.add("Enhancement:" + ChatColor.RED + " " + enhancementDescription);
 				}
 				
 				else if(equip.getType().equals("Armor")) {
-					int enhancementType = random.nextInt(1);
+					int enhancementType = random.nextInt(3);
 					
 					if(enhancementType == 0) {
 						enhancementName = "Numbing";
@@ -236,6 +232,17 @@ public class WauzIdentifier {
 						lores.remove(mainStatString);
 						lores.add(mainStatString.replace(ChatColor.BLUE + " " + defense, ChatColor.BLUE + " " + (int) newDefense));
 						WauzDebugger.log(player, "Rolled Defense Boost: " + defense + " -> " + (int) newDefense);
+					}
+					else if(enhancementType == 1) {
+						enhancementName = "Durability";
+						enhancementDescription = (enhancementLevel * 128) + " " + ChatColor.GRAY + "Bonus Durability";
+						maxDurability += (enhancementLevel * 128);
+						WauzDebugger.log(player, "Rolled Bonus Durability");
+					}
+					else if(enhancementType == 2) {
+						enhancementName = "Mastery";
+						enhancementDescription = (enhancementLevel * 15) + " " + ChatColor.GRAY + "% Rune Effectiveness";
+						WauzDebugger.log(player, "Rolled Rune Effectiveness");
 					}
 					
 					itemMeta.setDisplayName(itemMeta.getDisplayName() + " of " + enhancementName + " + " + enhancementLevel);
@@ -247,6 +254,15 @@ public class WauzIdentifier {
 			else
 				WauzDebugger.log(player, "Rolled Nothing...");
 		}
+		
+// Set Durability
+		
+		Damageable damageable = (Damageable) itemMeta;
+		damageable.setDamage(0);
+		
+		String durabilityString = "Durability:" + ChatColor.DARK_GREEN + " " + maxDurability;
+		durabilityString += " " + ChatColor.DARK_GRAY + "/ " + maxDurability;
+		lores.add(durabilityString);
 		
 // Add Rune and Skill Slots
 		

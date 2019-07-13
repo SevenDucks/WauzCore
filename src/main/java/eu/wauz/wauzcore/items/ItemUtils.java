@@ -191,10 +191,24 @@ public class ItemUtils {
 		return onKillMP;
 	}
 	
-	public static float getEnhancementCritMultiplier(ItemStack itemStack) {
+	public static float getEnhancementCriticalDamageMultiplier(ItemStack itemStack) {
 		float critMultiplier = 0;
 		if(hasLore(itemStack))
 			critMultiplier += getIntegerSumBetweenFromLore(itemStack, " ", " " + ChatColor.GRAY + "% Crit Multiplier");
+		return critMultiplier / 100;
+	}
+	
+	public static float getEnhancementSkillDamageMultiplier(ItemStack itemStack) {
+		float critMultiplier = 0;
+		if(hasLore(itemStack))
+			critMultiplier += getIntegerSumBetweenFromLore(itemStack, " ", " " + ChatColor.GRAY + "% Skill Damage");
+		return critMultiplier / 100;
+	}
+	
+	public static float getEnhancementRuneEffectivenessMultiplier(ItemStack itemStack) {
+		float critMultiplier = 0;
+		if(hasLore(itemStack))
+			critMultiplier += getIntegerSumBetweenFromLore(itemStack, " ", " " + ChatColor.GRAY + "% Rune Effectiveness");
 		return critMultiplier / 100;
 	}
 	

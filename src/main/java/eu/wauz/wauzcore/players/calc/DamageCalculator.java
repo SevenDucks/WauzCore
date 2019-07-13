@@ -81,7 +81,7 @@ public class DamageCalculator {
 			if(!entity.getMetadata("wzMagic").isEmpty()) {
 				double wzMagicValue = entity.getMetadata("wzMagic").get(0).asDouble();
 				if(wzMagicValue > 0)
-					magicMultiplier = wzMagicValue;
+					magicMultiplier = wzMagicValue + ItemUtils.getEnhancementSkillDamageMultiplier(itemStack);
 				entity.setMetadata("wzMagic", new FixedMetadataValue(WauzCore.getInstance(), 0d));
 				WauzDebugger.log(player, "Magic damage-multiplier: " + magicMultiplier);
 				isMagic = true;
@@ -95,7 +95,7 @@ public class DamageCalculator {
 		boolean isCritical = Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player));
 		float multiplier = 1;
 		if(isCritical) {
-			multiplier += 1 + ItemUtils.getEnhancementCritMultiplier(player.getEquipment().getItemInMainHand());
+			multiplier += 1 + ItemUtils.getEnhancementCriticalDamageMultiplier(player.getEquipment().getItemInMainHand());
 		}
 		else {
 			multiplier += Chance.negativePositive(0.15f);

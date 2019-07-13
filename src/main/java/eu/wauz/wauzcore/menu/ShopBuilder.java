@@ -171,10 +171,6 @@ public class ShopBuilder implements WauzInventory {
 	
 	public static boolean sell(Player player, ItemStack itemToSell, Boolean fromShop) {
 		if(itemToSell.equals(null) || itemToSell.getType().equals(Material.AIR)) {
-			if(fromShop) {
-				player.sendMessage(ChatColor.RED + "You can't sell air!");
-				player.closeInventory();
-			}
 			return false;
 		}
 		
@@ -214,7 +210,9 @@ public class ShopBuilder implements WauzInventory {
 		
 		WauzPlayerScoreboard.scheduleScoreboard(player);
 		player.sendMessage(ChatColor.GREEN + "Your item was sold for " + price + " Coins!");
-		if(fromShop) player.closeInventory();
+		if(fromShop) {
+			MenuUtils.setCurrencyDisplay(player.getOpenInventory().getTopInventory(), player, 0);
+		}
 		return true;
 	}
 	
@@ -229,46 +227,47 @@ public class ShopBuilder implements WauzInventory {
 			return false;
 		}
 		
-		if(!(itemToRepair.getItemMeta() instanceof Damageable)) {
+		int durability = ItemUtils.getCurrentDurability(itemToRepair);
+		if(durability == 0) {
 			player.sendMessage(ChatColor.RED + "This Item can't be repaired!");
 			return false;
 		}
 		
-		Damageable damagable = (Damageable) itemToRepair.getItemMeta(); 
-		WauzDebugger.log(player, "Durability: " + damagable.getDamage());
-		
-		if(damagable.getDamage() == 0) {
+		int maxDurability = ItemUtils.getMaximumDurability(itemToRepair);
+		if(durability == maxDurability) {
 			player.sendMessage(ChatColor.RED + "This Item already has full durability!");
 			return false;
 		}
 		
 		if(fromShop) {
-			int price = damagable.getDamage();
+			int price = maxDurability - durability;
 			long money = PlayerConfigurator.getCharacterCoins(player);
 			
 			if(price < money) {
 				PlayerConfigurator.setCharacterCoins(player, money - price);
-				damagable.setDamage(0);
-				itemToRepair.setItemMeta((ItemMeta) damagable);
-				player.sendMessage(ChatColor.GREEN + "Your item was repaired for " + price + " Coins!");
 				
-				int empty = player.getInventory().firstEmpty();
-				if(empty >= 0) {
-					player.getInventory().setItem(empty, itemToRepair);
-					itemToRepair.setAmount(0);
-				}
-				player.closeInventory();
+				repair(itemToRepair, maxDurability);
+				player.sendMessage(ChatColor.GREEN + "Your item was repaired for " + price + " Coins!");
+				MenuUtils.setCurrencyDisplay(player.getOpenInventory().getTopInventory(), player, 0);
 				return true;
-			} else {
+			}
+			else {
 				player.sendMessage(ChatColor.RED + "You don't have enough money to rapair this item!");
 				return false;
 			}
 		} else {
-			damagable.setDamage(0);
-			itemToRepair.setItemMeta((ItemMeta) damagable);
+			repair(itemToRepair, maxDurability);
 			player.sendMessage(ChatColor.GREEN + "Your item was repaired for one Scroll!");
 			return true;
 		}
+	}
+	
+	private static void repair(ItemStack itemToRepair, int maxDurability) {
+		Damageable damageable = (Damageable) itemToRepair.getItemMeta();
+		damageable.setDamage(0);
+		itemToRepair.setItemMeta((ItemMeta) damageable);
+		
+		ItemUtils.setDurability(itemToRepair, maxDurability);
 	}
 	
 }

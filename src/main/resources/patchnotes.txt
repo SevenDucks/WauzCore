@@ -1,12 +1,20 @@
-Patch 50X: Rapid Racing
+Patch 5XX: Rapid Racing
+
+Patch 509: Skill Pack III
+
+Patch 508: Skill Pack II
 
 Patch 507: Skill Pack I
     Enhancements
-	  - Added Suffix "of XXX"
-	    > YYY
+      - Added Suffix "of Expertise"
+        > Skill Damage
+	  - Added Suffix "of Durability"
+	    > Bonus Durability
+	  - Added Suffix "of Mastery"
+	    > Rune Effectiveness
 
 	Added Skills
-	  - The Hierphant V
+	  - The Hierophant V
 	    > Single Target Damage over Time
 	  - Strength VIII
 	    > 15 Second Damage Boost
@@ -18,7 +26,8 @@ Patch 507: Skill Pack I
 	    > Catapults Enemies into the Air
 
 	Miscellaneous
-	  - You can now Respawn 3 times in a Dungeon
+	  - Damage and Durability Balancing
+	  - You can now Respawn 3 Times in a Dungeon
 	  - Trashcan in Player Inventory
 
 Patch 506: Menacing Mobs

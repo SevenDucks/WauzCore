@@ -77,22 +77,22 @@ public class WauzLoader {
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheWorld.SKILL_NAME, new SkillTheWorld());					// Tarot (21) XXI
 		
 		WauzIdentifier.material.add(new Equipment("Weapon", Material.WOODEN_SWORD, " Shortsword", 1.50, 32));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_SWORD, " Rapier", 1.75, 64));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_SWORD, " Longsword", 1.50, 128));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_SWORD, " Claymore", 1.50, 256));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_SWORD, " Excalibur", 1.60, 512));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_SWORD, " Rapier", 1.55, 64));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_SWORD, " Longsword", 1.60, 128));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_SWORD, " Claymore", 1.65, 256));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_SWORD, " Excalibur", 1.70, 512));
 		
 		WauzIdentifier.material.add(new Equipment("Weapon", Material.WOODEN_AXE, " Hatchet", 1.70, 32));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_AXE, " Halberd", 1.95, 64));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_AXE, " Waraxe", 1.70, 128));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_AXE, " Greataxe", 1.70, 256));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_AXE, " Worldbreaker", 1.80, 512));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_AXE, " Halberd", 1.75, 64));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_AXE, " Waraxe", 1.80, 128));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_AXE, " Greataxe", 1.85, 256));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_AXE, " Worldbreaker", 1.90, 512));
 		
 		WauzIdentifier.material.add(new Equipment("Weapon", Material.WOODEN_HOE, " Staff", 1.30, 32));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_HOE, " Pole", 1.55, 64));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_HOE, " Mace", 1.30, 128));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_HOE, " Sceptre", 1.30, 256));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_HOE, " Soulreaver", 1.40, 512));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_HOE, " Pole", 1.35, 64));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_HOE, " Mace", 1.40, 128));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_HOE, " Sceptre", 1.45, 256));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_HOE, " Soulreaver", 1.50, 512));
 		
 		WauzIdentifier.material.add(new Equipment("Weapon", Material.BOW, " Crude Bow", 0.60, 64));
 		WauzIdentifier.material.add(new Equipment("Weapon", Material.BOW, " Recurve Bow", 0.90, 128));

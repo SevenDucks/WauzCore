@@ -2,8 +2,8 @@ package eu.wauz.wauzcore.system;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -180,7 +180,7 @@ public class EventMapper {
 		if(WauzMode.isMMORPG(player)) {
 			ItemStack clicked = event.getCurrentItem();
 			if(ItemUtils.isSpecificItem(clicked, "Trashcan") && ItemUtils.isNotAir(player.getItemOnCursor())) {
-				player.playSound(player.getLocation(), Sound.BLOCK_METAL_BREAK, 1, 1);
+				player.getWorld().playEffect(player.getLocation(), Effect.BLAZE_SHOOT, 0);
 				player.setItemOnCursor(null);
 			}
 			MenuUtils.onSpecialItemInventoryClick(event);
