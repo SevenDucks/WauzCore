@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.items;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -7,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -90,6 +92,18 @@ public class ItemUtils {
 	
 	public static int getBaseDef(ItemStack itemStack) {
 		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Defense:" + ChatColor.BLUE, 1) : 0;
+	}
+	
+	public static int getCurrentDurability(ItemStack itemStack) {
+		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Durability:" + ChatColor.DARK_GREEN, 1) : 0;
+	}
+	
+	public static int getMaximumDurability(ItemStack itemStack) {
+		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Durability:" + ChatColor.DARK_GREEN, 3) : 0;
+	}
+	
+	public static void setDurability(ItemStack itemStack, int durability) {
+		replaceStringFromLore(itemStack, "Durability:" + ChatColor.DARK_GREEN, 1, durability + "");
 	}
 	
 	public static int getRuneAtkBoost(ItemStack itemStack) {
@@ -222,6 +236,22 @@ public class ItemUtils {
 			if(lore.contains(content))
 				return lore.split(" ")[index];
 		return null;
+	}
+	
+	public static void replaceStringFromLore(ItemStack itemStack, String content, int index, String replacement) {
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		List<String> lores = itemMeta.getLore();
+		List<String> newLores = new ArrayList<>();
+		for(String lore : lores) {
+			if(lore.contains(content)) {
+				String[] splitString = lore.split(" ");
+				splitString[index] = replacement;
+				lore = StringUtils.join(splitString, " ");
+			}
+			newLores.add(lore);
+		}
+		itemMeta.setLore(newLores);
+		itemStack.setItemMeta(itemMeta);
 	}
 	
 	public static String getStringBetweenFromLore(ItemStack itemStack, String before, String after) {

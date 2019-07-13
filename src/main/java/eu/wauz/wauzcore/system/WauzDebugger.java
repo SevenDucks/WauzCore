@@ -75,6 +75,8 @@ public class WauzDebugger {
 		lores.add("");
 		lores.add("Attack:" + ChatColor.RED + " 10 " + ChatColor.DARK_GRAY
 				+ "(" + ChatColor.YELLOW + "lvl " + ChatColor.AQUA + "1" + ChatColor.DARK_GRAY + ")");
+		lores.add("Durability:" + ChatColor.DARK_GREEN + " " + 2048
+				+ " " + ChatColor.DARK_GRAY + "/" + ChatColor.DARK_GREEN + " " + 2048);
 		lores.add("");
 		lores.add(ChatColor.WHITE + "Skillgem (" + ChatColor.LIGHT_PURPLE + skill.getSkillId() + ChatColor.WHITE + ")");
 		lores.add(ChatColor.WHITE + skill.getSkillDescription());

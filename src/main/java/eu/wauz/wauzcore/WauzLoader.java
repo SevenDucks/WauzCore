@@ -76,33 +76,33 @@ public class WauzLoader {
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillJudgement.SKILL_NAME, new SkillJudgement());				// Tarot (20) XX
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheWorld.SKILL_NAME, new SkillTheWorld());					// Tarot (21) XXI
 		
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.WOODEN_SWORD, " Shortsword", 1.50));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_SWORD, " Rapier", 1.75));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_SWORD, " Longsword", 1.50));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_SWORD, " Claymore", 1.50));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_SWORD, " Excalibur", 1.60));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.WOODEN_SWORD, " Shortsword", 1.50, 32));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_SWORD, " Rapier", 1.75, 64));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_SWORD, " Longsword", 1.50, 128));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_SWORD, " Claymore", 1.50, 256));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_SWORD, " Excalibur", 1.60, 512));
 		
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.WOODEN_AXE, " Hatchet", 1.70));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_AXE, " Halberd", 1.95));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_AXE, " Waraxe", 1.70));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_AXE, " Greataxe", 1.70));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_AXE, " Worldbreaker", 1.80));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.WOODEN_AXE, " Hatchet", 1.70, 32));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_AXE, " Halberd", 1.95, 64));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_AXE, " Waraxe", 1.70, 128));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_AXE, " Greataxe", 1.70, 256));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_AXE, " Worldbreaker", 1.80, 512));
 		
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.WOODEN_HOE, " Staff", 1.30));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_HOE, " Pole", 1.55));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_HOE, " Mace", 1.30));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_HOE, " Sceptre", 1.30));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_HOE, " Soulreaver", 1.40));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.WOODEN_HOE, " Staff", 1.30, 32));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.GOLDEN_HOE, " Pole", 1.55, 64));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.STONE_HOE, " Mace", 1.30, 128));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.IRON_HOE, " Sceptre", 1.30, 256));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.DIAMOND_HOE, " Soulreaver", 1.40, 512));
 		
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.BOW, " Crude Bow", 0.60));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.BOW, " Recurve Bow", 0.90));
-		WauzIdentifier.material.add(new Equipment("Weapon", Material.BOW, " Infractem Bow", 1.20));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.BOW, " Crude Bow", 0.60, 64));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.BOW, " Recurve Bow", 0.90, 128));
+		WauzIdentifier.material.add(new Equipment("Weapon", Material.BOW, " Infractem Bow", 1.20, 256));
 		
-		WauzIdentifier.material.add(new Equipment("Armor", Material.LEATHER_CHESTPLATE, " Vest", 1.15));
-		WauzIdentifier.material.add(new Equipment("Armor", Material.GOLDEN_CHESTPLATE, " Robe", 1.30));
-		WauzIdentifier.material.add(new Equipment("Armor", Material.CHAINMAIL_CHESTPLATE, " Mail", 1.45));
-		WauzIdentifier.material.add(new Equipment("Armor", Material.IRON_CHESTPLATE, " Plate", 1.60));
-		WauzIdentifier.material.add(new Equipment("Armor", Material.DIAMOND_CHESTPLATE, " Herogarb", 1.75));
+		WauzIdentifier.material.add(new Equipment("Armor", Material.LEATHER_CHESTPLATE, " Vest", 1.15, 64));
+		WauzIdentifier.material.add(new Equipment("Armor", Material.GOLDEN_CHESTPLATE, " Robe", 1.30, 128));
+		WauzIdentifier.material.add(new Equipment("Armor", Material.CHAINMAIL_CHESTPLATE, " Mail", 1.45, 256));
+		WauzIdentifier.material.add(new Equipment("Armor", Material.IRON_CHESTPLATE, " Plate", 1.60, 512));
+		WauzIdentifier.material.add(new Equipment("Armor", Material.DIAMOND_CHESTPLATE, " Herogarb", 1.75, 768));
 		
 		WauzIdentifier.runeNames.add("Power");
 		WauzIdentifier.runeNames.add("Knowledge");

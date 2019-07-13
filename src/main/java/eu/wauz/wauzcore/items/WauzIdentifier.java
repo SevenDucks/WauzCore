@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
@@ -166,6 +167,16 @@ public class WauzIdentifier {
 			mainStatString = "Defense:" + ChatColor.BLUE + " " + defense + scalingString;
 			lores.add(mainStatString);
 		}
+		
+// Set Durability
+		
+		Damageable damageable = (Damageable) itemMeta;
+		damageable.setDamage(0);
+		
+		int maxDurability = equip.getDurability();
+		String durabilityString = "Durability:" + ChatColor.DARK_GREEN + " " + maxDurability;
+		durabilityString += " " + ChatColor.DARK_GRAY + "/" + ChatColor.DARK_GREEN + " " + maxDurability;
+		lores.add(durabilityString);
 		
 // Add Enhancements
 		

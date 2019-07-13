@@ -20,13 +20,16 @@ public class Equipment {
 	
 	private String name;
 	
-	private Double damage;
+	private double damage;
 	
-	public Equipment(String type, Material material, String name, Double damage) {
+	private int durability;
+	
+	public Equipment(String type, Material material, String name, double damage, int durability) {
 		this.type = type;
 		this.material = material;
 		this.name = name;
 		this.damage = damage;
+		this.durability = durability;
 	}
 
 	public String getType() {
@@ -53,12 +56,20 @@ public class Equipment {
 		this.name = name;
 	}
 
-	public Double getDamage() {
+	public double getDamage() {
 		return damage;
 	}
 
-	public void setDamage(Double damage) {
+	public void setDamage(double damage) {
 		this.damage = damage;
+	}
+
+	public int getDurability() {
+		return durability;
+	}
+
+	public void setDurability(int durability) {
+		this.durability = durability;
 	}
 
 	public static void equipArmor(ArmorEquipEvent event) {

@@ -12,6 +12,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
@@ -109,7 +110,7 @@ public class DamageCalculator {
 		event.setDamage(damage);
 		removeDamageModifiers(event);
 		
-		if(!isMagic) {
+		if(!isMagic && !fixedDamage && !event.getCause().equals(DamageCause.ENTITY_SWEEP_ATTACK)) {
 			DurabilityCalculator.takeDamage(player, itemStack, false);
 		}
 		ValueIndicator.spawnDamageIndicator(event.getEntity(), damage, isCritical);
