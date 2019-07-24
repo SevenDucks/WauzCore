@@ -2,6 +2,7 @@ package eu.wauz.wauzdiscord;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
@@ -25,6 +26,7 @@ import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzdiscord.data.DiscordConfigurator;
+import io.netty.handler.codec.http.HttpContentEncoder.Result;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -40,6 +42,8 @@ import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.managers.AudioManager;
+import net.kodehawa.lib.imageboards.DefaultImageBoards;
+import net.kodehawa.lib.imageboards.entities.impl.Rule34Image;
 
 public class ShiroDiscordBot extends ListenerAdapter {
 	
@@ -62,6 +66,8 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	private TrackScheduler trackScheduler;
 	
 	private List<AudioTrack> audioQueue = new ArrayList<>();
+	
+	private Random random = new Random(); 
 	
 	private final String TOKEN = DiscordConfigurator.getToken();
 	
@@ -121,7 +127,11 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			
 // Global Server Commands
 			
-			if(!StringUtils.startsWithIgnoreCase(message, "shiro")) {
+			if(!StringUtils.startsWith(message, "shiro")) {
+				return;
+			}
+			if(StringUtils.startsWith(message, "shiro hentai") && WauzCore.IP.equals(MAIN_SERVER_IP)) {
+				channel.sendMessage(getHentaiString(channel, message)).queue();
 				return;
 			}
 			if(!channel.getId().equals(botsChannel.getId()) && WauzCore.IP.equals(MAIN_SERVER_IP)) {
@@ -236,10 +246,41 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		helpString += br + "`shiro playnow <YouTube-URL>` same but instantly skip to song";
 		helpString += br + "`shiro skip` skips to next song in queue";
 		helpString += br + "`shiro stop` stops song and clears queue";
+		helpString += br + br + "--- NSFW COMMANDS ---";
+		helpString += br + "`shiro hentai` finds random rule34 image";
+		helpString += br + "`shiro hentai <tag>` finds tagged rule34 image";
 		helpString += br + br + "--- ADMIN COMMANDS ---";
 		helpString += br + "`shiro servers` lists all running servers";
 		helpString += br + "`shiro command <IP> <Command>` executes commands on remote machine";
 		return helpString;
+	}
+	
+	public String getHentaiString(MessageChannel channel, String message) {
+		if(!channel.getName().contains("nsfw"))
+			return "No, no! This isn't a nsfw channel!";
+		
+		try {
+			String[] tags = message.split(" ");
+			List<Rule34Image> result;
+			
+			if(tags.length >= 3) {
+				result = DefaultImageBoards.RULE34.search(300, tags[2]).blocking();
+			}
+			else {
+				result = DefaultImageBoards.RULE34.get(300).blocking();
+			}
+			
+			if(result.size() == 0) {
+				return "Shiro didn't find anything...";
+			}
+			else {
+				return result.get(random.nextInt(result.size())).getURL();
+			}
+		}
+		catch (Exception e) {
+			WauzDebugger.catchException(getClass(), e);
+			return ERROR_MESSAGE;
+		}
 	}
 	
 	private void playAudio(String message, MessageChannel channel, boolean startPlaying) {
