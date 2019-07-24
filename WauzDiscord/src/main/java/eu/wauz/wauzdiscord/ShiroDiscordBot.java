@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
+import eu.wauz.wauzdiscord.data.DiscordConfigurator;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -50,6 +51,8 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	
 	private TextChannel botsChannel;
 	
+	private VoiceChannel audioChannel;
+	
 	private AudioManager audioManager;
 	
 	private AudioPlayerManager audioPlayerManager;
@@ -60,25 +63,30 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	
 	private List<AudioTrack> audioQueue = new ArrayList<>();
 	
-	private final String TOKEN = "NDkwNDEzOTY0NjkwNDU2NTk3.Dn4--A._DlC-V4f1QxHW-9Lo9rN5bh_9Kw";
+	private final String TOKEN = DiscordConfigurator.getToken();
 	
-	private final String ADMIN = "271386371950772224";
+	private final String ADMIN = DiscordConfigurator.getAdminUserId();
 	
-	private final String ERROR_MESSAGE_DEFAULT = "Oopsy! Shiro thinks something went wrong. :/";
+	private final String MAIN_SERVER_IP = DiscordConfigurator.getMainServerIp();
+	
+	private final String PLAYS_MESSAGE = DiscordConfigurator.getPlaysMessage();
+	
+	private final String ERROR_MESSAGE = DiscordConfigurator.getErrorMessage();
 	
 	public ShiroDiscordBot() {
 		JDABuilder jdaBuilder = new JDABuilder(AccountType.BOT);
 		jdaBuilder.setToken(TOKEN);
 		jdaBuilder.setAutoReconnect(true);
 		jdaBuilder.setStatus(OnlineStatus.ONLINE);
-		jdaBuilder.setGame(Game.of(GameType.DEFAULT, "with Lord Wauzmons"));
+		jdaBuilder.setGame(Game.of(GameType.DEFAULT, PLAYS_MESSAGE));
 		
 		try {
 			jda = jdaBuilder.buildBlocking();
 			jda.addEventListener(this);
-			guild = jda.getGuildById(272417655938351106L);
-			generalChannel = jda.getTextChannelById(272417655938351106L);
-			botsChannel = jda.getTextChannelById(574219369530261514L);
+			guild = jda.getGuildById(DiscordConfigurator.getGuildId());
+			generalChannel = jda.getTextChannelById(DiscordConfigurator.getGeneralChannelId());
+			botsChannel = jda.getTextChannelById(DiscordConfigurator.getBotsChannelId());
+			audioChannel = guild.getVoiceChannelById(DiscordConfigurator.getAudioChannelId());
 			audioManager = guild.getAudioManager();
 			configureLavaPlayer();
 		}
@@ -116,7 +124,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			if(!StringUtils.startsWithIgnoreCase(message, "shiro")) {
 				return;
 			}
-			if(!channel.getId().equals(botsChannel.getId()) && WauzCore.IP.equals("31.214.208.243")) {
+			if(!channel.getId().equals(botsChannel.getId()) && WauzCore.IP.equals(MAIN_SERVER_IP)) {
 				channel.sendMessage("No! Try this again here: " + botsChannel.getAsMention()).queue();
 				return;
 			}
@@ -128,7 +136,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 				channel.sendMessage(executeCommand(message)).queue();
 				return;
 			}
-			if(!WauzCore.IP.equals("31.214.208.243")) {
+			if(!WauzCore.IP.equals(MAIN_SERVER_IP)) {
 				return;
 			}
 			
@@ -186,7 +194,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			return "Your command was executed on " + WauzCore.IP + ", my master!";
 		}
 		catch(Exception e) {
-			return ERROR_MESSAGE_DEFAULT;
+			return ERROR_MESSAGE;
 		}
 	}
 	
@@ -224,7 +232,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		String br = System.lineSeparator();
 		helpString += "--- NORMAL COMMANDS ---";
 		helpString += br + "`shiro profile <Minecraft Name (Case Sensitive)>` shows player stats";
-		helpString += br + "`shiro play <YouTube-URL>` plays song in \"Musichouse\"";
+		helpString += br + "`shiro play <YouTube-URL>` plays song in \"" + audioChannel.getName() + "\"";
 		helpString += br + "`shiro playnow <YouTube-URL>` same but instantly skip to song";
 		helpString += br + "`shiro skip` skips to next song in queue";
 		helpString += br + "`shiro stop` stops song and clears queue";
@@ -254,7 +262,6 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	}
 	
 	private void joinAudioChannel() {
-		VoiceChannel audioChannel = guild.getVoiceChannelById(574183802260422677L);
 		audioManager.setSendingHandler(getLavaPlayerAudioSendHandler());
 		audioManager.openAudioConnection(audioChannel);
 	}
@@ -335,7 +342,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 				if(exception.severity.equals(Severity.COMMON))
 					channel.sendMessage("Shiro got this error: " + exception.getMessage()).queue();
 				else
-					channel.sendMessage(ERROR_MESSAGE_DEFAULT).queue();
+					channel.sendMessage(ERROR_MESSAGE).queue();
 			}
 			
 		});

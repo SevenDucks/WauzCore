@@ -93,23 +93,26 @@ public class StatisticsFetcher {
 	}
 	
 	private void createCharacterStrings(String uuidString) {
-		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + uuidString + ".yml");
-		if(playerDataFile.exists()) {
-			FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
-			characterString1 = createCharacterString(playerDataConfig, "char1.");
-			characterString2 = createCharacterString(playerDataConfig, "char2.");
-			characterString3 = createCharacterString(playerDataConfig, "char3.");
-		}
+		characterString1 = createCharacterString(uuidString, 1);
+		characterString2 = createCharacterString(uuidString, 2);
+		characterString3 = createCharacterString(uuidString, 3);
 	}
 	
-	private String createCharacterString(FileConfiguration playerDataConfig, String charSlot) {
+	private String createCharacterString(String uuidString, int slot) {
 		String characterString = "None";
-		if(playerDataConfig.getBoolean(charSlot + "exists")) {
-			String race = playerDataConfig.getString(charSlot + "race");
-			String world = playerDataConfig.getString(charSlot + "pos.world");
-			String level = playerDataConfig.getString(charSlot + "level");
-			characterString = "Level " + level + " " + race + " on " + world;
-		}
+		
+		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + uuidString + "/char" + slot + ".yml");
+		if(!playerDataFile.exists())
+			return characterString;
+		
+		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
+		if(!playerDataConfig.getBoolean("exists"))
+			return characterString;
+		
+		String race = playerDataConfig.getString("race");
+		String world = playerDataConfig.getString("pos.world");
+		String level = playerDataConfig.getString("level");
+		characterString = "Level " + level + " " + race + " on " + world;
 		return characterString;
 	}
 	

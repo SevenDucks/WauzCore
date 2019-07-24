@@ -53,6 +53,12 @@ public class GlobalConfigurationUtils {
 		return mainDataConfig.getInt(path);
 	}
 	
+	protected static long mainConfigGetLong(String name, String path) {
+		File mainDataFile = new File(core.getDataFolder(), name + ".yml");
+		FileConfiguration mainDataConfig = YamlConfiguration.loadConfiguration(mainDataFile);	
+		return mainDataConfig.getLong(path);
+	}
+	
 	protected static boolean mainConfigGetBoolean(String name, String path) {
 		File mainDataFile = new File(core.getDataFolder(), name + ".yml");
 		FileConfiguration mainDataConfig = YamlConfiguration.loadConfiguration(mainDataFile);	
