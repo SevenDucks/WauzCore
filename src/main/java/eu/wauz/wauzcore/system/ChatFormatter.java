@@ -10,7 +10,6 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
-import eu.wauz.wauzcore.system.api.ShiroDiscordBot;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
@@ -27,8 +26,6 @@ public class ChatFormatter {
 	public static final String ICON_DIAMS = "\u2666";
 	
 	public static final String ICON_HEART = "\u2764";
-	
-	private static ShiroDiscordBot shiroDiscordBot = WauzCore.getShiroDiscordBot();
 
 	public static String global(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
@@ -49,7 +46,10 @@ public class ChatFormatter {
 					 ChatColor.AQUA  + level + ChatColor.WHITE + ")] " +
 					 ChatColor.GRAY + event.getMessage();
 		
-		shiroDiscordBot.sendMessage("**Minecraft**: `" + ChatColor.stripColor(msg) + "`");
+		if(Bukkit.getPluginManager().isPluginEnabled("WauzDiscord")) {
+			Bukkit.getScheduler().callSyncMethod(WauzCore.getInstance(),
+					() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "discord " + msg));
+		}
 		return msg;
 	}
 	

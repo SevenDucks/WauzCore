@@ -1,0 +1,12 @@
+name: WauzDiscord
+main: eu.wauz.wauzdiscord.WauzDiscord
+website: http://wauz.eu/
+version: 1.0
+api-version: 1.13
+author: Nikolas Keller
+depend: [WauzCore]
+commands:
+  discord:
+    description: Send Message in Discord
+    usage: /discord [text]
+    permission: wauz.system

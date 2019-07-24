@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.system.api;
+package eu.wauz.wauzdiscord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +23,7 @@ import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -179,7 +180,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	private String executeCommand(String message) {
 		try {
 			String command = StringUtils.substringAfter(message, "shiro command " + WauzCore.IP + " ");
-			Bukkit.getScheduler().callSyncMethod(WauzCore.getInstance(),
+			Bukkit.getScheduler().callSyncMethod(WauzDiscord.getInstance(),
 					() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
 			
 			return "Your command was executed on " + WauzCore.IP + ", my master!";

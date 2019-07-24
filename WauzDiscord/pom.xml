@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.wauz</groupId>
-	<artifactId>WauzCore</artifactId>
-	<version>Pallasite.8.Pre</version>
+	<artifactId>WauzDiscord</artifactId>
+	<version>1.0</version>
 
 
 	<properties>
@@ -19,30 +19,13 @@
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
-
-		<!-- MythicMobsAPI -->
-		<repository>
-			<id>lumine-repo</id>
-			<url>http://mvn.lumine.io/repository/maven-snapshots/</url>
-		</repository>
-
-		<!-- NoteBlockAPI -->
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
 		
-		<!-- LibsDisguisesAPI -->
+		<!-- Discord -->
 		<repository>
-		    <id>md5</id>
-		    <url>http://repo.md-5.net/content/groups/public</url>
+			<id>jcenter</id>
+			<name>jcenter-bintray</name>
+			<url>http://jcenter.bintray.com</url>
 		</repository>
-		
-		<!-- SkullCreator -->
-		<repository>
-	        <id>skullcreator-repo</id>
-	        <url>https://dl.bintray.com/deanveloper/SkullCreator</url>
-	    </repository>
 
 	</repositories>
 
@@ -73,54 +56,27 @@
 			<scope>provided</scope>
 		</dependency>
 		
-
+			
 		<dependency>
-			<groupId>io.lumine.xikage</groupId>
-			<artifactId>MythicMobs</artifactId>
-			<version>4.5.0-SNAPSHOT</version>
-			<scope>provided</scope>
+			<groupId>eu.wauz</groupId>
+			<artifactId>WauzCore</artifactId>
+			<version>Pallasite.8.Pre</version>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>net.dv8tion</groupId>
+			<artifactId>JDA</artifactId>
+			<version>3.7.1_385</version>
+			<scope>compile</scope>
 		</dependency>
 		
 		<dependency>
-			<groupId>com.github.koca2000</groupId>
-			<artifactId>NoteBlockAPI</artifactId>
-			<version>-SNAPSHOT</version>
+			<groupId>com.sedmelluq</groupId>
+			<artifactId>lavaplayer</artifactId>
+			<version>1.3.17</version>
+			<scope>compile</scope>
 		</dependency>
-		
-		<dependency>
-	        <groupId>com.deanveloper</groupId>
-	        <artifactId>skullcreator</artifactId>
-	        <version>1.0.2</version>
-	        <scope>compile</scope>
-	    </dependency>
-
-
-		<dependency>
-			<groupId>com.sun.net.httpserver</groupId>
-			<artifactId>http</artifactId>
-			<version>20070405</version>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.8.1</version>
-		</dependency>
-
-<!--
-		<dependency>
-		    <groupId>LibsDisguises</groupId>
-		    <artifactId>LibsDisguises</artifactId>
-		    <version>9.8.2</version>
-		</dependency>
--->		
 
 	</dependencies>
 
@@ -149,7 +105,16 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<finalName>WauzCore</finalName>
+							<finalName>WauzDiscord</finalName>
+							<artifactSet>
+								<excludes>
+									<exclude>eu.wauz:WauzCore</exclude>
+									<exclude>com.sun.net.httpserver:*</exclude>
+									<exclude>io.lumine.xikage:*</exclude>
+									<exclude>com.github.koca2000:*</exclude>
+									<exclude>com.deanveloper:*</exclude>
+								</excludes>
+							</artifactSet>
 						</configuration>
 					</execution>
 				</executions>

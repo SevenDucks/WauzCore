@@ -25,7 +25,6 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzCommandExecutor;
 import eu.wauz.wauzcore.system.WauzRegion;
-import eu.wauz.wauzcore.system.api.ShiroDiscordBot;
 import eu.wauz.wauzcore.system.api.WebServerManager;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
@@ -43,8 +42,6 @@ public class WauzCore extends JavaPlugin {
 	private static WauzCore instance;
 	
 	private static WebServerManager webServerManager;
-	
-	private static ShiroDiscordBot shiroDiscordBot;
 	
 	@Override
 	public void onEnable() {
@@ -69,9 +66,6 @@ public class WauzCore extends JavaPlugin {
 		
 		webServerManager = new WebServerManager(7069);
 		getLogger().info("Started WebServerManager!");
-		
-		shiroDiscordBot = new ShiroDiscordBot();
-		getLogger().info("Shiro's body is ready!");
 		
 		// Every Second
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
@@ -146,9 +140,6 @@ public class WauzCore extends JavaPlugin {
 		webServerManager.stop();
 		getLogger().info("Stopped WebServerManager!");
 		
-		shiroDiscordBot.stop();
-		getLogger().info("Shiro's taking a nap!");
-		
 		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
 			WauzPlayerRegistrator.logout(player);
 		}
@@ -171,10 +162,6 @@ public class WauzCore extends JavaPlugin {
 
 	public static WebServerManager getWebServerManager() {
 		return webServerManager;
-	}
-	
-	public static ShiroDiscordBot getShiroDiscordBot() {
-		return shiroDiscordBot;
 	}
 	
 	public static Location getHubLocation() {
