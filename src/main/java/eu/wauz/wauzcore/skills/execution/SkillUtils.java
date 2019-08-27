@@ -7,6 +7,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Damageable;
@@ -14,6 +15,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -22,6 +24,7 @@ import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import net.md_5.bungee.api.ChatColor;
 
 public class SkillUtils {
@@ -106,6 +109,7 @@ public class SkillUtils {
 	
 	public static void callPlayerDamageOverTimeEvent(Player player, Entity entity, Color color, int damage, int ticks, int interval) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+			
 	        public void run() {
 	        	try {
 	        		if(player != null && player.isValid() && entity != null && entity.isValid()) {
@@ -120,6 +124,31 @@ public class SkillUtils {
 	        		WauzDebugger.catchException(getClass(), e);
 	        	}
 	        }
+	        
+		}, interval);
+	}
+	
+	public static void spawnTotem(Player owner, Material material, Runnable runnable, int ticks, int interval) {
+		Entity totem = WauzNmsClient.nmsCustomEntityTotem(owner, new ItemStack(material));
+		callTotemEvent(totem, runnable, ticks, interval);
+	}
+	
+	private static void callTotemEvent(Entity totem, Runnable runnable, int ticks, int interval) {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+			
+	        public void run() {
+	        	try {
+	        		if(totem != null && totem.isValid()) {
+	        			runnable.run();
+	        			if(ticks - 1 > 0)
+	        				callTotemEvent(totem, runnable, ticks - 1, interval);
+	        		}
+	        	}
+	        	catch (NullPointerException e) {
+	        		WauzDebugger.catchException(getClass(), e);
+	        	}
+	        }
+	        
 		}, interval);
 	}
 	

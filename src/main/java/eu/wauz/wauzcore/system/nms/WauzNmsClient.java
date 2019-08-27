@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
 import org.bukkit.craftbukkit.v1_13_R2.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.system.ChatFormatter;
@@ -11,8 +12,10 @@ import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_13_R2.ChatMessage;
 import net.minecraft.server.v1_13_R2.ChatMessageType;
 import net.minecraft.server.v1_13_R2.EntityArmorStand;
+import net.minecraft.server.v1_13_R2.EnumItemSlot;
 import net.minecraft.server.v1_13_R2.IChatBaseComponent;
 import net.minecraft.server.v1_13_R2.IChatBaseComponent.ChatSerializer;
+import net.minecraft.server.v1_13_R2.ItemStack;
 import net.minecraft.server.v1_13_R2.PacketPlayInClientCommand;
 import net.minecraft.server.v1_13_R2.PacketPlayInClientCommand.EnumClientCommand;
 import net.minecraft.server.v1_13_R2.PacketPlayOutChat;
@@ -65,7 +68,12 @@ public class WauzNmsClient {
 	}
 	
 	public static org.bukkit.entity.Entity nmsCustomEntityHologram(Location location, String display) {
-		return new Hologram(((CraftWorld) location.getWorld()).getHandle(), location.getX(), location.getY(), location.getZ(), display).getBukkitEntity();
+		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
+		double x = location.getX();
+		double y = location.getY();
+		double z = location.getZ();
+		
+		return new Hologram(worldServer, x, y, z, display).getBukkitEntity();
 	}
 	
 	private static class Hologram extends EntityArmorStand {
@@ -85,20 +93,40 @@ public class WauzNmsClient {
 		}
 		
 	}
+	
+	public static org.bukkit.entity.Entity nmsCustomEntityTotem(Player player, org.bukkit.inventory.ItemStack headItemStack) {
+		Location location = player.getLocation();
+		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
+		double x = location.getX();
+		double y = location.getY();
+		double z = location.getZ();
+		String display = ChatColor.GREEN + player.getDisplayName() + "'s Totem";
+		ItemStack nmsItemStack = CraftItemStack.asNMSCopy(headItemStack);
+		
+		return new Totem(worldServer, x, y, z, display, nmsItemStack).getBukkitEntity();
+	}
+	
+	private static class Totem extends EntityArmorStand {
+		
+		public Totem(WorldServer worldServer, double x, double y, double z, String display, ItemStack headItemStack) {
+			super(worldServer, x, y, z);
+			
+			this.collides = true;
+			this.persist = false;
+			
+			this.setInvisible(false);
+			this.setInvulnerable(true);
+			this.setCustomName(new ChatMessage(display));
+			this.setCustomNameVisible(true);
+			
+			this.setArms(false);
+			this.setBasePlate(false);
+			this.setSize(255, 255);
+			this.setEquipment(EnumItemSlot.HEAD, headItemStack);
 
-//	public static Object getPrivateField(String fieldName, Class<?> clazz, Object object) {
-//		Field field;
-//		Object result = null;
-//
-//		try {
-//			field = clazz.getDeclaredField(fieldName);
-//			field.setAccessible(true);
-//			result = field.get(object);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		return result;
-//	}
+			worldServer.addEntity(this);
+		}
+		
+	}
 
 }
