@@ -185,7 +185,7 @@ public class CraftingMenu implements WauzInventory {
 			listRecipes(player, index);
 			return;
 		}
-		else if(clicked.getType().equals(Material.SIGN)) {
+		else if(clicked.getType().equals(Material.OAK_SIGN)) {
 			return;
 		}
 		

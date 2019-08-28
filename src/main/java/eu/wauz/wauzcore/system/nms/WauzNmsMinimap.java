@@ -5,10 +5,10 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_13_R2.map.CraftMapRenderer;
-import org.bukkit.craftbukkit.v1_13_R2.map.CraftMapView;
+import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_14_R1.map.CraftMapRenderer;
+import org.bukkit.craftbukkit.v1_14_R1.map.CraftMapView;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
@@ -27,10 +27,10 @@ import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.minecraft.server.v1_13_R2.EntityHuman;
-import net.minecraft.server.v1_13_R2.ItemWorldMap;
-import net.minecraft.server.v1_13_R2.WorldMap;
-import net.minecraft.server.v1_13_R2.WorldServer;
+import net.minecraft.server.v1_14_R1.EntityHuman;
+import net.minecraft.server.v1_14_R1.ItemWorldMap;
+import net.minecraft.server.v1_14_R1.WorldMap;
+import net.minecraft.server.v1_14_R1.WorldServer;
 
 public class WauzNmsMinimap {
 	
@@ -63,7 +63,7 @@ public class WauzNmsMinimap {
 		mapView.setCenterZ(player.getLocation().getBlockZ());
         mapView.setScale(Scale.CLOSEST);
         
-        net.minecraft.server.v1_13_R2.ItemStack craftItemStack = CraftItemStack.asNMSCopy(mapItem);
+        net.minecraft.server.v1_14_R1.ItemStack craftItemStack = CraftItemStack.asNMSCopy(mapItem);
 		ItemWorldMap itemWorldMap = (ItemWorldMap) craftItemStack.getItem();
 		
 		WorldServer worldServer = ((CraftWorld) mapView.getWorld()).getHandle();
@@ -130,7 +130,7 @@ public class WauzNmsMinimap {
 		}
 		
 		@Override
-		public boolean u() {
+		public boolean isCreative() {
 			return false;
 		}
 		

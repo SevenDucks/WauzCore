@@ -128,7 +128,7 @@ public class InstanceManager {
 			InstanceConfigurator.setInstanceWorldMaximumDeaths(instance, 0);
 		}
 		
-		player.teleport(new Location(instance, 0.5, 5, 0.5));
+		player.teleport(new Location(instance, 0.5, 26, 0.5));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
 	
@@ -200,9 +200,9 @@ public class InstanceManager {
 	}
 	
 	private static void placeExitSign(Block block, BlockFace blockFace) {
-		block.setType(Material.SIGN);
+		block.setType(Material.OAK_SIGN);
 		Sign sign = (Sign) block.getState();
-		org.bukkit.material.Sign signData = new org.bukkit.material.Sign(Material.SIGN);
+		org.bukkit.material.Sign signData = new org.bukkit.material.Sign(Material.OAK_SIGN);
 		signData.setFacingDirection(blockFace);
 		sign.setData(signData);
 		sign.setLine(1, WauzSigns.EXIT_DOOR_TEXT);

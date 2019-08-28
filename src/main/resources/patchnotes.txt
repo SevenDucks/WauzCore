@@ -3,6 +3,8 @@ Patch 5XX: Rapid Racing
 Patch 509: Skill Pack III
 
 Patch 508: Skill Pack II
+	Minecraft Update
+	  - Server now runs on Spigot 1.14.4
 
 Patch 507: Skill Pack I
     Enhancements

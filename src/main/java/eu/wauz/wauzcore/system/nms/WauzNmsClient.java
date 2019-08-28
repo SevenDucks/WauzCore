@@ -1,25 +1,25 @@
 package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_13_R2.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_14_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.system.ChatFormatter;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_13_R2.ChatMessage;
-import net.minecraft.server.v1_13_R2.ChatMessageType;
-import net.minecraft.server.v1_13_R2.EntityArmorStand;
-import net.minecraft.server.v1_13_R2.EnumItemSlot;
-import net.minecraft.server.v1_13_R2.IChatBaseComponent;
-import net.minecraft.server.v1_13_R2.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_13_R2.ItemStack;
-import net.minecraft.server.v1_13_R2.PacketPlayInClientCommand;
-import net.minecraft.server.v1_13_R2.PacketPlayInClientCommand.EnumClientCommand;
-import net.minecraft.server.v1_13_R2.PacketPlayOutChat;
-import net.minecraft.server.v1_13_R2.WorldServer;
+import net.minecraft.server.v1_14_R1.ChatMessage;
+import net.minecraft.server.v1_14_R1.ChatMessageType;
+import net.minecraft.server.v1_14_R1.EntityArmorStand;
+import net.minecraft.server.v1_14_R1.EnumItemSlot;
+import net.minecraft.server.v1_14_R1.IChatBaseComponent;
+import net.minecraft.server.v1_14_R1.IChatBaseComponent.ChatSerializer;
+import net.minecraft.server.v1_14_R1.ItemStack;
+import net.minecraft.server.v1_14_R1.PacketPlayInClientCommand;
+import net.minecraft.server.v1_14_R1.PacketPlayInClientCommand.EnumClientCommand;
+import net.minecraft.server.v1_14_R1.PacketPlayOutChat;
+import net.minecraft.server.v1_14_R1.WorldServer;
 
 public class WauzNmsClient {
 	
@@ -121,7 +121,6 @@ public class WauzNmsClient {
 			
 			this.setArms(false);
 			this.setBasePlate(false);
-			this.setSize(255, 255);
 			this.setEquipment(EnumItemSlot.HEAD, headItemStack);
 
 			worldServer.addEntity(this);

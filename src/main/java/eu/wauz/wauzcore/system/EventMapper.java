@@ -127,14 +127,23 @@ public class EventMapper {
 					|| type.equals(Material.BREWING_STAND)
 					|| type.equals(Material.ANVIL)
 					|| type.equals(Material.DISPENSER)
-					|| type.equals(Material.DROPPER))
+					|| type.equals(Material.DROPPER)
+					
+					|| type.equals(Material.BLAST_FURNACE)
+					|| type.equals(Material.CAMPFIRE)
+					|| type.equals(Material.CARTOGRAPHY_TABLE)
+					|| type.equals(Material.COMPOSTER)
+					|| type.equals(Material.FLETCHING_TABLE)
+					|| type.equals(Material.GRINDSTONE)
+					|| type.equals(Material.LOOM)
+					|| type.equals(Material.SMITHING_TABLE)
+					|| type.equals(Material.SMOKER)
+					|| type.equals(Material.STONECUTTER))
 				event.setCancelled(true);
 			
-			else if(type.equals(Material.SIGN) || type.equals(Material.WALL_SIGN))
+			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN))
 				WauzSigns.interact(player, event.getClickedBlock());
 		}
-		
-		WauzDebugger.log(player, "EventMapper.item() canceled: " + event.isCancelled());
 	}
 	
 	public static void itemSurvival(PlayerInteractEvent event) {
@@ -160,7 +169,7 @@ public class EventMapper {
 				ShopBuilder.open(player, "the Wild");
 			}
 			
-			else if(type.equals(Material.SIGN) || type.equals(Material.WALL_SIGN))
+			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN))
 				WauzSigns.interact(player, event.getClickedBlock());
 		}
 	}

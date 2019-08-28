@@ -105,7 +105,7 @@ public class MenuUtils {
 	}
 	
 	public static void setComingSoon(Inventory menu, String lore, int index) {
-		ItemStack soonItemStack = new ItemStack(Material.SIGN);
+		ItemStack soonItemStack = new ItemStack(Material.OAK_SIGN);
 		ItemMeta soonItemMeta = soonItemStack.getItemMeta();
 		soonItemMeta.setDisplayName(ChatColor.RED + "Coming Soon");
 		if(StringUtils.isNotBlank(lore)) {

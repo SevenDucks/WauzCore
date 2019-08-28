@@ -52,7 +52,7 @@ public class ShopBuilder implements WauzInventory {
 		}
 		
 		for(int index = isGlobal ? 8 : 6; index > ShopConfigurator.getShopItemsAmout(shopName); index--) {
-			ItemStack soldItemStack = new ItemStack(Material.SIGN, 1);
+			ItemStack soldItemStack = new ItemStack(Material.OAK_SIGN, 1);
 			ItemMeta soldItemMeta = soldItemStack.getItemMeta();
 			soldItemMeta.setDisplayName(ChatColor.DARK_GRAY + "SOLD OUT");
 			soldItemStack.setItemMeta(soldItemMeta);
@@ -88,7 +88,7 @@ public class ShopBuilder implements WauzInventory {
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null || clicked.getType().equals(Material.SIGN)) {
+		if(clicked == null || clicked.getType().equals(Material.OAK_SIGN)) {
 			event.setCancelled(true);
 			return;
 		}

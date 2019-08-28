@@ -2,6 +2,6 @@ name: WauzStarter
 main: eu.wauz.wauzstarter.WauzStarter
 website: http://wauz.eu/
 version: 1.0
-api-version: 1.13
+api-version: 1.14
 author: Nikolas Keller
 loadbefore: [MythicMobs, WauzCore]

@@ -1,7 +1,7 @@
 package eu.wauz.wauzcore.system.util;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 
 public enum WauzMode {
