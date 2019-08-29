@@ -45,6 +45,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -175,6 +176,13 @@ public class WauzListener implements Listener {
 	public void onEquip(ArmorEquipEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
 			Equipment.equipArmor(event);
+		}
+	}
+	
+	@EventHandler
+	public void onArmorStandEquip(PlayerArmorStandManipulateEvent event) {
+		if(WauzMode.isMMORPG(event.getPlayer())) {
+			event.setCancelled(true);
 		}
 	}
 	

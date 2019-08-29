@@ -92,6 +92,8 @@ public class EventMapper {
 				CharacterSlotMenu.open(event, WauzMode.MMORPG);
 			else if(name[1].equals("Survival"))
 				CharacterSlotMenu.open(event, WauzMode.SURVIVAL);
+			else if(name[1].equals("MineKart"))
+				player.sendMessage(ChatColor.RED + "This mode is still unfinished!");
 		}
 	}
 	
@@ -128,6 +130,7 @@ public class EventMapper {
 					|| type.equals(Material.ANVIL)
 					|| type.equals(Material.DISPENSER)
 					|| type.equals(Material.DROPPER)
+					|| type.equals(Material.CAKE)
 					
 					|| type.equals(Material.BLAST_FURNACE)
 					|| type.equals(Material.CAMPFIRE)

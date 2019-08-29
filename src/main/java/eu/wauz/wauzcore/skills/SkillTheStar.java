@@ -44,7 +44,7 @@ public class SkillTheStar implements WauzPlayerSkill {
 
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
-		final Entity target = SkillUtils.getTargetInLine(player, 5);
+		final Entity target = SkillUtils.getTargetInLine(player, 3);
 		
 		if(target != null) {
 			for(int iterator = 0; iterator != 12; iterator++) {

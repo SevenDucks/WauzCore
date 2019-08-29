@@ -4,18 +4,17 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.system.ChatFormatter;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_14_R1.ChatMessage;
 import net.minecraft.server.v1_14_R1.ChatMessageType;
 import net.minecraft.server.v1_14_R1.EntityArmorStand;
-import net.minecraft.server.v1_14_R1.EnumItemSlot;
 import net.minecraft.server.v1_14_R1.IChatBaseComponent;
 import net.minecraft.server.v1_14_R1.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_14_R1.ItemStack;
 import net.minecraft.server.v1_14_R1.PacketPlayInClientCommand;
 import net.minecraft.server.v1_14_R1.PacketPlayInClientCommand.EnumClientCommand;
 import net.minecraft.server.v1_14_R1.PacketPlayOutChat;
@@ -83,9 +82,11 @@ public class WauzNmsClient {
 			
 			this.collides = false;
 			this.persist = false;
+			this.canPickUpLoot = false;
 			
 			this.setInvisible(true);
 			this.setInvulnerable(true);
+			this.setSmall(false);
 			this.setCustomName(new ChatMessage(display));
 			this.setCustomNameVisible(true);
 
@@ -94,16 +95,15 @@ public class WauzNmsClient {
 		
 	}
 	
-	public static org.bukkit.entity.Entity nmsCustomEntityTotem(Player player, org.bukkit.inventory.ItemStack headItemStack) {
+	public static org.bukkit.entity.Entity nmsCustomEntityTotem(Player player, ItemStack headItemStack) {
 		Location location = player.getLocation();
 		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
 		double x = location.getX();
 		double y = location.getY();
 		double z = location.getZ();
 		String display = ChatColor.GREEN + player.getDisplayName() + "'s Totem";
-		ItemStack nmsItemStack = CraftItemStack.asNMSCopy(headItemStack);
 		
-		return new Totem(worldServer, x, y, z, display, nmsItemStack).getBukkitEntity();
+		return new Totem(worldServer, x, y, z, display, headItemStack).getBukkitEntity();
 	}
 	
 	private static class Totem extends EntityArmorStand {
@@ -111,17 +111,21 @@ public class WauzNmsClient {
 		public Totem(WorldServer worldServer, double x, double y, double z, String display, ItemStack headItemStack) {
 			super(worldServer, x, y, z);
 			
-			this.collides = true;
+			this.collides = false;
 			this.persist = false;
+			this.canPickUpLoot = false;
 			
 			this.setInvisible(false);
 			this.setInvulnerable(true);
+			this.setSmall(true);
 			this.setCustomName(new ChatMessage(display));
 			this.setCustomNameVisible(true);
 			
 			this.setArms(false);
 			this.setBasePlate(false);
-			this.setEquipment(EnumItemSlot.HEAD, headItemStack);
+			
+			ArmorStand armorStand = (ArmorStand) this.getBukkitEntity();
+			armorStand.setHelmet(headItemStack);
 
 			worldServer.addEntity(this);
 		}

@@ -5,6 +5,12 @@ Patch 509: Skill Pack III
 Patch 508: Skill Pack II
 	Minecraft Update
 	  - Server now runs on Spigot 1.14.4
+	  
+	Added Skills
+	  - The Fool 0
+	    > Decoy Totem to taunt Enemies
+	  - The Tower XVI
+	    > Projectile Totem to attack Enemies
 
 Patch 507: Skill Pack I
     Enhancements

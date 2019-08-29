@@ -42,7 +42,7 @@ public class SkillTheHierophant implements WauzPlayerSkill {
 
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
-		final Entity target = SkillUtils.getTargetInLine(player, 5);
+		final Entity target = SkillUtils.getTargetInLine(player, 3);
 		
 		if(target != null) {
 			int damage = (int) ((double) ItemUtils.getBaseAtk(weapon) * (double) 1.20);

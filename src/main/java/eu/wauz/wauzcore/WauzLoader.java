@@ -13,12 +13,14 @@ import eu.wauz.wauzcore.skills.SkillJudgement;
 import eu.wauz.wauzcore.skills.SkillStrength;
 import eu.wauz.wauzcore.skills.SkillTemperance;
 import eu.wauz.wauzcore.skills.SkillTheEmpress;
+import eu.wauz.wauzcore.skills.SkillTheFool;
 import eu.wauz.wauzcore.skills.SkillTheHermit;
 import eu.wauz.wauzcore.skills.SkillTheHierophant;
 import eu.wauz.wauzcore.skills.SkillTheHighPriestess;
 import eu.wauz.wauzcore.skills.SkillTheLovers;
 import eu.wauz.wauzcore.skills.SkillTheMagician;
 import eu.wauz.wauzcore.skills.SkillTheStar;
+import eu.wauz.wauzcore.skills.SkillTheTower;
 import eu.wauz.wauzcore.skills.SkillTheWorld;
 import eu.wauz.wauzcore.skills.SkillWheelOfFortune;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
@@ -63,6 +65,7 @@ public class WauzLoader {
 		ShopBuilder.currency.put(ChatColor.BLUE + "Eternal", "reput.empire");
 		ShopBuilder.currency.put(ChatColor.BLUE + "Dark", "reput.legion");
 		
+		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheFool.SKILL_NAME, new SkillTheFool());					// Tarot (00) 0
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheMagician.SKILL_NAME, new SkillTheMagician());			// Tarot (01) I
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheHighPriestess.SKILL_NAME, new SkillTheHighPriestess());	// Tarot (02) II
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheEmpress.SKILL_NAME, new SkillTheEmpress());				// Tarot (03) III
@@ -72,6 +75,7 @@ public class WauzLoader {
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheHermit.SKILL_NAME, new SkillTheHermit());				// Tarot (09) IX
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillWheelOfFortune.SKILL_NAME, new SkillWheelOfFortune());		// Tarot (10) X
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTemperance.SKILL_NAME, new SkillTemperance());				// Tarot (14) XIV
+		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheTower.SKILL_NAME, new SkillTheTower());					// Tarot (16) XVI
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheStar.SKILL_NAME, new SkillTheStar());					// Tarot (17) XVII
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillJudgement.SKILL_NAME, new SkillJudgement());				// Tarot (20) XX
 		WauzPlayerSkillExecutor.playerSkillMap.put(SkillTheWorld.SKILL_NAME, new SkillTheWorld());					// Tarot (21) XXI

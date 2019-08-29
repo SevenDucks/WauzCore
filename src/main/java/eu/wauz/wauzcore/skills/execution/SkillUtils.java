@@ -128,20 +128,22 @@ public class SkillUtils {
 		}, interval);
 	}
 	
-	public static void spawnTotem(Player owner, Material material, Runnable runnable, int ticks, int interval) {
+	public static void spawnTotem(Player owner, Material material, TotemRunnable runnable, int ticks, int interval) {
 		Entity totem = WauzNmsClient.nmsCustomEntityTotem(owner, new ItemStack(material));
 		callTotemEvent(totem, runnable, ticks, interval);
 	}
 	
-	private static void callTotemEvent(Entity totem, Runnable runnable, int ticks, int interval) {
+	private static void callTotemEvent(Entity totem, TotemRunnable runnable, int ticks, int interval) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
 	        public void run() {
 	        	try {
 	        		if(totem != null && totem.isValid()) {
-	        			runnable.run();
+	        			runnable.run(totem);
 	        			if(ticks - 1 > 0)
 	        				callTotemEvent(totem, runnable, ticks - 1, interval);
+	        			else
+	        				totem.remove();
 	        		}
 	        	}
 	        	catch (NullPointerException e) {
@@ -150,6 +152,12 @@ public class SkillUtils {
 	        }
 	        
 		}, interval);
+	}
+	
+	public static interface TotemRunnable {
+		
+		public abstract void run(Entity totem);
+		
 	}
 	
 	public static void spawnParticleLine(Location origin, Location target, SkillParticle particle, int amount) {

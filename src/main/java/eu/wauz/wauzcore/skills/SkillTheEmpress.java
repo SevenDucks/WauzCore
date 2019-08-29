@@ -44,7 +44,7 @@ public class SkillTheEmpress implements WauzPlayerSkill {
 
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
-		Entity target = SkillUtils.getTargetInLine(player, 5);
+		Entity target = SkillUtils.getTargetInLine(player, 3);
 		
 		if(target != null) {
 			lightningChain(player, player, target, 3, new ArrayList<Entity>());
@@ -60,11 +60,11 @@ public class SkillTheEmpress implements WauzPlayerSkill {
 		targetLocation.setY(targetLocation.getY() + 1);
 		
 		SkillUtils.spawnParticleLine(originLocation, targetLocation, new SkillParticle(Particle.SPELL_WITCH), 3);
-		SkillUtils.callPlayerMagicDamageEvent(player, target, 2);
+		SkillUtils.callPlayerMagicDamageEvent(player, target, 2.5);
 		
 		if(remainingChains > 0) {
 			excludes.add(target);
-			List<Entity> nextTargets = SkillUtils.getTargetsInRadius(target.getLocation(), 5, excludes);
+			List<Entity> nextTargets = SkillUtils.getTargetsInRadius(target.getLocation(), 7, excludes);
 			if(nextTargets.size() > 0)
 				lightningChain(player, target, nextTargets.get(0), remainingChains - 1, excludes);
 		}
