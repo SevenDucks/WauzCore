@@ -88,7 +88,7 @@ public class CustomWeaponBow {
 		}
 	}
 	
-	private static void spawnArrowTrail(Arrow arrow, Color color) {
+	public static void spawnArrowTrail(Arrow arrow, Color color) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
 	        public void run() {

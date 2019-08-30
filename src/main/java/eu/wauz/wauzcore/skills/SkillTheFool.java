@@ -55,7 +55,7 @@ public class SkillTheFool implements WauzPlayerSkill {
 			
 			@Override
 			public void run(Entity totem) {
-				SkillUtils.spawnParticleCircle(totem.getLocation().add(0, 0.5, 0), particle, 1.5, 6);
+				SkillUtils.spawnParticleCircle(totem.getLocation().clone().add(0, 0.5, 0), particle, 1.5, 6);
 				List<Entity> targets = SkillUtils.getTargetsInRadius(totem.getLocation(), 10);
 				
 				for(Entity target : targets) {

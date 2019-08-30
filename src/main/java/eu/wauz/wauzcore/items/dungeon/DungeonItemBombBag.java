@@ -47,9 +47,7 @@ public class DungeonItemBombBag {
 		
 		if(nearbyEntites.size() > 0) {
 			for(final Entity entity : nearbyEntites) {
-				if(!entity.getType().equals(EntityType.ARMOR_STAND) &&
-						entity.getCustomName() != null &&
-						entity.getCustomName().contains("" + ChatColor.AQUA)) {
+				if(SkillUtils.isValidAttackTarget(entity)) {
 					
 					SkillUtils.throwBackEntity(entity, centerLocation, 1.2);
 					

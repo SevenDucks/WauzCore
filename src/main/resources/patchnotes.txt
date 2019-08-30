@@ -9,6 +9,12 @@ Patch 508: Skill Pack II
 	Added Skills
 	  - The Fool 0
 	    > Decoy Totem to taunt Enemies
+	  - The Emperor IV
+	    > Shoots weapons on random Targets
+	  - The Chariot VII
+	    > Charges through Enemies
+	  - Death XIII
+	    > Sacrifices HP to deal heavy Damage
 	  - The Tower XVI
 	    > Projectile Totem to attack Enemies
 

@@ -46,7 +46,9 @@ public class SkillTheMagician implements WauzPlayerSkill {
 		Location location = null;
 		for(Block block : player.getLineOfSight(null, 12)) {
 			location = block.getLocation();
-			if(!block.getType().equals(Material.AIR)) break;
+			if(!block.getType().equals(Material.AIR)) {
+				break;
+			}
 		}
 		
 		List<Entity> targets = SkillUtils.getTargetsInRadius(location, 4);

@@ -7,14 +7,12 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
-import net.md_5.bungee.api.ChatColor;
 
 public class DungeonItemGrapplingHook {
 
@@ -59,10 +57,7 @@ public class DungeonItemGrapplingHook {
 		
 		if(nearbyEntites.size() > 0) {
 			for(final Entity entity : nearbyEntites) {
-				if(!entity.getType().equals(EntityType.ARMOR_STAND) &&
-						entity.getCustomName() != null &&
-						entity.getCustomName().contains("" + ChatColor.AQUA)) {
-					
+				if(SkillUtils.isValidAttackTarget(entity)) {
 					entity.teleport(entity.getLocation().add(0, 0.5, 0));
 					event.getEntity().setVelocity(SkillUtils.getVectorForPoints(player.getLocation(), entity.getLocation()));
 					

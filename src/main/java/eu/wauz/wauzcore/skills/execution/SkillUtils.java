@@ -29,15 +29,18 @@ import net.md_5.bungee.api.ChatColor;
 
 public class SkillUtils {
 	
+	public static boolean isValidAttackTarget(Entity entity) {
+		boolean isNoArmorStand = !entity.getType().equals(EntityType.ARMOR_STAND);
+		boolean hasLevel = entity.getCustomName() != null && entity.getCustomName().contains("" + ChatColor.AQUA);
+		return isNoArmorStand && hasLevel;
+	}
+	
 	public static Entity getTargetInLine(Player player, int range) {
 		Entity target = null;
 		for(Block block : player.getLineOfSight(null, range)) {
 			Collection<Entity> nearbyEntites = block.getWorld().getNearbyEntities(block.getLocation(), 1, 1, 1);
-			if(nearbyEntites.size() > 0) {
-				Entity entity = new ArrayList<>(nearbyEntites).get(0);
-				if(!entity.getType().equals(EntityType.ARMOR_STAND) &&
-						entity.getCustomName() != null &&
-						entity.getCustomName().contains("" + ChatColor.AQUA)) {
+			for(Entity entity : nearbyEntites) {
+				if(isValidAttackTarget(entity)) {
 					target = entity;
 					break;
 				}
@@ -46,32 +49,47 @@ public class SkillUtils {
 		return target;
 	}
 	
+	public static List<Entity> getTargetsInLine(Player player, int range) {
+		List<Entity> targets = new ArrayList<>();
+		for(Block block : player.getLineOfSight(null, range)) {
+			Collection<Entity> nearbyEntites = block.getWorld().getNearbyEntities(block.getLocation(), 1, 1, 1);
+			for(Entity entity : nearbyEntites) {
+				if(isValidAttackTarget(entity)) {
+					targets.add(entity);
+				}
+			}
+		}
+		return targets;
+	}
+	
 	public static List<Entity> getTargetsInRadius(Location location, double radius) {
 		return getTargetsInRadius(location, radius, new ArrayList<Entity>());
 	}
 	
 	public static List<Entity> getTargetsInRadius(Location location, double radius, List<Entity> excludes) {
 		List<Entity> targets = new ArrayList<>();
-		for(Entity entity : location.getWorld().getNearbyEntities(location, radius, radius, radius))
-			if(!entity.getType().equals(EntityType.ARMOR_STAND) &&
-					entity.getCustomName() != null &&
-					entity.getCustomName().contains("" + ChatColor.AQUA) &&
-					!excludes.contains(entity))
+		for(Entity entity : location.getWorld().getNearbyEntities(location, radius, radius, radius)) {
+			if(isValidAttackTarget(entity) && !excludes.contains(entity)) {
 				targets.add(entity);
+			}
+		}
 		return targets;
 	}
 	
 	public static List<Player> getPlayersInRadius(Location location, int radius) {
 		List<Player> players = new ArrayList<>();
-		for(Entity entity : location.getWorld().getNearbyEntities(location, radius, radius, radius))
-			if(entity instanceof Player)
+		for(Entity entity : location.getWorld().getNearbyEntities(location, radius, radius, radius)) {
+			if(entity instanceof Player) {
 				players.add((Player) entity);
+			}
+		}
 		return players;
 	}
 	
 	public static void addPotionEffect(List<Entity> entities, PotionEffectType potionEffectType, int duration, int amplifier) {
-		for(Entity entity : entities)
+		for(Entity entity : entities) {
 			addPotionEffect(entity, potionEffectType, duration, amplifier);
+		}
 	}
 	
 	public static void addPotionEffect(Entity entity, PotionEffectType potionEffectType,  int duration, int amplifier) {
@@ -161,25 +179,42 @@ public class SkillUtils {
 	}
 	
 	public static void spawnParticleLine(Location origin, Location target, SkillParticle particle, int amount) {
-        Vector targetVector = target.toVector();
-        origin.setDirection(targetVector.subtract(origin.toVector()));
-        
-        Vector increase = origin.getDirection();
-        double lastDistance = origin.distance(target); 
-        
-        while (lastDistance >= origin.distance(target)) {
-        	lastDistance = origin.distance(target); 
-            Location location = origin.add(increase);
-            particle.spawn(location, amount);
-        }
+		spawnParticleLine(origin, target, particle, amount, 1);
+	}
+	
+	public static void spawnParticleLine(Location origin, Location target, SkillParticle particle, int amount, double spacing) {
+		Vector originVector = origin.toVector();
+		Vector targetVector = target.toVector();
+		Vector addingVector = targetVector.clone().subtract(originVector).normalize().multiply(spacing);
+		
+		double distance = origin.distance(target);
+		double length = 0;
+		
+		while(length < distance) {
+			originVector.add(addingVector);
+			particle.spawn(originVector.toLocation(origin.getWorld()), amount);
+			length += spacing;
+		}
+		
+//        Vector targetVector = target.toVector();
+//        origin.setDirection(targetVector.subtract(origin.toVector()));
+//        
+//        Vector increase = origin.getDirection();      
+//        double lastDistance = origin.distance(target); 
+//        
+//        while (lastDistance >= origin.distance(target)) {
+//        	lastDistance = origin.distance(target); 
+//            Location location = origin.add(increase);
+//            particle.spawn(location, amount);
+//        }
 	}
 	
 	public static void spawnParticleCircle(Location origin, SkillParticle particle, double radius, int amount) {
 		World world = origin.getWorld();
         double increment = (2 * Math.PI) / amount;
-        for(int i = 0; i < amount; i++)
+        for(int iterator = 0; iterator < amount; iterator++)
         {
-            double angle = i * increment;
+            double angle = iterator * increment;
             double x = origin.getX() + (radius * Math.cos(angle));
             double z = origin.getZ() + (radius * Math.sin(angle));
             particle.spawn(new Location(world, x, origin.getY() + 0.5, z), 1);
