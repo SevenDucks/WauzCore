@@ -26,6 +26,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzMenu implements WauzInventory {
@@ -33,6 +34,10 @@ public class WauzMenu implements WauzInventory {
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
 
 	public static void open(Player player) {
+		if(WauzMode.inHub(player)) {
+			WauzModeMenu.open(player);
+			return;
+		}
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Wauzland Main Menu");
 		

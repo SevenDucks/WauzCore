@@ -20,12 +20,12 @@ import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.dungeon.DungeonItemChickenGlider;
 import eu.wauz.wauzcore.items.dungeon.DungeonItemThunderRod;
-import eu.wauz.wauzcore.menu.CharacterSlotMenu;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.QuestBuilder;
 import eu.wauz.wauzcore.menu.ShopBuilder;
 import eu.wauz.wauzcore.menu.WauzDialog;
 import eu.wauz.wauzcore.menu.WauzMenu;
+import eu.wauz.wauzcore.menu.WauzModeMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
@@ -88,12 +88,8 @@ public class EventMapper {
 		
 		else if(name[0].contains("(Play)")) {
 			WauzDebugger.log(player, "Clicked Game NPC '" + name[1] + "'");
-			if(name[1].equals("MMORPG"))
-				CharacterSlotMenu.open(event, WauzMode.MMORPG);
-			else if(name[1].equals("Survival"))
-				CharacterSlotMenu.open(event, WauzMode.SURVIVAL);
-			else if(name[1].equals("MineKart"))
-				player.sendMessage(ChatColor.RED + "This mode is still unfinished!");
+			WauzModeMenu.selectMode(player, name[1]);
+			event.setCancelled(true);
 		}
 	}
 	

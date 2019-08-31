@@ -149,8 +149,9 @@ public class MenuUtils {
 		}
 		
 		if(staticItems.contains(itemStack.getType())) {
-			if(itemStack.getType().equals(Material.NETHER_STAR))
+			if(itemStack.getType().equals(Material.NETHER_STAR)) {
 				WauzMenu.open((Player) event.getWhoClicked());
+			}
 			event.setCancelled(true);
 			return;
 		}

@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,13 +25,10 @@ import net.md_5.bungee.api.ChatColor;
 
 public class CharacterSlotMenu implements WauzInventory {
 	
-	public static void open(PlayerInteractEntityEvent event, WauzMode wauzMode) {
+	public static void open(Player player, WauzMode wauzMode) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterSlotMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Character!");
-		
-		Player player = event.getPlayer();
-		event.setCancelled(true);
-		
+
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			for(int slotId = 1; slotId <= 3; slotId++)
 				menu.setItem(slotId * 2, getCharacterSlot(player, slotId, true));
@@ -60,14 +56,17 @@ public class CharacterSlotMenu implements WauzInventory {
 			lores.add("");
 			lores.add(ChatColor.GRAY + "Last Played: " + ChatColor.GREEN
 					+ PlayerConfigurator.getLastCharacterLogin(player, slotId) + " ago");
-			if(slotId > 20000)
-				lores.add(ChatColor.GRAY + "End of Season: " + ChatColor.RED
-						+ WauzDateUtils.getTimeTillNextSeason());
-			if(deletable)
+			if(slotId > 20000) {
+				String timeTillNextSeason = WauzDateUtils.getTimeTillNextSeason();
+				lores.add(ChatColor.GRAY + "End of Season: " + ChatColor.RED + timeTillNextSeason);
+			}
+			if(deletable) {
 				lores.add(ChatColor.GRAY + "Right Click to Delete");
+			}
 		}
-		else
+		else {
 			lores.add(ChatColor.GRAY + "Empty");
+		}
 		
 		slotItemMeta.setLore(lores);
 		slotItemStack.setItemMeta(slotItemMeta);
@@ -90,14 +89,16 @@ public class CharacterSlotMenu implements WauzInventory {
 		playerData.setSelectedCharacterSlot("char" + slotId);		
 		
 		String clickedName = clicked.getItemMeta().getDisplayName();
-		if(clickedName.contains("" + ChatColor.RED))
+		if(clickedName.contains("" + ChatColor.RED)) {
 			if(slotId > 20000) {
 				playerData.setSelectedCharacterWorld("Survival");
 				playerData.setSelectedCharacterRace(WauzDateUtils.getSurvivalSeason());
 				CharacterManager.createCharacter(player, WauzMode.SURVIVAL);
 			}
-			else
+			else {
 				CharacterWorldMenu.open(player);
+			}
+		}
 		else if(event.getClick().toString().contains("RIGHT")) {
 			String characterSlot = playerData.getSelectedCharacterSlot();
 			String characterSlotNumber = characterSlot.substring(4, 5);
@@ -105,8 +106,9 @@ public class CharacterSlotMenu implements WauzInventory {
 			playerData.setWauzPlayerEvent(new WauzPlayerEventCharacterDelete());
 			WauzDialog.open(player, getCharacterSlot(player, event.getSlot() / 2, false));
 		}
-		else
+		else {
 			CharacterManager.loginCharacter(player, WauzMode.getMode(PlayerConfigurator.getCharacterWorldString(player)));
+		}
 	}
 
 }

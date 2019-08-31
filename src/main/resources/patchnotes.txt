@@ -20,6 +20,7 @@ Patch 508: Skill Pack II
 	    
 	Miscellaneous
 	  - Discord Bot Improvements
+	  - Easier Mode Selection in Hub
 
 Patch 507: Skill Pack I
     Enhancements
