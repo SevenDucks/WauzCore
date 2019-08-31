@@ -26,7 +26,11 @@ import net.md_5.bungee.api.ChatColor;
 
 public class ShopBuilder implements WauzInventory {
 	
-	public static HashMap<String, String> currency = new HashMap<String, String>();
+	private static HashMap<String, String> currency = new HashMap<String, String>();
+	
+	public static void registerCurrency(String displayName, String configKey) {
+		currency.put(displayName, configKey);
+	}
 	
 // Load Items from Config
 	

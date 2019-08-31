@@ -1,6 +1,8 @@
 package eu.wauz.wauzcore.skills.execution;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +21,23 @@ import net.md_5.bungee.api.ChatColor;
 
 public class WauzPlayerSkillExecutor {
 	
-	public static Map<String, WauzPlayerSkill> playerSkillMap = new HashMap<>();
+	private static Map<String, WauzPlayerSkill> playerSkillMap = new HashMap<>();
+	
+	public static WauzPlayerSkill getSkill(String skillId) {
+		return playerSkillMap.get(skillId);
+	}
+	
+	public static List<WauzPlayerSkill> getAllSkills() {
+		return new ArrayList<>(playerSkillMap.values());
+	}
+	
+	public static List<String> getAllSkillIds() {
+		return new ArrayList<>(playerSkillMap.keySet());
+	}
+	
+	public static void registerSkill(WauzPlayerSkill skill) {
+		playerSkillMap.put(skill.getSkillId(), skill);
+	}
 	
 	public static void tryToUseSkill(Player player, ItemStack itemStack) {
 		String skillId = ItemUtils.getSocketedSkill(itemStack);
@@ -30,7 +48,6 @@ public class WauzPlayerSkillExecutor {
 				player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
 				return;
 			}
-			
 			else if(Cooldown.playerSkillUse(player)) {
 				execute(player, itemStack, skillId);
 			}

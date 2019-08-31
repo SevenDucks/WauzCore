@@ -86,12 +86,30 @@ public class ItemUtils {
 		return hasLore(itemStack) ? getStringBetweenFromLore(itemStack, "Skillgem (" + ChatColor.LIGHT_PURPLE, ChatColor.WHITE + ")") : null;
 	}
 	
+	public static String getEquipmentType(ItemStack itemStack) {
+		String itemMaterial = itemStack.getType().toString();
+		if(itemMaterial.contains("_SWORD") || itemMaterial.contains("_AXE") || itemMaterial.contains("_HOE") ||
+				itemMaterial.equals("BOW")) {
+			return "Weapon";
+		}
+		else if(itemMaterial.contains("CHESTPLATE")) {
+			return "Armor";
+		}
+		else {
+			return "Unknown";
+		}
+	}
+	
 	public static int getBaseAtk(ItemStack itemStack) {
 		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Attack:" + ChatColor.RED, 1) : 1;
 	}
 	
 	public static int getBaseDef(ItemStack itemStack) {
 		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Defense:" + ChatColor.BLUE, 1) : 0;
+	}
+	
+	public static int getRuneMight(ItemStack itemStack) {
+		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Might:" + ChatColor.YELLOW, 1) : 0;
 	}
 	
 	public static int getCurrentDurability(ItemStack itemStack) {

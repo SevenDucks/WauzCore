@@ -18,7 +18,7 @@ public class WauzPlayerSkillTabCompleter implements TabCompleter {
 			return null;
 		
 		if(playerSkillList == null)
-			playerSkillList = WauzPlayerSkillExecutor.playerSkillMap.keySet().stream()
+			playerSkillList = WauzPlayerSkillExecutor.getAllSkillIds().stream()
 					.map(skillId -> skillId.replace(" ", "_"))
 					.collect(Collectors.toList());
 		

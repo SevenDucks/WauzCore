@@ -389,7 +389,7 @@ public class WauzListener implements Listener {
 	@EventHandler
 	public void onItemDrop(PlayerDropItemEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
-			MenuUtils.onStaticItemDrop(event);
+			MenuUtils.checkForStaticItemDrop(event);
 			WauzPlayerScoreboard.scheduleScoreboard(event.getPlayer());
 		}
 	}
@@ -397,7 +397,7 @@ public class WauzListener implements Listener {
 	@EventHandler
 	public void onSwapItem(PlayerSwapHandItemsEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
-			MenuUtils.onStaticItemSwap(event);
+			MenuUtils.checkForStaticItemSwap(event);
 		}
 	}
 

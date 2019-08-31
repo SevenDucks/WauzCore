@@ -1,8 +1,6 @@
 package eu.wauz.wauzcore.skills;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import org.bukkit.entity.Player;
@@ -42,9 +40,7 @@ public class SkillWheelOfFortune implements WauzPlayerSkill {
 
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
-		Map<String, WauzPlayerSkill> playerSkillMap = WauzPlayerSkillExecutor.playerSkillMap;
-		List<WauzPlayerSkill> playerSkills = new ArrayList<>(playerSkillMap.values());
-		
+		List<WauzPlayerSkill> playerSkills = WauzPlayerSkillExecutor.getAllSkills();
 		return playerSkills.get(new Random().nextInt(playerSkills.size())).executeSkill(player, weapon);
 	}
 

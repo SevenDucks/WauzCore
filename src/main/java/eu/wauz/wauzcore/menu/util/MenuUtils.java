@@ -21,7 +21,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
-import eu.wauz.wauzcore.items.EquipmentRuneSocket;
+import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.items.WauzIdentifier;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
@@ -129,106 +129,39 @@ public class MenuUtils {
 		}
 	}
 	
-	public static List<Material> staticItems = new ArrayList<>();
+	private static List<Material> staticItems = new ArrayList<>(Arrays.asList(
+			Material.FILLED_MAP, Material.DIAMOND, Material.CLOCK, Material.NETHER_STAR,
+			Material.BARRIER, Material.PLAYER_HEAD, Material.FISHING_ROD, Material.SNOWBALL,
+			Material.BLAZE_ROD, Material.FEATHER));
 	
-	public static List<Material> validScrollMaterials = new ArrayList<Material>
-			(Arrays.asList(Material.NAME_TAG, Material.FIREWORK_STAR, Material.REDSTONE));
+	private static List<Material> validScrollMaterials = new ArrayList<Material>(Arrays.asList(
+			Material.NAME_TAG, Material.FIREWORK_STAR, Material.REDSTONE));
 
 	public static void onSpecialItemInventoryClick(InventoryClickEvent event) {
-		Player player = (Player) event.getWhoClicked();
 		boolean numberKeyPressed = event.getClick().equals(ClickType.NUMBER_KEY);
-		ItemStack hotbarItem = numberKeyPressed ? event.getClickedInventory().getItem(event.getHotbarButton()) : null;
-		if(hotbarItem != null) {
-			if(staticItems.contains(hotbarItem.getType())) {
-				event.setCancelled(true);
-				return;
-			}
-				
-			String itemName = (!hotbarItem.hasItemMeta() || !hotbarItem.getItemMeta().hasDisplayName())
-					? "" : hotbarItem.getItemMeta().getDisplayName();
-			if(itemName.contains("Cosmetic Item")) {
-				event.setCancelled(true);
-				return;
-			}
+		if(numberKeyPressed && !isHotbarItemInteractionValid(event)) {
+			return;
 		}
+		
 		ItemStack itemStack = event.getCurrentItem();
-		if(itemStack != null) {
-			if(staticItems.contains(itemStack.getType())) {
-				event.setCancelled(true);
-				if(itemStack.getType().equals(Material.NETHER_STAR))
-					WauzMenu.open(player);
-				return;
-			}
-				
-			String itemName = (!itemStack.hasItemMeta() || !itemStack.getItemMeta().hasDisplayName())
-					? "" : itemStack.getItemMeta().getDisplayName();
-			if(itemName.contains("Cosmetic Item")) {
-				event.setCancelled(true);
-				return;
-			}
-			
-			ItemStack scroll = (player.getItemOnCursor());
-			if(!validScrollMaterials.contains(scroll.getType()))
-				return;
-			
-			String scrollName = scroll.getItemMeta().getDisplayName();
-			
-			if(scrollName.contains("Scroll of Wisdom")) {
-				if(!itemName.contains("Unidentified") || itemName.contains("Scroll"))
-						return;			
-				
-				event.setCancelled(true);
-				scroll.setAmount(scroll.getAmount() - 1);
-				if(itemName.contains("Item")) WauzIdentifier.identifyItem(event);
-				else if(itemName.contains("Rune")) WauzIdentifier.identifyRune(event);
-				else if(itemName.contains("Map")) WauzIdentifier.identifyShrine(event);
-				else if(itemName.contains("Skillgem")) WauzIdentifier.identifySkillgem(event);
-			}
-			
-			else if(scrollName.contains("Scroll of Fortune")) {
-				if(itemName.contains("Scroll"))
-					return;
-				
-				if(ShopBuilder.sell((Player) player, itemStack, false)) {
-					scroll.setAmount(scroll.getAmount() - 1);
-					event.setCancelled(true);
-				}	
-			}
-			
-			else if(scrollName.contains("Scroll of Toughness")) {
-				if(itemName.contains("Scroll"))
-					return;
-				
-				if(ShopBuilder.repair((Player) player, itemStack, false)) {
-					scroll.setAmount(scroll.getAmount() - 1);
-					event.setCancelled(true);
-				}
-			}
-			
-			else if(scrollName.contains("Scroll of Regret")) {
-				if(itemName.contains("Scroll"))
-					return;
-				
-				if(EquipmentRuneSocket.clearAllSockets(event)) {
-					scroll.setAmount(scroll.getAmount() - 1);
-					event.setCancelled(true);
-				}
-			}
-			
-			else if(scrollName.contains("Rune")) {
-				if(!scrollName.contains("Unidentified") && EquipmentRuneSocket.insertRune(event)) {
-					scroll.setAmount(scroll.getAmount() - 1);
-					event.setCancelled(true);
-				}
-			}
-			
-			else if(scrollName.contains("Skillgem")) {
-				if(!scrollName.contains("Unidentified") && EquipmentRuneSocket.insertSkillgem(event)) {
-					scroll.setAmount(scroll.getAmount() - 1);
-					event.setCancelled(true);
-				}
-			}
+		if(itemStack == null) {
+			return;
 		}
+		
+		if(staticItems.contains(itemStack.getType())) {
+			if(itemStack.getType().equals(Material.NETHER_STAR))
+				WauzMenu.open((Player) event.getWhoClicked());
+			event.setCancelled(true);
+			return;
+		}
+		
+		String itemName = ItemUtils.hasDisplayName(itemStack) ? itemStack.getItemMeta().getDisplayName() : "";
+		if(itemName.contains("Cosmetic Item")) {
+			event.setCancelled(true);
+			return;
+		}
+		
+		onScrollItemInteract(event, itemName);
 	}
 	
 	public static void onScrollItemInteract(PlayerInteractEvent event) {
@@ -236,7 +169,6 @@ public class MenuUtils {
 		ItemStack scroll = player.getEquipment().getItemInMainHand();
 		if(!ItemUtils.hasDisplayName(scroll))
 			return;
-		
 		String scrollName = scroll.getItemMeta().getDisplayName();
 		
 		if(scrollName.contains("Scroll of Summoning")) {
@@ -247,17 +179,86 @@ public class MenuUtils {
 			new WauzPlayerEventHomeChange(player, scroll).execute(player);
 		}
 	}
-
-	public static void onStaticItemDrop(PlayerDropItemEvent event) {
-		if(staticItems.contains(event.getItemDrop().getItemStack().getType()))
-			event.setCancelled(true);
+	
+	public static void onScrollItemInteract(InventoryClickEvent event, String itemName) {
+		Player player = (Player) event.getWhoClicked();
+		ItemStack scroll = (player.getItemOnCursor());
+		if(!validScrollMaterials.contains(scroll.getType())) {
+			return;
+		}
+		String scrollName = scroll.getItemMeta().getDisplayName();
+		
+		ItemStack itemStack = event.getCurrentItem();
+		boolean isNotScroll = !itemName.contains("Scroll");
+		boolean isIdentified = !itemName.contains("Unidentified");
+		
+		if(isNotScroll && scrollName.contains("Scroll of Wisdom")) {
+			if(!isIdentified) {
+				WauzIdentifier.identify(event, itemName);
+				scroll.setAmount(scroll.getAmount() - 1);
+				event.setCancelled(true);
+			}
+		}
+		else if(isNotScroll && scrollName.contains("Scroll of Fortune")) {
+			if(ShopBuilder.sell((Player) player, itemStack, false)) {
+				scroll.setAmount(scroll.getAmount() - 1);
+				event.setCancelled(true);
+			}	
+		}
+		else if(isNotScroll && scrollName.contains("Scroll of Toughness")) {
+			if(ShopBuilder.repair((Player) player, itemStack, false)) {
+				scroll.setAmount(scroll.getAmount() - 1);
+				event.setCancelled(true);
+			}
+		}
+		else if(isNotScroll && scrollName.contains("Scroll of Regret")) {
+			if(Equipment.clearAllSockets(event)) {
+				scroll.setAmount(scroll.getAmount() - 1);
+				event.setCancelled(true);
+			}
+		}
+		else if(scrollName.contains("Rune")) {
+			if(isIdentified && Equipment.insertRune(event)) {
+				scroll.setAmount(scroll.getAmount() - 1);
+				event.setCancelled(true);
+			}
+		}
+		else if(scrollName.contains("Skillgem")) {
+			if(isIdentified && Equipment.insertSkillgem(event)) {
+				scroll.setAmount(scroll.getAmount() - 1);
+				event.setCancelled(true);
+			}
+		}
 	}
 	
-	public static void onStaticItemSwap(PlayerSwapHandItemsEvent event) {
+	private static boolean isHotbarItemInteractionValid(InventoryClickEvent event) {
+		ItemStack itemStack = event.getClickedInventory().getItem(event.getHotbarButton());
+		if(itemStack != null) {
+			if(staticItems.contains(itemStack.getType())) {
+				event.setCancelled(true);
+				return false;
+			}
+			String itemName = ItemUtils.hasDisplayName(itemStack) ? itemStack.getItemMeta().getDisplayName() : "";
+			if(itemName.contains("Cosmetic Item")) {
+				event.setCancelled(true);
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static void checkForStaticItemDrop(PlayerDropItemEvent event) {
+		if(staticItems.contains(event.getItemDrop().getItemStack().getType())) {
+			event.setCancelled(true);
+		}
+	}
+	
+	public static void checkForStaticItemSwap(PlayerSwapHandItemsEvent event) {
 		Material mainHandType = event.getMainHandItem().getType();
 		Material offHandType = event.getOffHandItem().getType();
-		if(staticItems.contains(mainHandType) || staticItems.contains(offHandType))
+		if(staticItems.contains(mainHandType) || staticItems.contains(offHandType)) {
 			event.setCancelled(true);
+		}
 	}
 
 }

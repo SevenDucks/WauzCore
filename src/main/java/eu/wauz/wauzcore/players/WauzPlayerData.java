@@ -161,7 +161,7 @@ public class WauzPlayerData {
 	}
 	
 	public void updateSkillCooldown(Player player, String skillId) {
-		Long cooldown = (long) (player.hasPermission("wauz.debug.magic") ? 1 : WauzPlayerSkillExecutor.playerSkillMap.get(skillId).getCooldownSeconds());
+		Long cooldown = (long) (player.hasPermission("wauz.debug.magic") ? 1 : WauzPlayerSkillExecutor.getSkill(skillId).getCooldownSeconds());
 		skillCooldownMap.put(skillId, cooldown * 1000 + System.currentTimeMillis());
 	}
 	

@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.items;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -23,17 +24,49 @@ import net.md_5.bungee.api.ChatColor;
 
 public class WauzIdentifier {
 
-	public static List<Equipment> material = new ArrayList<>();
+	private static List<Equipment> equipTypes = new ArrayList<>();
 	
-	public static List<String> equipNames = new ArrayList<>();
-	public static List<String> runeNames = new ArrayList<>();
-	public static List<String> shrineNames = new ArrayList<>();
+	public static void addEquipType(Equipment equip) {
+		equipTypes.add(equip);
+	}
+	
+	private static List<String> equipNames = new ArrayList<>(Arrays.asList(
+			"Adamantite", "Ancient", "Alloyed", "Barbarian", "Blessed",
+			"Broken", "Ceremonial", "Cobalt", "Colossal", "Corrupted",
+			"Cruel", "Cursed", "Damaged", "Dragonbone", "Enchanted",
+			"Fallen", "Fierce", "Flaming", "Forgotten", "Forsaken",
+			"Frozen", "Gay", "Giant", "Goddess", "Guardian",
+			"Hellforged", "Holy", "Lightforged", "Lost", "Majestic",
+			"Malevolent", "Merciful", "Mighty", "Mythril", "Outlandish",
+			"Plain", "Polished", "Robust", "Royal", "Ruined",
+			"Rusty", "Savage", "Soldier", "Spiked", "Stained",
+			"Timeworn", "Warforged", "Weakened", "Weathered", "Worthless"));
+	
+	private static List<String> runeNames = new ArrayList<>(Arrays.asList(
+			"Power", "Knowledge", "Thorns"));
+	
+	private static List<String> shrineNames = new ArrayList<>(Arrays.asList(
+			"Amon", "Atar", "Baka", "Bael", "Cata", "Cesa", "Daku", "Deus", "Elek", "Esto", "Furo", "Fitu", "Garo",
+			"Gyro", "Hino", "Hane", "Ivel", "Inuk", "Jago", "Jojo", "Kaka", "Kars", "Leto", "Lupo", "Maro", "Magi",
+			"Naga", "Notu", "Omek", "Oraa", "Popo", "Pino", "Qire", "Quez", "Raka", "Reem", "Sora", "Sado", "Tera",
+			"Toem", "Utga", "Uros", "Vari", "Vago", "Wesa", "Wamu", "Xera", "Xulu", "Yaga", "Yare", "Zaga", "Zeli"));
 	
 	public static final String EMPTY_SKILL_SLOT =
 			ChatColor.WHITE + "Skill Slot (" + ChatColor.DARK_RED + "Empty" + ChatColor.WHITE + ")";
 	
 	public static final String EMPTY_RUNE_SLOT =
 			ChatColor.WHITE + "Rune Slot (" + ChatColor.GREEN + "Empty" + ChatColor.WHITE + ")";
+	
+	public static void identify(InventoryClickEvent event, String itemName) {
+		if(itemName.contains("Item"))
+			WauzIdentifier.identifyItem(event);
+		else if(itemName.contains("Rune"))
+			WauzIdentifier.identifyRune(event);
+		else if(itemName.contains("Map"))
+			WauzIdentifier.identifyShrine(event);
+		else if(itemName.contains("Skillgem"))
+			WauzIdentifier.identifySkillgem(event);
+	}
 	
 	public static void identifyItem(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
@@ -47,7 +80,7 @@ public class WauzIdentifier {
 // Set Item Material
 		
 		double typeMultiplicator = 0;
-		Equipment equip = material.get(random.nextInt(material.size()));
+		Equipment equip = equipTypes.get(random.nextInt(equipTypes.size()));
 		
 		itemStack.setType(equip.getMaterial());
 		typeMultiplicator = equip.getDamage();
@@ -399,13 +432,13 @@ public class WauzIdentifier {
 		ItemStack itemStack = event.getCurrentItem();
 		
 		Random random = new Random();
-		List<String> skills = new ArrayList<>(WauzPlayerSkillExecutor.playerSkillMap.keySet());
+		List<String> skills = WauzPlayerSkillExecutor.getAllSkillIds();
 		String skillgemName = skills.get(random.nextInt(skills.size()));
 		
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.DARK_RED + "Skillgem: " + ChatColor.LIGHT_PURPLE + skillgemName);
 		
-		WauzPlayerSkill skill = WauzPlayerSkillExecutor.playerSkillMap.get(skillgemName);
+		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillgemName);
 		
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.GRAY + "Can be inserted into a Weapon,");

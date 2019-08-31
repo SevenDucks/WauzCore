@@ -61,7 +61,7 @@ public class WauzDebugger {
 	}
 	
 	public static boolean getSkillgemWeapon(Player player, String skillId) {
-		WauzPlayerSkill skill = WauzPlayerSkillExecutor.playerSkillMap.get(skillId);
+		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillId);
 		if(skill == null)
 			return false;
 		

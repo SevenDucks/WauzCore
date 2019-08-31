@@ -17,6 +17,9 @@ Patch 508: Skill Pack II
 	    > Sacrifices HP to deal heavy Damage
 	  - The Tower XVI
 	    > Projectile Totem to attack Enemies
+	    
+	Miscellaneous
+	  - Discord Bot Improvements
 
 Patch 507: Skill Pack I
     Enhancements
