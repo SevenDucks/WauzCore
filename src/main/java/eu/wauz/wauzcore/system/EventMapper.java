@@ -17,6 +17,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.CustomWeaponBow;
 import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.items.WauzScrolls;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.dungeon.DungeonItemChickenGlider;
 import eu.wauz.wauzcore.items.dungeon.DungeonItemThunderRod;
@@ -103,7 +104,7 @@ public class EventMapper {
 		else if(itemStack != null) {
 			Material type = itemStack.getType();
 			if(type.equals(Material.NETHER_STAR))		WauzMenu.open(player);
-			else if(type.equals(Material.NAME_TAG))		MenuUtils.onScrollItemInteract(event);
+			else if(type.equals(Material.NAME_TAG))		WauzScrolls.onScrollItemInteract(event);
 			else if(type.equals(Material.BOW))			CustomWeaponBow.use(event);
 			else if(type.equals(Material.BLAZE_ROD))	DungeonItemThunderRod.use(event);
 			else if(type.equals(Material.FEATHER))		DungeonItemChickenGlider.use(event);

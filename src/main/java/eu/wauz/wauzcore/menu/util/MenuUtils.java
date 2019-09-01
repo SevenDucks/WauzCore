@@ -13,19 +13,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
-import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.ItemUtils;
-import eu.wauz.wauzcore.items.WauzIdentifier;
-import eu.wauz.wauzcore.menu.PetOverviewMenu;
-import eu.wauz.wauzcore.menu.ShopBuilder;
+import eu.wauz.wauzcore.items.WauzScrolls;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
@@ -33,6 +28,11 @@ import net.md_5.bungee.api.ChatColor;
 public class MenuUtils {
 	
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
+	
+	private static List<Material> staticItems = new ArrayList<>(Arrays.asList(
+			Material.FILLED_MAP, Material.DIAMOND, Material.CLOCK, Material.NETHER_STAR,
+			Material.BARRIER, Material.PLAYER_HEAD, Material.FISHING_ROD, Material.SNOWBALL,
+			Material.BLAZE_ROD, Material.FEATHER));
 	
 	public static void constructPlayerInventory(InventoryOpenEvent event) {
 		Player player = (Player) event.getPlayer();
@@ -129,25 +129,15 @@ public class MenuUtils {
 		}
 	}
 	
-	private static List<Material> staticItems = new ArrayList<>(Arrays.asList(
-			Material.FILLED_MAP, Material.DIAMOND, Material.CLOCK, Material.NETHER_STAR,
-			Material.BARRIER, Material.PLAYER_HEAD, Material.FISHING_ROD, Material.SNOWBALL,
-			Material.BLAZE_ROD, Material.FEATHER));
-	
-	private static List<Material> validScrollMaterials = new ArrayList<Material>(Arrays.asList(
-			Material.NAME_TAG, Material.FIREWORK_STAR, Material.REDSTONE));
-
 	public static void onSpecialItemInventoryClick(InventoryClickEvent event) {
 		boolean numberKeyPressed = event.getClick().equals(ClickType.NUMBER_KEY);
 		if(numberKeyPressed && !isHotbarItemInteractionValid(event)) {
 			return;
 		}
-		
 		ItemStack itemStack = event.getCurrentItem();
 		if(itemStack == null) {
 			return;
 		}
-		
 		if(staticItems.contains(itemStack.getType())) {
 			if(itemStack.getType().equals(Material.NETHER_STAR)) {
 				WauzMenu.open((Player) event.getWhoClicked());
@@ -155,81 +145,12 @@ public class MenuUtils {
 			event.setCancelled(true);
 			return;
 		}
-		
 		String itemName = ItemUtils.hasDisplayName(itemStack) ? itemStack.getItemMeta().getDisplayName() : "";
 		if(itemName.contains("Cosmetic Item")) {
 			event.setCancelled(true);
 			return;
 		}
-		
-		onScrollItemInteract(event, itemName);
-	}
-	
-	public static void onScrollItemInteract(PlayerInteractEvent event) {
-		Player player = event.getPlayer();
-		ItemStack scroll = player.getEquipment().getItemInMainHand();
-		if(!ItemUtils.hasDisplayName(scroll))
-			return;
-		String scrollName = scroll.getItemMeta().getDisplayName();
-		
-		if(scrollName.contains("Scroll of Summoning")) {
-			PetOverviewMenu.addPet(event);
-		}
-		
-		else if(scrollName.contains("Scroll of Comfort")) {
-			new WauzPlayerEventHomeChange(player, scroll).execute(player);
-		}
-	}
-	
-	public static void onScrollItemInteract(InventoryClickEvent event, String itemName) {
-		Player player = (Player) event.getWhoClicked();
-		ItemStack scroll = (player.getItemOnCursor());
-		if(!validScrollMaterials.contains(scroll.getType())) {
-			return;
-		}
-		String scrollName = scroll.getItemMeta().getDisplayName();
-		
-		ItemStack itemStack = event.getCurrentItem();
-		boolean isNotScroll = !itemName.contains("Scroll");
-		boolean isIdentified = !itemName.contains("Unidentified");
-		
-		if(isNotScroll && scrollName.contains("Scroll of Wisdom")) {
-			if(!isIdentified) {
-				WauzIdentifier.identify(event, itemName);
-				scroll.setAmount(scroll.getAmount() - 1);
-				event.setCancelled(true);
-			}
-		}
-		else if(isNotScroll && scrollName.contains("Scroll of Fortune")) {
-			if(ShopBuilder.sell((Player) player, itemStack, false)) {
-				scroll.setAmount(scroll.getAmount() - 1);
-				event.setCancelled(true);
-			}	
-		}
-		else if(isNotScroll && scrollName.contains("Scroll of Toughness")) {
-			if(ShopBuilder.repair((Player) player, itemStack, false)) {
-				scroll.setAmount(scroll.getAmount() - 1);
-				event.setCancelled(true);
-			}
-		}
-		else if(isNotScroll && scrollName.contains("Scroll of Regret")) {
-			if(Equipment.clearAllSockets(event)) {
-				scroll.setAmount(scroll.getAmount() - 1);
-				event.setCancelled(true);
-			}
-		}
-		else if(scrollName.contains("Rune")) {
-			if(isIdentified && Equipment.insertRune(event)) {
-				scroll.setAmount(scroll.getAmount() - 1);
-				event.setCancelled(true);
-			}
-		}
-		else if(scrollName.contains("Skillgem")) {
-			if(isIdentified && Equipment.insertSkillgem(event)) {
-				scroll.setAmount(scroll.getAmount() - 1);
-				event.setCancelled(true);
-			}
-		}
+		WauzScrolls.onScrollItemInteract(event, itemName);
 	}
 	
 	private static boolean isHotbarItemInteractionValid(InventoryClickEvent event) {
