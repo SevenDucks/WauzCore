@@ -21,7 +21,9 @@ import eu.wauz.wauzcore.skills.SkillTheHierophant;
 import eu.wauz.wauzcore.skills.SkillTheHighPriestess;
 import eu.wauz.wauzcore.skills.SkillTheLovers;
 import eu.wauz.wauzcore.skills.SkillTheMagician;
+import eu.wauz.wauzcore.skills.SkillTheMoon;
 import eu.wauz.wauzcore.skills.SkillTheStar;
+import eu.wauz.wauzcore.skills.SkillTheSun;
 import eu.wauz.wauzcore.skills.SkillTheTower;
 import eu.wauz.wauzcore.skills.SkillTheWorld;
 import eu.wauz.wauzcore.skills.SkillWheelOfFortune;
@@ -71,6 +73,8 @@ public class WauzLoader {
 		WauzPlayerSkillExecutor.registerSkill(new SkillTemperance());		// Tarot (14) XIV
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheTower());			// Tarot (16) XVI
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheStar());			// Tarot (17) XVII
+		WauzPlayerSkillExecutor.registerSkill(new SkillTheMoon());			// Tarot (18) XVIII
+		WauzPlayerSkillExecutor.registerSkill(new SkillTheSun());			// Tarot (19) XIX
 		WauzPlayerSkillExecutor.registerSkill(new SkillJudgement());		// Tarot (20) XX
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheWorld());			// Tarot (21) XXI
 		

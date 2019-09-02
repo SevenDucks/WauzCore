@@ -1,6 +1,11 @@
 Patch 5XX: Rapid Racing
 
 Patch 509: Skill Pack III
+	Added Skills
+	  - The Moon XVIII
+	    > Fires Beam of Frost
+	  - The Sun XIX
+	    > Fires Beam of Flame
 
 Patch 508: Skill Pack II
 	Minecraft Update
