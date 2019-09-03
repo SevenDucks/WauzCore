@@ -5,6 +5,10 @@ import org.bukkit.Material;
 
 import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.WauzIdentifier;
+import eu.wauz.wauzcore.items.runes.RuneKnowledge;
+import eu.wauz.wauzcore.items.runes.RunePower;
+import eu.wauz.wauzcore.items.runes.RuneThorns;
+import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.menu.ShopBuilder;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.players.WauzPlayerGuildTabCompleter;
@@ -43,7 +47,6 @@ public class WauzLoader {
 		WauzPlayerGuild.init();
 		
 		InstanceManager.removeInactiveInstances();
-		
 		StatisticsFetcher.calculate();
 		
 		Bukkit.getPluginCommand("apply").setTabCompleter(new WauzPlayerGuildTabCompleter());
@@ -53,7 +56,6 @@ public class WauzLoader {
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Tokens", "tokens");
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Coins", "reput.cow");
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Soulstones", "reput.souls");
-		
 		ShopBuilder.registerCurrency(ChatColor.BLUE + "Republic", "reput.wauzland");
 		ShopBuilder.registerCurrency(ChatColor.BLUE + "Eternal", "reput.empire");
 		ShopBuilder.registerCurrency(ChatColor.BLUE + "Dark", "reput.legion");
@@ -77,6 +79,10 @@ public class WauzLoader {
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheSun());			// Tarot (19) XIX
 		WauzPlayerSkillExecutor.registerSkill(new SkillJudgement());		// Tarot (20) XX
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheWorld());			// Tarot (21) XXI
+		
+		WauzRuneInserter.registerRune(new RunePower());
+		WauzRuneInserter.registerRune(new RuneKnowledge());
+		WauzRuneInserter.registerRune(new RuneThorns());
 		
 		WauzIdentifier.addEquipType(new Equipment("Weapon", Material.WOODEN_SWORD, " Shortsword", 1.50, 32));
 		WauzIdentifier.addEquipType(new Equipment("Weapon", Material.GOLDEN_SWORD, " Rapier", 1.55, 64));

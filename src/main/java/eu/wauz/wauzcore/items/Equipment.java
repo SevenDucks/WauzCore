@@ -10,9 +10,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.ArmorType;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.EquipMethod;
-import eu.wauz.wauzcore.items.runes.WauzRuneInserter;
-import eu.wauz.wauzcore.items.runes.WauzRuneRemover;
-import eu.wauz.wauzcore.items.runes.WauzSkillgemInserter;
+import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
+import eu.wauz.wauzcore.items.runes.insertion.WauzRuneRemover;
+import eu.wauz.wauzcore.items.runes.insertion.WauzSkillgemInserter;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 

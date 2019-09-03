@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.items.runes;
+package eu.wauz.wauzcore.items.runes.insertion;
 
 import java.util.ArrayList;
 import java.util.List;

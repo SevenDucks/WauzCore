@@ -78,6 +78,10 @@ public class ItemUtils {
 		return hasLore(itemStack) && doesLoreContain(itemStack, "Ammo Item");
 	}
 	
+	public static boolean hasRuneSocket(ItemStack itemStack) {
+		return hasLore(itemStack) && doesLoreContain(itemStack, ChatColor.GREEN + "Empty");
+	}
+	
 	public static boolean hasSkillgemSocket(ItemStack itemStack) {
 		return hasLore(itemStack) && doesLoreContain(itemStack, ChatColor.DARK_RED + "Empty");
 	}
@@ -270,20 +274,40 @@ public class ItemUtils {
 		return null;
 	}
 	
-	public static void replaceStringFromLore(ItemStack itemStack, String content, int index, String replacement) {
+	public static boolean replaceStringFromLore(ItemStack itemStack, String content, String replacement) {
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		List<String> lores = itemMeta.getLore();
 		List<String> newLores = new ArrayList<>();
+		boolean replaced = false;
 		for(String lore : lores) {
-			if(lore.contains(content)) {
-				String[] splitString = lore.split(" ");
-				splitString[index] = replacement;
-				lore = StringUtils.join(splitString, " ");
+			if(!replaced && lore.contains(content)) {
+				lore = replacement;
+				replaced = true;
 			}
 			newLores.add(lore);
 		}
 		itemMeta.setLore(newLores);
 		itemStack.setItemMeta(itemMeta);
+		return replaced;
+	}
+	
+	public static boolean replaceStringFromLore(ItemStack itemStack, String content, int index, String replacement) {
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		List<String> lores = itemMeta.getLore();
+		List<String> newLores = new ArrayList<>();
+		boolean replaced = false;
+		for(String lore : lores) {
+			if(!replaced && lore.contains(content)) {
+				String[] splitString = lore.split(" ");
+				splitString[index] = replacement;
+				lore = StringUtils.join(splitString, " ");
+				replaced = true;
+			}
+			newLores.add(lore);
+		}
+		itemMeta.setLore(newLores);
+		itemStack.setItemMeta(itemMeta);
+		return replaced;
 	}
 	
 	public static String getStringBetweenFromLore(ItemStack itemStack, String before, String after) {

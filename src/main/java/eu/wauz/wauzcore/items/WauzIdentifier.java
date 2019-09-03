@@ -15,6 +15,7 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.ChatFormatter;
@@ -41,9 +42,6 @@ public class WauzIdentifier {
 			"Plain", "Polished", "Robust", "Royal", "Ruined",
 			"Rusty", "Savage", "Soldier", "Spiked", "Stained",
 			"Timeworn", "Warforged", "Weakened", "Weathered", "Worthless"));
-	
-	private static List<String> runeNames = new ArrayList<>(Arrays.asList(
-			"Power", "Knowledge", "Thorns"));
 	
 	private static List<String> shrineNames = new ArrayList<>(Arrays.asList(
 			"Amon", "Atar", "Baka", "Bael", "Cata", "Cesa", "Daku", "Deus", "Elek", "Esto", "Furo", "Fitu", "Garo",
@@ -330,6 +328,7 @@ public class WauzIdentifier {
 		String name = itemStack.getItemMeta().getDisplayName();
 		
 		Random random = new Random();
+		List<String> runeNames = WauzRuneInserter.getAllRuneIds();
 		String rune = runeNames.get(random.nextInt(runeNames.size()));
 		int rarity = random.nextInt(1000);
 		
