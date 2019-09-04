@@ -18,7 +18,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Equipment {
 	
-	private String type;
+	private EquipmentType type;
 	
 	private Material material;
 	
@@ -28,7 +28,7 @@ public class Equipment {
 	
 	private int durability;
 	
-	public Equipment(String type, Material material, String name, double damage, int durability) {
+	public Equipment(EquipmentType type, Material material, String name, double damage, int durability) {
 		this.type = type;
 		this.material = material;
 		this.name = name;
@@ -36,11 +36,11 @@ public class Equipment {
 		this.durability = durability;
 	}
 
-	public String getType() {
+	public EquipmentType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(EquipmentType type) {
 		this.type = type;
 	}
 

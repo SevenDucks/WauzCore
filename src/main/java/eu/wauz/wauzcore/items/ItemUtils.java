@@ -90,17 +90,17 @@ public class ItemUtils {
 		return hasLore(itemStack) ? getStringBetweenFromLore(itemStack, "Skillgem (" + ChatColor.LIGHT_PURPLE, ChatColor.WHITE + ")") : null;
 	}
 	
-	public static String getEquipmentType(ItemStack itemStack) {
+	public static EquipmentType getEquipmentType(ItemStack itemStack) {
 		String itemMaterial = itemStack.getType().toString();
 		if(itemMaterial.contains("_SWORD") || itemMaterial.contains("_AXE") || itemMaterial.contains("_HOE") ||
 				itemMaterial.equals("BOW")) {
-			return "Weapon";
+			return EquipmentType.WEAPON;
 		}
 		else if(itemMaterial.contains("CHESTPLATE")) {
-			return "Armor";
+			return EquipmentType.ARMOR;
 		}
 		else {
-			return "Unknown";
+			return EquipmentType.UNKNOWN;
 		}
 	}
 	

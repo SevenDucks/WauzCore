@@ -187,13 +187,13 @@ public class WauzIdentifier {
 		attack += 1;
 		
 		String mainStatString = "";
-		if(equip.getType().equals("Weapon")) {	
+		if(equip.getType().equals(EquipmentType.WEAPON)) {	
 			lores.add(ChatColor.WHITE + tierName + rareName + "Weapon " + rareStars);
 			lores.add("");
 			mainStatString = "Attack:" + ChatColor.RED + " " + attack + scalingString;
 			lores.add(mainStatString);
 		}
-		else if(equip.getType().equals("Armor")) {		
+		else if(equip.getType().equals(EquipmentType.ARMOR)) {		
 			lores.add(ChatColor.WHITE + tierName + rareName + "Armor " + rareStars);
 			lores.add("");
 			mainStatString = "Defense:" + ChatColor.BLUE + " " + defense + scalingString;
@@ -217,7 +217,7 @@ public class WauzIdentifier {
 				String enhancementName = "";
 				String enhancementDescription = "";
 				
-				if(equip.getType().equals("Weapon")) {
+				if(equip.getType().equals(EquipmentType.WEAPON)) {
 					int enhancementType = random.nextInt(5);
 					
 					if(enhancementType == 0) {
@@ -253,7 +253,7 @@ public class WauzIdentifier {
 					lores.add("Enhancement:" + ChatColor.RED + " " + enhancementDescription);
 				}
 				
-				else if(equip.getType().equals("Armor")) {
+				else if(equip.getType().equals(EquipmentType.ARMOR)) {
 					int enhancementType = random.nextInt(3);
 					
 					if(enhancementType == 0) {
@@ -303,7 +303,7 @@ public class WauzIdentifier {
 			lores.add(ChatColor.GRAY + "Right Click to shoot Arrows");
 		}
 		else if(rarityMultiplicator >= 1.5) {
-			if(equip.getType().equals("Weapon") && Chance.oneIn(2)) {
+			if(equip.getType().equals(EquipmentType.WEAPON) && Chance.oneIn(2)) {
 				lores.add("");
 				lores.add(EMPTY_SKILL_SLOT);
 			}

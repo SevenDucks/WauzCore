@@ -1,6 +1,10 @@
 Patch 5XX: Rapid Racing
 
 Patch 509: Skill Pack III
+	Runes
+	  - New Rune "Hardening"
+	    > Increases Maximum Durability
+
 	Added Skills
 	  - The Moon XVIII
 	    > Fires Beam of Frost
