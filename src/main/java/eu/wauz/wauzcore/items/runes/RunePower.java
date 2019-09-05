@@ -25,19 +25,13 @@ public class RunePower implements WauzRune {
 			int baseAttack = ItemUtils.getBaseAtk(equipmentItemStack);
 			double bonusAttack = baseAttack * runeMightDecimal + 1;
 			bonusLore = ChatColor.RED + "+" + (int) bonusAttack + " Atk";
-			
-			String oldAttackLore = "Attack:" + ChatColor.RED + " " + baseAttack;
-			String newAttackLore = "Attack:" + ChatColor.RED + " " + ((int) (baseAttack + bonusAttack));
-			ItemUtils.replaceStringFromLore(equipmentItemStack, oldAttackLore, newAttackLore);
+			ItemUtils.setBaseAtk(equipmentItemStack, (int) (baseAttack + bonusAttack));
 		}
 		else if(equipmentType.equals(EquipmentType.ARMOR)) {
 			int baseDefense = ItemUtils.getBaseDef(equipmentItemStack);
 			double bonusDefense = baseDefense * runeMightDecimal + 1;
 			bonusLore = ChatColor.BLUE + "+" + (int) bonusDefense + " Def";
-			
-			String oldDefenseLore = "Defense:" + ChatColor.BLUE + " " + baseDefense;
-			String newDefenseLore = "Defense:" + ChatColor.BLUE + " " + ((int) (baseDefense + bonusDefense));
-			ItemUtils.replaceStringFromLore(equipmentItemStack, oldDefenseLore, newDefenseLore);
+			ItemUtils.setBaseDef(equipmentItemStack, (int) (baseDefense + bonusDefense));
 		}
 		
 		if(StringUtils.isNoneBlank(bonusLore)) {

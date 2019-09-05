@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.items.runes.insertion;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -10,7 +11,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.items.WauzIdentifier;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import net.md_5.bungee.api.ChatColor;
 
 public class WauzRuneRemover {
 
@@ -22,7 +22,20 @@ public class WauzRuneRemover {
 		
 		int skipLines = 0;
 		int atkManus = ItemUtils.getRuneAtkBoost(equipmentItemStack);
+		if(atkManus > 0) {
+			int baseAttack = ItemUtils.getBaseAtk(equipmentItemStack);
+			ItemUtils.setBaseAtk(equipmentItemStack, baseAttack - atkManus);
+		}
 		int defManus = ItemUtils.getRuneDefBoost(equipmentItemStack);
+		if(defManus > 0) {
+			int baseDefense = ItemUtils.getBaseDef(equipmentItemStack);
+			ItemUtils.setBaseDef(equipmentItemStack, baseDefense - defManus);
+		}
+		int durManus = ItemUtils.getRuneDurBoost(equipmentItemStack);
+		if(durManus > 0) {
+			int baseDurability = ItemUtils.getMaximumDurability(equipmentItemStack);
+			ItemUtils.setMaximumDurability(equipmentItemStack, baseDurability - durManus);
+		}
 		
 		ItemMeta itemMeta = equipmentItemStack.getItemMeta();
 		List<String> newLores = new ArrayList<>();
@@ -30,24 +43,6 @@ public class WauzRuneRemover {
 			if(skipLines > 0) {
 				skipLines--;
 				continue;
-			}
-			else if(lore.contains("Attack") && atkManus > 0) {
-				String[] val = lore.split(" ");
-				Integer attack = Integer.parseInt(val[1]);
-				int newValue = attack - atkManus;
-				lore = lore.replace(
-						ChatColor.RED + " " + attack,
-						ChatColor.RED + " " + newValue);
-				WauzDebugger.log(player, "Manus: " + atkManus);
-			}
-			else if(lore.contains("Defense") && defManus > 0) {
-				String[] val = lore.split(" ");
-				Integer defense = Integer.parseInt(val[1]);
-				int newValue = defense - defManus;
-				lore = lore.replace(
-						ChatColor.BLUE + " " + defense,
-						ChatColor.BLUE + " " + newValue);	
-				WauzDebugger.log(player, "Manus: " + defManus);
 			}
 			else if(lore.contains("Rune (")) {
 				WauzDebugger.log(player, "Cleared Rune Slot");
@@ -66,6 +61,7 @@ public class WauzRuneRemover {
 		if(valid) {
 			itemMeta.setLore(newLores);
 			equipmentItemStack.setItemMeta(itemMeta);
+			player.getWorld().playEffect(player.getLocation(), Effect.EXTINGUISH, 0);
 		}
 		return valid;
 	}

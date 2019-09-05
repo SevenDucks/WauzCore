@@ -210,7 +210,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	private String getProfileString(String message) {
 		try {
 			OfflinePlayer player = WauzCore.getOfflinePlayer(message.split(" ")[2]);
-			if(player.getFirstPlayed() == 0 && player.getLastPlayed() == 0)
+			if(player.getFirstPlayed() == 0)
 				throw new NullPointerException("Unknown Player!");
 			
 			String profileString = "";

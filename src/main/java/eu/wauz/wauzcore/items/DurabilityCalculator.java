@@ -34,15 +34,19 @@ public class DurabilityCalculator {
 			player.sendMessage(ChatColor.YELLOW + "Your " + displayName + ChatColor.YELLOW + " is about to break!");
 		}
 		
-		Damageable damageable = (Damageable) itemStack.getItemMeta();
 		int materialDurability = itemStack.getType().getMaxDurability();
 		int damage = maxDurability - durability;
 		damage = (int) ((double) (damage * materialDurability) / (double) maxDurability);
-		damageable.setDamage(damage < materialDurability ? damage : materialDurability - 1);
-		itemStack.setItemMeta((ItemMeta) damageable);
+		setDamage(itemStack, damage < materialDurability ? damage : materialDurability - 1);
 		
 		ItemUtils.setDurability(itemStack, durability);
 		WauzDebugger.log(player, "Durability: " + durability + " / " + maxDurability + " for " + displayName);
+	}
+	
+	public static void setDamage(ItemStack itemStack, int damage) {
+		Damageable damageable = (Damageable) itemStack.getItemMeta();
+		damageable.setDamage(damage);
+		itemStack.setItemMeta((ItemMeta) damageable);
 	}
 
 }

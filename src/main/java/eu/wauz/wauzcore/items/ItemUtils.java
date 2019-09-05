@@ -108,8 +108,20 @@ public class ItemUtils {
 		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Attack:" + ChatColor.RED, 1) : 1;
 	}
 	
+	public static boolean setBaseAtk(ItemStack itemStack, int newAttack) {
+		String oldAttackLore = "Attack:" + ChatColor.RED + " ";
+		String newAttackLore = "Attack:" + ChatColor.RED + " " + newAttack;
+		return ItemUtils.replaceStringFromLore(itemStack, oldAttackLore, newAttackLore);
+	}
+	
 	public static int getBaseDef(ItemStack itemStack) {
 		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Defense:" + ChatColor.BLUE, 1) : 0;
+	}
+	
+	public static boolean setBaseDef(ItemStack itemStack, int newDefense) {
+		String oldDefenseLore = "Defense:" + ChatColor.BLUE + " ";
+		String newDefenseLore = "Defense:" + ChatColor.BLUE + " " + newDefense;
+		return ItemUtils.replaceStringFromLore(itemStack, oldDefenseLore, newDefenseLore);
 	}
 	
 	public static int getRuneMight(ItemStack itemStack) {
@@ -128,12 +140,24 @@ public class ItemUtils {
 		replaceStringFromLore(itemStack, "Durability:" + ChatColor.DARK_GREEN, 1, durability + "");
 	}
 	
+	public static boolean setMaximumDurability(ItemStack itemStack, int newDurability) {
+		String oldDurabilityLore = "Durability:" + ChatColor.DARK_GREEN + " ";
+		String newDurabilityLore = "Durability:" + ChatColor.DARK_GREEN + " " + newDurability;
+		newDurabilityLore += " " + ChatColor.DARK_GRAY + "/ " + newDurability;
+		DurabilityCalculator.setDamage(itemStack, 0);
+		return ItemUtils.replaceStringFromLore(itemStack, oldDurabilityLore, newDurabilityLore);
+	}
+	
 	public static int getRuneAtkBoost(ItemStack itemStack) {
 		return getIntegerSumBetweenFromLore(itemStack, ChatColor.YELLOW + "Power Rune (" + ChatColor.RED + "+", " Atk");
 	}
 	
 	public static int getRuneDefBoost(ItemStack itemStack) {
 		return getIntegerSumBetweenFromLore(itemStack, ChatColor.YELLOW + "Power Rune (" + ChatColor.BLUE + "+", " Def");
+	}
+	
+	public static int getRuneDurBoost(ItemStack itemStack) {
+		return getIntegerSumBetweenFromLore(itemStack, ChatColor.YELLOW + "Hardening Rune (" + ChatColor.DARK_GREEN + "+", " Dur");
 	}
 	
 	public static int getLevelRequirement(ItemStack itemStack) {

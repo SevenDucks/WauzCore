@@ -10,6 +10,9 @@ Patch 509: Skill Pack III
 	    > Fires Beam of Frost
 	  - The Sun XIX
 	    > Fires Beam of Flame
+	    
+	Miscellaneous
+	  - Switched from Spigot to Paper Server
 
 Patch 508: Skill Pack II
 	Minecraft Update

@@ -101,8 +101,9 @@ public class DamageCalculator {
 			multiplier += Chance.negativePositive(0.15f);
 		}
 		
-		if(entity.hasMetadata("wzModMassive"))
+		if(entity.hasMetadata("wzModMassive")) {
 			multiplier = 0.2f * multiplier;
+		}
 		
 		WauzDebugger.log(player, "Randomized Multiplier: " + formatter.format(multiplier) + (isCritical ? " CRIT" : ""));
 		damage = (int) ((float) damage * (float) multiplier);
