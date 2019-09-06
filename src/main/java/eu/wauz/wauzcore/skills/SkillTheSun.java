@@ -7,9 +7,10 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
+import eu.wauz.wauzcore.skills.particles.SkillParticle;
 
 public class SkillTheSun implements WauzPlayerSkill {
 	
@@ -49,8 +50,8 @@ public class SkillTheSun implements WauzPlayerSkill {
 			Location targetLocation = target.getLocation().clone().add(0, 1, 0);
 			player.getWorld().playSound(originLocation, Sound.ENTITY_FIREWORK_ROCKET_BLAST, 1, 0.5f);
 			SkillParticle particle = new SkillParticle(Particle.DRIP_LAVA);
-			SkillUtils.spawnParticleLine(originLocation, targetLocation, particle, 1, 0.25);
-			SkillUtils.spawnParticleWave(target.getLocation(), particle, 2);
+			ParticleSpawner.spawnParticleLine(originLocation, targetLocation, particle, 1, 0.25);
+			ParticleSpawner.spawnParticleWave(target.getLocation(), particle, 2);
 			SkillUtils.callPlayerMagicDamageEvent(player, target, 3.2);
 			SkillUtils.throwBackEntity(target, player.getLocation(), 1.2);
 			return true;

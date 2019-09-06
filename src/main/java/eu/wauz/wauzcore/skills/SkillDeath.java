@@ -2,14 +2,16 @@ package eu.wauz.wauzcore.skills;
 
 import org.bukkit.Color;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
-import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
+import eu.wauz.wauzcore.skills.particles.SkillParticle;
 
 public class SkillDeath implements WauzPlayerSkill {
 	
@@ -48,13 +50,15 @@ public class SkillDeath implements WauzPlayerSkill {
 			DamageCalculator.setHealth(player, 1);
 			SkillUtils.callPlayerMagicDamageEvent(player, target, 15);
 			
+			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_IMPACT, 1, 0.5f);
+			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SPAWN, 1, 2);
 			SkillParticle flashParticle = new SkillParticle(Particle.FLASH);
 			flashParticle.spawn(player.getLocation(), 1);
 			flashParticle.spawn(target.getLocation(), 1);
 			
 			SkillParticle bloodParticle = new SkillParticle(Color.RED);
-			SkillUtils.spawnParticleCircle(player.getLocation().clone().add(0, 0.5, 0), bloodParticle, 1.5, 6);
-			SkillUtils.spawnParticleCircle(target.getLocation().clone().add(0, 0.5, 0), bloodParticle, 1.5, 6);
+			ParticleSpawner.spawnParticleCircle(player.getLocation().clone().add(0, 0.5, 0), bloodParticle, 1.5, 6);
+			ParticleSpawner.spawnParticleCircle(target.getLocation().clone().add(0, 0.5, 0), bloodParticle, 1.5, 6);
 			return true;
 		}
 		return false;

@@ -12,9 +12,10 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
+import eu.wauz.wauzcore.skills.particles.SkillParticle;
 
 public class SkillTheEmperor implements WauzPlayerSkill {
 	
@@ -72,12 +73,12 @@ public class SkillTheEmperor implements WauzPlayerSkill {
             
             SkillParticle beamParticle = new SkillParticle(Color.ORANGE);
             SkillParticle gateParticle = new SkillParticle(Color.YELLOW);
-            SkillUtils.spawnParticleSphere(attackLocation, gateParticle, 0.8);
+            ParticleSpawner.spawnParticleSphere(attackLocation, gateParticle, 0.8);
             
             if(hasTargets) {
             	Entity target = targets.get(random.nextInt(targets.size()));
             	player.getWorld().playSound(attackLocation, Sound.BLOCK_BELL_USE, 1, 2);
-            	SkillUtils.spawnParticleLine(attackLocation, target.getLocation(), beamParticle, 1);
+            	ParticleSpawner.spawnParticleLine(attackLocation, target.getLocation(), beamParticle, 1);
             	SkillUtils.callPlayerMagicDamageEvent(player, target, 4);
             }
         }

@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.skills.execution;
+package eu.wauz.wauzcore.skills.particles;
 
 import org.bukkit.Color;
 import org.bukkit.Location;

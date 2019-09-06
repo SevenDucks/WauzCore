@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.skills;
 import java.util.List;
 
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -44,6 +45,7 @@ public class SkillTheWorld implements WauzPlayerSkill {
 	public boolean executeSkill(final Player player, ItemStack weapon) {
 		Location location = player.getLocation();
 		SkillUtils.throwEntityIntoAir(player, 0.6);
+		player.getWorld().playSound(location, Sound.ENTITY_WITHER_DEATH, 1, 1);
 		
 		List<Entity> targets = SkillUtils.getTargetsInRadius(location, 6);
 		SkillUtils.addPotionEffect(targets, PotionEffectType.SLOW, 5, 200);

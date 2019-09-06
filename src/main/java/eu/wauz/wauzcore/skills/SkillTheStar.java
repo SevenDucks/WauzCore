@@ -3,14 +3,15 @@ package eu.wauz.wauzcore.skills;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
-import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
 public class SkillTheStar implements WauzPlayerSkill {
@@ -58,6 +59,8 @@ public class SkillTheStar implements WauzPlayerSkill {
 		            		Location location = target.getLocation();
 		            		location.setY(location.getY() + 1);
 		            		
+		            		location.getWorld().playSound(location, Sound.ENTITY_VILLAGER_AMBIENT, 1, 0.8f);
+		            		location.getWorld().playSound(location, Sound.ENTITY_VILLAGER_AMBIENT, 1, 0.5f);
 		            		new SkillParticle(Particle.SWEEP_ATTACK).spawn(location, 2);
 		            		
 		            		if(finalIterator == 2 || finalIterator == 6 || finalIterator == 10)

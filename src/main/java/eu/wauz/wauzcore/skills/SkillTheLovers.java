@@ -5,14 +5,16 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
+import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
-import eu.wauz.wauzcore.skills.execution.SkillParticle;
 
 public class SkillTheLovers implements WauzPlayerSkill {
 	
@@ -52,9 +54,10 @@ public class SkillTheLovers implements WauzPlayerSkill {
 		}
 		
 		List<Entity> targets = SkillUtils.getTargetsInRadius(location, 5);
-		SkillUtils.spawnParticleHelix(location, new SkillParticle(Particle.SMOKE_NORMAL), 1.5, 3.5);
+		location.getWorld().playSound(location, Sound.ENTITY_GHAST_WARN, 1, 0.5f);
+		ParticleSpawner.spawnParticleHelix(location, new SkillParticle(Particle.SMOKE_NORMAL), 1.5, 3.5);
 		for(Entity target : targets) {
-			SkillUtils.spawnParticleLine(target.getLocation(), location, new SkillParticle(Particle.CRIT_MAGIC), 3);
+			ParticleSpawner.spawnParticleLine(target.getLocation(), location, new SkillParticle(Particle.CRIT_MAGIC), 3);
 			SkillUtils.throwEntity(target, location);
 		}
 		return targets.size() > 0;

@@ -1,13 +1,15 @@
 package eu.wauz.wauzcore.skills;
 
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
+import eu.wauz.wauzcore.skills.particles.SkillParticle;
 
 public class SkillStrength implements WauzPlayerSkill {
 	
@@ -40,8 +42,9 @@ public class SkillStrength implements WauzPlayerSkill {
 
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
+		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1, 2f);
 		SkillParticle particle = new SkillParticle(Particle.VILLAGER_ANGRY);
-		SkillUtils.spawnParticleSphere(player.getLocation(), particle, 1.5);
+		ParticleSpawner.spawnParticleSphere(player.getLocation(), particle, 1.5);
 		SkillUtils.addPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 15, 0);
 		
 		return true;

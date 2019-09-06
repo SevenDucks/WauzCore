@@ -5,13 +5,15 @@ import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
+import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
-import eu.wauz.wauzcore.skills.execution.SkillParticle;
 
 public class SkillTheEmpress implements WauzPlayerSkill {
 	
@@ -59,7 +61,8 @@ public class SkillTheEmpress implements WauzPlayerSkill {
 		originLocation.setY(originLocation.getY() + 1);
 		targetLocation.setY(targetLocation.getY() + 1);
 		
-		SkillUtils.spawnParticleLine(originLocation, targetLocation, new SkillParticle(Particle.SPELL_WITCH), 3);
+		player.getWorld().playSound(originLocation, Sound.ITEM_CHORUS_FRUIT_TELEPORT, 1, (float) (0.8 + (remainingChains * 0.4)));
+		ParticleSpawner.spawnParticleLine(originLocation, targetLocation, new SkillParticle(Particle.SPELL_WITCH), 3);
 		SkillUtils.callPlayerMagicDamageEvent(player, target, 2.5);
 		
 		if(remainingChains > 0) {

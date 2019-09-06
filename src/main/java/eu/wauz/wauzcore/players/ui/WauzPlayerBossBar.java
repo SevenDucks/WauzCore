@@ -17,8 +17,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.skills.execution.SkillParticle;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
+import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
@@ -139,7 +140,7 @@ public class WauzPlayerBossBar {
 	        				}
 	        			}
 	        			if(particle != null)
-	        				SkillUtils.spawnParticleCircle(damageable.getLocation(), particle, 1, 8);
+	        				ParticleSpawner.spawnParticleCircle(damageable.getLocation(), particle, 1, 8);
 	        			if(damageable.hasMetadata("wzModRavenous"))
 	        				SkillUtils.addPotionEffect(damageable, PotionEffectType.SPEED, 2, 4);
 	        			doPlayerChecks();
