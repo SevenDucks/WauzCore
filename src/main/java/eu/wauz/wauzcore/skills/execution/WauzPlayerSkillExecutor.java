@@ -35,6 +35,10 @@ public class WauzPlayerSkillExecutor {
 		return new ArrayList<>(playerSkillMap.keySet());
 	}
 	
+	public static int getSkillTypesCount() {
+		return playerSkillMap.size();
+	}
+	
 	public static void registerSkill(WauzPlayerSkill skill) {
 		playerSkillMap.put(skill.getSkillId(), skill);
 	}

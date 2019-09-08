@@ -31,6 +31,10 @@ public class WauzIdentifier {
 		equipTypes.add(equip);
 	}
 	
+	public static int getEquipmentTypeCount() {
+		return equipTypes.size();
+	}
+	
 	private static List<String> equipNames = new ArrayList<>(Arrays.asList(
 			"Adamantite", "Ancient", "Alloyed", "Barbarian", "Blessed",
 			"Broken", "Ceremonial", "Cobalt", "Colossal", "Corrupted",

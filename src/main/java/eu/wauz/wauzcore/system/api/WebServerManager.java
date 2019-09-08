@@ -9,6 +9,10 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import eu.wauz.wauzcore.items.WauzIdentifier;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.system.WauzQuest;
+
 @SuppressWarnings("all")
 public class WebServerManager implements HttpHandler {
 
@@ -41,9 +45,14 @@ public class WebServerManager implements HttpHandler {
 	private static void sendWebappStats(HttpExchange httpExchange) {
 		try {
 			String response = "";
-			response += StatisticsFetcher.getTotalCustomEntitiesString() + ";";
-			response += StatisticsFetcher.getTotalPlayersString() + ";";
-			response += StatisticsFetcher.getTotalPlaytimeDaysString() + ";";
+			response += 229 + " Sqaure km Map to Explore;\r\n";
+			response += StatisticsFetcher.getTotalCustomEntitiesString() + " Unique Custom Entities;\r\n";
+			response += StatisticsFetcher.getTotalPlayersString() + " Registered Players;\r\n";
+			response += StatisticsFetcher.getTotalPlaytimeDaysString() + " Days of Total Playtime;\r\n";
+			response += WauzQuest.getQuestCount() + " Quests to Complete ;\r\n";
+			response += 0 + " Achievements to Collect;\r\n";
+			response += WauzIdentifier.getEquipmentTypeCount() + " Types of Equipment;\r\n";
+			response += WauzPlayerSkillExecutor.getSkillTypesCount() + " Types of Combat Skills;\r\n";
 			
 			Headers headers = httpExchange.getResponseHeaders();
             headers.add("Access-Control-Allow-Origin", "*");
