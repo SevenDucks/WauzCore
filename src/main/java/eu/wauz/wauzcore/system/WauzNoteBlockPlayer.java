@@ -13,6 +13,7 @@ import com.xxmicloxx.NoteBlockAPI.utils.NBSDecoder;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.system.commands.WauzDebugger;
 
 public class WauzNoteBlockPlayer {
 	

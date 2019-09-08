@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.system;
+package eu.wauz.wauzcore.system.commands;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.system.ChatFormatter;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzDebugger {
@@ -86,6 +88,31 @@ public class WauzDebugger {
 		lores.add(ChatColor.WHITE + "Rune Slot (" + ChatColor.GREEN + "Empty" + ChatColor.WHITE + ")");
 		itemMeta.setLore(lores);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		itemStack.setItemMeta(itemMeta);
+		
+		player.getInventory().addItem(itemStack);
+		return true;
+	}
+	
+	public static boolean getRune(Player player, String runeId) {
+		List<String> runeIds = WauzRuneInserter.getAllRuneIds();
+		if(!runeIds.contains(runeId))
+			return false;
+		
+		ItemStack itemStack = new ItemStack(Material.FIREWORK_STAR);
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		itemMeta.setDisplayName(ChatColor.GOLD + "Rune of " + runeId);
+		List<String> lores = new ArrayList<String>();
+		String x = ChatFormatter.ICON_DIAMS;
+		String rareStars = ChatColor.GREEN +x +x +x;
+		lores.add(ChatColor.WHITE + "Debuggers" + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Deafening Rune " + rareStars);
+		lores.add("");
+		lores.add(ChatColor.GRAY + "Can be inserted into Equipment,");
+		lores.add(ChatColor.GRAY + "which possesses an empty Rune Slot.");
+		lores.add("");
+		lores.add("Might:" + ChatColor.YELLOW + " " + 50);
+		
+		itemMeta.setLore(lores);	
 		itemStack.setItemMeta(itemMeta);
 		
 		player.getInventory().addItem(itemStack);

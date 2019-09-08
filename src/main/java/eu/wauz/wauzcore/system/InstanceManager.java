@@ -32,6 +32,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import eu.wauz.wauzcore.system.util.WauzFileUtils;
 import net.md_5.bungee.api.ChatColor;
 

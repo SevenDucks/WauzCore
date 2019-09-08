@@ -21,7 +21,7 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
 public class ShopBuilder implements WauzInventory {

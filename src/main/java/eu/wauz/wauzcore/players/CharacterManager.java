@@ -25,7 +25,7 @@ import eu.wauz.wauzcore.menu.TabardMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;

@@ -19,7 +19,7 @@ import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.ChatFormatter;
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
 import net.md_5.bungee.api.ChatColor;
 

@@ -13,7 +13,7 @@ import eu.wauz.wauzcore.events.ArmorEquipEvent.EquipMethod;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneRemover;
 import eu.wauz.wauzcore.items.runes.insertion.WauzSkillgemInserter;
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
 public class Equipment {

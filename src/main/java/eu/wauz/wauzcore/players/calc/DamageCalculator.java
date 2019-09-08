@@ -32,7 +32,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import net.md_5.bungee.api.ChatColor;

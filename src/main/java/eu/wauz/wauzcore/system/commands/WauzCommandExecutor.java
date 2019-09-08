@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.system;
+package eu.wauz.wauzcore.system.commands;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,6 +31,8 @@ import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerNotifier;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.system.ChatFormatter;
+import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
@@ -122,6 +124,9 @@ public class WauzCommandExecutor {
 			// Get Pet from String
 			else if(cmd.getName().equalsIgnoreCase("wzGetPet"))
 				return cmdGetPetFromString(sender, args);
+			// Get Rune from String
+			else if(cmd.getName().equalsIgnoreCase("wzGetRune"))
+				return cmdGetRuneFromString(sender, args);
 			// Phantom-Travel to Location
 			else if(cmd.getName().equalsIgnoreCase("wzTravel"))
 				return cmdTravelToLocation(sender, args);
@@ -343,6 +348,31 @@ public class WauzCommandExecutor {
 			}
 			PetOverviewMenu.addPet(player, null, type);
 			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private static boolean cmdGetRuneFromString(CommandSender sender, String[] args) {
+		if(args.length < 1)
+			return false;
+		
+		try {
+			Player player = null;
+			String type = null;
+			
+			if(args.length > 1) {
+				player = WauzCore.getOnlinePlayer(args[0]);
+				type = args[1];
+			}
+			else {
+				player = (Player) sender;
+				type = args[0];
+			}
+
+			return WauzDebugger.getRune(player, type);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

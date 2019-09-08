@@ -10,7 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.items.WauzIdentifier;
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.commands.WauzDebugger;
 
 public class WauzRuneRemover {
 

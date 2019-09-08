@@ -112,6 +112,10 @@ commands:
     description: Get Pet from String
     usage: /wzGetPet [playername] [petname]
     permission: wauz.system
+  wzGetRune:
+    description: Get Rune from String
+    usage: /wzGetRune [playername] [runename]
+    permission: wauz.system
   wzTravel:
     description: Phantom-Travel to Location
     usage: /wzTravel [x, y, z]

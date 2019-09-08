@@ -13,7 +13,6 @@ import eu.wauz.wauzcore.items.runes.RuneThorns;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.menu.ShopBuilder;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
-import eu.wauz.wauzcore.players.WauzPlayerGuildTabCompleter;
 import eu.wauz.wauzcore.skills.SkillDeath;
 import eu.wauz.wauzcore.skills.SkillJudgement;
 import eu.wauz.wauzcore.skills.SkillStrength;
@@ -34,11 +33,13 @@ import eu.wauz.wauzcore.skills.SkillTheTower;
 import eu.wauz.wauzcore.skills.SkillTheWorld;
 import eu.wauz.wauzcore.skills.SkillWheelOfFortune;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillTabCompleter;
 import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
+import eu.wauz.wauzcore.system.commands.TabCompleterSkills;
+import eu.wauz.wauzcore.system.commands.TabCompleterGuilds;
+import eu.wauz.wauzcore.system.commands.TabCompleterRunes;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzLoader {
@@ -51,9 +52,10 @@ public class WauzLoader {
 		InstanceManager.removeInactiveInstances();
 		StatisticsFetcher.calculate();
 		
-		Bukkit.getPluginCommand("apply").setTabCompleter(new WauzPlayerGuildTabCompleter());
-		Bukkit.getPluginCommand("wzSkill").setTabCompleter(new WauzPlayerSkillTabCompleter());
-		Bukkit.getPluginCommand("wzSkill.weapon").setTabCompleter(new WauzPlayerSkillTabCompleter());
+		Bukkit.getPluginCommand("apply").setTabCompleter(new TabCompleterGuilds());
+		Bukkit.getPluginCommand("wzGetRune").setTabCompleter(new TabCompleterRunes());
+		Bukkit.getPluginCommand("wzSkill").setTabCompleter(new TabCompleterSkills());
+		Bukkit.getPluginCommand("wzSkill.weapon").setTabCompleter(new TabCompleterSkills());
 		
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Tokens", "tokens");
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Coins", "reput.cow");

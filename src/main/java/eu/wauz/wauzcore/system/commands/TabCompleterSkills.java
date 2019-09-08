@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.skills.execution;
+package eu.wauz.wauzcore.system.commands;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,7 +8,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
-public class WauzPlayerSkillTabCompleter implements TabCompleter {
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+
+public class TabCompleterSkills implements TabCompleter {
 	
 	private List<String> playerSkillList;
 

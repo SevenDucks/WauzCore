@@ -23,9 +23,9 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerNotifier;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.InstanceManager;
-import eu.wauz.wauzcore.system.WauzCommandExecutor;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.api.WebServerManager;
+import eu.wauz.wauzcore.system.commands.WauzCommandExecutor;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 

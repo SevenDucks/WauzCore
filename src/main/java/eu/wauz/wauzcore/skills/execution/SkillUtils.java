@@ -23,7 +23,7 @@ import org.bukkit.util.Vector;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import net.md_5.bungee.api.ChatColor;
 
