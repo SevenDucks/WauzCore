@@ -5,8 +5,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class WauzDiscord extends JavaPlugin {
 
 	private static WauzDiscord instance;
@@ -29,6 +27,9 @@ public class WauzDiscord extends JavaPlugin {
 		
 		shiroDiscordBot = new ShiroDiscordBot();
 		getLogger().info("Shiro's body is ready!");
+		
+		getServer().getPluginManager().registerEvents(new WauzDiscordListener(), this);
+		getLogger().info("Registered EventListeners!");
 	}
 	
 	@Override
@@ -40,7 +41,7 @@ public class WauzDiscord extends JavaPlugin {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("discord") && args.length >= 1) {
-			shiroDiscordBot.sendMessage("**Minecraft**: `" + ChatColor.stripColor(StringUtils.join(args, " ")) + "`");
+			shiroDiscordBot.sendMessageFromMinecraft(StringUtils.join(args, " "));
 		}
 		return true;
 	}

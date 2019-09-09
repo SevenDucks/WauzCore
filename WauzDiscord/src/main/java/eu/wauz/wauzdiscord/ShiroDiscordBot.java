@@ -43,6 +43,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.managers.AudioManager;
 import net.kodehawa.lib.imageboards.DefaultImageBoards;
 import net.kodehawa.lib.imageboards.entities.impl.Rule34Image;
+import net.md_5.bungee.api.ChatColor;
 
 public class ShiroDiscordBot extends ListenerAdapter {
 	
@@ -105,8 +106,8 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		jda.shutdownNow();
 	}
 	
-	public void sendMessage(String message) {
-		generalChannel.sendMessage(message).queue();
+	public void sendMessageFromMinecraft(String message) {
+		generalChannel.sendMessage("**Minecraft**: `" + ChatColor.stripColor(message) + "`").queue();
 	}
 
 	@Override
