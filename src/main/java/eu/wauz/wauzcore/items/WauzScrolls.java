@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
+import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.ShopBuilder;
 
@@ -49,7 +50,7 @@ public class WauzScrolls {
 		
 		if(isNotScroll && scrollName.contains("Scroll of Wisdom")) {
 			if(!isIdentified) {
-				WauzIdentifier.identify(event, itemName);
+				WauzEquipmentIdentifier.identify(event, itemName);
 				scroll.setAmount(scroll.getAmount() - 1);
 				event.setCancelled(true);
 			}

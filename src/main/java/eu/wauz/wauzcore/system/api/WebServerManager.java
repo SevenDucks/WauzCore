@@ -9,7 +9,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-import eu.wauz.wauzcore.items.WauzIdentifier;
+import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.WauzQuest;
 
@@ -51,7 +51,7 @@ public class WebServerManager implements HttpHandler {
 			response += StatisticsFetcher.getTotalPlaytimeDaysString() + " Days of Total Playtime;\r\n";
 			response += WauzQuest.getQuestCount() + " Quests to Complete ;\r\n";
 			response += 0 + " Achievements to Collect;\r\n";
-			response += WauzIdentifier.getEquipmentTypeCount() + " Types of Equipment;\r\n";
+			response += WauzEquipmentIdentifier.getEquipmentTypeCount() + " Types of Equipment;\r\n";
 			response += WauzPlayerSkillExecutor.getSkillTypesCount() + " Types of Combat Skills;\r\n";
 			
 			Headers headers = httpExchange.getResponseHeaders();
