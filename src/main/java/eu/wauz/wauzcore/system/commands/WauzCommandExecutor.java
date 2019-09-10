@@ -127,6 +127,9 @@ public class WauzCommandExecutor {
 			// Get Rune from String
 			else if(cmd.getName().equalsIgnoreCase("wzGetRune"))
 				return cmdGetRuneFromString(sender, args);
+			// Get Enhanced Equip from String
+			else if(cmd.getName().equalsIgnoreCase("wzEnhanced"))
+				return cmdGetEnhancedEquipFromString(sender, args);
 			// Phantom-Travel to Location
 			else if(cmd.getName().equalsIgnoreCase("wzTravel"))
 				return cmdTravelToLocation(sender, args);
@@ -373,6 +376,34 @@ public class WauzCommandExecutor {
 			}
 
 			return WauzDebugger.getRune(player, type);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private static boolean cmdGetEnhancedEquipFromString(CommandSender sender, String[] args) {
+		if(args.length < 2)
+			return false;
+		
+		try {
+			Player player = null;
+			String type = null;
+			int level = 1;
+			
+			if(args.length > 2) {
+				player = WauzCore.getOnlinePlayer(args[0]);
+				type = args[1];
+				level = Integer.parseInt(args[2]);
+			}
+			else {
+				player = (Player) sender;
+				type = args[0];
+				level = Integer.parseInt(args[1]);
+			}
+
+			return WauzDebugger.getEnhancedEquipment(player, type, level);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

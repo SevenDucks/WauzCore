@@ -116,6 +116,10 @@ commands:
     description: Get Rune from String
     usage: /wzGetRune [playername] [runename]
     permission: wauz.system
+  wzEnhanced:
+    description: Get Enhanced Equip from String
+    usage: /wzEnhanced [playername] [enhancementname] [enhancementlvl]
+    permission: wauz.system
   wzTravel:
     description: Phantom-Travel to Location
     usage: /wzTravel [x, y, z]

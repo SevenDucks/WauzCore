@@ -11,6 +11,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.items.EquipmentType;
+import eu.wauz.wauzcore.items.enhancements.WauzEnhancement;
+import eu.wauz.wauzcore.items.enhancements.WauzEnhancementParameters;
+import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
+import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
@@ -84,8 +89,68 @@ public class WauzDebugger {
 		lores.add(ChatColor.WHITE + skill.getSkillDescription());
 		lores.add(ChatColor.WHITE + skill.getSkillStats());
 		lores.add("");
-		lores.add(ChatColor.WHITE + "Rune Slot (" + ChatColor.GREEN + "Empty" + ChatColor.WHITE + ")");
-		lores.add(ChatColor.WHITE + "Rune Slot (" + ChatColor.GREEN + "Empty" + ChatColor.WHITE + ")");
+		lores.add(WauzEquipmentIdentifier.EMPTY_RUNE_SLOT);
+		lores.add(WauzEquipmentIdentifier.EMPTY_RUNE_SLOT);
+		itemMeta.setLore(lores);
+		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		itemStack.setItemMeta(itemMeta);
+		
+		player.getInventory().addItem(itemStack);
+		return true;
+	}
+	
+	public static boolean getEnhancedEquipment(Player player, String enhancementId, int enhancementLevel) {
+		WauzEnhancement enhancement = WauzEquipmentEnhancer.getEnhancement(enhancementId);
+		if(enhancement == null || enhancementLevel < 1)
+			return false;
+		
+		boolean isWeapon = enhancement.getEquipmentType().equals(EquipmentType.WEAPON);
+		
+		ItemStack itemStack = new ItemStack(isWeapon ? Material.IRON_SWORD : Material.IRON_CHESTPLATE);
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		itemMeta.setDisplayName(ChatColor.DARK_RED + "Enchanted Iron");
+		List<String> lores = new ArrayList<String>();
+		String x = ChatFormatter.ICON_DIAMS;
+		String rareStars = ChatColor.YELLOW +x +x +x +x +x;
+		lores.add(ChatColor.WHITE + "Debuggers" + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Unique Weapon " + rareStars);
+		lores.add("");
+		
+		String mainStatString = null;
+		int attackStat = 10;
+		int defenseStat = 5;
+		int durabilityStat = 2048;
+		if(isWeapon) {
+			mainStatString = "Attack:" + ChatColor.RED + " " + attackStat + " " + ChatColor.DARK_GRAY
+					+ "(" + ChatColor.YELLOW + "lvl " + ChatColor.AQUA + "1" + ChatColor.DARK_GRAY + ")";
+		}
+		else {
+			mainStatString = "Defense:" + ChatColor.BLUE + " " + defenseStat + " " + ChatColor.DARK_GRAY
+					+ "(" + ChatColor.YELLOW + "lvl " + ChatColor.AQUA + "1" + ChatColor.DARK_GRAY + ")";
+		}
+		lores.add(mainStatString);
+		
+		WauzEnhancementParameters parameters = new WauzEnhancementParameters(enhancementLevel);
+		parameters.setItemMeta(itemMeta);
+		parameters.setLores(lores);
+		parameters.setMainStatString(mainStatString);
+		parameters.setAttackStat(attackStat);
+		parameters.setDefenseStat(defenseStat);
+		parameters.setDurabilityStat(durabilityStat);
+		
+		WauzEquipmentEnhancer.enhanceEquipment(enhancement, parameters);
+		itemMeta = parameters.getItemMeta();
+		lores = parameters.getLores();
+		mainStatString = parameters.getMainStatString();
+		attackStat = parameters.getAttackStat();
+		defenseStat = parameters.getDefenseStat();
+		durabilityStat = parameters.getDurabilityStat();
+		
+		lores.add("Durability:" + ChatColor.DARK_GREEN + " " + durabilityStat
+				+ " " + ChatColor.DARK_GRAY + "/ " + durabilityStat);
+		
+		lores.add("");
+		lores.add(WauzEquipmentIdentifier.EMPTY_RUNE_SLOT);
+		lores.add(WauzEquipmentIdentifier.EMPTY_RUNE_SLOT);
 		itemMeta.setLore(lores);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		itemStack.setItemMeta(itemMeta);
