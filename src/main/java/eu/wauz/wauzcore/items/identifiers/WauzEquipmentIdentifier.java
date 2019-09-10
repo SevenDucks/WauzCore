@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.EquipmentType;
+import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
@@ -81,6 +82,8 @@ public class WauzEquipmentIdentifier {
 	private double typeMultiplicator = 0;
 	
 	private double baseMultiplier = 0;
+	
+	private int enhancementLevel = 0;
 	
 	
 	private String rarityName;
@@ -240,86 +243,20 @@ public class WauzEquipmentIdentifier {
 		}
 	}
 	
-	// TODO Replace this shit
 	private void addEnhancementsToEquipment() {
 		if(Chance.oneIn(3)) {
-			int enhancementLevel = 0;
 			int luck = PlayerPassiveSkillConfigurator.getLuck(player);
 			WauzDebugger.log(player, "Rolling for Enhancement with: " + luck + "% Luck");
 			while(luck >= 100) {
 				enhancementLevel++;
 				luck -= 100;
 			}
-			if(Chance.percent(luck))
+			if(Chance.percent(luck)) {
 				enhancementLevel++;
+			}
 			
 			if(enhancementLevel > 0) {
-				String enhancementName = "";
-				String enhancementDescription = "";
-				
-				if(equipmentType.getType().equals(EquipmentType.WEAPON)) {
-					int enhancementType = random.nextInt(5);
-					
-					if(enhancementType == 0) {
-						enhancementName = "Destruction";
-						enhancementDescription = (enhancementLevel * 10) + " " + ChatColor.GRAY + "% Base Attack Boost";
-						double newDamage = 1 + attackStat * (1 + enhancementLevel * 0.1);
-						lores.remove(mainStatString);
-						lores.add(mainStatString.replace(ChatColor.RED + " " + attackStat, ChatColor.RED + " " + (int) newDamage));
-						WauzDebugger.log(player, "Rolled Attack Boost: " + attackStat + " -> " + (int) newDamage);
-					}
-					else if(enhancementType == 1) {
-						enhancementName = "Nourishment";
-						enhancementDescription = (enhancementLevel * 3) + " " + ChatColor.GRAY + "HP on Kill";
-						WauzDebugger.log(player, "Rolled HP on Kill");
-					}
-					else if(enhancementType == 2) {
-						enhancementName = "Consumption";
-						enhancementDescription = (enhancementLevel * 1) + " " + ChatColor.GRAY + "MP on Kill";
-						WauzDebugger.log(player, "Rolled MP on Kill");
-					}
-					else if(enhancementType ==  3) {
-						enhancementName = "Ferocity";
-						enhancementDescription = (enhancementLevel * 20) + " " + ChatColor.GRAY + "% Crit Multiplier";
-						WauzDebugger.log(player, "Rolled Crit Multiplier");
-					}
-					else if(enhancementType ==  4) {
-						enhancementName = "Expertise";
-						enhancementDescription = (enhancementLevel * 15) + " " + ChatColor.GRAY + "% Skill Damage";
-						WauzDebugger.log(player, "Rolled Skill Damage");
-					}
-					
-					itemMeta.setDisplayName(itemMeta.getDisplayName() + " of " + enhancementName + " + " + enhancementLevel);
-					lores.add("Enhancement:" + ChatColor.RED + " " + enhancementDescription);
-				}
-				
-				else if(equipmentType.getType().equals(EquipmentType.ARMOR)) {
-					int enhancementType = random.nextInt(3);
-					
-					if(enhancementType == 0) {
-						enhancementName = "Numbing";
-						enhancementDescription = (enhancementLevel * 10) + " " + ChatColor.GRAY + "% Base Defense Boost";
-						double newDefense = 1 + defenseStat * (1 + enhancementLevel * 0.1);
-						lores.remove(mainStatString);
-						lores.add(mainStatString.replace(ChatColor.BLUE + " " + defenseStat, ChatColor.BLUE + " " + (int) newDefense));
-						WauzDebugger.log(player, "Rolled Defense Boost: " + defenseStat + " -> " + (int) newDefense);
-					}
-					else if(enhancementType == 1) {
-						enhancementName = "Durability";
-						enhancementDescription = (enhancementLevel * 128) + " " + ChatColor.GRAY + "Bonus Durability";
-						durabilityStat += (enhancementLevel * 128);
-						WauzDebugger.log(player, "Rolled Bonus Durability");
-					}
-					else if(enhancementType == 2) {
-						enhancementName = "Mastery";
-						enhancementDescription = (enhancementLevel * 15) + " " + ChatColor.GRAY + "% Rune Effectiveness";
-						WauzDebugger.log(player, "Rolled Rune Effectiveness");
-					}
-					
-					itemMeta.setDisplayName(itemMeta.getDisplayName() + " of " + enhancementName + " + " + enhancementLevel);
-					lores.add("Enhancement:" + ChatColor.BLUE + " " + enhancementDescription);
-				}
-				
+				WauzEquipmentEnhancer.enhanceEquipment(this);
 				WauzDebugger.log(player, "Rolled Enhancement Level: " + enhancementLevel);
 			}
 			else {
@@ -355,6 +292,62 @@ public class WauzEquipmentIdentifier {
 			if(rarityMultiplier >= 2.5)
 				lores.add(EMPTY_RUNE_SLOT);
 		}
+	}
+
+	public int getEnhancementLevel() {
+		return enhancementLevel;
+	}
+
+	public EquipmentType getEquipmentType() {
+		return equipmentType.getType();
+	}
+
+	public ItemMeta getItemMeta() {
+		return itemMeta;
+	}
+
+	public void setItemMeta(ItemMeta itemMeta) {
+		this.itemMeta = itemMeta;
+	}
+
+	public List<String> getLores() {
+		return lores;
+	}
+
+	public void setLores(List<String> lores) {
+		this.lores = lores;
+	}
+
+	public String getMainStatString() {
+		return mainStatString;
+	}
+
+	public void setMainStatString(String mainStatString) {
+		this.mainStatString = mainStatString;
+	}
+
+	public int getAttackStat() {
+		return attackStat;
+	}
+
+	public void setAttackStat(int attackStat) {
+		this.attackStat = attackStat;
+	}
+
+	public int getDefenseStat() {
+		return defenseStat;
+	}
+
+	public void setDefenseStat(int defenseStat) {
+		this.defenseStat = defenseStat;
+	}
+
+	public int getDurabilityStat() {
+		return durabilityStat;
+	}
+
+	public void setDurabilityStat(int durabilityStat) {
+		this.durabilityStat = durabilityStat;
 	}
 	
 }

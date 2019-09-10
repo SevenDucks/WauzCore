@@ -6,6 +6,14 @@ import org.bukkit.Material;
 import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.EquipmentType;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
+import eu.wauz.wauzcore.items.enhancements.armor.EnhancementDurability;
+import eu.wauz.wauzcore.items.enhancements.armor.EnhancementMastery;
+import eu.wauz.wauzcore.items.enhancements.armor.EnhancementNumbing;
+import eu.wauz.wauzcore.items.enhancements.weapon.EnhancementConsumption;
+import eu.wauz.wauzcore.items.enhancements.weapon.EnhancementDestruction;
+import eu.wauz.wauzcore.items.enhancements.weapon.EnhancementExpertise;
+import eu.wauz.wauzcore.items.enhancements.weapon.EnhancementFerocity;
+import eu.wauz.wauzcore.items.enhancements.weapon.EnhancementNourishment;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import eu.wauz.wauzcore.items.runes.RuneHardening;
 import eu.wauz.wauzcore.items.runes.RuneKnowledge;
@@ -53,11 +61,13 @@ public class WauzLoader {
 		InstanceManager.removeInactiveInstances();
 		StatisticsFetcher.calculate();
 		
+		// Command Completers
 		Bukkit.getPluginCommand("apply").setTabCompleter(new TabCompleterGuilds());
 		Bukkit.getPluginCommand("wzGetRune").setTabCompleter(new TabCompleterRunes());
 		Bukkit.getPluginCommand("wzSkill").setTabCompleter(new TabCompleterSkills());
 		Bukkit.getPluginCommand("wzSkill.weapon").setTabCompleter(new TabCompleterSkills());
 		
+		// Currencies and Reputation
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Tokens", "tokens");
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Coins", "reput.cow");
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Soulstones", "reput.souls");
@@ -65,6 +75,7 @@ public class WauzLoader {
 		ShopBuilder.registerCurrency(ChatColor.BLUE + "Eternal", "reput.empire");
 		ShopBuilder.registerCurrency(ChatColor.BLUE + "Dark", "reput.legion");
 		
+		// Skillgems
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheFool());			// Tarot (00) 0
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheMagician());		// Tarot (01) I
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheHighPriestess());	// Tarot (02) II
@@ -85,23 +96,25 @@ public class WauzLoader {
 		WauzPlayerSkillExecutor.registerSkill(new SkillJudgement());		// Tarot (20) XX
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheWorld());			// Tarot (21) XXI
 		
+		// Runes
 		WauzRuneInserter.registerRune(new RunePower());
 		WauzRuneInserter.registerRune(new RuneKnowledge());
 		WauzRuneInserter.registerRune(new RuneThorns());
 		WauzRuneInserter.registerRune(new RuneHardening());
 		
 		// Weapon Enhancements
-		WauzEquipmentEnhancer.registerEnhancement(enhancement);
-		WauzEquipmentEnhancer.registerEnhancement(enhancement);
-		WauzEquipmentEnhancer.registerEnhancement(enhancement);
-		WauzEquipmentEnhancer.registerEnhancement(enhancement);
-		WauzEquipmentEnhancer.registerEnhancement(enhancement);
+		WauzEquipmentEnhancer.registerEnhancement(new EnhancementDestruction());
+		WauzEquipmentEnhancer.registerEnhancement(new EnhancementNourishment());
+		WauzEquipmentEnhancer.registerEnhancement(new EnhancementConsumption());
+		WauzEquipmentEnhancer.registerEnhancement(new EnhancementFerocity());
+		WauzEquipmentEnhancer.registerEnhancement(new EnhancementExpertise());
 		
 		// Armor Enhancements
-		WauzEquipmentEnhancer.registerEnhancement(enhancement);
-		WauzEquipmentEnhancer.registerEnhancement(enhancement);
-		WauzEquipmentEnhancer.registerEnhancement(enhancement);
+		WauzEquipmentEnhancer.registerEnhancement(new EnhancementNumbing());
+		WauzEquipmentEnhancer.registerEnhancement(new EnhancementDurability());
+		WauzEquipmentEnhancer.registerEnhancement(new EnhancementMastery());
 		
+		// Equipment Types
 		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.WOODEN_SWORD, " Shortsword", 1.50, 32));
 		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.GOLDEN_SWORD, " Rapier", 1.55, 64));
 		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.STONE_SWORD, " Longsword", 1.60, 128));
