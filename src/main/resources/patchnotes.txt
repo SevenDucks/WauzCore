@@ -6,6 +6,8 @@ Patch 509: Skill Pack III
 	    > Increases Maximum Durability
 
 	Added Skills
+	  - Justice XI
+	    > Damages Enemy, Heals Yourself
 	  - The Moon XVIII
 	    > Fires Beam of Frost
 	  - The Sun XIX
