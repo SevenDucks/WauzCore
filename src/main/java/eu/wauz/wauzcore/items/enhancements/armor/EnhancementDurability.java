@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import eu.wauz.wauzcore.items.EquipmentType;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancement;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancementParameters;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
 
 public class EnhancementDurability implements WauzEnhancement {
 	

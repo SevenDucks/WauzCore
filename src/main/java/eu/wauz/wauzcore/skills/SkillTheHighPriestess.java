@@ -53,12 +53,12 @@ public class SkillTheHighPriestess implements WauzPlayerSkill {
 			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_FISHING_BOBBER_SPLASH, 1, 0.8f);
 			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 0.5f);
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-			if(playerData == null) continue;
+			if(playerData == null) {
+				continue;
+			}
 			
 			ParticleSpawner.spawnParticleHelix(target.getLocation(), new SkillParticle(Particle.HEART), 1, 3.5);
-			
-			EntityRegainHealthEvent event = new EntityRegainHealthEvent(target, playerData.getMaxHealth() / 5, RegainReason.MAGIC);
-			DamageCalculator.heal(event);
+			DamageCalculator.heal(new EntityRegainHealthEvent(target, playerData.getMaxHealth() / 5, RegainReason.MAGIC));
 		}
 		return true;
 	}
