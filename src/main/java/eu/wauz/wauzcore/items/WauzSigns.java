@@ -97,7 +97,7 @@ public class WauzSigns {
 			return;
 		}
 		
-		BlockFace blockFace = ((org.bukkit.material.Sign) sign.getBlock().getState().getData()).getAttachedFace();
+		BlockFace blockFace = ((org.bukkit.block.data.type.WallSign) sign.getBlock().getBlockData()).getFacing().getOppositeFace();
 		boolean isHorizontal = blockFace.equals(BlockFace.SOUTH) || blockFace.equals(BlockFace.NORTH);
 		WauzDebugger.log(player, "Door Sign Face: " + blockFace.toString());
 		

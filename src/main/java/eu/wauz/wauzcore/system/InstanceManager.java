@@ -203,9 +203,9 @@ public class InstanceManager {
 	private static void placeExitSign(Block block, BlockFace blockFace) {
 		block.setType(Material.OAK_SIGN);
 		Sign sign = (Sign) block.getState();
-		org.bukkit.material.Sign signData = new org.bukkit.material.Sign(Material.OAK_SIGN);
-		signData.setFacingDirection(blockFace);
-		sign.setData(signData);
+		org.bukkit.block.data.type.Sign signData = (org.bukkit.block.data.type.Sign) sign.getBlockData();
+		signData.setRotation(blockFace);
+		sign.setBlockData(signData);
 		sign.setLine(1, WauzSigns.EXIT_DOOR_TEXT);
 		sign.setLine(2, WauzSigns.EXIT_DOOR_LEAVE_TEXT);
 		sign.update();

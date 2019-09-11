@@ -130,7 +130,7 @@ public class WauzPlayerScoreboard {
 		String instanceType = InstanceConfigurator.getInstanceWorldType(world);
 		if(instanceType.equals("Keys")) {
 			rowStrings.add(" ");
-			rowStrings.add(ChatColor.DARK_AQUA + "• Dungeon Keys");
+			rowStrings.add(ChatColor.DARK_AQUA + ChatFormatter.ICON_BULLT + " Dungeon Keys");
 			for(String keyId : InstanceConfigurator.getInstanceWorldKeyIds(world))
 				rowStrings.add(ChatColor.WHITE + "  > " + keyId + ": " + InstanceConfigurator.getInstanceKeyStatus(world, keyId));
 		}

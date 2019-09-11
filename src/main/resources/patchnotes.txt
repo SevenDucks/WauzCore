@@ -8,6 +8,8 @@ Patch 509: Skill Pack III
 	Added Skills
 	  - Justice XI
 	    > Damages Enemy, Heals Yourself
+	  - The Devil XV
+	    > Force Chokes an Enemy
 	  - The Moon XVIII
 	    > Fires Beam of Frost
 	  - The Sun XIX
