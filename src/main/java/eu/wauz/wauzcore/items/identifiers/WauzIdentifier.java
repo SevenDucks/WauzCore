@@ -11,8 +11,6 @@ public class WauzIdentifier {
 			new WauzRuneIdentifier().identifyRune(event);
 		else if(itemName.contains("Skillgem"))
 			new WauzSkillgemIdentifier().identifySkillgem(event);
-		else if(itemName.contains("Map"))
-			new WauzShrineIdentifier().identifyShrine(event);
 	}
 
 }

@@ -32,6 +32,7 @@ import eu.wauz.wauzcore.skills.SkillTheDevil;
 import eu.wauz.wauzcore.skills.SkillTheEmperor;
 import eu.wauz.wauzcore.skills.SkillTheEmpress;
 import eu.wauz.wauzcore.skills.SkillTheFool;
+import eu.wauz.wauzcore.skills.SkillTheHangedMan;
 import eu.wauz.wauzcore.skills.SkillTheHermit;
 import eu.wauz.wauzcore.skills.SkillTheHierophant;
 import eu.wauz.wauzcore.skills.SkillTheHighPriestess;
@@ -92,6 +93,7 @@ public class WauzLoader {
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheHermit());		// Tarot (09) IX
 		WauzPlayerSkillExecutor.registerSkill(new SkillWheelOfFortune());	// Tarot (10) X
 		WauzPlayerSkillExecutor.registerSkill(new SkillJustice());			// Tarot (11) XI
+		WauzPlayerSkillExecutor.registerSkill(new SkillTheHangedMan());		// Tarot (12) XII
 		WauzPlayerSkillExecutor.registerSkill(new SkillDeath());			// Tarot (13) XIII
 		WauzPlayerSkillExecutor.registerSkill(new SkillTemperance());		// Tarot (14) XIV
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheDevil());			// Tarot (15) XV

@@ -46,54 +46,62 @@ public class WauzRewards {
     	player.sendMessage(ChatColor.GOLD + reward + "You claimed your daily " + amount + " coins!");	
 	}
 	
-	public static void level(Player player, int tier, double earnedxp) throws Exception {
-		level(player, tier, earnedxp, null, false);
+	public static int level(Player player, int tier, double earnedxp) {
+		return level(player, tier, earnedxp, null, false);
 	}
 	
-	public static void level(Player player, int tier, double earnedxp, Location location) throws Exception {
-		level(player, tier, earnedxp, location, false);
+	public static int level(Player player, int tier, double earnedxp, Location location) {
+		return level(player, tier, earnedxp, location, false);
 	}
 	
-	public static void level(Player player, int tier, double earnedxp, Location location, boolean shared) throws Exception {
-		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(player);
-		if(playerGroup != null && !shared)
-			for(Player member : playerGroup.getPlayers())
-				level(member, tier, earnedxp / 4, null, true);
-		
-		if(player == null || player.getLevel() > tier || player.getLevel() >= WauzCore.MAX_PLAYER_LEVEL)
-			return;
-		
-		switch(player.getLevel()) {
-		case 1:
-			earnedxp = earnedxp * 5;
-			break;
-		case 2:
-			earnedxp = earnedxp * 4;
-			break;
-		case 3:
-			earnedxp = earnedxp * 3;
-			break;
-		default:
-			earnedxp = earnedxp * 2;
-			break;
+	public static int level(Player player, int tier, double earnedxp, Location location, boolean shared) {
+		try {
+			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(player);
+			if(playerGroup != null && !shared)
+				for(Player member : playerGroup.getPlayers())
+					level(member, tier, earnedxp / 4, null, true);
+			
+			if(player == null || player.getLevel() > tier || player.getLevel() >= WauzCore.MAX_PLAYER_LEVEL)
+				return 0;
+			
+			switch(player.getLevel()) {
+			case 1:
+				earnedxp = earnedxp * 5;
+				break;
+			case 2:
+				earnedxp = earnedxp * 4;
+				break;
+			case 3:
+				earnedxp = earnedxp * 3;
+				break;
+			default:
+				earnedxp = earnedxp * 2;
+				break;
+			}
+			
+			double amplifiedxp = applyExperienceBonus(player, earnedxp);
+			int displayexp = (int) (amplifiedxp * 100);
+			
+			if(location != null)
+				ValueIndicator.spawnExpIndicator(location, displayexp);
+			
+			double currentxp = PlayerConfigurator.getCharacterExperience(player);
+			currentxp = currentxp + amplifiedxp;
+			WauzDebugger.log(player, "You earned " + amplifiedxp + " (" + earnedxp + ") experience!");
+			
+			if(currentxp >= 100) {
+				player.setLevel(player.getLevel() + 1);
+				player.sendTitle(ChatColor.GOLD + "Level Up!", "You reached level " + player.getLevel() + "!", 10, 70, 20);
+				PlayerConfigurator.levelUpCharacter(player);
+				currentxp = 0;
+			}
+			PlayerConfigurator.setCharacterExperience(player, currentxp);
+			return displayexp;
 		}
-		
-		double amplifiedxp = applyExperienceBonus(player, earnedxp);
-		
-		if(location != null)
-			ValueIndicator.spawnExpIndicator(location, (int) (amplifiedxp * 100));
-		
-		double currentxp = PlayerConfigurator.getCharacterExperience(player);
-		currentxp = currentxp + amplifiedxp;
-		WauzDebugger.log(player, "You earned " + amplifiedxp + " (" + earnedxp + ") experience!");
-		
-		if(currentxp >= 100) {
-			player.setLevel(player.getLevel() + 1);
-			player.sendTitle(ChatColor.GOLD + "Level Up!", "You reached level " + player.getLevel() + "!", 10, 70, 20);
-			PlayerConfigurator.levelUpCharacter(player);
-			currentxp = 0;
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
-		PlayerConfigurator.setCharacterExperience(player, currentxp);
 	}
 	
 	private static double applyExperienceBonus(Player player, double experience) {		
