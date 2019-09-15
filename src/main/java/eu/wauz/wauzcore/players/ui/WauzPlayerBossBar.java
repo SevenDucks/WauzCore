@@ -107,6 +107,9 @@ public class WauzPlayerBossBar {
 	
 	public void updateBossBar(double damage) {
 		int health = (int) Math.ceil((damageable.getHealth() - damage));
+		if(health > maxHealth) {
+			health = (int) maxHealth;
+		}
 		if(health > 0) {
 			for(Player player : bossBar.getPlayers()) {
 				WauzDebugger.log(player, "BossBar: "

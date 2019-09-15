@@ -1,5 +1,7 @@
 Patch 5XX: Rapid Racing
 
+Patch 510: Clashing Classes
+
 Patch 509: Skill Pack III
 	Runes
 	  - New Rune "Hardening"

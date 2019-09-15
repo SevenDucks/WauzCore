@@ -74,7 +74,7 @@ import eu.wauz.wauzcore.items.dungeon.DungeonItemChickenGlider;
 import eu.wauz.wauzcore.items.dungeon.DungeonItemGrapplingHook;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
-import eu.wauz.wauzcore.mobs.MenacingMobs;
+import eu.wauz.wauzcore.mobs.MenacingMobsSpawner;
 import eu.wauz.wauzcore.mobs.MobEventMapper;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
@@ -349,13 +349,13 @@ public class WauzListener implements Listener {
 
 	 @EventHandler
 	 public void onMythicSpawn(MythicMobSpawnEvent event) {
-		 MenacingMobs.addMenacingMob(event.getEntity(), event.getMobType());
+		 MenacingMobsSpawner.addMenacingMob(event.getEntity(), event.getMobType());
 	 }
 
 	@EventHandler
 	public void onMythicDeath(MythicMobDeathEvent event) {
 		if(StringUtils.isNotBlank(event.getEntity().getCustomName())) {
-			MobEventMapper.deathEvent(event);
+			MobEventMapper.death(event);
 		}
 	}
 

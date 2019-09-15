@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.wauz</groupId>
 	<artifactId>WauzCore</artifactId>
-	<version>Pallasite.9.Pre</version>
+	<version>Pallasite.10.Pre</version>
 
 
 	<properties>

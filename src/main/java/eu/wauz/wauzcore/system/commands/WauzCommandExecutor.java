@@ -426,8 +426,12 @@ public class WauzCommandExecutor {
 		}
 	}
 	
-	public static Map<String, Location> eventTravelMap = new HashMap<String, Location>();
+	private static Map<String, Location> eventTravelMap = new HashMap<String, Location>();
 	
+	public static Map<String, Location> getEventTravelMap() {
+		return eventTravelMap;
+	}
+
 	private static boolean cmdTravelToEventLocation(CommandSender sender, String[] args) {
 		if(args.length < 1)
 			return false;

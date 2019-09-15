@@ -31,7 +31,7 @@ public class WauzRewards {
     	
     	switch(PlayerConfigurator.getRank(player)) {
 			case "Admin":
-				amount = 1000;
+				amount = 20000;
 				reward = "Admin Reward: ";			
 				break;
 			case "Normal":

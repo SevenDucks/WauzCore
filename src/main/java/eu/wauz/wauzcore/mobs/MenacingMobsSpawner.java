@@ -11,11 +11,11 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
-import eu.wauz.wauzcore.system.util.Chance;
-import io.lumine.xikage.mythicmobs.io.MythicConfig;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 
-public class MenacingMobs {
+public class MenacingMobsSpawner {
+	
+	private static WauzCore core = WauzCore.getInstance();
 	
 	private static String[] possibleModifiers = {"Deflecting", "Explosive", "Massive", "Ravenous", "Splitting"};
 	
@@ -26,11 +26,19 @@ public class MenacingMobs {
 		if(config.isEnableModifiers()) {
 			modifiers = getRandomModifiers(config.isEnableSecondModifier() ? 2 : 1);
 			for(String modifier : modifiers) {
-				entity.setMetadata("wzMod" + modifier, new FixedMetadataValue(WauzCore.getInstance(), true));
+				entity.setMetadata("wzMod" + modifier, new FixedMetadataValue(core, true));
 			}
 		}
 		if(config.isEnableHealthBar()) {
 			new WauzPlayerBossBar(entity, modifiers, mythicMob.getBaseHealth(), config.isEnableRaidHealthBar());
+		}
+		if(StringUtils.isNotBlank(config.getExpDropString())) {
+			String[] expStrings = config.getExpDropString().split(" ");
+			entity.setMetadata("wzExpTier", new FixedMetadataValue(core, Integer.parseInt(expStrings[0])));
+			entity.setMetadata("wzExpAmount", new FixedMetadataValue(core, Double.parseDouble(expStrings[1])));
+		}
+		if(StringUtils.isNotBlank(config.getKeyDropString())) {
+			entity.setMetadata("wzKeyId", new FixedMetadataValue(core, config.getKeyDropString()));
 		}
 	}
 	
@@ -45,51 +53,6 @@ public class MenacingMobs {
 			modifiers.add(modifier);
 		}
 		return modifiers;
-	}
-	
-	private static class MenacingMobsConfig {
-		
-		private boolean enableModifiers;
-		
-		private boolean enableSecondModifier;
-		
-		private boolean enableHealthBar;
-		
-		private boolean enableRaidHealthBar;
-		
-		public MenacingMobsConfig(MythicConfig mythicConfig) {
-			List<String> modifiers = mythicConfig.getStringList("WauzMods");
-			if(modifiers == null || modifiers.isEmpty())
-				return;
-			
-			for(String modifier : modifiers) {
-				if(StringUtils.equalsIgnoreCase(modifier, "MenacingChance")) {
-					enableModifiers = Chance.oneIn(20);
-					enableSecondModifier = enableModifiers && Chance.oneIn(4);
-				}
-				else if(StringUtils.startsWithIgnoreCase(modifier, "CustomBossBar")) {
-					enableHealthBar = true;
-					enableRaidHealthBar = modifier.contains("--Raid");
-				}
-			}
-		}
-		
-		public boolean isEnableModifiers() {
-			return enableModifiers;
-		}
-
-		public boolean isEnableSecondModifier() {
-			return enableSecondModifier;
-		}
-
-		public boolean isEnableHealthBar() {
-			return enableHealthBar;
-		}
-
-		public boolean isEnableRaidHealthBar() {
-			return enableRaidHealthBar;
-		}
-
 	}
 
 }
