@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Material;
 
 import eu.wauz.wauzcore.items.Equipment;
@@ -123,33 +124,93 @@ public class WauzLoader {
 		WauzEquipmentEnhancer.registerEnhancement(new EnhancementMastery());
 		
 		// Equipment Types
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.WOODEN_SWORD, " Shortsword", 1.50, 32));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.GOLDEN_SWORD, " Rapier", 1.55, 64));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.STONE_SWORD, " Longsword", 1.60, 128));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.IRON_SWORD, " Claymore", 1.65, 256));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.DIAMOND_SWORD, " Excalibur", 1.70, 512));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.WOODEN_SWORD, " Shortsword")
+				.withMainStat(1.50).withDurabilityStat(32));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_SWORD, " Rapier")
+				.withMainStat(1.55).withDurabilityStat(64));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.STONE_SWORD, " Longsword")
+				.withMainStat(1.60).withDurabilityStat(128));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.IRON_SWORD, " Claymore")
+				.withMainStat(1.65).withDurabilityStat(256));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_SWORD, " Excalibur")
+				.withMainStat(1.70).withDurabilityStat(512));
 		
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.WOODEN_AXE, " Hatchet", 1.70, 32));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.GOLDEN_AXE, " Halberd", 1.75, 64));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.STONE_AXE, " Waraxe", 1.80, 128));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.IRON_AXE, " Greataxe", 1.85, 256));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.DIAMOND_AXE, " Worldbreaker", 1.90, 512));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.WOODEN_AXE, " Hatchet")
+				.withMainStat(1.70).withDurabilityStat(32));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_AXE, " Halberd")
+				.withMainStat(1.75).withDurabilityStat(64));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.STONE_AXE, " Waraxe")
+				.withMainStat(1.80).withDurabilityStat(128));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.IRON_AXE, " Greataxe")
+				.withMainStat(1.85).withDurabilityStat(256));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_AXE, " Worldbreaker")
+				.withMainStat(1.90).withDurabilityStat(512));
 		
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.WOODEN_HOE, " Staff", 1.30, 32));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.GOLDEN_HOE, " Pole", 1.35, 64));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.STONE_HOE, " Mace", 1.40, 128));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.IRON_HOE, " Sceptre", 1.45, 256));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.DIAMOND_HOE, " Soulreaver", 1.50, 512));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.WOODEN_HOE, " Staff")
+				.withMainStat(1.30).withDurabilityStat(32));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_HOE, " Pole")
+				.withMainStat(1.35).withDurabilityStat(64));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.STONE_HOE, " Mace")
+				.withMainStat(1.40).withDurabilityStat(128));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.IRON_HOE, " Sceptre")
+				.withMainStat(1.45).withDurabilityStat(256));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_HOE, " Soulreaver")
+				.withMainStat(1.50).withDurabilityStat(512));
 		
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.BOW, " Crude Bow", 0.60, 64));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.BOW, " Recurve Bow", 0.90, 128));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.WEAPON, Material.BOW, " Infractem Bow", 1.20, 256));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.BOW, " Crude Bow")
+				.withMainStat(0.60).withDurabilityStat(64));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.BOW, " Recurve Bow")
+				.withMainStat(0.90).withDurabilityStat(128));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.BOW, " Infractem Bow")
+				.withMainStat(1.20).withDurabilityStat(256));
 		
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Vest", 1.15, 64));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.ARMOR, Material.GOLDEN_CHESTPLATE, " Robe", 1.30, 128));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.ARMOR, Material.CHAINMAIL_CHESTPLATE, " Mail", 1.45, 256));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.ARMOR, Material.IRON_CHESTPLATE, " Plate", 1.60, 512));
-		WauzEquipmentIdentifier.addEquipType(new Equipment(EquipmentType.ARMOR, Material.DIAMOND_CHESTPLATE, " Herogarb", 1.75, 768));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Vest")
+				.withMainStat(1.15).withDurabilityStat(64));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.ARMOR, Material.GOLDEN_CHESTPLATE, " Robe")
+				.withMainStat(1.30).withDurabilityStat(128));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Tunic")
+				.withMainStat(1.45).withDurabilityStat(192).withLeatherDye(Color.GREEN));
+		
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.ARMOR, Material.CHAINMAIL_CHESTPLATE, " Mail")
+				.withMainStat(1.30).withDurabilityStat(128));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Guard")
+				.withMainStat(1.45).withDurabilityStat(256).withLeatherDye(Color.PURPLE));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Hellscales")
+				.withMainStat(1.60).withDurabilityStat(384).withLeatherDye(Color.RED));
+		
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.ARMOR, Material.IRON_CHESTPLATE, " Plate")
+				.withMainStat(1.45).withDurabilityStat(256));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.ARMOR, Material.DIAMOND_CHESTPLATE, " Herogarb")
+				.withMainStat(1.60).withDurabilityStat(512));
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Dragonbones")
+				.withMainStat(1.75).withDurabilityStat(768).withLeatherDye(Color.ORANGE));
 	}
 
 }

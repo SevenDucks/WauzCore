@@ -1,11 +1,13 @@
 package eu.wauz.wauzcore.items;
 
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.ArmorType;
@@ -24,56 +26,55 @@ public class Equipment {
 	
 	private String name;
 	
-	private double damage;
+	private double mainStat;
 	
-	private int durability;
+	private int durabilityStat;
 	
-	public Equipment(EquipmentType type, Material material, String name, double damage, int durability) {
+	private Color leatherDye;
+	
+	public Equipment(EquipmentType type, Material material, String name) {
 		this.type = type;
 		this.material = material;
 		this.name = name;
-		this.damage = damage;
-		this.durability = durability;
 	}
 
 	public EquipmentType getType() {
 		return type;
 	}
 
-	public void setType(EquipmentType type) {
-		this.type = type;
-	}
-
 	public Material getMaterial() {
 		return material;
-	}
-
-	public void setMaterial(Material material) {
-		this.material = material;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public double getMainStat() {
+		return mainStat;
 	}
 
-	public double getDamage() {
-		return damage;
+	public Equipment withMainStat(double mainStat) {
+		this.mainStat = mainStat;
+		return this;
 	}
 
-	public void setDamage(double damage) {
-		this.damage = damage;
+	public int getDurabilityStat() {
+		return durabilityStat;
 	}
 
-	public int getDurability() {
-		return durability;
+	public Equipment withDurabilityStat(int durabilityStat) {
+		this.durabilityStat = durabilityStat;
+		return this;
 	}
 
-	public void setDurability(int durability) {
-		this.durability = durability;
+	public Color getLeatherDye() {
+		return leatherDye;
+	}
+
+	public Equipment withLeatherDye(Color leatherDye) {
+		this.leatherDye = leatherDye;
+		return this;
 	}
 
 	public static void equipArmor(ArmorEquipEvent event) {
@@ -105,6 +106,12 @@ public class Equipment {
 			return;
 		}
 		if(armor.getType().equals(Material.LEATHER_CHESTPLATE)) {
+			if(armor.getItemMeta() instanceof LeatherArmorMeta) {
+				Color color = ((LeatherArmorMeta) armor.getItemMeta()).getColor();
+				player.getEquipment().setLeggings(getCosmeticItem(Material.LEATHER_LEGGINGS, color));
+				player.getEquipment().setBoots(getCosmeticItem(Material.LEATHER_BOOTS, color));
+				return;
+			}
 			player.getEquipment().setLeggings(getCosmeticItem(Material.LEATHER_LEGGINGS));
 			player.getEquipment().setBoots(getCosmeticItem(Material.LEATHER_BOOTS));
 			return;
@@ -132,11 +139,18 @@ public class Equipment {
 	}
 	
 	private static ItemStack getCosmeticItem(Material material) {
+		return getCosmeticItem(material, null);
+	}
+	
+	private static ItemStack getCosmeticItem(Material material, Color color) {
 		ItemStack itemStack = new ItemStack(material);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.RESET + "Cosmetic Item");
 		itemMeta.setUnbreakable(true);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		if(color != null) {
+			((LeatherArmorMeta) itemMeta).setColor(color);
+		}
 		itemStack.setItemMeta(itemMeta);
 		return itemStack;
 	}

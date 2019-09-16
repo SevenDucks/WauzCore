@@ -1,6 +1,20 @@
 Patch 5XX: Rapid Racing
 
 Patch 510: Clashing Classes
+	New Feature: 3 Selectable Classes
+	  - Nephilim
+	    > Staves, Medium Armor
+	  - Crusader
+	    > Axes, Heavy Armor
+	  - Assassin
+	    > Swords, Light Armor
+	    
+	New Weapon: ???
+	
+	New Weapon: ???
+	    
+	Miscellaneous
+	  - Added new categorized Armor Types
 
 Patch 509: Skill Pack III
 	Runes

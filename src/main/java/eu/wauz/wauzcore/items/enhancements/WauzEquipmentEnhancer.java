@@ -82,7 +82,7 @@ public class WauzEquipmentEnhancer {
 			enhancement = weaponEnhancements.get(random.nextInt(weaponEnhancements.size()));
 		}
 		else if(equipmentType.equals(EquipmentType.ARMOR)) {
-			List<WauzEnhancement> armorEnhancements = getWeaponEnhancements();
+			List<WauzEnhancement> armorEnhancements = getArmorEnhancements();
 			enhancement = armorEnhancements.get(random.nextInt(armorEnhancements.size()));
 		}
 		

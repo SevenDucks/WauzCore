@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Effect;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.Equipment;
@@ -109,8 +111,14 @@ public class WauzEquipmentIdentifier {
 		
 		equipmentType = equipTypes.get(random.nextInt(equipTypes.size()));
 		equipmentItemStack.setType(equipmentType.getMaterial());
-		typeMultiplicator = equipmentType.getDamage();
-		durabilityStat = equipmentType.getDurability();
+		typeMultiplicator = equipmentType.getMainStat();
+		durabilityStat = equipmentType.getDurabilityStat();
+		
+		if(equipmentType.getLeatherDye() != null) {
+			itemMeta = new ItemStack(Material.LEATHER_CHESTPLATE).getItemMeta();
+			LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) itemMeta;
+			leatherArmorMeta.setColor(equipmentType.getLeatherDye());
+		}
 		
 		determineBaseMultiplier();
 		determineRarity();
