@@ -3,8 +3,8 @@ package eu.wauz.wauzcore.items;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
@@ -92,8 +92,8 @@ public class ItemUtils {
 	
 	public static EquipmentType getEquipmentType(ItemStack itemStack) {
 		String itemMaterial = itemStack.getType().toString();
-		if(itemMaterial.contains("_SWORD") || itemMaterial.contains("_AXE") || itemMaterial.contains("_HOE") ||
-				itemMaterial.equals("BOW")) {
+		
+		if(StringUtils.containsAny(itemMaterial, "_SWORD", "_AXE", "_HOE", "BOW")) {
 			return EquipmentType.WEAPON;
 		}
 		else if(itemMaterial.contains("CHESTPLATE")) {
@@ -102,6 +102,10 @@ public class ItemUtils {
 		else {
 			return EquipmentType.UNKNOWN;
 		}
+	}
+	
+	public static ArmorType getArmorType(ItemStack itemStack) {
+		return ArmorType.HEAVY; // TODO Replace with real values
 	}
 	
 	public static int getBaseAtk(ItemStack itemStack) {

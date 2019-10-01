@@ -14,10 +14,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
-import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
-import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
 public class CharacterWorldMenu implements WauzInventory {
@@ -54,22 +52,19 @@ public class CharacterWorldMenu implements WauzInventory {
 		Player player = (Player) event.getWhoClicked();
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(playerData == null)
+		if(playerData == null) {
 			return;
-		
-		if(clicked == null || !clicked.getType().toString().endsWith("CONCRETE"))
+		}
+		if(clicked == null || !clicked.getType().toString().endsWith("CONCRETE")) {
 			return;
-		
+		}
 		else if(clicked.getItemMeta().getDisplayName().contains("Wauzland")) {
 			playerData.setSelectedCharacterWorld("Wauzland");
-			playerData.setSelectedCharacterRace("Human");
-			CharacterManager.createCharacter(player, WauzMode.MMORPG);
 		}
 		else if(clicked.getItemMeta().getDisplayName().contains("Dalyreos")) {
 			playerData.setSelectedCharacterWorld("Dalyreos");
-			playerData.setSelectedCharacterRace("Human");
-			CharacterManager.createCharacter(player, WauzMode.MMORPG);
 		}
+		CharacterRaceClassMenu.open(player);
 	}
 	
 }

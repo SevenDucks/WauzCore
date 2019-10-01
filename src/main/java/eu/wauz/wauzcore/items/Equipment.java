@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.ArmorType;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.EquipMethod;
@@ -78,36 +79,34 @@ public class Equipment {
 	}
 
 	public static void equipArmor(ArmorEquipEvent event) {
-		if(EquipMethod.DEATH.equals(event.getEquipMethod()))
+		if(EquipMethod.DEATH.equals(event.getEquipMethod())) {
 			return;
-		
-		Player player = event.getPlayer();
-		ItemStack newItem = event.getNewArmorPiece();
-		ItemStack oldItem = event.getOldArmorPiece();
-		WauzDebugger.log(player, "Equipping: " + event.getEquipMethod() + " " + event.getArmorType());
-		WauzDebugger.log(player, "New: " + (newItem != null ? newItem.getType() : "none"));
-		WauzDebugger.log(player, "Old: " + (oldItem != null ? oldItem.getType() : "none"));
-		
-		if(!ArmorType.CHESTPLATE.equals(event.getArmorType()))
-			return;
-		
-		ItemStack armor = event.getNewArmorPiece();
-		int requiredLevel = ItemUtils.getLevelRequirement(armor);
-		WauzDebugger.log(player, "Required Level: " + requiredLevel);
-		if(player.getLevel() < requiredLevel) {
-			event.setCancelled(true);
-			player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
+		}
+		if(!ArmorType.CHESTPLATE.equals(event.getArmorType())) {
 			return;
 		}
 		
-		if(armor == null || armor.getType().equals(Material.AIR)) {
+		Player player = event.getPlayer();
+		ItemStack armorItemStack = event.getNewArmorPiece();
+		ItemStack oldItemStack = event.getOldArmorPiece();
+		WauzDebugger.log(player, "Equipping: " + event.getEquipMethod() + " " + event.getArmorType());
+		WauzDebugger.log(player, "New: " + (armorItemStack != null ? armorItemStack.getType() : "none"));
+		WauzDebugger.log(player, "Old: " + (oldItemStack != null ? oldItemStack.getType() : "none"));
+		
+		
+		if(!doesLevelMatch(player, armorItemStack) || !doesClassMatch(player, armorItemStack)) {
+			event.setCancelled(true);
+			return;
+		}
+		
+		if(armorItemStack == null || armorItemStack.getType().equals(Material.AIR)) {
 			player.getEquipment().setLeggings(null);
 			player.getEquipment().setBoots(null);
 			return;
 		}
-		if(armor.getType().equals(Material.LEATHER_CHESTPLATE)) {
-			if(armor.getItemMeta() instanceof LeatherArmorMeta) {
-				Color color = ((LeatherArmorMeta) armor.getItemMeta()).getColor();
+		if(armorItemStack.getType().equals(Material.LEATHER_CHESTPLATE)) {
+			if(armorItemStack.getItemMeta() instanceof LeatherArmorMeta) {
+				Color color = ((LeatherArmorMeta) armorItemStack.getItemMeta()).getColor();
 				player.getEquipment().setLeggings(getCosmeticItem(Material.LEATHER_LEGGINGS, color));
 				player.getEquipment().setBoots(getCosmeticItem(Material.LEATHER_BOOTS, color));
 				return;
@@ -116,26 +115,41 @@ public class Equipment {
 			player.getEquipment().setBoots(getCosmeticItem(Material.LEATHER_BOOTS));
 			return;
 		}
-		if(armor.getType().equals(Material.GOLDEN_CHESTPLATE)) {
+		if(armorItemStack.getType().equals(Material.GOLDEN_CHESTPLATE)) {
 			player.getEquipment().setLeggings(getCosmeticItem(Material.GOLDEN_LEGGINGS));
 			player.getEquipment().setBoots(getCosmeticItem(Material.GOLDEN_BOOTS));
 			return;
 		}
-		if(armor.getType().equals(Material.CHAINMAIL_CHESTPLATE)) {
+		if(armorItemStack.getType().equals(Material.CHAINMAIL_CHESTPLATE)) {
 			player.getEquipment().setLeggings(getCosmeticItem(Material.CHAINMAIL_LEGGINGS));
 			player.getEquipment().setBoots(getCosmeticItem(Material.CHAINMAIL_BOOTS));
 			return;
 		}
-		if(armor.getType().equals(Material.IRON_CHESTPLATE)) {
+		if(armorItemStack.getType().equals(Material.IRON_CHESTPLATE)) {
 			player.getEquipment().setLeggings(getCosmeticItem(Material.IRON_LEGGINGS));
 			player.getEquipment().setBoots(getCosmeticItem(Material.IRON_BOOTS));
 			return;
 		}
-		if(armor.getType().equals(Material.DIAMOND_CHESTPLATE)) {
+		if(armorItemStack.getType().equals(Material.DIAMOND_CHESTPLATE)) {
 			player.getEquipment().setLeggings(getCosmeticItem(Material.DIAMOND_LEGGINGS));
 			player.getEquipment().setBoots(getCosmeticItem(Material.DIAMOND_BOOTS));
 			return;
 		}
+	}
+	
+	private static boolean doesLevelMatch(Player player, ItemStack armorItemStack) {
+		int requiredLevel = ItemUtils.getLevelRequirement(armorItemStack);
+		boolean levelMatches = player.getLevel() < requiredLevel;
+		if(!levelMatches) {
+			player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
+		}
+		WauzDebugger.log(player, "Required Level: " + requiredLevel);
+		return levelMatches;
+	}
+	
+	private static boolean doesClassMatch(Player player, ItemStack armorItemStack) {
+		String raceAndClass = PlayerConfigurator.getCharacterRace(player);
+		return true;
 	}
 	
 	private static ItemStack getCosmeticItem(Material material) {

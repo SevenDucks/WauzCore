@@ -49,7 +49,7 @@ public class WebServerManager implements HttpHandler {
 			response += StatisticsFetcher.getTotalCustomEntitiesString() + " Unique Custom Entities;\r\n";
 			response += StatisticsFetcher.getTotalPlayersString() + " Registered Players;\r\n";
 			response += StatisticsFetcher.getTotalPlaytimeDaysString() + " Days of Total Playtime;\r\n";
-			response += WauzQuest.getQuestCount() + " Quests to Complete ;\r\n";
+			response += WauzQuest.getQuestCount() + " Quests to Complete;\r\n";
 			response += 0 + " Achievements to Collect;\r\n";
 			response += WauzEquipmentIdentifier.getEquipmentTypeCount() + " Types of Equipment;\r\n";
 			response += WauzPlayerSkillExecutor.getSkillTypesCount() + " Types of Combat Skills;\r\n";

@@ -37,6 +37,17 @@ import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * Used to recalculate how much damage or heal players deal and receive.
+ * Also handles stuff like damage boni, reflection, leech and PvP-potions.
+ * 
+ * Surpresses deprecation of DamageModifier,
+ * because there are currently no better alternatives.
+ * TODO Find DamageModifier replacement
+ * 
+ * @author Wauzmons
+ */
+@SuppressWarnings("deprecation")
 public class DamageCalculator {
 	
 	private static DecimalFormat formatter = new DecimalFormat("#,###.000");

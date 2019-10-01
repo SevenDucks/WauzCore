@@ -20,11 +20,11 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
-public class CharacterRaceMenu implements WauzInventory {
+public class CharacterRaceClassMenu implements WauzInventory {
 	
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterRaceMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Race!");
+		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterRaceClassMenu());
+		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Race/Class!");
 		
 		ItemStack race1 = new ItemStack(Material.BLUE_CONCRETE);
 		ItemMeta im1 = race1.getItemMeta();
@@ -45,12 +45,12 @@ public class CharacterRaceMenu implements WauzInventory {
 		final Player player = (Player) event.getWhoClicked();
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(playerData == null)
+		if(playerData == null) {
 			return;
-		
-		if(clicked == null || !clicked.getType().toString().endsWith("CONCRETE"))
+		}
+		if(clicked == null || !clicked.getType().toString().endsWith("CONCRETE")) {
 			return;
-		
+		}
 		else if(clicked.getItemMeta().getDisplayName().contains("Human")) {
 			playerData.setSelectedCharacterRace("Human");
 			CharacterManager.createCharacter(player, WauzMode.MMORPG);
