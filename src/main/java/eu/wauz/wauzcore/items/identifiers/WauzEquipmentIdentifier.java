@@ -149,7 +149,7 @@ public class WauzEquipmentIdentifier {
 	}
 	
 	private void determineBaseMultiplier() {
-		if(Chance.oneIn(150)) {
+		if(Chance.oneIn(1)) {
 			if(Chance.oneIn(2)) {
 				rarityName = "Primal ";
 				rarityStars = "" + ChatColor.RED;

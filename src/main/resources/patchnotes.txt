@@ -15,6 +15,7 @@ Patch 510: Clashing Classes
 	    
 	Miscellaneous
 	  - Added new categorized Armor Types
+	  - Added Starting Weapons for Classes
 
 Patch 509: Skill Pack III
 	Runes

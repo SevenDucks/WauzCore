@@ -17,6 +17,7 @@ import org.bukkit.potion.PotionEffect;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.InventoryStringConverter;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
@@ -112,6 +113,7 @@ public class CharacterManager {
 		player.setSaturation(20);
 		
 		player.getInventory().clear();
+		equipHubItems(player);
 		
 		player.setCompassTarget(WauzCore.getHubLocation());
 		player.setBedSpawnLocation(WauzCore.getHubLocation(), true);
@@ -299,6 +301,18 @@ public class CharacterManager {
 		player.getInventory().clear();
 		
 		if(wauzMode.equals(WauzMode.MMORPG)) {
+			ItemStack starterWeapon = null;
+			if(classNephilim) {
+				starterWeapon = Equipment.getNephilimStarterWeapon();
+			}
+			else if(classCrusader) {
+				starterWeapon = Equipment.getCrusaderStarterWeapon();
+			}
+			else if(classAssassin) {
+				starterWeapon = Equipment.getAssassinStarterWeapon();
+			}
+			player.getInventory().addItem(starterWeapon);
+			player.getInventory().addItem(Equipment.getStarterRune());
 			equipCharacterItems(player);
 			
 			if(characterWorld.equals("Wauzland")) {
@@ -319,7 +333,16 @@ public class CharacterManager {
 		player.teleport(spawn);
 	}
 	
-	private static void equipCharacterItems(Player player) {
+	public static void equipHubItems(Player player) {
+		ItemStack mainMenuItemStack = new ItemStack(Material.NETHER_STAR);
+		ItemMeta mainMenuItemMeta = mainMenuItemStack.getItemMeta();
+		mainMenuItemMeta.setDisplayName(ChatColor.GOLD + "Open Menu");
+		mainMenuItemStack.setItemMeta(mainMenuItemMeta);
+		player.getInventory().clear();
+		player.getInventory().setItem(4, mainMenuItemStack);
+	}
+	
+	public static void equipCharacterItems(Player player) {
 		ItemStack clockItemStack = new ItemStack(Material.CLOCK);
 		ItemMeta clockItemMeta = clockItemStack.getItemMeta();
 		clockItemMeta.setDisplayName(ChatColor.RED + "No Item Equipped");

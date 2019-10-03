@@ -13,9 +13,15 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.ArmorType;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.EquipMethod;
+import eu.wauz.wauzcore.items.runes.RuneHardening;
+import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneRemover;
 import eu.wauz.wauzcore.items.runes.insertion.WauzSkillgemInserter;
+import eu.wauz.wauzcore.skills.SkillTheChariot;
+import eu.wauz.wauzcore.skills.SkillTheMagician;
+import eu.wauz.wauzcore.skills.SkillTheStar;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
@@ -208,6 +214,26 @@ public class Equipment {
 		Player player = (Player) event.getWhoClicked();
 		ItemStack equipmentItemStack = event.getCurrentItem();
 		return new WauzRuneRemover().clearAllSockets(player, equipmentItemStack);
+	}
+	
+	public static ItemStack getNephilimStarterWeapon() {
+		WauzPlayerSkill skill = new SkillTheMagician();
+		return WauzDebugger.getSkillgemWeapon(skill, false);
+	}
+	
+	public static ItemStack getCrusaderStarterWeapon() {
+		WauzPlayerSkill skill = new SkillTheChariot();
+		return WauzDebugger.getSkillgemWeapon(skill, false);
+	}
+
+	public static ItemStack getAssassinStarterWeapon() {
+		WauzPlayerSkill skill = new SkillTheStar();
+		return WauzDebugger.getSkillgemWeapon(skill, false);
+	}
+	
+	public static ItemStack getStarterRune() {
+		WauzRune rune = new RuneHardening();
+		return WauzDebugger.getRune(rune.getRuneId(), false);
 	}
 
 }

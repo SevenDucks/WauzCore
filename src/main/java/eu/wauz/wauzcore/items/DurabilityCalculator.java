@@ -12,7 +12,7 @@ public class DurabilityCalculator {
 	
 	public static void takeDamage(Player player, ItemStack itemStack, boolean armor) {
 		int maxDurability = ItemUtils.getMaximumDurability(itemStack);
-		if(maxDurability == 0) {
+		if(maxDurability == 0 || itemStack.getItemMeta().isUnbreakable()) {
 			return;
 		}
 		int durability = ItemUtils.getCurrentDurability(itemStack) - 1;

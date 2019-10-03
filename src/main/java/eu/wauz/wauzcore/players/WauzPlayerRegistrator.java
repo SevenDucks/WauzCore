@@ -4,13 +4,10 @@ import java.io.File;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
@@ -66,13 +63,7 @@ public class WauzPlayerRegistrator {
         		player.sendMessage("Welcome to Wauzland! v" + core.getDescription().getVersion());
         		WauzPlayerDataPool.regPlayer(player);
         		WauzPlayerScoreboard.scheduleScoreboard(player);
-        		
-        		ItemStack mainMenuItemStack = new ItemStack(Material.NETHER_STAR);
-        		ItemMeta mainMenuItemMeta = mainMenuItemStack.getItemMeta();
-        		mainMenuItemMeta.setDisplayName(ChatColor.GOLD + "Open Menu");
-        		mainMenuItemStack.setItemMeta(mainMenuItemMeta);
-        		player.getInventory().clear();
-        		player.getInventory().setItem(4, mainMenuItemStack);
+        		CharacterManager.equipHubItems(player);
             }
 		}, 10);
 	}

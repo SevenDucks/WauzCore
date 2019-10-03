@@ -55,13 +55,15 @@ public class WauzDateUtils {
 	}
 	
 	public static String getTimeTillNextSeason() {
-		return formatTimeUntil(getFirstDayOfQuarter());
+		return formatTimeUntil(getFirstDayOfNextQuarter());
 	}
 	
-	public static long getFirstDayOfQuarter() {
+	public static long getFirstDayOfNextQuarter() {
 		LocalDateTime dateTime = LocalDateTime.now();
+		int year = dateTime.getMonth().getValue() + 3 > 12 ? dateTime.getYear() + 1 : dateTime.getYear();
 		dateTime = dateTime
 				.with(dateTime.getMonth().plus(3).firstMonthOfQuarter())
+				.withYear(year)
 				.with(TemporalAdjusters.firstDayOfMonth())
 				.withHour(0).withMinute(0).withSecond(0);
 		return dateTime.toInstant(OffsetDateTime.now().getOffset()).toEpochMilli();

@@ -69,21 +69,27 @@ public class WauzDebugger {
 	
 	public static boolean getSkillgemWeapon(Player player, String skillId) {
 		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillId);
-		if(skill == null)
+		if(skill == null) {
 			return false;
+		}
 		
+		player.getInventory().addItem(getSkillgemWeapon(skill, true));
+		return true;
+	}
+	
+	public static ItemStack getSkillgemWeapon(WauzPlayerSkill skill, boolean debug) {
 		ItemStack itemStack = new ItemStack(Material.DIAMOND_HOE);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.DARK_RED + "Noble Phantasm");
 		List<String> lores = new ArrayList<String>();
 		String x = ChatFormatter.ICON_DIAMS;
 		String rareStars = ChatColor.YELLOW +x +x +x +x +x;
-		lores.add(ChatColor.WHITE + "Debuggers" + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Unique Weapon " + rareStars);
+		lores.add(ChatColor.WHITE + (debug ? "Debuggers" : "Starters") + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Unique Weapon " + rareStars);
 		lores.add("");
-		lores.add("Attack:" + ChatColor.RED + " 10 " + ChatColor.DARK_GRAY
+		lores.add("Attack:" + ChatColor.RED + (debug ? " 10 " : " 1 ") + ChatColor.DARK_GRAY
 				+ "(" + ChatColor.YELLOW + "lvl " + ChatColor.AQUA + "1" + ChatColor.DARK_GRAY + ")");
-		lores.add("Durability:" + ChatColor.DARK_GREEN + " " + 2048
-				+ " " + ChatColor.DARK_GRAY + "/ " + 2048);
+		lores.add("Durability:" + ChatColor.DARK_GREEN + " " + (debug ? 2048 : 300)
+				+ " " + ChatColor.DARK_GRAY + "/ " + (debug ? 2048 : 300));
 		lores.add("");
 		lores.add(ChatColor.WHITE + "Skillgem (" + ChatColor.LIGHT_PURPLE + skill.getSkillId() + ChatColor.WHITE + ")");
 		lores.add(ChatColor.WHITE + skill.getSkillDescription());
@@ -94,15 +100,14 @@ public class WauzDebugger {
 		itemMeta.setLore(lores);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		itemStack.setItemMeta(itemMeta);
-		
-		player.getInventory().addItem(itemStack);
-		return true;
+		return itemStack;
 	}
 	
 	public static boolean getEnhancedEquipment(Player player, String enhancementId, int enhancementLevel) {
 		WauzEnhancement enhancement = WauzEquipmentEnhancer.getEnhancement(enhancementId);
-		if(enhancement == null || enhancementLevel < 1)
+		if(enhancement == null || enhancementLevel < 1) {
 			return false;
+		}
 		
 		boolean isWeapon = enhancement.getEquipmentType().equals(EquipmentType.WEAPON);
 		
@@ -161,27 +166,30 @@ public class WauzDebugger {
 	
 	public static boolean getRune(Player player, String runeId) {
 		List<String> runeIds = WauzRuneInserter.getAllRuneIds();
-		if(!runeIds.contains(runeId))
+		if(!runeIds.contains(runeId)) {
 			return false;
+		}
 		
+		player.getInventory().addItem(getRune(runeId, true));
+		return true;
+	}
+	
+	public static ItemStack getRune(String runeId, boolean debug) {
 		ItemStack itemStack = new ItemStack(Material.FIREWORK_STAR);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.GOLD + "Rune of " + runeId);
 		List<String> lores = new ArrayList<String>();
 		String x = ChatFormatter.ICON_DIAMS;
 		String rareStars = ChatColor.GREEN +x +x +x;
-		lores.add(ChatColor.WHITE + "Debuggers" + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Deafening Rune " + rareStars);
+		lores.add(ChatColor.WHITE + (debug ? "Debuggers" : "Starters") + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Deafening Rune " + rareStars);
 		lores.add("");
 		lores.add(ChatColor.GRAY + "Can be inserted into Equipment,");
 		lores.add(ChatColor.GRAY + "which possesses an empty Rune Slot.");
 		lores.add("");
-		lores.add("Might:" + ChatColor.YELLOW + " " + 50);
-		
+		lores.add("Might:" + ChatColor.YELLOW + " " + (debug ? 50 : 10));
 		itemMeta.setLore(lores);	
 		itemStack.setItemMeta(itemMeta);
-		
-		player.getInventory().addItem(itemStack);
-		return true;
+		return itemStack;
 	}
 
 }
