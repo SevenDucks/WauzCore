@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -26,14 +26,44 @@ public class CharacterRaceClassMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterRaceClassMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Race/Class!");
 		
-		ItemStack race1 = new ItemStack(Material.BLUE_CONCRETE);
+		ItemStack race1 = HeadUtils.getNephilimItem();
 		ItemMeta im1 = race1.getItemMeta();
-		im1.setDisplayName(ChatColor.BLUE + "Human");
+		im1.setDisplayName(ChatColor.RED + "Nephilim");
 		List<String> lores1 = new ArrayList<String>();
-		lores1.add(ChatColor.WHITE + "You probably know what a human is!");
+		lores1.add(ChatColor.WHITE + "Preferred Weapons (+35% Atk):" + ChatColor.LIGHT_PURPLE + " Staves");
+		lores1.add(ChatColor.WHITE + "Armor Category:" + ChatColor.AQUA + " Medium");
+		lores1.add("");
+		lores1.add(ChatColor.GRAY + "Children of fallen Angels,");
+		lores1.add(ChatColor.GRAY + "who fight to gain more power.");
 		im1.setLore(lores1);
 		race1.setItemMeta(im1);
-		menu.setItem(4, race1);
+		menu.setItem(2, race1);
+		
+		ItemStack race2 = HeadUtils.getCrusaderItem();
+		ItemMeta im2 = race2.getItemMeta();
+		im2.setDisplayName(ChatColor.GOLD + "Crusader");
+		List<String> lores2 = new ArrayList<String>();
+		lores2.add(ChatColor.WHITE + "Preferred Weapons (+35% Atk):" + ChatColor.LIGHT_PURPLE + " Axes");
+		lores2.add(ChatColor.WHITE + "Armor Category:" + ChatColor.AQUA + " Heavy");
+		lores2.add("");
+		lores2.add(ChatColor.GRAY + "Holy Warriors,");
+		lores2.add(ChatColor.GRAY + "who fight in the name of their god.");
+		im2.setLore(lores2);
+		race2.setItemMeta(im2);
+		menu.setItem(4, race2);
+		
+		ItemStack race3 = HeadUtils.getAssassinItem();
+		ItemMeta im3 = race3.getItemMeta();
+		im3.setDisplayName(ChatColor.GREEN + "Assassin");
+		List<String> lores3 = new ArrayList<String>();
+		lores3.add(ChatColor.WHITE + "Preferred Weapons (+35% Atk):" + ChatColor.LIGHT_PURPLE + " Swords");
+		lores3.add(ChatColor.WHITE + "Armor Category:" + ChatColor.AQUA + " Light");
+		lores3.add("");
+		lores3.add(ChatColor.GRAY + "Ruthless Mercenaries,");
+		lores3.add(ChatColor.GRAY + "who fight to fill their wallets.");
+		im3.setLore(lores3);
+		race3.setItemMeta(im3);
+		menu.setItem(6, race3);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -45,14 +75,21 @@ public class CharacterRaceClassMenu implements WauzInventory {
 		final Player player = (Player) event.getWhoClicked();
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(playerData == null) {
+		if(playerData == null || clicked == null) {
 			return;
 		}
-		if(clicked == null || !clicked.getType().toString().endsWith("CONCRETE")) {
-			return;
+		else if(HeadUtils.isHeadMenuItem(clicked, "Nephilim")) {
+			playerData.setSelectedCharacterRace("Human Nephilim");
+			CharacterManager.createCharacter(player, WauzMode.MMORPG);
+			player.closeInventory();
 		}
-		else if(clicked.getItemMeta().getDisplayName().contains("Human")) {
-			playerData.setSelectedCharacterRace("Human");
+		else if(HeadUtils.isHeadMenuItem(clicked, "Crusader")) {
+			playerData.setSelectedCharacterRace("Human Crusader");
+			CharacterManager.createCharacter(player, WauzMode.MMORPG);
+			player.closeInventory();
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Assassin")) {
+			playerData.setSelectedCharacterRace("Human Assassin");
 			CharacterManager.createCharacter(player, WauzMode.MMORPG);
 			player.closeInventory();
 		}

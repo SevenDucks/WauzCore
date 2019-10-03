@@ -104,8 +104,24 @@ public class ItemUtils {
 		}
 	}
 	
-	public static ArmorType getArmorType(ItemStack itemStack) {
-		return ArmorType.HEAVY; // TODO Replace with real values
+	public static ArmorCategory getArmorCategory(ItemStack itemStack) {
+		String categoryString = hasLore(itemStack) ? getStringFromLore(itemStack, "Category", 1) : null;
+		
+		if(categoryString == null) {
+			return ArmorCategory.UNKNOWN;
+		}
+		else if(categoryString.contains(ArmorCategory.HEAVY.toString())) {
+			return ArmorCategory.HEAVY;
+		}
+		else if(categoryString.contains(ArmorCategory.MEDIUM.toString())) {
+			return ArmorCategory.MEDIUM;
+		}
+		else if(categoryString.contains(ArmorCategory.LIGHT.toString())) {
+			return ArmorCategory.LIGHT;
+		}
+		else {
+			return ArmorCategory.UNKNOWN;
+		}
 	}
 	
 	public static int getBaseAtk(ItemStack itemStack) {

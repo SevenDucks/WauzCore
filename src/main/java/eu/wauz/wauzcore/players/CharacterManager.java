@@ -134,26 +134,39 @@ public class CharacterManager {
 	
 	public static void createCharacter(final Player player, WauzMode wauzMode) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null)
+		if(playerData == null) {
 			return;
+		}
 		
 		String characterSlot = null;
-		if(playerData.getSelectedCharacterSlot() != null)
+		if(playerData.getSelectedCharacterSlot() != null) {
 			characterSlot = playerData.getSelectedCharacterSlot();
-		else
+		}
+		else {
 			return;
+		}
 		
 		String characterWorld = null;
-		if(playerData.getSelectedCharacterWorld() != null)
+		if(playerData.getSelectedCharacterWorld() != null) {
 			characterWorld = playerData.getSelectedCharacterWorld();
-		else
+		}
+		else {
 			return;
+		}
 		
-		String characterRace = null;
-		if(playerData.getSelectedCharacterRace() != null)
-			characterRace = playerData.getSelectedCharacterRace();
-		else
+		String characterRaceAndClass = null;
+		boolean classNephilim;
+		boolean classCrusader;
+		boolean classAssassin;
+		if(playerData.getSelectedCharacterRace() != null) {
+			characterRaceAndClass = playerData.getSelectedCharacterRace();
+			classNephilim = characterRaceAndClass.contains("Nephilim");
+			classCrusader = characterRaceAndClass.contains("Crusader");
+			classAssassin = characterRaceAndClass.contains("Assassin");
+		}
+		else {
 			return;
+		}
 		
 		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + ".yml");
 		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
@@ -187,7 +200,7 @@ public class CharacterManager {
 		
 		playerDataConfig.set("exists", true);
 		playerDataConfig.set("lastplayed", System.currentTimeMillis());
-		playerDataConfig.set("race", characterRace);
+		playerDataConfig.set("race", characterRaceAndClass);
 		playerDataConfig.set("level", wauzMode.equals(WauzMode.MMORPG) ? 1 : 0);
 		playerDataConfig.set("pos.world", characterWorld);
 		playerDataConfig.set("pos.spawn", characterPosition);
@@ -231,12 +244,12 @@ public class CharacterManager {
 			playerDataConfig.set("stats.agilitypts", 0);
 			
 			playerDataConfig.set("skills.crafting", 1);
-			playerDataConfig.set("skills.sword", 100000);
-			playerDataConfig.set("skills.swordmax", 200000);
-			playerDataConfig.set("skills.axe", 100000);
-			playerDataConfig.set("skills.axemax", 200000);
-			playerDataConfig.set("skills.staff", 100000);
-			playerDataConfig.set("skills.staffmax", 200000);
+			playerDataConfig.set("skills.sword", classAssassin ? 135000 : 100000);
+			playerDataConfig.set("skills.swordmax", classAssassin ? 250000 : 200000);
+			playerDataConfig.set("skills.axe", classCrusader ? 135000 : 100000);
+			playerDataConfig.set("skills.axemax", classCrusader ? 250000 : 200000);
+			playerDataConfig.set("skills.staff", classNephilim ? 135000 : 100000);
+			playerDataConfig.set("skills.staffmax", classNephilim ? 250000 : 200000);
 				
 			playerDataConfig.set("reput.exp", 0);
 			playerDataConfig.set("reput.cow", 0);

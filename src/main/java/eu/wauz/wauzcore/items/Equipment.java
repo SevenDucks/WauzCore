@@ -31,12 +31,16 @@ public class Equipment {
 	
 	private int durabilityStat;
 	
+	private ArmorCategory category;
+	
 	private Color leatherDye;
 	
 	public Equipment(EquipmentType type, Material material, String name) {
 		this.type = type;
 		this.material = material;
 		this.name = name;
+		
+		category = ArmorCategory.UNKNOWN;
 	}
 
 	public EquipmentType getType() {
@@ -66,6 +70,15 @@ public class Equipment {
 
 	public Equipment withDurabilityStat(int durabilityStat) {
 		this.durabilityStat = durabilityStat;
+		return this;
+	}
+	
+	public ArmorCategory getCategory() {
+		return category;
+	}
+	
+	public Equipment withCategory(ArmorCategory category) {
+		this.category = category;
 		return this;
 	}
 
@@ -139,7 +152,7 @@ public class Equipment {
 	
 	private static boolean doesLevelMatch(Player player, ItemStack armorItemStack) {
 		int requiredLevel = ItemUtils.getLevelRequirement(armorItemStack);
-		boolean levelMatches = player.getLevel() < requiredLevel;
+		boolean levelMatches = player.getLevel() >= requiredLevel;
 		if(!levelMatches) {
 			player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
 		}
@@ -149,7 +162,15 @@ public class Equipment {
 	
 	private static boolean doesClassMatch(Player player, ItemStack armorItemStack) {
 		String raceAndClass = PlayerConfigurator.getCharacterRace(player);
-		return true;
+		ArmorCategory armorCategory = ItemUtils.getArmorCategory(armorItemStack);
+		ArmorCategory classArmorCategory = ArmorCategory.fromRaceAndClass(raceAndClass);
+		boolean unknownCategory = armorCategory.equals(ArmorCategory.UNKNOWN);
+		boolean classMatches = unknownCategory || armorCategory.equals(classArmorCategory); 
+		if(!classMatches) {
+			player.sendMessage(ChatColor.RED + "Your class can't wear " + armorCategory.toString().toLowerCase() + " items!");
+		}
+		WauzDebugger.log(player, "Armor Category: " + armorCategory);
+		return classMatches;
 	}
 	
 	private static ItemStack getCosmeticItem(Material material) {

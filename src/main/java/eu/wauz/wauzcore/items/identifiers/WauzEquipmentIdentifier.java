@@ -137,6 +137,7 @@ public class WauzEquipmentIdentifier {
 		lores = new ArrayList<String>();
 		addMainStatToEquipment();
 		addEnhancementsToEquipment();
+		addArmorCategoryToEquipment();
 		addDurabilityToEquipment();
 		addSlotsToEquipment();
 		
@@ -231,10 +232,10 @@ public class WauzEquipmentIdentifier {
 		String scalingString = scalingLevel == 1
 				? " " + ChatColor.DARK_GRAY + "(" + levelString
 				: " " + ChatColor.DARK_GRAY + "(Scaled x" + scalingLevel + " " + levelString;
-		mainStat = (int) (mainStat * scalingLevel) + 1;
+		mainStat = (int) (mainStat * scalingLevel);
 		
-		attackStat = mainStat;
-		defenseStat = (mainStat / 4);
+		attackStat = mainStat + 1;
+		defenseStat = (mainStat / 4) + 1;
 		
 		mainStatString = "";
 		if(equipmentType.getType().equals(EquipmentType.WEAPON)) {	
@@ -248,6 +249,12 @@ public class WauzEquipmentIdentifier {
 			lores.add("");
 			mainStatString = "Defense:" + ChatColor.BLUE + " " + defenseStat + scalingString;
 			lores.add(mainStatString);
+		}
+	}
+	
+	private void addArmorCategoryToEquipment() {
+		if(equipmentType.getType().equals(EquipmentType.ARMOR)) {
+			lores.add("Category:" + ChatColor.BLUE + " " + equipmentType.getCategory());
 		}
 	}
 	
