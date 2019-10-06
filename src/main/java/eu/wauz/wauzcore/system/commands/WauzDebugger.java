@@ -61,12 +61,6 @@ public class WauzDebugger {
 		return true;
 	}
 	
-	public static boolean toggleDungeonItemsDebugMode(Player player) {
-		player.addAttachment(WauzCore.getInstance(), "wauz.debug.ditems", !player.hasPermission("wauz.debug.ditems"));
-		log(player, "Dungeon Items debug mode toggled!");
-		return true;
-	}
-	
 	public static boolean getSkillgemWeapon(Player player, String skillId) {
 		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillId);
 		if(skill == null) {

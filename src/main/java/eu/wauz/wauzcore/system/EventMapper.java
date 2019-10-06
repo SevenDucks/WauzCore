@@ -20,7 +20,6 @@ import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.items.WauzScrolls;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.dungeon.DungeonItemChickenGlider;
-import eu.wauz.wauzcore.items.dungeon.DungeonItemThunderRod;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.QuestBuilder;
 import eu.wauz.wauzcore.menu.ShopBuilder;
@@ -42,12 +41,13 @@ import net.md_5.bungee.api.ChatColor;
 
 public class EventMapper {
 	
-	public static void entity(PlayerInteractEntityEvent event) {
+	public static void handleEntityInteraction(PlayerInteractEntityEvent event) {
 		Player player = event.getPlayer();
 		Entity entity = event.getRightClicked();
 		
-		if(!Cooldown.playerEntityInteraction(player))
+		if(!Cooldown.playerEntityInteraction(player)) {
 			return;
+		}
 			
 		String display = ChatColor.stripColor(event.getRightClicked().getCustomName());
 		String[] name = display.split(" ");
@@ -95,22 +95,32 @@ public class EventMapper {
 		}
 	}
 	
-	public static void item(PlayerInteractEvent event) {
+	public static void handleItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		
-		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND))
-            event.setCancelled(true);
+		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND)) {
+			event.setCancelled(true);
+		}
 		
 		else if(itemStack != null) {
 			Material type = itemStack.getType();
-			if(type.equals(Material.NETHER_STAR))		WauzMenu.open(player);
-			else if(type.equals(Material.NAME_TAG))		WauzScrolls.onScrollItemInteract(event);
-			else if(type.equals(Material.BOW))			CustomWeaponBow.use(event);
-			else if(type.equals(Material.BLAZE_ROD))	DungeonItemThunderRod.use(event);
-			else if(type.equals(Material.FEATHER))		DungeonItemChickenGlider.use(event);
-			else if(type.equals(Material.PAPER))		WauzTeleporter.enterInstanceTeleportManual(event);
 			
+			if(type.equals(Material.NETHER_STAR)) {
+				WauzMenu.open(player);
+			}
+			else if(type.equals(Material.NAME_TAG)) {
+				WauzScrolls.onScrollItemInteract(event);
+			}
+			else if(type.equals(Material.BOW)) {
+				CustomWeaponBow.use(event);
+			}
+			else if(type.equals(Material.FEATHER)) {
+				DungeonItemChickenGlider.use(event);
+			}
+			else if(type.equals(Material.PAPER)) {
+				WauzTeleporter.enterInstanceTeleportManual(event);
+			}
 			else if(event.getAction().toString().contains("RIGHT")) {
 				WauzPlayerSkillExecutor.tryToUseSkill(event.getPlayer(), itemStack);
 				FoodCalculator.tryToConsume(event.getPlayer(), itemStack);
@@ -139,25 +149,33 @@ public class EventMapper {
 					|| type.equals(Material.LOOM)
 					|| type.equals(Material.SMITHING_TABLE)
 					|| type.equals(Material.SMOKER)
-					|| type.equals(Material.STONECUTTER))
+					|| type.equals(Material.STONECUTTER)) {
 				event.setCancelled(true);
+			}
 			
-			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN))
+			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN)) {
 				WauzSigns.interact(player, event.getClickedBlock());
+			}
 		}
 	}
 	
-	public static void itemSurvival(PlayerInteractEvent event) {
+	public static void handleSurvivalItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		
-		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND))
-            event.setCancelled(true);
+		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND)) {
+			event.setCancelled(true);
+		}
 		
 		else if(itemStack != null) {
 			Material type = itemStack.getType();
-			if(type.equals(Material.PAPER))						WauzTeleporter.enterInstanceTeleportManual(event);
-			else if(type.equals(Material.EXPERIENCE_BOTTLE))	DamageCalculator.increasePvPProtection(event);
+			
+			if(type.equals(Material.PAPER)) {
+				WauzTeleporter.enterInstanceTeleportManual(event);
+			}
+			else if(type.equals(Material.EXPERIENCE_BOTTLE)) {
+				DamageCalculator.increasePvPProtection(event);
+			}
 		}
 		
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -170,12 +188,13 @@ public class EventMapper {
 				ShopBuilder.open(player, "the Wild");
 			}
 			
-			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN))
+			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN)) {
 				WauzSigns.interact(player, event.getClickedBlock());
+			}
 		}
 	}
 	
-	public static void menu(InventoryClickEvent event) {
+	public static void handleMenuInteraction(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
 		String inventoryName = ChatColor.stripColor(player.getOpenInventory().getTitle());
 		String inventoryType = event.getInventory().getType().toString();

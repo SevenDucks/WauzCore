@@ -81,11 +81,11 @@ public class QuestRequirementChecker {
 			location.setY(Float.parseFloat(trackerCoordinateStrings[1]));
 			location.setZ(Float.parseFloat(trackerCoordinateStrings[2]));
 			
-			PlayerConfigurator.setDungeonItemTrackerDestination(player, location, trackerName);
+			PlayerConfigurator.setTrackerDestination(player, location, trackerName);
 			
 			ItemStack trackerItemStack = new ItemStack(Material.COMPASS);
 			ItemMeta trackerItemMeta = trackerItemStack.getItemMeta();
-			trackerItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getDungeonItemTrackerDestinationName(player));
+			trackerItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getTrackerDestinationName(player));
 			trackerItemMeta.setUnbreakable(true);
 			trackerItemStack.setItemMeta(trackerItemMeta);
 			player.getInventory().setItem(7, trackerItemStack);

@@ -51,7 +51,7 @@ public class CharacterManager {
 		Location spawn = PlayerConfigurator.getCharacterSpawn(player);
 		Location destination = PlayerConfigurator.getCharacterLocation(player);
 		if(wauzMode.equals(WauzMode.MMORPG))
-			PlayerConfigurator.setDungeonItemTrackerDestination(player, spawn, "Spawn");
+			PlayerConfigurator.setTrackerDestination(player, spawn, "Spawn");
 		
 		player.setCompassTarget(spawn);
 		player.setBedSpawnLocation(spawn, true);
@@ -215,13 +215,8 @@ public class CharacterManager {
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			playerDataConfig.set("stats.current.mana", 10);
 			
-			playerDataConfig.set("ditem.coll", 4);
-			playerDataConfig.set("ditem.hook", "unobtained");
-			playerDataConfig.set("ditem.bomb", "unobtained");
-			playerDataConfig.set("ditem.trod", "unobtained");
-			playerDataConfig.set("ditem.glid", "unobtained");
-			playerDataConfig.set("ditem.tracker.coords", characterPosition);
-			playerDataConfig.set("ditem.tracker.name", "Spawn");
+			playerDataConfig.set("tracker.coords", characterPosition);
+			playerDataConfig.set("tracker.name", "Spawn");
 			
 			playerDataConfig.set("arrows.selected", "normal");
 			playerDataConfig.set("arrows.amount.reinforced", 0);

@@ -9,13 +9,16 @@ Patch 510: Clashing Classes
 	  - Assassin
 	    > Swords, Light Armor
 	    
-	New Weapon: ???
+	New Weapon: Hook
+	  - Right Click, pulls Enemies to You
+	  - Shift Right Click, pulls You to Blocks
 	
 	New Weapon: ???
 	    
 	Miscellaneous
 	  - Added new categorized Armor Types
 	  - Added Starting Weapons for Classes
+	  - Removed Dungeon Item System
 
 Patch 509: Skill Pack III
 	Runes

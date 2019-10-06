@@ -115,9 +115,6 @@ public class WauzCommandExecutor {
 			// Toggle Building Debug Mode
 			else if (cmd.getName().equalsIgnoreCase("wzDebug.building"))			
 				return WauzDebugger.toggleBuildingDebugMode((Player) sender);
-			// Toggle Dungeon Items Debug Mode
-			else if (cmd.getName().equalsIgnoreCase("wzDebug.ditems"))			
-				return WauzDebugger.toggleDungeonItemsDebugMode((Player) sender);
 			// Registers Pet to Owner
 			else if(cmd.getName().equalsIgnoreCase("wzRegPet"))
 				return PetOverviewMenu.regPet(WauzCore.getOnlinePlayer(args[0]), args[1]);

@@ -100,10 +100,6 @@ commands:
     description: Toggle Building Debug Mode
     usage: /wzDebug.building
     permission: wauz.system
-  wzDebug.ditems:
-    description: Toggle Dungeon Items Debug Mode
-    usage: /wzDebug.ditems
-    permission: wauz.system
   wzRegPet:
     description: Registers Pet to Owner
     usage: /wzRegPet [playername] [entityid]
@@ -154,7 +150,4 @@ permissions:
     default: false
   wauz.debug.building:
     description: Enables building in all areas.
-    default: false
-  wauz.debug.ditems:
-    description: Grants access to all dungeon items.
     default: false

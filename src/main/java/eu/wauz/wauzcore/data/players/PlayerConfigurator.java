@@ -210,42 +210,21 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 		playerConfigSet(player, "pvp.resticks", ticks, true);
 	}
 	
-// Dungeon Items
+// Tracker
 	
-	public static String getCollectedDungeonItemsString(Player player) {
-		return playerConfigGetString(player, "ditem.coll", true);
-	}
-	
-	public static String getDungeonItemHookString(Player player) {
-		return playerConfigGetString(player, "ditem.hook", true);
-	}
-	
-	public static String getDungeonItemBombString(Player player) {
-		return playerConfigGetString(player, "ditem.bomb", true);
-	}
-	
-	public static String getDungeonItemTrodString(Player player) {
-		return playerConfigGetString(player, "ditem.trod", true);
-	}
-	
-	public static String getDungeonItemGlidString(Player player) {
-		return playerConfigGetString(player, "ditem.glid", true);
-	}
-	
-	public static void setDungeonItemTrackerDestination(Player player, Location location, String name) {
+	public static void setTrackerDestination(Player player, Location location, String name) {
 		String locationString = location.getX() + " " + location.getY() + " " + location.getZ();
-		playerConfigSet(player, "ditem.tracker.coords", locationString, true);
-		playerConfigSet(player, "ditem.tracker.name", name, true);
+		playerConfigSet(player, "tracker.coords", locationString, true);
+		playerConfigSet(player, "tracker.name", name, true);
 	}
 	
-	public static Location getDungeonItemTrackerDestinationLocation(Player player) {
-		return playerConfigGetLocation(player, "ditem.tracker.coords", true);
+	public static Location getTrackerDestinationLocation(Player player) {
+		return playerConfigGetLocation(player, "tracker.coords", true);
 	}
 	
-	public static String getDungeonItemTrackerDestinationName(Player player) {
-		return
-				playerConfigGetString(player, "ditem.tracker.name", true) + " " +
-				playerConfigGetString(player, "ditem.tracker.coords", true);
+	public static String getTrackerDestinationName(Player player) {
+		return playerConfigGetString(player, "tracker.name", true)
+				+ " " + playerConfigGetString(player, "tracker.coords", true);
 	}
 	
 // Arrows

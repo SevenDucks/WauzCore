@@ -1,7 +1,7 @@
 package eu.wauz.wauzcore.players.calc;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Effect;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
@@ -26,7 +26,7 @@ public class FoodCalculator {
 		Bukkit.getServer().getPluginManager().callEvent(event);
 		
 		itemStack.setAmount(itemStack.getAmount() - 1);
-		player.getWorld().playEffect(player.getLocation(), Effect.ZOMBIE_CHEW_WOODEN_DOOR, 0);
+		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
 	}
 	
 	public static void applyItemEffects(PlayerItemConsumeEvent event) {

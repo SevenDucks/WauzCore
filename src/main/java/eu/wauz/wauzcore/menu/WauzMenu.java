@@ -88,18 +88,7 @@ public class WauzMenu implements WauzInventory {
 		groupItemStack.setItemMeta(groupItemMeta);
 		menu.setItem(3, groupItemStack);
 		
-		ItemStack dungeonItemsItemStack = HeadUtils.getItemsItem();
-		ItemMeta dungeonItemsItemMeta = dungeonItemsItemStack.getItemMeta();
-		dungeonItemsItemMeta.setDisplayName(ChatColor.GOLD + "Dungeon Items");
-		List<String> dungeonItemsLore = new ArrayList<String>();
-		dungeonItemsLore.add(ChatColor.DARK_PURPLE + "Collected Items: " + ChatColor.YELLOW
-			+ PlayerConfigurator.getCollectedDungeonItemsString(player) + " / 4");
-		dungeonItemsLore.add("");
-		dungeonItemsLore.add(ChatColor.GRAY + "Equip Items with special Properties,");
-		dungeonItemsLore.add(ChatColor.GRAY + "which can be found in lvl 20 Dungeons.");
-		dungeonItemsItemMeta.setLore(dungeonItemsLore);
-		dungeonItemsItemStack.setItemMeta(dungeonItemsItemMeta);
-		menu.setItem(4, dungeonItemsItemStack);
+		MenuUtils.setComingSoon(menu, "Achievements", 4);
 		
 		ItemStack questlogItemStack = HeadUtils.getQuestItem();
 		ItemMeta questlogItemMeta = questlogItemStack.getItemMeta();
@@ -178,9 +167,6 @@ public class WauzMenu implements WauzInventory {
 		
 		else if(HeadUtils.isHeadMenuItem(clicked, "Group"))
 			GroupMenu.open(player);
-		
-		else if(HeadUtils.isHeadMenuItem(clicked, "Dungeon Items"))
-			DungeonItemMenu.open(player);
 		
 		else if(HeadUtils.isHeadMenuItem(clicked, "Questlog"))
 			QuestBuilder.open(player);

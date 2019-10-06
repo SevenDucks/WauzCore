@@ -57,8 +57,25 @@ import eu.wauz.wauzcore.system.commands.TabCompleterGuilds;
 import eu.wauz.wauzcore.system.commands.TabCompleterRunes;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * Used by the Main Class to load all static Data.
+ * Contains different Methods for all Data Types (Cammands, Equip etc.).
+ * 
+ * @author Wauzmons
+ * 
+ * @see WauzCore
+ */
 public class WauzLoader {
 	
+	/**
+	 * Calls all other Methods for loading and initializing Data.
+	 * Also cleans Data from last run by recalculating the Statistics
+	 * and removing inactive Instances.
+	 * Only called once per Server Run.
+	 * 
+	 * @see InstanceManager#removeInactiveInstances()
+	 * @see StatisticsFetcher#calculate()
+	 */
 	public static void init() {
 		WauzRegion.init();
 		WauzQuest.init();
@@ -84,6 +101,12 @@ public class WauzLoader {
 		registerHeavyArmor();
 	}
 	
+	/**
+	 * Initializes all predefined Command Completers.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerCommandCompleters() {
 		Bukkit.getPluginCommand("apply").setTabCompleter(new TabCompleterGuilds());
 		Bukkit.getPluginCommand("wzGetRune").setTabCompleter(new TabCompleterRunes());
@@ -92,6 +115,12 @@ public class WauzLoader {
 		Bukkit.getPluginCommand("wzSkill.weapon").setTabCompleter(new TabCompleterSkills());
 	}
 	
+	/**
+	 * Initializes all predefined Currencies and Reputation Types.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerCurrenciesAndReputation() {
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Tokens", "tokens");
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Coins", "reput.cow");
@@ -101,6 +130,12 @@ public class WauzLoader {
 		ShopBuilder.registerCurrency(ChatColor.BLUE + "Dark", "reput.legion");
 	}
 	
+	/**
+	 * Initializes all predefined Skillgems.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerSkillgems() {
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheFool());			/** Tarot (00) 0 */
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheMagician());		/** Tarot (01) I */
@@ -126,6 +161,12 @@ public class WauzLoader {
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheWorld());			/** Tarot (21) XXI */
 	}
 	
+	/**
+	 * Initializes all predefined Runes.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerRunes() {
 		WauzRuneInserter.registerRune(new RunePower());
 		WauzRuneInserter.registerRune(new RuneKnowledge());
@@ -133,6 +174,12 @@ public class WauzLoader {
 		WauzRuneInserter.registerRune(new RuneHardening());
 	}
 	
+	/**
+	 * Initializes all predefined Enhancements.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerEnhancements() {
 		WauzEquipmentEnhancer.registerEnhancement(new EnhancementDestruction());
 		WauzEquipmentEnhancer.registerEnhancement(new EnhancementNourishment());
@@ -145,6 +192,12 @@ public class WauzLoader {
 		WauzEquipmentEnhancer.registerEnhancement(new EnhancementMastery());
 	}
 	
+	/**
+	 * Initializes all predefined Equipment of the Type Weapon / Sword.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerSwords() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.WOODEN_SWORD, " Shortsword")
@@ -167,6 +220,12 @@ public class WauzLoader {
 				.withMainStat(1.70).withDurabilityStat(512));
 	}
 	
+	/**
+	 * Initializes all predefined Equipment of the Type Weapon / Axe.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerAxes() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.WOODEN_AXE, " Hatchet")
@@ -189,6 +248,12 @@ public class WauzLoader {
 				.withMainStat(1.90).withDurabilityStat(512));
 	}
 	
+	/**
+	 * Initializes all predefined Equipment of the Type Weapon / Staff.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerStaves() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.WOODEN_HOE, " Staff")
@@ -211,6 +276,12 @@ public class WauzLoader {
 				.withMainStat(1.50).withDurabilityStat(512));
 	}
 	
+	/**
+	 * Initializes all predefined Equipment of the Type Weapon / Bow.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerBows() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.BOW, " Crude Bow")
@@ -225,6 +296,12 @@ public class WauzLoader {
 				.withMainStat(1.20).withDurabilityStat(256));
 	}
 	
+	/**
+	 * Initializes all predefined Equipment of the Type Armor / Light.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerLightArmor() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Vest")
@@ -242,6 +319,12 @@ public class WauzLoader {
 				.withCategory(ArmorCategory.LIGHT).withLeatherDye(Color.GREEN));
 	}
 	
+	/**
+	 * Initializes all predefined Equipment of the Type Armor / Medium.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerMediumArmor() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.ARMOR, Material.CHAINMAIL_CHESTPLATE, " Mail")
@@ -259,6 +342,12 @@ public class WauzLoader {
 				.withCategory(ArmorCategory.MEDIUM).withLeatherDye(Color.MAROON));
 	}
 
+	/**
+	 * Initializes all predefined Equipment of the Type Armor / Heavy.
+	 * Called by the init() Method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
 	private static void registerHeavyArmor() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.ARMOR, Material.IRON_CHESTPLATE, " Plate")
