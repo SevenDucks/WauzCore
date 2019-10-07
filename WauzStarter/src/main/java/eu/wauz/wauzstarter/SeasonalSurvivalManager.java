@@ -20,10 +20,23 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.util.BlockVector;
 import org.bukkit.util.Vector;
 
+/**
+ * This Class is used to create a new World when a Survival Season starts.
+ * It is used once a Day on the Server Startup.
+ * 
+ * @author Wauzmons
+ */
 public class SeasonalSurvivalManager {
 	
+	/**
+	 * A direct reference to the Main Class.
+	 */
 	private static WauzStarter core = WauzStarter.getInstance();
 
+	/**
+	 * Loads the current Survival World or starts a new one,
+	 * if it is outdated or has no Season.yml File.
+	 */
 	public static void generateSurvivalWorld() {
 		String currentSeason = getSurvivalSeason();
 		File seasonFile = getSurvivalSeasonFile();
@@ -45,6 +58,10 @@ public class SeasonalSurvivalManager {
 		updateSurvivalWorld();
 	}
 	
+	/**
+	 * Sets up all Properties of the current Survival World.
+	 * This includes the Spawn, Season File and Gamerules.
+	 */
 	private static void updateSurvivalWorld() {
 		try {		
 			String season = getSurvivalSeason();
@@ -73,6 +90,12 @@ public class SeasonalSurvivalManager {
 		}
 	}
 	
+	/**
+	 * Creates a circular spawn Area in a Survival World.
+	 * 
+	 * @param world
+	 * @param location
+	 */
 	private static void createSpawnCircle(World world, Location location) {
 		Vector vector = new BlockVector(location.getX(), location.getY(), location.getZ());
 		int radius = 10;
@@ -104,6 +127,15 @@ public class SeasonalSurvivalManager {
 		placeEnderChest(location.clone().add(+7, 1, 0).getBlock(), BlockFace.WEST);
 	}
 	
+	/**
+	 * Places an Ender Chest at the given Block.
+	 * Used in Spawn Area Creation.
+	 * 
+	 * @param block
+	 * @param blockFace
+	 * 
+	 * @see SeasonalSurvivalManager#createSpawnCircle(World, Location)
+	 */
 	private static void placeEnderChest(Block block, BlockFace blockFace) {
 		block.setType(Material.ENDER_CHEST);
 		BlockData blockData = block.getBlockData();
@@ -111,16 +143,28 @@ public class SeasonalSurvivalManager {
         block.setBlockData(blockData);
 	}
 	
+	/**
+	 * @return The Current Season. (YEAR-QUARTER)
+	 */
 	private static String getSurvivalSeason() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) / 3 + 1);
 	}
 	
+	/**
+	 * @return The Path of the Season.yml in the Survival World Folder.
+	 */
 	private static File getSurvivalSeasonFile() {
 		return new File(core.getDataFolder().getAbsolutePath().replace("plugins/WauzStarter", "Survival/Season.yml"));
 	}
 	
+	/**
+	 * Deletes a World from the Server.
+	 * 
+	 * @param file The World Folder.
+	 * @return If the World Folder was deleted.
+	 */
 	private static boolean deleteWorld(File file) {
 		if(file.exists()) {
 		    File files[] = file.listFiles();

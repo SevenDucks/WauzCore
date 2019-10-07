@@ -44,6 +44,9 @@ public class WauzDateUtils {
 		return new SimpleDateFormat("HH:mm").format(new Date());
 	}
 	
+	/**
+	 * @return The Current Season. (YEAR-QUARTER)
+	 */
 	public static String getSurvivalSeason() {
 		Calendar calendar = getCalendar();
 		return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) / 3 + 1);

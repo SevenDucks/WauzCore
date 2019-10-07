@@ -45,40 +45,100 @@ import net.kodehawa.lib.imageboards.DefaultImageBoards;
 import net.kodehawa.lib.imageboards.entities.impl.Rule34Image;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * The Discord Bot running on this Server.
+ * Named after my Waifu.
+ * 
+ * @author Wauzmons
+ */
 public class ShiroDiscordBot extends ListenerAdapter {
 	
+	/**
+	 * The API to Access Discord from the Bot Account.
+	 */
 	private JDA jda;
 	
+	/**
+	 * The Discord Server.
+	 */
 	private Guild guild;
 	
+	/**
+	 * The General Channel for the Chat.
+	 */
 	private TextChannel generalChannel;
 	
+	/**
+	 * The Bots Channel for Commands.
+	 */
 	private TextChannel botsChannel;
 	
+	/**
+	 * The Audio Channel for playing Songs.
+	 */
 	private VoiceChannel audioChannel;
 	
+	/**
+	 * The Audio Manager to establish an Audio Connection.
+	 */
 	private AudioManager audioManager;
 	
+	/**
+	 * The Audio Player Manager to load Songs into the Audio Connection.
+	 */
 	private AudioPlayerManager audioPlayerManager;
 	
+	/**
+	 * The Player created from the Player Manager that provides Sound.
+	 */
 	private AudioPlayer audioPlayer;
 	
+	/**
+	 * The Track Scheduler to handle Audio Events such as Track Changes.
+	 */
 	private TrackScheduler trackScheduler;
 	
+	/**
+	 * The List of all queued Audio Tracks.
+	 */
 	private List<AudioTrack> audioQueue = new ArrayList<>();
 	
+	/**
+	 * A Random Instance to select Hentai Images. (Oof)
+	 */
 	private Random random = new Random(); 
 	
+	/**
+	 * The Token for the Discord Bot User.
+	 */
 	private final String TOKEN = DiscordConfigurator.getToken();
 	
+	/**
+	 * The Discord ID of the Admin User.
+	 */
 	private final String ADMIN = DiscordConfigurator.getAdminUserId();
 	
+	/**
+	 * The IP of the Server that should handle Bot Commands.
+	 */
 	private final String MAIN_SERVER_IP = DiscordConfigurator.getMainServerIp();
 	
+	/**
+	 * The Text shown under the Bot in the Discord User List.
+	 */
 	private final String PLAYS_MESSAGE = DiscordConfigurator.getPlaysMessage();
 	
+	/**
+	 * The Discord Message when an Error occurs.
+	 */
 	private final String ERROR_MESSAGE = DiscordConfigurator.getErrorMessage();
 	
+	/**
+	 * Creates logs in a new Bot and loads all Channels.
+	 * Also initializes the Audio Player.
+	 * 
+	 * @see ShiroDiscordBot#configureLavaPlayer()
+	 */
 	public ShiroDiscordBot() {
 		JDABuilder jdaBuilder = new JDABuilder(AccountType.BOT);
 		jdaBuilder.setToken(TOKEN);
@@ -101,15 +161,30 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		}
 	}
 	
+	/**
+	 * Sets the Bot Users Status to Offline and stops the Bot.
+	 */
 	public void stop() {
 		jda.getPresence().setStatus(OnlineStatus.OFFLINE);
 		jda.shutdownNow();
 	}
 	
+	/**
+	 * Sends a Message that will not be written into the Minecraft Chat.
+	 * The Minecraft Prefix prevents infinite Loops between Minecraft and Discord.
+	 * 
+	 * @param message
+	 */
 	public void sendMessageFromMinecraft(String message) {
 		generalChannel.sendMessage("**Minecraft**: `" + ChatColor.stripColor(message) + "`").queue();
 	}
 
+	/**
+	 * Reads a Message from Discord and checks if it is a Command.
+	 * Also sends it to the Minecraft Chat.
+	 * 
+	 * @param event
+	 */
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {
 		try {
@@ -191,10 +266,20 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		}
 	}
 	
+	/**
+	 * @param id The ID of an Discord User
+	 * @return If the User has Administrator Access to the Bot.
+	 */
 	private boolean isMaster(String id) {
 		return id.equals(ADMIN) || id.equals(jda.getSelfUser().getId());
 	}
 	
+	/**
+	 * Executes a Minecraft Command, sent from Discord to this Server.
+	 * 
+	 * @param message The Message that contains the Commands.
+	 * @return The Response from the Bot.
+	 */
 	private String executeCommand(String message) {
 		try {
 			String command = StringUtils.substringAfter(message, "shiro command " + WauzCore.IP + " ");
@@ -208,6 +293,12 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		}
 	}
 	
+	/**
+	 * Gives out a Minecraft Profile, requested from Discord.
+	 * 
+	 * @param message The Message that contains the Minecraft Name.
+	 * @return The Response from the Bot.
+	 */
 	private String getProfileString(String message) {
 		try {
 			OfflinePlayer player = WauzCore.getOfflinePlayer(message.split(" ")[2]);
@@ -237,6 +328,9 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		}
 	}
 	
+	/**
+	 * @return A List of Command Syntax for Controlling the Bot from Discord.
+	 */
 	private String getHelpString() {
 		String helpString = "";
 		String br = System.lineSeparator();
@@ -255,6 +349,14 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		return helpString;
 	}
 	
+	/**
+	 * Finds a Hentai Image from Rule 34, with an optional Tag.
+	 * I am not proud of this one.
+	 * 
+	 * @param channel The Channel to check if it contains "nsfw" in its Name.
+	 * @param message The Message that may contain a Tag.
+	 * @return The Response from the Bot.
+	 */
 	public String getHentaiString(MessageChannel channel, String message) {
 		if(!channel.getName().contains("nsfw"))
 			return "No, no! This isn't a nsfw channel!";
@@ -283,6 +385,13 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		}
 	}
 	
+	/**
+	 * Tells the Bot to play a Song from a Discord Command with a YouTube URL.
+	 * 
+	 * @param message The Message that contains the Song URL.
+	 * @param channel The Channel to write the Response.
+	 * @param startPlaying If the Bot should instantly skip to this Song.
+	 */
 	private void playAudio(String message, MessageChannel channel, boolean startPlaying) {
 		if(startPlaying)
 			addTrackToLavaPlayer(StringUtils.substringAfter(message, "shiro playnow "), channel, true);
@@ -302,17 +411,26 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			audioPlayer.playTrack(audioQueue.get(0));
 	}
 	
+	/**
+	 * Tells the Bot to join the Audio Channel from its Config.
+	 */
 	private void joinAudioChannel() {
 		audioManager.setSendingHandler(getLavaPlayerAudioSendHandler());
 		audioManager.openAudioConnection(audioChannel);
 	}
 	
+	/**
+	 * Tells the Bot to leave its current Audio Channel.
+	 */
 	private void leaveAudioChannel() {
 		audioManager.closeAudioConnection();
 		audioPlayer.stopTrack();
 		audioQueue.clear();
 	}
 	
+	/**
+	 * Sets up an Audio Player.
+	 */
 	private void configureLavaPlayer() {
 		audioPlayerManager = new DefaultAudioPlayerManager();
 		AudioSourceManagers.registerRemoteSources(audioPlayerManager);
@@ -321,6 +439,11 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		audioPlayer.addListener(trackScheduler);
 	}
 	
+	/**
+	 * The Audio Handler to send Sound from its Source to the current Audio Channel.
+	 * 
+	 * @return a new Instance of the Handler.
+	 */
 	private AudioSendHandler getLavaPlayerAudioSendHandler() {
 		return new AudioSendHandler() {
 			
@@ -345,9 +468,19 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		};
 	}
 	
+	/**
+	 * Tells the Bot to play a Song.
+	 * 
+	 * @param identifier The Identifier that a specific Source Manager should be able to find the Track with.
+	 * @param channel The Channel to write the Response.
+	 * @param startPlaying If the Bot should instantly skip to this Song.
+	 */
 	private void addTrackToLavaPlayer(String identifier, MessageChannel channel, boolean startPlaying) {
 		audioPlayerManager.loadItem(identifier, new AudioLoadResultHandler() {
 			
+			/**
+			 * If a Single track was loaded, it gets added to the Audio Queue.
+			 */
 			@Override
 			public void trackLoaded(AudioTrack audioTrack) {
 				if(startPlaying || audioQueue.isEmpty()) {
@@ -362,6 +495,9 @@ public class ShiroDiscordBot extends ListenerAdapter {
 				}
 			}
 			
+			/**
+			 * If a Playlist was loaded, its Tracks get added to the Audio Queue.
+			 */
 			@Override
 			public void playlistLoaded(AudioPlaylist audioPlaylist) {
 				boolean audioQueueEmpty = audioQueue.isEmpty();
@@ -373,11 +509,17 @@ public class ShiroDiscordBot extends ListenerAdapter {
 				}
 			}
 			
+			/**
+			 * Print an Error if the Source is unreadable.
+			 */
 			@Override
 			public void noMatches() {
 				channel.sendMessage("Sorry! Shiro can't read this audio source!").queue();
 			}
 			
+			/**
+			 * Print an Error if the Loading of the Track caused an Exception.
+			 */
 			@Override
 			public void loadFailed(FriendlyException exception) {
 				if(exception.severity.equals(Severity.COMMON))
@@ -389,23 +531,34 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		});
 	}
 	
+	/**
+	 * A Subclass of the Bot to handle Audio Events.
+	 * 
+	 * @author Wauzmons
+	 */
 	private class TrackScheduler extends AudioEventAdapter {
 
-//		@Override
-//		public void onPlayerPause(AudioPlayer player) {
-//			// Player was paused
-//		}
-//
-//		@Override
-//		public void onPlayerResume(AudioPlayer player) {
-//			// Player was resumed
-//		}
-//
-//		@Override
-//		public void onTrackStart(AudioPlayer player, AudioTrack track) {
-//			// A track started playing
-//		}
+		/*
+		@Override
+		public void onPlayerPause(AudioPlayer player) {
+			// Player was paused
+		}
 
+		@Override
+		public void onPlayerResume(AudioPlayer player) {
+			// Player was resumed
+		}
+
+		@Override
+		public void onTrackStart(AudioPlayer player, AudioTrack track) {
+			// A track started playing
+		}
+		*/
+
+		/**
+		 * If a Track has Ended, load the next one
+		 * or leave the Channel if nobody is Listening.
+		 */
 		@Override
 		public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
 			// endReason == FINISHED: A track finished or died by an exception (mayStartNext = true).
@@ -419,14 +572,18 @@ public class ShiroDiscordBot extends ListenerAdapter {
 				leaveAudioChannel();
 		}
 
-//		@Override
-//		public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
-//			// An already playing track threw an exception (track end event will still be received separately)
-//		}
+		/*
+		@Override
+		public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
+			// An already playing track threw an exception (track end event will still be received separately)
+		}
+		*/
 
+		/**
+		 * The Audio Track could not provide any Audio, so it will be skipped.
+		 */
 		@Override
 		public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
-			// Audio track has been unable to provide us any audio, might want to just start a new track
 			skipAudio();
 		}
 		

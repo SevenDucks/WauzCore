@@ -71,10 +71,10 @@ public class WauzCore extends JavaPlugin {
 	
 	/**
 	 * Gets called when the Server is started.
-	 * Initializes the Loader to load all the static Data.
-	 * Registers the Event Listeners.
-	 * Sets up the Web Based API.
-	 * And finally starts all repeating Tasks.
+	 * 1. Initializes the Loader to load all the static Data.
+	 * 2. Registers the Event Listeners.
+	 * 3. Sets up the Web Based API.
+	 * 4. And finally starts all repeating Tasks.
 	 * 
 	 * @see WauzLoader
 	 * @see WauzListener
@@ -187,9 +187,9 @@ public class WauzCore extends JavaPlugin {
 
 	/**
 	 * Gets called when the Server is stopped.
-	 * Closes the Web Based API.
-	 * Logs out all Players.
-	 * And closes all active Instances.
+	 * 1. Closes the Web Based API.
+	 * 2. Logs out all Players.
+	 * 3. And closes all active Instances.
 	 * 
 	 * @see WauzPlayerRegistrator#logout(Player)
 	 * @see InstanceManager#closeInstance(World)
@@ -212,7 +212,7 @@ public class WauzCore extends JavaPlugin {
 
 	/**
 	 * Listens for incoming Commands from the plugin.xml.
-	 * Redirects the needed Informtation the Command Executor.
+	 * Redirects the needed Informtation to the Command Executor.
 	 * 
 	 * @see WauzCommandExecutor
 	 */
@@ -278,7 +278,7 @@ public class WauzCore extends JavaPlugin {
 	}
 	
 	/**
-	 * Prints Information about the System to the requestor.
+	 * Prints Information about the System to the Requestor.
 	 * 
 	 * @param sender The Person who requested the Analytics.
 	 * @return If the Action was successful.
@@ -303,7 +303,7 @@ public class WauzCore extends JavaPlugin {
 	}
 	
 	/**
-	 * Formats Byte Units for displaying in the System Analytics.
+	 * Formats Byte Units for Displaying in the System Analytics.
 	 * 
 	 * @param bytes The raw amount of Bytes.
 	 * @return A formatted String with Byte Unit.

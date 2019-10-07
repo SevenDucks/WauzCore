@@ -3,14 +3,34 @@ package eu.wauz.wauzstarter;
 import org.bukkit.WorldCreator;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * The Main Class of this Module, used to setup The Environment for WauzCore.
+ * Responsible for loading Worlds and scheduling Restarts.
+ * 
+ * @author Wauzmons
+ */
 public class WauzStarter extends JavaPlugin {
 
+	/**
+	 * The instance of this Class, that is created by the Minecraft Server.
+	 */
 	private static WauzStarter instance;
 
+	/**
+	 * Gets called when the Server is started.
+	 * 1. Loads Worlds and creates a new Survival World each Season.
+	 * 2. Initializes the Restart Scheduler.
+	 * 
+	 * @see SeasonalSurvivalManager
+	 * @see WauzRestartScheduler
+	 */
 	@Override
 	public void onEnable() {
 		instance = this;
 		
+		/**
+		 * Print the Version
+		 */
 		getLogger().info("O~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-O");
 		getLogger().info(" _    _                                           ");
 		getLogger().info("| |  | | WauzStarter v" + getDescription().getVersion());
@@ -30,6 +50,9 @@ public class WauzStarter extends JavaPlugin {
 		getLogger().info("Scheduled Restart!");
 	}
 
+	/**
+	 * @return The instance of this Class, that is created by the Minecraft Server.
+	 */
 	public static WauzStarter getInstance() {
 		return instance;
 	}
