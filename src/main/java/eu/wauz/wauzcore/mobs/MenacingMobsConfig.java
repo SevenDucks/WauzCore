@@ -7,20 +7,60 @@ import org.apache.commons.lang3.StringUtils;
 import eu.wauz.wauzcore.system.util.Chance;
 import io.lumine.xikage.mythicmobs.io.MythicConfig;
 
+/**
+ * This is the place, where metadata is generated from the MythicMobs config,
+ * so that the spawner can insert it into the mob.
+ * This includes menacing modifiers, boss bars, aswell as exp and key drops.
+ * 
+ * @author Wauzmons
+ * 
+ * @see MenacingMobsSpawner
+ */
 public class MenacingMobsConfig {
 	
+	/**
+	 * If the mob will receive a menacing modifier.
+	 * One in 20 chance, if enabled.
+	 */
 	private boolean enableModifiers;
 	
+	/**
+	 * If the mob will receive a second menacing modifier.
+	 * One in 4 chance, if it already has a first one.
+	 */
 	private boolean enableSecondModifier;
 	
+	/**
+	 * If the mob will receive a health bar (in red, or yellow if menacing).
+	 */
 	private boolean enableHealthBar;
 	
+	/**
+	 * If the mob will receive a boss health bar (in purple).
+	 */
 	private boolean enableRaidHealthBar;
 	
+	/**
+	 * How much exp the mob will drop and for which level.
+	 */
 	private String expDropString;
 	
+	/**
+	 * What key the mob will drop.
+	 */
 	private String keyDropString;
 	
+	/**
+	 * Reads the values from the MythicConfig into the new MenacingMobsConfig
+	 * Possible config values are:
+	 * 
+	 * MenacingChance = The mob can have menacing modifiers.
+	 * CustomBossBar --Raid = Has a boss bar, raid attribute colors it purple.
+	 * GrantExp (level) (percent) = It will drop exp up to a specific level.
+	 * GrantKey (name) = It will drop the named key.
+	 * 
+	 * @param mythicConfig
+	 */
 	public MenacingMobsConfig(MythicConfig mythicConfig) {
 		List<String> modifiers = mythicConfig.getStringList("WauzMods");
 		if(modifiers == null || modifiers.isEmpty())
@@ -44,26 +84,46 @@ public class MenacingMobsConfig {
 		}
 	}
 	
+	/**
+	 * @return If the mob will receive a menacing modifier.
+	 * One in 20 chance, if enabled.
+	 */
 	public boolean isEnableModifiers() {
 		return enableModifiers;
 	}
 
+	/**
+	 * @return If the mob will receive a second menacing modifier.
+	 * One in 4 chance, if it already has a first one.
+	 */
 	public boolean isEnableSecondModifier() {
 		return enableSecondModifier;
 	}
 
+	/**
+	 * @return If the mob will receive a health bar (in red, or yellow if menacing).
+	 */
 	public boolean isEnableHealthBar() {
 		return enableHealthBar;
 	}
 
+	/**
+	 * @return If the mob will receive a boss health bar (in purple).
+	 */
 	public boolean isEnableRaidHealthBar() {
 		return enableRaidHealthBar;
 	}
 
+	/**
+	 * @return How much exp the mob will drop and for which level.
+	 */
 	public String getExpDropString() {
 		return expDropString;
 	}
 
+	/**
+	 * @return What key the mob will drop.
+	 */
 	public String getKeyDropString() {
 		return keyDropString;
 	}

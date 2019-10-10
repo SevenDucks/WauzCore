@@ -9,15 +9,15 @@ import org.bukkit.entity.Player;
 import net.md_5.bungee.api.ChatColor;
 
 /**
- * The Restart Scheduler schedules Restarts. (Useful Documentation)
+ * The restart scheduler schedules restarts. (Useful Documentation)
  * 
  * @author Wauzmons
  */
 public class WauzRestartScheduler {
 	
 	/**
-	 * Sets up a Reapeating Task, to restart the Server at Midnight, System Time.
-	 * 15 Minutes before the daily Restart a countdown of Minutes is sent to the Chat.
+	 * Sets up a reapeating task, to restart the server at midnight, system time.
+	 * 15 minutes before the daily restart a countdown of minutes is sent to the chat.
 	 */
 	public static void init() {
 		LocalDateTime now = LocalDateTime.now();

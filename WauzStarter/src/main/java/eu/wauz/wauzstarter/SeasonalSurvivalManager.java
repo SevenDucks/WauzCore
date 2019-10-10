@@ -21,21 +21,21 @@ import org.bukkit.util.BlockVector;
 import org.bukkit.util.Vector;
 
 /**
- * This Class is used to create a new World when a Survival Season starts.
- * It is used once a Day on the Server Startup.
+ * This class is used to create a new world when a Survival season starts.
+ * It is used once a day on server startup.
  * 
  * @author Wauzmons
  */
 public class SeasonalSurvivalManager {
 	
 	/**
-	 * A direct reference to the Main Class.
+	 * A direct reference to the main class.
 	 */
 	private static WauzStarter core = WauzStarter.getInstance();
 
 	/**
-	 * Loads the current Survival World or starts a new one,
-	 * if it is outdated or has no Season.yml File.
+	 * Loads the current Survival world or starts a new one,
+	 * if it is outdated or has no Season.yml file.
 	 */
 	public static void generateSurvivalWorld() {
 		String currentSeason = getSurvivalSeason();
@@ -59,8 +59,8 @@ public class SeasonalSurvivalManager {
 	}
 	
 	/**
-	 * Sets up all Properties of the current Survival World.
-	 * This includes the Spawn, Season File and Gamerules.
+	 * Sets up all properties of the current Survival world.
+	 * This includes the spawn, season file and gamerules.
 	 */
 	private static void updateSurvivalWorld() {
 		try {		
@@ -91,7 +91,7 @@ public class SeasonalSurvivalManager {
 	}
 	
 	/**
-	 * Creates a circular spawn Area in a Survival World.
+	 * Creates a circular spawn area in the Survival world.
 	 * 
 	 * @param world
 	 * @param location
@@ -128,8 +128,8 @@ public class SeasonalSurvivalManager {
 	}
 	
 	/**
-	 * Places an Ender Chest at the given Block.
-	 * Used in Spawn Area Creation.
+	 * Places an ender chest at the given block.
+	 * Used in spawn area creation.
 	 * 
 	 * @param block
 	 * @param blockFace
@@ -144,7 +144,7 @@ public class SeasonalSurvivalManager {
 	}
 	
 	/**
-	 * @return The Current Season. (YEAR-QUARTER)
+	 * @return The current season. (YEAR-QUARTER)
 	 */
 	private static String getSurvivalSeason() {
 		Calendar calendar = Calendar.getInstance();
@@ -153,17 +153,17 @@ public class SeasonalSurvivalManager {
 	}
 	
 	/**
-	 * @return The Path of the Season.yml in the Survival World Folder.
+	 * @return The path of the Season.yml in the Survival world folder.
 	 */
 	private static File getSurvivalSeasonFile() {
 		return new File(core.getDataFolder().getAbsolutePath().replace("plugins/WauzStarter", "Survival/Season.yml"));
 	}
 	
 	/**
-	 * Deletes a World from the Server.
+	 * Deletes a world from the server.
 	 * 
-	 * @param file The World Folder.
-	 * @return If the World Folder was deleted.
+	 * @param file The world folder.
+	 * @return If the world folder was deleted.
 	 */
 	private static boolean deleteWorld(File file) {
 		if(file.exists()) {

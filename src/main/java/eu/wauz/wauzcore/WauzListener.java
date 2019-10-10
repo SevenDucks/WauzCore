@@ -96,23 +96,23 @@ import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobSpawnEvent;
 import net.md_5.bungee.api.ChatColor;
 
 /**
- * This is the Class, where most Bukkit Events are caught
- * and modified to hold WauzCore Data instead of normal Minecraft Stuff.
+ * This is the class, where most Bukkit events are caught
+ * and modified to hold WauzCore data instead of normal Minecraft stuff.
  * 
  * @author Wauzmons
  */
 public class WauzListener implements Listener {
 	
 	/**
-	 * Storage for Player Names, to greet them in the MotD.
+	 * Storage for player names, to greet them in the MotD.
 	 */
 	private Map<InetAddress, String> addressNameMap = new HashMap<>();
 	
 	/**
-	 * Gets the Player's Name, to greet them in the MotD.
+	 * Gets the player's name, to greet them in the MotD.
 	 * 
-	 * @param address IP of the Player.
-	 * @return Name of the Player or "Hero" if unknown.
+	 * @param address IP of the player.
+	 * @return Name of the player or "Hero" if unknown.
 	 */
 	private String getNameFromAddress(InetAddress address) {
 		String name = addressNameMap.get(address);
@@ -122,7 +122,7 @@ public class WauzListener implements Listener {
 // Player Interaction Listeners
 	
 	/**
-	 * Responds to the Players Ping with a Custom MotD.
+	 * Responds to the players ping with a custom MotD.
 	 * 
 	 * @param event
 	 */
@@ -139,10 +139,10 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Logs the Player into the Game.
-	 * Denies Access if the Player is banned, not whitelisted
-	 * or if the Server is full.
-	 * TODO Test how online Players are counted.
+	 * Logs the player into the game.
+	 * Denies access if the player is banned, not whitelisted
+	 * or if the server is full.
+	 * TODO Test how online players are counted.
 	 * 
 	 * @param event
 	 * 
@@ -168,7 +168,7 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Logs the Player out of the Game.
+	 * Logs the player out of the game.
 	 * 
 	 * @param event
 	 * 
@@ -181,7 +181,7 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Lets the Player automatically respawn on Death.
+	 * Lets the player automatically respawn on death.
 	 * 
 	 * @param event
 	 * 
@@ -194,7 +194,7 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Formats the Chat Message of the Player.
+	 * Formats the chat messages of the player.
 	 * 
 	 * @param event
 	 * 
@@ -206,7 +206,7 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Lets the Mapper decide how to handle the Interaction with an Entity.
+	 * Lets the mapper decide how to handle the interaction with an entity.
 	 * 
 	 * @param event
 	 * 
@@ -220,7 +220,7 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Lets the Mapper decide how to handle the Interaction with an Object.
+	 * Lets the mapper decide how to handle the interaction with an object.
 	 * 
 	 * @param event
 	 * 
@@ -237,8 +237,8 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Updates the Scoreboard of an MMORPG Player,
-	 * in case they picked up an Item that is relevant to a Quest.
+	 * Updates the scoreboard of an MMORPG player,
+	 * in case they picked up an item that is relevant to a quest.
 	 * 
 	 * @param event
 	 * 
@@ -252,8 +252,8 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Reads Food Stats from the consumed Item,
-	 * to apply all relevant Effects to the Player.
+	 * Reads food stats from the consumed item,
+	 * to apply all relevant effects to the player.
 	 * 
 	 * @param event
 	 * 
@@ -267,8 +267,8 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Changes the Armor Set of a Player,
-	 * but only if they meet the Equip Requirements.
+	 * Changes the armor set of a player,
+	 * but only if they meet the equip requirements.
 	 * 
 	 * @param event
 	 * 
@@ -283,8 +283,8 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents MMORPG Players to modify Armor Stands,
-	 * because they are used as Displays for Damage Numbers and more.
+	 * Prevents MMORPG players to modify armor stands,
+	 * because they are used as displays for damage numbers and more.
 	 * 
 	 * @param event
 	 */
@@ -296,8 +296,8 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Starts a Double Jump if a Player tries to fly in the Hub.
-	 * This is used for faster Travelling and Exploration.
+	 * Starts a double jump if a player tries to fly in the hub.
+	 * This is used for faster travelling and exploration.
 	 * 
 	 * @param event
 	 */
@@ -316,7 +316,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Players to ride on Mounts that belong to someone else.
+	 * Prevents players to ride on mounts, that belong to someone else.
 	 * 
 	 * @param event
 	 */
@@ -332,8 +332,8 @@ public class WauzListener implements Listener {
 // Player Ambient Listeners
 	
 	/**
-	 * Prevents that the Spawn is loaded if a new World is initialized.
-	 * This prevents lag on entering Instances.
+	 * Prevents that the spawn is loaded if a new world is initialized.
+	 * This prevents lag on entering instances.
 	 * 
 	 * @param event
 	 */
@@ -343,9 +343,9 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Reloads most Custom UI if the Player changes their current World.
-	 * This assures that the correct Scoreboard, Minimap etc. are shown.
-	 * Also checks for a new Music Track.
+	 * Reloads most custom UI if the player changes their current world.
+	 * This assures that the correct scoreboard, minimap etc. are shown.
+	 * Also checks for a new music track.
 	 * 
 	 * @param event
 	 */
@@ -358,7 +358,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Players to break blocks in certain Regions.
+	 * Prevents players to break blocks in certain regions.
 	 * 
 	 * @param event
 	 * 
@@ -374,7 +374,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Players to place blocks in certain Regions.
+	 * Prevents players to place blocks in certain regions.
 	 * 
 	 * @param event
 	 * 
@@ -390,7 +390,7 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Checks if the Player just created a Sign that is bound to an Event.
+	 * Checks if the player just created a sign that is bound to an event.
 	 * 
 	 * @param event
 	 * 
@@ -404,7 +404,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Rewards Tokens if a Survival Player exceeded the Maximum Level.
+	 * Rewards tokens if a Survival player exceeded the maximum level.
 	 * 
 	 * @param event
 	 * 
@@ -418,7 +418,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents MMORPG Players from learning normal Minecraft Recipes.
+	 * Prevents MMORPG players from learning normal Minecraft recipes.
 	 * 
 	 * @param event
 	 */
@@ -430,7 +430,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Players from loosing Saturation in the Hub.
+	 * Prevents players from loosing saturation in the hub.
 	 * 
 	 * @param event
 	 */
@@ -444,9 +444,19 @@ public class WauzListener implements Listener {
 // Player Combat Listeners
 
 	/**
-	 * TODO Write Javadoc
+	 * Handles damage calculation in MMORPG mode.
+	 * Cancels out damage in hub, damage to pets or damage from cosmetic explosions.
+	 * Prevents damaging players in non PvP areas and fall damage when gliding.
+	 * 
+	 * Also updates the boss bar if one exists.
 	 * 
 	 * @param event
+	 * 
+	 * @see DamageCalculator#attack(EntityDamageByEntityEvent)
+	 * @see DamageCalculator#reflect(EntityDamageByEntityEvent)
+	 * @see DamageCalculator#defend(EntityDamageEvent)
+	 * @see DamageCalculator#removeDamageModifiers(EntityDamageEvent)
+	 * @see WauzPlayerBossBar#updateBossBar(double)
 	 */
 	@EventHandler
 	public void onDamage(EntityDamageEvent event) {
@@ -494,8 +504,8 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Handles Healing Calculation in MMORPG Mode.
-	 * Also Updates the Boss Bar if one exists.
+	 * Handles healing calculation in MMORPG mode.
+	 * Also updates the boss bar if one exists.
 	 * 
 	 * @param event
 	 * 
@@ -514,14 +524,14 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Handles the Killing of Entities in MMORPG Mode.
-	 * This Handler focuses on Effects like Life Leech caused by the Player,
-	 * not on the actual Death of the Entity.
+	 * Handles the killing of entities in MMORPG mode.
+	 * This handler focuses on effects like life leech caused by the player,
+	 * not on the actual death or loot drops of the entity.
 	 * 
 	 * @param event
 	 * 
 	 * @see DamageCalculator#kill(EntityDeathEvent)
-	 * @see WauzListener#onMythicDeath(MythicMobDeathEvent) Real Death Event Handler
+	 * @see WauzListener#onMythicDeath(MythicMobDeathEvent) "Real" death event handler
 	 */
 	@EventHandler
 	public void onKill(EntityDeathEvent event) {
@@ -531,8 +541,8 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Item Damage in MMORPG Mode.
-	 * The Equipment there has its own Durability System.
+	 * Prevents item damage in MMORPG mode.
+	 * The equipment there has its own durability system.
 	 * 
 	 * @param event
 	 * 
@@ -548,8 +558,8 @@ public class WauzListener implements Listener {
 // MythicMobs Listeners
 
 	/**
-	 * Handles the Spawn of a (Mythic) Mob.
-	 * This includes the Initialization of Modifiers, Loot and Boss Bars.
+	 * Handles the spawn of a (mythic) mob.
+	 * This includes the initialization of modifiers, loot and boss bars.
 	 * 
 	 * @param event
 	 * 
@@ -561,8 +571,8 @@ public class WauzListener implements Listener {
 	 }
 
 	 /**
-	  * Lets the Mapper decide how to handle the Death of a (Mythic) Mob.
-	  * This includes Exp Rewards, Pet Deaths and Modifier Effects.
+	  * Lets the mapper decide how to handle the death of a (mythic) mob.
+	  * This includes exp rewards, pet deaths and modifier effects.
 	  * 
 	  * @param event
 	  * 
@@ -578,10 +588,10 @@ public class WauzListener implements Listener {
 // Inventory Listeners
 	
 	/**
-	 * Logs what Inventory the Player opened.
+	 * Logs what inventory the player opened.
 	 * 
-	 * The original Idea was to construct/dispose Custom Items in the Players normal Inventory.
-	 * This cannot work because the Crafting Inventory is only opened on Client Side.
+	 * The original idea was to construct/dispose custom items in the players normal inventory.
+	 * This cannot work because the crafting inventory is only opened on client side.
 	 * 
 	 * @param event
 	 */
@@ -596,10 +606,10 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Logs what Inventory the Player closed.
+	 * Logs what inventory the player closed.
 	 * 
-	 * The original Idea was to construct/dispose Custom Items in the Players normal Inventory.
-	 * This cannot work because the Crafting Inventory is only opened on Client Side.
+	 * The original idea was to construct/dispose custom items in the players normal inventory.
+	 * This cannot work because the crafting inventory is only opened on client side.
 	 * 
 	 * @param event
 	 */
@@ -614,7 +624,7 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Lets the Mapper decide how to handle the Interaction with an Inventory / Menu.
+	 * Lets the mapper decide how to handle the interaction with an inventory / menu.
 	 * 
 	 * @param event
 	 * 
@@ -626,9 +636,9 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Updates the Scoreboard of an MMORPG Player,
-	 * in case they dropped an Item that is relevant to a Quest.
-	 * Also prevents Dropping of static Items (e.g. Mana Points).
+	 * Updates the scoreboard of an MMORPG player,
+	 * in case they dropped an item that is relevant to a quest.
+	 * Also prevents dropping of static items (e.g. mana points).
 	 * 
 	 * @param event
 	 * 
@@ -644,7 +654,7 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Prevents Swapping of static Items (e.g. Mana Points) in MMORPG Mode.
+	 * Prevents swapping of static items (e.g. mana points) in MMORPG mode.
 	 * 
 	 * @param event
 	 * 
@@ -660,7 +670,7 @@ public class WauzListener implements Listener {
 // Projectile Movement Listeners
 
 	/**
-	 * Handles the Mechanics of Hooks in MMORPG Mode.
+	 * Handles the mechanics of hooks in MMORPG mode.
 	 * 
 	 * @param event
 	 * 
@@ -676,7 +686,7 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Handles the instant Despawn of Arrows in MMORPG Mode.
+	 * Handles the instant despawn of arrows in MMORPG mode.
 	 * 
 	 * @param event
 	 * 
@@ -692,7 +702,7 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Handles Glider Mechanics in MMORPG Mode, aswell as flying Permissions.
+	 * Handles glider mechanics in MMORPG mode, aswell as flying-permissions.
 	 * 
 	 * @param event
 	 * 
@@ -725,7 +735,7 @@ public class WauzListener implements Listener {
 // Block Protection Listeners
 	
 	/**
-	 * Prevents Changes in protected Regions.
+	 * Prevents changes to protected regions.
 	 * 
 	 * @param event
 	 * 
@@ -741,7 +751,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Changes in protected Regions.
+	 * Prevents changes to protected regions.
 	 * 
 	 * @param event
 	 * 
@@ -755,7 +765,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Changes in protected Regions.
+	 * Prevents changes to protected regions.
 	 * 
 	 * @param event
 	 * 
@@ -769,7 +779,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Changes in protected Regions.
+	 * Prevents changes to protected regions.
 	 * 
 	 * @param event
 	 * 
@@ -783,7 +793,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Changes in protected Regions.
+	 * Prevents changes to protected regions.
 	 * 
 	 * @param event
 	 * 
@@ -797,7 +807,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Changes in protected Regions.
+	 * Prevents changes to protected regions.
 	 * 
 	 * @param event
 	 * 
@@ -811,7 +821,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Changes in protected Regions.
+	 * Prevents changes to protected regions.
 	 * 
 	 * @param event
 	 * 
@@ -825,7 +835,7 @@ public class WauzListener implements Listener {
 	}
 	
 	/**
-	 * Prevents Changes in protected Regions.
+	 * Prevents changes to protected regions.
 	 * 
 	 * @param event
 	 * 

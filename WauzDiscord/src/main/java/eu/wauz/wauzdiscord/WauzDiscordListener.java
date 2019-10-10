@@ -7,14 +7,14 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
- * This Class listens to Bukkit Events, to send Join/Leave Messages to Discord.
+ * This class listens to Bukkit events, to send join/leave messages to Discord.
  * 
  * @author Wauzmons
  */
 public class WauzDiscordListener implements Listener {
 
 	/**
-	 * Sends a Join Message to Discord.
+	 * Sends a join message to Discord.
 	 * 
 	 * @param event
 	 */
@@ -25,7 +25,7 @@ public class WauzDiscordListener implements Listener {
 	}
 
 	/**
-	 * Sends a Leave Message to Discord.
+	 * Sends a leave message to Discord.
 	 * 
 	 * @param event
 	 */

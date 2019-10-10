@@ -24,12 +24,34 @@ import io.lumine.xikage.mythicmobs.drops.DropTable;
 import io.lumine.xikage.mythicmobs.drops.LootBag;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * Strongboxes are special mobs, that when destroyed spawn strongbox guards.
+ * If all the guards are defeated, the player will receive a reward.
+ * The Boxes are spawned in dungeons via MythicMobs.
+ * This class handles all the stuff that occurs when a box or guard is destroyed.
+ * 
+ * @author Wauzmons
+ */
 public class Strongbox {
 	
+	/**
+	 * Access to the MythicMobs API.
+	 */
 	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
 	
+	/**
+	 * Maps all stronbox UUIDs to their displays.
+	 */
 	private static Map<String, ArmorStand> activeStrongboxMap = new HashMap<>();
 	
+	/**
+	 * When a strongbox is destroyed, it spawns a display of how many guards are left.
+	 * Guards come in two variants and their numbers are random.
+	 * They have the UUID of the display in their metadata,
+	 * so the number can be reduced if they die, to finally drop loot, if it reaches zero.
+	 * 
+	 * @param event The death event.
+	 */
 	public static void destroy(MythicMobDeathEvent event) {
 		Entity entity = event.getEntity();
 		if(entity.getMetadata("wzStrongbox").isEmpty()) {

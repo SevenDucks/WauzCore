@@ -13,12 +13,40 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 
+/**
+ * Responsible for spawning mobs with menacing modifiers
+ * and for writing metadata like exp or boss bars into the entity.
+ * 
+ * @author Wauzmons
+ */
 public class MenacingMobsSpawner {
 	
+	/**
+	 * A direct reference to the main class.
+	 */
 	private static WauzCore core = WauzCore.getInstance();
 	
+	/**
+	 * A list of possible menacing modifiers (prefixes):
+	 * 
+	 * Explosive = Explodes on death, dealing 500% damage.
+	 * Deflecting = Knocks back everyone who attacks the mob.
+	 * Massive = Takes only 20% of inflicted damage.
+	 * Ravenous = Chases the player with 200% speed.
+	 * Splitting = Splits into 4 mobs on death.
+	 */
 	private static String[] possibleModifiers = {"Deflecting", "Explosive", "Massive", "Ravenous", "Splitting"};
 	
+	/**
+	 * Spawns a mob and configures its metadata according to the generated config.
+	 * This includes menacing modifiers, boss bars, aswell as exp and key drops.
+	 * 
+	 * @param entity
+	 * @param mythicMob
+	 * 
+	 * @see MenacingMobsConfig
+	 * @see MenacingMobsSpawner#possibleModifiers
+	 */
 	public static void addMenacingMob(Entity entity, MythicMob mythicMob) {
 		MenacingMobsConfig config = new MenacingMobsConfig(mythicMob.getConfig());
 		List<String> modifiers = new ArrayList<String>();
@@ -42,6 +70,13 @@ public class MenacingMobsSpawner {
 		}
 	}
 	
+	/**
+	 * @param amount How many modifiers should be returned.
+	 * 
+	 * @return A list of unique menacing modifiers.
+	 * 
+	 * @see MenacingMobsSpawner#possibleModifiers
+	 */
 	public static List<String> getRandomModifiers(int amount) {
 		List<String> modifiers = new ArrayList<String>();
 		List<String> unusedModifiers = new ArrayList<String>(Arrays.asList(possibleModifiers));

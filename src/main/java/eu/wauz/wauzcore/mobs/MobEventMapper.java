@@ -22,10 +22,29 @@ import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
 import io.lumine.xikage.mythicmobs.api.exceptions.InvalidMobTypeException;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 
+/**
+ * A mapper class, that decides what to do, when a (mythic) mob dies.
+ * This goes from dropping exp to frickin' exploding.
+ * 
+ * @author Wauzmons
+ */
 public class MobEventMapper {
 	
+	/**
+	 * Access to the MythicMobs API.
+	 */
 	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
 	
+	/**
+	 * When a mob dies, following cases are possible:
+	 * It gets unregistered from its owner, if it was a pet.
+	 * It spawns guards or loot, if it was a strongbox.
+	 * It gets removed from the travel map, if it was a worldboss.
+	 * It explodes or splits, if it has fitting menacing modifiers (prefixes).
+	 * It drops exp or a key, depending on mob type.
+	 * 
+	 * @param event The death event.
+	 */
 	public static void death(MythicMobDeathEvent event) {
 		Entity entity = event.getEntity();
 		String mobId = entity.getUniqueId().toString();
@@ -54,17 +73,32 @@ public class MobEventMapper {
 		}
 	}
 	
+	/**
+	 * Creates an explosion and deals 500% damage to everyone within a radius of 4 blocks.
+	 * Caused by the "Explosive" meanacing modifier on death.
+	 * 
+	 * @param mythicMob
+	 * @param entity
+	 * @param location
+	 */
 	private static void explodeMob(MythicMob mythicMob, Entity entity, Location location) {
 		List<Player> players = SkillUtils.getPlayersInRadius(location, 4);
 		SkillUtils.createExplosion(location, 8);
 		for(Player player : players) {
 			WauzDebugger.log(player, "Hit by Mob Explosion!");
-			int damage = (int) ((double) mythicMob.getBaseDamage() * (double) 4);
+			int damage = (int) ((double) mythicMob.getBaseDamage() * (double) 5);
 			EntityDamageEvent event = new EntityDamageByEntityEvent(entity, player, DamageCause.ENTITY_EXPLOSION, damage);
 			DamageCalculator.defend(event);
 		}
 	}
 	
+	/**
+	 * Spawns 4 mobs of the same type and knocks them away from their spawn.
+	 * Caused by the "Splitting" meanacing modifier on death.
+	 * 
+	 * @param mythicMob
+	 * @param location
+	 */
 	private static void splitMob(MythicMob mythicMob, Location location) {
 		try {
 			for(int iterator = 1; iterator <= 4; iterator++) {

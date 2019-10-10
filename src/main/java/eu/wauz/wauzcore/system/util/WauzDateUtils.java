@@ -45,7 +45,7 @@ public class WauzDateUtils {
 	}
 	
 	/**
-	 * @return The Current Season. (YEAR-QUARTER)
+	 * @return The current season. (YEAR-QUARTER)
 	 */
 	public static String getSurvivalSeason() {
 		Calendar calendar = getCalendar();

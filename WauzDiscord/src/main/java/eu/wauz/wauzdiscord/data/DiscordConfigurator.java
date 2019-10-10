@@ -3,7 +3,7 @@ package eu.wauz.wauzdiscord.data;
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 
 /**
- * Configurator to Fetch or Modify Data from the Discord.yml.
+ * Configurator to fetch or modify data from the Discord.yml.
  * 
  * @author Wauzmons
  */
@@ -12,35 +12,35 @@ public class DiscordConfigurator extends GlobalConfigurationUtils {
 // General Parameters
 	
 	/**
-	 * @return The Token for the Discord Bot User.
+	 * @return The token for the Discord bot user.
 	 */
 	public static String getToken() {
 		return mainConfigGetString("Discord", "token");
 	}
 	
 	/**
-	 * @return The Discord ID of the Admin User.
+	 * @return The Discord ID of the admin user.
 	 */
 	public static String getAdminUserId() {
 		return mainConfigGetString("Discord", "admin");
 	}
 	
 	/**
-	 * @return The IP of the Server that should handle Bot Commands.
+	 * @return The IP of the server that should handle bot commands.
 	 */
 	public static String getMainServerIp() {
 		return mainConfigGetString("Discord", "mainserver");
 	}
 	
 	/**
-	 * @return The Text shown under the Bot in the Discord User List.
+	 * @return The text shown under the bot in the Discord user list.
 	 */
 	public static String getPlaysMessage() {
 		return mainConfigGetString("Discord", "playsmsg");
 	}
 	
 	/**
-	 * @return The Discord Message when an Error occurs.
+	 * @return The Discord message when an error occurs.
 	 */
 	public static String getErrorMessage() {
 		return mainConfigGetString("Discord", "errormsg");
@@ -49,28 +49,28 @@ public class DiscordConfigurator extends GlobalConfigurationUtils {
 // Channel IDs
 	
 	/**
-	 * @return The ID of the Discord Server.
+	 * @return The ID of the Discord server.
 	 */
 	public static long getGuildId() {
 		return mainConfigGetLong("Discord", "guild");
 	}
 	
 	/**
-	 * @return The ID of the General Channel for the Chat.
+	 * @return The ID of the general channel for the chat.
 	 */
 	public static long getGeneralChannelId() {
 		return mainConfigGetLong("Discord", "channels.general");
 	}
 	
 	/**
-	 * @return The ID of the Bots Channel for Commands.
+	 * @return The ID of the bots channel for commands.
 	 */
 	public static long getBotsChannelId() {
 		return mainConfigGetLong("Discord", "channels.bots");
 	}
 	
 	/**
-	 * @return The ID of the Audio Channel for playing Songs.
+	 * @return The ID of the audio channel for playing songs.
 	 */
 	public static long getAudioChannelId() {
 		return mainConfigGetLong("Discord", "channels.audio");

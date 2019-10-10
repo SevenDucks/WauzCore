@@ -31,8 +31,8 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
 /**
- * The Main Class of the Plugin and Holder of System Information.
- * Initializes all static Data, Listerners, API and repeating Tasks.
+ * The main class of the plugin and holder of system information.
+ * Initializes all static data, listerners, API and repeating tasks.
  * When the server stops it will clean it up again.
  * 
  * @author Wauzmons
@@ -40,41 +40,41 @@ import net.md_5.bungee.api.ChatColor;
 public class WauzCore extends JavaPlugin {
 	
 	/**
-	 * The Maximum Level a Player can reach in MMORPG Mode.
+	 * The maximum level a player can reach in MMORPG mode.
 	 */
 	public static final int MAX_PLAYER_LEVEL = 30;
 	
 	/**
-	 * The Maximum Level a Player can reach in Survival Mode.
+	 * The maximum level a player can reach in Survival mode.
 	 */
 	public static final int MAX_PLAYER_LEVEL_SURVIVAL = 30;
 	
 	/**
-	 * The Maximum Crafting Skill a Player can reach in MMORPG Mode.
+	 * The maximum crafting skill a player can reach in MMORPG mode.
 	 */
 	public static final int MAX_CRAFTING_SKILL = 40;
 	
 	/**
-	 * The public IP Address of the Minecraft Server.
+	 * The public IP address of the Minecraft server.
 	 */
 	public static final String IP = Bukkit.getServer().getIp();
 
 	/**
-	 * The instance of this Class, that is created by the Minecraft Server.
+	 * The instance of this class, that is created by the Minecraft server.
 	 */
 	private static WauzCore instance;
 	
 	/**
-	 * The Web Server Manager used for the Web Based API.
+	 * The WebServerManager used for the web based API.
 	 */
 	private static WebServerManager webServerManager;
 	
 	/**
-	 * Gets called when the Server is started.
-	 * 1. Initializes the Loader to load all the static Data.
-	 * 2. Registers the Event Listeners.
-	 * 3. Sets up the Web Based API.
-	 * 4. And finally starts all repeating Tasks.
+	 * Gets called when the server is started.
+	 * 1. Initializes the loader to load all the static data.
+	 * 2. Registers the event listeners.
+	 * 3. Sets up the web based API.
+	 * 4. And finally starts all repeating tasks.
 	 * 
 	 * @see WauzLoader
 	 * @see WauzListener
@@ -85,7 +85,7 @@ public class WauzCore extends JavaPlugin {
 		instance = this;
 		
 		/**
-		 * Print the Version
+		 * Print the version
 		 */
 		getLogger().info("O~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-O");
 		getLogger().info(" _    _                                           ");
@@ -108,7 +108,7 @@ public class WauzCore extends JavaPlugin {
 		getLogger().info("Started WebServerManager!");
 		
 		/**
-		 * Every Second
+		 * Every second
 		 */
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			
@@ -121,7 +121,7 @@ public class WauzCore extends JavaPlugin {
 		}, 200, 20);
 		
 		/**
-		 * Every 3 Seconds
+		 * Every 3 seconds
 		 */
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			
@@ -135,7 +135,7 @@ public class WauzCore extends JavaPlugin {
 		}, 200, 60);
 		
 		/**
-		 * Every 5 Seconds
+		 * Every 5 seconds
 		 */
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			
@@ -154,7 +154,7 @@ public class WauzCore extends JavaPlugin {
 		}, 200, 100);
 		
 		/**
-		 * Every 5 Minutes
+		 * Every 5 minutes
 		 */
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			
@@ -170,7 +170,7 @@ public class WauzCore extends JavaPlugin {
 		}, 200, 6000);
 		
 		/**
-		 * Every 15 Minutes
+		 * Every 15 minutes
 		 */
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			
@@ -186,10 +186,10 @@ public class WauzCore extends JavaPlugin {
 	}
 
 	/**
-	 * Gets called when the Server is stopped.
-	 * 1. Closes the Web Based API.
-	 * 2. Logs out all Players.
-	 * 3. And closes all active Instances.
+	 * Gets called when the server is stopped.
+	 * 1. Closes the web based API.
+	 * 2. Logs out all players.
+	 * 3. And closes all active instances.
 	 * 
 	 * @see WauzPlayerRegistrator#logout(Player)
 	 * @see InstanceManager#closeInstance(World)
@@ -211,8 +211,8 @@ public class WauzCore extends JavaPlugin {
 	}
 
 	/**
-	 * Listens for incoming Commands from the plugin.xml.
-	 * Redirects the needed Informtation to the Command Executor.
+	 * Listens for incoming commands from the plugin.xml.
+	 * Redirects the needed informtation to the command executor.
 	 * 
 	 * @see WauzCommandExecutor
 	 */
@@ -222,31 +222,32 @@ public class WauzCore extends JavaPlugin {
 	}
 
 	/**
-	 * @return The instance of this Class, that is created by the Minecraft Server.
+	 * @return The instance of this class, that is created by the Minecraft server.
 	 */
 	public static WauzCore getInstance() {
 		return instance;
 	}
 
 	/**
-	 * @return The Web Server Manager used for the Web Based API.
+	 * @return The WebServerManager used for the web based API.
 	 */
 	public static WebServerManager getWebServerManager() {
 		return webServerManager;
 	}
 	
 	/**
-	 * @return The Location of the Hub, where Players start their Adventures.
+	 * @return The location of the hub, where players start their adventures.
 	 */
 	public static Location getHubLocation() {
 		return new Location(Bukkit.getWorld("HubNexus"), 0.5, 95, 0.5);
 	}
 	
 	/**
-	 * Finds an online Player by their Name.
+	 * Finds an online player by their name.
 	 * 
-	 * @param name The Name of the Player.
-	 * @return The Player if they are online, else null.
+	 * @param name The name of the player.
+	 * 
+	 * @return The player if they are online, else null.
 	 */
 	public static Player getOnlinePlayer(String name) {
 		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
@@ -257,10 +258,10 @@ public class WauzCore extends JavaPlugin {
 	}
 	
 	/**
-	 * Finds an offline Player by their Name.
+	 * Finds an offline player by their name.
 	 * 
-	 * @param name The Name of the Player.
-	 * @return The Player if they exist, else null.
+	 * @param name The name of the player.
+	 * @return The player if they exist, else null.
 	 */
 	public static OfflinePlayer getOfflinePlayer(String name) {
 		for(OfflinePlayer player : Bukkit.getServer().getOfflinePlayers()) {
@@ -271,17 +272,17 @@ public class WauzCore extends JavaPlugin {
 	}
 	
 	/**
-	 * @return The Key of the Server defined in the .yml Configuration.
+	 * @return The key of the server, defined in the .yml configuration.
 	 */
 	public static String getServerKey() {
 		return RegionConfigurator.getServerRegionKey();
 	}
 	
 	/**
-	 * Prints Information about the System to the Requestor.
+	 * Prints information about the system to the requestor.
 	 * 
-	 * @param sender The Person who requested the Analytics.
-	 * @return If the Action was successful.
+	 * @param sender The person who requested the analytics.
+	 * @return If the action was successful.
 	 */
 	public static boolean printSystemAnalytics(CommandSender sender) {
 		try {
@@ -303,10 +304,10 @@ public class WauzCore extends JavaPlugin {
 	}
 	
 	/**
-	 * Formats Byte Units for Displaying in the System Analytics.
+	 * Formats byte units for displaying in the system analytics.
 	 * 
-	 * @param bytes The raw amount of Bytes.
-	 * @return A formatted String with Byte Unit.
+	 * @param bytes The raw amount of bytes.
+	 * @return A formatted string with byte unit.
 	 * 
 	 * @see WauzCore#printSystemAnalytics(CommandSender)
 	 */

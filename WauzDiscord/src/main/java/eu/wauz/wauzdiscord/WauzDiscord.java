@@ -5,22 +5,28 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * The main class of this module, used to connect Minecraft with Discord.
+ * Responsible for executing bot commands and connecting chats.
+ * 
+ * @author Wauzmons
+ */
 public class WauzDiscord extends JavaPlugin {
 
 	/**
-	 * The instance of this Class, that is created by the Minecraft Server.
+	 * The instance of this class, that is created by the Minecraft server.
 	 */
 	private static WauzDiscord instance;
 	
 	/**
-	 * The Discord Bot running from this Server.
+	 * The Discord bot running on this server.
 	 */
 	private static ShiroDiscordBot shiroDiscordBot;
 
 	/**
-	 * Gets called when the Server is started.
-	 * 1. Creates a new Discord Bot Instance and logs it in.
-	 * 2. Registers the Event Listeners.
+	 * Gets called when the server is started.
+	 * 1. Creates a new Discord bot instance and logs it in.
+	 * 2. Registers the event listeners.
 	 * 
 	 * @see ShiroDiscordBot
 	 * @see WauzDiscordListener
@@ -30,7 +36,7 @@ public class WauzDiscord extends JavaPlugin {
 		instance = this;
 		
 		/**
-		 * Print the Version
+		 * Print the version
 		 */
 		getLogger().info("O~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-O");
 		getLogger().info(" _    _                                           ");
@@ -50,8 +56,8 @@ public class WauzDiscord extends JavaPlugin {
 	}
 	
 	/**
-	 * Gets called when the Server is stopped.
-	 * Logs out and stops the Discord Bot.
+	 * Gets called when the server is stopped.
+	 * Logs out and stops the Discord bot.
 	 * 
 	 * @see ShiroDiscordBot#stop()
 	 */
@@ -62,8 +68,8 @@ public class WauzDiscord extends JavaPlugin {
 	}
 	
 	/**
-	 * Listens for incoming Commands from the plugin.xml.
-	 * Used to send messages to the Bot per Ingame Command.
+	 * Listens for incoming commands from the plugin.xml.
+	 * Used to send messages to the bot per ingame commands.
 	 */
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -74,14 +80,14 @@ public class WauzDiscord extends JavaPlugin {
 	}
 
 	/**
-	 * @return The instance of this Class, that is created by the Minecraft Server.
+	 * @return The instance of this class, that is created by the Minecraft server.
 	 */
 	public static WauzDiscord getInstance() {
 		return instance;
 	}
 	
 	/**
-	 * @return The Discord Bot running from this Server.
+	 * @return The Discord bot running on this server.
 	 */
 	public static ShiroDiscordBot getShiroDiscordBot() {
 		return shiroDiscordBot;

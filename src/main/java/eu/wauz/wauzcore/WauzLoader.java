@@ -58,8 +58,8 @@ import eu.wauz.wauzcore.system.commands.TabCompleterRunes;
 import net.md_5.bungee.api.ChatColor;
 
 /**
- * Used by the Main Class to load all static Data.
- * Contains different Methods for all Data Types (Cammands, Equip etc.).
+ * Used by the main class to load all static data.
+ * Contains different private methods for all data types (commands, equip etc.).
  * 
  * @author Wauzmons
  * 
@@ -68,10 +68,10 @@ import net.md_5.bungee.api.ChatColor;
 public class WauzLoader {
 	
 	/**
-	 * Calls all other Methods for loading and initializing Data.
-	 * Also cleans Data from last run by recalculating the Statistics
-	 * and removing inactive Instances.
-	 * Only called once per Server Run.
+	 * Calls all other methods for loading and initializing data.
+	 * Also cleans data from last run by recalculating the statistics
+	 * and removing inactive instances.
+	 * Only called once per server run.
 	 * 
 	 * @see InstanceManager#removeInactiveInstances()
 	 * @see StatisticsFetcher#calculate()
@@ -102,8 +102,8 @@ public class WauzLoader {
 	}
 	
 	/**
-	 * Initializes all predefined Command Completers.
-	 * Called by the init() Method.
+	 * Initializes all predefined command completers.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
@@ -116,8 +116,8 @@ public class WauzLoader {
 	}
 	
 	/**
-	 * Initializes all predefined Currencies and Reputation Types.
-	 * Called by the init() Method.
+	 * Initializes all predefined currencies and reputation types.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
@@ -131,8 +131,8 @@ public class WauzLoader {
 	}
 	
 	/**
-	 * Initializes all predefined Skillgems.
-	 * Called by the init() Method.
+	 * Initializes all predefined skillgems.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
@@ -162,8 +162,8 @@ public class WauzLoader {
 	}
 	
 	/**
-	 * Initializes all predefined Runes.
-	 * Called by the init() Method.
+	 * Initializes all predefined runes.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
@@ -175,8 +175,8 @@ public class WauzLoader {
 	}
 	
 	/**
-	 * Initializes all predefined Enhancements.
-	 * Called by the init() Method.
+	 * Initializes all predefined enhancements.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
@@ -193,8 +193,8 @@ public class WauzLoader {
 	}
 	
 	/**
-	 * Initializes all predefined Equipment of the Type Weapon / Sword.
-	 * Called by the init() Method.
+	 * Initializes all predefined equipment of the type Weapon / Sword.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
@@ -221,8 +221,8 @@ public class WauzLoader {
 	}
 	
 	/**
-	 * Initializes all predefined Equipment of the Type Weapon / Axe.
-	 * Called by the init() Method.
+	 * Initializes all predefined equipment of the type Weapon / Axe.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
@@ -249,8 +249,8 @@ public class WauzLoader {
 	}
 	
 	/**
-	 * Initializes all predefined Equipment of the Type Weapon / Staff.
-	 * Called by the init() Method.
+	 * Initializes all predefined equipment of the type Weapon / Staff.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
@@ -277,8 +277,8 @@ public class WauzLoader {
 	}
 	
 	/**
-	 * Initializes all predefined Equipment of the Type Weapon / Bow.
-	 * Called by the init() Method.
+	 * Initializes all predefined equipment of the type Weapon / Bow.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
@@ -297,8 +297,8 @@ public class WauzLoader {
 	}
 	
 	/**
-	 * Initializes all predefined Equipment of the Type Armor / Light.
-	 * Called by the init() Method.
+	 * Initializes all predefined equipment of the type Armor / Light.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
@@ -320,8 +320,8 @@ public class WauzLoader {
 	}
 	
 	/**
-	 * Initializes all predefined Equipment of the Type Armor / Medium.
-	 * Called by the init() Method.
+	 * Initializes all predefined equipment of the type Armor / Medium.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
@@ -343,8 +343,8 @@ public class WauzLoader {
 	}
 
 	/**
-	 * Initializes all predefined Equipment of the Type Armor / Heavy.
-	 * Called by the init() Method.
+	 * Initializes all predefined equipment of the type Armor / Heavy.
+	 * Called by the init() method.
 	 * 
 	 * @see WauzLoader#init()
 	 */
