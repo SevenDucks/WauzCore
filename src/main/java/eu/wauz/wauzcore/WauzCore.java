@@ -2,6 +2,8 @@ package eu.wauz.wauzcore;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -15,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import eu.wauz.wauzcore.data.RegionConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEventListener;
 import eu.wauz.wauzcore.players.CharacterManager;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.players.calc.ClimateCalculator;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
@@ -114,7 +117,7 @@ public class WauzCore extends JavaPlugin {
 			
 			@Override
 			public void run() {
-				for(Player player : Bukkit.getServer().getOnlinePlayers()) {
+				for(Player player : getRegisteredActivePlayers()) {
 					WauzPlayerActionBar.update(player);
 				}
 			}
@@ -127,7 +130,7 @@ public class WauzCore extends JavaPlugin {
 			
 			@Override
 			public void run() {
-				for(Player player : Bukkit.getServer().getOnlinePlayers()) {
+				for(Player player : getRegisteredActivePlayers()) {
 					WauzPlayerScoreboard.scheduleScoreboard(player);
 					WauzRegion.regionCheck(player);
 				}
@@ -141,7 +144,7 @@ public class WauzCore extends JavaPlugin {
 			
 			@Override
 			public void run() {
-				for(Player player : Bukkit.getServer().getOnlinePlayers()) {
+				for(Player player : getRegisteredActivePlayers()) {
 					if(WauzMode.isMMORPG(player)) {
 						ClimateCalculator.temperature(player);
 						ManaCalculator.regenerateMana(player);
@@ -163,7 +166,7 @@ public class WauzCore extends JavaPlugin {
 				for(World world : Bukkit.getWorlds()) {
 					if(world.getPlayers().size() == 0) InstanceManager.closeInstance(world);
 				}
-				for(Player player : Bukkit.getServer().getOnlinePlayers()) {
+				for(Player player : getRegisteredActivePlayers()) {
 					CharacterManager.saveCharacter(player);
 				}
 			}
@@ -243,6 +246,23 @@ public class WauzCore extends JavaPlugin {
 	}
 	
 	/**
+	 * Finds all players with cached player data.
+	 * 
+	 * @return A list of all registered active players.
+	 * 
+	 * @see WauzPlayerDataPool
+	 */
+	public List<Player> getRegisteredActivePlayers() {
+		List<Player> players = new ArrayList<Player>();
+		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
+			if(WauzPlayerDataPool.getPlayer(player) != null) {
+				players.add(player);
+			}
+		}
+		return players;
+	}
+	
+	/**
 	 * Finds an online player by their name.
 	 * 
 	 * @param name The name of the player.
@@ -251,8 +271,9 @@ public class WauzCore extends JavaPlugin {
 	 */
 	public static Player getOnlinePlayer(String name) {
 		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-			if(player.getName().equals(name))
+			if(player.getName().equals(name)) {
 				return player;
+			}
 		}
 		return null;
 	}
@@ -265,8 +286,9 @@ public class WauzCore extends JavaPlugin {
 	 */
 	public static OfflinePlayer getOfflinePlayer(String name) {
 		for(OfflinePlayer player : Bukkit.getServer().getOfflinePlayers()) {
-			if(player.getName().equals(name))
+			if(player.getName().equals(name)) {
 				return player;
+			}
 		}
 		return null;
 	}

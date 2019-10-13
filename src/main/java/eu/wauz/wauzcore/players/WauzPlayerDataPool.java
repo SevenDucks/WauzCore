@@ -21,6 +21,10 @@ public class WauzPlayerDataPool {
 		return getPlayer(player);
 	}
 	
+	public static void unregPlayer(Player player) {
+		storage.remove(player);
+	}
+	
 	public static boolean isCharacterSelected(Player player) {
 		WauzPlayerData playerData = getPlayer(player);
 		return !WauzMode.inHub(player) && playerData != null && playerData.isCharacterSelected();

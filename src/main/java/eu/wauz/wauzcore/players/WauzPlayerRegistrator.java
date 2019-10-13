@@ -72,6 +72,7 @@ public class WauzPlayerRegistrator {
 		WauzPlayerBossBar.clearBar(player);
 		PlayerConfigurator.setLastPlayed(player);
 		CharacterManager.logoutCharacter(player);
+		WauzPlayerDataPool.unregPlayer(player);
 	}
 	
 	public static void respawn(final Player player) {

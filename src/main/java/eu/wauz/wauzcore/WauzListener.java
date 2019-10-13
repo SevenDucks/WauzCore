@@ -141,8 +141,7 @@ public class WauzListener implements Listener {
 	/**
 	 * Logs the player into the game.
 	 * Denies access if the player is banned, not whitelisted
-	 * or if the server is full.
-	 * TODO Test how online players are counted.
+	 * or simply when the server is already full.
 	 * 
 	 * @param event
 	 * 
@@ -152,13 +151,17 @@ public class WauzListener implements Listener {
 	public void onLogin(PlayerLoginEvent event) throws Exception {
 		Player player = event.getPlayer();
 		addressNameMap.put(event.getAddress(), player.getName());
-		if(Bukkit.getOnlinePlayers().size() >= Bukkit.getMaxPlayers()) {
+		
+		if(event.getResult().equals(Result.KICK_OTHER)) {
+			WauzDebugger.log(player.getName() + " shall not pass!");
+		}
+		else if(Bukkit.getOnlinePlayers().size() >= Bukkit.getMaxPlayers()) {
 			event.setResult(Result.KICK_FULL);
 		}
-		if(Bukkit.hasWhitelist() && !player.isWhitelisted()) {
+		else if(Bukkit.hasWhitelist() && !player.isWhitelisted()) {
 			event.setResult(Result.KICK_WHITELIST);
 		}
-		if(player.isBanned()) {
+		else if(player.isBanned()) {
 			event.setResult(Result.KICK_BANNED);
 		}
 		else {
