@@ -8,14 +8,37 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzQuest;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An event that lets a player cancel a running quest.
+ * 
+ * @author Wauzmons
+ */
 public class WauzPlayerEventQuestCancel implements WauzPlayerEvent {
 	
+	/**
+	 * The name of the quest to cancel.
+	 */
 	private String questName;
 	
+	/**
+	 * Creates an event to cancel the given quest.
+	 * 
+	 * @param questName The name of the quest to cancel.
+	 */
 	public WauzPlayerEventQuestCancel(String questName) {
 		this.questName = questName;
 	}
 
+	/**
+	 * Executes the event for the given player.
+	 * 
+	 * @param player The player for the execution.
+	 * 
+	 * @return If the event was executed successfully.
+	 * 
+	 * @see PlayerQuestConfigurator#setQuestPhase(Player, String, int)
+	 * @see PlayerConfigurator#setCharacterQuestSlot(Player, String, String)
+	 */
 	@Override
 	public boolean execute(Player player) {
 		try {

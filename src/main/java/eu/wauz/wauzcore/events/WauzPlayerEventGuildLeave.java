@@ -7,8 +7,22 @@ import eu.wauz.wauzcore.menu.GuildOverviewMenu;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An event that lets a player leave their guild.
+ * 
+ * @author Wauzmons
+ */
 public class WauzPlayerEventGuildLeave implements WauzPlayerEvent {
 
+	/**
+	 * Executes the event for the given player.
+	 * 
+	 * @param player The player for the execution.
+	 * 
+	 * @return If the event was executed successfully.
+	 * 
+	 * @see WauzPlayerGuild#removePlayer(org.bukkit.OfflinePlayer)
+	 */
 	@Override
 	public boolean execute(Player player) {
 		try {
@@ -22,7 +36,8 @@ public class WauzPlayerEventGuildLeave implements WauzPlayerEvent {
 				player.closeInventory();
 			}
 			return true;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			player.sendMessage(ChatColor.RED + "An Error occurred while leaving the Guild!");
 			player.closeInventory();
