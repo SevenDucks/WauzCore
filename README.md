@@ -1,7 +1,7 @@
 # WauzCore
 ![CodeFactor](https://www.codefactor.io/repository/github/wauzmons/wauzcore/badge)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Wauzmons/WauzCore)
-![GitHub total lines](https://tokei.rs/b1/github/badges/shields)
+![GitHub total lines](https://tokei.rs/b1/github/wauzmons/wauzcore)
 
 Advanced Minecraft MMORPG Engine
 
