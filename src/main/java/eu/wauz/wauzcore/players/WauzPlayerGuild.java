@@ -418,7 +418,7 @@ public class WauzPlayerGuild {
 	}
 	
 	public String[] getWrappedGuildDescription() {
-		String doubleParagraph = ChatFormatter.ICON_PGRPH + ChatFormatter.ICON_PGRPH;
+		String doubleParagraph = ChatFormatter.ICON_PARAGRAPH + ChatFormatter.ICON_PARAGRAPH;
 		return WordUtils.wrap(guildDescription, 42, doubleParagraph, true).split(doubleParagraph);
 	}
 

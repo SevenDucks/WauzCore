@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
@@ -20,6 +21,9 @@ public class WauzDiscordListener implements Listener {
 	 */
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event) throws Exception {
+		if(!event.getResult().equals(Result.ALLOWED)) {
+            return;
+        }
 		Player player = event.getPlayer();
 		WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft("[+] " + player.getName() + " joined the game!");
 	}

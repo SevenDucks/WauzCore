@@ -16,6 +16,7 @@ import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.commands.WauzDebugger;
 
 public class SkillTheHangedMan implements WauzPlayerSkill {
 	
@@ -74,6 +75,9 @@ public class SkillTheHangedMan implements WauzPlayerSkill {
 				player.setFoodLevel(player.getFoodLevel() + saturation);
 				player.setSaturation(5);
 				player.sendMessage(ChatColor.LIGHT_PURPLE + "You stole " + saturation + " SATURATION from the enemy!");
+				break;
+			default:
+				WauzDebugger.log("An error in the matrix occured.");
 				break;
 			}
 			return true;

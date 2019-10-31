@@ -54,7 +54,7 @@ public class QuestRequirementChecker {
 	public List<String> getObjectiveLores(String questMargin, ChatColor questColor) {
 		List<String> questObjectives = new ArrayList<>();
 		questObjectives.add(questMargin);
-		questObjectives.add(questColor + ChatFormatter.ICON_BULLT + " " + ChatColor.WHITE + quest.getDisplayName());
+		questObjectives.add(questColor + ChatFormatter.ICON_BULLET + " " + ChatColor.WHITE + quest.getDisplayName());
 		
 		if(!execute(false))
 			questObjectives.addAll(objectiveLores);

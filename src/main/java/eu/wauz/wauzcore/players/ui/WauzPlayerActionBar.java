@@ -42,7 +42,7 @@ public class WauzPlayerActionBar {
 		
 		if(WauzMode.isMMORPG(player)) {
 			String healthString = ChatColor.RED + "" + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + ChatFormatter.ICON_HEART + "   ";
-			String heatString = ChatColor.GREEN + "" + ((playerData.getHeat()* 5 - 10) + playerData.getHeatRandomizer()) + " " + ChatFormatter.ICON_DEGRS + "C   ";
+			String heatString = ChatColor.GREEN + "" + ((playerData.getHeat()* 5 - 10) + playerData.getHeatRandomizer()) + " " + ChatFormatter.ICON_DEGREES + "C   ";
 			String heatResString = playerData.getResistanceHeat() != 0 ? ChatColor.GREEN + "HtRes " + (playerData.getResistanceHeat() * 5) + "   " : "";
 			String coldResString = playerData.getResistanceCold() != 0 ? ChatColor.GREEN + "CdRes " + (playerData.getResistanceCold() * 5) + "   " : "";
 			String actionBarMessage = healthString + timeString + heatString + heatResString + coldResString + locationString;

@@ -80,7 +80,7 @@ public class WauzRuneIdentifier {
 	
 	private void determineRarity() {
 		int rarity = random.nextInt(1000);
-		String x = ChatFormatter.ICON_DIAMS;
+		String x = ChatFormatter.ICON_DIAMOND;
 				
 		if(rarity <= 800) {
 			rarityColor = ChatColor.GREEN;

@@ -37,7 +37,7 @@ public class WauzNmsClient {
 			player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 		
 		IChatBaseComponent comp = ChatSerializer
-				.a("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"" + ChatFormatter.ICON_PGRPH + "bClick Here\","
+				.a("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"" + ChatFormatter.ICON_PARAGRAPH + "bClick Here\","
 						+ "\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"Run Command\"},"
 						+ "\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/" + command + "\"}}]}");
         PacketPlayOutChat ppoc = new PacketPlayOutChat(comp);
@@ -52,7 +52,7 @@ public class WauzNmsClient {
 			player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 		
 		IChatBaseComponent comp = ChatSerializer
-				.a("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"" + ChatFormatter.ICON_PGRPH + "bClick Here\","
+				.a("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"" + ChatFormatter.ICON_PARAGRAPH + "bClick Here\","
 						+ "\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"Open URL\"},"
 						+ "\"clickEvent\":{\"action\":\"open_url\",\"value\":\"" + url + "\"}}]}");
         PacketPlayOutChat ppoc = new PacketPlayOutChat(comp);
