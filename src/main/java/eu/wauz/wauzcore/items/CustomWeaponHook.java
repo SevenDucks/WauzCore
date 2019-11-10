@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.items.dungeon;
+package eu.wauz.wauzcore.items;
 
 import java.util.Collection;
 
@@ -14,17 +14,16 @@ import org.bukkit.util.Vector;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 
-public class DungeonItemGrapplingHook {
+public class CustomWeaponHook {
 
-// Pull Player to Location
-	
 	public static void use(final ProjectileLaunchEvent event) {
 		final Player player = (Player) event.getEntity().getShooter();
 		Location target = null;
 
 		for(Block block : player.getLineOfSight(null, 15)) {
-			if(pull(block, event))
+			if(pull(block, event)) {
 				return;
+			}
 
 			if(block.getType().equals(Material.SPONGE)) {
 				target = block.getLocation();
@@ -49,9 +48,7 @@ public class DungeonItemGrapplingHook {
 		}, 10);
 	}
 	
-// Pull Entity to Player
-	
-	public static boolean pull(Block block, final ProjectileLaunchEvent event) {
+	private static boolean pull(Block block, final ProjectileLaunchEvent event) {
 		final Player player = (Player) event.getEntity().getShooter();
 		Collection<Entity> nearbyEntites = block.getWorld().getNearbyEntities(block.getLocation(), 1, 1, 1);
 		

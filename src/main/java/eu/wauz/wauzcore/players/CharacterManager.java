@@ -25,7 +25,6 @@ import eu.wauz.wauzcore.menu.QuestBuilder;
 import eu.wauz.wauzcore.menu.TabardMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
-import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -37,21 +36,24 @@ public class CharacterManager {
 	
 	public static void loginCharacter(final Player player, WauzMode wauzMode) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null)
+		if(playerData == null) {
 			return;
+		}
 
 		player.setGameMode(wauzMode.equals(WauzMode.SURVIVAL) ? GameMode.SURVIVAL : GameMode.ADVENTURE);
 		player.setExp((float) (PlayerConfigurator.getCharacterExperience(player) / 100F));
 		player.setLevel(PlayerConfigurator.getCharacterLevel(player));
 		
 		playerData.setMaxHealth(PlayerPassiveSkillConfigurator.getHealth(player));
-		if(wauzMode.equals(WauzMode.MMORPG))
+		if(wauzMode.equals(WauzMode.MMORPG)) {
 			playerData.setMaxMana(PlayerPassiveSkillConfigurator.getMana(player));
+		}
 		
 		Location spawn = PlayerConfigurator.getCharacterSpawn(player);
 		Location destination = PlayerConfigurator.getCharacterLocation(player);
-		if(wauzMode.equals(WauzMode.MMORPG))
+		if(wauzMode.equals(WauzMode.MMORPG)) {
 			PlayerConfigurator.setTrackerDestination(player, spawn, "Spawn");
+		}
 		
 		player.setCompassTarget(spawn);
 		player.setBedSpawnLocation(spawn, true);
@@ -61,7 +63,6 @@ public class CharacterManager {
 		InventoryStringConverter.loadInventory(player);
 		
 		if(wauzMode.equals(WauzMode.MMORPG)) {
-			ManaCalculator.updateManaItem(player);
 			equipCharacterItems(player);
 			
 			try {
@@ -124,8 +125,9 @@ public class CharacterManager {
 		if(WauzPlayerDataPool.isCharacterSelected(player)) {
 			InventoryStringConverter.saveInventory(player);
 			
-			if(!StringUtils.startsWith(player.getWorld().getName(), "WzInstance"))
+			if(!StringUtils.startsWith(player.getWorld().getName(), "WzInstance")) {
 				PlayerConfigurator.setCharacterLocation(player, player.getLocation());
+			}
 			
 			WauzDebugger.log(player, ChatColor.GREEN + "Saving... Character-Data saved!");
 		}
@@ -338,11 +340,11 @@ public class CharacterManager {
 	}
 	
 	public static void equipCharacterItems(Player player) {
-		ItemStack clockItemStack = new ItemStack(Material.CLOCK);
-		ItemMeta clockItemMeta = clockItemStack.getItemMeta();
-		clockItemMeta.setDisplayName(ChatColor.RED + "No Item Equipped");
-		clockItemStack.setItemMeta(clockItemMeta);
-		player.getInventory().setItem(7, clockItemStack);
+		ItemStack trackerItemStack = new ItemStack(Material.COMPASS);
+		ItemMeta trackerItemMeta = trackerItemStack.getItemMeta();
+		trackerItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getTrackerDestinationName(player));
+		trackerItemStack.setItemMeta(trackerItemMeta);
+		player.getInventory().setItem(7, trackerItemStack);
 
 		ItemStack mainMenuItemStack = new ItemStack(Material.NETHER_STAR);
 		ItemMeta mainMenuItemMeta = mainMenuItemStack.getItemMeta();

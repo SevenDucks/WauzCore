@@ -15,10 +15,12 @@ public class WauzPlayerActionBar {
 	
 	public static void update(Player player) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null)
+		if(playerData == null) {
 			return;
+		}
 		
-		String timeString = ChatColor.AQUA + ChatFormatter.ICON_CARET + " " + WauzDateUtils.getServerTime() + "   ";
+		String seperatorString = " " + ChatColor.WHITE + "|" + ChatColor.RESET + " ";
+		String timeString = ChatColor.AQUA + ChatFormatter.ICON_CARET + " " + WauzDateUtils.getServerTime() + seperatorString;
 		
 		if(WauzMode.inHub(player)) {
 			String jumpString = ChatColor.LIGHT_PURPLE + "Try to Double-Jump!";
@@ -34,18 +36,19 @@ public class WauzPlayerActionBar {
 		String locationString = "" + ChatColor.BLUE + x + " " + y + " " + z;
 		
 		if(WauzMode.isSurvival(player)) {
-			String pvspResString = playerData.getResistancePvsP() != 0 ? ChatColor.GREEN + "NoPvP " + (playerData.getResistancePvsP() * 5) + "   " : "";
+			String pvspResString = playerData.getResistancePvsP() != 0 ? ChatColor.GREEN + "NoPvP " + (playerData.getResistancePvsP() * 5) + seperatorString : "";
 			String actionBarMessage = timeString + pvspResString + locationString;
 			WauzNmsClient.nmsActionBar(player, actionBarMessage);
 			return;
 		}
 		
 		if(WauzMode.isMMORPG(player)) {
-			String healthString = ChatColor.RED + "" + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + ChatFormatter.ICON_HEART + "   ";
-			String heatString = ChatColor.GREEN + "" + ((playerData.getHeat()* 5 - 10) + playerData.getHeatRandomizer()) + " " + ChatFormatter.ICON_DEGREES + "C   ";
-			String heatResString = playerData.getResistanceHeat() != 0 ? ChatColor.GREEN + "HtRes " + (playerData.getResistanceHeat() * 5) + "   " : "";
-			String coldResString = playerData.getResistanceCold() != 0 ? ChatColor.GREEN + "CdRes " + (playerData.getResistanceCold() * 5) + "   " : "";
-			String actionBarMessage = healthString + timeString + heatString + heatResString + coldResString + locationString;
+			String healthString = ChatColor.RED + "" + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + ChatFormatter.ICON_HEART + seperatorString;
+			String manaString = ChatColor.LIGHT_PURPLE + "" + playerData.getMana() + " / " + playerData.getMaxMana() + " " + ChatFormatter.ICON_STAR + seperatorString;
+			String heatString = ChatColor.GREEN + "" + ((playerData.getHeat()* 5 - 10) + playerData.getHeatRandomizer()) + " " + ChatFormatter.ICON_DEGREES + "C" + seperatorString;
+			String heatResString = playerData.getResistanceHeat() != 0 ? ChatColor.GREEN + "HtRes " + (playerData.getResistanceHeat() * 5) + seperatorString : "";
+			String coldResString = playerData.getResistanceCold() != 0 ? ChatColor.GREEN + "CdRes " + (playerData.getResistanceCold() * 5) + seperatorString : "";
+			String actionBarMessage = healthString + manaString + timeString + heatString + heatResString + coldResString + locationString;
 			WauzNmsClient.nmsActionBar(player, actionBarMessage);
 			return;
 		}

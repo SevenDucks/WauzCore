@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
-import eu.wauz.wauzcore.players.calc.ManaCalculator;
 
 public class PlayerPassiveSkillConfigurator extends PlayerConfigurationUtils {
 	
@@ -104,7 +103,6 @@ public class PlayerPassiveSkillConfigurator extends PlayerConfigurationUtils {
 			int mana = getMana(player) + 1;			
 			playerConfigSet(player, "stats.mana", mana, true);
 			WauzPlayerDataPool.getPlayer(player).setMaxMana(mana);
-			ManaCalculator.updateManaItem(player);
 		}
 	}
 	

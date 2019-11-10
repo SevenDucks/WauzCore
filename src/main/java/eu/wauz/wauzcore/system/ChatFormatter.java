@@ -23,9 +23,9 @@ public class ChatFormatter {
 	
 	public static final String ICON_BULLET = "\u2022";
 	
-	public static final String ICON_STAR = "\u2605";
-	
 	public static final String ICON_DIAMOND = "\u2666";
+	
+	public static final String ICON_STAR = "\u2B50";
 	
 	public static final String ICON_HEART = "\u2764";
 

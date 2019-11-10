@@ -30,9 +30,7 @@ public class MenuUtils {
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	
 	private static List<Material> staticItems = new ArrayList<>(Arrays.asList(
-			Material.FILLED_MAP, Material.DIAMOND, Material.CLOCK, Material.NETHER_STAR,
-			Material.BARRIER, Material.PLAYER_HEAD, Material.FISHING_ROD, Material.SNOWBALL,
-			Material.BLAZE_ROD, Material.FEATHER));
+			Material.FILLED_MAP, Material.COMPASS, Material.NETHER_STAR, Material.BARRIER, Material.PLAYER_HEAD));
 	
 	public static void constructPlayerInventory(InventoryOpenEvent event) {
 		Player player = (Player) event.getPlayer();

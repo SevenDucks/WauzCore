@@ -69,6 +69,14 @@ public class ArmorEquipEvent extends PlayerEvent implements Cancellable {
 		this.newArmorPiece = newArmorPiece;
 	}
 
+	
+	/**
+	 * @return A list of handlers for this event.
+	 */
+	public final static HandlerList getHandlerList() {
+		return handlers;
+	}
+	
 	/**
 	 * @return A list of handlers for this event.
 	 */

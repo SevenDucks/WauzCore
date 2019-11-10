@@ -16,10 +16,10 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.CustomWeaponBow;
+import eu.wauz.wauzcore.items.CustomWeaponGlider;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.items.WauzScrolls;
 import eu.wauz.wauzcore.items.WauzSigns;
-import eu.wauz.wauzcore.items.dungeon.DungeonItemChickenGlider;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.QuestBuilder;
 import eu.wauz.wauzcore.menu.ShopBuilder;
@@ -116,7 +116,7 @@ public class EventMapper {
 				CustomWeaponBow.use(event);
 			}
 			else if(type.equals(Material.FEATHER)) {
-				DungeonItemChickenGlider.use(event);
+				CustomWeaponGlider.use(event);
 			}
 			else if(type.equals(Material.PAPER)) {
 				WauzTeleporter.enterInstanceTeleportManual(event);

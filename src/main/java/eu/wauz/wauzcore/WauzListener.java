@@ -68,12 +68,12 @@ import org.spigotmc.event.entity.EntityMountEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEventListener;
 import eu.wauz.wauzcore.items.CustomWeaponBow;
+import eu.wauz.wauzcore.items.CustomWeaponGlider;
+import eu.wauz.wauzcore.items.CustomWeaponHook;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
-import eu.wauz.wauzcore.items.dungeon.DungeonItemChickenGlider;
-import eu.wauz.wauzcore.items.dungeon.DungeonItemGrapplingHook;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.mobs.MenacingMobsSpawner;
@@ -497,7 +497,7 @@ public class WauzListener implements Listener {
 		}
 		if(event.getEntity() instanceof Player && WauzMode.isMMORPG(event.getEntity())) {
 			event.setCancelled(true);
-			DungeonItemChickenGlider.cancelFallDamage(event);
+			CustomWeaponGlider.cancelFallDamage(event);
 			DamageCalculator.defend(event);
 		}
 		DamageCalculator.removeDamageModifiers(event);
@@ -677,13 +677,13 @@ public class WauzListener implements Listener {
 	 * 
 	 * @param event
 	 * 
-	 * @see DungeonItemGrapplingHook#use(ProjectileLaunchEvent)
+	 * @see CustomWeaponHook#use(ProjectileLaunchEvent)
 	 */
 	@EventHandler
 	public void onHookLaunch(ProjectileLaunchEvent event) {
 		if(WauzMode.isMMORPG(event.getEntity())) {
 			if(event.getEntityType().equals(EntityType.FISHING_HOOK)) {
-				DungeonItemGrapplingHook.use(event);
+				CustomWeaponHook.use(event);
 			}
 		}
 	}
@@ -709,7 +709,7 @@ public class WauzListener implements Listener {
 	 * 
 	 * @param event
 	 * 
-	 * @see DungeonItemChickenGlider#glide(PlayerMoveEvent)
+	 * @see CustomWeaponGlider#glide(PlayerMoveEvent)
 	 */
 	@EventHandler
 	public void onMove(PlayerMoveEvent event) {
@@ -727,10 +727,10 @@ public class WauzListener implements Listener {
 		
 		if(WauzMode.isMMORPG(player)) {
 			if (player.getEquipment().getItemInMainHand().getType().equals(Material.FEATHER)) {
-				DungeonItemChickenGlider.glide(event);
+				CustomWeaponGlider.glide(event);
 			}
 			else {
-				DungeonItemChickenGlider.dechick(event);
+				CustomWeaponGlider.dechick(event);
 			}
 		}
 	}

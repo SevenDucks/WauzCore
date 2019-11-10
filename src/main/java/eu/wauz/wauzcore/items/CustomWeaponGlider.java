@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.items.dungeon;
+package eu.wauz.wauzcore.items;
 
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -16,7 +16,7 @@ import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.system.commands.WauzDebugger;
 
-public class DungeonItemChickenGlider {
+public class CustomWeaponGlider {
 	
 	public static void use(PlayerInteractEvent event) {
 		final Player player = event.getPlayer();
@@ -46,8 +46,9 @@ public class DungeonItemChickenGlider {
 		Player player = event.getPlayer();
 		boolean hasChick = false;
 		for(Entity passanger : player.getPassengers()) {
-			if(passanger instanceof Chicken)
+			if(passanger instanceof Chicken) {
 				hasChick = true;
+			}
 		}
 		if(!hasChick) {
 			Location location = player.getLocation();
@@ -66,8 +67,9 @@ public class DungeonItemChickenGlider {
 	public static void dechick(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
 		for(Entity passenger : player.getPassengers()) {
-			if(passenger instanceof Chicken)
+			if(passenger instanceof Chicken) {
 				passenger.remove();
+			}
 		}
 	}
 	
