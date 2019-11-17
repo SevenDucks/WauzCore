@@ -40,7 +40,7 @@ public class TravellingMenu implements WauzInventory {
 		portNexusLores.add(ChatColor.GRAY + "where you can select your characters.");
 		portNexusItemMeta.setLore(portNexusLores);
 		portNexusItemStack.setItemMeta(portNexusItemMeta);
-		menu.setItem(0, portNexusItemStack);
+		menu.setItem(1, portNexusItemStack);
 		
 		ItemStack portSpawnItemStack = new ItemStack(Material.ENDER_PEARL);
 		ItemMeta portSpawnItemMeta = portSpawnItemStack.getItemMeta();
@@ -50,7 +50,7 @@ public class TravellingMenu implements WauzInventory {
 		portSpawnLores.add(ChatColor.GRAY + "Use it when stuck or for quick-travel.");
 		portSpawnItemMeta.setLore(portSpawnLores);
 		portSpawnItemStack.setItemMeta(portSpawnItemMeta);
-		menu.setItem(1, portSpawnItemStack);
+		menu.setItem(2, portSpawnItemStack);
 		
 		ItemStack portHomeItemStack = new ItemStack(Material.MAGMA_CREAM);
 		ItemMeta portHomeItemMeta = portHomeItemStack.getItemMeta();
@@ -62,7 +62,7 @@ public class TravellingMenu implements WauzInventory {
 		portHomeLores.add(ChatColor.GRAY + "Speak to an (" + ChatColor.RED + "I" + ChatColor.GRAY + ")nnkeeper to change it.");
 		portHomeItemMeta.setLore(portHomeLores);
 		portHomeItemStack.setItemMeta(portHomeItemMeta);
-		menu.setItem(2, portHomeItemStack);
+		menu.setItem(3, portHomeItemStack);
 		
 		boolean inInstance = player.getWorld().getName().contains("Instance");
 		ItemStack portInstanceExitItemStack = new ItemStack(inInstance ? Material.OAK_DOOR : Material.IRON_DOOR);
@@ -73,7 +73,7 @@ public class TravellingMenu implements WauzInventory {
 		portInstanceExitLore.add(ChatColor.GRAY + "place, from where you entered it.");
 		portInstanceExitItemMeta.setLore(portInstanceExitLore);
 		portInstanceExitItemStack.setItemMeta(portInstanceExitItemMeta);
-		menu.setItem(3, portInstanceExitItemStack);
+		menu.setItem(5, portInstanceExitItemStack);
 		
 		ItemStack mapItemStack = new ItemStack(Material.MAP);
 		ItemMeta mapItemMeta = mapItemStack.getItemMeta();
@@ -84,8 +84,6 @@ public class TravellingMenu implements WauzInventory {
 		mapItemMeta.setLore(mapLores);
 		mapItemStack.setItemMeta(mapItemMeta);
 		menu.setItem(7, mapItemStack);
-		
-		MenuUtils.setComingSoon(menu, "Lore Collection", 8);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);

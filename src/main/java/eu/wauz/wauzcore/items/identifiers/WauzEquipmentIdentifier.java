@@ -149,7 +149,7 @@ public class WauzEquipmentIdentifier {
 	}
 	
 	private void determineBaseMultiplier() {
-		if(Chance.oneIn(1)) {
+		if(Chance.oneIn(150)) {
 			if(Chance.oneIn(2)) {
 				rarityName = "Primal ";
 				rarityStars = "" + ChatColor.RED;
@@ -292,8 +292,13 @@ public class WauzEquipmentIdentifier {
 	private void addSlotsToEquipment() {
 		if(equipmentType.getName().contains("Bow")) {
 			lores.add("");
-			lores.add(ChatColor.GRAY + "Click while Sneaking to switch Arrows");
+			lores.add(ChatColor.GRAY + "Use while Sneaking to switch Arrows");
 			lores.add(ChatColor.GRAY + "Right Click to shoot Arrows");
+		}
+		if(equipmentType.getName().contains("Hook")) {
+			lores.add("");
+			lores.add(ChatColor.GRAY + "Use while Sneaking to pull you to a Block");
+			lores.add(ChatColor.GRAY + "Right Click to grab Enemies");
 		}
 		else if(rarityMultiplier >= 1.5) {
 			if(equipmentType.getType().equals(EquipmentType.WEAPON) && Chance.oneIn(2)) {

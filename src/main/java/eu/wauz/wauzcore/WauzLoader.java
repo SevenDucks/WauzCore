@@ -95,6 +95,7 @@ public class WauzLoader {
 		registerAxes();
 		registerStaves();
 		registerBows();
+		registerHooks();
 		
 		registerLightArmor();
 		registerMediumArmor();
@@ -294,6 +295,22 @@ public class WauzLoader {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.BOW, " Infractem Bow")
 				.withMainStat(1.20).withDurabilityStat(256));
+	}
+	
+	/**
+	 * Initializes all predefined equipment of the type Weapon / Hook.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	public static void registerHooks() {
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, " Grappling Hook")
+				.withMainStat(0.50).withDurabilityStat(72));
+		
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, " Dual Hook")
+				.withMainStat(0.85).withDurabilityStat(144));
 	}
 	
 	/**
