@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.system.commands;
+package eu.wauz.wauzcore.system.commands.completion;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,27 +8,27 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
-import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
+import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 
-public class TabCompleterEnhancements implements TabCompleter {
+public class TabCompleterRunes implements TabCompleter {
 	
-	private List<String> enhancementTypesList;
+	private List<String> runeTypesList;
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzEnhanced"))
+		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzGetRune"))
 			return null;
 		
-		if(enhancementTypesList == null)
-			enhancementTypesList = WauzEquipmentEnhancer.getAllEnhancementIds();
+		if(runeTypesList == null)
+			runeTypesList = WauzRuneInserter.getAllRuneIds();
 		
 		if(args.length == 1)
-			return enhancementTypesList.stream()
+			return runeTypesList.stream()
 					.filter(runeId -> StringUtils.startsWith(runeId, args[0]))
 					.collect(Collectors.toList());
 		
 		if(args.length == 0)
-			return enhancementTypesList;
+			return runeTypesList;
 		
 		return null;
 	}

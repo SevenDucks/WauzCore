@@ -21,8 +21,8 @@ import eu.wauz.wauzcore.data.RegionConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzTeleporter;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import io.lumine.xikage.mythicmobs.MythicMobs;
@@ -173,10 +173,12 @@ public class WauzSigns {
 	        		
 	    			if(atTravelCoordinate(entityLocation.getY(), targetLocation.getY(), 1) || !hasDragonPlayerMounted(entity.getPassengers())) {
 	    				for(Entity passenger : entity.getPassengers()) {
-	    					if(passenger instanceof Player)
+	    					if(passenger instanceof Player) {
 	    						passenger.leaveVehicle();
-	    					else
+	    					}
+	    					else {
 	    						passenger.remove();
+	    					}
 	    				}
 	    				entity.remove();
 	    			}
@@ -198,10 +200,11 @@ public class WauzSigns {
 	}
 	
 	public static boolean hasDragonPlayerMounted(List<Entity> passengers) {
-		for(Entity passenger : passengers)
-			if(passenger instanceof Player)
+		for(Entity passenger : passengers) {
+			if(passenger instanceof Player) {
 				return true;
-		
+			}
+		}
 		return false;
 	}
 

@@ -15,7 +15,6 @@ import eu.wauz.wauzcore.data.RegionConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 

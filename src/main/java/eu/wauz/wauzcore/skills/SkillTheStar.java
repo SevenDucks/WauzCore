@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 
 public class SkillTheStar implements WauzPlayerSkill {

@@ -32,8 +32,8 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzQuest;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
 public class QuestBuilder implements WauzInventory {

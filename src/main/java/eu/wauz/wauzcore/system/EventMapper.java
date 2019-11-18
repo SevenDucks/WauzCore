@@ -34,7 +34,6 @@ import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;

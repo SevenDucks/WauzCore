@@ -15,7 +15,7 @@ import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import net.md_5.bungee.api.ChatColor;
 
@@ -61,8 +61,9 @@ public class WauzPlayerSkillExecutor {
 	public static boolean execute(Player player, ItemStack itemStack, String skillId) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		WauzPlayerSkill skill = playerSkillMap.get(skillId);
-		if(playerData == null || skill == null)
+		if(playerData == null || skill == null) {
 			return false;
+		}
 		
 		boolean skillReady = playerData.isSkillReady(player, skillId);
 		int manaCost = player.hasPermission("wauz.debug.magic") ? 0 : skill.getManaCost();

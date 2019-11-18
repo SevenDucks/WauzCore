@@ -20,7 +20,7 @@ import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.EquipmentType;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 import eu.wauz.wauzcore.system.ChatFormatter;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
 import net.md_5.bungee.api.ChatColor;
 

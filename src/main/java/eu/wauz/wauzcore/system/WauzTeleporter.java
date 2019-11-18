@@ -96,7 +96,7 @@ public class WauzTeleporter {
 	
 // Instances Development
 	
-	public static boolean enterInstanceTeleportBetaDev(Player player, String instanceName) {
+	public static boolean enterInstanceTeleportSystemDev(Player player, String instanceName) {
 		File file = new File(Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString()
 				.replaceAll("Wauzland", instanceName));
 		
@@ -114,7 +114,7 @@ public class WauzTeleporter {
 		return player.teleport(new Location(Bukkit.getServer().createWorld(new WorldCreator(instanceName)), 0.5, 5, 0.5));
 	}
 	
-	public static boolean enterInstanceTeleportDev(Player player, String instanceName) {
+	public static boolean enterInstanceTeleportSystem(Player player, String instanceName) {
 		if(player.isInsideVehicle()) {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
 			return false;
@@ -123,7 +123,7 @@ public class WauzTeleporter {
 		return InstanceManager.enter(player, instanceName);
 	}
 	
-	public static boolean exitInstanceTeleportDev(Player player) {
+	public static boolean exitInstanceTeleportSystem(Player player) {
 		if(player.isInsideVehicle()) {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
 			return false;

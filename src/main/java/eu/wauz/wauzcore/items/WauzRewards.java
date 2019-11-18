@@ -12,7 +12,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import net.md_5.bungee.api.ChatColor;

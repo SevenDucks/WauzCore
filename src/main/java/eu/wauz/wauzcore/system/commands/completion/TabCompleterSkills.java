@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.system.commands;
+package eu.wauz.wauzcore.system.commands.completion;
 
 import java.util.List;
 import java.util.stream.Collectors;

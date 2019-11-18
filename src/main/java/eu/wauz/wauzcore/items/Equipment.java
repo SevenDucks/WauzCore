@@ -22,7 +22,7 @@ import eu.wauz.wauzcore.skills.SkillTheChariot;
 import eu.wauz.wauzcore.skills.SkillTheMagician;
 import eu.wauz.wauzcore.skills.SkillTheStar;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
 public class Equipment {

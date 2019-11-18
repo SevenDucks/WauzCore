@@ -51,10 +51,43 @@ import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
-import eu.wauz.wauzcore.system.commands.TabCompleterSkills;
-import eu.wauz.wauzcore.system.commands.TabCompleterEnhancements;
-import eu.wauz.wauzcore.system.commands.TabCompleterGuilds;
-import eu.wauz.wauzcore.system.commands.TabCompleterRunes;
+import eu.wauz.wauzcore.system.commands.CmdApply;
+import eu.wauz.wauzcore.system.commands.CmdDesc;
+import eu.wauz.wauzcore.system.commands.CmdGld;
+import eu.wauz.wauzcore.system.commands.CmdGroup;
+import eu.wauz.wauzcore.system.commands.CmdGrp;
+import eu.wauz.wauzcore.system.commands.CmdGuild;
+import eu.wauz.wauzcore.system.commands.CmdHome;
+import eu.wauz.wauzcore.system.commands.CmdHub;
+import eu.wauz.wauzcore.system.commands.CmdMenu;
+import eu.wauz.wauzcore.system.commands.CmdMotd;
+import eu.wauz.wauzcore.system.commands.CmdSethome;
+import eu.wauz.wauzcore.system.commands.CmdSpawn;
+import eu.wauz.wauzcore.system.commands.CmdTip;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzDebug;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzDebugBuilding;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzDebugCrafting;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzDebugMagic;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzEnhanced;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzEnter;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzEnterDev;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzExp;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzGetPet;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzGetRune;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzHeal;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzKey;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzLeave;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzRegPet;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzSkill;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzSkillWeapon;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzSystem;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzTravel;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzTravelEvent;
+import eu.wauz.wauzcore.system.commands.completion.TabCompleterEnhancements;
+import eu.wauz.wauzcore.system.commands.completion.TabCompleterGuilds;
+import eu.wauz.wauzcore.system.commands.completion.TabCompleterRunes;
+import eu.wauz.wauzcore.system.commands.completion.TabCompleterSkills;
+import eu.wauz.wauzcore.system.commands.execution.WauzCommandExecutor;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -84,7 +117,10 @@ public class WauzLoader {
 		InstanceManager.removeInactiveInstances();
 		StatisticsFetcher.calculate();
 		
+		registerPlayerCommands();
+		registerAdministrativeCommands();
 		registerCommandCompleters();
+		
 		registerCurrenciesAndReputation();
 		
 		registerSkillgems();
@@ -100,6 +136,56 @@ public class WauzLoader {
 		registerLightArmor();
 		registerMediumArmor();
 		registerHeavyArmor();
+	}
+	
+	/**
+	 * Initializes all predefined player commands.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	private static void registerPlayerCommands() {
+		WauzCommandExecutor.registerCommand(new CmdApply());
+		WauzCommandExecutor.registerCommand(new CmdDesc());
+		WauzCommandExecutor.registerCommand(new CmdGld());
+		WauzCommandExecutor.registerCommand(new CmdGroup());
+		WauzCommandExecutor.registerCommand(new CmdGrp());
+		WauzCommandExecutor.registerCommand(new CmdGuild());
+		WauzCommandExecutor.registerCommand(new CmdHome());
+		WauzCommandExecutor.registerCommand(new CmdHub());
+		WauzCommandExecutor.registerCommand(new CmdMenu());
+		WauzCommandExecutor.registerCommand(new CmdMotd());
+		WauzCommandExecutor.registerCommand(new CmdSethome());
+		WauzCommandExecutor.registerCommand(new CmdSpawn());
+		WauzCommandExecutor.registerCommand(new CmdTip());
+	}
+	
+	/**
+	 * Initializes all predefined admin and system commands.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	private static void registerAdministrativeCommands() {
+		WauzCommandExecutor.registerCommand(new CmdWzDebug());
+		WauzCommandExecutor.registerCommand(new CmdWzDebugBuilding());
+		WauzCommandExecutor.registerCommand(new CmdWzDebugCrafting());
+		WauzCommandExecutor.registerCommand(new CmdWzDebugMagic());
+		WauzCommandExecutor.registerCommand(new CmdWzEnhanced());
+		WauzCommandExecutor.registerCommand(new CmdWzEnter());
+		WauzCommandExecutor.registerCommand(new CmdWzEnterDev());
+		WauzCommandExecutor.registerCommand(new CmdWzExp());
+		WauzCommandExecutor.registerCommand(new CmdWzGetPet());
+		WauzCommandExecutor.registerCommand(new CmdWzGetRune());
+		WauzCommandExecutor.registerCommand(new CmdWzHeal());
+		WauzCommandExecutor.registerCommand(new CmdWzKey());
+		WauzCommandExecutor.registerCommand(new CmdWzLeave());
+		WauzCommandExecutor.registerCommand(new CmdWzRegPet());
+		WauzCommandExecutor.registerCommand(new CmdWzSkill());
+		WauzCommandExecutor.registerCommand(new CmdWzSkillWeapon());
+		WauzCommandExecutor.registerCommand(new CmdWzSystem());
+		WauzCommandExecutor.registerCommand(new CmdWzTravel());
+		WauzCommandExecutor.registerCommand(new CmdWzTravelEvent());
 	}
 	
 	/**

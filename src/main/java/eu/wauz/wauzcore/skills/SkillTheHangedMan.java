@@ -16,7 +16,7 @@ import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzDebugger;
 
 public class SkillTheHangedMan implements WauzPlayerSkill {
 	

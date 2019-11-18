@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
-import eu.wauz.wauzcore.system.commands.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 
 public class FoodCalculator {
