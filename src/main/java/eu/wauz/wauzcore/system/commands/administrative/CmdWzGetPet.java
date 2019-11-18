@@ -43,7 +43,7 @@ public class CmdWzGetPet implements WauzCommand {
 			return false;
 		}
 		
-		// TODO Check if vvalid pet type is given.
+		// TODO Check if valid pet type is given.
 		PetOverviewMenu.addPet(player, null, type);
 		return true;
 	}

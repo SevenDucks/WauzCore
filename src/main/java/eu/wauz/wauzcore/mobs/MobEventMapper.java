@@ -14,7 +14,7 @@ import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.system.commands.administrative.CmdWzTravelEvent;
 import eu.wauz.wauzcore.system.util.Chance;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
@@ -56,8 +56,8 @@ public class MobEventMapper {
 		if(StringUtils.contains(event.getEntity().getCustomName(), "Strongbox")) {
 			Strongbox.destroy(event);
 		}
-		if(WauzCommandExecutor.getEventTravelMap().containsKey(mobId)) {
-			WauzCommandExecutor.getEventTravelMap().remove(mobId);
+		if(CmdWzTravelEvent.getEventTravelMap().containsKey(mobId)) {
+			CmdWzTravelEvent.getEventTravelMap().remove(mobId);
 		}
 		if(entity.hasMetadata("wzModExplosive")) {
 			explodeMob(event.getMobType(), entity, entity.getLocation());

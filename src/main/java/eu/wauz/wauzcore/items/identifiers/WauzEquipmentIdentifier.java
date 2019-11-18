@@ -7,6 +7,9 @@ import java.util.Random;
 
 import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
@@ -143,6 +146,8 @@ public class WauzEquipmentIdentifier {
 		
 		itemMeta.setLore(lores);	
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		AttributeModifier modifier = new AttributeModifier("generic.attackSpeed", -3.9, Operation.ADD_NUMBER);
+		itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
 		equipmentItemStack.setItemMeta(itemMeta);
 		
 		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);

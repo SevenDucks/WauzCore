@@ -216,8 +216,9 @@ public class WauzPlayerScoreboard {
 		for(Player online : Bukkit.getOnlinePlayers()) {
 			try {
 				Team team = scoreboard.getTeam(online.getName());
-				if(team == null)
+				if(team == null) {
 					team = scoreboard.registerNewTeam(online.getName());
+				}
 				
 				if(online.hasPermission("wauz.system")) {
 					team.setPrefix(ChatColor.DARK_RED + "" + ChatColor.BOLD + "ADMIN ");

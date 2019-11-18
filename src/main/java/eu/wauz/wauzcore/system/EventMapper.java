@@ -98,6 +98,10 @@ public class EventMapper {
 		Player player = event.getPlayer();
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		
+		if(event.getAction() == Action.LEFT_CLICK_AIR) {
+			event.setCancelled(true);
+		}
+		
 		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND)) {
 			event.setCancelled(true);
 		}
