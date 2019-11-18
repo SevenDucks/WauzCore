@@ -47,7 +47,7 @@ import net.md_5.bungee.api.ChatColor;
 
 /**
  * The Discord bot running on this server.
- * Named after my Waifu. <3
+ * Named after my Waifu.
  * 
  * @author Wauzmons
  */
