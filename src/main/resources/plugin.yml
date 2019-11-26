@@ -100,10 +100,6 @@ commands:
     description: Toggle Building Debug Mode
     usage: /wzDebug.building
     permission: wauz.system
-  wzRegPet:
-    description: Registers Pet to Owner
-    usage: /wzRegPet [playername] [entityid]
-    permission: wauz.system
   wzGetPet:
     description: Get Pet from String
     usage: /wzGetPet [playername] [petname]

@@ -77,7 +77,6 @@ import eu.wauz.wauzcore.system.commands.administrative.CmdWzGetRune;
 import eu.wauz.wauzcore.system.commands.administrative.CmdWzHeal;
 import eu.wauz.wauzcore.system.commands.administrative.CmdWzKey;
 import eu.wauz.wauzcore.system.commands.administrative.CmdWzLeave;
-import eu.wauz.wauzcore.system.commands.administrative.CmdWzRegPet;
 import eu.wauz.wauzcore.system.commands.administrative.CmdWzSkill;
 import eu.wauz.wauzcore.system.commands.administrative.CmdWzSkillWeapon;
 import eu.wauz.wauzcore.system.commands.administrative.CmdWzSystem;
@@ -180,7 +179,6 @@ public class WauzLoader {
 		WauzCommandExecutor.registerCommand(new CmdWzHeal());
 		WauzCommandExecutor.registerCommand(new CmdWzKey());
 		WauzCommandExecutor.registerCommand(new CmdWzLeave());
-		WauzCommandExecutor.registerCommand(new CmdWzRegPet());
 		WauzCommandExecutor.registerCommand(new CmdWzSkill());
 		WauzCommandExecutor.registerCommand(new CmdWzSkillWeapon());
 		WauzCommandExecutor.registerCommand(new CmdWzSystem());

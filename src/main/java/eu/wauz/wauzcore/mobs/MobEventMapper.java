@@ -51,7 +51,7 @@ public class MobEventMapper {
 		Player mobOwner = PetOverviewMenu.getOwner(entity);
 		
 		if(mobOwner != null) {
-			PetOverviewMenu.unregPet(mobOwner, mobId);
+			PetOverviewMenu.removeOwner(mobId, mobOwner);
 		}
 		if(StringUtils.contains(event.getEntity().getCustomName(), "Strongbox")) {
 			Strongbox.destroy(event);

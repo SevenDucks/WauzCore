@@ -149,7 +149,16 @@ public class PetOverviewMenu implements WauzInventory {
 		return petOwnerMap.get(entity.getUniqueId().toString());
 	}
 	
-// Unsummoning, Discarding and Moving
+	public static void setOwner(String petId, Player player) {
+		petOwnerMap.put(petId, player);
+	}
+	
+	public static void removeOwner(String petId, Player player) {
+		petOwnerMap.remove(petId);
+		player.setWalkSpeed(0.2f);
+	}
+	
+// Unsummoning
 	
 	public static void unsummon(Player player) {
 		try {
@@ -168,7 +177,7 @@ public class PetOverviewMenu implements WauzInventory {
 					for(Entity passenger : entity.getPassengers())
 						passenger.remove();
 					entity.remove();
-					unregPet(player, petId);
+					removeOwner(petId, player);
 					player.sendMessage(ChatColor.GREEN + "Your current Pet was unsommoned!");
 				}
 			}
@@ -178,7 +187,7 @@ public class PetOverviewMenu implements WauzInventory {
 		}
 	}
 	
-// Adding and Registration
+// Adding
 	
 	public static void addPet(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -231,33 +240,6 @@ public class PetOverviewMenu implements WauzInventory {
 		}
 		
 		player.sendMessage(ChatColor.RED + "You have no free Pet-Slots!");
-	}
-	
-	public static boolean regPet(Player player, String petId) {
-		if(player == null) {
-			WauzDebugger.log("Pet Registration failed! Player is in creative mode or out of range!");
-			Entity entity = Bukkit.getServer().getEntity(UUID.fromString(petId));		
-			if(entity != null) {
-				for(Entity passenger : entity.getPassengers())
-					passenger.remove();
-				entity.remove();
-			}
-		}
-		else {
-			WauzDebugger.log(player, player.getName() + " summoned Pet " + petId);
-			PlayerConfigurator.setCharacterActivePetId(player, petId);
-			int petSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
-			
-			petOwnerMap.put(petId, player);
-			player.setWalkSpeed(0.2f + PlayerConfigurator.getCharacterPetDexterity(player, petSlot) * 0.02f);
-		}
-		
-		return true;
-	}
-	
-	public static void unregPet(Player player, String petId) {
-		petOwnerMap.remove(petId);
-		player.setWalkSpeed(0.2f);
 	}
 	
 // Leveling

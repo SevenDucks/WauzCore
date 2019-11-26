@@ -14,6 +14,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Tameable;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -31,11 +32,18 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import io.lumine.xikage.mythicmobs.MythicMobs;
+import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 import net.md_5.bungee.api.ChatColor;
 
 public class PetOptionsMenu implements WauzInventory {
 	
 	private static WauzCore core = WauzCore.getInstance();
+	
+	/**
+	 * Access to the MythicMobs API.
+	 */
+	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
 	
 // Single Pet Options Menu
 	
@@ -247,22 +255,31 @@ public class PetOptionsMenu implements WauzInventory {
 		String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
 					
 		String petId = PlayerConfigurator.getCharacterActivePetId(player);
-		
 		if(!petId.contains("none")) {
 			Entity entity = Bukkit.getServer().getEntity(UUID.fromString(petId));		
 			if(entity != null)
 				entity.remove();
 		}
 		
-		PlayerConfigurator.setCharacterActivePetSlot(player, petSlot);
-		
-		String command = "mm m spawn " + petType + " 1 " + player.getWorld().getName() +
-			"," + location.getX() + "," + location.getY() + "," + location.getZ();
-		
-		WauzDebugger.log(player, command);
-		
-		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-		player.sendMessage(ChatColor.GREEN + petType + " was summoned!");
+		try {
+			Entity entity = mythicMobs.spawnMythicMob(petType, location);
+			if(entity instanceof Tameable) {
+				((Tameable) entity).setOwner(player);
+			}
+			petId = entity.getUniqueId().toString();
+			PlayerConfigurator.setCharacterActivePetId(player, petId);
+			PlayerConfigurator.setCharacterActivePetSlot(player, petSlot);
+			
+			PetOverviewMenu.setOwner(petId, player);
+			player.setWalkSpeed(0.2f + PlayerConfigurator.getCharacterPetDexterity(player, petSlot) * 0.02f);
+			
+			WauzDebugger.log(player, player.getName() + " summoned Pet " + petId);
+			player.sendMessage(ChatColor.GREEN + petType + " was summoned!");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			player.sendMessage(ChatColor.RED + petType + " was not summoned, due to an error!");
+		}
 	}
 	
 	public static void discard(Player player, Integer petSlot) {
