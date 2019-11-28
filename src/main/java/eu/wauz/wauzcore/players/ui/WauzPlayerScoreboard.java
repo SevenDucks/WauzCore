@@ -235,18 +235,18 @@ public class WauzPlayerScoreboard {
 				}
 				else {
 					team.setSuffix(ChatColor.RED + " " + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + ChatFormatter.ICON_HEART);
-				}
-				if(ownData.isInGroup() && playerData.isInGroup() && StringUtils.equals(ownData.getGroupUuidString(), playerData.getGroupUuidString())) {
-					team.setPrefix(ChatColor.BLUE + "GROUP ");
-				}
-				else {
-					WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(online);
-					WauzPlayerGuild ownGuild = PlayerConfigurator.getGuild(player);
-					if(ownGuild != null && playerGuild != null && StringUtils.equals(ownGuild.getGuildUuidString(), playerGuild.getGuildUuidString())) {
-						team.setPrefix(ChatColor.GREEN + "GUILD ");
+					
+					if(ownData.isInGroup() && playerData.isInGroup() && StringUtils.equals(ownData.getGroupUuidString(), playerData.getGroupUuidString())) {
+						team.setPrefix(ChatColor.BLUE + "GROUP ");
+					}
+					else {
+						WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(online);
+						WauzPlayerGuild ownGuild = PlayerConfigurator.getGuild(player);
+						if(ownGuild != null && playerGuild != null && StringUtils.equals(ownGuild.getGuildUuidString(), playerGuild.getGuildUuidString())) {
+							team.setPrefix(ChatColor.GREEN + "GUILD ");
+						}
 					}
 				}
-				
 				team.addEntry(online.getName());
 			}
 			catch(NullPointerException e) {

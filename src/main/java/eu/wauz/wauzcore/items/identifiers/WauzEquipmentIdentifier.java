@@ -30,7 +30,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class WauzEquipmentIdentifier {
 	
-	private static DecimalFormat formatter = new DecimalFormat("#,##");
+	private static DecimalFormat formatter = new DecimalFormat("0.00");
 
 	private static List<Equipment> equipTypes = new ArrayList<>();
 	
@@ -146,12 +146,12 @@ public class WauzEquipmentIdentifier {
 		lores = new ArrayList<String>();
 		addMainStatToEquipment();
 		addEnhancementsToEquipment();
+		addDurabilityToEquipment();
 		addSpeedToEquipment();
 		addArmorCategoryToEquipment();
-		addDurabilityToEquipment();
 		addSlotsToEquipment();
 		
-		itemMeta.setLore(lores);	
+		itemMeta.setLore(lores);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		equipmentItemStack.setItemMeta(itemMeta);
 		
@@ -284,9 +284,20 @@ public class WauzEquipmentIdentifier {
 		}
 	}
 	
+	private void addDurabilityToEquipment() {
+		Damageable damageable = (Damageable) itemMeta;
+		damageable.setDamage(0);
+		
+		String durabilityString = "Durability:" + ChatColor.DARK_GREEN + " " + durabilityStat;
+		durabilityString += " " + ChatColor.DARK_GRAY + "/ " + durabilityStat;
+		lores.add(durabilityString);
+	}
+	
 	private void addSpeedToEquipment() {
 		if(equipmentType.getType().equals(EquipmentType.WEAPON)) {
-			AttributeModifier modifier = new AttributeModifier("generic.attackSpeed", speedStat - 4, Operation.ADD_NUMBER);
+			double genericAttackSpeed = speedStat - 4.0;
+			WauzDebugger.log(player, "Generic Attack Speed: " + genericAttackSpeed);
+			AttributeModifier modifier = new AttributeModifier("generic.attackSpeed", genericAttackSpeed, Operation.ADD_NUMBER);
 			itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
 			lores.add("Speed:" + ChatColor.RED + " " + formatter.format(speedStat));
 		}
@@ -296,15 +307,6 @@ public class WauzEquipmentIdentifier {
 		if(equipmentType.getType().equals(EquipmentType.ARMOR)) {
 			lores.add("Category:" + ChatColor.BLUE + " " + equipmentType.getCategory());
 		}
-	}
-	
-	private void addDurabilityToEquipment() {
-		Damageable damageable = (Damageable) itemMeta;
-		damageable.setDamage(0);
-		
-		String durabilityString = "Durability:" + ChatColor.DARK_GREEN + " " + durabilityStat;
-		durabilityString += " " + ChatColor.DARK_GRAY + "/ " + durabilityStat;
-		lores.add(durabilityString);
 	}
 	
 	private void addSlotsToEquipment() {
@@ -378,6 +380,14 @@ public class WauzEquipmentIdentifier {
 
 	public void setDefenseStat(int defenseStat) {
 		this.defenseStat = defenseStat;
+	}
+
+	public double getSpeedStat() {
+		return speedStat;
+	}
+
+	public void setSpeedStat(double speedStat) {
+		this.speedStat = speedStat;
 	}
 
 	public int getDurabilityStat() {

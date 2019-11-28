@@ -350,6 +350,7 @@ public class WauzListener implements Listener {
 		if(event.getAnimationType().equals(swingAnimation) && player.getCooledAttackStrength(0) != 1) {
 			WauzDebugger.log(player, "Cancelled Attack Animation");
 			event.setCancelled(true);
+			player.resetCooldown();
 		}
 	}
 
