@@ -14,6 +14,11 @@ public class CmdWzExp implements WauzCommand {
 	public String getCommandId() {
 		return "wzExp";
 	}
+	
+	@Override
+	public boolean allowConsoleExecution() {
+		return true;
+	}
 
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {

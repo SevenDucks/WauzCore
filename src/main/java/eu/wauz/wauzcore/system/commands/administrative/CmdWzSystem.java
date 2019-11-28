@@ -11,6 +11,11 @@ public class CmdWzSystem implements WauzCommand {
 	public String getCommandId() {
 		return "wzSystem";
 	}
+	
+	@Override
+	public boolean allowConsoleExecution() {
+		return true;
+	}
 
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {

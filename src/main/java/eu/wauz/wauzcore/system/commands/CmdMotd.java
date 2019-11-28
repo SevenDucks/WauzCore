@@ -19,11 +19,6 @@ public class CmdMotd implements WauzCommand {
 
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "Only players can execute this command!");
-			return true;
-		}
-		
 		Player player = (Player) sender;
 		String message = StringUtils.join(args, " ");
 		

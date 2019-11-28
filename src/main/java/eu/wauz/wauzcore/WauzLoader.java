@@ -286,23 +286,23 @@ public class WauzLoader {
 	private static void registerSwords() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.WOODEN_SWORD, " Shortsword")
-				.withMainStat(1.50).withDurabilityStat(32));
+				.withMainStat(1.50).withSpeedStat(1.20).withDurabilityStat(32));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_SWORD, " Rapier")
-				.withMainStat(1.55).withDurabilityStat(64));
+				.withMainStat(1.55).withSpeedStat(1.30).withDurabilityStat(64));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.STONE_SWORD, " Longsword")
-				.withMainStat(1.60).withDurabilityStat(128));
+				.withMainStat(1.60).withSpeedStat(1.20).withDurabilityStat(128));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.IRON_SWORD, " Claymore")
-				.withMainStat(1.65).withDurabilityStat(256));
+				.withMainStat(1.65).withSpeedStat(1.20).withDurabilityStat(256));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_SWORD, " Excalibur")
-				.withMainStat(1.70).withDurabilityStat(512));
+				.withMainStat(1.70).withSpeedStat(1.40).withDurabilityStat(512));
 	}
 	
 	/**
@@ -314,23 +314,23 @@ public class WauzLoader {
 	private static void registerAxes() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.WOODEN_AXE, " Hatchet")
-				.withMainStat(1.70).withDurabilityStat(32));
+				.withMainStat(1.70).withSpeedStat(0.90).withDurabilityStat(32));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_AXE, " Halberd")
-				.withMainStat(1.75).withDurabilityStat(64));
+				.withMainStat(1.75).withSpeedStat(1.00).withDurabilityStat(64));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.STONE_AXE, " Waraxe")
-				.withMainStat(1.80).withDurabilityStat(128));
+				.withMainStat(1.80).withSpeedStat(0.90).withDurabilityStat(128));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.IRON_AXE, " Greataxe")
-				.withMainStat(1.85).withDurabilityStat(256));
+				.withMainStat(1.85).withSpeedStat(0.90).withDurabilityStat(256));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_AXE, " Worldbreaker")
-				.withMainStat(1.90).withDurabilityStat(512));
+				.withMainStat(1.90).withSpeedStat(1.10).withDurabilityStat(512));
 	}
 	
 	/**
@@ -342,23 +342,23 @@ public class WauzLoader {
 	private static void registerStaves() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.WOODEN_HOE, " Staff")
-				.withMainStat(1.30).withDurabilityStat(32));
+				.withMainStat(1.30).withSpeedStat(1.50).withDurabilityStat(32));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_HOE, " Pole")
-				.withMainStat(1.35).withDurabilityStat(64));
+				.withMainStat(1.35).withSpeedStat(1.60).withDurabilityStat(64));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.STONE_HOE, " Mace")
-				.withMainStat(1.40).withDurabilityStat(128));
+				.withMainStat(1.40).withSpeedStat(1.50).withDurabilityStat(128));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.IRON_HOE, " Sceptre")
-				.withMainStat(1.45).withDurabilityStat(256));
+				.withMainStat(1.45).withSpeedStat(1.50).withDurabilityStat(256));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_HOE, " Soulreaver")
-				.withMainStat(1.50).withDurabilityStat(512));
+				.withMainStat(1.50).withSpeedStat(1.70).withDurabilityStat(512));
 	}
 	
 	/**
@@ -370,15 +370,15 @@ public class WauzLoader {
 	private static void registerBows() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.BOW, " Crude Bow")
-				.withMainStat(0.60).withDurabilityStat(64));
+				.withMainStat(0.60).withSpeedStat(1.00).withDurabilityStat(64));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.BOW, " Recurve Bow")
-				.withMainStat(0.90).withDurabilityStat(128));
+				.withMainStat(0.90).withSpeedStat(1.00).withDurabilityStat(128));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.BOW, " Infractem Bow")
-				.withMainStat(1.20).withDurabilityStat(256));
+				.withMainStat(1.20).withSpeedStat(1.00).withDurabilityStat(256));
 	}
 	
 	/**
@@ -390,11 +390,11 @@ public class WauzLoader {
 	public static void registerHooks() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, " Grappling Hook")
-				.withMainStat(0.50).withDurabilityStat(72));
+				.withMainStat(0.50).withSpeedStat(1.00).withDurabilityStat(72));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, " Dual Hook")
-				.withMainStat(0.85).withDurabilityStat(144));
+				.withMainStat(0.85).withSpeedStat(1.00).withDurabilityStat(144));
 	}
 	
 	/**

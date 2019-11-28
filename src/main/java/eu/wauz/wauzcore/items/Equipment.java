@@ -35,6 +35,8 @@ public class Equipment {
 	
 	private double mainStat;
 	
+	private double speedStat;
+	
 	private int durabilityStat;
 	
 	private ArmorCategory category;
@@ -67,6 +69,15 @@ public class Equipment {
 
 	public Equipment withMainStat(double mainStat) {
 		this.mainStat = mainStat;
+		return this;
+	}
+
+	public double getSpeedStat() {
+		return speedStat;
+	}
+
+	public Equipment withSpeedStat(double speedStat) {
+		this.speedStat = speedStat;
 		return this;
 	}
 

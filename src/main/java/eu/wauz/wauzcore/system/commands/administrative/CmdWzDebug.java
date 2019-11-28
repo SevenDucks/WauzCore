@@ -17,11 +17,6 @@ public class CmdWzDebug implements WauzCommand {
 
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "Only players can execute this command!");
-			return true;
-		}
-		
 		Player player = args.length == 0 ? (Player) sender : WauzCore.getOnlinePlayer(args[0]);
 		if(player == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");

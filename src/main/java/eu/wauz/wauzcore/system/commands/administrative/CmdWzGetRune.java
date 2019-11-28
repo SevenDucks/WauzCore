@@ -17,11 +17,6 @@ public class CmdWzGetRune implements WauzCommand {
 
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "Only players can execute this command!");
-			return true;
-		}
-		
 		if(args.length < 1) {
 			return false;
 		}

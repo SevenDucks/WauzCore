@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.system.commands.execution.WauzCommand;
-import net.md_5.bungee.api.ChatColor;
 
 public class CmdSethome implements WauzCommand {
 
@@ -16,10 +15,6 @@ public class CmdSethome implements WauzCommand {
 
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "Only players can execute this command!");
-			return true;
-		}
 		return new WauzPlayerEventHomeChange((Player) sender, true).execute((Player) sender);
 	}
 

@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.system.WauzDebugger;
+import net.md_5.bungee.api.ChatColor;
 
 public class WauzCommandExecutor {
 	
@@ -27,8 +28,13 @@ public class WauzCommandExecutor {
 		if(command == null) {
 			return false;
 		}
+		
 		if(sender instanceof Player) {
 			WauzDebugger.log((Player) sender, "Execute Command: " + command.getCommandId() + " " + Arrays.asList(args));
+		}
+		else if(!command.allowConsoleExecution()) {
+			sender.sendMessage(ChatColor.RED + "Only players can execute this command!");
+			return true;
 		}
 		
 		try {

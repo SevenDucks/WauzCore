@@ -17,11 +17,6 @@ public class CmdGroup implements WauzCommand {
 
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "Only players can execute this command!");
-			return true;
-		}
-		
 		Player player = (Player) sender;
 		if((WauzMode.isMMORPG(player) || WauzMode.isSurvival(player)) && !WauzMode.inHub(player)) {
 			GroupMenu.open(player);

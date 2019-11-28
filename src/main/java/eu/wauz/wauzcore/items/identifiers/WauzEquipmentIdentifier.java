@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.items.identifiers;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,8 @@ import eu.wauz.wauzcore.system.util.Chance;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzEquipmentIdentifier {
+	
+	private static DecimalFormat formatter = new DecimalFormat("#,##");
 
 	private static List<Equipment> equipTypes = new ArrayList<>();
 	
@@ -82,6 +85,8 @@ public class WauzEquipmentIdentifier {
 	
 	private int defenseStat;
 	
+	private double speedStat;
+	
 	private int durabilityStat;
 	
 	private double typeMultiplicator = 0;
@@ -115,6 +120,7 @@ public class WauzEquipmentIdentifier {
 		equipmentType = equipTypes.get(random.nextInt(equipTypes.size()));
 		equipmentItemStack.setType(equipmentType.getMaterial());
 		typeMultiplicator = equipmentType.getMainStat();
+		speedStat = equipmentType.getSpeedStat();
 		durabilityStat = equipmentType.getDurabilityStat();
 		
 		if(equipmentType.getLeatherDye() != null) {
@@ -140,14 +146,13 @@ public class WauzEquipmentIdentifier {
 		lores = new ArrayList<String>();
 		addMainStatToEquipment();
 		addEnhancementsToEquipment();
+		addSpeedToEquipment();
 		addArmorCategoryToEquipment();
 		addDurabilityToEquipment();
 		addSlotsToEquipment();
 		
 		itemMeta.setLore(lores);	
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		AttributeModifier modifier = new AttributeModifier("generic.attackSpeed", -3.9, Operation.ADD_NUMBER);
-		itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
 		equipmentItemStack.setItemMeta(itemMeta);
 		
 		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
@@ -257,12 +262,6 @@ public class WauzEquipmentIdentifier {
 		}
 	}
 	
-	private void addArmorCategoryToEquipment() {
-		if(equipmentType.getType().equals(EquipmentType.ARMOR)) {
-			lores.add("Category:" + ChatColor.BLUE + " " + equipmentType.getCategory());
-		}
-	}
-	
 	private void addEnhancementsToEquipment() {
 		if(Chance.oneIn(3)) {
 			int luck = PlayerPassiveSkillConfigurator.getLuck(player);
@@ -282,6 +281,20 @@ public class WauzEquipmentIdentifier {
 			else {
 				WauzDebugger.log(player, "Rolled Nothing...");
 			}
+		}
+	}
+	
+	private void addSpeedToEquipment() {
+		if(equipmentType.getType().equals(EquipmentType.WEAPON)) {
+			AttributeModifier modifier = new AttributeModifier("generic.attackSpeed", speedStat - 4, Operation.ADD_NUMBER);
+			itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
+			lores.add("Speed:" + ChatColor.RED + " " + formatter.format(speedStat));
+		}
+	}
+	
+	private void addArmorCategoryToEquipment() {
+		if(equipmentType.getType().equals(EquipmentType.ARMOR)) {
+			lores.add("Category:" + ChatColor.BLUE + " " + equipmentType.getCategory());
 		}
 	}
 	
