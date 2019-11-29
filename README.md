@@ -11,4 +11,4 @@ Advanced Minecraft MMORPG Engine
 :orange_book: Javadoc: https://wauzmons.github.io/WauzCore/
 
 # Demo Server
-There is currently a demo-server in development. It is not publicly accessible though. @SevenDucks plans to create a full MMORPG experience in Minecraft by 2022. It will contain Quests, Dungeons, Bossfights, Skills, Equipment and more, all without the need for mods or resource packs. Unlike Wynncraft or Dungeon Realms it will be completely open source and provide APIs to add your own Skills or Equipment, so we hope its worth the wait.
+There is currently a demo-server in development. It is not publicly accessible though. [@SevenDucks](https://github.com/SevenDucks) plans to create a full [MMORPG experience in Minecraft](https://www.wauz.eu) by 2022. It will contain Quests, Dungeons, Bossfights, Skills, Equipment and more, all without the need for mods or resource packs. Unlike Wynncraft or Dungeon Realms it will be completely open source and provide APIs to add your own Skills or Equipment, so we hope it's worth the wait.
