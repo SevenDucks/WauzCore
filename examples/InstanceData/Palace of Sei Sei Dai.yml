@@ -1,0 +1,19 @@
+type: Keys
+keys:
+- 'K1'
+- 'K2'
+- 'K3'
+- 'K4'
+- 'K5'
+before:
+- 'mm mobs spawn -s StrongboxT1 1 world,-15.5,9,113.5'
+- 'mm mobs spawn -s StrongboxT1 1 world,69.5,5,56.5'
+- 'mm mobs spawn -s StrongboxT1 1 world,-28.5,26,142.5'
+- 'mm mobs spawn -s StrongboxT1 1 world,9.5,16,221.5'
+- 'mm mobs spawn -s SeiSeiDaiA 1 world,167.5,36,81.5'
+- 'mm mobs spawn -s Pediwax 1 world,66.5,19,-5.5'
+- 'mm mobs spawn -s Quackstack4 1 world,5.5,8,18.5'
+after:
+- 'title player times 20 100 20'
+- 'title player subtitle {"text":"Ancient Throne of Ducksmoria","color":"gold"}'
+- 'title player title {"text":"Palace of Sei Sei Dai","color":"red"}'

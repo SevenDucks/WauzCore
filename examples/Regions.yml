@@ -1,0 +1,253 @@
+# Temperatures
+# -5      -35°C
+# -4      -30°C
+# -3      -25°C
+# -2      -20°C
+# -1      -15°C
+# 00      -10°C
+# 01 Cld  -05°C
+# 02       00°C
+# 03 DefN  05°C
+# 04       10°C
+# 05 Nrm   15°C
+# 06 DefD  20°C
+# 07       25°C
+# 08       30°C
+# 09 Hot   35°C
+# 10       40°C
+# 11       45°C
+# 12       50°C
+# 13       60°C
+# 14       65°C
+# 15       70°C
+Hub:
+  type: world
+  world: HubNexus
+  title: Nexus
+  subtitle: Hub of Wauzland
+  temperature: 6
+  flags: 'protected'
+  areas:
+Survival:
+  type: world
+  world: Survival
+  title: Unknown Wilderness
+  subtitle: (PvP) Free Building Zone
+  temperature: 6
+  flags: 'build,pvp'
+  areas:
+    SurvivalSpawn:
+      type: ellipse
+      radius: '0;0;80'
+      title: Heart of Nature
+      subtitle: Build Protected Zone
+      temperature: 6
+      flags: 'protected'
+      areas:
+Wauzland:
+  type: world
+  world: Wauzland
+  title: Wauzland
+  subtitle: Republic Wauzland
+  music: Wauzland
+  temperature: 6
+  flags: ''
+  areas:
+    NorthernPlains:
+      type: polygon
+      points:
+      - '-986;0'
+      - '0;-986'
+      - '986;0'
+      - '250;0'
+      - '250;-250'
+      - '-250;-250'
+      - '-250;0'
+      title: Upper Plains
+      subtitle: Republic Wauzland
+      music: Wauzland
+      temperature: 5
+      flags: ''
+      areas:
+        Okiraka:
+          type: polygon
+          points:
+          - '48;-529'
+          - '125;-529'
+          - '142;-547'
+          - '193;-547'
+          - '261;-615'
+          - '261;-549'
+          - '175;-463'
+          - '100;-433'
+          - '48;-433'
+          title: Okiraka Village
+          subtitle: Legacy of Durendal
+          music: Portowauza
+          temperature: 6
+          flags: ''
+        Kloten:
+          type: ellipse
+          radius: '-150;-510;37'
+          title: Fort Kloten
+          subtitle: Heart of Lake Asparagur
+          music: Linirea
+          temperature: 5
+          flags: ''
+          areas:
+        Shusia:
+          type: ellipse
+          radius: '314;-584;37'
+          title: Shusia Village
+          subtitle: Heart of Duck Mountain
+          music: Olympus Mons
+          temperature: 8
+          flags: ''
+          areas:
+    SouthernPlains:
+      type: polygon
+      points:
+      - '986;0'
+      - '0;986'
+      - '-986;0'
+      - '-250;0'
+      - '-250;250'
+      - '250;250'
+      - '250;0'
+      title: Lower Plains
+      subtitle: Republic Wauzland
+      music: Wauzland
+      temperature: 8
+      flags: ''
+      areas:
+        Gockelhock:
+          type: polygon
+          points:
+          - '-610;50'
+          - '-300;50'
+          - '-300;360'
+          - '-610;360'
+          title: Gockelhock
+          subtitle: Golden City
+          music: Sinaithar
+          temperature: 8
+          flags: ''
+          areas:
+        GreenSanctuary:
+          type: polygon
+          points:
+          - '300;50'
+          - '610;50'
+          - '610;360'
+          - '300;360'
+          title: Green Sanctuary
+          subtitle: Remote Forest Camp
+          music: Rakanoth
+          temperature: 6
+          flags: ''
+          areas:
+    Portowauza:
+      type: polygon
+      points:
+      - '-250;-250'
+      - '250;-250'
+      - '250;250'
+      - '-250;250'
+      title: Portowauza
+      subtitle: Capital of Wauzland
+      music: Portowauza
+      temperature: 7
+      flags: ''
+      areas:
+    Linirea:
+      type: polygon
+      points:
+      - '0;-986'
+      - '0;-1000'
+      - '1000;-1000'
+      - '1000;0'
+      - '986;0'
+      title: Linirea
+      subtitle: Frozen Tundra
+      music: Linirea
+      temperature: 2
+      flags: ''
+      areas:
+        Spargelforge:
+          type: ellipse
+          radius: '650;-650;75'
+          title: Spargelforge
+          subtitle: Capital of Linirea
+          music: Linirea
+          temperature: 5
+          flags: ''
+          areas:
+    Mons:
+      type: polygon
+      points:
+      - '0;-986'
+      - '0;-1000'
+      - '-1000;-1000'
+      - '-1000;0'
+      - '-986;0'
+      title: Olympus Mons
+      subtitle: Scorched Kingdom
+      music: Olympus Mons
+      temperature: 8
+      flags: ''
+      areas:
+        Wesavier:
+          type: ellipse
+          radius: '-650;-650;75'
+          title: Wesavier
+          subtitle: Capital of Mons
+          music: Olympus Mons
+          temperature: 6
+          flags: ''
+          areas:
+    Sinaithar:
+      type: polygon
+      points:
+      - '0;986'
+      - '0;1000'
+      - '-1000;1000'
+      - '-1000;0'
+      - '-986;0'
+      title: Sinaithar
+      subtitle: Desolate Wasteland
+      music: Sinaithar
+      temperature: 10
+      flags: ''
+      areas:
+        Nagrommar:
+          type: ellipse
+          radius: '-650;650;75'
+          title: Nagrommar
+          subtitle: Capital of Sinaithar
+          music: Sinaithar
+          temperature: 8
+          flags: ''
+          areas:
+    Rakanoth:
+      type: polygon
+      points:
+      - '0;986'
+      - '0;1000'
+      - '1000;1000'
+      - '1000;0'
+      - '986;0'
+      title: Rakanoth
+      subtitle: Lost Swamps
+      music: Rakanoth
+      temperature: 7
+      flags: ''
+      areas:
+        Gündrassil:
+          type: ellipse
+          radius: '650;650;75'
+          title: Gündrassil
+          subtitle: Capital of Rakanoth
+          music: Rakanoth
+          temperature: 5
+          flags: ''
+          areas:

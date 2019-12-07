@@ -1,0 +1,48 @@
+type: Normal
+amount: 5
+items:
+  1:
+    material: ARROW
+    amount: 5
+    name: §fReinforced Arrow
+    lores:
+      - '§7Ammo Item'
+      - '§aDeals doubled damage!'
+      - ''
+      - '§5Price:§a 30 §6Coins of Wauzland'
+  2:
+    material: ARROW
+    amount: 5
+    name: §fFire Arrow
+    lores:
+      - '§7Ammo Item'
+      - '§cIgnites enemies!'
+      - ''
+      - '§5Price:§a 75 §6Coins of Wauzland'
+  3:
+    material: ARROW
+    amount: 5
+    name: §fIce Arrow
+    lores:
+      - '§7Ammo Item'
+      - '§9Freezes enemies!'
+      - ''
+      - '§5Price:§a 75 §6Coins of Wauzland'
+  4:
+    material: ARROW
+    amount: 5
+    name: §fShock Arrow
+    lores:
+      - '§7Ammo Item'
+      - '§eKnockback on impact!'
+      - ''
+      - '§5Price:§a 75 §6Coins of Wauzland'
+  5:
+    material: ARROW
+    amount: 5
+    name: §fBomb Arrow
+    lores:
+      - '§7Ammo Item'
+      - '§5Explosion on impact!'
+      - ''
+      - '§5Price:§a 75 §6Coins of Wauzland'

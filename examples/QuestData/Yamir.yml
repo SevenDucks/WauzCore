@@ -1,0 +1,27 @@
+type: main
+name: Calamity Beneath Wauzland
+level: 5
+amount: 2
+coords: 0 5 0
+phases:
+  1:
+    lores:
+    - 'player... Open your eyes...'
+    - 'This world is in great danger...'
+    - 'Under the great tower... Come to me!'
+    uncomplete: 'Under the great tower... Come to me!'
+    requirements:
+      amount: 0
+  2:
+    lores:
+    - 'Wait for the next update...'
+    uncomplete: 'Wait for the next update...'
+    requirements:
+      amount: 1
+      1:
+        item: [ Coming Soon ]
+        amount: 1
+        coords: 0 0 0
+completed:
+- 'player... you did it!'
+- 'Wauzland. Is save... for now.'

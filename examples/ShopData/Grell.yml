@@ -1,0 +1,54 @@
+type: Normal
+amount: 5
+items:
+  1:
+    material: COOKED_BEEF
+    amount: 1
+    name: §7Soulsteak
+    lores:
+      - '§rFood Item'
+      - '§2Saturation: 5'
+      - ''
+      - '§5Price:§a 5 §6Coins of Wauzland'
+  2:
+    material: COOKED_PORKCHOP
+    amount: 3
+    name: §7Blessed Chickoon
+    lores:
+      - '§rFood Item'
+      - '§2Saturation: 10'
+      - ''
+      - '§5Price:§a 5 §9Republic Wauzland Reputation'
+  3:
+    material: PAPER
+    amount: 1
+    name: §rPalace of Sei Sei Dai
+    lores:
+      - '§cDungeon Map'
+      - ''
+      - '§7Right Click to enter Dungeon.'
+      - '§7Map resets upon Death.'
+      - ''
+      - '§5Price:§a 50 §6Coins of Wauzland'
+  4:
+    material: NAME_TAG
+    amount: 1
+    name: §rScroll of Summoning
+    lores:
+      - '§aCharlie'
+      - ''
+      - '§7Right Click to learn to Summon this Pet.'
+      - '§7It will be accessible from the Menu.'
+      - ''
+      - '§5Price:§a 120 §6Coins of Wauzland'
+  5:
+    material: NAME_TAG
+    amount: 1
+    name: §rScroll of Summoning
+    lores:
+      - '§aAsuna'
+      - ''
+      - '§7Right Click to learn to Summon this Pet.'
+      - '§7It will be accessible from the Menu.'
+      - ''
+      - '§5Price:§a 240 §6Coins of Wauzland'

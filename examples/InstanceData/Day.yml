@@ -1,0 +1,6 @@
+before:
+- 'tell player Loaded Test-Instance Day'
+after:
+- 'title player times 20 100 20'
+- 'title player subtitle {"text":"Realm of the drunk Penguin","color":"gold"}'
+- 'title player title {"text":"Test-Instance","color":"red"}'
