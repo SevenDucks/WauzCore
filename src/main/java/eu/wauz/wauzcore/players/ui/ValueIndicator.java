@@ -26,8 +26,12 @@ public class ValueIndicator {
 		spawnIndicator(entity.getLocation(), color + "" + damage + (isCritical ? " CRIT" : ""));
 	}
 	
-	public static void spawnEvadeIndicator(Player player) {
-		spawnIndicator(player.getLocation(), ChatColor.AQUA + "EVADED");
+	public static void spawnEvadedIndicator(Entity entity) {
+		spawnIndicator(entity.getLocation(), ChatColor.AQUA + "EVADED");
+	}
+	
+	public static void spawnMissedIndicator(Entity entity) {
+		spawnIndicator(entity.getLocation(), ChatColor.DARK_RED + "MISSED");
 	}
 	
 	public static void spawnHealIndicator(Location location, int heal) {

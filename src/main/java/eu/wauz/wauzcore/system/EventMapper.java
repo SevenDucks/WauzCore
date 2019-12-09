@@ -99,6 +99,7 @@ public class EventMapper {
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		
 		if(event.getAction() == Action.LEFT_CLICK_AIR) {
+			Cooldown.playerWeaponUse(player);
 			event.setCancelled(true);
 		}
 		

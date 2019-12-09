@@ -165,12 +165,12 @@ public class WauzPlayerData {
 		skillCooldownMap.put(skillId, cooldown * 1000 + System.currentTimeMillis());
 	}
 	
-	public boolean isActionReady(Player player, String actionId) {
+	public boolean isActionReady(String actionId) {
 		Long cooldown = actionCooldownMap.get(actionId);
 		return cooldown == null || cooldown <= System.currentTimeMillis();
 	}
 	
-	public void updateActionCooldown(Player player, String actionId, Long cooldown) {
+	public void updateActionCooldown(String actionId, Long cooldown) {
 		actionCooldownMap.put(actionId, cooldown + System.currentTimeMillis());
 	}
 

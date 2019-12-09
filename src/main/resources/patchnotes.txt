@@ -1,4 +1,8 @@
-Patch 5XX: Rapid Racing
+Patch 6XX: Rapid Racing
+
+Patch 601: ???
+
+Patch 511: ???
 
 Patch 510: Clashing Classes
 	New Feature: 3 Selectable Classes
@@ -12,6 +16,10 @@ Patch 510: Clashing Classes
 	New Weapon: Hook
 	  - Right Click, pulls Enemies to You
 	  - Shift Right Click, pulls You to Blocks
+	  
+	New Stat: Speed
+	  - Determines Charging Speed of Weapons
+	  - Attack will Miss, if not Charged
 	
 	Miscellaneous
 	  - Added new categorized Armor Types

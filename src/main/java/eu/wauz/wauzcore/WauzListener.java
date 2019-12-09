@@ -45,8 +45,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerAnimationEvent;
-import org.bukkit.event.player.PlayerAnimationType;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -333,26 +331,6 @@ public class WauzListener implements Listener {
 			event.setCancelled(true);
 		}
 	}
-	
-	/**
-	 * Prevents swing animations if a MMORPG player's weapon is not ready.
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void onAnimate(PlayerAnimationEvent event) {
-		Player player = event.getPlayer();
-		if(!WauzMode.isMMORPG(player)) {
-			return;
-		}
-		PlayerAnimationType swingAnimation = PlayerAnimationType.ARM_SWING;
-		WauzDebugger.log(player, "Remaining Cooldown Ticks: " + player.getCooledAttackStrength(0));
-		if(event.getAnimationType().equals(swingAnimation) && player.getCooledAttackStrength(0) != 1) {
-			WauzDebugger.log(player, "Cancelled Attack Animation");
-			event.setCancelled(true);
-			player.resetCooldown();
-		}
-	}
 
 // Player Ambient Listeners
 	
@@ -510,8 +488,9 @@ public class WauzListener implements Listener {
 			}
 			if(entityEvent.getDamager() instanceof Player) {
 				DamageCalculator.attack(entityEvent);
-				if(playerBossBar != null)
+				if(playerBossBar != null) {
 					playerBossBar.addPlayer((Player) entityEvent.getDamager(), entityEvent.getDamage());
+				}
 			}
 			if(event.getEntity() instanceof Player) {
 				DamageCalculator.reflect(entityEvent);

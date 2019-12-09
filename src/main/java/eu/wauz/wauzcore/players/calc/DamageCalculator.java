@@ -56,19 +56,25 @@ public class DamageCalculator {
 		Player player = (Player) event.getDamager();
 		Entity entity = event.getEntity();
 		
-		boolean fixedDamage = false;
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null) {
+			return;
+		}
+		
+		boolean isFixedDamage = false;
 		if(!entity.getMetadata("wzFixedDmg").isEmpty()) {
-			fixedDamage = entity.getMetadata("wzFixedDmg").get(0).asBoolean();
+			isFixedDamage = entity.getMetadata("wzFixedDmg").get(0).asBoolean();
 			entity.setMetadata("wzFixedDmg", new FixedMetadataValue(WauzCore.getInstance(), false));
 		}
 		
 		int damage = 1;
 		int unmodifiedDamage = (int) event.getDamage();
-		double magicMultiplier = 1;
+		
 		boolean isMagic = false;
+		double magicMultiplier = 1;
 		
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
-		if(fixedDamage) {
+		if(isFixedDamage) {
 			damage = (int) event.getDamage();
 		}
 		else {
@@ -94,8 +100,16 @@ public class DamageCalculator {
 				if(wzMagicValue > 0)
 					magicMultiplier = wzMagicValue + ItemUtils.getEnhancementSkillDamageMultiplier(itemStack);
 				entity.setMetadata("wzMagic", new FixedMetadataValue(WauzCore.getInstance(), 0d));
-				WauzDebugger.log(player, "Magic damage-multiplier: " + magicMultiplier);
+				WauzDebugger.log(player, "Magic Damage-Multiplier: " + magicMultiplier);
 				isMagic = true;
+			}
+			else if(!Cooldown.playerWeaponUse(player)) {
+				WauzDebugger.log(player, "Missed - Weapon Not Ready");
+				event.setCancelled(true);
+				player.resetCooldown();
+				
+				ValueIndicator.spawnMissedIndicator(entity);
+				return;
 			}
 			
 			damage = ItemUtils.getBaseAtk(itemStack);
@@ -115,6 +129,9 @@ public class DamageCalculator {
 		if(entity.hasMetadata("wzModMassive")) {
 			multiplier = 0.2f * multiplier;
 		}
+		if(entity.hasMetadata("wzModDeflecting")) {
+			SkillUtils.throwBackEntity(player, entity.getLocation(), 1.2);
+		}
 		
 		WauzDebugger.log(player, "Randomized Multiplier: " + formatter.format(multiplier) + (isCritical ? " CRIT" : ""));
 		damage = (int) ((float) damage * (float) multiplier);
@@ -122,13 +139,10 @@ public class DamageCalculator {
 		event.setDamage(damage);
 		removeDamageModifiers(event);
 		
-		if(!isMagic && !fixedDamage && !event.getCause().equals(DamageCause.ENTITY_SWEEP_ATTACK)) {
+		if(!isMagic && !isFixedDamage && !event.getCause().equals(DamageCause.ENTITY_SWEEP_ATTACK)) {
 			DurabilityCalculator.takeDamage(player, itemStack, false);
 		}
 		ValueIndicator.spawnDamageIndicator(event.getEntity(), damage, isCritical);
-		
-		if(entity.hasMetadata("wzModDeflecting"))
-			SkillUtils.throwBackEntity(player, entity.getLocation(), 1.2);
 		
 		WauzDebugger.log(player, "You inflicted " + damage + " (" + unmodifiedDamage + ") damage!");
 		WauzDebugger.log(player, "Cause: " + event.getCause() + " " + event.getFinalDamage());
@@ -154,13 +168,14 @@ public class DamageCalculator {
 	public static void defend(EntityDamageEvent event) {
 		Player player = (Player) event.getEntity();
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null || player.getNoDamageTicks() != 0)
+		if(playerData == null || player.getNoDamageTicks() != 0) {
 			return;
+		}
 		
 		if(player.hasPotionEffect(PotionEffectType.INVISIBILITY) || Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player))) {
 			event.setDamage(0);
 			
-			ValueIndicator.spawnEvadeIndicator(player);
+			ValueIndicator.spawnEvadedIndicator(player);
 			player.setNoDamageTicks(10);
 			
 			WauzDebugger.log(player, "You evaded an attack!");
