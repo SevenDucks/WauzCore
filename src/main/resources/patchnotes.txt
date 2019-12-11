@@ -1,8 +1,10 @@
-Patch 6XX: Rapid Racing
+Patch 60X: Rapid Racing
 
-Patch 601: ???
+Patch 60X: Powerful Professions
 
-Patch 511: ???
+Patch 601: Quest for Loot
+
+Patch 511: Achievement Arsenal
 
 Patch 510: Clashing Classes
 	New Feature: 3 Selectable Classes

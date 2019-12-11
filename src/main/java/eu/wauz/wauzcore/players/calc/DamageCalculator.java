@@ -26,7 +26,8 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
-import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
@@ -86,7 +87,7 @@ public class DamageCalculator {
 				return;
 			}
 			
-			int requiredLevel = ItemUtils.getLevelRequirement(itemStack);
+			int requiredLevel = EquipmentUtils.getLevelRequirement(itemStack);
 			WauzDebugger.log(player, "Required Level: " + requiredLevel);
 			if(player.getLevel() < requiredLevel) {
 				event.setCancelled(true);
@@ -98,7 +99,7 @@ public class DamageCalculator {
 			if(!entity.getMetadata("wzMagic").isEmpty()) {
 				double wzMagicValue = entity.getMetadata("wzMagic").get(0).asDouble();
 				if(wzMagicValue > 0)
-					magicMultiplier = wzMagicValue + ItemUtils.getEnhancementSkillDamageMultiplier(itemStack);
+					magicMultiplier = wzMagicValue + EquipmentUtils.getEnhancementSkillDamageMultiplier(itemStack);
 				entity.setMetadata("wzMagic", new FixedMetadataValue(WauzCore.getInstance(), 0d));
 				WauzDebugger.log(player, "Magic Damage-Multiplier: " + magicMultiplier);
 				isMagic = true;
@@ -112,7 +113,7 @@ public class DamageCalculator {
 				return;
 			}
 			
-			damage = ItemUtils.getBaseAtk(itemStack);
+			damage = EquipmentUtils.getBaseAtk(itemStack);
 			unmodifiedDamage = (int) (damage * magicMultiplier);
 			damage = applyAttackBonus(unmodifiedDamage, player, itemStack.getType().name());
 		}
@@ -120,7 +121,7 @@ public class DamageCalculator {
 		boolean isCritical = Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player));
 		float multiplier = 1;
 		if(isCritical) {
-			multiplier += 1 + ItemUtils.getEnhancementCriticalDamageMultiplier(player.getEquipment().getItemInMainHand());
+			multiplier += 1 + EquipmentUtils.getEnhancementCriticalDamageMultiplier(player.getEquipment().getItemInMainHand());
 		}
 		else {
 			multiplier += Chance.negativePositive(0.15f);
@@ -155,8 +156,8 @@ public class DamageCalculator {
 			Damageable damageable = (Damageable) event.getDamager();
 			
 			int reflectionDamage = 0;
-			reflectionDamage += ItemUtils.getReflectionDamage(player.getEquipment().getItemInMainHand());
-			reflectionDamage += ItemUtils.getReflectionDamage(player.getEquipment().getChestplate());
+			reflectionDamage += EquipmentUtils.getReflectionDamage(player.getEquipment().getItemInMainHand());
+			reflectionDamage += EquipmentUtils.getReflectionDamage(player.getEquipment().getChestplate());
 			
 			if(reflectionDamage > 0) {
 				WauzDebugger.log(player, "Reflecting " + reflectionDamage + " damage!");
@@ -187,7 +188,7 @@ public class DamageCalculator {
 		
 		ItemStack itemStack = player.getEquipment().getChestplate();
 		if((itemStack != null) && (!itemStack.getType().equals(Material.AIR)) && (itemStack.getItemMeta().getLore() != null)) {
-			int defense = ItemUtils.getBaseDef(itemStack);
+			int defense = EquipmentUtils.getBaseDef(itemStack);
 			if(defense > 0 ) {
 				damage = (int) (damage - applyDefendBonus(defense, player));
 				DurabilityCalculator.takeDamage(player, itemStack, true);
@@ -228,11 +229,11 @@ public class DamageCalculator {
 	public static void kill(EntityDeathEvent event) {
 		Player player = event.getEntity().getKiller();
 		
-		int onKillHP = ItemUtils.getEnhancementOnKillHP(player.getEquipment().getItemInMainHand());
+		int onKillHP = EquipmentUtils.getEnhancementOnKillHP(player.getEquipment().getItemInMainHand());
 		if(onKillHP > 0)
 			heal(new EntityRegainHealthEvent(player, onKillHP, RegainReason.CUSTOM));
 		
-		int onKillMP = ItemUtils.getEnhancementOnKillMP(player.getEquipment().getItemInMainHand());
+		int onKillMP = EquipmentUtils.getEnhancementOnKillMP(player.getEquipment().getItemInMainHand());
 		if(onKillMP > 0)
 			ManaCalculator.regenerateMana(player, onKillMP);
 	}

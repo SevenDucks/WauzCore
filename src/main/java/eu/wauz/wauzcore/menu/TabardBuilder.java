@@ -19,7 +19,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.GuildConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;

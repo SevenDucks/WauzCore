@@ -9,12 +9,12 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils.TotemRunnable;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 
 public class SkillTheTower implements WauzPlayerSkill {
 	
@@ -47,7 +47,7 @@ public class SkillTheTower implements WauzPlayerSkill {
 
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
-		int damage = (int) ((double) ItemUtils.getBaseAtk(weapon) * (double) 1.50);
+		int damage = (int) ((double) EquipmentUtils.getBaseAtk(weapon) * (double) 1.50);
 		
 		player.getWorld().playSound(player.getLocation(), Sound.ITEM_TOTEM_USE, 1, 1.5f);
 		SkillUtils.spawnTotem(player, Material.BLAST_FURNACE, new TotemRunnable() {

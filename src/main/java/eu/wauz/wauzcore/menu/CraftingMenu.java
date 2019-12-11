@@ -20,7 +20,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.CraftingConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.InventoryItemRemover;
-import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;

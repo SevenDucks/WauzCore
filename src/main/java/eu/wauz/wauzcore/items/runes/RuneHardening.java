@@ -4,8 +4,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.EquipmentType;
-import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 
 public class RuneHardening implements WauzRune {
 
@@ -18,12 +19,12 @@ public class RuneHardening implements WauzRune {
 
 	@Override
 	public boolean insertInto(ItemStack equipmentItemStack, EquipmentType equipmentType, double runeMightDecimal) {
-		int baseDurability = ItemUtils.getMaximumDurability(equipmentItemStack);
+		int baseDurability = EquipmentUtils.getMaximumDurability(equipmentItemStack);
 		double bonusDurability = runeMightDecimal * 100 * 12;
 		if(bonusDurability < 1) {
 			bonusDurability = 1;
 		}
-		ItemUtils.setMaximumDurability(equipmentItemStack, (int) (baseDurability + bonusDurability));
+		EquipmentUtils.setMaximumDurability(equipmentItemStack, (int) (baseDurability + bonusDurability));
 		
 		String bonusLore = ChatColor.DARK_GREEN + "+" + (int) bonusDurability + " Dur";
 		String socketLore = ChatColor.YELLOW + "Hardening Rune ("+ bonusLore + ChatColor.YELLOW + ")";

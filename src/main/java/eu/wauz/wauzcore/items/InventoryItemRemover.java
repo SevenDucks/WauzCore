@@ -6,6 +6,8 @@ import java.util.Map;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.items.util.ItemUtils;
+
 public class InventoryItemRemover {
 
 	private Inventory inventory;

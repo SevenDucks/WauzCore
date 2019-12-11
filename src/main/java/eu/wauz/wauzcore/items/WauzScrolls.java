@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.identifiers.WauzIdentifier;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.ShopBuilder;
 

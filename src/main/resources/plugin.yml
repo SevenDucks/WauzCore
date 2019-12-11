@@ -1,7 +1,7 @@
 name: WauzCore
 main: eu.wauz.wauzcore.WauzCore
 website: http://wauz.eu/
-version: Pallasite.10.Pre
+version: Pallasite.11.Pre
 api-version: 1.14
 author: Nikolas Keller
 depend: [MythicMobs, NoteBlockAPI]
@@ -86,31 +86,31 @@ commands:
     permission: wauz.system
   wzDebug:
     description: Toggle Debug Mode
-    usage: /wzDebug
+    usage: /wzDebug [player]
     permission: wauz.system
   wzDebug.magic:
     description: Toggle Magic Debug Mode
-    usage: /wzDebug.magic
+    usage: /wzDebug.magic [player]
     permission: wauz.system
   wzDebug.crafting:
     description: Toggle Crafting Debug Mode
-    usage: /wzDebug.crafting
+    usage: /wzDebug.crafting [player]
     permission: wauz.system
   wzDebug.building:
     description: Toggle Building Debug Mode
-    usage: /wzDebug.building
+    usage: /wzDebug.building [player]
     permission: wauz.system
   wzGetPet:
     description: Get Pet from String
-    usage: /wzGetPet [playername] [petname]
+    usage: /wzGetPet [player] [petname]
     permission: wauz.system
   wzGetRune:
     description: Get Rune from String
-    usage: /wzGetRune [playername] [runename]
+    usage: /wzGetRune [player] [runename]
     permission: wauz.system
   wzEnhanced:
     description: Get Enhanced Equip from String
-    usage: /wzEnhanced [playername] [enhancementname] [enhancementlvl]
+    usage: /wzEnhanced [player] [enhancementname] [enhancementlvl]
     permission: wauz.system
   wzTravel:
     description: Phantom-Travel to Location

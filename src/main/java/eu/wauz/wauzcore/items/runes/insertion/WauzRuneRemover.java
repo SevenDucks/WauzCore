@@ -8,8 +8,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
 public class WauzRuneRemover {
@@ -21,20 +22,20 @@ public class WauzRuneRemover {
 		}
 		
 		int skipLines = 0;
-		int atkManus = ItemUtils.getRuneAtkBoost(equipmentItemStack);
+		int atkManus = EquipmentUtils.getRuneAtkBoost(equipmentItemStack);
 		if(atkManus > 0) {
-			int baseAttack = ItemUtils.getBaseAtk(equipmentItemStack);
-			ItemUtils.setBaseAtk(equipmentItemStack, baseAttack - atkManus);
+			int baseAttack = EquipmentUtils.getBaseAtk(equipmentItemStack);
+			EquipmentUtils.setBaseAtk(equipmentItemStack, baseAttack - atkManus);
 		}
-		int defManus = ItemUtils.getRuneDefBoost(equipmentItemStack);
+		int defManus = EquipmentUtils.getRuneDefBoost(equipmentItemStack);
 		if(defManus > 0) {
-			int baseDefense = ItemUtils.getBaseDef(equipmentItemStack);
-			ItemUtils.setBaseDef(equipmentItemStack, baseDefense - defManus);
+			int baseDefense = EquipmentUtils.getBaseDef(equipmentItemStack);
+			EquipmentUtils.setBaseDef(equipmentItemStack, baseDefense - defManus);
 		}
-		int durManus = ItemUtils.getRuneDurBoost(equipmentItemStack);
+		int durManus = EquipmentUtils.getRuneDurBoost(equipmentItemStack);
 		if(durManus > 0) {
-			int baseDurability = ItemUtils.getMaximumDurability(equipmentItemStack);
-			ItemUtils.setMaximumDurability(equipmentItemStack, baseDurability - durManus);
+			int baseDurability = EquipmentUtils.getMaximumDurability(equipmentItemStack);
+			EquipmentUtils.setMaximumDurability(equipmentItemStack, baseDurability - durManus);
 		}
 		
 		ItemMeta itemMeta = equipmentItemStack.getItemMeta();

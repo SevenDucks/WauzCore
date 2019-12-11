@@ -5,6 +5,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
@@ -15,11 +17,11 @@ public class DurabilityCalculator {
 	}
 	
 	public static void takeDamage(Player player, ItemStack itemStack, int damage, boolean armor) {
-		int maxDurability = ItemUtils.getMaximumDurability(itemStack);
+		int maxDurability = EquipmentUtils.getMaximumDurability(itemStack);
 		if(maxDurability == 0 || itemStack.getItemMeta().isUnbreakable()) {
 			return;
 		}
-		int oldDurability = ItemUtils.getCurrentDurability(itemStack);
+		int oldDurability = EquipmentUtils.getCurrentDurability(itemStack);
 		int newDurability = oldDurability - damage;
 		
 		String displayName = ItemUtils.hasDisplayName(itemStack)
@@ -44,7 +46,7 @@ public class DurabilityCalculator {
 		materialDamage = (int) ((double) (materialDamage * materialDurability) / (double) maxDurability);
 		setDamage(itemStack, materialDamage < materialDurability ? materialDamage : materialDurability - 1);
 		
-		ItemUtils.setDurability(itemStack, newDurability);
+		EquipmentUtils.setDurability(itemStack, newDurability);
 		WauzDebugger.log(player, "Durability: " + newDurability + " / " + maxDurability + " for " + displayName);
 	}
 	

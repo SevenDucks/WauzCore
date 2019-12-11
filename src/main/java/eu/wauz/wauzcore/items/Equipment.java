@@ -18,6 +18,7 @@ import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneRemover;
 import eu.wauz.wauzcore.items.runes.insertion.WauzSkillgemInserter;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.SkillTheChariot;
 import eu.wauz.wauzcore.skills.SkillTheMagician;
 import eu.wauz.wauzcore.skills.SkillTheStar;
@@ -168,7 +169,7 @@ public class Equipment {
 	}
 	
 	private static boolean doesLevelMatch(Player player, ItemStack armorItemStack) {
-		int requiredLevel = ItemUtils.getLevelRequirement(armorItemStack);
+		int requiredLevel = EquipmentUtils.getLevelRequirement(armorItemStack);
 		boolean levelMatches = player.getLevel() >= requiredLevel;
 		if(!levelMatches) {
 			player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
@@ -179,7 +180,7 @@ public class Equipment {
 	
 	private static boolean doesClassMatch(Player player, ItemStack armorItemStack) {
 		String raceAndClass = PlayerConfigurator.getCharacterRace(player);
-		ArmorCategory armorCategory = ItemUtils.getArmorCategory(armorItemStack);
+		ArmorCategory armorCategory = EquipmentUtils.getArmorCategory(armorItemStack);
 		ArmorCategory classArmorCategory = ArmorCategory.fromRaceAndClass(raceAndClass);
 		boolean unknownCategory = armorCategory.equals(ArmorCategory.UNKNOWN);
 		boolean classMatches = unknownCategory || armorCategory.equals(classArmorCategory); 

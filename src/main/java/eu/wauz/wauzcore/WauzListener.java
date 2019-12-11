@@ -65,6 +65,8 @@ import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.inventory.Inventory;
 import org.spigotmc.event.entity.EntityMountEvent;
 
+import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent;
+
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEventListener;
 import eu.wauz.wauzcore.items.CustomWeaponBow;
@@ -427,6 +429,17 @@ public class WauzListener implements Listener {
 	 */
 	@EventHandler
 	public void onRecipeDiscover(PlayerRecipeDiscoverEvent event) {
+		if(WauzMode.isMMORPG(event.getPlayer())) {
+			event.setCancelled(true);
+		}
+	}
+	
+	/**
+	 * Prevents MMORPG players from receiving normal Minecraft advancements.
+	 * 
+	 * @param event
+	 */
+	public void onAdvancement(PlayerAdvancementCriterionGrantEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
 			event.setCancelled(true);
 		}

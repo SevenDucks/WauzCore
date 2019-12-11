@@ -16,7 +16,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.data.ShopConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
-import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -117,8 +118,9 @@ public class ShopBuilder implements WauzInventory {
 		
 // Check selected Offer
 		
-		if(!clicked.hasItemMeta() || !clicked.getItemMeta().hasLore())
+		if(!ItemUtils.hasLore(clicked)) {
 			return;
+		}
 		
 		List<String> lores = clicked.getItemMeta().getLore();
 		
@@ -231,13 +233,13 @@ public class ShopBuilder implements WauzInventory {
 			return false;
 		}
 		
-		int durability = ItemUtils.getCurrentDurability(itemToRepair);
+		int durability = EquipmentUtils.getCurrentDurability(itemToRepair);
 		if(durability == 0) {
 			player.sendMessage(ChatColor.RED + "This Item can't be repaired!");
 			return false;
 		}
 		
-		int maxDurability = ItemUtils.getMaximumDurability(itemToRepair);
+		int maxDurability = EquipmentUtils.getMaximumDurability(itemToRepair);
 		if(durability == maxDurability) {
 			player.sendMessage(ChatColor.RED + "This Item already has full durability!");
 			return false;
@@ -259,7 +261,8 @@ public class ShopBuilder implements WauzInventory {
 				player.sendMessage(ChatColor.RED + "You don't have enough money to rapair this item!");
 				return false;
 			}
-		} else {
+		}
+		else {
 			repair(itemToRepair, maxDurability);
 			player.sendMessage(ChatColor.GREEN + "Your item was repaired for one Scroll!");
 			return true;
@@ -271,7 +274,7 @@ public class ShopBuilder implements WauzInventory {
 		damageable.setDamage(0);
 		itemToRepair.setItemMeta((ItemMeta) damageable);
 		
-		ItemUtils.setDurability(itemToRepair, maxDurability);
+		EquipmentUtils.setDurability(itemToRepair, maxDurability);
 	}
 	
 }

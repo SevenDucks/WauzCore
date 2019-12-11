@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.EquipmentType;
-import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
 public class WauzRuneInserter {
@@ -50,7 +50,7 @@ public class WauzRuneInserter {
 		this.equipmentItemStack = equipmentItemStack;
 		this.runeItemStack = runeItemStack;
 		
-		if(!ItemUtils.hasRuneSocket(equipmentItemStack) || !TryToDetermineEquipmentType() || !TryToDetermineRuneType()) {
+		if(!EquipmentUtils.hasRuneSocket(equipmentItemStack) || !TryToDetermineEquipmentType() || !TryToDetermineRuneType()) {
 			return false;
 		}
 		
@@ -62,7 +62,7 @@ public class WauzRuneInserter {
 	}
 	
 	private boolean TryToDetermineEquipmentType() {
-		equipmentType = ItemUtils.getEquipmentType(equipmentItemStack);
+		equipmentType = EquipmentUtils.getEquipmentType(equipmentItemStack);
 		WauzDebugger.log(player, "Equipment-Type: " + equipmentType);
 		return equipmentType != EquipmentType.UNKNOWN;
 	}
@@ -70,12 +70,12 @@ public class WauzRuneInserter {
 	private boolean TryToDetermineRuneType() {
 		runeType = runeItemStack.getItemMeta().getDisplayName().split(" ")[2];
 		WauzDebugger.log(player, "Rune-Type: " + runeType);
-		int runeMight = ItemUtils.getRuneMight(runeItemStack);
+		int runeMight = EquipmentUtils.getRuneMight(runeItemStack);
 		if(runeMight == 0) {
 			return false;
 		}
 		runeMightDecimal = (double) ((double) runeMight / (double) 100);
-		runeMightDecimal = runeMightDecimal * (1 + ItemUtils.getEnhancementRuneEffectivenessMultiplier(equipmentItemStack));
+		runeMightDecimal = runeMightDecimal * (1 + EquipmentUtils.getEnhancementRuneEffectivenessMultiplier(equipmentItemStack));
 		WauzDebugger.log(player, "Rune-Might: " + runeMight + " (" + runeMightDecimal + ")");
 		return true;
 	}

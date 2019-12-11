@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import net.md_5.bungee.api.ChatColor;
@@ -20,7 +20,7 @@ public class WauzSkillgemInserter {
 		skillName = StringUtils.substringAfter(skillName, ": " + ChatColor.LIGHT_PURPLE);
 		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillName);
 		
-		if(ItemUtils.hasSkillgemSocket(equipmentItemStack)) {
+		if(EquipmentUtils.hasSkillgemSocket(equipmentItemStack)) {
 			ItemMeta itemMeta = equipmentItemStack.getItemMeta();
 			List<String> newLores = new ArrayList<>();
 			for(String lore : itemMeta.getLore()) {

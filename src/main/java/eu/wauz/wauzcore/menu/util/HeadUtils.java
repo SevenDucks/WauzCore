@@ -5,7 +5,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.deanveloper.skullcreator.SkullCreator;
 
-import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 
 public class HeadUtils {
 	

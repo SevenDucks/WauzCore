@@ -5,8 +5,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.EquipmentType;
-import eu.wauz.wauzcore.items.ItemUtils;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 
 public class RunePower implements WauzRune {
 	
@@ -22,16 +23,16 @@ public class RunePower implements WauzRune {
 	@Override
 	public boolean insertInto(ItemStack equipmentItemStack, EquipmentType equipmentType, double runeMightDecimal) {
 		if(equipmentType.equals(EquipmentType.WEAPON)) {
-			int baseAttack = ItemUtils.getBaseAtk(equipmentItemStack);
+			int baseAttack = EquipmentUtils.getBaseAtk(equipmentItemStack);
 			double bonusAttack = baseAttack * runeMightDecimal + 1;
 			bonusLore = ChatColor.RED + "+" + (int) bonusAttack + " Atk";
-			ItemUtils.setBaseAtk(equipmentItemStack, (int) (baseAttack + bonusAttack));
+			EquipmentUtils.setBaseAtk(equipmentItemStack, (int) (baseAttack + bonusAttack));
 		}
 		else if(equipmentType.equals(EquipmentType.ARMOR)) {
-			int baseDefense = ItemUtils.getBaseDef(equipmentItemStack);
+			int baseDefense = EquipmentUtils.getBaseDef(equipmentItemStack);
 			double bonusDefense = baseDefense * runeMightDecimal + 1;
 			bonusLore = ChatColor.BLUE + "+" + (int) bonusDefense + " Def";
-			ItemUtils.setBaseDef(equipmentItemStack, (int) (baseDefense + bonusDefense));
+			EquipmentUtils.setBaseDef(equipmentItemStack, (int) (baseDefense + bonusDefense));
 		}
 		
 		if(StringUtils.isNoneBlank(bonusLore)) {

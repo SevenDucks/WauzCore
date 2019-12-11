@@ -19,6 +19,7 @@ import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.menu.ArrowMenu;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
@@ -58,7 +59,7 @@ public class CustomWeaponBow {
 			PlayerConfigurator.setArrowAmount(player, arrowType, arrowAmount - 1);
 		}
 		
-		int damage = ItemUtils.getBaseAtk(bow);
+		int damage = EquipmentUtils.getBaseAtk(bow);
 		Vector vector = player.getLocation().getDirection().multiply(1.75);
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 1);
         Arrow arrow = (Arrow) player.getWorld().spawnEntity(player.getEyeLocation(), EntityType.ARROW);

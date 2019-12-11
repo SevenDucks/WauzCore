@@ -8,6 +8,8 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
@@ -106,9 +108,9 @@ public class WauzRewards {
 	
 	private static double applyExperienceBonus(Player player, double experience) {		
 		ItemStack weaponItemStack = player.getEquipment().getItemInMainHand();
-		double weaponBonus = ItemUtils.isNotAir(weaponItemStack) ? ItemUtils.getExperienceBonus(weaponItemStack) : 0;	
+		double weaponBonus = ItemUtils.isNotAir(weaponItemStack) ? EquipmentUtils.getExperienceBonus(weaponItemStack) : 0;	
 		ItemStack armorItemStack = player.getEquipment().getChestplate();
-		double armorBonus = ItemUtils.isNotAir(armorItemStack) ? ItemUtils.getExperienceBonus(armorItemStack) : 0;
+		double armorBonus = ItemUtils.isNotAir(armorItemStack) ? EquipmentUtils.getExperienceBonus(armorItemStack) : 0;
 		
 		double multiplier = 1 + ((double) (weaponBonus / 100)) + ((double) (armorBonus / 100));
 		

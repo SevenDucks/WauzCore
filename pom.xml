@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.wauz</groupId>
 	<artifactId>WauzCore</artifactId>
-	<version>Pallasite.10.Pre</version>
+	<version>Pallasite.11.Pre</version>
 
 
 	<properties>
@@ -30,12 +30,6 @@
 		<repository>
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
-		</repository>
-		
-		<!-- LibsDisguisesAPI -->
-		<repository>
-		    <id>md5</id>
-		    <url>http://repo.md-5.net/content/groups/public</url>
 		</repository>
 		
 		<!-- SkullCreator -->
@@ -98,14 +92,6 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 		</dependency>
-
-<!--
-		<dependency>
-		    <groupId>LibsDisguises</groupId>
-		    <artifactId>LibsDisguises</artifactId>
-		    <version>9.8.2</version>
-		</dependency>
--->		
 
 	</dependencies>
 

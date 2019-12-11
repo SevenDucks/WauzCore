@@ -24,7 +24,7 @@ import eu.wauz.wauzcore.events.WauzPlayerEventGuildKick;
 import eu.wauz.wauzcore.events.WauzPlayerEventGuildLeave;
 import eu.wauz.wauzcore.events.WauzPlayerEventGuildPromoteLeader;
 import eu.wauz.wauzcore.events.WauzPlayerEventGuildPromoteOfficer;
-import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;

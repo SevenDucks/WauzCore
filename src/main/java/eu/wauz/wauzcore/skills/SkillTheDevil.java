@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-import eu.wauz.wauzcore.items.ItemUtils;
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
@@ -51,7 +51,7 @@ public class SkillTheDevil implements WauzPlayerSkill {
 		if(target != null) {
 			Location originLocation = player.getLocation().clone().add(0, 1, 0);
 			Location targetLocation = target.getLocation().clone().add(0, 1, 0);
-			int damage = (int) ((double) ItemUtils.getBaseAtk(weapon) * (double) 1.40);
+			int damage = (int) ((double) EquipmentUtils.getBaseAtk(weapon) * (double) 1.40);
 			player.getWorld().playSound(originLocation, Sound.ENTITY_RAVAGER_ROAR, 1, 0.5f);
 			SkillParticle particle = new SkillParticle(Particle.CRIT);
 			ParticleSpawner.spawnParticleLine(originLocation, targetLocation, particle, 1, 0.25);
