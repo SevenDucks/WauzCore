@@ -1,9 +1,13 @@
 package eu.wauz.wauzdiscord;
 
+import java.awt.Color;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import eu.wauz.wauzdiscord.data.DiscordConfigurator;
 
 /**
  * The main class of this module, used to connect Minecraft with Discord.
@@ -27,9 +31,11 @@ public class WauzDiscord extends JavaPlugin {
 	 * Gets called when the server is started.
 	 * 1. Creates a new Discord bot instance and logs it in.
 	 * 2. Registers the event listeners.
+	 * 3. Sends a start message to Discord, if enabled.
 	 * 
 	 * @see ShiroDiscordBot
 	 * @see WauzDiscordListener
+	 * @see DiscordConfigurator#showStartStopNotification()
 	 */
 	@Override
 	public void onEnable() {
@@ -53,16 +59,25 @@ public class WauzDiscord extends JavaPlugin {
 		
 		getServer().getPluginManager().registerEvents(new WauzDiscordListener(), this);
 		getLogger().info("Registered EventListeners!");
+		
+		if(DiscordConfigurator.showStartStopNotification()) {
+			shiroDiscordBot.sendEmbedFromMinecraft("The Minecraft server has been started!", Color.GREEN);
+		}
 	}
 	
 	/**
 	 * Gets called when the server is stopped.
-	 * Logs out and stops the Discord bot.
+	 * Logs out and stops the Discord bot and sends a Discord notification, if enabled.
 	 * 
 	 * @see ShiroDiscordBot#stop()
+	 * @see DiscordConfigurator#showStartStopNotification()
 	 */
 	@Override
 	public void onDisable() {
+		if(DiscordConfigurator.showStartStopNotification()) {
+			shiroDiscordBot.sendEmbedFromMinecraft("The Minecraft server has been stopped!", Color.RED);
+		}
+		
 		shiroDiscordBot.stop();
 		getLogger().info("Shiro's taking a nap!");
 	}

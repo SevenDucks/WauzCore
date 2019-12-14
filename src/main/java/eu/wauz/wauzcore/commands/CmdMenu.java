@@ -58,7 +58,6 @@ public class CmdMenu implements WauzCommand {
 		boolean gamemodeMMORPG = WauzMode.isMMORPG(player) && !WauzMode.inHub(player);
 		boolean gamemodeSurvivalOrMMORPG = WauzMode.isSurvival(player) || gamemodeMMORPG;
 		
-		StringUtils.equals(menuType, "");
 		if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Main")) {
 			WauzMenu.open(player);
 			return true;

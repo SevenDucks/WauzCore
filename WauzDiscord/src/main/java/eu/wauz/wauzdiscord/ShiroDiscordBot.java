@@ -1,5 +1,6 @@
 package eu.wauz.wauzdiscord;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,6 +28,7 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzdiscord.data.DiscordConfigurator;
 import net.dv8tion.jda.core.AccountType;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
@@ -177,6 +179,19 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	 */
 	public void sendMessageFromMinecraft(String message) {
 		generalChannel.sendMessage("**Minecraft**: `" + ChatColor.stripColor(message) + "`").queue();
+	}
+	
+	/**
+	 * Sends an embed that will not be written into the Minecraft chat.
+	 * 
+	 * @param title The title of the embed. 
+	 * @param color The color of the embed.
+	 */
+	public void sendEmbedFromMinecraft(String title, Color color) {
+		EmbedBuilder embedBuilder = new EmbedBuilder();
+		embedBuilder.setTitle(title);
+		embedBuilder.setColor(color);
+		generalChannel.sendMessage(embedBuilder.build()).queue();
 	}
 
 	/**

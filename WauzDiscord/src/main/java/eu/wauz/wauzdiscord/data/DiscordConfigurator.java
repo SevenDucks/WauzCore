@@ -75,5 +75,21 @@ public class DiscordConfigurator extends GlobalConfigurationUtils {
 	public static long getAudioChannelId() {
 		return mainConfigGetLong("Discord", "channels.audio");
 	}
+	
+// Notifications
+	
+	/**
+	 * @return If Discord notifications about the server starting / stopping should be shown.
+	 */
+	public static boolean showStartStopNotification() {
+		return mainConfigGetBoolean("Discord", "notifications.startstop"); 
+	}
+	
+	/**
+	 * @return If Discord notifications about players joining / leaving should be shown.
+	 */
+	public static boolean showJoinLeaveNotification() {
+		return mainConfigGetBoolean("Discord", "notifications.joinleave"); 
+	}
 
 }
