@@ -42,8 +42,9 @@ public class WauzMenu implements WauzInventory {
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Wauzland Main Menu");
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null)
+		if(playerData == null) {
 			return;
+		}
 
 		MenuUtils.setCurrencyDisplay(menu, player, 0);
 		
@@ -88,7 +89,18 @@ public class WauzMenu implements WauzInventory {
 		groupItemStack.setItemMeta(groupItemMeta);
 		menu.setItem(3, groupItemStack);
 		
-		MenuUtils.setComingSoon(menu, "Achievements", 4);
+		ItemStack achievementsItemStack = HeadUtils.getAchievementsItem();
+		ItemMeta achievementsItemMeta = achievementsItemStack.getItemMeta();
+		achievementsItemMeta.setDisplayName(ChatColor.GOLD + "Achievements");
+		List<String> achievementsLores = new ArrayList<String>();
+		achievementsLores.add(ChatColor.DARK_PURPLE + "Collected Achievements: " + ChatColor.YELLOW
+				+ 0);
+		achievementsLores.add("");
+		achievementsLores.add(ChatColor.GRAY + "Collect Achievements in many Categories,");
+		achievementsLores.add(ChatColor.GRAY + "to earn a lot of precious Tokens.");
+		achievementsItemMeta.setLore(achievementsLores);
+		achievementsItemStack.setItemMeta(achievementsItemMeta);
+		menu.setItem(4, achievementsItemStack);
 		
 		ItemStack questlogItemStack = HeadUtils.getQuestItem();
 		ItemMeta questlogItemMeta = questlogItemStack.getItemMeta();
@@ -156,29 +168,33 @@ public class WauzMenu implements WauzInventory {
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null)
+		if(clicked == null) {
 			return;
-		
-		else if(HeadUtils.isHeadMenuItem(clicked, "Travelling"))
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Travelling")) {
 			TravellingMenu.open(player);
-		
-		else if(HeadUtils.isHeadMenuItem(clicked, "Guild"))
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Guild")) {
 			GuildOverviewMenu.open(player);
-		
-		else if(HeadUtils.isHeadMenuItem(clicked, "Group"))
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Group")) {
 			GroupMenu.open(player);
-		
-		else if(HeadUtils.isHeadMenuItem(clicked, "Questlog"))
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Achievements")) {
+			AchievementsMenu.open(player);
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Questlog")) {
 			QuestBuilder.open(player);
-		
-		else if(HeadUtils.isHeadMenuItem(clicked, "Crafting"))
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Crafting")) {
 			CraftingMenu.open(player);
-		
-		else if(HeadUtils.isHeadMenuItem(clicked, "Pets"))
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Pets")) {
 			PetOverviewMenu.open(player, -1);
-		
-		else if(HeadUtils.isHeadMenuItem(clicked, "Skills"))
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Skills")) {
 			SkillMenu.open(player);
+		}
 	}
 
 }

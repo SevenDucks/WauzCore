@@ -39,7 +39,7 @@ public class CustomWeaponHook {
 		player.teleport(player.getLocation().add(0, 0.5, 0));
 		final Vector vector = SkillUtils.getVectorForPoints(player.getLocation(), target);
 		event.getEntity().setVelocity(vector);
-		DurabilityCalculator.takeDamage(player, player.getEquipment().getItemInMainHand(), 12, false);
+		DurabilityCalculator.damageItem(player, player.getEquipment().getItemInMainHand(), 12, false);
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
             public void run() {
@@ -58,7 +58,7 @@ public class CustomWeaponHook {
 				if(SkillUtils.isValidAttackTarget(entity)) {
 					entity.teleport(entity.getLocation().add(0, 0.5, 0));
 					event.getEntity().setVelocity(SkillUtils.getVectorForPoints(player.getLocation(), entity.getLocation()));
-					DurabilityCalculator.takeDamage(player, player.getEquipment().getItemInMainHand(), false);
+					DurabilityCalculator.damageItem(player, player.getEquipment().getItemInMainHand(), false);
 					
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			            public void run() {

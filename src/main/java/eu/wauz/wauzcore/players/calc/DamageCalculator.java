@@ -82,7 +82,7 @@ public class DamageCalculator {
 			if((itemStack.getType().equals(Material.AIR)) || !ItemUtils.hasLore(itemStack)) {
 				event.setDamage(1);
 				removeDamageModifiers(event);
-				DurabilityCalculator.takeDamage(player, itemStack, false);
+				DurabilityCalculator.damageItem(player, itemStack, false);
 				ValueIndicator.spawnDamageIndicator(event.getEntity(), 1);
 				return;
 			}
@@ -91,7 +91,7 @@ public class DamageCalculator {
 			WauzDebugger.log(player, "Required Level: " + requiredLevel);
 			if(player.getLevel() < requiredLevel) {
 				event.setCancelled(true);
-				DurabilityCalculator.takeDamage(player, itemStack, false);
+				DurabilityCalculator.damageItem(player, itemStack, false);
 				player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
 				return;
 			}
@@ -141,7 +141,7 @@ public class DamageCalculator {
 		removeDamageModifiers(event);
 		
 		if(!isMagic && !isFixedDamage && !event.getCause().equals(DamageCause.ENTITY_SWEEP_ATTACK)) {
-			DurabilityCalculator.takeDamage(player, itemStack, false);
+			DurabilityCalculator.damageItem(player, itemStack, false);
 		}
 		ValueIndicator.spawnDamageIndicator(event.getEntity(), damage, isCritical);
 		
@@ -191,7 +191,7 @@ public class DamageCalculator {
 			int defense = EquipmentUtils.getBaseDef(itemStack);
 			if(defense > 0 ) {
 				damage = (int) (damage - applyDefendBonus(defense, player));
-				DurabilityCalculator.takeDamage(player, itemStack, true);
+				DurabilityCalculator.damageItem(player, itemStack, true);
 			}
 		}
 		

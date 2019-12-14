@@ -82,7 +82,7 @@ public class WauzPlayerSkillExecutor {
 			}
 			
 			if(itemStack != null) {
-				DurabilityCalculator.takeDamage(player, itemStack, false);
+				DurabilityCalculator.damageItem(player, itemStack, false);
 			}
 		}
 		return true;

@@ -42,8 +42,7 @@ public class QuestBuilder implements WauzInventory {
 	
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new QuestBuilder());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Questlog of "
-				+ player.getName());
+		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Questlog");
 		
 		String slotm = PlayerConfigurator.getCharacterRunningMainQuest(player);
 		String cmpn1 = PlayerConfigurator.getCharacterRunningCampaignQuest1(player);

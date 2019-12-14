@@ -8,28 +8,29 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
 public class DurabilityCalculator {
 	
-	public static void takeDamage(Player player, ItemStack itemStack, boolean armor) {
-		takeDamage(player, itemStack, 1, armor);
+	public static void damageItem(Player player, ItemStack itemToDamage, boolean armor) {
+		damageItem(player, itemToDamage, 1, armor);
 	}
 	
-	public static void takeDamage(Player player, ItemStack itemStack, int damage, boolean armor) {
-		int maxDurability = EquipmentUtils.getMaximumDurability(itemStack);
-		if(maxDurability == 0 || itemStack.getItemMeta().isUnbreakable()) {
+	public static void damageItem(Player player, ItemStack itemToDamage, int damage, boolean armor) {
+		int maxDurability = EquipmentUtils.getMaximumDurability(itemToDamage);
+		if(maxDurability == 0 || itemToDamage.getItemMeta().isUnbreakable()) {
 			return;
 		}
-		int oldDurability = EquipmentUtils.getCurrentDurability(itemStack);
+		int oldDurability = EquipmentUtils.getCurrentDurability(itemToDamage);
 		int newDurability = oldDurability - damage;
 		
-		String displayName = ItemUtils.hasDisplayName(itemStack)
-				? itemStack.getItemMeta().getDisplayName()
-				: itemStack.getType().toString();
+		String displayName = ItemUtils.hasDisplayName(itemToDamage)
+				? itemToDamage.getItemMeta().getDisplayName()
+				: itemToDamage.getType().toString();
 		
 		if(newDurability <= 0) {
-			itemStack.setAmount(0);
+			itemToDamage.setAmount(0);
 			if(armor) {
 				player.getEquipment().setLeggings(null);
 				player.getEquipment().setBoots(null);
@@ -41,19 +42,32 @@ public class DurabilityCalculator {
 			player.sendMessage(ChatColor.YELLOW + "Your " + displayName + ChatColor.YELLOW + " is about to break!");
 		}
 		
-		int materialDurability = itemStack.getType().getMaxDurability();
+		int materialDurability = itemToDamage.getType().getMaxDurability();
 		int materialDamage = maxDurability - newDurability;
 		materialDamage = (int) ((double) (materialDamage * materialDurability) / (double) maxDurability);
-		setDamage(itemStack, materialDamage < materialDurability ? materialDamage : materialDurability - 1);
+		setDamage(itemToDamage, materialDamage < materialDurability ? materialDamage : materialDurability - 1);
 		
-		EquipmentUtils.setDurability(itemStack, newDurability);
+		EquipmentUtils.setDurability(itemToDamage, newDurability);
 		WauzDebugger.log(player, "Durability: " + newDurability + " / " + maxDurability + " for " + displayName);
 	}
 	
+	public static void repairItem(Player player, ItemStack itemToRepair) {
+		setDamage(itemToRepair, 0);
+		
+		if(WauzMode.isMMORPG(player)) {
+			int maxDurability = EquipmentUtils.getMaximumDurability(itemToRepair);
+			if(maxDurability != 0) {
+				EquipmentUtils.setDurability(itemToRepair, maxDurability);
+			}
+		}
+	}
+	
 	public static void setDamage(ItemStack itemStack, int damage) {
-		Damageable damageable = (Damageable) itemStack.getItemMeta();
-		damageable.setDamage(damage);
-		itemStack.setItemMeta((ItemMeta) damageable);
+		if(itemStack.getItemMeta() instanceof Damageable) {
+			Damageable damageable = (Damageable) itemStack.getItemMeta();
+			damageable.setDamage(damage);
+			itemStack.setItemMeta((ItemMeta) damageable);
+		}
 	}
 
 }

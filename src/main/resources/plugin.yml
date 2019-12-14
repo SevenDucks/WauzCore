@@ -41,9 +41,11 @@ commands:
   guild:
     description: Create a Guild
     usage: /guild [guildName]
+    permission: wauz.normal
   apply:
     description: Apply for a Guild
     usage: /apply [guildName]
+    permission: wauz.normal
   gld:
     description: Send Message in Guild Chat
     usage: /gld [text]
@@ -53,7 +55,7 @@ commands:
     usage: /modt [text]
     permission: wauz.normal
   tip:
-    description: Prints a Tip in Chat
+    description: Print a Tip in Chat
     usage: /tip
     permission: wauz.normal
   wzSystem:
@@ -63,6 +65,10 @@ commands:
   wzHeal:
     description: Heal and Feed Player
     usage: /wzHeal [player]
+    permission: wauz.system
+  wzRepair:
+    description: Repair Equipment of Player
+    usage: /wzRepair [player]
     permission: wauz.system
   wzExp:
     description: Gain Experience Points

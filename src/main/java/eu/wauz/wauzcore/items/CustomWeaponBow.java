@@ -69,7 +69,7 @@ public class CustomWeaponBow {
         arrow.setVelocity(vector);
         spawnArrowTrail(arrow, getArrowColor(arrowType));
         
-        DurabilityCalculator.takeDamage(player, bow, false);
+        DurabilityCalculator.damageItem(player, bow, false);
 	}
 	
 	private static Color getArrowColor(String arrowType) {

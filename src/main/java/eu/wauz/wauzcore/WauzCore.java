@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.data.RegionConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEventListener;
 import eu.wauz.wauzcore.players.CharacterManager;
@@ -29,7 +30,6 @@ import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.api.WebServerManager;
-import eu.wauz.wauzcore.system.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 

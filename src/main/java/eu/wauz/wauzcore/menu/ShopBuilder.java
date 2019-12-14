@@ -10,12 +10,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.ShopConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
@@ -252,7 +252,7 @@ public class ShopBuilder implements WauzInventory {
 			if(price < money) {
 				PlayerConfigurator.setCharacterCoins(player, money - price);
 				
-				repair(itemToRepair, maxDurability);
+				DurabilityCalculator.repairItem(player, itemToRepair);
 				player.sendMessage(ChatColor.GREEN + "Your item was repaired for " + price + " Coins!");
 				MenuUtils.setCurrencyDisplay(player.getOpenInventory().getTopInventory(), player, 0);
 				return true;
@@ -263,18 +263,10 @@ public class ShopBuilder implements WauzInventory {
 			}
 		}
 		else {
-			repair(itemToRepair, maxDurability);
+			DurabilityCalculator.repairItem(player, itemToRepair);
 			player.sendMessage(ChatColor.GREEN + "Your item was repaired for one Scroll!");
 			return true;
 		}
-	}
-	
-	private static void repair(ItemStack itemToRepair, int maxDurability) {
-		Damageable damageable = (Damageable) itemToRepair.getItemMeta();
-		damageable.setDamage(0);
-		itemToRepair.setItemMeta((ItemMeta) damageable);
-		
-		EquipmentUtils.setDurability(itemToRepair, maxDurability);
 	}
 	
 }
