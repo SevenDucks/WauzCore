@@ -8,26 +8,52 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * An util class for calculating dates.
+ * 
+ * @author Wauzmons
+ */
 public class WauzDateUtils {
 	
+	/**
+	 * @return A calendar with current system date.
+	 */
 	public static Calendar getCalendar() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		return calendar;
 	}
 	
+	/**
+	 * @return The current date as number in yyyyMMdd format.
+	 */
 	public static long getDateLong() {
 		return Long.parseLong(new SimpleDateFormat("yyyyMMdd").format(new Date()));
 	}
 	
+	/**
+	 * @param millis A timestamp.
+	 * 
+	 * @return A string that shows how much time has passed, since the timestamp.
+	 */
 	public static String formatTimeSince(long millis) {
 		return formatDaysHoursMins(System.currentTimeMillis() + 60000 - millis);
 	}
 	
+	/**
+	 * @param millis A timestamp.
+	 * 
+	 * @return A string that shows how much time is left, till the timestamp is reached.
+	 */
 	public static String formatTimeUntil(long millis) {
 		return formatDaysHoursMins(millis + 60000 - System.currentTimeMillis());
 	}
 	
+	/**
+	 * @param millis A millisecond count.
+	 * 
+	 * @return The milliseconds converted to readable time string.
+	 */
 	public static String formatDaysHoursMins(long millis) {
 		long days = TimeUnit.MILLISECONDS.toDays(millis);
 		long hours = TimeUnit.MILLISECONDS.toHours(millis);
@@ -40,6 +66,9 @@ public class WauzDateUtils {
 		return days + "d " + hm;
 	}
 	
+	/**
+	 * @return A string that shows the official server time.
+	 */
 	public static String getServerTime() {
 		return new SimpleDateFormat("HH:mm").format(new Date());
 	}
@@ -52,15 +81,24 @@ public class WauzDateUtils {
 		return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) / 3 + 1);
 	}
 	
+	/**
+	 * @return The current season as int. (YEARQUARTER)
+	 */
 	public static int getSurvivalSeasonInteger() {
 		Calendar calendar = getCalendar();
 		return (calendar.get(Calendar.YEAR) * 10) + (calendar.get(Calendar.MONTH) / 3 + 1);
 	}
 	
+	/**
+	 * @return A string that shows how much time is left to the next season.
+	 */
 	public static String getTimeTillNextSeason() {
 		return formatTimeUntil(getFirstDayOfNextQuarter());
 	}
 	
+	/**
+	 * @return The timestamp of the first month of next quarter.
+	 */
 	public static long getFirstDayOfNextQuarter() {
 		LocalDateTime dateTime = LocalDateTime.now();
 		int year = dateTime.getMonth().getValue() + 3 > 12 ? dateTime.getYear() + 1 : dateTime.getYear();

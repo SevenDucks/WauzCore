@@ -42,7 +42,7 @@ import net.md_5.bungee.api.ChatColor;
  * Used to recalculate how much damage or heal players deal and receive.
  * Also handles stuff like damage boni, reflection, leech and PvP-potions.
  * 
- * Surpresses deprecation of DamageModifier,
+ * Suppresses deprecation of DamageModifier,
  * because there are currently no better alternatives.
  * TODO Find DamageModifier replacement.
  * 

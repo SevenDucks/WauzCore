@@ -16,35 +16,76 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.google.common.io.Files;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.system.WauzDebugger;
 
+/**
+ * Used to fetch player statistics from Minecraft config files.
+ * Create an instance for a single player's stats or get global stats from static access.
+ * 
+ * @author Wauzmons
+ */
 public class StatisticsFetcher {
 
+	/**
+	 * A direct reference to the main class.
+	 */
 	private static WauzCore core = WauzCore.getInstance();
 	
+	/**
+	 * A formatter for seperating digits.
+	 */
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	
+	/**
+	 * The amount of MythicMobs entity files, if already calculated.
+	 */
 	private static String totalCustomEntitiesString;
+	
+	/**
+	 * The amount of all players, that ever played, if already calculated.
+	 */
 	private static String totalPlayersString;
+	
+	/**
+	 * The amount of days all players together played, if already calculated.
+	 */
 	private static String totalPlaytimeDaysString;
 	
+	/**
+	 * Calculates all global statistics.
+	 */
 	public static void calculate() {
 		totalCustomEntitiesString = getTotalCustomEntities();
 		totalPlayersString = getTotalPlayers();
 		totalPlaytimeDaysString = getTotalPlaytimeDays();
 	}
 	
+	/**
+	 * @return The amount of MythicMobs entity files, if already calculated.
+	 */
 	public static String getTotalCustomEntitiesString() {
 		return totalCustomEntitiesString;
 	}
 	
+	/**
+	 * @return The amount of all players, that ever played, if already calculated.
+	 */
 	public static String getTotalPlayersString() {
 		return totalPlayersString;
 	}
 
+	/**
+	 * @return The amount of days all players together played, if already calculated.
+	 */
 	public static String getTotalPlaytimeDaysString() {
 		return totalPlaytimeDaysString;
 	}
 	
+	/**
+	 * Counts the amount of MythicMobs entity files, by iterating through the mobs folder.
+	 * 
+	 * @return The amount of MythicMobs entity files.
+	 */
 	private static String getTotalCustomEntities() {
 		int customEntities = 0;
 		String statisticsPath = core.getDataFolder().getAbsolutePath().replace("WauzCore", "MythicMobs/Mobs/Wauzland");
@@ -53,21 +94,34 @@ public class StatisticsFetcher {
 		foldersToScan.addAll(Arrays.asList(new File(statisticsPath).listFiles()));
 		
 		while(!foldersToScan.isEmpty()) {
-			for(File file : foldersToScan.get(0).listFiles())
-				if(file.isDirectory())
+			for(File file : foldersToScan.get(0).listFiles()) {
+				if(file.isDirectory()) {
 					foldersToScan.add(file);
-				else customEntities++;
-			
+				}
+				else {
+					customEntities++;
+				}
+			}
 			foldersToScan.remove(foldersToScan.get(0));
 		}
 		return new Integer(customEntities).toString();
 	}
 
+	/**
+	 * Counts the amount of all players, that ever played, by counting statistics files.
+	 * 
+	 * @return The amount of all players, that ever played.
+	 */
 	private static String getTotalPlayers() {
 		File statisticsFolder = new File(core.getDataFolder().getAbsolutePath().replace("plugins/WauzCore", "HubNexus/stats/"));
 		return new Integer(statisticsFolder.list().length).toString();
 	}
 	
+	/**
+	 * Counts the amount of days all players together played, by looking in statistics files.
+	 * 
+	 * @return The amount of days all players together played.
+	 */
 	private static String getTotalPlaytimeDays() {
 		long playedHours = 0;
 		String statisticsPath = core.getDataFolder().getAbsolutePath().replace("plugins/WauzCore", "HubNexus/stats/%uuid%.json");
@@ -78,36 +132,68 @@ public class StatisticsFetcher {
 		return new Long(playedHours / 24).toString();
 	}
 	
+	/**
+	 * The Minecraft file, that contains statistics of a specific player.
+	 */
 	private File statisticsFile;
 	
+	/**
+	 * Information about the player's 1st character slot.
+	 */
 	private String characterString1 = "None";
 	
+	/**
+	 * Information about the player's 2nd character slot.
+	 */
 	private String characterString2 = "None";
 	
+	/**
+	 * Information about the player's 3rd character slot.
+	 */
 	private String characterString3 = "None";
 	
+	/**
+	 * Creates an instance to fetch player specific statistics, including character slot information.
+	 * 
+	 * @param offlinePlayer The player whose statistics are collected.
+	 */
 	public StatisticsFetcher(OfflinePlayer offlinePlayer) {
 		String statisticsPath = core.getDataFolder().getAbsolutePath().replace("plugins/WauzCore", "HubNexus/stats/%uuid%.json");
 		statisticsFile = new File(statisticsPath.replace("%uuid%", offlinePlayer.getUniqueId().toString()));
 		createCharacterStrings(offlinePlayer.getUniqueId().toString());
 	}
 	
+	/**
+	 * Creates strings with character information for the given player UUID.
+	 * 
+	 * @param uuidString UUID of the player.
+	 */
 	private void createCharacterStrings(String uuidString) {
 		characterString1 = createCharacterString(uuidString, 1);
 		characterString2 = createCharacterString(uuidString, 2);
 		characterString3 = createCharacterString(uuidString, 3);
 	}
 	
+	/**
+	 * Creates a string with character information for the given player UUID and slot.
+	 * 
+	 * @param uuidString UUID of the player.
+	 * @param slot Character slot of the player.
+	 * 
+	 * @return Information about the player's character slot.
+	 */
 	private String createCharacterString(String uuidString, int slot) {
 		String characterString = "None";
 		
 		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + uuidString + "/char" + slot + ".yml");
-		if(!playerDataFile.exists())
+		if(!playerDataFile.exists()) {
 			return characterString;
+		}
 		
 		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
-		if(!playerDataConfig.getBoolean("exists"))
+		if(!playerDataConfig.getBoolean("exists")) {
 			return characterString;
+		}
 		
 		String race = playerDataConfig.getString("race");
 		String world = playerDataConfig.getString("pos.world");
@@ -116,6 +202,13 @@ public class StatisticsFetcher {
 		return characterString;
 	}
 	
+	/**
+	 * Delivers the on construction created string, with character information for the player's given  slot.
+	 * 
+	 * @param charSlotNumber Character slot of the player.
+	 * 
+	 * @return Information about the player's character slot.
+	 */
 	public String getCharacterString(int charSlotNumber) {
 		switch(charSlotNumber) {
 		case 1:
@@ -129,10 +222,16 @@ public class StatisticsFetcher {
 		}
 	}
 	
+	/**
+	 * @return A formatted string, showing the player's playtime in hours, from their statistics file.
+	 */
 	public String getPlayedHoursString() {
 		return formatter.format(getPlayedHoursFromStatistics(statisticsFile));
 	}
 	
+	/**
+	 * @return A string, showing the player's playtime in hours, from their statistics file.
+	 */
 	private static long getPlayedHoursFromStatistics(File file) {
 		long playedHours = 0;
 		try {
@@ -141,16 +240,23 @@ public class StatisticsFetcher {
 				? Long.parseLong(StringUtils.substringBetween(line, "\"stat.playOneMinute\":", ","))
 				: Long.parseLong(StringUtils.substringBetween(line, "\"minecraft:play_one_minute\":", ","));
 			playedHours = playedTicks / 72000;
-		} catch (Exception e) {
-			//core.getLogger().info("PlayedHoursStatisticsError in " + file.getPath());
+		}
+		catch (Exception e) {
+			WauzDebugger.catchException(StatisticsFetcher.class, e);
 		}
 		return playedHours;
 	}
 	
+	/**
+	 * @return A formatted string, showing the player's killed mobs, from their statistics file.
+	 */
 	public String getKilledMobsString() {
 		return formatter.format(getKilledMobsFromStatistics(statisticsFile));
 	}
 	
+	/**
+	 * @return A string, showing the player's killed mobs, from their statistics file.
+	 */
 	private static long getKilledMobsFromStatistics(File file) {
 		long killedMobs = 0;
 		try {
@@ -158,16 +264,23 @@ public class StatisticsFetcher {
 			killedMobs = line.contains("\"stat.mobKills\":")
 				? Long.parseLong(StringUtils.substringBetween(line, "\"stat.mobKills\":", ","))
 				: Long.parseLong(StringUtils.substringBetween(line, "\"minecraft:mob_kills\":", ","));
-		} catch (Exception e) {
-			//core.getLogger().info("KilledMobsStatisticsError in " + file.getPath());
+		}
+		catch (Exception e) {
+			WauzDebugger.catchException(StatisticsFetcher.class, e);
 		}
 		return killedMobs;
 	}
 	
+	/**
+	 * @return A formatted string, showing the player's walked metres, from their statistics file.
+	 */
 	public String getWalkedMetresString() {
 		return formatter.format(getWalkedMetresFromStatistics(statisticsFile));
 	}
 	
+	/**
+	 * @return A string, showing the player's walked metres, from their statistics file.
+	 */
 	private static long getWalkedMetresFromStatistics(File file) {
 		long walkedMetres = 0;
 		try {
@@ -176,8 +289,9 @@ public class StatisticsFetcher {
 				? Long.parseLong(StringUtils.substringBetween(line, "\"stat.walkOneCm\":", ","))
 				: Long.parseLong(StringUtils.substringBetween(line, "\"minecraft:walk_one_cm\":", ","));
 			walkedMetres = walkedCentimetres / 100;
-		} catch (Exception e) {
-			//core.getLogger().info("WalkedMetresStatisticsError in " + file.getPath());
+		}
+		catch (Exception e) {
+			WauzDebugger.catchException(StatisticsFetcher.class, e);
 		}
 		return walkedMetres;
 	}

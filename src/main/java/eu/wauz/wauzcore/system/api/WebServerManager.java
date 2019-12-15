@@ -13,11 +13,27 @@ import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.WauzQuest;
 
-@SuppressWarnings("all")
+/**
+ * Starts a HTTP server, that can deliver game information over an api.
+ * Suppresses restriction warnings from sun httpserver classes.
+ * List of valid requests:</br>
+ * /get/stats <b>General gameplay statistics</b>
+ * 
+ * @author Wauzmons
+ */
+@SuppressWarnings("restriction")
 public class WebServerManager implements HttpHandler {
 
+	/**
+	 * The HTTP server.
+	 */
 	private HttpServer server;
 	
+	/**
+	 * Creates and starts the web server on given port.
+	 * 
+	 * @param port The port for web requests.
+	 */
 	public WebServerManager(int port) {
 		try {
 			server = HttpServer.create(new InetSocketAddress(port), 0);
@@ -29,20 +45,33 @@ public class WebServerManager implements HttpHandler {
 		}
 	}
 	
+	/**
+	 * Stops the web server.
+	 */
 	public void stop() {
 		server.stop(0);
 	}
 
+	/**
+	 * Handles incoming requests.
+	 * 
+	 * @param httpExchange The encapsulated HTTP request.
+	 */
 	@Override
 	public void handle(HttpExchange httpExchange) throws IOException {
 		String path = httpExchange.getRequestURI().getPath();
 		
 		if(path.equals("/get/stats")) {
-			sendWebappStats(httpExchange);
+			sendStats(httpExchange);
 		}
 	}
 
-	private static void sendWebappStats(HttpExchange httpExchange) {
+	/**
+	 * Sends a response to the request, containing general gameplay statistics.
+	 * 
+	 * @param httpExchange The encapsulated HTTP request.
+	 */
+	private static void sendStats(HttpExchange httpExchange) {
 		try {
 			String response = "";
 			response += 229 + " Sqaure km Map to Explore;\r\n";
