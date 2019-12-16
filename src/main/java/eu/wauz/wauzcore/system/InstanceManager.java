@@ -35,10 +35,33 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.util.WauzFileUtils;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * Used for managing multiplayer instances.
+ * 
+ * @author Wauzmons
+ */
 public class InstanceManager {
 	
+	/**
+	 * A direct reference to the main class.
+	 */
 	private static WauzCore core = WauzCore.getInstance();
 
+	/**
+	 * Creates an instance for the given player.
+	 * If the instance name contains "Survival", a Survival instance is opened, otherwise a MMORPG one.
+	 * Specified by the instance folder in the /WauzCore/Worlds folder
+	 * and the configuration in the /WauzCore/InstanceData folder.
+	 * Also initializes stuff like instance keys and setup commands.
+	 * Handles the teleportation of the player afterwards.
+	 * 
+	 * @param player The player who opened the instance.
+	 * @param instanceName The name of the instance.
+	 * 
+	 * @return If the playere entered the instance successfully.
+	 * 
+	 * @see InstanceManager#openInstance(File, File)
+	 */
 	public static boolean enter(Player player, String instanceName) {
 		if(StringUtils.contains(instanceName, "Survival")) {
 			enterSurvival(player, instanceName);
@@ -72,9 +95,11 @@ public class InstanceManager {
 		InstanceConfigurator.setInstanceWorldMaximumPlayers(instance, InstanceConfigurator.getMaximumPlayers(instanceName));
 		InstanceConfigurator.setInstanceWorldMaximumDeaths(instance, InstanceConfigurator.getMaximumDeaths(instanceName));
 		
-		if(instanceType.equals("Keys"))
-			for(String keyId : InstanceConfigurator.getKeyNameList(instanceName))
+		if(instanceType.equals("Keys")) {
+			for(String keyId : InstanceConfigurator.getKeyNameList(instanceName)) {
 				InstanceConfigurator.setInstanceWorldKeyStatus(instance, keyId, InstanceConfigurator.KEY_STATUS_UNOBTAINED);
+			}
+		}
 		
 // Commands and Entering
 
@@ -93,6 +118,14 @@ public class InstanceManager {
 		return true;
 	}
 	
+	/**
+	 * Executes setup commands for an instance.
+	 * Replaces "world" and "player" placeholders.
+	 * 
+	 * @param player The player who opened the instance.
+	 * @param instance The instance world.
+	 * @param commands The list of commands to execute.
+	 */
 	public static void execute(Player player, World instance, List<String> commands) {
 		for(String cmd : commands) {
 			cmd = cmd.replaceAll("world", instance.getName());
@@ -103,6 +136,15 @@ public class InstanceManager {
 	
 // Create Guild Instance
 	
+	/**
+	 * Lets the player enter their guildhall. Only works if the player is in a guild.
+	 * If there is no guildhall already open, a new instance is created.
+	 * Handles the teleportation of the player afterwards.
+	 * 
+	 * @param player The player who opened the instance.
+	 * 
+	 * @see InstanceManager#openInstance(File, File)
+	 */
 	public static void enterGuild(Player player) {
 		WauzPlayerGuild guild = PlayerConfigurator.getGuild(player);
 		if(guild == null) {
@@ -134,6 +176,20 @@ public class InstanceManager {
 	
 // Create Survival Instance
 	
+	/**
+	 * Creates an instance for the given player.
+	 * Specified by the instance name:
+	 * "Survival Nether" opens a nether world.
+	 * "Survival End" opens a nether world.
+	 * Otherwise a normal world should be created.
+	 * A circle with exit signs is created around the spawn.
+	 * Handles the teleportation of the player afterwards.
+	 * 
+	 * @param player The player who opened the instance.
+	 * @param instanceName The name of the instance.
+	 * 
+	 * @see InstanceManager#createSpawnCircle(World, Location)
+	 */
 	public static void enterSurvival(Player player, String instanceName) {
 		String instanceId = "WzInstance_Survival_" + UUID.randomUUID();
 		
@@ -167,6 +223,16 @@ public class InstanceManager {
 				+ "unless one of your group members stays in this world!");
 	}
 	
+	/**
+	 * Creates a circle out of obsidian and glowstone at the given location.
+	 * Exit signs are placed on the circle edges.
+	 * Used for survival instance spawns.
+	 * 
+	 * @param world The world on which the circle should be created.
+	 * @param location The center location of the circle.
+	 * 
+	 * @see InstanceManager#placeExitSign(Block, BlockFace)
+	 */
 	private static void createSpawnCircle(World world, Location location) {
 		Vector vector = new BlockVector(location.getX(), location.getY(), location.getZ());
 		int radius = 7;
@@ -199,6 +265,13 @@ public class InstanceManager {
 		placeExitSign(location.clone().add(+5, 1, 0).getBlock(), BlockFace.WEST);
 	}
 	
+	/**
+	 * Places a exit sign on the given block.
+	 * Used for instance exits.
+	 * 
+	 * @param block The block where the sign should be placed.
+	 * @param blockFace The direction thr sign should face.
+	 */
 	private static void placeExitSign(Block block, BlockFace blockFace) {
 		block.setType(Material.OAK_SIGN);
 		Sign sign = (Sign) block.getState();
@@ -212,20 +285,29 @@ public class InstanceManager {
 	
 // Instance Lifecycle
 	
+	/**
+	 * Creates a new instance from a template.
+	 * Is called recursively to copy files into the new world.
+	 * 
+	 * @param source The instance template.
+	 * @param target The new instance folder.
+	 */
 	private static void openInstance(File source, File target){
 	    try {
 	        ArrayList<String> ignore = new ArrayList<String>(Arrays.asList("uid.dat", "session.dat"));
 	        if(!ignore.contains(source.getName())) {
 	            if(source.isDirectory()) {
-	                if(!target.exists())
-	                target.mkdirs();
+	                if(!target.exists()) {
+	                	target.mkdirs();
+	                }
 	                String files[] = source.list();
 	                for (String file : files) {
 	                    File srcFile = new File(source, file);
 	                    File destFile = new File(target, file);
 	                    openInstance(srcFile, destFile);
 	                }
-	            } else {
+	            }
+	            else {
 	                InputStream in = new FileInputStream(source);
 	                OutputStream out = new FileOutputStream(target);
 	                byte[] buffer = new byte[1024];
@@ -236,11 +318,18 @@ public class InstanceManager {
 	                out.close();
 	            }
 	        }
-	    } catch (IOException e) {
+	    }
+	    catch (IOException e) {
 	    	e.printStackTrace();
 	    }
 	}
 	
+	/**
+	 * Unloads the world of an instance and deletes the folder.
+	 * Only works if given world is an instance.
+	 * 
+	 * @param world The instance world.
+	 */
 	public static void closeInstance(World world) {
 	    if(world.getWorldFolder().toString().contains("Instance")) {
 			Bukkit.getServer().unloadWorld(world, true);
@@ -248,11 +337,16 @@ public class InstanceManager {
 	    }
 	}
 	
+	/**
+	 * Removes all instance folders.
+	 * WARNING: There is no check if the instance is loaded!
+	 */
 	public static void removeInactiveInstances() {
 		File rootDirectory = new File(Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", ""));
 		for(File file : rootDirectory.listFiles()) {
-			if(file.getName().startsWith("WzInstance"))
+			if(file.getName().startsWith("WzInstance")) {
 				WauzFileUtils.removeFilesRecursive(file);
+			}
 		}
 	}
 	

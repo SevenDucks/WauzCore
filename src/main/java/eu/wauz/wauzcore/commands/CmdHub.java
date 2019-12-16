@@ -38,7 +38,8 @@ public class CmdHub implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		return WauzTeleporter.hubTeleportManual((Player) sender);
+		WauzTeleporter.hubTeleportManual((Player) sender);
+		return true;
 	}
 
 }

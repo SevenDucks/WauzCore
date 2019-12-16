@@ -19,7 +19,12 @@ public enum WauzMode {
 	/**
 	 * The Wauz Survival mode.
 	 */
-	SURVIVAL("Survival");
+	SURVIVAL("Survival"),
+	
+	/**
+	 * If the Wauz mode is unknown.
+	 */
+	UNKNOWN("Unknown");
 	
 	/**
 	 * The name of the Wauz mode.
@@ -44,16 +49,37 @@ public enum WauzMode {
 	}
 	
 	/**
-	 * @param worldName The name of a world.
+	 * @param entity The entity for checking the mode.
+	 * 
+	 * @return The mode of this entity.
+	 */
+	public static WauzMode getMode(Entity entity) {
+		return getMode(entity.getWorld());
+	}
+	
+	/**
+	 * @param world The world for checking the mode.
 	 * 
 	 * @return The mode of this world.
 	 */
+	public static WauzMode getMode(World world) {
+		return getMode(world.getName());
+	}
+	
+	/**
+	 * @param worldName The name of the world for checking the mode.
+	 * 
+	 * @return The mode of this world name.
+	 */
 	public static WauzMode getMode(String worldName) {
-		if(isSurvival(worldName)) {
+		if(isMMORPG(worldName)) {
+			return MMORPG;
+		}
+		else if(isSurvival(worldName)) {
 			return SURVIVAL;
 		}
 		else {
-			return MMORPG;
+			return UNKNOWN;
 		}
 	}
 	

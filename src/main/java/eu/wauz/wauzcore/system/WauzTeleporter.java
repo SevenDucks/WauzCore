@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.system;
 
 import java.io.File;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
@@ -21,39 +22,65 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * Used to handle different types of teleportation of players.
+ * 
+ * @author Wauzmons
+ */
 public class WauzTeleporter {
 	
 // Spawn and Hub
 	
-	public static boolean hubTeleportManual(Player player) {
+	/**
+	 * Teleports the player to the hub.
+	 * The player can manually call this method.
+	 * 
+	 * @param player The player to teleport.
+	 */
+	public static void hubTeleportManual(Player player) {
 		player.closeInventory();
 		
 		// Handles TamingMenu.unsummon()
 		CharacterManager.logoutCharacter(player);
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
-		return true;
 	}
 	
-	public static boolean spawnTeleportManual(Player player) {
+	/**
+	 * Teleports the player to the spawn.
+	 * The player can manually call this method.
+	 * Not usable when no character is selected.
+	 * Not usable when mounted.
+	 * 
+	 * @param player The player to teleport.
+	 */
+	public static void spawnTeleportManual(Player player) {
 		player.closeInventory();
 		if(!WauzPlayerDataPool.isCharacterSelected(player)) {
 			player.sendMessage(ChatColor.RED + "You can't do that in this world!");
-			return true;
+			return;
 		}
 		if(player.isInsideVehicle()) {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
-			return true;
+			return;
 		}
 		if(WauzMode.isMMORPG(player)) {
 			PetOverviewMenu.unsummon(player);
 		}
 		player.teleport(PlayerConfigurator.getCharacterSpawn(player));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
-		return true;
 	}
 	
 // Instances - Manual
 	
+	/**
+	 * Teleports the player to an instance.
+	 * The player can manually call this method.
+	 * Only callable by using instance map items.
+	 * Not usable when mounted.
+	 * Not usable inside instances.
+	 * 
+	 * @param event The player event.
+	 */
 	public static void enterInstanceTeleportManual(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		
@@ -73,14 +100,21 @@ public class WauzTeleporter {
 		event.getItem().setAmount(event.getItem().getAmount() - 1);
 		
 		// Handles TamingMenu.unsummon() and Effect.PORTAL_TRAVEL
-		if(type.contains("Survival"))
+		if(type.contains("Survival")) {
 			InstanceManager.enter(player, type);
-		else if(name.endsWith("Shrine"))
-			return;
-		else
+		}
+		else {
 			InstanceManager.enter(player, name);	
+		}
 	}
 		
+	/**
+	 * Teleports the player to out of an instance.
+	 * The player can manually call this method.
+	 * Not usable when mounted.
+	 * 
+	 * @param player The player to teleport.
+	 */
 	public static void exitInstanceTeleportManual(Player player) {
 		Location destination = PlayerConfigurator.getCharacterLocation(player);		
 		player.closeInventory();
@@ -96,6 +130,17 @@ public class WauzTeleporter {
 	
 // Instances Development
 	
+	/**
+	 * Teleports the player to a development instance (actually any world).
+	 * Only callable with system permissions.
+	 * Always teleports to 0 5 0 coordinates.
+	 * Not usable when mounted.
+	 * 
+	 * @param player The player to teleport.
+	 * @param instanceName The world name to teleport to.
+	 * 
+	 * @return True if successful.
+	 */
 	public static boolean enterInstanceTeleportSystemDev(Player player, String instanceName) {
 		File file = new File(Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString()
 				.replaceAll("Wauzland", instanceName));
@@ -114,6 +159,16 @@ public class WauzTeleporter {
 		return player.teleport(new Location(Bukkit.getServer().createWorld(new WorldCreator(instanceName)), 0.5, 5, 0.5));
 	}
 	
+	/**
+	 * Teleports the player to a new normal instance.
+	 * Only callable with system permissions.
+	 * Not usable when mounted.
+	 * 
+	 * @param player The player to teleport.
+	 * @param instanceName The world name to teleport to.
+	 * 
+	 * @return True if successful.
+	 */
 	public static boolean enterInstanceTeleportSystem(Player player, String instanceName) {
 		if(player.isInsideVehicle()) {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
@@ -123,6 +178,15 @@ public class WauzTeleporter {
 		return InstanceManager.enter(player, instanceName);
 	}
 	
+	/**
+	 * Teleports the player to out of an instance.
+	 * Only callable with system permissions.
+	 * Not usable when mounted.
+	 * 
+	 * @param player The player to teleport.
+	 * 
+	 * @return True if successful.
+	 */
 	public static boolean exitInstanceTeleportSystem(Player player) {
 		if(player.isInsideVehicle()) {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
@@ -134,12 +198,30 @@ public class WauzTeleporter {
 	
 // Player Groups
 	
+	/**
+	 * Teleports the player to another player.
+	 * The player can manually call this method.
+	 * Not usable when mounted.
+	 * Not usable when player is in another gamemode.
+	 * Not usable when player is in another (non instance) world.
+	 * Not usable when player is in another guildhall.
+	 * Not usable when the instance is full.
+	 * Not usable when died too much in the instance.
+	 * 
+	 * @param player The player to teleport.
+	 * @param target The target player.
+	 */
 	public static void playerTeleportManual(Player player, Player target) {
 		String targetWorldName = target.getWorld().getName();
 		String playerWorldName = PlayerConfigurator.getCharacterWorldString(player);
 		
 		if(player.isInsideVehicle()) {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
+			player.closeInventory();
+			return;
+		}
+		if(Objects.equals(WauzMode.getMode(player), WauzMode.getMode(target))) {
+			player.sendMessage(ChatColor.RED + "You can only teleport to players in the same gamemode!");
 			player.closeInventory();
 			return;
 		}
@@ -183,33 +265,52 @@ public class WauzTeleporter {
 	
 // Hearthstone
 	
-	public static boolean hearthstoneTeleport(Player player) {
+	/**
+	 * Teleports the player to their home.
+	 * The player can manually call this method.
+	 * Not usable when no character is selected.
+	 * Not usable when mounted.
+	 * Not usable when player has no home.
+	 * 
+	 * @param player The player to teleport.
+	 */
+	public static void hearthstoneTeleport(Player player) {
 		player.closeInventory();
 		if(!WauzPlayerDataPool.isCharacterSelected(player)) {
 			player.sendMessage(ChatColor.RED + "You can't do that in this world!");
-			return true;
+			return;
 		}
 		if(player.isInsideVehicle()) {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
-			return true;
+			return;
 		}
 		if(StringUtils.isBlank(PlayerConfigurator.getCharacterHearthstoneRegion(player))) {
 			player.sendMessage(ChatColor.RED
 					+ "You have no home!" + (WauzMode.isMMORPG(player)
 					? " Talk to an Inkeeper to change that!"
 					: " Use /sethome to change that!"));
-			return true;
+			return;
 		}
 		if(WauzMode.isMMORPG(player)) {
 			PetOverviewMenu.unsummon(player);
 		}
 		player.teleport(PlayerConfigurator.getCharacterHearthstone(player));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
-		return true;
+		return;
 	}
 	
 // Event
 	
+	/**
+	 * Teleports the player to an event.
+	 * The player can manually call this method.
+	 * Not usable when event already ended.
+	 * Not usable when player is in another world.
+	 * Not usable when mounted.
+	 * 
+	 * @param player The player to teleport.
+	 * @param location The event location.
+	 */
 	public static void eventTeleport(Player player, Location location) {
 		player.closeInventory();
 		

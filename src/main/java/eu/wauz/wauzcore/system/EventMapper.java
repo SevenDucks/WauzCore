@@ -38,8 +38,28 @@ import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * Used for mapping interaction events to WauzCore functionalities.
+ * 
+ * @author Wauzmons
+ */
 public class EventMapper {
 	
+	/**
+	 * Called when a player interacts with an entity.
+	 * Only works after a certain cooldown.
+	 * Cancels the sit command for pets.
+	 * Opens according menus for shops, quests, inns and gamemodes.
+	 * NPC type determined by name prefixex like "(S)" for shop.
+	 * 
+	 * @param event The received PlayerInteractEvent.
+	 * 
+	 * @see Cooldown#playerEntityInteraction(Player)
+	 * @see ShopBuilder#open(Player, String)
+	 * @see QuestBuilder#accept(Player, String)
+	 * @see WauzPlayerEventHomeChange
+	 * @see WauzModeMenu#selectMode(Player, String)
+	 */
 	public static void handleEntityInteraction(PlayerInteractEntityEvent event) {
 		Player player = event.getPlayer();
 		Entity entity = event.getRightClicked();
@@ -94,6 +114,25 @@ public class EventMapper {
 		}
 	}
 	
+	/**
+	 * Called when a player interacts with specific items.
+	 * Prevents destruction of farmland and hitting air with a weapon.
+	 * Handles opening the main menu, using scrolls, weapons, maps, skills and food.
+	 * Also cancels interactions with crafting stations.
+	 * Redirects oak sign clicks to the according handler.
+	 * 
+	 * @param event The received PlayerInteractEvent.
+	 * 
+	 * @see Cooldown#playerWeaponUse(Player)
+	 * @see WauzMenu#open(Player)
+	 * @see WauzScrolls#onScrollItemInteract(PlayerInteractEvent)
+	 * @see CustomWeaponBow#use(PlayerInteractEvent)
+	 * @see CustomWeaponGlider#use(PlayerInteractEvent)
+	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
+	 * @see WauzPlayerSkillExecutor#tryToUseSkill(Player, ItemStack)
+	 * @see FoodCalculator#tryToConsume(Player, ItemStack)
+	 * @see WauzSigns#interact(Player, org.bukkit.block.Block)
+	 */
 	public static void handleItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
@@ -163,6 +202,19 @@ public class EventMapper {
 		}
 	}
 	
+	/**
+	 * Called when a Survival player interacts with specific items.
+	 * Prevents destruction of farmland.
+	 * Handles opening the ender chest shop, using maps and pvp protection potions.
+	 * Redirects oak sign clicks to the according handler.
+	 * 
+	 * @param event The received PlayerInteractEvent.
+	 * 
+	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
+	 * @see DamageCalculator#increasePvPProtection(PlayerInteractEvent)
+	 * @see WauzSigns#interact(Player, org.bukkit.block.Block)
+	 * @see ShopBuilder#open(Player, String)
+	 */
 	public static void handleSurvivalItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
@@ -198,6 +250,16 @@ public class EventMapper {
 		}
 	}
 	
+	/**
+	 * Called when a player interacts with an inventory menu.
+	 * If the inventory has a fitting inventory holder, it tries to select a menu point.
+	 * The trashcan and other special MMORPG items are handled here.
+	 * 
+	 * @param event The received InventoryClickEvent.
+	 * 
+	 * @see WauzInventoryHolder#selectMenuPoint(InventoryClickEvent)
+	 * @see MenuUtils#onSpecialItemInventoryClick(InventoryClickEvent)
+	 */
 	public static void handleMenuInteraction(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
 		String inventoryName = ChatColor.stripColor(player.getOpenInventory().getTitle());

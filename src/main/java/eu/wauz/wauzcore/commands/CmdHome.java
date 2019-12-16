@@ -38,7 +38,8 @@ public class CmdHome implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		return WauzTeleporter.hearthstoneTeleport((Player) sender);
+		WauzTeleporter.hearthstoneTeleport((Player) sender);
+		return true;
 	}
 
 }

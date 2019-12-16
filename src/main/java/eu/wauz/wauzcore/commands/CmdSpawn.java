@@ -38,7 +38,8 @@ public class CmdSpawn implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		return WauzTeleporter.spawnTeleportManual((Player) sender);
+		WauzTeleporter.spawnTeleportManual((Player) sender);
+		return true;
 	}
 
 }

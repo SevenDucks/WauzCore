@@ -13,22 +13,63 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * Used for formatting and sending all chat messages, to their receivers.
+ * TODO Exctract Icons to new class.
+ * 
+ * @author Wauzmons
+ */
 public class ChatFormatter {
 	
+	/**
+	 * A paragraph icon in unicode.
+	 * <a href="https://www.fileformat.info/info/unicode/char/00a7/index.htm">fileformat.info</a>
+	 */
 	public static final String ICON_PARAGRAPH = "\u00A7";
 	
+	/**
+	 * A degree icon in unicode.
+	 * <a href="https://www.fileformat.info/info/unicode/char/00b0/index.htm">fileformat.info</a>
+	 */
 	public static final String ICON_DEGREES = "\u00B0";
 	
+	/**
+	 * A caret icon in unicode.
+	 * <a href="https://www.fileformat.info/info/unicode/char/00bb/index.htm">fileformat.info</a>
+	 */
 	public static final String ICON_CARET = "\u00BB";
 	
+	/**
+	 * A bullet icon in unicode.
+	 * <a href="https://www.fileformat.info/info/unicode/char/2022/index.htm">fileformat.info</a>
+	 */
 	public static final String ICON_BULLET = "\u2022";
 	
+	/**
+	 * A diamond icon in unicode.
+	 * <a href="https://www.fileformat.info/info/unicode/char/2666/index.htm">fileformat.info</a>
+	 */
 	public static final String ICON_DIAMOND = "\u2666";
 	
+	/**
+	 * A star icon in unicode.
+	 * <a href="https://www.fileformat.info/info/unicode/char/2b50/index.htm">fileformat.info</a>
+	 */
 	public static final String ICON_STAR = "\u2B50";
 	
+	/**
+	 * A heart icon in unicode.
+	 * <a href="https://www.fileformat.info/info/unicode/char/2764/index.htm">fileformat.info</a>
+	 */
 	public static final String ICON_HEART = "\u2764";
 
+	/**
+	 * Formats a message from an chat event for the global chat.
+	 * 
+	 * @param event The received PlayerChatEvent.
+	 * 
+	 * @return The formatted message.
+	 */
 	public static String global(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		
@@ -55,6 +96,14 @@ public class ChatFormatter {
 		return msg;
 	}
 	
+	/**
+	 * Formats and sends a message from a player to their group.
+	 * 
+	 * @param player The player who sent the message.
+	 * @param message The message they sent.
+	 * 
+	 * @return If the message has been sent successfully.
+	 */
 	public static boolean group(Player player, String message) {
 		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(player);
 		if(!validateGroupMessage(player, playerGroup, message, false)) {
@@ -66,12 +115,21 @@ public class ChatFormatter {
 				 ChatColor.BLUE + "Group" + ChatColor.WHITE + ")] " +
 				 ChatColor.GRAY + message;
 		
-		for(Player member : playerGroup.getPlayers())
+		for(Player member : playerGroup.getPlayers()) {
 			member.sendMessage(msg);
+		}
 		
 		return true;
 	}
 	
+	/**
+	 * Formats and sends a message from a player to their guild.
+	 * 
+	 * @param player The player who sent the message.
+	 * @param message The message they sent.
+	 * 
+	 * @return If the message has been sent successfully.
+	 */
 	public static boolean guild(Player player, String message) {
 		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
 		if(!validateGroupMessage(player, playerGuild, message, true)) {
@@ -88,11 +146,19 @@ public class ChatFormatter {
 		return true;
 	}
 	
+	/**
+	 * Sends a received message from Discord to the global chat.
+	 * 
+	 * @param message The message from Discord.
+	 * @param user The name of the Discord user.
+	 * @param admin If they are the bot admin.
+	 */
 	public static void discord(String message, String user, boolean admin) {
 		ChatColor rankColor;
 		if(admin) {
 			rankColor = ChatColor.GOLD;
-		} else {
+		}
+		else {
 			rankColor = ChatColor.GREEN;
 		}
 		
@@ -103,17 +169,33 @@ public class ChatFormatter {
 		Bukkit.broadcastMessage(msg);
 	}
 	
+	/**
+	 * @param player The player to get the colot for.
+	 * 
+	 * @return A rank color, based on player permissions.
+	 */
 	public static ChatColor getMinecraftRankColor(Player player) {
 		if(player.hasPermission("wauz.system")) {
 			return ChatColor.GOLD;
-		} else {
+		}
+		else {
 			return ChatColor.GREEN;
 		}
 	}
 	
+	/**
+	 * Checks if a group message can be sent.
+	 * 
+	 * @param player The player who sent the message.
+	 * @param groupObject The group or guild that should receive the message.
+	 * @param message The message they sent.
+	 * @param isGuild If it is sent to guild (used for error message).
+	 * 
+	 * @return If the message is valid.
+	 */
 	public static boolean validateGroupMessage(Player player, Object groupObject, String message, boolean isGuild) {
 		if(groupObject == null) {
-			player.sendMessage(ChatColor.RED + "You are not in a " + (isGuild ? "group!" : "group!"));
+			player.sendMessage(ChatColor.RED + "You are not in a " + (isGuild ? "guild!" : "group!"));
 			return false;
 		}
 		if(StringUtils.isBlank(message)) {

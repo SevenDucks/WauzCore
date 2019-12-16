@@ -61,7 +61,7 @@ public class WauzDiscord extends JavaPlugin {
 		getLogger().info("Registered EventListeners!");
 		
 		if(DiscordConfigurator.showStartStopNotification()) {
-			shiroDiscordBot.sendEmbedFromMinecraft("The Minecraft server has been started!", Color.GREEN);
+			shiroDiscordBot.sendEmbedFromMinecraft("The Minecraft server has been (re)started!", Color.GREEN);
 		}
 	}
 	
