@@ -1,8 +1,11 @@
 # WauzCore
 ![CodeFactor](https://www.codefactor.io/repository/github/wauzmons/wauzcore/badge)
-![codebeat badge](https://codebeat.co/badges/ddcb8361-5bb9-4988-b3c7-51f34db15f21)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Wauzmons/WauzCore)
-![GitHub total lines](https://tokei.rs/b1/github/wauzmons/wauzcore)
+![Codebeat](https://codebeat.co/badges/ddcb8361-5bb9-4988-b3c7-51f34db15f21)
+![JDK](https://img.shields.io/badge/Java-8-orange.svg)
+![Minecraft](https://img.shields.io/badge/Minecraft-PaperMC%201.14.4-orange.svg)
+![Code Size](https://img.shields.io/github/languages/code-size/Wauzmons/WauzCore)
+![Files](https://tokei.rs/b1/github/wauzmons/wauzcore?category=files)
+![Lines](https://tokei.rs/b1/github/wauzmons/wauzcore)
 
 Advanced Minecraft MMORPG Engine
 
