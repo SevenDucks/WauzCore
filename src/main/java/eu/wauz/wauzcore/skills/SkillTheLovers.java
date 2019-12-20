@@ -16,35 +16,69 @@ import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 
+/**
+ * A skill, that can be executed by a player.
+ * "Binding Vacuum" pulls all enemies in a radius of 5 blocks to the targeted location.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzPlayerSkill
+ */
 public class SkillTheLovers implements WauzPlayerSkill {
 	
+	/**
+	 * The static name of the skill.
+	 */
 	public static String SKILL_NAME = "The Lovers VI";
 
+	/**
+	 * @return The id of the skill.
+	 */
 	@Override
 	public String getSkillId() {
 		return SKILL_NAME;
 	}
 	
+	/**
+	 * @return The type of the skill shown in the default description.
+	 */
 	@Override
 	public String getSkillDescriptionType() {
 		return "AoE";
 	}
 
+	/**
+	 * @return The effect of the skill shown in the default description.
+	 */
 	@Override
 	public String getSkillDescriptionEffect() {
 		return "Binding Vacuum";
 	}
 
+	/**
+	 * @return The cooldown of the skill in seconds.
+	 */
 	@Override
 	public int getCooldownSeconds() {
 		return 12;
 	}
 
+	/**
+	 * @return The mana cost of the skill.
+	 */
 	@Override
 	public int getManaCost() {
 		return 4;
 	}
 
+	/**
+	 * Executes the skill for the given player.
+	 * 
+	 * @param player The player who executes the skill.
+	 * @param weapon The weapon that player uses for it.
+	 * 
+	 * @return If the skill hit something.
+	 */
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
 		Location location = null;

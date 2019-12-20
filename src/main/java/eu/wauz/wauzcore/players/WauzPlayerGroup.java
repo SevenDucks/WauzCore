@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.system.ChatFormatter;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
@@ -121,7 +121,7 @@ public class WauzPlayerGroup {
 	}
 	
 	public String[] getWrappedGroupDescription() {
-		String doubleParagraph = ChatFormatter.ICON_PARAGRAPH + ChatFormatter.ICON_PARAGRAPH;
+		String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
 		return WordUtils.wrap(groupDescription, 42, doubleParagraph, true).split(doubleParagraph);
 	}
 

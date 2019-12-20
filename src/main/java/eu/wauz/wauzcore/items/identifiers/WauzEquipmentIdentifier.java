@@ -23,9 +23,9 @@ import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.EquipmentType;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
-import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzEquipmentIdentifier {
@@ -183,7 +183,7 @@ public class WauzEquipmentIdentifier {
 	
 	private void determineRarity() {
 		int rarity = random.nextInt(1000);
-		String x = ChatFormatter.ICON_DIAMOND;
+		String x = UnicodeUtils.ICON_DIAMOND;
 		
 		if(rarity <= 550) {
 			rarityColor = ChatColor.GREEN;

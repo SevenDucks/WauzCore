@@ -4,8 +4,6 @@
 ![JDK](https://img.shields.io/badge/Java-8-orange.svg)
 ![Minecraft](https://img.shields.io/badge/Minecraft-PaperMC%201.14.4-orange.svg)
 ![Code Size](https://img.shields.io/github/languages/code-size/Wauzmons/WauzCore)
-![Files](https://tokei.rs/b1/github/wauzmons/wauzcore?category=files)
-![Lines](https://tokei.rs/b1/github/wauzmons/wauzcore)
 
 Advanced Minecraft MMORPG Engine
 

@@ -391,7 +391,7 @@ public class WauzLoader {
 	 * 
 	 * @see WauzLoader#init()
 	 */
-	public static void registerHooks() {
+	private static void registerHooks() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, " Grappling Hook")
 				.withMainStat(0.50).withSpeedStat(1.00).withDurabilityStat(72));

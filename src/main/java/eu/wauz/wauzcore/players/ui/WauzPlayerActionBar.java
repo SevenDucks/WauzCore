@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
-import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
@@ -20,7 +20,7 @@ public class WauzPlayerActionBar {
 		}
 		
 		String seperatorString = " " + ChatColor.WHITE + "|" + ChatColor.RESET + " ";
-		String timeString = ChatColor.AQUA + ChatFormatter.ICON_CARET + " " + WauzDateUtils.getServerTime() + seperatorString;
+		String timeString = ChatColor.AQUA + UnicodeUtils.ICON_CARET + " " + WauzDateUtils.getServerTime() + seperatorString;
 		
 		if(WauzMode.inHub(player)) {
 			String jumpString = ChatColor.LIGHT_PURPLE + "Try to Double-Jump!";
@@ -43,9 +43,9 @@ public class WauzPlayerActionBar {
 		}
 		
 		if(WauzMode.isMMORPG(player)) {
-			String healthString = ChatColor.RED + "" + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + ChatFormatter.ICON_HEART + seperatorString;
-			String manaString = ChatColor.LIGHT_PURPLE + "" + playerData.getMana() + " / " + playerData.getMaxMana() + " " + ChatFormatter.ICON_STAR + seperatorString;
-			String heatString = ChatColor.GREEN + "" + ((playerData.getHeat()* 5 - 10) + playerData.getHeatRandomizer()) + " " + ChatFormatter.ICON_DEGREES + "C" + seperatorString;
+			String healthString = ChatColor.RED + "" + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + UnicodeUtils.ICON_HEART + seperatorString;
+			String manaString = ChatColor.LIGHT_PURPLE + "" + playerData.getMana() + " / " + playerData.getMaxMana() + " " + UnicodeUtils.ICON_STAR + seperatorString;
+			String heatString = ChatColor.GREEN + "" + ((playerData.getHeat()* 5 - 10) + playerData.getHeatRandomizer()) + " " + UnicodeUtils.ICON_DEGREES + "C" + seperatorString;
 			String heatResString = playerData.getResistanceHeat() != 0 ? ChatColor.GREEN + "HtRes " + (playerData.getResistanceHeat() * 5) + seperatorString : "";
 			String coldResString = playerData.getResistanceCold() != 0 ? ChatColor.GREEN + "CdRes " + (playerData.getResistanceCold() * 5) + seperatorString : "";
 			String actionBarMessage = healthString + manaString + timeString + heatString + heatResString + coldResString + locationString;

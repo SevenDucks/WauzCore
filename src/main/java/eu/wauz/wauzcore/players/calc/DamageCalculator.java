@@ -44,7 +44,6 @@ import net.md_5.bungee.api.ChatColor;
  * 
  * Suppresses deprecation of DamageModifier,
  * because there are currently no better alternatives.
- * TODO Find DamageModifier replacement.
  * 
  * @author Wauzmons
  */

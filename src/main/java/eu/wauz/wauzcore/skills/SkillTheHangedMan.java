@@ -18,35 +18,69 @@ import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
+/**
+ * A skill, that can be executed by a player.
+ * "Steal" steals a random amount of either coins, experience or saturation from an enemy within 3 blocks.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzPlayerSkill
+ */
 public class SkillTheHangedMan implements WauzPlayerSkill {
 	
+	/**
+	 * The static name of the skill.
+	 */
 	public static String SKILL_NAME = "The Hanged Man XII";
 
+	/**
+	 * @return The id of the skill.
+	 */
 	@Override
 	public String getSkillId() {
 		return SKILL_NAME;
 	}
 	
+	/**
+	 * @return The type of the skill shown in the default description.
+	 */
 	@Override
 	public String getSkillDescriptionType() {
 		return "Melee";
 	}
 
+	/**
+	 * @return The effect of the skill shown in the default description.
+	 */
 	@Override
 	public String getSkillDescriptionEffect() {
 		return "Steal";
 	}
 
+	/**
+	 * @return The cooldown of the skill in seconds.
+	 */
 	@Override
 	public int getCooldownSeconds() {
 		return 30;
 	}
 
+	/**
+	 * @return The mana cost of the skill.
+	 */
 	@Override
 	public int getManaCost() {
 		return 5;
 	}
 
+	/**
+	 * Executes the skill for the given player.
+	 * 
+	 * @param player The player who executes the skill.
+	 * @param weapon The weapon that player uses for it.
+	 * 
+	 * @return If the skill hit something.
+	 */
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
 		Entity target = SkillUtils.getTargetInLine(player, 3);

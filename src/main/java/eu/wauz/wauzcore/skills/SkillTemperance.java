@@ -12,35 +12,69 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 
+/**
+ * A skill, that can be executed by a player.
+ * "Mana Restore" instantly restores 8 of the player's Mana Points, but stuns them a short time.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzPlayerSkill
+ */
 public class SkillTemperance implements WauzPlayerSkill {
 	
+	/**
+	 * The static name of the skill.
+	 */
 	public static String SKILL_NAME = "Temperance XIV";
 
+	/**
+	 * @return The id of the skill.
+	 */
 	@Override
 	public String getSkillId() {
 		return SKILL_NAME;
 	}
 	
+	/**
+	 * @return The type of the skill shown in the default description.
+	 */
 	@Override
 	public String getSkillDescriptionType() {
 		return "Self";
 	}
 
+	/**
+	 * @return The effect of the skill shown in the default description.
+	 */
 	@Override
 	public String getSkillDescriptionEffect() {
 		return "Mana Restore";
 	}
 
+	/**
+	 * @return The cooldown of the skill in seconds.
+	 */
 	@Override
 	public int getCooldownSeconds() {
 		return 60;
 	}
 
+	/**
+	 * @return The mana cost of the skill.
+	 */
 	@Override
 	public int getManaCost() {
 		return 0;
 	}
 
+	/**
+	 * Executes the skill for the given player.
+	 * 
+	 * @param player The player who executes the skill.
+	 * @param weapon The weapon that player uses for it.
+	 * 
+	 * @return If the skill hit something.
+	 */
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 1, 1.5f);

@@ -12,35 +12,69 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 
+/**
+ * A skill, that can be executed by a player.
+ * "Solaris Beam" fires a flame beam at an enemy within 15 blocks, which deals 320% damage and knocks it back.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzPlayerSkill
+ */
 public class SkillTheSun implements WauzPlayerSkill {
 	
+	/**
+	 * The static name of the skill.
+	 */
 	public static String SKILL_NAME = "The Sun XIX";
 
+	/**
+	 * @return The id of the skill.
+	 */
 	@Override
 	public String getSkillId() {
 		return SKILL_NAME;
 	}
 	
+	/**
+	 * @return The type of the skill shown in the default description.
+	 */
 	@Override
 	public String getSkillDescriptionType() {
 		return "Ranged";
 	}
 
+	/**
+	 * @return The effect of the skill shown in the default description.
+	 */
 	@Override
 	public String getSkillDescriptionEffect() {
 		return "Solaris Beam";
 	}
 
+	/**
+	 * @return The cooldown of the skill in seconds.
+	 */
 	@Override
 	public int getCooldownSeconds() {
 		return 12;
 	}
 
+	/**
+	 * @return The mana cost of the skill.
+	 */
 	@Override
 	public int getManaCost() {
 		return 4;
 	}
 
+	/**
+	 * Executes the skill for the given player.
+	 * 
+	 * @param player The player who executes the skill.
+	 * @param weapon The weapon that player uses for it.
+	 * 
+	 * @return If the skill hit something.
+	 */
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
 		Entity target = SkillUtils.getTargetInLine(player, 15);

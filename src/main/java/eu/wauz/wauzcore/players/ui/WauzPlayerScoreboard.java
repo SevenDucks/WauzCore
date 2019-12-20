@@ -23,8 +23,8 @@ import eu.wauz.wauzcore.menu.util.QuestRequirementChecker;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
-import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzQuest;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
@@ -130,7 +130,7 @@ public class WauzPlayerScoreboard {
 		String instanceType = InstanceConfigurator.getInstanceWorldType(world);
 		if(instanceType.equals("Keys")) {
 			rowStrings.add(" ");
-			rowStrings.add(ChatColor.DARK_AQUA + ChatFormatter.ICON_BULLET + " Dungeon Keys");
+			rowStrings.add(ChatColor.DARK_AQUA + UnicodeUtils.ICON_BULLET + " Dungeon Keys");
 			for(String keyId : InstanceConfigurator.getInstanceWorldKeyIds(world))
 				rowStrings.add(ChatColor.WHITE + "  > " + keyId + ": " + InstanceConfigurator.getInstanceKeyStatus(world, keyId));
 		}
@@ -231,10 +231,10 @@ public class WauzPlayerScoreboard {
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(online);
 				WauzPlayerData ownData = WauzPlayerDataPool.getPlayer(player);
 				if(playerData == null) {
-					team.setSuffix(ChatColor.RED + " " + online.getHealth() + " / 20 " + ChatFormatter.ICON_HEART);
+					team.setSuffix(ChatColor.RED + " " + online.getHealth() + " / 20 " + UnicodeUtils.ICON_HEART);
 				}
 				else {
-					team.setSuffix(ChatColor.RED + " " + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + ChatFormatter.ICON_HEART);
+					team.setSuffix(ChatColor.RED + " " + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + UnicodeUtils.ICON_HEART);
 					
 					if(ownData.isInGroup() && playerData.isInGroup() && StringUtils.equals(ownData.getGroupUuidString(), playerData.getGroupUuidString())) {
 						team.setPrefix(ChatColor.BLUE + "GROUP ");

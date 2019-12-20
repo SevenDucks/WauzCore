@@ -13,8 +13,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.InventoryItemRemover;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzQuest;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class QuestRequirementChecker {
@@ -54,7 +54,7 @@ public class QuestRequirementChecker {
 	public List<String> getObjectiveLores(String questMargin, ChatColor questColor) {
 		List<String> questObjectives = new ArrayList<>();
 		questObjectives.add(questMargin);
-		questObjectives.add(questColor + ChatFormatter.ICON_BULLET + " " + ChatColor.WHITE + quest.getDisplayName());
+		questObjectives.add(questColor + UnicodeUtils.ICON_BULLET + " " + ChatColor.WHITE + quest.getDisplayName());
 		
 		if(!execute(false))
 			questObjectives.addAll(objectiveLores);

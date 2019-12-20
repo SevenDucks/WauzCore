@@ -19,8 +19,8 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.data.players.GuildConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.GuildOverviewMenu;
-import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzTeleporter;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
@@ -418,7 +418,7 @@ public class WauzPlayerGuild {
 	}
 	
 	public String[] getWrappedGuildDescription() {
-		String doubleParagraph = ChatFormatter.ICON_PARAGRAPH + ChatFormatter.ICON_PARAGRAPH;
+		String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
 		return WordUtils.wrap(guildDescription, 42, doubleParagraph, true).split(doubleParagraph);
 	}
 

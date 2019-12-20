@@ -14,35 +14,69 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 
+/**
+ * A skill, that can be executed by a player.
+ * "Multipunch" hits an enemy within 3 blocks and causes 450% damage over the course of 3 automated attacks.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzPlayerSkill
+ */
 public class SkillTheStar implements WauzPlayerSkill {
 	
+	/**
+	 * The static name of the skill.
+	 */
 	public static String SKILL_NAME = "The Star XVII";
 
+	/**
+	 * @return The id of the skill.
+	 */
 	@Override
 	public String getSkillId() {
 		return SKILL_NAME;
 	}
 	
+	/**
+	 * @return The type of the skill shown in the default description.
+	 */
 	@Override
 	public String getSkillDescriptionType() {
 		return "Melee";
 	}
 
+	/**
+	 * @return The effect of the skill shown in the default description.
+	 */
 	@Override
 	public String getSkillDescriptionEffect() {
 		return "Multipunch";
 	}
 
+	/**
+	 * @return The cooldown of the skill in seconds.
+	 */
 	@Override
 	public int getCooldownSeconds() {
 		return 8;
 	}
 
+	/**
+	 * @return The mana cost of the skill.
+	 */
 	@Override
 	public int getManaCost() {
 		return 4;
 	}
 
+	/**
+	 * Executes the skill for the given player.
+	 * 
+	 * @param player The player who executes the skill.
+	 * @param weapon The weapon that player uses for it.
+	 * 
+	 * @return If the skill hit something.
+	 */
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
 		final Entity target = SkillUtils.getTargetInLine(player, 3);

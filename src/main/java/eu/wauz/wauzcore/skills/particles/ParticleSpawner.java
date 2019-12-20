@@ -7,12 +7,36 @@ import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
 
+/**
+ * A collection of methods to spawn particles in different shapes and animations.
+ * 
+ * @author Wauzmons
+ *
+ * @see SkillParticle
+ */
 public class ParticleSpawner {
 
+	/**
+	 * Creates a line of particles between two locations.
+	 * 
+	 * @param origin Where the particles should originate.
+	 * @param target Where the particles should lead to.
+	 * @param particle The type of particle to spawn.
+	 * @param amount The amount of particles to spawn.
+	 */
 	public static void spawnParticleLine(Location origin, Location target, SkillParticle particle, int amount) {
 		spawnParticleLine(origin, target, particle, amount, 1);
 	}
 
+	/**
+	 * Creates a line of particles between two locations.
+	 * 
+	 * @param origin Where the particles should originate.
+	 * @param target Where the particles should lead to.
+	 * @param particle The type of particle to spawn.
+	 * @param amount The amount of particles to spawn.
+	 * @param spacing The spacing between particles.
+	 */
 	public static void spawnParticleLine(Location origin, Location target, SkillParticle particle, int amount, double spacing) {
 		Vector originVector = origin.toVector();
 		Vector targetVector = target.toVector();
@@ -28,6 +52,14 @@ public class ParticleSpawner {
 		}
 	}
 
+	/**
+	 * Creates a circle of particles at a specific location.
+	 * 
+	 * @param origin Where the particles should originate.
+	 * @param particle The type of particle to spawn.
+	 * @param radius The radius of the circle.
+	 * @param amount The amount of particles to spawn.
+	 */
 	public static void spawnParticleCircle(Location origin, SkillParticle particle, double radius, int amount) {
 		World world = origin.getWorld();
 	    double increment = (2 * Math.PI) / amount;
@@ -40,6 +72,14 @@ public class ParticleSpawner {
 	    }
 	}
 
+	/**
+	 * Creates a helix of particles at a specific location.
+	 * 
+	 * @param origin Where the particles should originate.
+	 * @param particle The type of particle to spawn.
+	 * @param radius The radius of the helix.
+	 * @param height The amount of particles to spawn.
+	 */
 	public static void spawnParticleHelix(Location origin, SkillParticle particle, double radius, double height) {
 		for(double y = 0; y <= height; y += 0.1) {
 			double x = radius * Math.cos(y * 5);
@@ -50,6 +90,13 @@ public class ParticleSpawner {
 		}
 	}
 
+	/**
+	 * Creates an animated wave of particles at a specific location.
+	 * 
+	 * @param origin Where the particles should originate.
+	 * @param particle The type of particle to spawn.
+	 * @param length The length of the wave.
+	 */
 	public static void spawnParticleWave(Location origin, SkillParticle particle, double length){
 		new BukkitRunnable() {
 			
@@ -73,6 +120,13 @@ public class ParticleSpawner {
 		}.runTaskTimer(WauzCore.getInstance(), 0, 1);
 	}
 
+	/**
+	 * Creates an animated sphere of particles at a specific location.
+	 * 
+	 * @param origin Where the particles should originate.
+	 * @param particle The type of particle to spawn.
+	 * @param radius The radius of the sphere.
+	 */
 	public static void spawnParticleSphere(Location origin, SkillParticle particle, double radius) {
 		new BukkitRunnable() {
 			

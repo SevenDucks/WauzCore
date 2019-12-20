@@ -20,8 +20,8 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
-import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzPlayerBossBar {
@@ -126,7 +126,7 @@ public class WauzPlayerBossBar {
 	
 	public String getTitle(int health) {
 		String currentHealth = ChatColor.RED + formatter.format(health);
-		String maximumHealth = formatter.format(maxHealth) + " " + ChatFormatter.ICON_HEART;
+		String maximumHealth = formatter.format(maxHealth) + " " + UnicodeUtils.ICON_HEART;
 		String healthString = ChatColor.GRAY + "[ " + currentHealth + " / " + maximumHealth + ChatColor.GRAY + " ]";
 		return modifiers + damageable.getName() + " " + healthString;
 	}

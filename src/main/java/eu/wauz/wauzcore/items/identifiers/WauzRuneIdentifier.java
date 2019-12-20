@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
-import eu.wauz.wauzcore.system.ChatFormatter;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzRuneIdentifier {
@@ -80,7 +80,7 @@ public class WauzRuneIdentifier {
 	
 	private void determineRarity() {
 		int rarity = random.nextInt(1000);
-		String x = ChatFormatter.ICON_DIAMOND;
+		String x = UnicodeUtils.ICON_DIAMOND;
 				
 		if(rarity <= 800) {
 			rarityColor = ChatColor.GREEN;

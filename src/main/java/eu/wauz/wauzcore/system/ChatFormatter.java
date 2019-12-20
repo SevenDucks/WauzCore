@@ -15,54 +15,11 @@ import net.md_5.bungee.api.ChatColor;
 
 /**
  * Used for formatting and sending all chat messages, to their receivers.
- * TODO Exctract Icons to new class.
  * 
  * @author Wauzmons
  */
 public class ChatFormatter {
 	
-	/**
-	 * A paragraph icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/00a7/index.htm">fileformat.info</a>
-	 */
-	public static final String ICON_PARAGRAPH = "\u00A7";
-	
-	/**
-	 * A degree icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/00b0/index.htm">fileformat.info</a>
-	 */
-	public static final String ICON_DEGREES = "\u00B0";
-	
-	/**
-	 * A caret icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/00bb/index.htm">fileformat.info</a>
-	 */
-	public static final String ICON_CARET = "\u00BB";
-	
-	/**
-	 * A bullet icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/2022/index.htm">fileformat.info</a>
-	 */
-	public static final String ICON_BULLET = "\u2022";
-	
-	/**
-	 * A diamond icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/2666/index.htm">fileformat.info</a>
-	 */
-	public static final String ICON_DIAMOND = "\u2666";
-	
-	/**
-	 * A star icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/2b50/index.htm">fileformat.info</a>
-	 */
-	public static final String ICON_STAR = "\u2B50";
-	
-	/**
-	 * A heart icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/2764/index.htm">fileformat.info</a>
-	 */
-	public static final String ICON_HEART = "\u2764";
-
 	/**
 	 * Formats a message from an chat event for the global chat.
 	 * 

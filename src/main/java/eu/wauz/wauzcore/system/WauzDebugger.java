@@ -19,6 +19,7 @@ import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -146,7 +147,7 @@ public class WauzDebugger {
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.DARK_RED + "Noble Phantasm");
 		List<String> lores = new ArrayList<String>();
-		String x = ChatFormatter.ICON_DIAMOND;
+		String x = UnicodeUtils.ICON_DIAMOND;
 		String rareStars = ChatColor.YELLOW +x +x +x +x +x;
 		lores.add(ChatColor.WHITE + (debug ? "Debuggers" : "Starters") + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Unique Weapon " + rareStars);
 		lores.add("");
@@ -188,7 +189,7 @@ public class WauzDebugger {
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.DARK_RED + "Enchanted Iron");
 		List<String> lores = new ArrayList<String>();
-		String x = ChatFormatter.ICON_DIAMOND;
+		String x = UnicodeUtils.ICON_DIAMOND;
 		String rareStars = ChatColor.YELLOW +x +x +x +x +x;
 		lores.add(ChatColor.WHITE + "Debuggers" + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Unique Weapon " + rareStars);
 		lores.add("");
@@ -268,7 +269,7 @@ public class WauzDebugger {
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.GOLD + "Rune of " + runeId);
 		List<String> lores = new ArrayList<String>();
-		String x = ChatFormatter.ICON_DIAMOND;
+		String x = UnicodeUtils.ICON_DIAMOND;
 		String rareStars = ChatColor.GREEN +x +x +x;
 		lores.add(ChatColor.WHITE + (debug ? "Debuggers" : "Starters") + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Deafening Rune " + rareStars);
 		lores.add("");
