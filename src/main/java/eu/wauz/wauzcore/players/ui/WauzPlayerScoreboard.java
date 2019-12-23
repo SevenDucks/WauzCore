@@ -29,22 +29,44 @@ import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An UI class to show a player quests and the like in the sidebar, based on their current world.
+ * 
+ * @author Wauzmons
+ */
 public class WauzPlayerScoreboard {
 	
+	/**
+	 * A formatter to display scores or currency in the sidebar.
+	 */
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	
+	/**
+	 * Schedules a task to update the sidebar of the player, based on the world they are in.
+	 * The scoreboard will be refeshed in 0.5 seconds from then.
+	 * 
+	 * @param player The player who should receive the scoreboard.
+	 * 
+	 * @see WauzPlayerScoreboard#scoreboardHub(Player)
+	 * @see WauzPlayerScoreboard#scoreboardDungeon(Player)
+	 * @see WauzPlayerScoreboard#scoreboardQuests(Player)
+	 * @see WauzPlayerScoreboard#scoreboardSurvival(Player)
+	 */
 	public static void scheduleScoreboard(final Player player) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
             public void run() {
             	String worldName = player.getWorld().getName();
             	
             	if(WauzMode.isMMORPG(player)) {
-            		if(worldName.startsWith("Hub"))
+            		if(worldName.startsWith("Hub")) {
             			scoreboardHub(player);
-            		else if(worldName.startsWith("WzInstance"))
+            		}
+            		else if(worldName.startsWith("WzInstance")) {
             			scoreboardDungeon(player);
-            		else
+            		}
+            		else {
             			scoreboardQuests(player);
+            		}
             	}
             	else if(WauzMode.isSurvival(player)) {
             		scoreboardSurvival(player);
@@ -56,6 +78,14 @@ public class WauzPlayerScoreboard {
 		}, 10);
 	}
 	
+	/**
+	 * Shows a hub sidebar with the ip, aswell as their rank and tokens to a player.
+	 * Also adds online player team prefixes to the scoreboard.
+	 * 
+	 * @param player The player who should receive the scoreboard.
+	 * 
+	 * @see WauzPlayerScoreboard#addScoreboardTeams(Player, Scoreboard)
+	 */
 	private static void scoreboardHub(Player player) {
 		ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 		Scoreboard hubBoard = scoreboardManager.getNewScoreboard();
@@ -81,6 +111,14 @@ public class WauzPlayerScoreboard {
 		player.setScoreboard(hubBoard);
 	}
 	
+	/**
+	 * Shows a survival sidebar with the ip, season, commands, aswell as their score and tokens to a player.
+	 * Also adds online player team prefixes to the scoreboard.
+	 * 
+	 * @param player The player who should receive the scoreboard.
+	 * 
+	 * @see WauzPlayerScoreboard#addScoreboardTeams(Player, Scoreboard)
+	 */
 	private static void scoreboardSurvival(Player player) {
 		ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 		Scoreboard survivalBoard = scoreboardManager.getNewScoreboard();
@@ -114,6 +152,14 @@ public class WauzPlayerScoreboard {
 		player.setScoreboard(survivalBoard);
 	}
 	
+	/**
+	 * Shows a dungeon sidebar with the name and keys of the instance to a player.
+	 * Also adds online player team prefixes to the scoreboard.
+	 * 
+	 * @param player The player who should receive the scoreboard.
+	 * 
+	 * @see WauzPlayerScoreboard#addScoreboardTeams(Player, Scoreboard)
+	 */
 	private static void scoreboardDungeon(Player player) {
 		ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 		Scoreboard dungeonBoard = scoreboardManager.getNewScoreboard();
@@ -144,6 +190,15 @@ public class WauzPlayerScoreboard {
 		player.setScoreboard(dungeonBoard);
 	}
 	
+	/**
+	 * Shows a quest sidebar with all running quests and their objectives to a player.
+	 * Also adds online player team prefixes to the scoreboard.
+	 * 
+	 * @param player The player who should receive the scoreboard.
+	 * 
+	 * @see WauzPlayerScoreboard#generateQuestObjectiveList(Player, String, String, int, ChatColor)
+	 * @see WauzPlayerScoreboard#addScoreboardTeams(Player, Scoreboard)
+	 */
 	private static void scoreboardQuests(Player player) {
 		ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 		Scoreboard questBoard = scoreboardManager.getNewScoreboard();
@@ -207,11 +262,30 @@ public class WauzPlayerScoreboard {
 	}
 	
 	
+	/**
+	 * Generates a list of a quest and its objectives, to show in the sidebar.
+	 * 
+	 * @param player The player who is doing the quest.
+	 * @param questMargin The empty space above the title.
+	 * @param questName The name of the quest.
+	 * @param questPhase The phase of the quest.
+	 * @param questColor The color of the quest type.
+	 * 
+	 * @return The list of quest objectives.
+	 */
 	private static List<String> generateQuestObjectiveList(Player player, String questMargin, String questName, int questPhase, ChatColor questColor) {
 		WauzQuest quest = WauzQuest.getQuest(questName);
 		return new QuestRequirementChecker(player, quest, questPhase).getObjectiveLores(questMargin, questColor);
 	}
 	
+	/**
+	 * Adds prefixes to the online players listed on the scoreboard, by creating new teams.
+	 * Following prefixes are possible, ordered by priority: GROUP, GUILD, ADMIN.
+	 * There will be also a suffix added to each team, to show the player's health.
+	 * 
+	 * @param player The player who should receive the scoreboard.
+	 * @param scoreboard The scoreboard that should receive the player teams.
+	 */
 	private static void addScoreboardTeams(Player player, Scoreboard scoreboard) {
 		for(Player online : Bukkit.getOnlinePlayers()) {
 			try {

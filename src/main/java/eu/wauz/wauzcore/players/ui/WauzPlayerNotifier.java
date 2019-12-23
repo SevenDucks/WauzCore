@@ -12,8 +12,16 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An UI class to show the player notifications and tips in the chat.
+ * 
+ * @author Wauzmons
+ */
 public class WauzPlayerNotifier {
 	
+	/**
+	 * A list of all tip messages.
+	 */
 	private static List<String> tipMessages = new ArrayList<>(Arrays.asList(
 			"You can type /hub to return to the Nexus.",
 			"We are reachable under dev@wauz.eu",
@@ -21,6 +29,17 @@ public class WauzPlayerNotifier {
 			"Wauzland was originally made by a single dev!",
 			"Gabor Gehrig is ill today."));
 	
+	/**
+	 * Shows a tip message to the given player.
+	 * If in MMORPG mode, the player will also receive a clickable notification,
+	 * about unused skillpoints, that can open the skill menu.
+	 * 
+	 * @param player The player that should receive the chat notifications.
+	 * 
+	 * @return If the messages were shown successfully.
+	 * 
+	 * @see WauzNmsClient#nmsChatCommand(Player, String, String, boolean)
+	 */
 	public static boolean execute(Player player) {
 		String randomMessage = tipMessages.get(new Random().nextInt(tipMessages.size()));
 		player.sendMessage(ChatColor.YELLOW + "Did you know? " + ChatColor.GOLD + randomMessage);

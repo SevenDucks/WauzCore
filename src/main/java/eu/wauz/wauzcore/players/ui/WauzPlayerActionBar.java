@@ -11,8 +11,24 @@ import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An UI class to show the player custom stats like health in their action bar.
+ * 
+ * @author Wauzmons
+ */
 public class WauzPlayerActionBar {
 	
+	/**
+	 * Updates the player's action bar, depending on the gamemode.</br>
+	 * Hub: TIME | DOUBLE-JUMP-MESSAGE</br>
+	 * Survival: TIME | PVP-RES | LOCATION</br>
+	 * MMORPG: HEALTH | MANA | TIME | HEAT-AND-RES | LOCATION
+	 * 
+	 * @param player The player whose action bar should be updated.
+	 * 
+	 * @see WauzMode
+	 * @see WauzNmsClient#nmsActionBar(Player, String)
+	 */
 	public static void update(Player player) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		if(playerData == null) {

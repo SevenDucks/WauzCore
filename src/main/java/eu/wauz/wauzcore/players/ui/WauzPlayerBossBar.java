@@ -24,18 +24,42 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An UI class to show the player name and health of the targeted entity.
+ * 
+ * @author Wauzmons
+ */
 public class WauzPlayerBossBar {
 	
+	/**
+	 * A formatter for displaying health numbers in the bar.
+	 */
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	
+	/**
+	 * A map of all boss bars by entity uuid.
+	 */
 	private static Map<String, WauzPlayerBossBar> bossBars = new HashMap<>();
 	
+	/**
+	 * A map of boss bars by the player they are shown to.
+	 */
 	private static Map<Player, WauzPlayerBossBar> bossBarPlayerLinks = new HashMap<>();
 	
+	/**
+	 * @param entity An entity with a boss bar.
+	 * 
+	 * @return The boss bar of this entity, if existing.
+	 */
 	public static WauzPlayerBossBar getBossBar(Entity entity) {
 		return bossBars.get(entity.getUniqueId().toString());
 	}
 	
+	/**
+	 * Removes the shown boss bar for the given player.
+	 * 
+	 * @param player The player who should no longer see a boss bar.
+	 */
 	public static void clearBar(Player player) {
 		WauzPlayerBossBar playerBossBar = bossBarPlayerLinks.get(player);
 		if(playerBossBar != null) {
@@ -44,21 +68,51 @@ public class WauzPlayerBossBar {
 		}
 	}
 	
+	/**
+	 * The entity, this bar belongs to.
+	 */
 	private Damageable damageable;
 	
+	/**
+	 * The id of the entity, this bar belongs to.
+	 */
 	private String damageableUuid;
 	
+	/**
+	 * Menacing modifiers shown in the bar.
+	 */
 	private String modifiers;
 	
+	/**
+	 * Max health shown in the bar.
+	 */
 	private double maxHealth;
 	
+	/**
+	 * The Minecraft boss bar.
+	 */
 	private BossBar bossBar;
 	
+	/**
+	 * The particles circling the entity, this bar belongs to.
+	 */
 	private SkillParticle particle = null;
 	
+	/**
+	 * Creates a boss bar for the given entity.
+	 * Also schedules a task to check if the entity and assigned players are still valid. 
+	 * 
+	 * @param entity The entity, this bar belongs to.
+	 * @param modifiers Menacing modifiers shown in the bar.
+	 * @param maxHealth Max health shown in the bar.
+	 * @param raidBoss If the entity is a raid boss.
+	 * 
+	 * @see WauzPlayerBossBar#doPlayerChecks()
+	 */
 	public WauzPlayerBossBar(Entity entity, List<String> modifiers, double maxHealth, boolean raidBoss) {
-		if(!(entity instanceof Damageable))
+		if(!(entity instanceof Damageable)) {
 			return;
+		}
 		
 		this.damageable = (Damageable) entity;
 		this.damageableUuid = damageable.getUniqueId().toString();
@@ -84,12 +138,21 @@ public class WauzPlayerBossBar {
 		doPlayerChecks();
 	}
 	
+	/**
+	 * Adds a player that should see this bar.
+	 * If the entity will die from the damage, the bar will not be shown.
+	 * 
+	 * @param player The player that should see this bar.
+	 * @param damage The damage the player dealt to see the bar.
+	 */
 	public void addPlayer(Player player, double damage) {
-		if(bossBar.getProgress() <= 0)
+		if(bossBar.getProgress() <= 0) {
 			return;
+		}
 		
-		if((int) Math.ceil(damageable.getHealth()) - damage <= 0)
+		if((int) Math.ceil(damageable.getHealth()) - damage <= 0) {
 			return;
+		}
 		
 		WauzPlayerBossBar playerBossBar = bossBarPlayerLinks.get(player);
 		if(playerBossBar == null || !playerBossBar.equals(this)) {
@@ -101,10 +164,21 @@ public class WauzPlayerBossBar {
 		}
 	}
 	
+	/**
+	 * Removes a player that should no longer see this bar.
+	 * 
+	 * @param player The player that should no longer see this bar.
+	 */
 	public void removePlayer(Player player) {
 		bossBar.removePlayer(player);
 	}
 	
+	/**
+	 * Updates the boss bar, because the entity got damaged.
+	 * If the entity will die from the damage, the bar be destroyed.
+	 * 
+	 * @param damage The damage that was dealt to the entity.
+	 */
 	public void updateBossBar(double damage) {
 		int health = (int) Math.ceil((damageable.getHealth() - damage));
 		if(health > maxHealth) {
@@ -124,6 +198,13 @@ public class WauzPlayerBossBar {
 		}
 	}
 	
+	/**
+	 * Generates a new title for the boss bar.
+	 * 
+	 * @param health How much health is left.
+	 * 
+	 * @return The new title.
+	 */
 	public String getTitle(int health) {
 		String currentHealth = ChatColor.RED + formatter.format(health);
 		String maximumHealth = formatter.format(maxHealth) + " " + UnicodeUtils.ICON_HEART;
@@ -131,6 +212,14 @@ public class WauzPlayerBossBar {
 		return modifiers + damageable.getName() + " " + healthString;
 	}
 	
+	/**
+	 * Schedules a task to check if the entity and assigned players are still valid.
+	 * If not, they get removed, else the task is scheduled again for the next second.
+	 * Also spawns the circling particles arount the entity.
+	 * 
+	 * @see ParticleSpawner#spawnParticleCircle(org.bukkit.Location, SkillParticle, double, int)
+	 * @see WauzPlayerBossBar#destroy()
+	 */
 	private void doPlayerChecks() {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 	        public void run() {
@@ -142,10 +231,12 @@ public class WauzPlayerBossBar {
 	        					bossBarPlayerLinks.remove(player);
 	        				}
 	        			}
-	        			if(particle != null)
+	        			if(particle != null) {
 	        				ParticleSpawner.spawnParticleCircle(damageable.getLocation(), particle, 1, 8);
-	        			if(damageable.hasMetadata("wzModRavenous"))
+	        			}
+	        			if(damageable.hasMetadata("wzModRavenous")) {
 	        				SkillUtils.addPotionEffect(damageable, PotionEffectType.SPEED, 2, 4);
+	        			}
 	        			doPlayerChecks();
 	        		}
 	        		else {
@@ -160,6 +251,9 @@ public class WauzPlayerBossBar {
 		}, 20);
 	}
 	
+	/**
+	 * Removes this boss bar from all maps and clears out all players.
+	 */
 	private void destroy() {
 		for(Player player : bossBar.getPlayers()) {
 			bossBar.removePlayer(player);

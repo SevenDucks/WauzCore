@@ -14,11 +14,31 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 
+/**
+ * Used to calculate saturation of custom food items.
+ * Also handles effects like health regain based on lore.
+ * 
+ * @author Wauzmons
+ * 
+ * @see PlayerItemConsumeEvent
+ */
 public class FoodCalculator {
 	
+	/**
+	 * Lets a player consume an item, if it is valid and the cooldown is ready.
+	 * If it was a succes the item is removed and an eating sound is played.
+	 * A new event is called to apply the item effects.
+	 * 
+	 * @param player The player who tris to consume the item.
+	 * @param itemStack The item the player tries to consume.
+	 * 
+	 * @see PlayerItemConsumeEvent
+	 * @see FoodCalculator#applyItemEffects(PlayerItemConsumeEvent)
+	 */
 	public static void tryToConsume(Player player, ItemStack itemStack) {
-		if(!Cooldown.playerFoodConsume(player) || !ItemUtils.isFoodItem(itemStack))
+		if(!ItemUtils.isFoodItem(itemStack) || !Cooldown.playerFoodConsume(player)) {
 			return;
+		}
 		
 		WauzDebugger.log(player, "Try to consume Food Item");
 		
@@ -29,6 +49,17 @@ public class FoodCalculator {
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
 	}
 	
+	/**
+	 * Applies status effects based on a consumed item's lore.
+	 * This includes saturation, healing and temperature modifiers.
+	 * 
+	 * @param event The consumtion event.
+	 * 
+	 * @see ItemUtils#getSaturation(ItemStack)
+	 * @see ItemUtils#getHealing(ItemStack)
+	 * @see ItemUtils#getHeatResistance(ItemStack)
+	 * @see ItemUtils#getColdResistance(ItemStack)
+	 */
 	public static void applyItemEffects(PlayerItemConsumeEvent event) {
 		Player player = event.getPlayer();
 		ItemStack itemStack = event.getItem();
@@ -59,6 +90,15 @@ public class FoodCalculator {
 		}
 	}
 	
+	/**
+	 * Adds duration minutes to a status effect, gained from food.
+	 * Used to parse minutes too ticks and prevent overflows.
+	 * 
+	 * @param value The current value in 5 second ticks.
+	 * @param added The minutes added to the effect.
+	 * 
+	 * @return The increased value.
+	 */
 	public static short parseEffectTicksToShort(long value, long added) {
 		value += (added * 12);
 		return value > Short.MAX_VALUE ? Short.MAX_VALUE : (short) value;

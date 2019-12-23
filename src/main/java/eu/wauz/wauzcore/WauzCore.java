@@ -146,7 +146,7 @@ public class WauzCore extends JavaPlugin {
 			public void run() {
 				for(Player player : getRegisteredActivePlayers()) {
 					if(WauzMode.isMMORPG(player)) {
-						ClimateCalculator.temperature(player);
+						ClimateCalculator.updateTemperature(player);
 						ManaCalculator.regenerateMana(player);
 					}
 					else if(WauzMode.isSurvival(player)) {

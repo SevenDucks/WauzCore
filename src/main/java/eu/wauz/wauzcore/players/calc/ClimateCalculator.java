@@ -14,12 +14,45 @@ import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * Used to calculate the temperature of players, based on the region.
+ * Also adds negative effects, if the player cannot handle the current temperature.
+ * 
+ * @author Wauzmons
+ * 
+ * @see WauzRegion#getTemperature()
+ * @see WauzPlayerData#getHeat()
+ */
 public class ClimateCalculator {
 	
-	public static void temperature(Player player) {
+	/**
+	 * Updates the temperature of the given player.
+	 * The temperature in- or decreases, based on the region temperature.
+	 * If it is night a value of 3 is subtracted from the base value.
+	 * The temperature displayed to the player is randomized,
+	 * by a value of plus/minus 2, to simulate temperature fluctuation.
+	 * After that the timers for heat/cold resistances are decreased.</br></br>
+	 * 
+	 * If the temperature is above 8 and the player has no heat resistance,
+	 * the player receives 2 damage and gets a hunger III effect.
+	 * If the temperature is below 2 and the player has no cold resistance,
+	 * the player receives 2 damage and gets a slowness III effect.
+	 * For these cases a warning will be shown on screen.
+	 * 
+	 * @param player The player whose temperature should be updated.
+	 * 
+	 * @see WauzRegion#getTemperature()
+	 * @see WauzPlayerData#setHeat(Byte)
+	 * @see WauzPlayerData#setHeatRandomizer(Byte)
+	 * @see WauzPlayerData#getResistanceHeat()
+	 * @see WauzPlayerData#getResistanceCold()
+	 * @see WauzPlayerData#decreaseTemperatureResistance()
+	 */
+	public static void updateTemperature(Player player) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null)
+		if(playerData == null) {
 			return;
+		}
 		
 		byte playerTemperature = playerData.getHeat();
 		WauzRegion region = playerData.getRegion();
