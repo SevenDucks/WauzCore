@@ -19,10 +19,30 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * The player registrator is used to initially create/remove/update player information.
+ * 
+ * @author Wauzmons
+ */
 public class WauzPlayerRegistrator {
 
+	/**
+	 * A direct reference to the main class.
+	 */
 	private static WauzCore core = WauzCore.getInstance();
 
+	/**
+	 * Handles the join of a player.
+	 * Updates "name" and "lastplayed" config values + initializes other values for first time players.
+	 * Resets values like health and saturation and teleports the player to the hub.
+	 * 
+	 * @param player The player that joined.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @see WauzPlayerDataPool#regPlayer(Player)
+	 * @see CharacterManager#equipHubItems(Player)
+	 */
 	public static void login(final Player player) throws Exception {
 		File playerDirectory = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/");
 		playerDirectory.mkdir();
@@ -60,7 +80,7 @@ public class WauzPlayerRegistrator {
         		player.setBedSpawnLocation(WauzCore.getHubLocation(), true);
         		player.teleport(WauzCore.getHubLocation());
         		
-        		player.sendMessage("Welcome to Wauzland! v" + core.getDescription().getVersion());
+        		player.sendMessage("Welcome! Running WauzCore v" + core.getDescription().getVersion());
         		WauzPlayerDataPool.regPlayer(player);
         		WauzPlayerScoreboard.scheduleScoreboard(player);
         		CharacterManager.equipHubItems(player);
@@ -68,6 +88,17 @@ public class WauzPlayerRegistrator {
 		}, 10);
 	}
 	
+	/**
+	 * Handles the leave of a player.
+	 * Deletes all cached values related to that player.
+	 * 
+	 * @param player The player that left.
+	 * 
+	 * @see WauzPlayerBossBar#clearBar(Player)
+	 * @see PlayerConfigurator#setLastPlayed(org.bukkit.OfflinePlayer)
+	 * @see CharacterManager#logoutCharacter(Player)
+	 * @see WauzPlayerDataPool#unregPlayer(Player)
+	 */
 	public static void logout(Player player) {
 		WauzPlayerBossBar.clearBar(player);
 		PlayerConfigurator.setLastPlayed(player);
@@ -75,6 +106,13 @@ public class WauzPlayerRegistrator {
 		WauzPlayerDataPool.unregPlayer(player);
 	}
 	
+	/**
+	 * Handles the respawn of a player.
+	 * Skips the death screen and shows a "YOU DIED" title instead, while resetting food status effects.
+	 * The player may respawn in an instance, if max deaths are defined and they are below that value.
+	 * 
+	 * @param player The player that is respawning.
+	 */
 	public static void respawn(final Player player) {
 		boolean allowRespawn = false;
 		World world = player.getWorld();
@@ -89,18 +127,20 @@ public class WauzPlayerRegistrator {
 		}
 		
 		final boolean respawnInCurrentWorld = allowRespawn;
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(core, new Runnable() { public void run() {
-			if(respawnInCurrentWorld) {
-				Location spawnLocation = player.getBedSpawnLocation();
-				player.setBedSpawnLocation(new Location(world, 0.5, 5, 0.5), true);
-				WauzNmsClient.nmsRepsawn(player);
-				player.setBedSpawnLocation(spawnLocation, true);
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(core, new Runnable() {
+			public void run() {
+				if(respawnInCurrentWorld) {
+					Location spawnLocation = player.getBedSpawnLocation();
+					player.setBedSpawnLocation(new Location(world, 0.5, 5, 0.5), true);
+					WauzNmsClient.nmsRepsawn(player);
+					player.setBedSpawnLocation(spawnLocation, true);
+				}
+				else {
+					WauzNmsClient.nmsRepsawn(player);
+				}
+	        	player.sendTitle(ChatColor.DARK_RED + "" + ChatColor.BOLD + "YOU DIED", "", 10, 70, 20);
 			}
-			else {
-				WauzNmsClient.nmsRepsawn(player);
-			}
-        	player.sendTitle(ChatColor.DARK_RED + "" + ChatColor.BOLD + "YOU DIED", "", 10, 70, 20);
-        }});
+		});
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		if(playerData == null) {
@@ -109,7 +149,7 @@ public class WauzPlayerRegistrator {
 		
 		playerData.setResistanceHeat((short) 0);
 		playerData.setResistanceCold((short) 0);
-		playerData.setResistancePvsP((short) 0);
+		playerData.setResistancePvP((short) 0);
 		WauzPlayerActionBar.update(player);
 	}
 

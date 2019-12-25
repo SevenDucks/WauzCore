@@ -30,10 +30,31 @@ import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * The character manager is used to login/out characters and manage their data.
+ * TODO Remove stuff already done by the inventory converter.
+ * 
+ * @author Wauzmons
+ */
 public class CharacterManager {
 	
+	/**
+	 * A direct reference to the main class.
+	 */
 	private static WauzCore core = WauzCore.getInstance();
 	
+	/**
+	 * Logs in the character specified in the player data.
+	 * Sets gamemode, level, health, mana, spawn, current location and inventory.
+	 * Also shows guild motd and triggers daily rewards.
+	 * 
+	 * @param player The player that selected the character.
+	 * @param wauzMode The mode of the character.
+	 * 
+	 * @see WauzPlayerData#getSelectedCharacterSlot()
+	 * @see InventoryStringConverter#loadInventory(Player)
+	 * @see CharacterManager#equipCharacterItems(Player)
+	 */
 	public static void loginCharacter(final Player player, WauzMode wauzMode) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		if(playerData == null) {
@@ -79,6 +100,15 @@ public class CharacterManager {
 		}
 	}
 	
+	/**
+	 * Logs out the current chracter of the player.
+	 * Resets gamemode, pet, group, potions, character selection, level, health, mana, saturation, inventory, spawn, location.
+	 * 
+	 * @param player The player that is logging out their character.
+	 * 
+	 * @see CharacterManager#saveCharacter(Player)
+	 * @see CharacterManager#equipHubItems(Player)
+	 */
 	public static void logoutCharacter(final Player player) {
 		player.setGameMode(GameMode.ADVENTURE);
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
@@ -121,14 +151,20 @@ public class CharacterManager {
 		player.teleport(WauzCore.getHubLocation());
 	}
 	
+	/**
+	 * Saves the character specified in the player data.
+	 * 
+	 * @param player The player that selected the character.
+	 * 
+	 * @see InventoryStringConverter#saveInventory(Player)
+	 * @see PlayerConfigurator#setCharacterLocation(Player, Location)
+	 */
 	public static void saveCharacter(final Player player) {
 		if(WauzPlayerDataPool.isCharacterSelected(player)) {
 			InventoryStringConverter.saveInventory(player);
-			
 			if(!StringUtils.startsWith(player.getWorld().getName(), "WzInstance")) {
 				PlayerConfigurator.setCharacterLocation(player, player.getLocation());
 			}
-			
 			WauzDebugger.log(player, ChatColor.GREEN + "Saving... Character-Data saved!");
 		}
 		else {
@@ -136,6 +172,14 @@ public class CharacterManager {
 		}
 	}
 	
+	/**
+	 * Creates and logs in the new character specified in the player data.
+	 * Sets player data file content, gamemode, level, health, mana, saturation, start-equip and quest.
+	 * Also triggers first daily reward.
+	 * 
+	 * @param player The player that selected the new character.
+	 * @param wauzMode The mode of the new character.
+	 */
 	public static void createCharacter(final Player player, WauzMode wauzMode) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		if(playerData == null) {
@@ -285,7 +329,7 @@ public class CharacterManager {
 		}
 		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
 			playerDataConfig.set("pvp.resticks", 720);
-			playerData.setResistancePvsP((short) 720);
+			playerData.setResistancePvP((short) 720);
 		}
 		
 		try {
@@ -330,6 +374,12 @@ public class CharacterManager {
 		player.teleport(spawn);
 	}
 	
+	/**
+	 * Equips a player with default hub items.
+	 * Currently only the mode selection menu.
+	 * 
+	 * @param player The player that should receive the items.
+	 */
 	public static void equipHubItems(Player player) {
 		ItemStack mainMenuItemStack = new ItemStack(Material.NETHER_STAR);
 		ItemMeta mainMenuItemMeta = mainMenuItemStack.getItemMeta();
@@ -339,6 +389,15 @@ public class CharacterManager {
 		player.getInventory().setItem(4, mainMenuItemStack);
 	}
 	
+	/**
+	 * Equips a player with default mmorpg character items.
+	 * Contains quest tracker, main menu, minimap, trashcan and selected tabard.
+	 * 
+	 * @param player The player that should receive the items.
+	 * 
+	 * @see MenuUtils#setTrashcan(org.bukkit.inventory.Inventory, int...)
+	 * @see TabardMenu#equipSelectedTabard(Player)
+	 */
 	public static void equipCharacterItems(Player player) {
 		ItemStack trackerItemStack = new ItemStack(Material.COMPASS);
 		ItemMeta trackerItemMeta = trackerItemStack.getItemMeta();

@@ -24,6 +24,13 @@ import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * A player guild loaded from a config file.
+ * Also contains static methods for managing all guilds.
+ * TODO Document me.
+ * 
+ * @author Wauzmons
+ */
 public class WauzPlayerGuild {
 	
 	private static Map<String, WauzPlayerGuild> guildMap = new HashMap<>();
@@ -424,8 +431,9 @@ public class WauzPlayerGuild {
 
 	public void setGuildDescription(Player player, String guildDescription) {
 		this.guildDescription = guildDescription;
-		if(player != null)
+		if(player != null) {
 			sendMessageToGuildMembers(ChatColor.GREEN + player.getName() + " set the guild MotD to: " + guildDescription);
+		}
 	}
 
 	public ItemStack getGuildTabard() {
@@ -434,8 +442,9 @@ public class WauzPlayerGuild {
 
 	public void setGuildTabard(Player player, ItemStack guildTabard) {
 		this.guildTabard = guildTabard;
-		if(player != null)
+		if(player != null) {
 			sendMessageToGuildMembers(ChatColor.GREEN + player.getName() + " changed the guild tabard!");
+		}
 	}
 
 	public int getUpgradeAdditionalSlots() {

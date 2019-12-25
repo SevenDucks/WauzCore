@@ -52,7 +52,7 @@ public class WauzPlayerActionBar {
 		String locationString = "" + ChatColor.BLUE + x + " " + y + " " + z;
 		
 		if(WauzMode.isSurvival(player)) {
-			String pvspResString = playerData.getResistancePvsP() != 0 ? ChatColor.GREEN + "NoPvP " + (playerData.getResistancePvsP() * 5) + seperatorString : "";
+			String pvspResString = playerData.getResistancePvP() != 0 ? ChatColor.GREEN + "NoPvP " + (playerData.getResistancePvP() * 5) + seperatorString : "";
 			String actionBarMessage = timeString + pvspResString + locationString;
 			WauzNmsClient.nmsActionBar(player, actionBarMessage);
 			return;

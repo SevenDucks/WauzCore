@@ -434,7 +434,7 @@ public class DamageCalculator {
 	 * 
 	 * @return If the player has a pvp protection effect.
 	 * 
-	 * @see WauzPlayerData#getResistancePvsP()
+	 * @see WauzPlayerData#getResistancePvP()
 	 */
 	public static boolean hasPvPProtection(Player player) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
@@ -442,7 +442,7 @@ public class DamageCalculator {
 			return false;
 		}
 		
-		return playerData.getResistancePvsP() > 0;
+		return playerData.getResistancePvP() > 0;
 	}
 	
 	/**
@@ -489,7 +489,7 @@ public class DamageCalculator {
 			}
 			
 			long addedPvsPRes = ItemUtils.getPvPProtection(itemStack);
-			playerData.setResistancePvsP(FoodCalculator.parseEffectTicksToShort(playerData.getResistancePvsP(), addedPvsPRes));
+			playerData.setResistancePvP(FoodCalculator.parseEffectTicksToShort(playerData.getResistancePvP(), addedPvsPRes));
 			
 			itemStack.setAmount(itemStack.getAmount() - 1);
 			player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_LAND, 0);
