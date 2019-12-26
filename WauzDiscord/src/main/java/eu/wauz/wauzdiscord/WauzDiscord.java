@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzdiscord.data.DiscordConfigurator;
 
 /**
@@ -61,7 +62,7 @@ public class WauzDiscord extends JavaPlugin {
 		getLogger().info("Registered EventListeners!");
 		
 		if(DiscordConfigurator.showStartStopNotification()) {
-			shiroDiscordBot.sendEmbedFromMinecraft("The Minecraft server has been (re)started!", Color.GREEN);
+			shiroDiscordBot.sendEmbedFromMinecraft(WauzCore.getServerKey() + " has been (re)started!", Color.GREEN);
 		}
 	}
 	
@@ -75,7 +76,7 @@ public class WauzDiscord extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		if(DiscordConfigurator.showStartStopNotification()) {
-			shiroDiscordBot.sendEmbedFromMinecraft("The Minecraft server has been stopped!", Color.RED);
+			shiroDiscordBot.sendEmbedFromMinecraft(WauzCore.getServerKey() + " has been stopped!", Color.RED);
 		}
 		
 		shiroDiscordBot.stop();
