@@ -41,9 +41,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
@@ -62,7 +59,6 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.event.world.WorldInitEvent;
-import org.bukkit.inventory.Inventory;
 import org.spigotmc.event.entity.EntityMountEvent;
 
 import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent;
@@ -603,42 +599,6 @@ public class WauzListener implements Listener {
 	}
 
 // Inventory Listeners
-	
-	/**
-	 * Logs what inventory the player opened.
-	 * 
-	 * The original idea was to construct/dispose custom items in the players normal inventory.
-	 * This cannot work because the crafting inventory is only opened on client side.
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void onInventoryOpen(InventoryOpenEvent event) {
-		Player player = (Player) event.getPlayer();
-		Inventory inventory = event.getInventory();
-		WauzDebugger.log(player, "Opened Inventory  " + inventory.getType().toString());
-		if(WauzMode.isMMORPG(player) && inventory.getType().equals(InventoryType.CRAFTING)) {
-			MenuUtils.constructPlayerInventory(event);
-		}
-	}
-	
-	/**
-	 * Logs what inventory the player closed.
-	 * 
-	 * The original idea was to construct/dispose custom items in the players normal inventory.
-	 * This cannot work because the crafting inventory is only opened on client side.
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void onInventoryClose(InventoryCloseEvent event) {
-		Player player = (Player) event.getPlayer();
-		Inventory inventory = event.getInventory();
-		WauzDebugger.log(player, "Closed Inventory " + inventory.getType().toString());
-		if(WauzMode.isMMORPG(player) && inventory.getType().equals(InventoryType.CRAFTING)) {
-			MenuUtils.disposePlayerInventory(event);
-		}
-	}
 
 	/**
 	 * Lets the mapper decide how to handle the interaction with an inventory / menu.

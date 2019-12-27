@@ -17,58 +17,116 @@ import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * A helper class for checking the completion of quest phase requirements.
+ * 
+ * @author Wauzmons
+ */
 public class QuestRequirementChecker {
 	
+	/**
+	 * The player that is doing the quest.
+	 */
 	private Player player;
 	
+	/**
+	 * The quest to check requirements for.
+	 */
 	private WauzQuest quest;
 	
+	/**
+	 * The quest phase to check requirements for.
+	 */
 	private int phase = 1;
 	
+	/**
+	 * The requirements, how they would appear on an item.
+	 */
 	private List<String> itemStackLores;
 	
+	/**
+	 * The requirements, how they would appear in the sidebar.
+	 */
 	private List<String> objectiveLores;
 	
+	/**
+	 * The location of the next objective for the quest tracker.
+	 */
 	private String trackerLocationString;
 	
+	/**
+	 * The name of the next objective for the quest tracker.
+	 */
 	private String trackerName;
 	
+	/**
+	 * The item remover to collect quest items.
+	 */
 	private InventoryItemRemover itemRemover;
 	
+	/**
+	 * Initializes a new quest requirement checker.
+	 * 
+	 * @param player The player that is doing the quest.
+	 * @param quest The quest to check requirements for.
+	 * @param phase The quest phase to check requirements for.
+	 */
 	public QuestRequirementChecker(Player player, WauzQuest quest, int phase) {
 		this.player = player;
 		this.quest = quest;
 		this.phase = phase;
 	}
 	
+	/**
+	 * @return The requirements, how they would appear on an item.
+	 */
 	public List<String> getItemStackLores() {
 		execute(false);
 		return itemStackLores;
 	}
 	
+	/**
+	 * @return The requirements, without current progress, how they would appear on an item.
+	 */
 	public List<String> getItemStackLoresUnaccepted() {
 		execute(true);
 		return itemStackLores;
 	}
 	
+	/**
+	 * Generates a list of a quest and its objectives, to show in the sidebar.
+	 * 
+	 * @param questMargin The empty space above the title.
+	 * @param questColor The color of the quest type.
+	 * 
+	 * @return The list of quest objectives.
+	 */
 	public List<String> getObjectiveLores(String questMargin, ChatColor questColor) {
 		List<String> questObjectives = new ArrayList<>();
 		questObjectives.add(questMargin);
 		questObjectives.add(questColor + UnicodeUtils.ICON_BULLET + " " + ChatColor.WHITE + quest.getDisplayName());
 		
-		if(!execute(false))
+		if(!execute(false)) {
 			questObjectives.addAll(objectiveLores);
-		else if(!PlayerConfigurator.getHideCompletedQuestsForCharacter(player))
+		}
+		else if(!PlayerConfigurator.getHideCompletedQuestsForCharacter(player)) {
 			questObjectives.add(ChatColor.GREEN + "  > " + ChatColor.WHITE + "Talk to " + quest.getQuestName() + " " + quest.getCoordinates());
-		else
+		}
+		else {
 			return new ArrayList<>();
-		
+		}
 		return questObjectives;
 	}
 	
+	/**
+	 * Tracks the current quest objective, or the questgiver, if the quest hasn't started yet.
+	 * 
+	 * @see PlayerConfigurator#setTrackerDestination(Player, Location, String)
+	 */
 	public void trackQuestObjective() {
-		if(phase > 0)
+		if(phase > 0) {
 			execute(false);
+		}
 		else {
 			trackerLocationString = quest.getCoordinates();
 			trackerName = quest.getQuestName();
@@ -98,14 +156,26 @@ public class QuestRequirementChecker {
 		}
 	}
 	
+	/**
+	 * Checks the requirements and hands in the quest items, if all requirements were met.
+	 * 
+	 * @return If the quest phase is completed.
+	 */
 	public boolean tryToHandInQuest() {
 		boolean success = execute(false);
-		if(success)
+		if(success) {
 			itemRemover.execute();
-		
+		}
 		return success;
 	}
 	
+	/**
+	 * Checks the requirements of the quest and creates corresponding tracker locations and lore.
+	 * 
+	 * @param onlyObjectives If only objectives and no progrss should appear in the lore.
+	 * 
+	 * @return If the quest phase is completed.
+	 */
 	private boolean execute(boolean onlyObjectives) {
 		int requirementAmount = quest.getRequirementAmount(phase);
 		int fulfilledAmount = 0;
@@ -117,26 +187,25 @@ public class QuestRequirementChecker {
 		
 		itemRemover = new InventoryItemRemover(player.getInventory());
 		
-		
-		
 		for(int requirement = requirementAmount; requirement > 0; requirement--) {		
 			String itemName = quest.getRequirementNeededItemName(phase, requirement);
 			String itemCoordinates = quest.getRequirementNeededItemCoordinates(phase, requirement);
 			itemStackLores.add(ChatColor.GRAY + "Collect " + itemName + " around " + itemCoordinates);
 			
-			if(onlyObjectives)
+			if(onlyObjectives) {
 				continue;
-				
-				
+			}
 				
 			int requiredAmount = quest.getRequirementNeededItemAmount(phase, requirement);
 			int collectedAmount = 0;
 			ChatColor finished = ChatColor.RED;
 			
 			itemRemover.addItemNameToRemove(itemName, requiredAmount);
-			for(ItemStack itemStack : player.getInventory().getContents())
-				if((itemStack != null) && ItemUtils.isQuestItem(itemStack) && ItemUtils.isSpecificItem(itemStack, itemName))
+			for(ItemStack itemStack : player.getInventory().getContents()) {
+				if((itemStack != null) && ItemUtils.isQuestItem(itemStack) && ItemUtils.isSpecificItem(itemStack, itemName)) {
 					collectedAmount += itemStack.getAmount();
+				}
+			}
 			
 			if(collectedAmount >= requiredAmount) {
 				fulfilledAmount++;
@@ -150,8 +219,9 @@ public class QuestRequirementChecker {
 			
 			itemStackLores.add(finished + "Amount: " + collectedAmount + " / " + requiredAmount);
 			objectiveLores.add(finished + "  > " + ChatColor.WHITE + collectedAmount + " / " + requiredAmount + " " + itemName);
-			if(requirement > 1)
+			if(requirement > 1) {
 				itemStackLores.add("");
+			}
 		}
 		
 		boolean success = fulfilledAmount == requirementAmount;

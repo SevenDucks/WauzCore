@@ -32,7 +32,6 @@ import net.md_5.bungee.api.ChatColor;
 
 /**
  * The character manager is used to login/out characters and manage their data.
- * TODO Remove stuff already done by the inventory converter.
  * 
  * @author Wauzmons
  */
