@@ -2,6 +2,7 @@ package eu.wauz.wauzdiscord;
 
 import java.awt.Color;
 
+import org.apache.logging.log4j.LogManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
@@ -27,12 +28,18 @@ public class WauzDiscord extends JavaPlugin {
 	 * The Discord bot running on this server.
 	 */
 	private static ShiroDiscordBot shiroDiscordBot;
+	
+	/**
+	 * The filter used to listen to log records from Bukkit.
+	 */
+	private WauzLogFilter logFilter;
 
 	/**
 	 * Gets called when the server is started.
 	 * 1. Creates a new Discord bot instance and logs it in.
 	 * 2. Registers the event listeners.
-	 * 3. Sends a start message to Discord, if enabled.
+	 * 3. Adds the log filter.
+	 * 4. Sends a start message to Discord, if enabled.
 	 * 
 	 * @see ShiroDiscordBot
 	 * @see WauzDiscordListener
@@ -61,8 +68,12 @@ public class WauzDiscord extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new WauzDiscordListener(), this);
 		getLogger().info("Registered EventListeners!");
 		
+		logFilter = new WauzLogFilter();
+		((org.apache.logging.log4j.core.Logger) LogManager.getRootLogger()).addFilter(logFilter);
+		getLogger().info("Added LogFilter!");
+		
 		if(DiscordConfigurator.showStartStopNotification()) {
-			shiroDiscordBot.sendEmbedFromMinecraft(WauzCore.getServerKey() + " has been (re)started!", Color.GREEN);
+			shiroDiscordBot.sendEmbedFromMinecraft(":white_check_mark: " + WauzCore.getServerKey() + " has been started!", Color.GREEN, false);
 		}
 	}
 	
@@ -70,15 +81,17 @@ public class WauzDiscord extends JavaPlugin {
 	 * Gets called when the server is stopped.
 	 * Logs out and stops the Discord bot and sends a Discord notification, if enabled.
 	 * 
+	 * @see WauzLogHandler#close()
 	 * @see ShiroDiscordBot#stop()
 	 * @see DiscordConfigurator#showStartStopNotification()
 	 */
 	@Override
 	public void onDisable() {
 		if(DiscordConfigurator.showStartStopNotification()) {
-			shiroDiscordBot.sendEmbedFromMinecraft(WauzCore.getServerKey() + " has been stopped!", Color.RED);
+			shiroDiscordBot.sendEmbedFromMinecraft(":octagonal_sign: " + WauzCore.getServerKey() + " has been stopped!", Color.RED, false);
 		}
 		
+		logFilter.close();
 		shiroDiscordBot.stop();
 		getLogger().info("Shiro's taking a nap!");
 	}
@@ -90,7 +103,7 @@ public class WauzDiscord extends JavaPlugin {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("discord") && args.length >= 1) {
-			shiroDiscordBot.sendMessageFromMinecraft(StringUtils.join(args, " "));
+			shiroDiscordBot.sendMessageFromMinecraft(StringUtils.join(args, " "), false);
 		}
 		return true;
 	}

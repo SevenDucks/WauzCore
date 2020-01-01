@@ -56,7 +56,7 @@
 		<dependency>
 			<groupId>eu.wauz</groupId>
 			<artifactId>WauzCore</artifactId>
-			<version>Pallasite.8.Pre</version>
+			<version>Pallasite.11.Pre</version>
 		</dependency>
 		
 		

@@ -1,0 +1,246 @@
+package eu.wauz.wauzdiscord;
+
+import java.awt.Color;
+import java.text.SimpleDateFormat;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.core.Filter;
+import org.apache.logging.log4j.core.LogEvent;
+import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.message.Message;
+
+import eu.wauz.wauzcore.WauzCore;
+
+/**
+ * Listens to log records from Bukkit, to forward them to Discord.
+ * 
+ * @author Wauzmons
+ */
+public class WauzLogFilter implements Filter {
+
+	/**
+	 * If the filter should accept log records.
+	 */
+	private boolean isOpen = true;
+	
+	/**
+	 * A date format for displaying log timestamps.
+	 */
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
+	/**
+	 * Creates a log filter for all levels above trace.
+	 * Sends a notification to the log channel.
+	 */
+	public WauzLogFilter() {
+		String embeddedMessage = ":speaker: Logging for " + WauzCore.getServerKey() + " is now active!";
+		WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(embeddedMessage, Color.BLUE, true);
+	}
+	
+	/**
+	 * Forwards the received log record to Discord.
+	 * 
+	 * @param logEvent The log record from Bukkit.
+	 */
+	@Override
+	public Result filter(LogEvent logEvent) {
+		String message = logEvent.getMessage().getFormattedMessage();
+		if(isOpen && !StringUtils.contains(message, "players online:")) {
+			String date = dateFormat.format(logEvent.getTimeMillis());
+			String level = " [" + logEvent.getLevel().name() + "] ";
+			WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft(date + level + message, true);
+		}
+		return null;
+	}
+	
+	/**
+	 * Closes the filter, to deny any log records from now on.
+	 * Sends a notification to the log channel.
+	 */
+	public void close() {
+		isOpen = false;
+		
+		String embeddedMessage = ":mute: Logging for " + WauzCore.getServerKey() + " is now inactive!";
+		WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(embeddedMessage, Color.ORANGE, true);
+	}
+	
+// Everything starting from here is useless.
+	
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public State getState() {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public void initialize() {
+		
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public boolean isStarted() {
+		return false;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public boolean isStopped() {
+		return false;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public void start() {
+		
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public void stop() {
+		
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3, Object... arg4) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3, Object arg4) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, Object arg3, Throwable arg4) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, Message arg3, Throwable arg4) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3, Object arg4, Object arg5) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3, Object arg4, Object arg5, Object arg6) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3, Object arg4, Object arg5, Object arg6,
+			Object arg7) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3, Object arg4, Object arg5, Object arg6,
+			Object arg7, Object arg8) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3, Object arg4, Object arg5, Object arg6,
+			Object arg7, Object arg8, Object arg9) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3, Object arg4, Object arg5, Object arg6,
+			Object arg7, Object arg8, Object arg9, Object arg10) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3, Object arg4, Object arg5, Object arg6,
+			Object arg7, Object arg8, Object arg9, Object arg10, Object arg11) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3, Object arg4, Object arg5, Object arg6,
+			Object arg7, Object arg8, Object arg9, Object arg10, Object arg11, Object arg12) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result filter(Logger arg0, Level arg1, Marker arg2, String arg3, Object arg4, Object arg5, Object arg6,
+			Object arg7, Object arg8, Object arg9, Object arg10, Object arg11, Object arg12, Object arg13) {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result getOnMatch() {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public Result getOnMismatch() {
+		return null;
+	}
+
+}

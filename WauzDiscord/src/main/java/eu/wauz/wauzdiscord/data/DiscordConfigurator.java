@@ -63,6 +63,13 @@ public class DiscordConfigurator extends GlobalConfigurationUtils {
 	}
 	
 	/**
+	 * @return The ID of the logging channel for the server log.
+	 */
+	public static long getLoggingChannelId() {
+		return mainConfigGetLong("Discord", "channels.logging");
+	}
+	
+	/**
 	 * @return The ID of the bots channel for commands.
 	 */
 	public static long getBotsChannelId() {
@@ -90,6 +97,13 @@ public class DiscordConfigurator extends GlobalConfigurationUtils {
 	 */
 	public static boolean showJoinLeaveNotification() {
 		return mainConfigGetBoolean("Discord", "notifications.joinleave"); 
+	}
+	
+	/**
+	 * @return If Discord notifications about player deaths should be shown.
+	 */
+	public static boolean showDeathNotification() {
+		return mainConfigGetBoolean("Discord", "notifications.death");
 	}
 
 }

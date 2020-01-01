@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -11,7 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import eu.wauz.wauzdiscord.data.DiscordConfigurator;
 
 /**
- * This class listens to Bukkit events, to send join/leave messages to Discord.
+ * This class listens to Bukkit events, to send messages to Discord.
  * 
  * @author Wauzmons
  */
@@ -20,7 +21,7 @@ public class WauzDiscordListener implements Listener {
 	/**
 	 * Sends a join message to Discord, if enabled.
 	 * 
-	 * @param event
+	 * @param event The event for creating the message.
 	 * 
 	 * @see DiscordConfigurator#showJoinLeaveNotification()
 	 */
@@ -31,14 +32,14 @@ public class WauzDiscordListener implements Listener {
         }
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
-			WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft("[+] " + player.getName() + " joined the game!");
+			WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft("[+] " + player.getName() + " joined the game!", false);
 		}
 	}
 
 	/**
 	 * Sends a leave message to Discord, if enabled.
 	 * 
-	 * @param event
+	 * @param event The event for creating the message.
 	 * 
 	 * @see DiscordConfigurator#showJoinLeaveNotification()
 	 */
@@ -46,7 +47,22 @@ public class WauzDiscordListener implements Listener {
 	public void onLogout(PlayerQuitEvent event) {
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
-			WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft("[-] " + player.getName() + " left the game!");
+			WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft("[-] " + player.getName() + " left the game!", false);
+		}
+	}
+	
+	/**
+	 * Sends a death message to Discord, if enabled.
+	 * 
+	 * @param event The event for creating the message.
+	 * 
+	 * @see DiscordConfigurator#showDeathNotification()
+	 */
+	@EventHandler(priority = EventPriority.LOW)
+	public void onDeath(PlayerDeathEvent event) {
+		if(DiscordConfigurator.showDeathNotification()) {
+			Player player = event.getEntity();
+			WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft("[x] " + player.getName() + " was killed!", false);
 		}
 	}
 	

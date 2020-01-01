@@ -71,6 +71,11 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	private TextChannel generalChannel;
 	
 	/**
+	 * The logging channel for the server log.
+	 */
+	private TextChannel loggingChannel;
+	
+	/**
 	 * The bots channel for commands.
 	 */
 	private TextChannel botsChannel;
@@ -153,6 +158,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			jda.addEventListener(this);
 			guild = jda.getGuildById(DiscordConfigurator.getGuildId());
 			generalChannel = jda.getTextChannelById(DiscordConfigurator.getGeneralChannelId());
+			loggingChannel = jda.getTextChannelById(DiscordConfigurator.getLoggingChannelId());
 			botsChannel = jda.getTextChannelById(DiscordConfigurator.getBotsChannelId());
 			audioChannel = guild.getVoiceChannelById(DiscordConfigurator.getAudioChannelId());
 			audioManager = guild.getAudioManager();
@@ -168,17 +174,23 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	 */
 	public void stop() {
 		jda.getPresence().setStatus(OnlineStatus.OFFLINE);
-		jda.shutdownNow();
+		jda.shutdown();
 	}
 	
 	/**
 	 * Sends a message that will not be written into the Minecraft chat.
 	 * The Minecraft prefix prevents infinite loops between Minecraft and Discord.
 	 * 
-	 * @param message
+	 * @param message The content of the message.
+	 * @param inLogChannel If the message should be send to the log channel.
 	 */
-	public void sendMessageFromMinecraft(String message) {
-		generalChannel.sendMessage("**Minecraft**: `" + ChatColor.stripColor(message) + "`").queue();
+	public void sendMessageFromMinecraft(String message, boolean inLogChannel) {
+		if(inLogChannel) {
+			loggingChannel.sendMessage("`" + ChatColor.stripColor(message) + "`").queue();
+		}
+		else {
+			generalChannel.sendMessage("**Minecraft**: `" + ChatColor.stripColor(message) + "`").queue();
+		}
 	}
 	
 	/**
@@ -186,12 +198,19 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	 * 
 	 * @param title The title of the embed. 
 	 * @param color The color of the embed.
+	 * @param inLogChannel If the message should be send to the log channel.
 	 */
-	public void sendEmbedFromMinecraft(String title, Color color) {
+	public void sendEmbedFromMinecraft(String title, Color color, boolean inLogChannel) {
 		EmbedBuilder embedBuilder = new EmbedBuilder();
 		embedBuilder.setTitle(title);
 		embedBuilder.setColor(color);
-		generalChannel.sendMessage(embedBuilder.build()).queue();
+		
+		if(inLogChannel) {
+			loggingChannel.sendMessage(embedBuilder.build()).queue();
+		}
+		else {
+			generalChannel.sendMessage(embedBuilder.build()).queue();
+		}
 	}
 
 	/**
@@ -220,61 +239,64 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			if(!StringUtils.startsWith(message, "shiro")) {
 				return;
 			}
-			if(StringUtils.startsWith(message, "shiro hentai") && WauzCore.IP.equals(MAIN_SERVER_IP)) {
+			if(StringUtils.startsWith(message, "shiro hentai") && WauzCore.IP_AND_PORT.equals(MAIN_SERVER_IP)) {
 				channel.sendMessage(getHentaiString(channel, message)).queue();
 				return;
 			}
-			if(!channel.getId().equals(botsChannel.getId()) && WauzCore.IP.equals(MAIN_SERVER_IP)) {
+			if(!channel.getId().equals(botsChannel.getId()) && WauzCore.IP_AND_PORT.equals(MAIN_SERVER_IP)) {
 				channel.sendMessage("No! Try this again here: " + botsChannel.getAsMention()).queue();
 				return;
 			}
 			if(StringUtils.startsWith(message, "shiro servers") && isMaster(id)) {
-				channel.sendMessage("`" + WauzCore.getServerKey() + "` `" + WauzCore.IP + "`").queue();
+				channel.sendMessage("`" + WauzCore.getServerKey() + "` `" + WauzCore.IP_AND_PORT + "`").queue();
 				return;
 			}
-			if(StringUtils.startsWith(message, "shiro command " + WauzCore.IP + " ") && isMaster(id)) {
+			if(StringUtils.startsWith(message, "shiro command " + WauzCore.IP_AND_PORT + " ") && isMaster(id)) {
 				channel.sendMessage(executeCommand(message)).queue();
 				return;
 			}
-			if(!WauzCore.IP.equals(MAIN_SERVER_IP)) {
+			if(!WauzCore.IP_AND_PORT.equals(MAIN_SERVER_IP)) {
 				return;
 			}
 			
 // Main Server Commands
 				
-			if(StringUtils.startsWith(message, "shiro help"))
+			if(StringUtils.startsWith(message, "shiro help")) {
 				channel.sendMessage(getHelpString()).queue();
-				
-			else if(StringUtils.startsWith(message, "shiro profile "))
+			}
+			else if(StringUtils.startsWith(message, "shiro profile ")) {
 				channel.sendMessage(getProfileString(message)).queue();
+			}
 			
 // Music Player
 			
-			else if(StringUtils.startsWith(message, "shiro play "))
+			else if(StringUtils.startsWith(message, "shiro play ")) {
 				playAudio(message, channel, false);
-			
-			else if(StringUtils.startsWith(message, "shiro playnow "))
+			}
+			else if(StringUtils.startsWith(message, "shiro playnow ")) {
 				playAudio(message, channel, true);
-			
-			else if(StringUtils.startsWith(message, "shiro skip"))
+			}
+			else if(StringUtils.startsWith(message, "shiro skip")) {
 				skipAudio();
-			
-			else if(StringUtils.startsWith(message, "shiro stop"))
+			}
+			else if(StringUtils.startsWith(message, "shiro stop")) {
 				leaveAudioChannel();
+			}
 			
 // Fun Stuff
 			
-			else if(StringUtils.containsAny(message.toLowerCase(), "marc", "clara", "clarc", "gay", "gae"))
+			else if(StringUtils.containsAny(message.toLowerCase(), "marc", "clara", "clarc", "gay", "gae")) {
 				channel.sendMessage("Marc is really, really gay!").queue();
-			
-			else if(StringUtils.containsAny(message.toLowerCase(), "good girl", "pat"))
+			}
+			else if(StringUtils.containsAny(message.toLowerCase(), "good girl", "pat")) {
 				channel.sendMessage(":3").queue();
-			
-			else if(StringUtils.containsAny(message.toLowerCase(), "attack", "atacc", "stand"))
+			}
+			else if(StringUtils.containsAny(message.toLowerCase(), "attack", "atacc", "stand")) {
 				channel.sendMessage("ORAORAORAORAORA").queue();
-			
-			else if(StringUtils.containsAny(message.toLowerCase(), "die", "baka", "fuck"))
+			}
+			else if(StringUtils.containsAny(message.toLowerCase(), "die", "baka", "fuck")) {
 				channel.sendMessage("Baka!").queue();
+			}
 		}
 		catch(Exception e) {
 			WauzDebugger.catchException(getClass(), e);
@@ -299,11 +321,11 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	 */
 	private String executeCommand(String message) {
 		try {
-			String command = StringUtils.substringAfter(message, "shiro command " + WauzCore.IP + " ");
+			String command = StringUtils.substringAfter(message, "shiro command " + WauzCore.IP_AND_PORT + " ");
 			Bukkit.getScheduler().callSyncMethod(WauzDiscord.getInstance(),
 					() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
 			
-			return "Your command was executed on " + WauzCore.IP + ", my master!";
+			return "Your command was executed on " + WauzCore.IP_AND_PORT + ", my master!";
 		}
 		catch(Exception e) {
 			return ERROR_MESSAGE;

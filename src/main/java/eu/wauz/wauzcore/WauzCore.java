@@ -61,6 +61,11 @@ public class WauzCore extends JavaPlugin {
 	 * The public IP address of the Minecraft server.
 	 */
 	public static final String IP = Bukkit.getServer().getIp();
+	
+	/**
+	 * The public IP address and port of the Minecraft server.
+	 */
+	public static final String IP_AND_PORT = Bukkit.getServer().getIp() + ":" + Bukkit.getServer().getPort();
 
 	/**
 	 * The instance of this class, that is created by the Minecraft server.
