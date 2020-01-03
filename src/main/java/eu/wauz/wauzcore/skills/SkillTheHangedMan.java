@@ -17,6 +17,8 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.AchievementType;
 
 /**
  * A skill, that can be executed by a player.
@@ -96,6 +98,7 @@ public class SkillTheHangedMan implements WauzPlayerSkill {
 				long money = PlayerConfigurator.getCharacterCoins(player);
 				long added = (int) ((random.nextInt(21) + 10) * PlayerPassiveSkillConfigurator.getTradingFloat(player));
 				PlayerConfigurator.setCharacterCoins(player, money + added);
+				AchievementTracker.addProgress(player, AchievementType.EARN_COINS, added);
 				player.sendMessage(ChatColor.LIGHT_PURPLE + "You stole " + added + " COINS from the enemy!");
 				break;
 			case 2:

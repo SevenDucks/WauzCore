@@ -29,6 +29,8 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.AchievementType;
 import eu.wauz.wauzcore.system.api.WebServerManager;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
@@ -160,6 +162,21 @@ public class WauzCore extends JavaPlugin {
 				}
 			}
 		}, 200, 100);
+		
+		/**
+		 * Every 3 minutes
+		 */
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			
+			@Override
+			public void run() {
+				for(Player player : getRegisteredActivePlayers()) {
+					if(WauzMode.isMMORPG(player) && WauzPlayerDataPool.isCharacterSelected(player)) {
+						AchievementTracker.addProgress(player, AchievementType.PLAY_HOURS, 0.05);
+					}
+				}
+			}
+		}, 200, 3600);
 		
 		/**
 		 * Every 5 minutes

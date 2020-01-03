@@ -15,6 +15,8 @@ import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.AchievementType;
 import eu.wauz.wauzcore.system.util.Chance;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
@@ -52,6 +54,9 @@ public class MobEventMapper {
 		
 		if(mobOwner != null) {
 			PetOverviewMenu.removeOwner(mobId, mobOwner);
+		}
+		if(SkillUtils.isValidAttackTarget(entity) && event.getKiller() instanceof Player) {
+			AchievementTracker.addProgress((Player) event.getKiller(), AchievementType.KILL_ENEMIES, 1);
 		}
 		if(StringUtils.contains(event.getEntity().getCustomName(), "Strongbox")) {
 			Strongbox.destroy(event);

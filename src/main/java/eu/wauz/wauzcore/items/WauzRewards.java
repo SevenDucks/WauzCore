@@ -15,6 +15,8 @@ import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.AchievementType;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import net.md_5.bungee.api.ChatColor;
@@ -45,6 +47,7 @@ public class WauzRewards {
 		}
 
     	PlayerConfigurator.setCharacterCoins(player, money + amount);
+    	AchievementTracker.addProgress(player, AchievementType.EARN_COINS, amount);
     	player.sendMessage(ChatColor.GOLD + reward + "You claimed your daily " + amount + " coins!");	
 	}
 	

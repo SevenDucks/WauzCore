@@ -26,6 +26,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.achievements.AchievementType;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
@@ -107,7 +108,7 @@ public class WauzMenu implements WauzInventory {
 		questlogItemMeta.setDisplayName(ChatColor.GOLD + "Questlog");
 		List<String> questlogLores = new ArrayList<String>();
 		questlogLores.add(ChatColor.DARK_PURPLE + "Completed Quests: " + ChatColor.YELLOW
-			+ formatter.format(PlayerConfigurator.getCharacterCompletedQuests(player)));
+			+ formatter.format(PlayerConfigurator.getCharacterAchievementProgress(player, AchievementType.COMPLETE_QUESTS)));
 		questlogLores.add("");
 		questlogLores.add(ChatColor.GRAY + "View or Cancel your running Quests.");
 		questlogLores.add(ChatColor.GRAY + "Use the Questfinder to locate Questgivers.");

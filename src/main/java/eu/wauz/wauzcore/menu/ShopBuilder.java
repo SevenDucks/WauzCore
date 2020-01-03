@@ -23,6 +23,8 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.AchievementType;
 import net.md_5.bungee.api.ChatColor;
 
 public class ShopBuilder implements WauzInventory {
@@ -212,6 +214,7 @@ public class ShopBuilder implements WauzInventory {
 		WauzDebugger.log(player, "Item-Price: " + price + " (" + priceOld + ")");
 		
 		PlayerConfigurator.setCharacterCoins(player, money + price);
+		AchievementTracker.addProgress(player, AchievementType.EARN_COINS, price);
 		itemToSell.setAmount(0);
 		
 		WauzPlayerScoreboard.scheduleScoreboard(player);

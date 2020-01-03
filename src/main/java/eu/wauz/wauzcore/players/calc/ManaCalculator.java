@@ -5,6 +5,8 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.AchievementType;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -85,6 +87,7 @@ public class ManaCalculator {
 			return false;
 		}
 		playerData.setMana(playerData.getMana() - amount);
+		AchievementTracker.addProgress(player, AchievementType.USE_MANA, amount);
 		WauzPlayerActionBar.update(player);
 		return true;
 	}

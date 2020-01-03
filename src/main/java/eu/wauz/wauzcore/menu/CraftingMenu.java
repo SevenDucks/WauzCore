@@ -25,6 +25,8 @@ import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.AchievementType;
 import net.md_5.bungee.api.ChatColor;
 
 public class CraftingMenu implements WauzInventory {
@@ -252,6 +254,7 @@ public class CraftingMenu implements WauzInventory {
 		if(increasesLevel)
 			PlayerPassiveSkillConfigurator.increaseCraftingSkill(player);
 		player.getInventory().addItem(itemStack);
+		AchievementTracker.addProgress(player, AchievementType.CRAFT_ITEMS, 1);
 		
 		listRecipes(player, getIndex(player.getOpenInventory()));
 	}

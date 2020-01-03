@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.AchievementType;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
 /**
@@ -300,6 +302,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	public static void levelUpCharacter(Player player) {
 		playerConfigSet(player, "stats.points.total", PlayerPassiveSkillConfigurator.getTotalStatpoints(player) + 2, true);
 		playerConfigSet(player, "level", player.getLevel(), true);
+		AchievementTracker.addProgress(player, AchievementType.GAIN_LEVELS, 1);
 	}
 	
 	/**
@@ -401,6 +404,27 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 		else {
 			playerConfigSet(player, currency, amount, true);
 		}
+	}
+	
+// Achievements
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param type The type of the generic achievement.
+	 * 
+	 * @return The progress of the generic achievement.
+	 */
+	public static double getCharacterAchievementProgress(Player player, AchievementType type) {
+		return playerConfigGetDouble(player, "achievements.generic." + type.getKey(), true);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param type The type of the generic achievement.
+	 * @param progress The progress of the generic achievement.
+	 */
+	public static void setCharacterAchievementProgress(Player player, AchievementType type, double progress) {
+		playerConfigSet(player, "achievements.generic." + type.getKey(), progress, true);
 	}
 	
 // Cooldowns
@@ -550,24 +574,6 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	}
 	
 // Quests
-	
-	/**
-	 * @param player The player that owns the config file.
-	 * 
-	 * @return The amouunt of completed quests.
-	 */
-	public static long getCharacterCompletedQuests(Player player) {
-		return playerConfigGetLong(player, "quest.completed", true);
-	}
-	
-	/**
-	 * Increses the amount of completed quests by 1.
-	 * 
-	 * @param player The player that owns the config file.
-	 */
-	public static void addCharacterCompletedQuests(Player player) {
-		playerConfigSet(player, "quest.completed", getCharacterCompletedQuests(player) + 1, true);
-	}
 	
 	/**
 	 * @param player The player that owns the config file.
