@@ -287,6 +287,11 @@ public class WauzPlayerScoreboard {
 	 * @param scoreboard The scoreboard that should receive the player teams.
 	 */
 	private static void addScoreboardTeams(Player player, Scoreboard scoreboard) {
+		WauzPlayerData ownData = WauzPlayerDataPool.getPlayer(player);
+		if(ownData == null) {
+			return;
+		}
+		
 		for(Player online : Bukkit.getOnlinePlayers()) {
 			try {
 				Team team = scoreboard.getTeam(online.getName());
@@ -303,7 +308,6 @@ public class WauzPlayerScoreboard {
 				}
 				
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(online);
-				WauzPlayerData ownData = WauzPlayerDataPool.getPlayer(player);
 				if(playerData == null) {
 					team.setSuffix(ChatColor.RED + " " + online.getHealth() + " / 20 " + UnicodeUtils.ICON_HEART);
 				}

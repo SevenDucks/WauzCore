@@ -1,0 +1,256 @@
+generic:
+  kills1:
+    name: First Blood
+    type: KILL_ENEMIES
+    goal: 1
+    reward: 1
+  kills2:
+    name: Hundred Man Slayer
+    type: KILL_ENEMIES
+    goal: 100
+    reward: 3
+  kills3:
+    name: Multikill
+    type: KILL_ENEMIES
+    goal: 5000
+    reward: 5
+  kills4:
+    name: One Man Army
+    type: KILL_ENEMIES
+    goal: 25000
+    reward: 10
+  kills5:
+    name: Deathbringer
+    type: KILL_ENEMIES
+    goal: 150000
+    reward: 50
+  kills6:
+    name: Extinction
+    type: KILL_ENEMIES
+    goal: 750000
+    reward: 200
+  identifies1:
+    name: Look What I Found
+    type: IDENTIFY_ITEMS
+    goal: 1
+    reward: 1
+  identifies2:
+    name: Growing Collection
+    type: IDENTIFY_ITEMS
+    goal: 25
+    reward: 3
+  identifies3:
+    name: Hoarder
+    type: IDENTIFY_ITEMS
+    goal: 300
+    reward: 5
+  identifies4:
+    name: Treasure Chest
+    type: IDENTIFY_ITEMS
+    goal: 1500
+    reward: 10
+  identifies5:
+    name: Treasure Chamber
+    type: IDENTIFY_ITEMS
+    goal: 20000
+    reward: 50
+  identifies6:
+    name: Treasure Island
+    type: IDENTIFY_ITEMS
+    goal: 80000
+    reward: 200
+  mana1:
+    name: You Are A Wizard Harry
+    type: USE_MANA
+    goal: 1
+    reward: 1
+  mana2:
+    name: Caster
+    type: USE_MANA
+    goal: 150
+    reward: 3
+  mana3:
+    name: Sorcerer
+    type: USE_MANA
+    goal: 8000
+    reward: 5
+  mana4:
+    name: The Grey Wizard
+    type: USE_MANA
+    goal: 40000
+    reward: 10
+  mana5:
+    name: The White Wizard
+    type: USE_MANA
+    goal: 200000
+    reward: 50
+  mana6:
+    name: The Lizard Wizard
+    type: USE_MANA
+    goal: 1000000
+    reward: 200
+  quests1:
+    name: A Simple Re-Quest
+    type: COMPLETE_QUESTS
+    goal: 1
+    reward: 1
+  quests2:
+    name: Mercenary
+    type: COMPLETE_QUESTS
+    goal: 10
+    reward: 3
+  quests3:
+    name: Dirty Deeds
+    type: COMPLETE_QUESTS
+    goal: 100
+    reward: 8
+  quests4:
+    name: Questlord
+    type: COMPLETE_QUESTS
+    goal: 1000
+    reward: 40
+  quests5:
+    name: For The King
+    type: COMPLETE_QUESTS
+    goal: 10000
+    reward: 200
+  crafts1:
+    name: Homemade
+    type: CRAFT_ITEMS
+    goal: 1
+    reward: 1
+  crafts2:
+    name: Do It Yourself
+    type: CRAFT_ITEMS
+    goal: 15
+    reward: 3
+  crafts3:
+    name: Craftsman
+    type: CRAFT_ITEMS
+    goal: 200
+    reward: 8
+  crafts4:
+    name: Shaper
+    type: CRAFT_ITEMS
+    goal: 3000
+    reward: 40
+  crafts5:
+    name: Mass Producer
+    type: CRAFT_ITEMS
+    goal: 40000
+    reward: 200
+  pets1:
+    name: Best Friend
+    type: COLLECT_PETS
+    goal: 1
+    reward: 1
+  pets2:
+    name: Look At My Horse
+    type: COLLECT_PETS
+    goal: 15
+    reward: 3
+  pets3:
+    name: Alpha Wolf
+    type: COLLECT_PETS
+    goal: 50
+    reward: 8
+  pets4:
+    name: Crazy Cat Lady
+    type: COLLECT_PETS
+    goal: 120
+    reward: 40
+  pets5:
+    name: Gotta Catch Em All
+    type: COLLECT_PETS
+    goal: 300
+    reward: 200
+  coins1:
+    name: Spare Change
+    type: EARN_COINS
+    goal: 1000
+    reward: 1
+  coins2:
+    name: Money Boy
+    type: EARN_COINS
+    goal: 10000
+    reward: 3
+  coins3:
+    name: Shut Up And Take My Money
+    type: EARN_COINS
+    goal: 100000
+    reward: 8
+  coins4:
+    name: Millionaire
+    type: EARN_COINS
+    goal: 1000000
+    reward: 40
+  coins5:
+    name: Scrooge McDuck
+    type: EARN_COINS
+    goal: 10000000
+    reward: 200
+  playtime1:
+    name: First Time Player
+    type: PLAY_HOURS
+    goal: 1
+    reward: 1
+  playtime2:
+    name: Stone Player
+    type: PLAY_HOURS
+    goal: 3
+    reward: 2
+  playtime3:
+    name: Copper Player
+    type: PLAY_HOURS
+    goal: 10
+    reward: 4
+  playtime4:
+    name: Silver Player
+    type: PLAY_HOURS
+    goal: 25
+    reward: 8
+  playtime5:
+    name: Gold Player
+    type: PLAY_HOURS
+    goal: 75
+    reward: 20
+  playtime6:
+    name: Platinum Player
+    type: PLAY_HOURS
+    goal: 150
+    reward: 40
+  playtime7:
+    name: Diamond Player
+    type: PLAY_HOURS
+    goal: 300
+    reward: 80
+  playtime8:
+    name: Emerald Player
+    type: PLAY_HOURS
+    goal: 750
+    reward: 200
+  levels1:
+    name: Getting Started
+    type: GAIN_LEVELS
+    goal: 2
+    reward: 1
+  levels2:
+    name: Hero In Training
+    type: GAIN_LEVELS
+    goal: 5
+    reward: 5
+  levels3:
+    name: Novice
+    type: GAIN_LEVELS
+    goal: 10
+    reward: 25
+  levels4:
+    name: Adept
+    type: GAIN_LEVELS
+    goal: 20
+    reward: 50
+  levels5:
+    name: Expert
+    type: GAIN_LEVELS
+    goal: 30
+    reward: 75
