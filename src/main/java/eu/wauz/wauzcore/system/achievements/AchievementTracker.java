@@ -18,7 +18,7 @@ public class AchievementTracker {
 	 * @param type The type of the generic achievement.
 	 * @param increment How much to add to the progress.
 	 */
-	public static void addProgress(Player player, AchievementType type, double increment) {
+	public static void addProgress(Player player, WauzAchievementType type, double increment) {
 		double oldProgress = PlayerConfigurator.getCharacterAchievementProgress(player, type);
 		double newProgress = oldProgress + increment;
 		PlayerConfigurator.setCharacterAchievementProgress(player, type, newProgress);

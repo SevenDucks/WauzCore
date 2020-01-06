@@ -5,7 +5,7 @@ package eu.wauz.wauzcore.system.achievements;
  * 
  * @author Wauzmons
  */
-public enum AchievementType {
+public enum WauzAchievementType {
 	
 	/**
 	 * Achievements for killing x ememies.
@@ -62,7 +62,7 @@ public enum AchievementType {
 	 * 
 	 * @param key The key for this achievement type, used in player data configs.
 	 */
-	private AchievementType(String key) {
+	private WauzAchievementType(String key) {
 		this.key = key;
 	}
 	

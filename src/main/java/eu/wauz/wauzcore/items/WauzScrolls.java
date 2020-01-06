@@ -16,7 +16,7 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.ShopBuilder;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
-import eu.wauz.wauzcore.system.achievements.AchievementType;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 
 public class WauzScrolls {
 	
@@ -54,7 +54,7 @@ public class WauzScrolls {
 		if(isNotScroll && scrollName.contains("Scroll of Wisdom")) {
 			if(!isIdentified) {
 				WauzIdentifier.identify(event, itemName);
-				AchievementTracker.addProgress(player, AchievementType.IDENTIFY_ITEMS, 1);
+				AchievementTracker.addProgress(player, WauzAchievementType.IDENTIFY_ITEMS, 1);
 				scroll.setAmount(scroll.getAmount() - 1);
 				event.setCancelled(true);
 			}

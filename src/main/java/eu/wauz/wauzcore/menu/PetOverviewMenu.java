@@ -22,7 +22,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
-import eu.wauz.wauzcore.system.achievements.AchievementType;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
@@ -229,7 +229,7 @@ public class PetOverviewMenu implements WauzInventory {
 				PlayerConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, baseExp);
 				
 				player.sendMessage(ChatColor.GREEN + "You learned to summon " + petType + " from the Menu!");
-				AchievementTracker.addProgress(player, AchievementType.COLLECT_PETS, 1);
+				AchievementTracker.addProgress(player, WauzAchievementType.COLLECT_PETS, 1);
 				
 				if(scroll != null)
 					scroll.setAmount(scroll.getAmount() - 1);

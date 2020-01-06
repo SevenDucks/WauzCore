@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
-import eu.wauz.wauzcore.system.achievements.AchievementType;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 
 /**
  * Configurator to fetch or modify data from the Achievements.yml.
@@ -36,8 +36,8 @@ public class AchievementConfigurator extends GlobalConfigurationUtils {
 	 * 
 	 * @return The type of the achievement.
 	 */
-	public static AchievementType getType(String achievementKey) {
-		return AchievementType.valueOf(mainConfigGetString("Achievements", achievementKey + ".type"));
+	public static WauzAchievementType getType(String achievementKey) {
+		return WauzAchievementType.valueOf(mainConfigGetString("Achievements", achievementKey + ".type"));
 	}
 	
 	/**

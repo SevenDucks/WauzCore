@@ -30,7 +30,7 @@ import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
-import eu.wauz.wauzcore.system.achievements.AchievementType;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.api.WebServerManager;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
@@ -172,7 +172,7 @@ public class WauzCore extends JavaPlugin {
 			public void run() {
 				for(Player player : getRegisteredActivePlayers()) {
 					if(WauzMode.isMMORPG(player) && WauzPlayerDataPool.isCharacterSelected(player)) {
-						AchievementTracker.addProgress(player, AchievementType.PLAY_HOURS, 0.05);
+						AchievementTracker.addProgress(player, WauzAchievementType.PLAY_HOURS, 0.05);
 					}
 				}
 			}

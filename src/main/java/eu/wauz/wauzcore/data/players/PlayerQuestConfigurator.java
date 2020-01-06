@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
-import eu.wauz.wauzcore.system.achievements.AchievementType;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 
 /**
  * Configurator to fetch or modify data from the PlayerQuest.yml files.
@@ -52,7 +52,7 @@ public class PlayerQuestConfigurator extends PlayerConfigurationUtils {
 	 */
 	public static void addQuestCompletions(Player player, String quest) {
 		playerQuestConfigSet(player, quest, "completions", getQuestCompletions(player, quest) + 1);
-		AchievementTracker.addProgress(player, AchievementType.COMPLETE_QUESTS, 1);
+		AchievementTracker.addProgress(player, WauzAchievementType.COMPLETE_QUESTS, 1);
 	}
 	
 	/**

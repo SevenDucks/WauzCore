@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
-import eu.wauz.wauzcore.system.achievements.AchievementType;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
 /**
@@ -302,7 +302,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	public static void levelUpCharacter(Player player) {
 		playerConfigSet(player, "stats.points.total", PlayerPassiveSkillConfigurator.getTotalStatpoints(player) + 2, true);
 		playerConfigSet(player, "level", player.getLevel(), true);
-		AchievementTracker.addProgress(player, AchievementType.GAIN_LEVELS, 1);
+		AchievementTracker.addProgress(player, WauzAchievementType.GAIN_LEVELS, 1);
 	}
 	
 	/**
@@ -410,11 +410,29 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	
 	/**
 	 * @param player The player that owns the config file.
+	 * 
+	 * @return The amount of achievements the player earned.
+	 */
+	public static int getCharacterCompletedAchievements(Player player) {
+		return playerConfigGetInt(player, "achievements.completed", true);
+	}
+	
+	/**
+	 * Adds 1 to the amount of achievements the player earned.
+	 * 
+	 * @param player The player that owns the config file.
+	 */
+	public static void addCharacterCompletedAchievements(Player player) {
+		playerConfigSet(player, "achievements.completed", getCharacterCompletedAchievements(player) + 1, true);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
 	 * @param type The type of the generic achievement.
 	 * 
 	 * @return The progress of the generic achievement.
 	 */
-	public static double getCharacterAchievementProgress(Player player, AchievementType type) {
+	public static double getCharacterAchievementProgress(Player player, WauzAchievementType type) {
 		return playerConfigGetDouble(player, "achievements.generic." + type.getKey(), true);
 	}
 	
@@ -423,7 +441,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @param type The type of the generic achievement.
 	 * @param progress The progress of the generic achievement.
 	 */
-	public static void setCharacterAchievementProgress(Player player, AchievementType type, double progress) {
+	public static void setCharacterAchievementProgress(Player player, WauzAchievementType type, double progress) {
 		playerConfigSet(player, "achievements.generic." + type.getKey(), progress, true);
 	}
 	

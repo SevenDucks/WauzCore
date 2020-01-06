@@ -26,7 +26,7 @@ import eu.wauz.wauzcore.menu.TabardMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.achievements.AchievementType;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
@@ -326,15 +326,16 @@ public class CharacterManager {
 			playerDataConfig.set("quest.running.daily2", "none");
 			playerDataConfig.set("quest.running.daily3", "none");
 			
-			playerDataConfig.set("achievements.generic." + AchievementType.KILL_ENEMIES.getKey(), 0);
-			playerDataConfig.set("achievements.generic." + AchievementType.IDENTIFY_ITEMS.getKey(), 0);
-			playerDataConfig.set("achievements.generic." + AchievementType.USE_MANA.getKey(), 0);
-			playerDataConfig.set("achievements.generic." + AchievementType.COMPLETE_QUESTS.getKey(), 0);
-			playerDataConfig.set("achievements.generic." + AchievementType.CRAFT_ITEMS.getKey(), 0);
-			playerDataConfig.set("achievements.generic." + AchievementType.COLLECT_PETS.getKey(), 0);
-			playerDataConfig.set("achievements.generic." + AchievementType.EARN_COINS.getKey(), 0);
-			playerDataConfig.set("achievements.generic." + AchievementType.PLAY_HOURS.getKey(), 0);
-			playerDataConfig.set("achievements.generic." + AchievementType.GAIN_LEVELS.getKey(), 1);
+			playerDataConfig.set("achievements.completed", 0);
+			playerDataConfig.set("achievements.generic." + WauzAchievementType.KILL_ENEMIES.getKey(), 0);
+			playerDataConfig.set("achievements.generic." + WauzAchievementType.IDENTIFY_ITEMS.getKey(), 0);
+			playerDataConfig.set("achievements.generic." + WauzAchievementType.USE_MANA.getKey(), 0);
+			playerDataConfig.set("achievements.generic." + WauzAchievementType.COMPLETE_QUESTS.getKey(), 0);
+			playerDataConfig.set("achievements.generic." + WauzAchievementType.CRAFT_ITEMS.getKey(), 0);
+			playerDataConfig.set("achievements.generic." + WauzAchievementType.COLLECT_PETS.getKey(), 0);
+			playerDataConfig.set("achievements.generic." + WauzAchievementType.EARN_COINS.getKey(), 0);
+			playerDataConfig.set("achievements.generic." + WauzAchievementType.PLAY_HOURS.getKey(), 0);
+			playerDataConfig.set("achievements.generic." + WauzAchievementType.GAIN_LEVELS.getKey(), 1);
 		}
 		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
 			playerDataConfig.set("pvp.resticks", 720);

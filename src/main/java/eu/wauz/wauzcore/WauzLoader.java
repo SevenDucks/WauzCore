@@ -88,6 +88,7 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import net.md_5.bungee.api.ChatColor;
 
@@ -112,6 +113,7 @@ public class WauzLoader {
 	 */
 	public static void init() {
 		WauzRegion.init();
+		WauzAchievement.init();
 		WauzQuest.init();
 		WauzPlayerGuild.init();
 		
