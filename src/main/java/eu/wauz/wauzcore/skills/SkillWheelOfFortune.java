@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
 
 /**
  * A skill, that can be executed by a player.
@@ -37,8 +38,8 @@ public class SkillWheelOfFortune implements WauzPlayerSkill {
 	 * @return The type of the skill shown in the default description.
 	 */
 	@Override
-	public String getSkillDescriptionType() {
-		return "Self";
+	public WauzPlayerSkillType getSkillDescriptionType() {
+		return WauzPlayerSkillType.SELF;
 	}
 
 	/**

@@ -36,7 +36,7 @@ public class WauzDebugger {
 	 * @param message The content of the message.
 	 */
 	public static void log(Player player, String message) {
-		if(player.hasPermission("wauz.debug")) {
+		if(player.hasPermission(WauzPermission.DEBUG.toString())) {
 			player.sendMessage(ChatColor.LIGHT_PURPLE + "[Debug] " + message);
 		}
 	}
@@ -69,7 +69,8 @@ public class WauzDebugger {
 	 * @return If it was successful. (Default true)
 	 */
 	public static boolean toggleDebugMode(Player player) {
-		player.addAttachment(WauzCore.getInstance(), "wauz.debug", !player.hasPermission("wauz.debug"));
+		String permission = WauzPermission.DEBUG.toString();
+		player.addAttachment(WauzCore.getInstance(), permission, !player.hasPermission(permission));
 		log(player, "Debug mode toggled!");
 		return true;
 	}
@@ -83,7 +84,8 @@ public class WauzDebugger {
 	 * @return If it was successful. (Default true)
 	 */
 	public static boolean toggleMagicDebugMode(Player player) {
-		player.addAttachment(WauzCore.getInstance(), "wauz.debug.magic", !player.hasPermission("wauz.debug.magic"));
+		String permission = WauzPermission.DEBUG_MAGIC.toString();
+		player.addAttachment(WauzCore.getInstance(), permission, !player.hasPermission(permission));
 		log(player, "Magic debug mode toggled!");
 		return true;
 	}
@@ -97,7 +99,8 @@ public class WauzDebugger {
 	 * @return If it was successful. (Default true)
 	 */
 	public static boolean toggleCraftingDebugMode(Player player) {
-		player.addAttachment(WauzCore.getInstance(), "wauz.debug.crafting", !player.hasPermission("wauz.debug.crafting"));
+		String permission = WauzPermission.DEBUG_CRAFTING.toString();
+		player.addAttachment(WauzCore.getInstance(), permission, !player.hasPermission(permission));
 		log(player, "Crafting debug mode toggled!");
 		return true;
 	}
@@ -111,7 +114,8 @@ public class WauzDebugger {
 	 * @return If it was successful. (Default true)
 	 */
 	public static boolean toggleBuildingDebugMode(Player player) {
-		player.addAttachment(WauzCore.getInstance(), "wauz.debug.building", !player.hasPermission("wauz.debug.building"));
+		String permission = WauzPermission.DEBUG_BUILDING.toString();
+		player.addAttachment(WauzCore.getInstance(), permission, !player.hasPermission(permission));
 		log(player, "Building debug mode toggled!");
 		return true;
 	}

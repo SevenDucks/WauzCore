@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffectType;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 
@@ -39,8 +40,8 @@ public class SkillTemperance implements WauzPlayerSkill {
 	 * @return The type of the skill shown in the default description.
 	 */
 	@Override
-	public String getSkillDescriptionType() {
-		return "Self";
+	public WauzPlayerSkillType getSkillDescriptionType() {
+		return WauzPlayerSkillType.SELF;
 	}
 
 	/**

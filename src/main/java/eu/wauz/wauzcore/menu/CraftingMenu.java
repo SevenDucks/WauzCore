@@ -25,6 +25,7 @@ import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import net.md_5.bungee.api.ChatColor;
@@ -99,7 +100,7 @@ public class CraftingMenu implements WauzInventory {
 		int level = CraftingConfigurator.getItemLevel(itemIndex);
 		int requirements = CraftingConfigurator.getItemCraftingCostsAmount(itemIndex);
 		
-		if(level > playerCraftingLevel && !player.hasPermission("wauz.debug.crafting")) {
+		if(level > playerCraftingLevel && !player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString())) {
 			getLocked(menu, level, itemIndex, baseIndex);
 			return;
 		}
@@ -116,7 +117,7 @@ public class CraftingMenu implements WauzInventory {
 					itemAmount = itemAmount + itemStack.getAmount();
 			}
 			
-			if(itemAmount >= requiredAmount || player.hasPermission("wauz.debug.crafting"))
+			if(itemAmount >= requiredAmount || player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString()))
 				finished = ChatColor.GREEN;
 			
 			lores.add(finished + "- " + itemAmount + " / " + requiredAmount + " " + itemName);
@@ -240,7 +241,7 @@ public class CraftingMenu implements WauzInventory {
 			return;
 		}
 		
-		if(!player.hasPermission("wauz.debug.crafting")) {
+		if(!player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString())) {
 			InventoryItemRemover itemRemover = new InventoryItemRemover(player.getInventory());
 			int requirements = CraftingConfigurator.getItemCraftingCostsAmount(itemIndex);
 			for(int requirementIndex = 1; requirementIndex <= requirements; requirementIndex++) {

@@ -23,6 +23,7 @@ import eu.wauz.wauzcore.menu.util.QuestRequirementChecker;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -299,7 +300,7 @@ public class WauzPlayerScoreboard {
 					team = scoreboard.registerNewTeam(online.getName());
 				}
 				
-				if(online.hasPermission("wauz.system")) {
+				if(online.hasPermission(WauzPermission.SYSTEM.toString())) {
 					team.setPrefix(ChatColor.DARK_RED + "" + ChatColor.BOLD + "ADMIN ");
 					team.setColor(org.bukkit.ChatColor.GOLD);
 				}

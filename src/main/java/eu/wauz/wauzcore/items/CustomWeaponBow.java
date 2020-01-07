@@ -29,8 +29,23 @@ import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * A collection of methods for using the bow weapon.
+ * 
+ * @author Wauzmons
+ */
 public class CustomWeaponBow {
 	
+	/**
+	 * Cancels the event of a bow interaction.
+	 * Opens the arrow selection menu, if the player is sneaking.
+	 * Otherwise shoots an arrow, if it was a right click.
+	 * 
+	 * @param event The interaction event.
+	 * 
+	 * @see ArrowMenu#open(Player)
+	 * @see CustomWeaponBow#tryToShoot(Player, ItemStack)
+	 */
 	public static void use(PlayerInteractEvent event) {
 		event.setCancelled(true);
 		Player player = event.getPlayer();
@@ -44,6 +59,22 @@ public class CustomWeaponBow {
 		}
 	}
 	
+	/**
+	 * Lets the player shoot an arrow from the given bow.
+	 * Removes an arrow of the selected type and switches to normal arrows when empty.
+	 * Arrow type and bow damage are transported as metadata on the arrow entity.
+	 * Creates an arrow trail based on the type and damages the bow it was shot from.
+	 * 
+	 * @param player The player that is shooting.
+	 * @param bow The bow item stack.
+	 * 
+	 * @see PlayerConfigurator#getSelectedArrows(Player)
+	 * @see PlayerConfigurator#getArrowAmount(Player, String)
+	 * @see CustomWeaponBow#spawnArrowTrail(Arrow, Color)
+	 * @see CustomWeaponBow#getArrowColor(String)
+	 * @see DurabilityCalculator#damageItem(Player, ItemStack, boolean)
+	 * @see CustomWeaponBow#onArrowHit(Player, Entity, Arrow)
+	 */
 	public static void tryToShoot(Player player, ItemStack bow) {
 		String arrowType = PlayerConfigurator.getSelectedArrows(player);
 		boolean usingNormalArrows = arrowType.equals("normal");
@@ -72,6 +103,13 @@ public class CustomWeaponBow {
         DurabilityCalculator.damageItem(player, bow, false);
 	}
 	
+	/**
+	 * Gets a color based on the name of an arrow type.
+	 * 
+	 * @param arrowType The name of the arrow type.
+	 * 
+	 * @return The color of the arrow type.
+	 */
 	private static Color getArrowColor(String arrowType) {
 		switch (arrowType) {
 		case "reinforced":
@@ -89,6 +127,15 @@ public class CustomWeaponBow {
 		}
 	}
 	
+	/**
+	 * Spawns a trail for an arrow with the given color.
+	 * A particle is spawned recursively every tick, as long as the entity is valid.
+	 * 
+	 * @param arrow The arrow entity.
+	 * @param color The trail particle color.
+	 * 
+	 * @see SkillParticle#spawn(org.bukkit.Location, int)
+	 */
 	public static void spawnArrowTrail(Arrow arrow, Color color) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
@@ -107,11 +154,24 @@ public class CustomWeaponBow {
 		}, 1);
 	}
 	
+	/**
+	 * Decides when to cancel arrow damage.
+	 * The event is never cancelled, if it was not shot by a player.
+	 * The event is always cancelled, if the shooter or target have pvp protection.
+	 * Thr event is cancelled and replaced by a custom method call in MMORPG mode.
+	 * 
+	 * @param event The entity damage event.
+	 * 
+	 * @return If the arrow damage should be cancelled.
+	 * 
+	 * @see CustomWeaponBow#onArrowHit(Player, Entity, Arrow)
+	 */
 	public static boolean cancelArrowImpact(EntityDamageByEntityEvent event) {
 		Arrow arrow = (Arrow) event.getDamager();
 		Entity entity = event.getEntity();
-		if(!(arrow.getShooter() instanceof Player))
+		if(!(arrow.getShooter() instanceof Player)) {
 			return false;
+		}
 		
 		Player player = (Player) arrow.getShooter();
 		if(entity instanceof Player) {
@@ -125,6 +185,27 @@ public class CustomWeaponBow {
 		return false;
 	}
 	
+	/**
+	 * Applies damage and effects from an arrow shot by a custom bow.
+	 * Arrow type and bow damage are transported as metadata on the arrow entity.</br>
+	 * Normal: <b>Weapon Damage x1.0</b></br>
+	 * Reinforced: <b>Weapon Damage x2.0</b></br>
+	 * Fire: <b>Normal + x0.5 every 1s for 5s</b></br>
+	 * Ice: <b>Normal + Slowness for 5s</b></br>
+	 * Shock: <b>Normal + optional Fall Damage</b></br>
+	 * Bomb: <b>Normal in radius of 2.5 blocks</b></br>
+	 * 
+	 * @param player The player that shot the arrow.
+	 * @param entity The entity that got hit by the arrow.
+	 * @param arrow The arrow that hit the entity.
+	 * 
+	 * @see CustomWeaponBow#tryToShoot(Player, ItemStack)
+	 * @see SkillUtils#callPlayerFixedDamageEvent(Player, Entity, double)
+	 * @see SkillUtils#callPlayerDamageOverTimeEvent(Player, Entity, Color, int, int, int)
+	 * @see SkillUtils#addPotionEffect(Entity, PotionEffectType, int, int)
+	 * @see SkillUtils#throwBackEntity(Entity, org.bukkit.Location, double)
+	 * @see SkillUtils#createExplosion(org.bukkit.Location, float)
+	 */
 	public static void onArrowHit(Player player, Entity entity, Arrow arrow) {
 		if(arrow.getMetadata("wzArrowType").isEmpty() && arrow.getMetadata("wzArrowDmg").isEmpty())
 			return;

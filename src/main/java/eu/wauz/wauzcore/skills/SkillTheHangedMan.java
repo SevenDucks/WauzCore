@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -47,8 +48,8 @@ public class SkillTheHangedMan implements WauzPlayerSkill {
 	 * @return The type of the skill shown in the default description.
 	 */
 	@Override
-	public String getSkillDescriptionType() {
-		return "Melee";
+	public WauzPlayerSkillType getSkillDescriptionType() {
+		return WauzPlayerSkillType.MELEE;
 	}
 
 	/**

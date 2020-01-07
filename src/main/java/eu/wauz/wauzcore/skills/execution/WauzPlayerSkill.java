@@ -24,14 +24,14 @@ public interface WauzPlayerSkill {
 	 */
 	default public String getSkillDescription() {
 		return
-			"[" + ChatColor.RED + getSkillDescriptionType() + ChatColor.WHITE + "] " +
+			"[" + ChatColor.RED + getSkillDescriptionType().toString() + ChatColor.WHITE + "] " +
 			"[" + ChatColor.GRAY + getSkillDescriptionEffect() + ChatColor.WHITE + "]";
 	}
 	
 	/**
 	 * @return The type of the skill shown in the default description.
 	 */
-	public String getSkillDescriptionType();
+	public WauzPlayerSkillType getSkillDescriptionType();
 	
 	/**
 	 * @return The effect of the skill shown in the default description.

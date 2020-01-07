@@ -15,6 +15,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import net.md_5.bungee.api.ChatColor;
@@ -53,9 +54,12 @@ public class WauzPlayerRegistrator {
 		playerDataConfig.set("lastplayed", System.currentTimeMillis());
 		
 		if(!playerDataFile.exists()) {
-			playerDataConfig.set("rank", "Normal");
-			if(player.hasPermission("wauz.system"))
+			if(player.hasPermission(WauzPermission.SYSTEM.toString())) {
 				playerDataConfig.set("rank", "Admin");
+			}
+			else {
+				playerDataConfig.set("rank", "Normal");
+			}
 			
 			playerDataConfig.set("guild", "none");
 			

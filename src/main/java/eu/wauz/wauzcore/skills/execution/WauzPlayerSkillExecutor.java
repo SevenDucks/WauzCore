@@ -16,6 +16,7 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import net.md_5.bungee.api.ChatColor;
 
@@ -126,7 +127,7 @@ public class WauzPlayerSkillExecutor {
 		}
 		
 		boolean skillReady = playerData.isSkillReady(player, skillId);
-		int manaCost = player.hasPermission("wauz.debug.magic") ? 0 : skill.getManaCost();
+		int manaCost = player.hasPermission(WauzPermission.DEBUG_MAGIC.toString()) ? 0 : skill.getManaCost();
 		
 		if(skillReady && ManaCalculator.useMana(player, manaCost)) {
 			playerData.updateSkillCooldown(player, skillId);

@@ -86,6 +86,7 @@ import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
+import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -368,7 +369,7 @@ public class WauzListener implements Listener {
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
-		if(!player.hasPermission("wauz.debug.building") && WauzRegion.disallowBuild(event.getBlock())) {
+		if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString()) && WauzRegion.disallowBuild(event.getBlock())) {
 			event.setCancelled(true);
 			player.sendMessage(ChatColor.RED + "You can't build here! Find another spot!");
 		}
@@ -384,7 +385,7 @@ public class WauzListener implements Listener {
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		if(!player.hasPermission("wauz.debug.building") && WauzRegion.disallowBuild(event.getBlock())) {
+		if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString()) && WauzRegion.disallowBuild(event.getBlock())) {
 			event.setCancelled(true);
 			player.sendMessage(ChatColor.RED + "You can't build here! Find another spot!");
 		}

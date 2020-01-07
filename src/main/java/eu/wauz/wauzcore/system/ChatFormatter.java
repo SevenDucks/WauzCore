@@ -132,7 +132,7 @@ public class ChatFormatter {
 	 * @return A rank color, based on player permissions.
 	 */
 	public static ChatColor getMinecraftRankColor(Player player) {
-		if(player.hasPermission("wauz.system")) {
+		if(player.hasPermission(WauzPermission.SYSTEM.toString())) {
 			return ChatColor.GOLD;
 		}
 		else {

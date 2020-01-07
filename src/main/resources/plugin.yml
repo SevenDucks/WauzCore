@@ -142,10 +142,10 @@ permissions:
     description: Permission assigned to new players.
     default: true
   wauz.debug:
-    description: Shows the debug log in chat.
+    description: Shows the personalized debug log in chat.
     default: false
   wauz.debug.magic:
-    description: Infinite mana and 1 second cooldowns.
+    description: Infinite mana and 1 second skill cooldowns.
     default: false
   wauz.debug.crafting:
     description: Unlock all recipes, craftable without cost.

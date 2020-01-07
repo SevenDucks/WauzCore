@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
@@ -43,8 +44,8 @@ public class SkillTheLovers implements WauzPlayerSkill {
 	 * @return The type of the skill shown in the default description.
 	 */
 	@Override
-	public String getSkillDescriptionType() {
-		return "AoE";
+	public WauzPlayerSkillType getSkillDescriptionType() {
+		return WauzPlayerSkillType.AOE;
 	}
 
 	/**

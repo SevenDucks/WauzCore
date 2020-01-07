@@ -17,6 +17,7 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
 
 /**
  * A skill, that can be executed by a player.
@@ -46,8 +47,8 @@ public class SkillTheFool implements WauzPlayerSkill {
 	 * @return The type of the skill shown in the default description.
 	 */
 	@Override
-	public String getSkillDescriptionType() {
-		return "Summon";
+	public WauzPlayerSkillType getSkillDescriptionType() {
+		return WauzPlayerSkillType.SUMMON;
 	}
 
 	/**

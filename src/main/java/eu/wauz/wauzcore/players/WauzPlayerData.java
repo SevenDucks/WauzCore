@@ -12,6 +12,7 @@ import com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer;
 import eu.wauz.wauzcore.events.WauzPlayerEvent;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
 
 /**
@@ -323,7 +324,7 @@ public class WauzPlayerData {
 	 * @see WauzDebugger#toggleMagicDebugMode(Player)
 	 */
 	public void updateSkillCooldown(Player player, String skillId) {
-		Long cooldown = (long) (player.hasPermission("wauz.debug.magic") ? 1 : WauzPlayerSkillExecutor.getSkill(skillId).getCooldownSeconds());
+		Long cooldown = (long) (player.hasPermission(WauzPermission.DEBUG_MAGIC.toString()) ? 1 : WauzPlayerSkillExecutor.getSkill(skillId).getCooldownSeconds());
 		skillCooldownMap.put(skillId, cooldown * 1000 + System.currentTimeMillis());
 	}
 	
