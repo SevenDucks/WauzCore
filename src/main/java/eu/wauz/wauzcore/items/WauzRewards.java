@@ -21,13 +21,31 @@ import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * A collection of static methods to pay out currency rewards to players.
+ * 
+ * @author Wauzmons
+ */
 public class WauzRewards {
 	
+	/**
+	 * A formatter for displaying points and currencies.
+	 */
 	private static DecimalFormat formatter = new DecimalFormat("#,###");
 
-	public static void daily(final Player player) throws Exception {
-		if(!Cooldown.characterDailyReward(player))
+	/**
+	 * Gives a player coins, based on their rank, if the cooldown is ready.
+	 * 
+	 * @param player The player that should claim their daily reward.
+	 * 
+	 * @see Cooldown#characterDailyReward(Player)
+	 * @see PlayerConfigurator#getRank(org.bukkit.OfflinePlayer)
+	 * @see PlayerConfigurator#setCharacterCoins(Player, long)
+	 */
+	public static void daily(final Player player) {
+		if(!Cooldown.characterDailyReward(player)) {
 			return;
+		}
 			
     	long money = PlayerConfigurator.getCharacterCoins(player);
     	long amount = 0;
@@ -51,23 +69,69 @@ public class WauzRewards {
     	player.sendMessage(ChatColor.GOLD + reward + "You claimed your daily " + amount + " coins!");	
 	}
 	
+	/**
+	 * Gives experience points to the player and levels them up, if 100% is reached.
+	 * Adds bonuses, based on level and passive stats.
+	 * 
+	 * @param player The player to receive the exp.
+	 * @param tier The tier (max player level) for the exp reward.
+	 * @param earnedxp The earned exp without modifiers.
+	 * 
+	 * @return The exp amount to display.
+	 * 
+	 * @see WauzRewards#level(Player, int, double, Location, boolean)
+	 */
 	public static int level(Player player, int tier, double earnedxp) {
 		return level(player, tier, earnedxp, null, false);
 	}
 	
+	/**
+	 * Gives experience points to the player and levels them up, if 100% is reached.
+	 * Adds bonuses, based on level and passive stats.
+	 * 
+	 * @param player The player to receive the exp.
+	 * @param tier The tier (max player level) for the exp reward.
+	 * @param earnedxp The earned exp without modifiers.
+	 * @param location The location for an exp indicator or null for none.
+	 * 
+	 * @return The exp amount to display.
+	 * 
+	 * @see WauzRewards#level(Player, int, double, Location, boolean)
+	 */
 	public static int level(Player player, int tier, double earnedxp, Location location) {
 		return level(player, tier, earnedxp, location, false);
 	}
 	
+	/**
+	 * Gives experience points to the player and levels them up, if 100% is reached.
+	 * Adds bonuses, based on level and passive stats.
+	 * 
+	 * @param player The player to receive the exp.
+	 * @param tier The tier (max player level) for the exp reward.
+	 * @param earnedxp The earned exp without modifiers.
+	 * @param location The location for an exp indicator or null for none.
+	 * @param shared If the exp was already shared (25%) with group members.
+	 * 
+	 * @return The exp amount to display.
+	 * 
+	 * @see WauzCore#MAX_PLAYER_LEVEL
+	 * @see WauzRewards#applyExperienceBonus(Player, double)
+	 * @see ValueIndicator#spawnExpIndicator(Location, int)
+	 * @see PlayerConfigurator#levelUpCharacter(Player)
+	 * @see PlayerConfigurator#setCharacterExperience(Player, double)
+	 */
 	public static int level(Player player, int tier, double earnedxp, Location location, boolean shared) {
 		try {
 			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(player);
-			if(playerGroup != null && !shared)
-				for(Player member : playerGroup.getPlayers())
+			if(playerGroup != null && !shared) {
+				for(Player member : playerGroup.getPlayers()) {
 					level(member, tier, earnedxp / 4, null, true);
+				}
+			}
 			
-			if(player == null || player.getLevel() > tier || player.getLevel() >= WauzCore.MAX_PLAYER_LEVEL)
+			if(player == null || player.getLevel() > tier || player.getLevel() >= WauzCore.MAX_PLAYER_LEVEL) {
 				return 0;
+			}
 			
 			switch(player.getLevel()) {
 			case 1:
@@ -87,8 +151,9 @@ public class WauzRewards {
 			double amplifiedxp = applyExperienceBonus(player, earnedxp);
 			int displayexp = (int) (amplifiedxp * 100);
 			
-			if(location != null)
+			if(location != null) {
 				ValueIndicator.spawnExpIndicator(location, displayexp);
+			}
 			
 			double currentxp = PlayerConfigurator.getCharacterExperience(player);
 			currentxp = currentxp + amplifiedxp;
@@ -109,6 +174,17 @@ public class WauzRewards {
 		}
 	}
 	
+	/**
+	 * Applies experience bonuses, based on the passive stats of the player.
+	 * 
+	 * @param player The player that will earn the exp.
+	 * @param experience The exp without bonus.
+	 * 
+	 * @return The exp with added bonus.
+	 * 
+	 * @see EquipmentUtils#getExperienceBonus(ItemStack)
+	 * @see PlayerConfigurator#getCharacterPetIntelligence(Player, int)
+	 */
 	private static double applyExperienceBonus(Player player, double experience) {		
 		ItemStack weaponItemStack = player.getEquipment().getItemInMainHand();
 		double weaponBonus = ItemUtils.isNotAir(weaponItemStack) ? EquipmentUtils.getExperienceBonus(weaponItemStack) : 0;	
@@ -118,12 +194,21 @@ public class WauzRewards {
 		double multiplier = 1 + ((double) (weaponBonus / 100)) + ((double) (armorBonus / 100));
 		
 		int petSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
-		if(petSlot >= 0)
+		if(petSlot >= 0) {
 			multiplier += (float) ((float) PlayerConfigurator.getCharacterPetIntelligence(player, petSlot) / (float) 10f);
+		}
 		
 		return (double) ((double) experience * (double) multiplier);
 	}
 	
+	/**
+	 * Adds a token from MMORPG mode, if the limit of 30 has not been reached today.
+	 * 
+	 * @param player The player to receive the token.
+	 * 
+	 * @see WauzRewards#tokensEarnedToday(Player, String)
+	 * @see WauzRewards#token(Player, String, int, int)
+	 */
 	public static void mmorpgToken(Player player) {
 		final int limit = 30;
 		final int today = tokensEarnedToday(player, "mmorpg");
@@ -134,6 +219,17 @@ public class WauzRewards {
 		token(player, "MMORPG", today + 1, limit);
 	}
 	
+	/**
+	 * Adds a token from Survival mode, if the limit of 20 has not been reached today.
+	 * Also resets the level to the maximum and increases the survival score by 1.
+	 * 
+	 * @param player The player to receive the token.
+	 * 
+	 * @see WauzRewards#tokensEarnedToday(Player, String)
+	 * @see WauzRewards#token(Player, String, int, int)
+	 * @see WauzCore#MAX_PLAYER_LEVEL_SURVIVAL
+	 * @see PlayerConfigurator#setSurvivalScore(org.bukkit.OfflinePlayer, long)
+	 */
 	public static void survivalToken(Player player) {
 		player.setLevel(WauzCore.MAX_PLAYER_LEVEL_SURVIVAL);
 		player.setExp(0);
@@ -150,12 +246,37 @@ public class WauzRewards {
 		token(player, "Survival", today + 1, limit);
 	}
 	
+	/**
+	 * Gets the amount of tokens earned for the current date.
+	 * 
+	 * @param player The player that earned the tokens.
+	 * @param mode The mode the tokens were earned in.
+	 * 
+	 * @return The amount of tokens earned today.
+	 * 
+	 * @see WauzDateUtils#getDateLong()
+	 * @see PlayerConfigurator#getTokenLimitDate(Player, String)
+	 * @see PlayerConfigurator#getTokenLimitAmount(Player, String)
+	 */
 	private static int tokensEarnedToday(Player player, String mode) {
 		long dateLong = PlayerConfigurator.getTokenLimitDate(player, mode);
 		long currentDateLong = WauzDateUtils.getDateLong();
 		return dateLong < currentDateLong ? 0 : PlayerConfigurator.getTokenLimitAmount(player, mode);
 	}
 	
+	/**
+	 * Adds a token from the given mode.
+	 * Also updates the date for the daily limit and the amount earned today.
+	 * 
+	 * @param player The player to receive the token.
+	 * @param modeDisplay The mode name, how it should be displayed.
+	 * @param earnedToday The amount of tokens earned today.
+	 * @param maxToday The maximum amount of tokens earnable per day.
+	 * 
+	 * @see PlayerConfigurator#setTokenLimitDate(Player, String, long)
+	 * @see PlayerConfigurator#setTokenLimitAmount(Player, String, int)
+	 * @see PlayerConfigurator#setTokens(Player, long)
+	 */
 	private static void token(Player player, String modeDisplay, int earnedToday, int maxToday) {
 		PlayerConfigurator.setTokenLimitDate(player, modeDisplay.toLowerCase(), WauzDateUtils.getDateLong());
 		PlayerConfigurator.setTokenLimitAmount(player, modeDisplay.toLowerCase(), earnedToday);

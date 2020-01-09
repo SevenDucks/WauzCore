@@ -11,12 +11,34 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * Used to calculate the durability of equipment items.
+ * 
+ * @author Wauzmons
+ */
 public class DurabilityCalculator {
 	
+	/**
+	 * Damages an item for exactly 1 point.
+	 * Sends a warning message if the item broke or is about to break.
+	 * 
+	 * @param player The player who owns the item.
+	 * @param itemToDamage The item to be damaged.
+	 * @param armor If the item is armor.
+	 */
 	public static void damageItem(Player player, ItemStack itemToDamage, boolean armor) {
 		damageItem(player, itemToDamage, 1, armor);
 	}
 	
+	/**
+	 * Damages an item for a given number of points.
+	 * Sends a warning message if the item broke or is about to break.
+	 * 
+	 * @param player The player who owns the item.
+	 * @param itemToDamage The item to be damaged.
+	 * @param damage The damage, that should be done to the item.
+	 * @param armor If the item is armor.
+	 */
 	public static void damageItem(Player player, ItemStack itemToDamage, int damage, boolean armor) {
 		int maxDurability = EquipmentUtils.getMaximumDurability(itemToDamage);
 		if(maxDurability == 0 || itemToDamage.getItemMeta().isUnbreakable()) {
@@ -51,6 +73,12 @@ public class DurabilityCalculator {
 		WauzDebugger.log(player, "Durability: " + newDurability + " / " + maxDurability + " for " + displayName);
 	}
 	
+	/**
+	 * Completely restores the durability of an item.
+	 * 
+	 * @param player The player who owns the item.
+	 * @param itemToRepair The item to be repaired.
+	 */
 	public static void repairItem(Player player, ItemStack itemToRepair) {
 		setDamage(itemToRepair, 0);
 		
@@ -62,6 +90,12 @@ public class DurabilityCalculator {
 		}
 	}
 	
+	/**
+	 * Sets the vanilla Minecraft damage of an item.
+	 * 
+	 * @param itemStack The item to set the damage for.
+	 * @param damage The new amount of damage.
+	 */
 	public static void setDamage(ItemStack itemStack, int damage) {
 		if(itemStack.getItemMeta() instanceof Damageable) {
 			Damageable damageable = (Damageable) itemStack.getItemMeta();

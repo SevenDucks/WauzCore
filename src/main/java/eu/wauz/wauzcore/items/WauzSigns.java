@@ -29,17 +29,64 @@ import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * A class for handling the usage of event signs.
+ * 
+ * @author Wauzmons
+ */
 public class WauzSigns {
 	
+	/**
+	 * The first row text of an exit door sign.
+	 */
 	public static final String EXIT_DOOR_TEXT = ChatColor.BLACK + "[" + ChatColor.DARK_BLUE + "Leave" + ChatColor.BLACK + "]";
+	
+	/**
+	 * The second row text of an exit door sign.
+	 */
 	public static final String EXIT_DOOR_LEAVE_TEXT = "" + ChatColor.DARK_AQUA + ChatColor.BOLD + "Exit Instance";
 	
+	/**
+	 * The first row text of a locked door sign.
+	 */
 	private static final String LOCKED_DOOR_TEXT = ChatColor.BLACK + "[" + ChatColor.DARK_RED + "Locked Door" + ChatColor.BLACK + "]";
+	
+	/**
+	 * The second row text of a locked door sign.
+	 */
 	private static final String LOCKED_DOOR_KEY_TEXT = ChatColor.BLACK + "Key:" + ChatColor.DARK_AQUA + ChatColor.BOLD + " ";
 	
+	/**
+	 * The first row text of a travel sign.
+	 */
 	private static final String TRAVEL_TEXT = ChatColor.BLACK + "[" + ChatColor.DARK_PURPLE + "Fast Travel" + ChatColor.BLACK + "]";
+	
+	/**
+	 * The second row text of a travel sign.
+	 */
 	private static final String TRAVEL_LOCATION_TEXT = "" + ChatColor.DARK_AQUA + ChatColor.BOLD + "";
 	
+	/**
+	 * Tries to format a sign, to be a special event sign, if the valid keywords were found.
+	 * List of valid formats, were --- stands for empty rows:</br></br>
+	 * 
+	 * --------------------</br>
+	 * [Leave]</br>
+	 * --------------------</br>
+	 * --------------------</br></br>
+	 * 
+	 * --------------------</br>
+	 * [Locked Door]</br>
+	 * Key: KeyName</br>
+	 * --------------------</br></br>
+	 * 
+	 * --------------------</br>
+	 * [Fast Travel]</br>
+	 * StationName</br>
+	 * --------------------
+	 * 
+	 * @param event The sign event.
+	 */
 	public static void create(SignChangeEvent event) {	
 		String[] lines = event.getLines();
 		
@@ -60,22 +107,47 @@ public class WauzSigns {
 		}
 	}
 	
+	/**
+	 * Checks the sign content for keywords, to may trigger an event for the player.
+	 * TODO Seems unsafe. Should check for formatted text instead.
+	 * 
+	 * @param player The player who interacted with the sign.
+	 * @param block The sign block.
+	 * 
+	 * @see WauzTeleporter#exitInstanceTeleportManual(Player)
+	 * @see WauzSigns#tryToOpenDoor(Player, Sign)
+	 * @see WauzSigns#tryToTravel(Player, Sign)
+	 */
 	public static void interact(Player player, Block block) {
 		Sign sign = (Sign) block.getState();
 		String signType = sign.getLine(1);
 		
-		if(StringUtils.isBlank(signType))
+		if(StringUtils.isBlank(signType)) {
 			return;
-		else if(signType.contains("Leave")&& player.getWorld().getName().contains("Instance"))
+		}
+		else if(signType.contains("Leave") && player.getWorld().getName().contains("Instance")) {
 			WauzTeleporter.exitInstanceTeleportManual(player);
-		else if(!WauzMode.isMMORPG(player))
+		}
+		else if(!WauzMode.isMMORPG(player)) {
 			return;
-		else if(signType.contains("Locked Door") && player.getWorld().getName().contains("Instance"))
+		}
+		else if(signType.contains("Locked Door") && player.getWorld().getName().contains("Instance")) {
 			tryToOpenDoor(player, sign);
-		else if(signType.contains("Fast Travel"))
+		}
+		else if(signType.contains("Fast Travel")) {
 			tryToTravel(player, sign);
+		}
 	}
 	
+	/**
+	 * Tries to open a door, based on the key name on a sign.
+	 * 
+	 * @param player The player who is opening the door.
+	 * @param sign The sign that is placed on the door.
+	 * 
+	 * @see InstanceConfigurator#getInstanceKeyStatus(org.bukkit.World, String)
+	 * @see InstanceConfigurator#setInstanceWorldKeyStatus(org.bukkit.World, String, String)
+	 */
 	private static void tryToOpenDoor(Player player, Sign sign) {
 		WauzDebugger.log(player, "Try to Open Door");
 		String keyId = StringUtils.substringAfterLast(sign.getLine(2), " ");
@@ -83,8 +155,9 @@ public class WauzSigns {
 		
 		boolean hasAccess = false;
 		
-		if(keyId.equals("None"))
+		if(keyId.equals("None")) {
 			hasAccess = true;
+		}
 		else {
 			String keyStatus = InstanceConfigurator.getInstanceKeyStatus(player.getWorld(), keyId);
 			hasAccess =
@@ -126,6 +199,15 @@ public class WauzSigns {
 		}
 	}
 	
+	/**
+	 * Tries to travel to a station, based on the station name on a sign.
+	 * 
+	 * @param player The player who wants to travel.
+	 * @param sign The sign at the current travel station.
+	 * 
+	 * @see RegionConfigurator#getStationCoordinateString(String)
+	 * @see WauzSigns#startTravelling(Player, String, String, String)
+	 */
 	private static void tryToTravel(Player player, Sign sign) {
 		WauzDebugger.log(player, "Try to Travel");
 		String stationId = StringUtils.substringAfterLast(sign.getLine(2), TRAVEL_LOCATION_TEXT);
@@ -142,6 +224,20 @@ public class WauzSigns {
 		}
 	}
 	
+	/**
+	 * Strats travelling to the destined location, on the MythicMob called "TravelPhantom".
+	 * Checks regularely afterwards, if the target is reached.
+	 * 
+	 * @param player The player that is travelling.
+	 * @param xString The x coordinate of the destined location.
+	 * @param yString The y coordinate of the destined location.
+	 * @param zString The z coordinate of the destined location.
+	 * 
+	 * @return If the travel was successffully started.
+	 * 
+	 * @see BukkitAPIHelper#spawnMythicMob(String, Location)
+	 * @see WauzSigns#atTravelDestination(Entity, Location)
+	 */
 	public static boolean startTravelling(Player player, String xString, String yString, String zString) {
 		try {
 			double x = Double.parseDouble(xString);
@@ -165,13 +261,25 @@ public class WauzSigns {
 		}
 	}
 	
+	/**
+	 * Checks if the entity reached the travel destination.
+	 * If the entity reached the destination or don't has any players on it, it unmounts all entities and despawns.
+	 * If not it spawns some particles and rechecks in 0,5 seconds.
+	 * 
+	 * @param entity The entity that is moving towards the destination.
+	 * @param targetLocation The destined location.
+	 * 
+	 * @see WauzSigns#atTravelCoordinate(double, double, double)
+	 * @see WauzSigns#hasPlayerMounted(Entity)
+	 * @see ParticleSpawner#spawnParticleHelix(Location, SkillParticle, double, double)
+	 */
 	private static void atTravelDestination(Entity entity, Location targetLocation) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 	        public void run() {
 	        	try {
 	        		Location entityLocation = entity.getLocation();
 	        		
-	    			if(atTravelCoordinate(entityLocation.getY(), targetLocation.getY(), 1) || !hasDragonPlayerMounted(entity.getPassengers())) {
+	    			if(atTravelCoordinate(entityLocation.getY(), targetLocation.getY(), 1) || !hasPlayerMounted(entity)) {
 	    				for(Entity passenger : entity.getPassengers()) {
 	    					if(passenger instanceof Player) {
 	    						passenger.leaveVehicle();
@@ -195,12 +303,28 @@ public class WauzSigns {
 		}, 10);
 	}
 
+	/**
+	 * Checks if the given y coordinate has been reached.
+	 * 
+	 * @param coord1 The current y coordinate.
+	 * @param coord2 The target y coordinate.
+	 * @param maxDiff The maximum difference between coordinates.
+	 * 
+	 * @return If the coordinates has been reached.
+	 */
 	private static boolean atTravelCoordinate(double coord1, double coord2, double maxDiff) {
 		return Math.abs(coord1 - coord2) < maxDiff;
 	}
 	
-	public static boolean hasDragonPlayerMounted(List<Entity> passengers) {
-		for(Entity passenger : passengers) {
+	/**
+	 * Checks if a player is in the given list of passengers.
+	 * 
+	 * @param entity The vehicle, that holds the passengers.
+	 * 
+	 * @return If a player is mounted.
+	 */
+	public static boolean hasPlayerMounted(Entity entity) {
+		for(Entity passenger : entity.getPassengers()) {
 			if(passenger instanceof Player) {
 				return true;
 			}

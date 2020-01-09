@@ -18,16 +18,36 @@ import eu.wauz.wauzcore.menu.ShopBuilder;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 
+/**
+ * A class for handling the usage of scrolls and socketable items.
+ * 
+ * @author Wauzmons
+ */
 public class WauzScrolls {
 	
+	/**
+	 * A list of materials a scroll or socketable item can have.
+	 */
 	private static List<Material> validScrollMaterials = new ArrayList<Material>(Arrays.asList(
 			Material.NAME_TAG, Material.FIREWORK_STAR, Material.REDSTONE));
 	
+	/**
+	 * Handles the usage of right click scrolls.
+	 * Includes following types: Summoning, Comfort.
+	 * Removes the scroll item, if successful.
+	 * 
+	 * @param event The interact event.
+	 * 
+	 * @see WauzScrolls#onScrollItemInteract(InventoryClickEvent, String) For item interactive scrolls...
+	 * @see PetOverviewMenu#addPet(PlayerInteractEvent)
+	 * @see WauzPlayerEventHomeChange
+	 */
 	public static void onScrollItemInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack scroll = player.getEquipment().getItemInMainHand();
-		if(!ItemUtils.hasDisplayName(scroll))
+		if(!ItemUtils.hasDisplayName(scroll)) {
 			return;
+		}
 		String scrollName = scroll.getItemMeta().getDisplayName();
 		
 		if(scrollName.contains("Scroll of Summoning")) {
@@ -39,6 +59,22 @@ public class WauzScrolls {
 		}
 	}
 	
+	/**
+	 * Handles the usage of item interactive scrolls, aswell as runes and skillgems.
+	 * Includes following types: Wisdom, Fortune, Toughness, Regret.
+	 * Removes the scroll item, if successful.
+	 * 
+	 * @param event The inventory event.
+	 * @param itemName The name of the scroll or socketable item.
+	 * 
+	 * @see WauzScrolls#onScrollItemInteract(PlayerInteractEvent) For right click scrolls...
+	 * @see WauzIdentifier#identify(InventoryClickEvent, String)
+	 * @see ShopBuilder#sell(Player, ItemStack, Boolean)
+	 * @see ShopBuilder#repair(Player, ItemStack, Boolean)
+	 * @see Equipment#clearAllSockets(InventoryClickEvent)
+	 * @see Equipment#insertRune(InventoryClickEvent)
+	 * @see Equipment#insertSkillgem(InventoryClickEvent)
+	 */
 	public static void onScrollItemInteract(InventoryClickEvent event, String itemName) {
 		Player player = (Player) event.getWhoClicked();
 		ItemStack scroll = (player.getItemOnCursor());

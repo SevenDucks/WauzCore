@@ -194,8 +194,9 @@ public class PetOverviewMenu implements WauzInventory {
 		Player player = event.getPlayer();
 		ItemStack scroll = event.getItem();
 		
-		if(scroll == null || !scroll.hasItemMeta() || !scroll.getItemMeta().hasDisplayName())
+		if(scroll == null || !scroll.hasItemMeta() || !scroll.getItemMeta().hasDisplayName()) {
 			return;
+		}
 		
 		String type = scroll.getItemMeta().getLore().get(0);
 		type = type.replaceAll("" + ChatColor.GREEN, "");	

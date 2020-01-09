@@ -26,24 +26,61 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * A class that represents a base type of equipment.
+ * Also contains static methods to verify or generate equipment items.
+ * 
+ * @author Wauzmons
+ */
 public class Equipment {
 	
+	/**
+	 * The general type of the equipment.
+	 */
 	private EquipmentType type;
 	
+	/**
+	 * The material of the equipment.
+	 */
 	private Material material;
 	
+	/**
+	 * The name of the equipment.
+	 */
 	private String name;
 	
+	/**
+	 * The main stat value of the equipment.
+	 */
 	private double mainStat;
 	
+	/**
+	 * The speed stat value of the equipment.
+	 */
 	private double speedStat;
 	
+	/**
+	 * The durability stat value of the equipment.
+	 */
 	private int durabilityStat;
 	
+	/**
+	 * The armor category of the equipment.
+	 */
 	private ArmorCategory category;
 	
+	/**
+	 * The leather color of the equipment.
+	 */
 	private Color leatherDye;
 	
+	/**
+	 * Creates a new base equipment type.
+	 * 
+	 * @param type The general type of the equipment.
+	 * @param material The material of the equipment.
+	 * @param name The name of the equipment.
+	 */
 	public Equipment(EquipmentType type, Material material, String name) {
 		this.type = type;
 		this.material = material;
@@ -52,63 +89,121 @@ public class Equipment {
 		category = ArmorCategory.UNKNOWN;
 	}
 
+	/**
+	 * @return The general type of the equipment.
+	 */
 	public EquipmentType getType() {
 		return type;
 	}
 
+	/**
+	 * @return The material of the equipment.
+	 */
 	public Material getMaterial() {
 		return material;
 	}
 
+	/**
+	 * @return The name of the equipment.
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @return The main stat value of the equipment.
+	 */
 	public double getMainStat() {
 		return mainStat;
 	}
 
+	/**
+	 * @param mainStat The new main stat value of the equipment.
+	 * 
+	 * @return The updated equipment.
+	 */
 	public Equipment withMainStat(double mainStat) {
 		this.mainStat = mainStat;
 		return this;
 	}
 
+	/**
+	 * @return The speed stat value of the equipment.
+	 */
 	public double getSpeedStat() {
 		return speedStat;
 	}
 
+	/**
+	 * @param speedStat The new speed stat value of the equipment.
+	 * 
+	 * @return The updated equipment.
+	 */
 	public Equipment withSpeedStat(double speedStat) {
 		this.speedStat = speedStat;
 		return this;
 	}
 
+	/**
+	 * @return The durability stat value of the equipment.
+	 */
 	public int getDurabilityStat() {
 		return durabilityStat;
 	}
 
+	/**
+	 * @param durabilityStat The new durability stat value of the equipment.
+	 * 
+	 * @return The updated equipment.
+	 */
 	public Equipment withDurabilityStat(int durabilityStat) {
 		this.durabilityStat = durabilityStat;
 		return this;
 	}
 	
+	/**
+	 * @return The armor category of the equipment.
+	 */
 	public ArmorCategory getCategory() {
 		return category;
 	}
 	
+	/**
+	 * @param category The new armor category of the equipment.
+	 * 
+	 * @return The updated equipment.
+	 */
 	public Equipment withCategory(ArmorCategory category) {
 		this.category = category;
 		return this;
 	}
 
+	/**
+	 * @return The leather color of the equipment.
+	 */
 	public Color getLeatherDye() {
 		return leatherDye;
 	}
 
+	/**
+	 * @param leatherDye The new leather color of the equipment.
+	 * 
+	 * @return The updated equipment.
+	 */
 	public Equipment withLeatherDye(Color leatherDye) {
 		this.leatherDye = leatherDye;
 		return this;
 	}
 
+	/**
+	 * Equips a fitting cosmetic set of armor, when the chestplate changed.
+	 * If level or class aren't matching, the event is cancelled.
+	 * 
+	 * @param event The armor equip event.
+	 * 
+	 * @see Equipment#doesLevelMatch(Player, ItemStack)
+	 * @see Equipment#doesClassMatch(Player, ItemStack)
+	 */
 	public static void equipArmor(ArmorEquipEvent event) {
 		if(EquipMethod.DEATH.equals(event.getEquipMethod())) {
 			return;
@@ -168,6 +263,14 @@ public class Equipment {
 		}
 	}
 	
+	/**
+	 * Checks if the player has the right level to equip an item.
+	 * 
+	 * @param player The player to check.
+	 * @param armorItemStack The item, that the player wants to equip.
+	 * 
+	 * @return If the level matches.
+	 */
 	private static boolean doesLevelMatch(Player player, ItemStack armorItemStack) {
 		int requiredLevel = EquipmentUtils.getLevelRequirement(armorItemStack);
 		boolean levelMatches = player.getLevel() >= requiredLevel;
@@ -178,6 +281,14 @@ public class Equipment {
 		return levelMatches;
 	}
 	
+	/**
+	 * Checks if the player has the right class to equip an item.
+	 * 
+	 * @param player The player to check.
+	 * @param armorItemStack The item, that the player wants to equip.
+	 * 
+	 * @return If the class matches.
+	 */
 	private static boolean doesClassMatch(Player player, ItemStack armorItemStack) {
 		String raceAndClass = PlayerConfigurator.getCharacterRace(player);
 		ArmorCategory armorCategory = EquipmentUtils.getArmorCategory(armorItemStack);
@@ -191,10 +302,25 @@ public class Equipment {
 		return classMatches;
 	}
 	
+	/**
+	 * Gets a cosmetic item with given material.
+	 * 
+	 * @param material The material of the item.
+	 * 
+	 * @return The generated item stack.
+	 */
 	private static ItemStack getCosmeticItem(Material material) {
 		return getCosmeticItem(material, null);
 	}
 	
+	/**
+	 * Gets a cosmetic item with given material and color.
+	 * 
+	 * @param material The material of the item.
+	 * @param color The color of the leather dye.
+	 * 
+	 * @return The generated item stack.
+	 */
 	private static ItemStack getCosmeticItem(Material material, Color color) {
 		ItemStack itemStack = new ItemStack(material);
 		ItemMeta itemMeta = itemStack.getItemMeta();
@@ -208,6 +334,15 @@ public class Equipment {
 		return itemStack;
 	}
 	
+	/**
+	 * Tries to insert a rune into a piece of equipment.
+	 * 
+	 * @param event The inventory event.
+	 * 
+	 * @return If it was successful.
+	 * 
+	 * @see WauzRuneInserter#insertRune(Player, ItemStack, ItemStack)
+	 */
 	public static boolean insertRune(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
 		ItemStack equipmentItemStack = event.getCurrentItem();
@@ -215,6 +350,15 @@ public class Equipment {
 		return new WauzRuneInserter().insertRune(player, equipmentItemStack, runeItemStack);
 	}
 	
+	/**
+	 * Tries to insert a skillgem into a piece of equipment.
+	 * 
+	 * @param event The inventory event.
+	 * 
+	 * @return If it was successful.
+	 * 
+	 * @see WauzSkillgemInserter#insertSkillgem(Player, ItemStack, ItemStack)
+	 */
 	public static boolean insertSkillgem(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
 		ItemStack equipmentItemStack = event.getCurrentItem();
@@ -222,27 +366,67 @@ public class Equipment {
 		return new WauzSkillgemInserter().insertSkillgem(player, equipmentItemStack, skillgemItemStack);
 	}
 	
+	/**
+	 * Tries to remove all runes and gems from a piece of equipment.
+	 * 
+	 * @param event The inventory event.
+	 * 
+	 * @return If it was successful.
+	 * 
+	 * @see WauzRuneRemover#clearAllSockets(Player, ItemStack)
+	 */
 	public static boolean clearAllSockets(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
 		ItemStack equipmentItemStack = event.getCurrentItem();
 		return new WauzRuneRemover().clearAllSockets(player, equipmentItemStack);
 	}
 	
+	/**
+	 * Gets a starter weapon for the nephilim.
+	 * Contains the skill "the magician".
+	 * 
+	 * @return The generated weapon.
+	 * 
+	 * @see WauzDebugger#getSkillgemWeapon(WauzPlayerSkill, boolean)
+	 */
 	public static ItemStack getNephilimStarterWeapon() {
 		WauzPlayerSkill skill = new SkillTheMagician();
 		return WauzDebugger.getSkillgemWeapon(skill, false);
 	}
 	
+	/**
+	 * Gets a starter weapon for the crusader.
+	 * Contains the skill "the chariot".
+	 * 
+	 * @return The generated weapon.
+	 * 
+	 * @see WauzDebugger#getSkillgemWeapon(WauzPlayerSkill, boolean)
+	 */
 	public static ItemStack getCrusaderStarterWeapon() {
 		WauzPlayerSkill skill = new SkillTheChariot();
 		return WauzDebugger.getSkillgemWeapon(skill, false);
 	}
 
+	/**
+	 * Gets a starter weapon for the assassin.
+	 * Contains the skill "the star".
+	 * 
+	 * @return The generated weapon.
+	 * 
+	 * @see WauzDebugger#getSkillgemWeapon(WauzPlayerSkill, boolean)
+	 */
 	public static ItemStack getAssassinStarterWeapon() {
 		WauzPlayerSkill skill = new SkillTheStar();
 		return WauzDebugger.getSkillgemWeapon(skill, false);
 	}
 	
+	/**
+	 * Gets a starter rune of hardening.
+	 * 
+	 * @return The generated rune.
+	 * 
+	 * @see WauzDebugger#getRune(Player, String)
+	 */
 	public static ItemStack getStarterRune() {
 		WauzRune rune = new RuneHardening();
 		return WauzDebugger.getRune(rune.getRuneId(), false);

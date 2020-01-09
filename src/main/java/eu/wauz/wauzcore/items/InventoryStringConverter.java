@@ -14,10 +14,26 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
+/**
+ * A class to serialize and deserialize player inventories, including stats, to a character file.
+ * 
+ * @author Wauzmons
+ */
 public class InventoryStringConverter {
 
+	/**
+	 * A direct reference to the main class.
+	 */
 	private static WauzCore core = WauzCore.getInstance();
     
+	/**
+	 * Serializes the player inventory and current stats to the selected character config.
+	 * Includes last played time, health, mana, level, pvp resistance and saturation.
+	 * 
+	 * @param player The player whose inventory should be serialized.
+	 * 
+	 * @see WauzPlayerData#getSelectedCharacterSlot()
+	 */
     public static void saveInventory(Player player) {
     	File playerDirectory = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/");
 		File playerDataFile = new File(playerDirectory, WauzPlayerDataPool.getPlayer(player).getSelectedCharacterSlot() + ".yml");
@@ -45,11 +61,20 @@ public class InventoryStringConverter {
 		
 		try {
 			playerDataConfig.save(playerDataFile);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
     }
     
+    /**
+	 * Deserializes the player inventory and current stats to the selected character config.
+	 * Includes health, mana, level, pvp resistance and saturation.
+	 * 
+	 * @param player The player whose inventory should be deserialized.
+	 * 
+	 * @see WauzPlayerData#getSelectedCharacterSlot()
+	 */
     public static void loadInventory(Player player) {
     	File playerDirectory = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/");
 		File playerDataFile = new File(playerDirectory, WauzPlayerDataPool.getPlayer(player).getSelectedCharacterSlot() + ".yml");

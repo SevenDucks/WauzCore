@@ -392,7 +392,7 @@ public class WauzListener implements Listener {
 	}
 
 	/**
-	 * Checks if the player just created a sign that is bound to an event.
+	 * Checks if an OP player just created a sign that is bound to an event.
 	 * 
 	 * @param event
 	 * 
@@ -400,7 +400,7 @@ public class WauzListener implements Listener {
 	 */
 	@EventHandler
 	public void onSignChange(SignChangeEvent event) {
-		if(WauzMode.isMMORPG(event.getPlayer())) {
+		if(event.getPlayer().isOp() && WauzMode.isMMORPG(event.getPlayer())) {
 			WauzSigns.create(event);
 		}
 	}

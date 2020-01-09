@@ -16,9 +16,21 @@ import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.system.WauzDebugger;
 
+/**
+ * A collection of methods for using the glider weapon.
+ * 
+ * @author Wauzmons
+ */
 public class CustomWeaponGlider {
 	
+	/**
+	 * Cancels the event of a feather interaction.
+	 * If the player is targeting a sponge, they are standing on, they will be thrown into the air.
+	 * 
+	 * @param event The interaction event.
+	 */
 	public static void use(PlayerInteractEvent event) {
+		event.setCancelled(true);
 		final Player player = event.getPlayer();
 		Location target = null;
 
@@ -31,17 +43,18 @@ public class CustomWeaponGlider {
 			}
 		}
 		
-		if(target == null) {
-			event.setCancelled(true);
-			return;
-		}
-		
-		if(player.getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation().equals(target)) {
+		if(target != null && player.getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation().equals(target)) {
 			player.getWorld().playEffect(target, Effect.ENDERDRAGON_GROWL, 0);
-			player.setVelocity(new Vector(0, 3, 0));
+			player.setVelocity(new Vector(0, 2.5, 0));
 		}
 	}
 
+	/**
+	 * Adds a chicken to the player's head, if it is not already there.
+	 * Reduces the falling speed by 50% and lets the player slowly glide to their eye direction.
+	 * 
+	 * @param event The move event.
+	 */
 	public static void glide(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
 		boolean hasChick = false;
@@ -64,6 +77,11 @@ public class CustomWeaponGlider {
 		}
 	}
 	
+	/**
+	 * Removes all chickens from the player's head.
+	 * 
+	 * @param event The move event.
+	 */
 	public static void dechick(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
 		for(Entity passenger : player.getPassengers()) {
@@ -73,15 +91,25 @@ public class CustomWeaponGlider {
 		}
 	}
 	
+	/**
+	 * Cancels fall damage when holding a feather.
+	 * Also cancels suffocation damage for vehicle rides.
+	 * 
+	 * @param event The damage event.
+	 */
 	public static void cancelFallDamage(EntityDamageEvent event) {
 		Player player = (Player) event.getEntity();
-		if(event.getCause().equals(DamageCause.FALL))		
-			if(player.getEquipment().getItemInMainHand().getType().equals(Material.FEATHER))
+		if(event.getCause().equals(DamageCause.FALL)) {
+			if(player.getEquipment().getItemInMainHand().getType().equals(Material.FEATHER)) {
 				event.setDamage(0);
+			}
+		}
 		
-		if(event.getCause().equals(DamageCause.SUFFOCATION))
-			if(player.isInsideVehicle())
+		if(event.getCause().equals(DamageCause.SUFFOCATION)) {
+			if(player.isInsideVehicle()) {
 				event.setDamage(0);
+			}
+		}
 	}
 	
 }

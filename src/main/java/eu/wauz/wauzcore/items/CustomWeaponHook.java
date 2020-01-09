@@ -14,8 +14,23 @@ import org.bukkit.util.Vector;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 
+/**
+ * A collection of methods for using the hook weapon.
+ * 
+ * @author Wauzmons
+ */
 public class CustomWeaponHook {
 
+	/**
+	 * Handles a hook launch and cancels it, when no target was found within 15 blocks.
+	 * Pulls the player to the targeted block, if they are sneaking.
+	 * Otherwhise tries to pulls the nearest entity, in line of sight, to the player.
+	 * 
+	 * @param event The projectile event.
+	 * 
+	 * @see CustomWeaponHook#pull(Block, ProjectileLaunchEvent)
+	 * @see DurabilityCalculator#damageItem(Player, org.bukkit.inventory.ItemStack, int, boolean)
+	 */
 	public static void use(final ProjectileLaunchEvent event) {
 		final Player player = (Player) event.getEntity().getShooter();
 		Location target = null;
@@ -49,6 +64,18 @@ public class CustomWeaponHook {
 		}, 10);
 	}
 	
+	/**
+	 * Searches the block for valid attack targets.
+	 * If a target was found, the target will be pulled to the player.
+	 * 
+	 * @param block The block to search for targets.
+	 * @param event The projectile event.
+	 * 
+	 * @return If a target was found.
+	 * 
+	 * @see SkillUtils#getVectorForPoints(Location, Location)
+	 * @see DurabilityCalculator#damageItem(Player, org.bukkit.inventory.ItemStack, boolean)
+	 */
 	private static boolean pull(Block block, final ProjectileLaunchEvent event) {
 		final Player player = (Player) event.getEntity().getShooter();
 		Collection<Entity> nearbyEntites = block.getWorld().getNearbyEntities(block.getLocation(), 1, 1, 1);
