@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.menu;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,11 +19,10 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.util.Formatters;
 import net.md_5.bungee.api.ChatColor;
 
 public class GuildApplicationMenu implements WauzInventory {
-	
-	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	
 	public static void open(Player player) {
 		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
@@ -69,7 +67,7 @@ public class GuildApplicationMenu implements WauzInventory {
 			}
 			slores.add("");
 			slores.add(ChatColor.DARK_PURPLE + "Survival Score: ");
-			slores.add(ChatColor.WHITE + formatter.format(PlayerConfigurator.getSurvivalScore(applicant)));
+			slores.add(ChatColor.WHITE + Formatters.INT.format(PlayerConfigurator.getSurvivalScore(applicant)));
 			sm.setLore(slores);
 			skull.setItemMeta(sm);
 			menu.setItem(slot, skull);

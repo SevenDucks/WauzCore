@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.items.identifiers;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,13 +24,12 @@ import eu.wauz.wauzcore.items.EquipmentType;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzEquipmentIdentifier {
 	
-	private static DecimalFormat formatter = new DecimalFormat("0.00");
-
 	private static List<Equipment> equipTypes = new ArrayList<>();
 	
 	public static void addEquipType(Equipment equip) {
@@ -299,7 +297,7 @@ public class WauzEquipmentIdentifier {
 			WauzDebugger.log(player, "Generic Attack Speed: " + genericAttackSpeed);
 			AttributeModifier modifier = new AttributeModifier("generic.attackSpeed", genericAttackSpeed, Operation.ADD_NUMBER);
 			itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
-			lores.add("Speed:" + ChatColor.RED + " " + formatter.format(speedStat));
+			lores.add("Speed:" + ChatColor.RED + " " + Formatters.DEC_SHORT.format(speedStat));
 		}
 	}
 	

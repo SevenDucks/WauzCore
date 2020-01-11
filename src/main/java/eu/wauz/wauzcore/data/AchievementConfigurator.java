@@ -19,7 +19,7 @@ public class AchievementConfigurator extends GlobalConfigurationUtils {
 	 * @return The keys of all achievements.
 	 */
 	public static List<String> getAchievementKeys() {
-		return new ArrayList<>(mainConfigGetKeys("Achievements", null));
+		return new ArrayList<>(mainConfigGetKeys("Achievements", "generic"));
 	}
 	
 	/**
@@ -28,7 +28,7 @@ public class AchievementConfigurator extends GlobalConfigurationUtils {
 	 * @return The name of the achievement.
 	 */
 	public static String getName(String achievementKey) {
-		return mainConfigGetString("Achievements", achievementKey + ".name");
+		return mainConfigGetString("Achievements", "generic." + achievementKey + ".name");
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class AchievementConfigurator extends GlobalConfigurationUtils {
 	 * @return The type of the achievement.
 	 */
 	public static WauzAchievementType getType(String achievementKey) {
-		return WauzAchievementType.valueOf(mainConfigGetString("Achievements", achievementKey + ".type"));
+		return WauzAchievementType.valueOf(mainConfigGetString("Achievements", "generic." + achievementKey + ".type"));
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class AchievementConfigurator extends GlobalConfigurationUtils {
 	 * @return The required value to complete the achievement.
 	 */
 	public static int getGoal(String achievementKey) {
-		return mainConfigGetInt("Achievements", achievementKey + ".goal");
+		return mainConfigGetInt("Achievements", "generic." + achievementKey + ".goal");
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class AchievementConfigurator extends GlobalConfigurationUtils {
 	 * @return The amount of soulstones to receive as an achievement reward.
 	 */
 	public static int getReward(String achievementKey) {
-		return mainConfigGetInt("Achievements", achievementKey + ".reward");
+		return mainConfigGetInt("Achievements", "generic." + achievementKey + ".reward");
 	}
 	
 }

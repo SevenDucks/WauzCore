@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.players;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,6 +19,7 @@ import eu.wauz.wauzcore.data.players.GuildConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.GuildOverviewMenu;
 import eu.wauz.wauzcore.system.WauzTeleporter;
+import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
@@ -119,7 +119,7 @@ public class WauzPlayerGuild {
 			long tokens = PlayerConfigurator.getTokens(leader);
 			if(tokens < 300) {
 				leader.sendMessage(ChatColor.RED + "This requires 300 Tokens! You have: "
-						+ new DecimalFormat("#,###").format(PlayerConfigurator.getTokens(leader)) + " Tokens.");
+						+ Formatters.INT.format(PlayerConfigurator.getTokens(leader)) + " Tokens.");
 				return true;
 			}
 			if(StringUtils.isBlank(guildName)) {

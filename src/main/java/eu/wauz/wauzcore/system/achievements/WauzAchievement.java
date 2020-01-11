@@ -9,6 +9,9 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.AchievementConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.Formatters;
+import net.md_5.bungee.api.ChatColor;
 
 /**
  * An achievement, generated from the achievement config file.
@@ -42,6 +45,14 @@ public class WauzAchievement {
 		}
 	}
 	
+	/**
+	 * Gets the highest achievement of this type, that the given player earned.
+	 * 
+	 * @param player The player that earned the achievement.
+	 * @param type The type of the achievement.
+	 * 
+	 * @return The highest earned achievement.
+	 */
 	public static WauzAchievement getCurrentAchievementStage(Player player, WauzAchievementType type) {
 		WauzAchievement currentAchievementStage = null;
 		double progress = PlayerConfigurator.getCharacterAchievementProgress(player, type);
@@ -55,6 +66,21 @@ public class WauzAchievement {
 			}
 		}
 		return currentAchievementStage;
+	}
+	
+	/**
+	 * Gets the next achievement of this type, that the player has not earned yet.
+	 * 
+	 * @param player The player that has to earn the achievement.
+	 * @param type The type of the achievement.
+	 * 
+	 * @return The next achievement to earn.
+	 */
+	public static WauzAchievement getNextAchievementStage(Player player, WauzAchievementType type) {
+		WauzAchievement currentAchievementStage = getCurrentAchievementStage(player, type);
+		List<WauzAchievement> achievements = achievementMap.get(type);
+		int nextIndex = currentAchievementStage != null ? achievements.indexOf(currentAchievementStage) + 1 : 0;
+		return nextIndex < achievements.size() ? achievements.get(nextIndex) : null;
 	}
 	
 	/**
@@ -89,6 +115,25 @@ public class WauzAchievement {
 	 */
 	private WauzAchievement(String key) {
 		this.key = key;
+	}
+	
+	/**
+	 * Grants this achievement to the player and increases ther achievement count.
+	 * 
+	 * @param player The player that should earn the achievement.
+	 */
+	public void award(Player player) {
+		PlayerConfigurator.addCharacterCompletedAchievements(player);
+		long soulstones = PlayerConfigurator.getCharacterCurrency(player, "reput.souls");
+		PlayerConfigurator.setCharacterCurrency(player, "reput.souls", soulstones + reward);
+		
+		player.sendTitle(ChatColor.GOLD + "Achievement Earned", name, 10, 70, 20);
+		
+		player.sendMessage(ChatColor.YELLOW + "You earned the achievement " + ChatColor.GOLD + name
+				+ ChatColor.YELLOW + " (" + Formatters.INT.format(goal) + " " + type.getMessage() + ") "
+				+ "and received " + reward + " soulstones as a reward!");
+		
+		WauzNmsClient.nmsChatCommand(player, "menu achievements", ChatColor.YELLOW + " To view your achievements:", false);
 	}
 
 	/**

@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.menu;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -33,12 +32,11 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.InstanceManager;
+import eu.wauz.wauzcore.system.util.Formatters;
 import net.md_5.bungee.api.ChatColor;
 
 public class GuildOverviewMenu implements WauzInventory {
 	
-	private static DecimalFormat formatter = new DecimalFormat("#,###");
-
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new GuildOverviewMenu());
 		Inventory menu = Bukkit.createInventory(holder, 54, ChatColor.BLACK + "" + ChatColor.BOLD + "Guild Overview");
@@ -199,7 +197,7 @@ public class GuildOverviewMenu implements WauzInventory {
 				}
 				slores.add("");
 				slores.add(ChatColor.DARK_PURPLE + "Survival Score: ");
-				slores.add(ChatColor.WHITE + formatter.format(PlayerConfigurator.getSurvivalScore(member)));
+				slores.add(ChatColor.WHITE + Formatters.INT.format(PlayerConfigurator.getSurvivalScore(member)));
 				sm.setLore(slores);
 				skull.setItemMeta(sm);
 				menu.setItem(slot, skull);
@@ -224,7 +222,7 @@ public class GuildOverviewMenu implements WauzInventory {
 			List<String> createLores = new ArrayList<String>();
 			createLores.add(ChatColor.GRAY + "Type this Command in Chat to create a Guild!");
 			createLores.add(ChatColor.GRAY + "This will cost 300 Tokens! You have: "
-					+ new DecimalFormat("#,###").format(PlayerConfigurator.getTokens(player)) + " Tokens.");
+					+ Formatters.INT.format(PlayerConfigurator.getTokens(player)) + " Tokens.");
 			createLores.add("");
 			createLores.add(ChatColor.BLUE + "/" + ChatColor.WHITE + "guild [guildName]");
 			createLores.add("");

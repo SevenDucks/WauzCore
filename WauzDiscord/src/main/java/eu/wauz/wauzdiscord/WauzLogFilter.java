@@ -35,8 +35,17 @@ public class WauzLogFilter implements Filter {
 	 * Sends a notification to the log channel.
 	 */
 	public WauzLogFilter() {
-		String embeddedMessage = ":speaker: Logging for " + WauzCore.getServerKey() + " is now active!";
+		String coreVersion = "Running WauzCore v" + WauzCore.getInstance().getDescription().getVersion();
+		String coreVersionDisplay = System.lineSeparator() + ":nazar_amulet: " + coreVersion;
+		String embeddedMessage = ":speaker: Activated logging for " + WauzCore.getServerKey() + " " + coreVersionDisplay;
 		WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(embeddedMessage, Color.BLUE, true);
+	}
+	
+	/**
+	 * Closes the filter, to deny any log records from now on.
+	 */
+	public void close() {
+		isOpen = false;
 	}
 	
 	/**
@@ -54,68 +63,9 @@ public class WauzLogFilter implements Filter {
 		}
 		return null;
 	}
-	
-	/**
-	 * Closes the filter, to deny any log records from now on.
-	 * Sends a notification to the log channel.
-	 */
-	public void close() {
-		isOpen = false;
-		
-		String embeddedMessage = ":mute: Logging for " + WauzCore.getServerKey() + " is now inactive!";
-		WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(embeddedMessage, Color.ORANGE, true);
-	}
-	
+
 // Everything starting from here is useless.
 	
-	/**
-	 * Unused implmentation.
-	 */
-	@Override
-	public State getState() {
-		return null;
-	}
-
-	/**
-	 * Unused implmentation.
-	 */
-	@Override
-	public void initialize() {
-		
-	}
-
-	/**
-	 * Unused implmentation.
-	 */
-	@Override
-	public boolean isStarted() {
-		return false;
-	}
-
-	/**
-	 * Unused implmentation.
-	 */
-	@Override
-	public boolean isStopped() {
-		return false;
-	}
-
-	/**
-	 * Unused implmentation.
-	 */
-	@Override
-	public void start() {
-		
-	}
-
-	/**
-	 * Unused implmentation.
-	 */
-	@Override
-	public void stop() {
-		
-	}
-
 	/**
 	 * Unused implmentation.
 	 */
@@ -241,6 +191,54 @@ public class WauzLogFilter implements Filter {
 	@Override
 	public Result getOnMismatch() {
 		return null;
+	}
+	
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public State getState() {
+		return null;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public void initialize() {
+		
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public boolean isStarted() {
+		return false;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public boolean isStopped() {
+		return false;
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public void start() {
+		
+	}
+
+	/**
+	 * Unused implmentation.
+	 */
+	@Override
+	public void stop() {
+		
 	}
 
 }

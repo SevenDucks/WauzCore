@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.menu;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +26,12 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
 public class WauzMenu implements WauzInventory {
 	
-	private static DecimalFormat formatter = new DecimalFormat("#,###");
-
 	public static void open(Player player) {
 		if(WauzMode.inHub(player)) {
 			WauzModeMenu.open(player);
@@ -95,7 +93,7 @@ public class WauzMenu implements WauzInventory {
 		achievementsItemMeta.setDisplayName(ChatColor.GOLD + "Achievements");
 		List<String> achievementsLores = new ArrayList<String>();
 		achievementsLores.add(ChatColor.DARK_PURPLE + "Collected Achievements: " + ChatColor.YELLOW
-				+ 0);
+				+ Formatters.INT.format(PlayerConfigurator.getCharacterCompletedAchievements(player)));
 		achievementsLores.add("");
 		achievementsLores.add(ChatColor.GRAY + "Collect Achievements in many Categories,");
 		achievementsLores.add(ChatColor.GRAY + "to earn a lot of precious Tokens.");
@@ -108,7 +106,7 @@ public class WauzMenu implements WauzInventory {
 		questlogItemMeta.setDisplayName(ChatColor.GOLD + "Questlog");
 		List<String> questlogLores = new ArrayList<String>();
 		questlogLores.add(ChatColor.DARK_PURPLE + "Completed Quests: " + ChatColor.YELLOW
-			+ formatter.format(PlayerConfigurator.getCharacterAchievementProgress(player, WauzAchievementType.COMPLETE_QUESTS)));
+			+ Formatters.INT.format(PlayerConfigurator.getCharacterAchievementProgress(player, WauzAchievementType.COMPLETE_QUESTS)));
 		questlogLores.add("");
 		questlogLores.add(ChatColor.GRAY + "View or Cancel your running Quests.");
 		questlogLores.add(ChatColor.GRAY + "Use the Questfinder to locate Questgivers.");

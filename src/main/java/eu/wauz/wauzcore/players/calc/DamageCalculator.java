@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.players.calc;
 
-import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +35,7 @@ import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Cooldown;
+import eu.wauz.wauzcore.system.util.Formatters;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -51,11 +51,6 @@ import net.md_5.bungee.api.ChatColor;
  */
 @SuppressWarnings("deprecation")
 public class DamageCalculator {
-	
-	/**
-	 * A formatter for displaying damage numbers in logs.
-	 */
-	private static DecimalFormat formatter = new DecimalFormat("#,###.000");
 	
 	/**
 	 * The chance that a weapon skill increases on weapon usage. One in x.
@@ -163,7 +158,7 @@ public class DamageCalculator {
 			SkillUtils.throwBackEntity(player, entity.getLocation(), 1.2);
 		}
 		
-		WauzDebugger.log(player, "Randomized Multiplier: " + formatter.format(multiplier) + (isCritical ? " CRIT" : ""));
+		WauzDebugger.log(player, "Randomized Multiplier: " + Formatters.DEC.format(multiplier) + (isCritical ? " CRIT" : ""));
 		damage = (int) ((float) damage * (float) multiplier);
 		damage = damage < 1 ? 1 : damage;
 		event.setDamage(damage);
@@ -400,7 +395,7 @@ public class DamageCalculator {
 			multiplier *= 1.5;
 		}
 		
-		WauzDebugger.log(player, "Base Multiplier: " + formatter.format(multiplier));	
+		WauzDebugger.log(player, "Base Multiplier: " + Formatters.DEC.format(multiplier));	
 		return (int) ((float) damage * (float) multiplier);
 	}
 	
@@ -423,7 +418,7 @@ public class DamageCalculator {
 			multiplier += (float) ((float) PlayerConfigurator.getCharacterPetAbsorption(player, petSlot) / (float) 10f);
 		}
 		
-		WauzDebugger.log(player, "Base Multiplier: " + formatter.format(multiplier));	
+		WauzDebugger.log(player, "Base Multiplier: " + Formatters.DEC.format(multiplier));	
 		return (int) ((float) resist * (float) multiplier);
 	}
 	

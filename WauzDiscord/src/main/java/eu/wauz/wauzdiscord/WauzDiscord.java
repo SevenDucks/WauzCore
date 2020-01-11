@@ -49,21 +49,21 @@ public class WauzDiscord extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		
+		shiroDiscordBot = new ShiroDiscordBot();
+		getLogger().info("Shiro's body is ready!");
+		
 		/**
 		 * Print the version
 		 */
 		getLogger().info("O~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-O");
 		getLogger().info(" _    _                                           ");
-		getLogger().info("| |  | | WauzDiscord v" + getDescription().getVersion());
+		getLogger().info("| |  | | WauzDiscord running WauzCore v" + WauzCore.getInstance().getDescription().getVersion());
 		getLogger().info("| |  | | __ _ _   _ _____ __ ___   ___  _ __  ___ ");
 		getLogger().info("| |/\\| |/ _` | | | |_  / '_ ` _ \\ / _ \\| '_ \\/ __|");
 		getLogger().info("\\  /\\  / (_| | |_| |/ /| | | | | | (_) | | | \\__ \\");
 		getLogger().info(" \\/  \\/ \\__,_|\\__,_/___|_| |_| |_|\\___/|_| |_|___/");
 		getLogger().info("");
 		getLogger().info("O-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~O");
-		
-		shiroDiscordBot = new ShiroDiscordBot();
-		getLogger().info("Shiro's body is ready!");
 		
 		getServer().getPluginManager().registerEvents(new WauzDiscordListener(), this);
 		getLogger().info("Registered EventListeners!");

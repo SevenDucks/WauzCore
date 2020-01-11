@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.players.ui;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +24,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzQuest;
+import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -36,11 +36,6 @@ import net.md_5.bungee.api.ChatColor;
  * @author Wauzmons
  */
 public class WauzPlayerScoreboard {
-	
-	/**
-	 * A formatter to display scores or currency in the sidebar.
-	 */
-	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	
 	/**
 	 * Schedules a task to update the sidebar of the player, based on the world they are in.
@@ -101,7 +96,7 @@ public class WauzPlayerScoreboard {
 		rowStrings.add("" + ChatColor.WHITE + ChatColor.BOLD + "IP: play.wauz.eu");
 		rowStrings.add(" ");
 		rowStrings.add("Rank: " + ChatColor.GREEN + PlayerConfigurator.getRank(player));
-		rowStrings.add("Tokens: " + ChatColor.GOLD + formatter.format(PlayerConfigurator.getTokens(player)));
+		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getTokens(player)));
 		
 		for(int index =  0; index != rowStrings.size(); index++) {
 			Score score = objective.getScore(rowStrings.get(index));
@@ -133,11 +128,11 @@ public class WauzPlayerScoreboard {
 		rowStrings.add("" + ChatColor.WHITE + ChatColor.BOLD + "Survival Season " + WauzDateUtils.getSurvivalSeason());
 		rowStrings.add("" + ChatColor.WHITE + ChatColor.BOLD + "IP: play.wauz.eu");
 		rowStrings.add(" ");
-		rowStrings.add("Survival Score: " + ChatColor.AQUA + formatter.format(PlayerConfigurator.getSurvivalScore(player)));
+		rowStrings.add("Survival Score: " + ChatColor.AQUA + Formatters.INT.format(PlayerConfigurator.getSurvivalScore(player)));
 		rowStrings.add("One point and a free Token");
 		rowStrings.add("for each Level beyond 30");
 		rowStrings.add("  ");
-		rowStrings.add("Tokens: " + ChatColor.GOLD + formatter.format(PlayerConfigurator.getTokens(player)));
+		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getTokens(player)));
 		rowStrings.add("Use an Ender Chest to spend");
 		rowStrings.add("   ");
 		rowStrings.add(ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "hub " + ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "spawn");

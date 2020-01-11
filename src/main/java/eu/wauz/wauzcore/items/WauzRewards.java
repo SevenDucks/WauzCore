@@ -1,7 +1,5 @@
 package eu.wauz.wauzcore.items;
 
-import java.text.DecimalFormat;
-
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +16,7 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Cooldown;
+import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -27,11 +26,6 @@ import net.md_5.bungee.api.ChatColor;
  * @author Wauzmons
  */
 public class WauzRewards {
-	
-	/**
-	 * A formatter for displaying points and currencies.
-	 */
-	private static DecimalFormat formatter = new DecimalFormat("#,###");
 
 	/**
 	 * Gives a player coins, based on their rank, if the cooldown is ready.
@@ -53,7 +47,7 @@ public class WauzRewards {
     	
     	switch(PlayerConfigurator.getRank(player)) {
 			case "Admin":
-				amount = 20000;
+				amount = 500;
 				reward = "Admin Reward: ";			
 				break;
 			case "Normal":
@@ -242,7 +236,7 @@ public class WauzRewards {
 		}
 		Long survivalScore = PlayerConfigurator.getSurvivalScore(player) + 1;
 		PlayerConfigurator.setSurvivalScore(player, survivalScore);
-		player.sendMessage(ChatColor.GOLD + "You reached Survival Score " + formatter.format(survivalScore) + "!");
+		player.sendMessage(ChatColor.GOLD + "You reached Survival Score " + Formatters.INT.format(survivalScore) + "!");
 		token(player, "Survival", today + 1, limit);
 	}
 	

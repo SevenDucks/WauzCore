@@ -227,11 +227,69 @@ public class HeadUtils {
 		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjQ1NTlkNzU0NjRiMmU0MGE1MThlNGRlOGU2Y2YzMDg1ZjBhM2NhMGIxYjcwMTI2MTRjNGNkOTZmZWQ2MDM3OCJ9fX0=");
 	}
 	
+// AchievementIcons
+	
 	/**
-	 * @return An item stack representing ...
+	 * @return An item stack representing a reaper skull.
 	 */
-	public static ItemStack getItem() {
-		return getPlayerHead("");
+	public static ItemStack getAchievementKillsItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDQ1ZGM1NWRhYmE0ZTJkMzJhMjg0NDQ4YmI5ZTM4MzM1ZDg0M2Y5M2M0YTc3Njg4NWZkMzU2NTNmZGZjNzU4In19fQ==");
+	}
+	
+	/**
+	 * @return An item stack representing a red chest.
+	 */
+	public static ItemStack getAchievementIdentifiesItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWIzMzQ4YTYxY2ZmYzc5ZWI0MmQ4NDlkMzc4MjI5NDMyYWE4MWQxOTg1NmIyNWZlYWFjNzUzODQ4NzEzN2E1In19fQ==");
+	}
+	
+	/**
+	 * @return An item stack representing a blue potion.
+	 */
+	public static ItemStack getAchievementManaItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGQxYWQ3NGZmY2I2OTc5OGEwYmI0YTNhMGY3YjJiMzUzZDgxMWQxMWM4MjhiMzQxOTc4OTRkYTg1ZjQ5ZSJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a manuscript collection.
+	 */
+	public static ItemStack getAchievementQuestsItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTdhNTMwZjVjNTc0MmJmMTllMTc1YTRkNzhhZDQzNWFjMGY0Mzk2ZDNiNTQ2NGJkNjE4MmFiMzgyYWNhNDE3ZCJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a burning furnace.
+	 */
+	public static ItemStack getAchievementCraftingItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDE3YjhiNDNmOGM0YjVjZmViOTE5YzlmOGZlOTNmMjZjZWI2ZDJiMTMzYzJhYjFlYjMzOWJkNjYyMWZkMzA5YyJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a dinosaur egg.
+	 */
+	public static ItemStack getAchievementPetsItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODIxYzU1YWI3MWI0YjdlNGVlZTA2NTk0MmVhYzZkNjQyMzMyMjgwMTQxZjk0MWNiMjJiNjg3MjhmOGI0MGY1In19fQ==");
+	}
+	
+	/**
+	 * @return An item stack representing a gold nugget.
+	 */
+	public static ItemStack getAchievementCoinsItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTQ1ZjQ3ZmViNGQ3NWNiMzMzOTE0YmZkYjk5OWE0ODljOWQwZTMyMGQ1NDhmMzEwNDE5YWQ3MzhkMWUyNGI5In19fQ==");
+	}
+	
+	/**
+	 * @return An item stack representing an old clock.
+	 */
+	public static ItemStack getAchievementPlaytimeItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODQ3N2RhZmM4YzllYTA3OTk2MzMzODE3OTM4NjZkMTQ2YzlhMzlmYWQ0YzY2ODRlNzExN2Q5N2U5YjZjMyJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a cyan arrow.
+	 */
+	public static ItemStack getAchievementLevelsItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGIyMjFjYjk2MDdjOGE5YmYwMmZlZjVkNzYxNGUzZWIxNjljYzIxOWJmNDI1MGZkNTcxNWQ1ZDJkNjA0NWY3In19fQ==");
 	}
 	
 // General Elements
@@ -265,6 +323,13 @@ public class HeadUtils {
 	}
 	
 // Skull Creator
+	
+	/**
+	 * @return An item stack representing ...
+	 */
+	public static ItemStack getItem() {
+		return getPlayerHead("");
+	}
 	
 	/**
 	 * @param base64 A base64 string representing the data value of a skin.

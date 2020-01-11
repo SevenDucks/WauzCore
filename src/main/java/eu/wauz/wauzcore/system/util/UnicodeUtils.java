@@ -26,6 +26,12 @@ public class UnicodeUtils {
 	public static final String ICON_CARET = "\u00BB";
 	
 	/**
+	 * A zero width space icon in unicode.
+	 * <a href="https://www.fileformat.info/info/unicode/char/200B/index.htm">fileformat.info</a>
+	 */
+	public static final String ICON_ZERO_WIDTH_SPACE = "\u200B";
+	
+	/**
 	 * A bullet icon in unicode.
 	 * <a href="https://www.fileformat.info/info/unicode/char/2022/index.htm">fileformat.info</a>
 	 */

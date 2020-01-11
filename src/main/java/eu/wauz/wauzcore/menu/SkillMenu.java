@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.menu;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +17,10 @@ import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.system.util.Formatters;
 import net.md_5.bungee.api.ChatColor;
 
 public class SkillMenu implements WauzInventory {
-	
-	private static DecimalFormat formatter = new DecimalFormat("#,###.000");
 	
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new SkillMenu());
@@ -136,7 +134,7 @@ public class SkillMenu implements WauzInventory {
 		skillWeaponStaffItemMeta.setDisplayName(ChatColor.DARK_RED + "Staff Fighting");
 		List<String> skillWeaponStaffLores = new ArrayList<String>();
 		skillWeaponStaffLores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
-				+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getStaffSkill(player) / 1000)) + "%"
+				+ Formatters.DEC.format((float) ((float) PlayerPassiveSkillConfigurator.getStaffSkill(player) / 1000)) + "%"
 				+ ChatColor.GRAY + " (Max: "
 				+ (int) (PlayerPassiveSkillConfigurator.getStaffSkillMax(player) / 1000) + "%)");
 		skillWeaponStaffLores.add(ChatColor.GRAY + "Multiplied by "
@@ -155,7 +153,7 @@ public class SkillMenu implements WauzInventory {
 		skillWeaponAxeItemMeta.setDisplayName(ChatColor.DARK_RED + "Axe Combat");
 		List<String> skillWeaponAxeLores = new ArrayList<String>();
 		skillWeaponAxeLores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
-				+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getAxeSkill(player) / 1000)) + "%"
+				+ Formatters.DEC.format((float) ((float) PlayerPassiveSkillConfigurator.getAxeSkill(player) / 1000)) + "%"
 				+ ChatColor.GRAY + " (Max: "
 				+ (int) (PlayerPassiveSkillConfigurator.getAxeSkillMax(player) / 1000) + "%)");
 		skillWeaponAxeLores.add(ChatColor.GRAY + "Multiplied by "
@@ -174,7 +172,7 @@ public class SkillMenu implements WauzInventory {
 		skillWeaponSwordItemMeta.setDisplayName(ChatColor.DARK_RED + "Sword Art");
 		List<String> skillWeaponSwordLores = new ArrayList<String>();
 		skillWeaponSwordLores.add(ChatColor.DARK_PURPLE + "Atk: " + ChatColor.RED
-			+ formatter.format((float) ((float) PlayerPassiveSkillConfigurator.getSwordSkill(player) / 1000)) + "%"
+			+ Formatters.DEC.format((float) ((float) PlayerPassiveSkillConfigurator.getSwordSkill(player) / 1000)) + "%"
 			+ ChatColor.GRAY + " (Max: "
 			+ (int) (PlayerPassiveSkillConfigurator.getSwordSkillMax(player) / 1000) + "%)");
 		skillWeaponSwordLores.add(ChatColor.GRAY + "Multiplied by "

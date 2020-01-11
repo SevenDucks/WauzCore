@@ -2,7 +2,6 @@ package eu.wauz.wauzcore.system.api;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +16,7 @@ import com.google.common.io.Files;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
  * Used to fetch player statistics from Minecraft config files.
@@ -30,11 +30,6 @@ public class StatisticsFetcher {
 	 * A direct reference to the main class.
 	 */
 	private static WauzCore core = WauzCore.getInstance();
-	
-	/**
-	 * A formatter for seperating digits.
-	 */
-	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	
 	/**
 	 * The amount of MythicMobs entity files, if already calculated.
@@ -226,7 +221,7 @@ public class StatisticsFetcher {
 	 * @return A formatted string, showing the player's playtime in hours, from their statistics file.
 	 */
 	public String getPlayedHoursString() {
-		return formatter.format(getPlayedHoursFromStatistics(statisticsFile));
+		return Formatters.INT.format(getPlayedHoursFromStatistics(statisticsFile));
 	}
 	
 	/**
@@ -251,7 +246,7 @@ public class StatisticsFetcher {
 	 * @return A formatted string, showing the player's killed mobs, from their statistics file.
 	 */
 	public String getKilledMobsString() {
-		return formatter.format(getKilledMobsFromStatistics(statisticsFile));
+		return Formatters.INT.format(getKilledMobsFromStatistics(statisticsFile));
 	}
 	
 	/**
@@ -275,7 +270,7 @@ public class StatisticsFetcher {
 	 * @return A formatted string, showing the player's walked metres, from their statistics file.
 	 */
 	public String getWalkedMetresString() {
-		return formatter.format(getWalkedMetresFromStatistics(statisticsFile));
+		return Formatters.INT.format(getWalkedMetresFromStatistics(statisticsFile));
 	}
 	
 	/**

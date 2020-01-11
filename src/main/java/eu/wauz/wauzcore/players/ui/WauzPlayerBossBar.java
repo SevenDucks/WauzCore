@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.players.ui;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,7 @@ import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -30,11 +30,6 @@ import net.md_5.bungee.api.ChatColor;
  * @author Wauzmons
  */
 public class WauzPlayerBossBar {
-	
-	/**
-	 * A formatter for displaying health numbers in the bar.
-	 */
-	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	
 	/**
 	 * A map of all boss bars by entity uuid.
@@ -206,8 +201,8 @@ public class WauzPlayerBossBar {
 	 * @return The new title.
 	 */
 	public String getTitle(int health) {
-		String currentHealth = ChatColor.RED + formatter.format(health);
-		String maximumHealth = formatter.format(maxHealth) + " " + UnicodeUtils.ICON_HEART;
+		String currentHealth = ChatColor.RED + Formatters.INT.format(health);
+		String maximumHealth = Formatters.INT.format(maxHealth) + " " + UnicodeUtils.ICON_HEART;
 		String healthString = ChatColor.GRAY + "[ " + currentHealth + " / " + maximumHealth + ChatColor.GRAY + " ]";
 		return modifiers + damageable.getName() + " " + healthString;
 	}

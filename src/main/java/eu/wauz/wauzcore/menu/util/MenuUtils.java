@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.menu.util;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +19,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.WauzScrolls;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzMenu;
+import eu.wauz.wauzcore.system.util.Formatters;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -28,11 +28,6 @@ import net.md_5.bungee.api.ChatColor;
  * @author Wauzmons
  */
 public class MenuUtils {
-	
-	/**
-	 * A formatter to display scores or currency in a menu.
-	 */
-	private static DecimalFormat formatter = new DecimalFormat("#,###");
 	
 	/**
 	 * A list of items to block interactions for, in MMORPG mode.
@@ -52,17 +47,17 @@ public class MenuUtils {
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
 		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Currency");
 		List<String> lores = new ArrayList<String>();
-		lores.add(ChatColor.GOLD + formatter.format(PlayerConfigurator.getCharacterCoins(player))
+		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getCharacterCoins(player))
 			+ ChatColor.DARK_PURPLE + " Coins of Wauzland");
-		lores.add(ChatColor.GOLD + formatter.format(PlayerConfigurator.getCharacterSoulstones(player))
+		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getCharacterSoulstones(player))
 			+ ChatColor.DARK_PURPLE + " Soulstones");
 		lores.add("");
 		lores.add(ChatColor.GREEN + "Reputation");
-		lores.add(ChatColor.BLUE + formatter.format(PlayerConfigurator.getCharacterRepRepublicWauzland(player))
+		lores.add(ChatColor.BLUE + Formatters.INT.format(PlayerConfigurator.getCharacterRepRepublicWauzland(player))
 			+ ChatColor.DARK_PURPLE + " Republic Wauzland");
-		lores.add(ChatColor.BLUE + formatter.format(PlayerConfigurator.getCharacterRepEternalEmpire(player))
+		lores.add(ChatColor.BLUE + Formatters.INT.format(PlayerConfigurator.getCharacterRepEternalEmpire(player))
 			+ ChatColor.DARK_PURPLE + " Eternal Empire");
-		lores.add(ChatColor.BLUE + formatter.format(PlayerConfigurator.getCharacterRepDarkLegion(player))
+		lores.add(ChatColor.BLUE + Formatters.INT.format(PlayerConfigurator.getCharacterRepDarkLegion(player))
 			+ ChatColor.DARK_PURPLE + " Dark Legion");
 		currencyItemMeta.setLore(lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
@@ -81,7 +76,7 @@ public class MenuUtils {
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
 		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Currency");
 		List<String> lores = new ArrayList<String>();
-		lores.add(ChatColor.GOLD + formatter.format(PlayerConfigurator.getTokens(player))
+		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getTokens(player))
 			+ ChatColor.DARK_PURPLE + " Tokens");
 		currencyItemMeta.setLore(lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
