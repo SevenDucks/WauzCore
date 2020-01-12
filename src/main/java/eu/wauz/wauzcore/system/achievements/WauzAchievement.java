@@ -128,12 +128,12 @@ public class WauzAchievement {
 		PlayerConfigurator.setCharacterCurrency(player, "reput.souls", soulstones + reward);
 		
 		player.sendTitle(ChatColor.GOLD + "Achievement Earned", name, 10, 70, 20);
-		
-		player.sendMessage(ChatColor.YELLOW + "You earned the achievement " + ChatColor.GOLD + name
-				+ ChatColor.YELLOW + " (" + Formatters.INT.format(goal) + " " + type.getMessage() + ") "
-				+ "and received " + reward + " soulstones as a reward!");
-		
-		WauzNmsClient.nmsChatCommand(player, "menu achievements", ChatColor.YELLOW + " To view your achievements:", false);
+		player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
+		String goalDisplay = ChatColor.YELLOW + " (" + Formatters.INT.format(goal) + " " + type.getMessage() + ")";
+		player.sendMessage(ChatColor.YELLOW + "You earned " + ChatColor.GOLD + name + goalDisplay);
+		player.sendMessage(ChatColor.YELLOW + "You received " + reward + " soulstones as reward!");
+		WauzNmsClient.nmsChatCommand(player, "menu achievements", ChatColor.YELLOW + "To view your achievements:", false);
+		player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 	}
 
 	/**

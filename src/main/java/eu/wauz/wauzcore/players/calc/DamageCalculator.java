@@ -33,6 +33,7 @@ import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.Formatters;
@@ -63,6 +64,7 @@ public class DamageCalculator {
 	 * Checks level requirements and cooldown on the used weapon,
 	 * so the attack can be cancelled and an according message can be shown.
 	 * Minecraft damage modifiers are removed and replaced by custom bonuses and (crit) randomizers.
+	 * In attack debug mode, the damage output is multiplied by 100.
 	 * Also lets damage indicators pop up after the attack,
 	 * aswell as reducing weapon durability, if necessary.
 	 * 
@@ -75,6 +77,7 @@ public class DamageCalculator {
 	 * @see ValueIndicator#spawnDamageIndicator(Entity, Integer)
 	 * @see ValueIndicator#spawnMissedIndicator(Entity)
 	 * @see DurabilityCalculator#damageItem(Player, ItemStack, boolean)
+	 * @see WauzDebugger#toggleAttackDebugMode(Player)
 	 */
 	public static void attack(EntityDamageByEntityEvent event) {
 		Player player = (Player) event.getDamager();
@@ -94,6 +97,7 @@ public class DamageCalculator {
 		int damage = 1;
 		int unmodifiedDamage = (int) event.getDamage();
 		
+		boolean isAttackDebugMode = player.hasPermission(WauzPermission.DEBUG_ATTACK.toString());
 		boolean isMagic = false;
 		double magicMultiplier = 1;
 		
@@ -103,7 +107,7 @@ public class DamageCalculator {
 		}
 		else {
 			if((itemStack.getType().equals(Material.AIR)) || !ItemUtils.hasLore(itemStack)) {
-				event.setDamage(1);
+				event.setDamage(isAttackDebugMode ? 100: 1);
 				removeDamageModifiers(event);
 				DurabilityCalculator.damageItem(player, itemStack, false);
 				ValueIndicator.spawnDamageIndicator(event.getEntity(), 1);
@@ -151,6 +155,9 @@ public class DamageCalculator {
 			multiplier += Chance.negativePositive(0.15f);
 		}
 		
+		if(isAttackDebugMode) {
+			multiplier += 100;
+		}
 		if(entity.hasMetadata("wzModMassive")) {
 			multiplier = 0.2f * multiplier;
 		}
@@ -200,7 +207,7 @@ public class DamageCalculator {
 	
 	/**
 	 * Determines the amount of damage a player takes.
-	 * The player can also evade damage by having invisibility or high agility.
+	 * The player can also evade damage by having either invisibility, defense debug mode enabled or simply high agility.
 	 * Also lets damage indicators pop up after the attack,
 	 * aswell as reducing armor durability and adding no-damage-ticks, if necessary.
 	 * 
@@ -211,6 +218,7 @@ public class DamageCalculator {
 	 * @see ValueIndicator#spawnDamageIndicator(Entity, Integer)
 	 * @see ValueIndicator#spawnEvadedIndicator(Entity)
 	 * @see EquipmentUtils#getBaseDef(ItemStack)
+	 * @see WauzDebugger#toggleDefenseDebugMode(Player)
 	 */
 	public static void defend(EntityDamageEvent event) {
 		Player player = (Player) event.getEntity();
@@ -219,7 +227,10 @@ public class DamageCalculator {
 			return;
 		}
 		
-		if(player.hasPotionEffect(PotionEffectType.INVISIBILITY) || Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player))) {
+		if(player.hasPotionEffect(PotionEffectType.INVISIBILITY)
+				|| player.hasPermission(WauzPermission.DEBUG_DEFENSE.toString())
+				|| Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player))) {
+			
 			event.setDamage(0);
 			
 			ValueIndicator.spawnEvadedIndicator(player);

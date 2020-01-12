@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
@@ -109,7 +110,6 @@ public class WauzSigns {
 	
 	/**
 	 * Checks the sign content for keywords, to may trigger an event for the player.
-	 * TODO Seems unsafe. Should check for formatted text instead.
 	 * 
 	 * @param player The player who interacted with the sign.
 	 * @param block The sign block.
@@ -122,7 +122,7 @@ public class WauzSigns {
 		Sign sign = (Sign) block.getState();
 		String signType = sign.getLine(1);
 		
-		if(StringUtils.isBlank(signType)) {
+		if(StringUtils.isBlank(signType) || !signType.contains(UnicodeUtils.ICON_PARAGRAPH)) {
 			return;
 		}
 		else if(signType.contains("Leave") && player.getWorld().getName().contains("Instance")) {

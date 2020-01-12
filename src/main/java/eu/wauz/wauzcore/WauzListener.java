@@ -458,7 +458,8 @@ public class WauzListener implements Listener {
 
 	/**
 	 * Handles damage calculation in MMORPG mode.
-	 * Cancels out damage in hub, damage to pets or damage from cosmetic explosions.
+	 * In attack debug mode, the damage output is multiplied by 100.
+	 * Cancels out damage in hub or defense debug mode, damage to pets or damage from cosmetic explosions.
 	 * Prevents damaging players in non PvP areas and fall damage when gliding.
 	 * 
 	 * Also updates the boss bar if one exists.
@@ -470,14 +471,15 @@ public class WauzListener implements Listener {
 	 * @see DamageCalculator#defend(EntityDamageEvent)
 	 * @see DamageCalculator#removeDamageModifiers(EntityDamageEvent)
 	 * @see WauzPlayerBossBar#updateBossBar(double)
+	 * @see WauzDebugger#toggleAttackDebugMode(Player)
+	 * @see WauzDebugger#toggleDefenseDebugMode(Player)
 	 */
 	@EventHandler
 	public void onDamage(EntityDamageEvent event) {
-		if(WauzMode.inHub(event.getEntity()) || PetOverviewMenu.getOwner(event.getEntity()) != null) {
-			event.setCancelled(true);
-			return;
-		}
-		if(event.getCause().equals(DamageCause.BLOCK_EXPLOSION)) {
+		if(WauzMode.inHub(event.getEntity())
+				|| PetOverviewMenu.getOwner(event.getEntity()) != null
+				|| event.getEntity().hasPermission(WauzPermission.DEBUG_DEFENSE.toString())
+				|| event.getCause().equals(DamageCause.BLOCK_EXPLOSION)) {
 			event.setCancelled(true);
 			return;
 		}
@@ -492,6 +494,9 @@ public class WauzListener implements Listener {
 			if(entityEvent.getDamager() instanceof Arrow && CustomWeaponBow.cancelArrowImpact(entityEvent)) {
 				event.setCancelled(true);
 				return;
+			}
+			if(entityEvent.getDamager().hasPermission(WauzPermission.DEBUG_ATTACK.toString())) {
+				event.setDamage(event.getDamage() * 100);
 			}
 			if(!WauzMode.isMMORPG(event.getEntity())) {
 				return;
@@ -681,10 +686,12 @@ public class WauzListener implements Listener {
 
 	/**
 	 * Handles glider mechanics in MMORPG mode, aswell as flying-permissions.
+	 * Flying in every region, besides the hub, will be allowed in flying debug mode.
 	 * 
 	 * @param event
 	 * 
 	 * @see CustomWeaponGlider#glide(PlayerMoveEvent)
+	 * @see WauzDebugger#toggleFlyingDebugMode(Player)
 	 */
 	@EventHandler
 	public void onMove(PlayerMoveEvent event) {
@@ -695,9 +702,9 @@ public class WauzListener implements Listener {
 			}
 		}
 		else {
-			boolean creative = player.getGameMode().equals(GameMode.CREATIVE);
-			boolean spectate = player.getGameMode().equals(GameMode.SPECTATOR);
-			event.getPlayer().setAllowFlight(creative || spectate);
+			event.getPlayer().setAllowFlight(player.hasPermission(WauzPermission.DEBUG_FLYING.toString())
+					|| player.getGameMode().equals(GameMode.CREATIVE)
+					|| player.getGameMode().equals(GameMode.SPECTATOR));
 		}
 		
 		if(WauzMode.isMMORPG(player)) {

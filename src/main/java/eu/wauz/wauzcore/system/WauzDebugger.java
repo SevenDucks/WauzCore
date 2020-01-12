@@ -64,7 +64,7 @@ public class WauzDebugger {
 	 * Toggles the general debug mode for a player.
 	 * Grants access to the ingame debug log.
 	 * 
-	 * @param player The player to that gets their permissions changed.
+	 * @param player The player that gets their permissions changed.
 	 * 
 	 * @return If it was successful. (Default true)
 	 */
@@ -79,7 +79,7 @@ public class WauzDebugger {
 	 * Toggles the magic debug mode for a player.
 	 * Grants infinite mana and 1s skill cooldowns.
 	 * 
-	 * @param player The player to that gets their permissions changed.
+	 * @param player The player that gets their permissions changed.
 	 * 
 	 * @return If it was successful. (Default true)
 	 */
@@ -94,7 +94,7 @@ public class WauzDebugger {
 	 * Toggles the crafting debug mode for a player.
 	 * Grants virtually unlimited materials and crafting levels.
 	 * 
-	 * @param player The player to that gets their permissions changed.
+	 * @param player The player that gets their permissions changed.
 	 * 
 	 * @return If it was successful. (Default true)
 	 */
@@ -109,7 +109,7 @@ public class WauzDebugger {
 	 * Toggles the building debug mode for a player.
 	 * Grants building rights in every region.
 	 * 
-	 * @param player The player to that gets their permissions changed.
+	 * @param player The player that gets their permissions changed.
 	 * 
 	 * @return If it was successful. (Default true)
 	 */
@@ -117,6 +117,53 @@ public class WauzDebugger {
 		String permission = WauzPermission.DEBUG_BUILDING.toString();
 		player.addAttachment(WauzCore.getInstance(), permission, !player.hasPermission(permission));
 		log(player, "Building debug mode toggled!");
+		return true;
+	}
+	
+	/**
+	 * Toggles the flying debug mode for a player.
+	 * Grants flying rights + increased speed in all modes.
+	 * 
+	 * @param player The player that gets their permissions changed.
+	 * 
+	 * @return If it was successful. (Default true)
+	 */
+	public static boolean toggleFlyingDebugMode(Player player) {
+		String permission = WauzPermission.DEBUG_FLYING.toString();
+		player.addAttachment(WauzCore.getInstance(), permission, !player.hasPermission(permission));
+		log(player, "Flying debug mode toggled!");
+		
+		player.setFlySpeed(player.hasPermission(permission) ? 0.3f : 0.1f);
+		return true;
+	}
+	
+	/**
+	 * Toggles the attack debug mode for a player.
+	 * Grants drastical increase of damage output.
+	 * 
+	 * @param player The player that gets their permissions changed.
+	 * 
+	 * @return If it was successful. (Default true)
+	 */
+	public static boolean toggleAttackDebugMode(Player player) {
+		String permission = WauzPermission.DEBUG_ATTACK.toString();
+		player.addAttachment(WauzCore.getInstance(), permission, !player.hasPermission(permission));
+		log(player, "Attack debug mode toggled!");
+		return true;
+	}
+	
+	/**
+	 * Toggles the defense debug mode for a player.
+	 * Grants reduction to zero of taken damage.
+	 * 
+	 * @param player The player that gets their permissions changed.
+	 * 
+	 * @return If it was successful. (Default true)
+	 */
+	public static boolean toggleDefenseDebugMode(Player player) {
+		String permission = WauzPermission.DEBUG_DEFENSE.toString();
+		player.addAttachment(WauzCore.getInstance(), permission, !player.hasPermission(permission));
+		log(player, "Defense debug mode toggled!");
 		return true;
 	}
 	

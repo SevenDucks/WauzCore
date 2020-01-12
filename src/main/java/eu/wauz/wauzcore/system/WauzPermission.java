@@ -35,7 +35,22 @@ public enum WauzPermission {
 	/**
 	 * Enables building in all areas. Default: false.
 	 */
-	DEBUG_BUILDING("wauz.debug.building");
+	DEBUG_BUILDING("wauz.debug.building"),
+	
+	/**
+	 * Allows to fly very fast in all modes.
+	 */
+	DEBUG_FLYING("wauz.debug.flying"),
+	
+	/**
+	 * Increases damage output drastically.
+	 */
+	DEBUG_ATTACK("wauz.debug.attack"),
+	
+	/**
+	 * Reduces damage taken to zero.
+	 */
+	DEBUG_DEFENSE("wauz.debug.defense");
 	
 	/**
 	 * The name of the permission.

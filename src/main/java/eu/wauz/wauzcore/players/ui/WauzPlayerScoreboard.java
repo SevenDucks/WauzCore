@@ -2,6 +2,7 @@ package eu.wauz.wauzcore.players.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
@@ -305,19 +306,26 @@ public class WauzPlayerScoreboard {
 				
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(online);
 				if(playerData == null) {
-					team.setSuffix(ChatColor.RED + " " + online.getHealth() + " / 20 " + UnicodeUtils.ICON_HEART);
+					team.setSuffix(ChatColor.RED + " " + ((int) online.getHealth()) + " / 20 " + UnicodeUtils.ICON_HEART);
 				}
 				else {
-					team.setSuffix(ChatColor.RED + " " + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + UnicodeUtils.ICON_HEART);
-					
-					if(ownData.isInGroup() && playerData.isInGroup() && StringUtils.equals(ownData.getGroupUuidString(), playerData.getGroupUuidString())) {
-						team.setPrefix(ChatColor.BLUE + "GROUP ");
+					if(WauzMode.isSurvival(player)) {
+						team.setSuffix(ChatColor.RED + " " + ((int) online.getHealth()) + " / 20 " + UnicodeUtils.ICON_HEART);
 					}
 					else {
-						WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(online);
-						WauzPlayerGuild ownGuild = PlayerConfigurator.getGuild(player);
-						if(ownGuild != null && playerGuild != null && StringUtils.equals(ownGuild.getGuildUuidString(), playerGuild.getGuildUuidString())) {
-							team.setPrefix(ChatColor.GREEN + "GUILD ");
+						team.setSuffix(ChatColor.RED + " " + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + UnicodeUtils.ICON_HEART);
+					}
+					
+					if(!Objects.equals(ownData, playerData)) {
+						if(ownData.isInGroup() && playerData.isInGroup() && StringUtils.equals(ownData.getGroupUuidString(), playerData.getGroupUuidString())) {
+							team.setPrefix(ChatColor.BLUE + "GROUP ");
+						}
+						else {
+							WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(online);
+							WauzPlayerGuild ownGuild = PlayerConfigurator.getGuild(player);
+							if(ownGuild != null && playerGuild != null && StringUtils.equals(ownGuild.getGuildUuidString(), playerGuild.getGuildUuidString())) {
+								team.setPrefix(ChatColor.GREEN + "GUILD ");
+							}
 						}
 					}
 				}

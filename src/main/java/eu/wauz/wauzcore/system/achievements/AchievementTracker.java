@@ -48,7 +48,7 @@ public class AchievementTracker {
 		WauzAchievement currentAchievementStage = WauzAchievement.getCurrentAchievementStage(player, type);
 		WauzAchievement nextAchievementStage = WauzAchievement.getNextAchievementStage(player, type);
 		double progress = PlayerConfigurator.getCharacterAchievementProgress(player, type);
-		String progressString = Formatters.INT.format(progress);
+		String progressString = Formatters.INT.format(Math.floor(progress));
 		
 		List<String> lores = new ArrayList<>();
 		if(currentAchievementStage != null) {

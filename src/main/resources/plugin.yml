@@ -106,6 +106,18 @@ commands:
     description: Toggle Building Debug Mode
     usage: /wzDebug.building [player]
     permission: wauz.system
+  wzDebug.flying:
+    description: Toggle Flying Debug Mode
+    usage: /wzDebug.flying [player]
+    permission: wauz.system
+  wzDebug.attack:
+    description: Toggle Attack Debug Mode
+    usage: /wzDebug.attack [player]
+    permission: wauz.system
+  wzDebug.defense:
+    description: Toggle Defense Debug Mode
+    usage: /wzDebug.defense [player]
+    permission: wauz.system
   wzGetPet:
     description: Get Pet from String
     usage: /wzGetPet [player] [petname]
@@ -152,4 +164,13 @@ permissions:
     default: false
   wauz.debug.building:
     description: Enables building in all areas.
+    default: false
+  wauz.debug.flying:
+    description: Allows to fly very fast in all modes.
+    default: false
+  wauz.debug.attack:
+    description: Increases damage output drastically.
+    default: false
+  wauz.debug.defense:
+    description: Reduces damage taken to zero.
     default: false

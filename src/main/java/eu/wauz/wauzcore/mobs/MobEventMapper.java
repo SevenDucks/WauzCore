@@ -40,6 +40,7 @@ public class MobEventMapper {
 	/**
 	 * When a mob dies, following cases are possible:
 	 * It gets unregistered from its owner, if it was a pet.
+	 * The killer, gets achievement progress, if it was a player, killing a valid target.
 	 * It spawns guards or loot, if it was a strongbox.
 	 * It gets removed from the travel map, if it was a worldboss.
 	 * It explodes or splits, if it has fitting menacing modifiers (prefixes).
