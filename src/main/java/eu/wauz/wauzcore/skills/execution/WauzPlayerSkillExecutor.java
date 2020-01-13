@@ -70,7 +70,7 @@ public class WauzPlayerSkillExecutor {
 	/**
 	 * Registers a skill.
 	 * 
-	 * @param skill The command to skill.
+	 * @param skill The skill to register.
 	 */
 	public static void registerSkill(WauzPlayerSkill skill) {
 		playerSkillMap.put(skill.getSkillId(), skill);

@@ -69,7 +69,7 @@ public class DurabilityCalculator {
 		materialDamage = (int) ((double) (materialDamage * materialDurability) / (double) maxDurability);
 		setDamage(itemToDamage, materialDamage < materialDurability ? materialDamage : materialDurability - 1);
 		
-		EquipmentUtils.setDurability(itemToDamage, newDurability);
+		EquipmentUtils.setCurrentDurability(itemToDamage, newDurability);
 		WauzDebugger.log(player, "Durability: " + newDurability + " / " + maxDurability + " for " + displayName);
 	}
 	
@@ -85,7 +85,7 @@ public class DurabilityCalculator {
 		if(WauzMode.isMMORPG(player)) {
 			int maxDurability = EquipmentUtils.getMaximumDurability(itemToRepair);
 			if(maxDurability != 0) {
-				EquipmentUtils.setDurability(itemToRepair, maxDurability);
+				EquipmentUtils.setCurrentDurability(itemToRepair, maxDurability);
 			}
 		}
 	}

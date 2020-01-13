@@ -13,8 +13,25 @@ import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
+/**
+ * A helper class for removing runes and skillgems from items.
+ * 
+ * @author Wauzmons
+ * 
+ * @see WauzRuneInserter
+ * @see WauzSkillgemInserter
+ */
 public class WauzRuneRemover {
 
+	/**
+	 * Removes all runes and skillgems from an equipment item stack and restores the empty slots.
+	 * Returns false if the item had no slots in the first place.
+	 * 
+	 * @param player The player that is clearing the slots.
+	 * @param equipmentItemStack The equipment that gets its slots cleared.
+	 * 
+	 * @return If the action was successful.
+	 */
 	public boolean clearAllSockets(Player player, ItemStack equipmentItemStack) {
 		boolean valid = false;
 		if(!ItemUtils.hasLore(equipmentItemStack)) {
