@@ -503,6 +503,9 @@ public class WauzListener implements Listener {
 			}
 			if(entityEvent.getDamager() instanceof Player) {
 				DamageCalculator.attack(entityEvent);
+				if(event.isCancelled()) {
+					return;
+				}
 				if(playerBossBar != null) {
 					playerBossBar.addPlayer((Player) entityEvent.getDamager(), entityEvent.getDamage());
 				}

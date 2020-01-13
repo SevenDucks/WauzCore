@@ -180,34 +180,34 @@ public class WauzEquipmentIdentifier {
 	}
 	
 	private void determineRarity() {
-		int rarity = random.nextInt(1000);
+		int rarity = random.nextInt(10000) + 1;
 		String x = UnicodeUtils.ICON_DIAMOND;
 		
-		if(rarity <= 550) {
+		if(rarity <= 7000) {
 			rarityColor = ChatColor.GREEN;
 			rarityName += "Normal ";
 			rarityStars += x + ChatColor.GRAY +x +x +x +x;
 			rarityMultiplier = 1.00;
 		}
-		else if(rarity <= 800) {
+		else if(rarity <= 9500) {
 			rarityColor = ChatColor.BLUE;
 			rarityName += "Magic ";
 			rarityStars += x +x + ChatColor.GRAY +x +x +x;
 			rarityMultiplier = 1.50;
 		}
-		else if(rarity <= 920) {
+		else if(rarity <= 9900) {
 			rarityColor = ChatColor.GOLD;
 			rarityName += "Rare ";
 			rarityStars += x +x +x + ChatColor.GRAY +x +x;
 			rarityMultiplier = 2.00;
 		}
-		else if(rarity <= 975) {
+		else if(rarity <= 9995) {
 			rarityColor = ChatColor.DARK_PURPLE;
 			rarityName += "Epic ";
 			rarityStars += x +x +x +x + ChatColor.GRAY +x;
 			rarityMultiplier = 2.50;
 		}
-		else if(rarity <= 999) {
+		else if(rarity <= 10000) {
 			rarityColor = ChatColor.DARK_RED;
 			rarityName += "Unique ";
 			rarityStars += x +x +x +x +x;

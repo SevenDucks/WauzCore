@@ -12,7 +12,7 @@ import net.md_5.bungee.api.ChatColor;
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
  * - Description: <b>Get Enhanced Equip from String</b></br>
- * - Usage: <b>/wzEnhanced [player] [enhancementname] [enhancementlvl]</b></br>
+ * - Usage: <b>/wzEnhanced [player] [enname] [enlvl]</b></br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

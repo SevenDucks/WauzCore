@@ -61,7 +61,7 @@ public class WauzRuneIdentifier {
 		ItemMeta itemMeta = runeItemStack.getItemMeta();
 		itemMeta.setDisplayName(identifiedItemName);
 			
-		int power = (int) ((2 + random.nextDouble() / 1.5) * tierMultiplier * rarityMultiplier);
+		int power = (int) ((2 + random.nextDouble() / 2) * tierMultiplier * rarityMultiplier);
 		
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.WHITE + tierName + rarityName + "Rune " + rarityStars);
@@ -104,15 +104,15 @@ public class WauzRuneIdentifier {
 	
 	private void determineTier() {
 		if(itemName.contains("T1")) {
-			tierMultiplier = 8;
+			tierMultiplier = 6;
 			tierName = "Lesser" + ChatColor.GRAY + " T1 " + ChatColor.WHITE;
 		}
 		else if(itemName.contains("T2")) {
-			tierMultiplier = 12;
+			tierMultiplier = 9;
 			tierName = "Greater" + ChatColor.GRAY + " T2 " + ChatColor.WHITE;
 		}
 		else if(itemName.contains("T3")) {
-			tierMultiplier = 16;
+			tierMultiplier = 12;
 			tierName = "Angelic" + ChatColor.GRAY + " T3 " + ChatColor.WHITE;
 		}
 	}
