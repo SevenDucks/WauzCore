@@ -1,6 +1,8 @@
 package eu.wauz.wauzcore.items.identifiers;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Generic identifier, used for determining what typed identifier should be used.
@@ -20,14 +22,17 @@ public class WauzIdentifier {
 	 * @param itemName The name of the item to identify.
 	 */
 	public static void identify(InventoryClickEvent event, String itemName) {
+		Player player = (Player) event.getWhoClicked();
+		ItemStack itemStack = event.getCurrentItem();	
+		
 		if(itemName.contains("Item")) {
-			new WauzEquipmentIdentifier().identifyItem(event);
+			new WauzEquipmentIdentifier().identifyItem(player, itemStack);
 		}
 		else if(itemName.contains("Rune")) {
-			new WauzRuneIdentifier().identifyRune(event);
+			new WauzRuneIdentifier().identifyRune(player, itemStack);
 		}
 		else if(itemName.contains("Skillgem")) {
-			new WauzSkillgemIdentifier().identifySkillgem(event);
+			new WauzSkillgemIdentifier().identifySkillgem(player, itemStack);
 		}
 	}
 

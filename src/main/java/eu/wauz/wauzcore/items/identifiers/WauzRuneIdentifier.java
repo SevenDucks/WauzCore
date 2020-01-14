@@ -7,7 +7,6 @@ import java.util.Random;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -87,15 +86,16 @@ public class WauzRuneIdentifier {
 	 * Then a random rune type is taken and added to the item's display name.
 	 * Finally the new name will be set and the item lores are generated.
 	 * 
-	 * @param event The inventory event, which triggered the identifying.
+	 * @param player The player who identifies the item.
+	 * @param runeItemStack The rune item stack, that is getting identified.
 	 * 
 	 * @see WauzRuneIdentifier#determineRarity()
 	 * @see WauzRuneIdentifier#determineTier()
 	 * @see WauzRuneIdentifier#generateIdentifiedRune()
 	 */
-	public void identifyRune(InventoryClickEvent event) {
-		player = (Player) event.getWhoClicked();
-		runeItemStack = event.getCurrentItem();	
+	public void identifyRune(Player player, ItemStack runeItemStack) {
+		this.player = player;
+		this.runeItemStack = runeItemStack;	
 		itemName = runeItemStack.getItemMeta().getDisplayName();
 		
 		determineRarity();
@@ -167,17 +167,17 @@ public class WauzRuneIdentifier {
 	 * Automatically sets the tier name and level.
 	 */
 	private void determineTier() {
-		if(itemName.contains("T1")) {
-			tierMultiplier = 6;
-			tierName = "Lesser" + ChatColor.GRAY + " T1 " + ChatColor.WHITE;
+		if(itemName.contains("T3")) {
+			tierMultiplier = 12;
+			tierName = "Angelic" + ChatColor.GRAY + " T3 " + ChatColor.WHITE;
 		}
 		else if(itemName.contains("T2")) {
 			tierMultiplier = 9;
 			tierName = "Greater" + ChatColor.GRAY + " T2 " + ChatColor.WHITE;
 		}
-		else if(itemName.contains("T3")) {
-			tierMultiplier = 12;
-			tierName = "Angelic" + ChatColor.GRAY + " T3 " + ChatColor.WHITE;
+		else {
+			tierMultiplier = 6;
+			tierName = "Lesser" + ChatColor.GRAY + " T1 " + ChatColor.WHITE;
 		}
 	}
 

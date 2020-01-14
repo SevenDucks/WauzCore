@@ -8,7 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
-import eu.wauz.wauzcore.commands.administrative.CmdWzEnhanced;
+import eu.wauz.wauzcore.commands.administrative.CmdWzGetEquipEnhanced;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 
 /**
@@ -16,7 +16,7 @@ import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
  * 
  * @author Wauzmons
  * 
- * @see CmdWzEnhanced
+ * @see CmdWzGetEquipEnhanced
  */
 public class TabCompleterEnhancements implements TabCompleter {
 	
@@ -32,7 +32,7 @@ public class TabCompleterEnhancements implements TabCompleter {
 	 */
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzEnhanced")) {
+		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzGetEquip.enhanced")) {
 			return null;
 		}
 		

@@ -1,18 +1,21 @@
 package eu.wauz.wauzcore.commands.administrative;
 
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import net.md_5.bungee.api.ChatColor;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Get Enhanced Equip from String</b></br>
- * - Usage: <b>/wzEnhanced [player] [enname] [enlvl]</b></br>
+ * - Description: <b>Get Equip from String</b></br>
+ * - Usage: <b>/wzGetEquip [player] [equipname] [tier]</b></br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons
@@ -20,14 +23,14 @@ import net.md_5.bungee.api.ChatColor;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
-public class CmdWzEnhanced implements WauzCommand {
+public class CmdWzGetEquip implements WauzCommand {
 
 	/**
 	 * @return The id of the command.
 	 */
 	@Override
 	public String getCommandId() {
-		return "wzEnhanced";
+		return "wzGetEquip";
 	}
 
 	/**
@@ -44,27 +47,34 @@ public class CmdWzEnhanced implements WauzCommand {
 			return false;
 		}
 		
-		Player player = null;
+		final Player player;
 		String type = null;
-		int level = 1;
+		String tier = null;
 		
 		if(args.length > 2) {
 			player = WauzCore.getOnlinePlayer(args[0]);
-			type = args[1];
-			level = Integer.parseInt(args[2]);
+			type = args[1].replace("_", " ");
+			tier = "T" + args[2];
 		}
 		else {
 			player = (Player) sender;
-			type = args[0];
-			level = Integer.parseInt(args[1]);
+			type = args[0].replace("_", " ");
+			tier = "T" + args[1];
 		}
 		
 		if(player == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;
 		}
-
-		return WauzDebugger.getEnhancedEquipment(player, type, level);
+		
+		ItemStack equipmentItemStack = new ItemStack(Material.SHEARS);
+		ItemMeta equipmentItemMeta = equipmentItemStack.getItemMeta();
+		equipmentItemMeta.setDisplayName(ChatColor.GRAY + "Unidentified " + tier + " Item : " + type);
+		equipmentItemStack.setItemMeta(equipmentItemMeta);
+		
+		new WauzEquipmentIdentifier().identifyItem(player, equipmentItemStack);
+		player.getInventory().addItem(equipmentItemStack);
+		return true;
 	}
 
 }

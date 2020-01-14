@@ -7,7 +7,6 @@ import java.util.Random;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -30,12 +29,10 @@ public class WauzSkillgemIdentifier {
 	 * Automatically changes the material of the item, to make it a valid skillgem.
 	 * Plays an anvil sound to the player, when the identifying has been completed.
 	 * 
-	 * @param event The inventory event, which triggered the identifying.
+	 * @param player The player who identifies the item.
+	 * @param skillgemItemStack The skillgem item stack, that is getting identified.
 	 */
-	public void identifySkillgem(InventoryClickEvent event) {
-		Player player = (Player) event.getWhoClicked();
-		ItemStack skillgemItemStack = event.getCurrentItem();
-		
+	public void identifySkillgem(Player player, ItemStack skillgemItemStack) {
 		Random random = new Random();
 		List<String> skills = WauzPlayerSkillExecutor.getAllSkillIds();
 		String skillgemName = skills.get(random.nextInt(skills.size()));

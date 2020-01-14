@@ -8,7 +8,7 @@ import com.deanveloper.skullcreator.SkullCreator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 
 /**
- * An util class to create item stacks of soecific heads.
+ * An util class to create item stacks of specific heads.
  * 
  * @author Wauzmons
  */

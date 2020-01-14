@@ -2,16 +2,18 @@ package eu.wauz.wauzcore.items.identifiers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -38,17 +40,26 @@ import net.md_5.bungee.api.ChatColor;
 public class WauzEquipmentIdentifier {
 	
 	/**
-	 * A list of all possible equipment types.
+	 * A map of all possible equipment types, by name.
 	 */
-	private static List<Equipment> equipTypes = new ArrayList<>();
+	private static Map<String, Equipment> equipTypes = new HashMap<>();
 	
 	/**
-	 * Adds a nre equipment type.
+	 * Adds a new equipment type.
 	 * 
 	 * @param equip The equipment type to add.
 	 */
 	public static void addEquipType(Equipment equip) {
-		equipTypes.add(equip);
+		equipTypes.put(equip.getName(), equip);
+	}
+	
+	/**
+	 * Gets a list of all equipment types.
+	 * 
+	 * @return A list of all possible equipment types.
+	 */
+	public static List<Equipment> getAllEquipTypes() {
+		return new ArrayList<>(equipTypes.values());
 	}
 	
 	/**
@@ -213,23 +224,31 @@ public class WauzEquipmentIdentifier {
 	/**
 	 * Identifies the item, based on the given event.
 	 * Firstly the equipment type, material, type multiplicator, speed, durability and dye are determined.
+	 * If the item name specifies an equipment type like "Item : Greataxe", it will automatically be used.
 	 * Then additional methods are called to roll base multiplier, rarity and tier.
 	 * Finally the new name will be set and the item lores are generated.
 	 * 
-	 * @param event The inventory event, which triggered the identifying.
+	 * @param player The player who identifies the item.
+	 * @param equipmentItemStack The equipment item stack, that is getting identified.
 	 * 
 	 * @see WauzEquipmentIdentifier#determineBaseMultiplier()
 	 * @see WauzEquipmentIdentifier#determineRarity()
 	 * @see WauzEquipmentIdentifier#determineTier()
 	 * @see WauzEquipmentIdentifier#generateIdentifiedEquipment()
 	 */
-	public void identifyItem(InventoryClickEvent event) {
-		player = (Player) event.getWhoClicked();
-		equipmentItemStack = event.getCurrentItem();	
+	public void identifyItem(Player player, ItemStack equipmentItemStack) {
+		this.player = player;
+		this.equipmentItemStack = equipmentItemStack;
 		itemMeta = equipmentItemStack.getItemMeta();
-		itemName = equipmentItemStack.getItemMeta().getDisplayName();
+		itemName = itemMeta.getDisplayName();
 		
-		equipmentType = equipTypes.get(random.nextInt(equipTypes.size()));
+		if(itemName.contains(" : ")) {
+			equipmentType = equipTypes.get(StringUtils.substringAfter(itemName, " : "));
+		}
+		if(equipmentType == null) {
+			equipmentType = new ArrayList<>(equipTypes.values()).get(random.nextInt(equipTypes.size()));
+		}
+		
 		equipmentItemStack.setType(equipmentType.getMaterial());
 		typeMultiplicator = equipmentType.getMainStat();
 		speedStat = equipmentType.getSpeedStat();
@@ -246,7 +265,7 @@ public class WauzEquipmentIdentifier {
 		determineTier();
 		
 		String verb = equipPrefixes.get(random.nextInt(equipPrefixes.size()));
-		identifiedItemName = rarityColor + verb + equipmentType.getName();
+		identifiedItemName = rarityColor + verb + " " + equipmentType.getName();
 		itemMeta.setDisplayName(identifiedItemName);
 		
 		generateIdentifiedEquipment();
@@ -350,17 +369,17 @@ public class WauzEquipmentIdentifier {
 	 * Automatically sets the tier name and level.
 	 */
 	private void determineTier() {
-		if(itemName.contains("T1")) {
-			tier = 1;
-			tierName = "Lesser" + ChatColor.GRAY + " T1 " + ChatColor.WHITE;
+		if(itemName.contains("T3")) {
+			tier = 3;
+			tierName = "Angelic" + ChatColor.GRAY + " T3 " + ChatColor.WHITE;
 		}
 		else if(itemName.contains("T2")) {
 			tier = 2;
 			tierName = "Greater" + ChatColor.GRAY + " T2 " + ChatColor.WHITE;
 		}
-		else if(itemName.contains("T3")) {
-			tier = 3;
-			tierName = "Angelic" + ChatColor.GRAY + " T3 " + ChatColor.WHITE;
+		else {
+			tier = 1;
+			tierName = "Lesser" + ChatColor.GRAY + " T1 " + ChatColor.WHITE;
 		}
 		tierMultiplier = (double) (Math.pow(2, tier));
 	}

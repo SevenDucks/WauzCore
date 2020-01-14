@@ -24,10 +24,11 @@ import eu.wauz.wauzcore.commands.administrative.CmdWzDebugCrafting;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebugDefense;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebugFlying;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebugMagic;
-import eu.wauz.wauzcore.commands.administrative.CmdWzEnhanced;
+import eu.wauz.wauzcore.commands.administrative.CmdWzGetEquipEnhanced;
 import eu.wauz.wauzcore.commands.administrative.CmdWzEnter;
 import eu.wauz.wauzcore.commands.administrative.CmdWzEnterDev;
 import eu.wauz.wauzcore.commands.administrative.CmdWzExp;
+import eu.wauz.wauzcore.commands.administrative.CmdWzGetEquip;
 import eu.wauz.wauzcore.commands.administrative.CmdWzGetPet;
 import eu.wauz.wauzcore.commands.administrative.CmdWzGetRune;
 import eu.wauz.wauzcore.commands.administrative.CmdWzHeal;
@@ -40,6 +41,7 @@ import eu.wauz.wauzcore.commands.administrative.CmdWzSystem;
 import eu.wauz.wauzcore.commands.administrative.CmdWzTravel;
 import eu.wauz.wauzcore.commands.administrative.CmdWzTravelEvent;
 import eu.wauz.wauzcore.commands.completion.TabCompleterEnhancements;
+import eu.wauz.wauzcore.commands.completion.TabCompleterEquip;
 import eu.wauz.wauzcore.commands.completion.TabCompleterGuilds;
 import eu.wauz.wauzcore.commands.completion.TabCompleterMenus;
 import eu.wauz.wauzcore.commands.completion.TabCompleterRunes;
@@ -180,10 +182,11 @@ public class WauzLoader {
 		WauzCommandExecutor.registerCommand(new CmdWzDebugDefense());
 		WauzCommandExecutor.registerCommand(new CmdWzDebugFlying());
 		WauzCommandExecutor.registerCommand(new CmdWzDebugMagic());
-		WauzCommandExecutor.registerCommand(new CmdWzEnhanced());
 		WauzCommandExecutor.registerCommand(new CmdWzEnter());
 		WauzCommandExecutor.registerCommand(new CmdWzEnterDev());
 		WauzCommandExecutor.registerCommand(new CmdWzExp());
+		WauzCommandExecutor.registerCommand(new CmdWzGetEquip());
+		WauzCommandExecutor.registerCommand(new CmdWzGetEquipEnhanced());
 		WauzCommandExecutor.registerCommand(new CmdWzGetPet());
 		WauzCommandExecutor.registerCommand(new CmdWzGetRune());
 		WauzCommandExecutor.registerCommand(new CmdWzHeal());
@@ -206,8 +209,9 @@ public class WauzLoader {
 	private static void registerCommandCompleters() {
 		Bukkit.getPluginCommand("menu").setTabCompleter(new TabCompleterMenus());
 		Bukkit.getPluginCommand("apply").setTabCompleter(new TabCompleterGuilds());
+		Bukkit.getPluginCommand("wzGetEquip").setTabCompleter(new TabCompleterEquip());
+		Bukkit.getPluginCommand("wzGetEquip.enhanced").setTabCompleter(new TabCompleterEnhancements());
 		Bukkit.getPluginCommand("wzGetRune").setTabCompleter(new TabCompleterRunes());
-		Bukkit.getPluginCommand("wzEnhanced").setTabCompleter(new TabCompleterEnhancements());
 		Bukkit.getPluginCommand("wzSkill").setTabCompleter(new TabCompleterSkills());
 		Bukkit.getPluginCommand("wzSkill.weapon").setTabCompleter(new TabCompleterSkills());
 	}
@@ -297,23 +301,23 @@ public class WauzLoader {
 	 */
 	private static void registerSwords() {
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.WOODEN_SWORD, " Shortsword")
+				new Equipment(EquipmentType.WEAPON, Material.WOODEN_SWORD, "Shortsword")
 				.withMainStat(1.50).withSpeedStat(1.20).withDurabilityStat(32));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_SWORD, " Rapier")
+				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_SWORD, "Rapier")
 				.withMainStat(1.55).withSpeedStat(1.30).withDurabilityStat(64));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.STONE_SWORD, " Longsword")
+				new Equipment(EquipmentType.WEAPON, Material.STONE_SWORD, "Longsword")
 				.withMainStat(1.60).withSpeedStat(1.20).withDurabilityStat(128));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.IRON_SWORD, " Claymore")
+				new Equipment(EquipmentType.WEAPON, Material.IRON_SWORD, "Claymore")
 				.withMainStat(1.65).withSpeedStat(1.20).withDurabilityStat(256));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_SWORD, " Excalibur")
+				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_SWORD, "Excalibur")
 				.withMainStat(1.70).withSpeedStat(1.40).withDurabilityStat(512));
 	}
 	
@@ -325,23 +329,23 @@ public class WauzLoader {
 	 */
 	private static void registerAxes() {
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.WOODEN_AXE, " Hatchet")
+				new Equipment(EquipmentType.WEAPON, Material.WOODEN_AXE, "Hatchet")
 				.withMainStat(1.70).withSpeedStat(0.90).withDurabilityStat(32));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_AXE, " Halberd")
+				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_AXE, "Halberd")
 				.withMainStat(1.75).withSpeedStat(1.00).withDurabilityStat(64));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.STONE_AXE, " Waraxe")
+				new Equipment(EquipmentType.WEAPON, Material.STONE_AXE, "Waraxe")
 				.withMainStat(1.80).withSpeedStat(0.90).withDurabilityStat(128));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.IRON_AXE, " Greataxe")
+				new Equipment(EquipmentType.WEAPON, Material.IRON_AXE, "Greataxe")
 				.withMainStat(1.85).withSpeedStat(0.90).withDurabilityStat(256));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_AXE, " Worldbreaker")
+				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_AXE, "Worldbreaker")
 				.withMainStat(1.90).withSpeedStat(1.10).withDurabilityStat(512));
 	}
 	
@@ -353,23 +357,23 @@ public class WauzLoader {
 	 */
 	private static void registerStaves() {
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.WOODEN_HOE, " Staff")
+				new Equipment(EquipmentType.WEAPON, Material.WOODEN_HOE, "Staff")
 				.withMainStat(1.30).withSpeedStat(1.50).withDurabilityStat(32));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_HOE, " Pole")
+				new Equipment(EquipmentType.WEAPON, Material.GOLDEN_HOE, "Pole")
 				.withMainStat(1.35).withSpeedStat(1.60).withDurabilityStat(64));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.STONE_HOE, " Mace")
+				new Equipment(EquipmentType.WEAPON, Material.STONE_HOE, "Mace")
 				.withMainStat(1.40).withSpeedStat(1.50).withDurabilityStat(128));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.IRON_HOE, " Sceptre")
+				new Equipment(EquipmentType.WEAPON, Material.IRON_HOE, "Sceptre")
 				.withMainStat(1.45).withSpeedStat(1.50).withDurabilityStat(256));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_HOE, " Soulreaver")
+				new Equipment(EquipmentType.WEAPON, Material.DIAMOND_HOE, "Soulreaver")
 				.withMainStat(1.50).withSpeedStat(1.70).withDurabilityStat(512));
 	}
 	
@@ -381,15 +385,15 @@ public class WauzLoader {
 	 */
 	private static void registerBows() {
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.BOW, " Crude Bow")
+				new Equipment(EquipmentType.WEAPON, Material.BOW, "Crude Bow")
 				.withMainStat(0.60).withSpeedStat(1.00).withDurabilityStat(64));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.BOW, " Recurve Bow")
+				new Equipment(EquipmentType.WEAPON, Material.BOW, "Recurve Bow")
 				.withMainStat(0.90).withSpeedStat(1.00).withDurabilityStat(128));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.BOW, " Infractem Bow")
+				new Equipment(EquipmentType.WEAPON, Material.BOW, "Infractem Bow")
 				.withMainStat(1.20).withSpeedStat(1.00).withDurabilityStat(256));
 	}
 	
@@ -401,11 +405,11 @@ public class WauzLoader {
 	 */
 	private static void registerHooks() {
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, " Grappling Hook")
+				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, "Grappling Hook")
 				.withMainStat(0.50).withSpeedStat(1.00).withDurabilityStat(72));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, " Dual Hook")
+				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, "Dual Hook")
 				.withMainStat(0.85).withSpeedStat(1.00).withDurabilityStat(144));
 	}
 	
@@ -417,17 +421,17 @@ public class WauzLoader {
 	 */
 	private static void registerLightArmor() {
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Vest")
+				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, "Vest")
 				.withMainStat(1.15).withDurabilityStat(64)
 				.withCategory(ArmorCategory.LIGHT));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Robe")
+				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, "Robe")
 				.withMainStat(1.30).withDurabilityStat(128)
 				.withCategory(ArmorCategory.LIGHT).withLeatherDye(Color.PURPLE));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Tunic")
+				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, "Tunic")
 				.withMainStat(1.45).withDurabilityStat(192)
 				.withCategory(ArmorCategory.LIGHT).withLeatherDye(Color.GREEN));
 	}
@@ -440,17 +444,17 @@ public class WauzLoader {
 	 */
 	private static void registerMediumArmor() {
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.ARMOR, Material.CHAINMAIL_CHESTPLATE, " Mail")
+				new Equipment(EquipmentType.ARMOR, Material.CHAINMAIL_CHESTPLATE, "Mail")
 				.withMainStat(1.30).withDurabilityStat(128)
 				.withCategory(ArmorCategory.MEDIUM));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.ARMOR, Material.GOLDEN_CHESTPLATE, " Guard")
+				new Equipment(EquipmentType.ARMOR, Material.GOLDEN_CHESTPLATE, "Guard")
 				.withMainStat(1.45).withDurabilityStat(256)
 				.withCategory(ArmorCategory.MEDIUM));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Hellscales")
+				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, "Hellscales")
 				.withMainStat(1.60).withDurabilityStat(384)
 				.withCategory(ArmorCategory.MEDIUM).withLeatherDye(Color.MAROON));
 	}
@@ -463,17 +467,17 @@ public class WauzLoader {
 	 */
 	private static void registerHeavyArmor() {
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.ARMOR, Material.IRON_CHESTPLATE, " Plate")
+				new Equipment(EquipmentType.ARMOR, Material.IRON_CHESTPLATE, "Plate")
 				.withMainStat(1.45).withDurabilityStat(256)
 				.withCategory(ArmorCategory.HEAVY));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.ARMOR, Material.DIAMOND_CHESTPLATE, " Herogarb")
+				new Equipment(EquipmentType.ARMOR, Material.DIAMOND_CHESTPLATE, "Herogarb")
 				.withMainStat(1.60).withDurabilityStat(512)
 				.withCategory(ArmorCategory.HEAVY));
 		
 		WauzEquipmentIdentifier.addEquipType(
-				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, " Dragonbones")
+				new Equipment(EquipmentType.ARMOR, Material.LEATHER_CHESTPLATE, "Dragonbones")
 				.withMainStat(1.75).withDurabilityStat(768)
 				.withCategory(ArmorCategory.HEAVY).withLeatherDye(Color.ORANGE));
 	}
