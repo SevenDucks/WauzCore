@@ -128,7 +128,7 @@ commands:
     permission: wauz.system
   wzEnhanced:
     description: Get Enhanced Equip from String
-    usage: /wzEnhanced [player] [enhancementname] [enhancementlvl]
+    usage: /wzEnhanced [player] [enname] [enlvl]
     permission: wauz.system
   wzTravel:
     description: Phantom-Travel to Location
