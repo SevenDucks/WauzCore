@@ -15,8 +15,23 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * Typed identifier, used for identifying skillgem items.
+ * 
+ * @author Wauzmons
+ * 
+ * @see WauzIdentifier
+ */
 public class WauzSkillgemIdentifier {
 	
+	/**
+	 * Identifies the item, based on the given event.
+	 * Takes a random skill and adds it to the skillgem name and lore.
+	 * Automatically changes the material of the item, to make it a valid skillgem.
+	 * Plays an anvil sound to the player, when the identifying has been completed.
+	 * 
+	 * @param event The inventory event, which triggered the identifying.
+	 */
 	public void identifySkillgem(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
 		ItemStack skillgemItemStack = event.getCurrentItem();

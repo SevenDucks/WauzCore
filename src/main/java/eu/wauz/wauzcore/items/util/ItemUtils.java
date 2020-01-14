@@ -16,6 +16,8 @@ import net.md_5.bungee.api.ChatColor;
  * An util class for reading and writing item stack properties.
  * 
  * @author Wauzmons
+ * 
+ * @see EquipmentUtils
  */
 public class ItemUtils {
 	

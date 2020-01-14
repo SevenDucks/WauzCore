@@ -13,6 +13,8 @@ import net.md_5.bungee.api.ChatColor;
  * An util class for reading and writing equipment properties.
  * 
  * @author Wauzmons
+ * 
+ * @see ItemUtils
  */
 public class EquipmentUtils {
 	

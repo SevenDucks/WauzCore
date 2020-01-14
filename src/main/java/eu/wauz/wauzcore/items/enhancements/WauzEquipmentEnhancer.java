@@ -10,14 +10,37 @@ import eu.wauz.wauzcore.items.EquipmentType;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * This class is used to register, find and apply enhancements.
+ * 
+ * @author Wauzmons
+ * 
+ * @see WauzEnhancement
+ */
 public class WauzEquipmentEnhancer {
 	
+	/**
+	 * A random instance, for selecting random enhancements.
+	 */
 	private static Random random = new Random();
 	
+	/**
+	 * A map of all registered weapon enhancements.
+	 */
 	private static Map<String, WauzEnhancement> weaponEnhancementMap = new HashMap<>();
 	
+	/**
+	 * A map of all registered armor enhancements.
+	 */
 	private static Map<String, WauzEnhancement> armorEnhancementMap = new HashMap<>();
 	
+	/**
+	 * Gets an enhancement for given id from the map.
+	 * 
+	 * @param enhancementId The id of the enhancement.
+	 * 
+	 * @return The enhancement or null, if not found.
+	 */
 	public static WauzEnhancement getEnhancement(String enhancementId) {
 		WauzEnhancement enhancement = weaponEnhancementMap.get(enhancementId);
 		if(enhancement == null) {
@@ -26,14 +49,23 @@ public class WauzEquipmentEnhancer {
 		return enhancement;
 	}
 	
+	/**
+	 * @return A list of all weapon enhancements.
+	 */
 	public static List<WauzEnhancement> getWeaponEnhancements() {
 		return new ArrayList<WauzEnhancement>(weaponEnhancementMap.values());
 	}
 	
+	/**
+	 * @return A list of all armor enhancements.
+	 */
 	public static List<WauzEnhancement> getArmorEnhancements() {
 		return new ArrayList<WauzEnhancement>(armorEnhancementMap.values());
 	}
 	
+	/**
+	 * @return A list of all enhancements.
+	 */
 	public static List<WauzEnhancement> getAllEnhancements() {
 		List<WauzEnhancement> enhancements = new ArrayList<>();
 		enhancements.addAll(weaponEnhancementMap.values());
@@ -41,14 +73,23 @@ public class WauzEquipmentEnhancer {
 		return enhancements;
 	}
 	
+	/**
+	 * @return A list of all weapon enhancement ids.
+	 */
 	public static List<String> getWeaponEnhancementIds() {
 		return new ArrayList<>(weaponEnhancementMap.keySet());
 	}
 	
+	/**
+	 * @return A list of all armor enhancement ids.
+	 */
 	public static List<String> getArmorEnhancementIds() {
 		return new ArrayList<>(armorEnhancementMap.keySet());
 	}
 	
+	/**
+	 * @return A list of all enhancement ids.
+	 */
 	public static List<String> getAllEnhancementIds() {
 		List<String> enhancementIds = new ArrayList<>();
 		enhancementIds.addAll(weaponEnhancementMap.keySet());
@@ -56,15 +97,32 @@ public class WauzEquipmentEnhancer {
 		return enhancementIds;
 	}
 	
+	/**
+	 * Registers an enhancement.
+	 * 
+	 * @param enhancement The enhancement to register.
+	 */
 	public static void registerEnhancement(WauzEnhancement enhancement) {
 		EquipmentType equipmentType = enhancement.getEquipmentType();
 		
-		if(equipmentType.equals(EquipmentType.WEAPON))
+		if(equipmentType.equals(EquipmentType.WEAPON)) {
 			weaponEnhancementMap.put(enhancement.getEnhancementId(), enhancement);
-		else if(equipmentType.equals(EquipmentType.ARMOR))
+		}
+		else if(equipmentType.equals(EquipmentType.ARMOR)) {
 			armorEnhancementMap.put(enhancement.getEnhancementId(), enhancement);
+		}
 	}
 	
+	/**
+	 * Adds an enhancement to a running equipment identifier.
+	 * First the parameters are extracted.
+	 * Then a random enhancement that fits the equipment type is applied.
+	 * After that, the altered paramters are inserted back into the identifier.
+	 * 
+	 * @param identifier The equipment identifier, receiving the enhancement.
+	 * 
+	 * @see WauzEquipmentEnhancer#enhanceEquipment(WauzEnhancement, WauzEnhancementParameters)
+	 */
 	public static void enhanceEquipment(WauzEquipmentIdentifier identifier) {
 		int enhancementLevel = identifier.getEnhancementLevel();
 		WauzEnhancementParameters parameters = new WauzEnhancementParameters(enhancementLevel);
@@ -95,6 +153,17 @@ public class WauzEquipmentEnhancer {
 		identifier.setDurabilityStat(parameters.getDurabilityStat());
 	}
 	
+	/**
+	 * Applies an enhancement to a set of parameters, holding values of an equipment piece.
+	 * Automatically adds stuff like the altered equipment name or the enhancement description to the parameters.
+	 * 
+	 * @param enhancement The enhancment that should be applied.
+	 * @param parameters The initial enhancement parameters.
+	 * 
+	 * @return The altered enhancement parameters.
+	 * 
+	 * @see WauzEquipmentEnhancer#enhanceEquipment(WauzEquipmentIdentifier)
+	 */
 	public static WauzEnhancementParameters enhanceEquipment(WauzEnhancement enhancement, WauzEnhancementParameters parameters) {
 		parameters = enhancement.enhanceEquipment(parameters);
 		EquipmentType equipmentType = enhancement.getEquipmentType();
@@ -105,11 +174,12 @@ public class WauzEquipmentEnhancer {
 		parameters.getItemMeta().setDisplayName(displayName + " of " + enhancementName + " + " + enhancementLevel);
 		
 		String enhancementLore = parameters.getEnhancementLore();
-		if(equipmentType.equals(EquipmentType.WEAPON))
+		if(equipmentType.equals(EquipmentType.WEAPON)) {
 			parameters.getLores().add("Enhancement:" + ChatColor.RED + " " + enhancementLore);
-		else if(equipmentType.equals(EquipmentType.ARMOR))
+		}
+		else if(equipmentType.equals(EquipmentType.ARMOR)) {
 			parameters.getLores().add("Enhancement:" + ChatColor.BLUE + " " + enhancementLore);
-		
+		}
 		return parameters;
 	}
 

@@ -23,7 +23,7 @@ import net.md_5.bungee.api.ChatColor;
 /**
  * This class is used to register, find and execute skills.
  * 
- * @author User
+ * @author Wauzmons
  *
  * @see WauzPlayerSkill
  */
@@ -47,7 +47,7 @@ public class WauzPlayerSkillExecutor {
 	}
 	
 	/**
-	 * @return A list of all skills
+	 * @return A list of all skills.
 	 */
 	public static List<WauzPlayerSkill> getAllSkills() {
 		return new ArrayList<>(playerSkillMap.values());
