@@ -8,15 +8,32 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.menu.util.HeadUtils;
-import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Sub menu of the main menu, that shows the player's progress towards achievements.
+ * 
+ * @author Wauzmons
+ * 
+ * @see WauzAchievement
+ */
 public class AchievementsMenu implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows progress towards achievements, displayed as one item stack per achievement type.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see WauzAchievementType
+	 * @see AchievementTracker#generateProgressLores(Player, WauzAchievementType)
+	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new AchievementsMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Achievements");
@@ -84,10 +101,15 @@ public class AchievementsMenu implements WauzInventory {
 		levelsItemStack.setItemMeta(levelsItemMeta);
 		menu.setItem(8, levelsItemStack);
 		
-		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
 	}
 
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * This menu has no events yet, so the click is canceled.
+	 * 
+	 * @param event The inventory click event.
+	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);

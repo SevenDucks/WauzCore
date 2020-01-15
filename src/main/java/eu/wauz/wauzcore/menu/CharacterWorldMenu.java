@@ -11,6 +11,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -18,8 +20,25 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * A character creation menu, that will let the player select their world.
+ * 
+ * @author Wauzmons
+ * 
+ * @see CharacterSlotMenu
+ * @see CharacterRaceClassMenu
+ */
 public class CharacterWorldMenu implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows two hardcoded worlds to choose: "Dalyreos" and "Wauzland".
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterWorldMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your World!");
@@ -46,6 +65,18 @@ public class CharacterWorldMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * The default event will be automatically canceled.
+	 * If the clicked item is a world selection, it will be cached in the player data.
+	 * Next the race/class selection will be shown.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see WauzPlayerData#setSelectedCharacterWorld(String)
+	 * @see CharacterRaceClassMenu#open(Player)
+	 */
+	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();

@@ -17,6 +17,8 @@ import net.md_5.bungee.api.ChatColor;
  * An achievement, generated from the achievement config file.
  * 
  * @author Wauzmons
+ * 
+ * @see AchievementTracker
  */
 public class WauzAchievement {
 	

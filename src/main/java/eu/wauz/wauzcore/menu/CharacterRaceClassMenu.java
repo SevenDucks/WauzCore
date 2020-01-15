@@ -20,8 +20,25 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * A character creation menu, that will let the player select their race/class.
+ * 
+ * @author Wauzmons
+ * 
+ * @see CharacterSlotMenu
+ * @see CharacterWorldMenu
+ */
 public class CharacterRaceClassMenu implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows three hardcoded classes to choose: "Nephilim", "Crusader", "Assassin".
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterRaceClassMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Race/Class!");
@@ -68,7 +85,19 @@ public class CharacterRaceClassMenu implements WauzInventory {
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
 	}
-	
+
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * The default event will be automatically canceled.
+	 * If the clicked item is a race/class selection, it will be cached in the player data.
+	 * Next the character creation will be triggered.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see WauzPlayerData#setSelectedCharacterRace(String)
+	 * @see CharacterManager#createCharacter(Player, WauzMode)
+	 */
+	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();

@@ -30,8 +30,44 @@ import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * The main menu of the game, that will by default show all stats and sub menus of the MMORPG mode.
+ * 
+ * @author Wauzmons
+ * 
+ * @see WauzModeMenu
+ */
 public class WauzMenu implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * If it is opened in the hub, it will be redirected to the mode selection.
+	 * Else all sub menus of the MMORPG mode plus a short information is shown.
+	 * Here is a quick summary:</br>
+	 * Slot 1: A dsiplay of all currencies and reputations.</br>
+	 * Slot 2: The travelling menu + current region display.</br>
+	 * Slot 3: The guild menu + guild name display.</br>
+	 * Slot 4: The group menu + total active groups display.</br>
+	 * Slot 5: The achievement menu + achievement count display.</br>
+	 * Slot 6: The quest menu + completed quest count display.</br>
+	 * Slot 7: The crafting menu + crafting level display.</br>
+	 * Slot 8: The pet menu + used pet slots display.</br>
+	 * Slot 9: The skill menu + spent skill points display.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see WauzModeMenu#open(Player)
+	 * @see MenuUtils#setCurrencyDisplay(Inventory, Player, int)
+	 * @see WauzPlayerData#getRegion()
+	 * @see PlayerConfigurator#getGuild(org.bukkit.OfflinePlayer)
+	 * @see WauzPlayerGroupPool#getGroups()
+	 * @see PlayerConfigurator#getCharacterCompletedAchievements(Player)
+	 * @see PlayerConfigurator#getCharacterAchievementProgress(Player, WauzAchievementType)
+	 * @see PlayerPassiveSkillConfigurator#getCraftingSkill(Player)
+	 * @see PlayerConfigurator#getCharacterUsedPetSlots(Player)
+	 * @see PlayerPassiveSkillConfigurator#getSpentStatpoints(Player)
+	 */
 	public static void open(Player player) {
 		if(WauzMode.inHub(player)) {
 			WauzModeMenu.open(player);
@@ -162,6 +198,23 @@ public class WauzMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * The default event will be automatically canceled.
+	 * If a sub menu was clicked, it will be opened.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see TravellingMenu#open(Player)
+	 * @see GuildOverviewMenu#open(Player)
+	 * @see GroupMenu#open(Player)
+	 * @see AchievementsMenu#open(Player)
+	 * @see QuestBuilder#open(Player)
+	 * @see CraftingMenu#open(Player)
+	 * @see PetOverviewMenu#open(Player, int)
+	 * @see SkillMenu#open(Player)
+	 */
+	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();

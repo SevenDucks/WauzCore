@@ -7,6 +7,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.events.WauzPlayerEvent;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
@@ -15,12 +16,40 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * A generic menu, to show a confirm dialog for the cached player event.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzPlayerEvent
+ */
 public class WauzDialog implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows options to confirm or decline the event from the player data.
+	 * Also shows the event title from the player date in the menu name.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see WauzDialog#open(Player, ItemStack)
+	 */
 	public static void open(Player player) {
 		open(player, null);
 	}
 
+	/**
+	 * Opens the menu for the given player.
+	 * Shows options to confirm or decline the event from the player data.
+	 * Also shows the event title from the player date in the menu name.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * @param infoItemStack An optional item stack, that can old additional information about the event.
+	 * 
+	 * @see WauzPlayerData#getWauzPlayerEventName()
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public static void open(Player player, ItemStack infoItemStack) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzDialog());
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
@@ -39,21 +68,35 @@ public class WauzDialog implements WauzInventory {
 		declineItemStack.setItemMeta(declineItemMeta);
 		menu.setItem(8, declineItemStack);
 		
-		if(infoItemStack != null)
+		if(infoItemStack != null) {
 			menu.setItem(4, infoItemStack);
+		}
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * The default event will be automatically canceled.
+	 * If confirm is selected, the event from the player data will be executed.
+	 * Else the inventory will be closed.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see WauzPlayerData#getWauzPlayerEvent()
+	 * @see WauzPlayerEvent#execute(Player)
+	 */
+	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(playerData == null || clicked == null)
+		if(playerData == null || clicked == null) {
 			return;
+		}
 		
 		else if(HeadUtils.isHeadMenuItem(clicked, "CONFIRM")) {
 			playerData.getWauzPlayerEvent().execute(player);

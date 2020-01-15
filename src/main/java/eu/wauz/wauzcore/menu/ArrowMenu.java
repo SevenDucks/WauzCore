@@ -18,14 +18,33 @@ import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.items.CustomWeaponBow;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Menu that can be opened with a bow, that lets the player select their arrows to shoot.
+ * 
+ * @author Wauzmons
+ * 
+ * @see CustomWeaponBow
+ */
 public class ArrowMenu implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows all selectable arrow types, aswell as the count of arrows left.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see PlayerConfigurator#getSelectedArrows(Player)
+	 * @see ArrowMenu#getArrowType(Player, String, String, Material)
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new ArrowMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Arrows!");		
@@ -43,6 +62,18 @@ public class ArrowMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * Generates an item stack, to show infos about a selectable arrow type.
+	 * Includes arrow tip color, effect description and amount of arrows left.
+	 * If it is the currently selected arrow, it will be highlighted with an enchantment glow.
+	 * 
+	 * @param player The player who owns the arrows.
+	 * @param selectedArrowType The selected type arrow.
+	 * @param arrowType The type of the arrow for this stack.
+	 * @param material The arrow material. (Normal, Spectral, Tipped...)
+	 * 
+	 * @return The arrow type item stack.
+	 */
 	private static ItemStack getArrowType(Player player, String selectedArrowType, String arrowType, Material material) {
 		ItemStack arrowItemStack = new ItemStack(material);
 		ItemMeta arrowItemMeta = arrowItemStack.getItemMeta();
@@ -65,6 +96,13 @@ public class ArrowMenu implements WauzInventory {
 		return arrowItemStack;
 	}
 	
+	/**
+	 * Gets the colored description of the given arrow type.
+	 * 
+	 * @param arrowType The type of the arrow.
+	 * 
+	 * @return The colored description.
+	 */
 	private static String getArrowDescription(String arrowType) {
 		switch (arrowType) {
 		case "reinforced":
@@ -82,6 +120,13 @@ public class ArrowMenu implements WauzInventory {
 		}
 	}
 	
+	/**
+	 * Gets the potion type to color the tip of the given arrow type in.
+	 * 
+	 * @param arrowType The type of the arrow.
+	 * 
+	 * @return The potion type for the arrow tip color.
+	 */
 	private static PotionType getArrowTipPotion(String arrowType) {
 		switch (arrowType) {
 		case "fire":
@@ -97,14 +142,26 @@ public class ArrowMenu implements WauzInventory {
 		}
 	}
 
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * The default event will be automatically canceled.
+	 * If the clicked item is an arrow type, with more at least 1 arrow left, it will be selected.
+	 * After that, the player will receive a message and the inventory will be closed.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see ItemUtils#getArrowCount(ItemStack)
+	 * @see PlayerConfigurator#setSelectedArrowType(Player, String)
+	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		Player player = (Player) event.getWhoClicked();
 		int arrowCount = ItemUtils.getArrowCount(clicked);
-		if(arrowCount < 1)
+		if(arrowCount < 1) {
 			return;
+		}
 		
 		String displayName = ChatColor.stripColor(clicked.getItemMeta().getDisplayName());
 		PlayerConfigurator.setSelectedArrowType(player, displayName.split(" ")[0].toLowerCase());
