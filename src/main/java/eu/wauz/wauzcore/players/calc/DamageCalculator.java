@@ -182,6 +182,7 @@ public class DamageCalculator {
 	
 	/**
 	 * Determines the amount of damage a player reflects.
+	 * If the player is blocking, the attacker and themselve are thrown back slightly.
 	 * 
 	 * @param event The damage event.
 	 * 
@@ -202,14 +203,20 @@ public class DamageCalculator {
 				WauzDebugger.log(player, "Reflecting " + reflectionDamage + " damage!");
 				SkillUtils.callPlayerFixedDamageEvent(player, damageable, reflectionDamage);
 			}
+			
+			if(player.isBlocking()) {
+				SkillUtils.throwBackEntity(player, damageable.getLocation(), 0.8);
+				SkillUtils.throwBackEntity(damageable, player.getLocation(), 0.4);
+			}
 		}
 	}
 	
 	/**
-	 * Determines the amount of damage a player takes.
+	 * Determines the amount of damage a player takes, with a minimum of 1.
+	 * If a shield is used, damage is reduced by 60% and the minimum damage is set to 0.
 	 * The player can also evade damage by having either invisibility, defense debug mode enabled or simply high agility.
 	 * Also lets damage indicators pop up after the attack,
-	 * aswell as reducing armor durability and adding no-damage-ticks, if necessary.
+	 * aswell as reducing armor / shield durability and adding no-damage-ticks, if necessary.
 	 * 
 	 * @param event The damage event.
 	 * 
@@ -218,6 +225,7 @@ public class DamageCalculator {
 	 * @see ValueIndicator#spawnDamageIndicator(Entity, Integer)
 	 * @see ValueIndicator#spawnEvadedIndicator(Entity)
 	 * @see EquipmentUtils#getBaseDef(ItemStack)
+	 * @see DurabilityCalculator#damageItem(Player, ItemStack, boolean)
 	 * @see WauzDebugger#toggleDefenseDebugMode(Player)
 	 */
 	public static void defend(EntityDamageEvent event) {
@@ -242,6 +250,16 @@ public class DamageCalculator {
 		
 		int damage = (int) event.getDamage();
 		int unmodifiedDamage = damage;
+		int blockedDamage = 0;
+		
+		if(player.isBlocking()) {
+			blockedDamage = (int) Math.ceil(damage * 0.60);
+			damage = damage - blockedDamage;
+			WauzDebugger.log(player, "Blocked Damage: " + blockedDamage);
+			
+			ItemStack shieldItemStack = player.getEquipment().getItemInMainHand();
+			DurabilityCalculator.damageItem(player, shieldItemStack, false);
+		}
 		
 		ItemStack itemStack = player.getEquipment().getChestplate();
 		if((itemStack != null) && (!itemStack.getType().equals(Material.AIR)) && (itemStack.getItemMeta().getLore() != null)) {
@@ -253,9 +271,13 @@ public class DamageCalculator {
 		}
 		
 		event.setDamage(0);
-		if(damage < 1) damage = 1;
+		if(damage < 1) {
+			damage = (blockedDamage >  0) ? 0 : 1;
+		}
 		int hp = playerData.getHealth() - damage;
-		if(hp < 0) hp = 0;
+		if(hp < 0) {
+			hp = 0;
+		}
 		setHealth(player, hp);
 		
 		ValueIndicator.spawnDamageIndicator(player, damage);

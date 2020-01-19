@@ -139,6 +139,8 @@ public class WauzLoader {
 		registerAxes();
 		registerStaves();
 		registerBows();
+		registerLances();
+		registerShields();
 		registerHooks();
 		
 		registerLightArmor();
@@ -398,6 +400,38 @@ public class WauzLoader {
 	}
 	
 	/**
+	 * Initializes all predefined equipment of the type Weapon / Lance.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	private static void registerLances() {
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.TRIDENT, "Lance")
+				.withMainStat(0.40).withSpeedStat(1.40).withDurabilityStat(72));
+		
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.TRIDENT, "Trident")
+				.withMainStat(0.75).withSpeedStat(1.40).withDurabilityStat(144));
+	}
+	
+	/**
+	 * Initializes all predefined equipment of the type Weapon / Shield.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	private static void registerShields() {
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.SHIELD, "Buckler")
+				.withMainStat(0.60).withSpeedStat(0.80).withDurabilityStat(72));
+		
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON, Material.SHIELD, "Shield")
+				.withMainStat(0.95).withSpeedStat(0.80).withDurabilityStat(144));
+	}
+	
+	/**
 	 * Initializes all predefined equipment of the type Weapon / Hook.
 	 * Called by the init() method.
 	 * 
@@ -406,11 +440,11 @@ public class WauzLoader {
 	private static void registerHooks() {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, "Grappling Hook")
-				.withMainStat(0.50).withSpeedStat(1.00).withDurabilityStat(72));
+				.withMainStat(0.50).withSpeedStat(1.10).withDurabilityStat(72));
 		
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, "Dual Hook")
-				.withMainStat(0.85).withSpeedStat(1.00).withDurabilityStat(144));
+				.withMainStat(0.85).withSpeedStat(1.10).withDurabilityStat(144));
 	}
 	
 	/**

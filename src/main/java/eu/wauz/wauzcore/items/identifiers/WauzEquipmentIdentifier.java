@@ -21,6 +21,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.items.CustomWeaponShield;
 import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.EquipmentType;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
@@ -223,7 +224,8 @@ public class WauzEquipmentIdentifier {
 	
 	/**
 	 * Identifies the item, based on the given event.
-	 * Firstly the equipment type, material, type multiplicator, speed, durability and dye are determined.
+	 * Firstly the equipment type, material, type multiplicator, speed, durability
+	 * and optionally the leather dye and shield pattern are determined.
 	 * If the item name specifies an equipment type like "Item : Greataxe", it will automatically be used.
 	 * Then additional methods are called to roll base multiplier, rarity and tier.
 	 * Finally the new name will be set and the item lores are generated.
@@ -254,7 +256,11 @@ public class WauzEquipmentIdentifier {
 		speedStat = equipmentType.getSpeedStat();
 		durabilityStat = equipmentType.getDurabilityStat();
 		
-		if(equipmentType.getLeatherDye() != null) {
+		if(equipmentType.getMaterial().equals(Material.SHIELD)) {
+			itemMeta = new ItemStack(Material.SHIELD).getItemMeta();
+			CustomWeaponShield.addPattern(itemMeta);
+		}
+		else if(equipmentType.getLeatherDye() != null) {
 			itemMeta = new ItemStack(Material.LEATHER_CHESTPLATE).getItemMeta();
 			LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) itemMeta;
 			leatherArmorMeta.setColor(equipmentType.getLeatherDye());
@@ -497,17 +503,28 @@ public class WauzEquipmentIdentifier {
 	
 	/**
 	 * Adds slots to the equipment's lores.
-	 * If the equipment type name contains bow or hook, it will receive the fitting lore.
+	 * If the equipment type is a lance, shield, hook or bow, it will receive the fitting lore.
 	 * All other types with magic or higher rarity have a 50% chance to receive a skilgem slot.
 	 * Magic or higher items will get 1 rune slot, while epic or higher items will receive 2 slots.
 	 */
 	private void addSlotsToEquipment() {
-		if(equipmentType.getName().contains("Bow")) {
+		Material material = equipmentType.getMaterial();
+		if(material.equals(Material.BOW)) {
 			lores.add("");
 			lores.add(ChatColor.GRAY + "Use while Sneaking to switch Arrows");
 			lores.add(ChatColor.GRAY + "Right Click to shoot Arrows");
 		}
-		if(equipmentType.getName().contains("Hook")) {
+		else if (material.equals(Material.TRIDENT)) {
+			lores.add("");
+			lores.add("");
+			lores.add("");
+		}
+		else if(material.equals(Material.SHIELD)) {
+			lores.add("");
+			lores.add(ChatColor.GRAY + "Use while Sneaking to taunt nearby Enemies");
+			lores.add(ChatColor.GRAY + "Right Click to block Attacks");
+		}
+		else if(material.equals(Material.FISHING_ROD)) {
 			lores.add("");
 			lores.add(ChatColor.GRAY + "Use while Sneaking to pull you to a Block");
 			lores.add(ChatColor.GRAY + "Right Click to grab Enemies");
@@ -521,8 +538,9 @@ public class WauzEquipmentIdentifier {
 		if(rarityMultiplier >= 1.5)	{
 			lores.add("");
 			lores.add(EMPTY_RUNE_SLOT);
-			if(rarityMultiplier >= 2.5)
+			if(rarityMultiplier >= 2.5) {
 				lores.add(EMPTY_RUNE_SLOT);
+			}
 		}
 	}
 

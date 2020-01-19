@@ -111,8 +111,9 @@ public class TabardBuilder implements WauzInventory {
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null)
+		if(clicked == null) {
 			return;
+		}
 		
 		else if(page.equals("overview")) {
 			if(HeadUtils.isHeadMenuItem(clicked, "Save Guild Tabard")) {
