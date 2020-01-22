@@ -516,8 +516,8 @@ public class WauzEquipmentIdentifier {
 		}
 		else if (material.equals(Material.TRIDENT)) {
 			lores.add("");
-			lores.add("");
-			lores.add("");
+			lores.add(ChatColor.GRAY + "Use while Sneaking to perform a Spin Attack");
+			lores.add(ChatColor.GRAY + "Right Click to Thrust (Throwing Disabled)");
 		}
 		else if(material.equals(Material.SHIELD)) {
 			lores.add("");

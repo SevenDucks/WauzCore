@@ -71,6 +71,8 @@ public class EquipmentUtils {
 		
 		if(StringUtils.containsAny(materialString, "_SWORD", "_AXE", "_HOE")
 				|| material.equals(Material.BOW)
+				|| material.equals(Material.TRIDENT)
+				|| material.equals(Material.SHIELD)
 				|| material.equals(Material.FISHING_ROD)) {
 			return EquipmentType.WEAPON;
 		}

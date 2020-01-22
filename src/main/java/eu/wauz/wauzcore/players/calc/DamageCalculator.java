@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -252,9 +253,10 @@ public class DamageCalculator {
 		int unmodifiedDamage = damage;
 		int blockedDamage = 0;
 		
-		if(player.isBlocking()) {
+		if(player.isBlocking() && event instanceof EntityDamageByEntityEvent) {
 			blockedDamage = (int) Math.ceil(damage * 0.60);
 			damage = damage - blockedDamage;
+			player.getWorld().playSound(player.getLocation(), Sound.ITEM_SHIELD_BLOCK, 1, 0.75f);
 			WauzDebugger.log(player, "Blocked Damage: " + blockedDamage);
 			
 			ItemStack shieldItemStack = player.getEquipment().getItemInMainHand();

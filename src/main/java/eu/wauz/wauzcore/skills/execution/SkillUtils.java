@@ -18,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
@@ -323,6 +324,30 @@ public class SkillUtils {
 	 */
 	public static void createExplosion(Location location, float power) {
 		location.getWorld().createExplosion(location.getX(), location.getY(), location.getZ(), power, false, false);
+	}
+	
+	/**
+	 * Lets the entity rotate 360 degrees over the course of 0.5 seconds.
+	 * 
+	 * @param entity The entity to rotate.
+	 */
+	public static void rotateEntity(Entity entity) {
+		new BukkitRunnable() {
+			
+			private int runs = 0;
+			
+			public void run() {
+				if(runs++ >= 10 || !entity.isValid()) {
+					this.cancel();
+				}
+				Location location = entity.getLocation();
+				float yaw = location.getYaw() + 36;
+				yaw = yaw >= 360 ? yaw - 360 : yaw;
+				location.setYaw(yaw);
+				entity.teleport(location);
+			}
+			
+		}.runTaskTimer(WauzCore.getInstance(), 0, 1);
 	}
 	
 	/**

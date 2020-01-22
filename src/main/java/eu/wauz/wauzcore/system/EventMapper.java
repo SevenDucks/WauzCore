@@ -17,6 +17,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.CustomWeaponBow;
 import eu.wauz.wauzcore.items.CustomWeaponGlider;
+import eu.wauz.wauzcore.items.CustomWeaponLance;
 import eu.wauz.wauzcore.items.CustomWeaponShield;
 import eu.wauz.wauzcore.items.WauzScrolls;
 import eu.wauz.wauzcore.items.WauzSigns;
@@ -158,6 +159,9 @@ public class EventMapper {
 			}
 			else if(type.equals(Material.BOW)) {
 				CustomWeaponBow.use(event);
+			}
+			else if(type.equals(Material.TRIDENT)) {
+				CustomWeaponLance.use(event);
 			}
 			else if(type.equals(Material.SHIELD)) {
 				CustomWeaponShield.use(event);

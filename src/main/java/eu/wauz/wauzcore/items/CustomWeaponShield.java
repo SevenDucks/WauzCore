@@ -8,6 +8,7 @@ import java.util.Random;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.block.Banner;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
@@ -85,6 +86,7 @@ public class CustomWeaponShield {
 	/**
 	 * Creates a 10 block wide particle circle around the player
 	 * and taunts every entity inside of it, forcing it to attack the player.
+	 * Makes the shield loose 3 durability.
 	 * 
 	 * @param player The player that is taunting the entities.
 	 * 
@@ -92,10 +94,12 @@ public class CustomWeaponShield {
 	 * @see DurabilityCalculator#damageItem(Player, org.bukkit.inventory.ItemStack, int, boolean)
 	 */
 	public static void taunt(Player player) {
-		Location location = player.getLocation();
-		ParticleSpawner.spawnParticleCircle(location.clone().add(0, 1, 0), tauntCircleParticle, 5, 32);
-		List<Entity> targets = SkillUtils.getTargetsInRadius(location, 5);
+		Location origin = player.getLocation();
 		
+		player.getWorld().playSound(origin, Sound.ENTITY_CAT_HISS, 1, 0.75f);
+		ParticleSpawner.spawnParticleCircle(origin.clone().add(0, 1, 0), tauntCircleParticle, 5, 32);
+		
+		List<Entity> targets = SkillUtils.getTargetsInRadius(origin, 5);
 		for(Entity target : targets) {
 			ParticleSpawner.spawnParticleCircle(target.getLocation().clone().add(0, 2, 0), tauntEntityParticle, 1, 5);
 			mythicMobs.taunt(target, player);

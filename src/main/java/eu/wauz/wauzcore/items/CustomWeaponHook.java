@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -23,7 +24,7 @@ public class CustomWeaponHook {
 
 	/**
 	 * Handles a hook launch and cancels it, when no target was found within 15 blocks.
-	 * Pulls the player to the targeted block, if they are sneaking.
+	 * Pulls the player to the targeted block and makes the hook loose 12 durability, if they are sneaking.
 	 * Otherwhise tries to pulls the nearest entity, in line of sight, to the player.
 	 * 
 	 * @param event The projectile event.
@@ -51,6 +52,7 @@ public class CustomWeaponHook {
 			return;
 		}
 
+		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_FISHING_BOBBER_RETRIEVE, 1, 0.75f);
 		player.teleport(player.getLocation().add(0, 0.5, 0));
 		final Vector vector = SkillUtils.getVectorForPoints(player.getLocation(), target);
 		event.getEntity().setVelocity(vector);
@@ -83,6 +85,7 @@ public class CustomWeaponHook {
 		if(nearbyEntites.size() > 0) {
 			for(final Entity entity : nearbyEntites) {
 				if(SkillUtils.isValidAttackTarget(entity)) {
+					entity.getWorld().playSound(entity.getLocation(), Sound.ENTITY_FISHING_BOBBER_RETRIEVE, 1, 0.75f);
 					entity.teleport(entity.getLocation().add(0, 0.5, 0));
 					event.getEntity().setVelocity(SkillUtils.getVectorForPoints(player.getLocation(), entity.getLocation()));
 					DurabilityCalculator.damageItem(player, player.getEquipment().getItemInMainHand(), false);

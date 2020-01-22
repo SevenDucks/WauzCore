@@ -100,7 +100,7 @@ public class ParticleSpawner {
 	public static void spawnParticleWave(Location origin, SkillParticle particle, double length){
 		new BukkitRunnable() {
 			
-			double t = Math.PI / 4;
+			private double t = Math.PI / 4;
 			
 			public void run(){
 				t = t + 0.1 * Math.PI;
@@ -130,7 +130,7 @@ public class ParticleSpawner {
 	public static void spawnParticleSphere(Location origin, SkillParticle particle, double radius) {
 		new BukkitRunnable() {
 			
-			double phi = 0;
+			private double phi = 0;
 			
 			public void run() {
 				phi += Math.PI / 10;
