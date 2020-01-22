@@ -13,6 +13,8 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.ArmorType;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.EquipMethod;
+import eu.wauz.wauzcore.items.enums.ArmorCategory;
+import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.runes.RuneHardening;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;

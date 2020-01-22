@@ -14,7 +14,7 @@ import net.md_5.bungee.api.ChatColor;
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
  * - Description: <b>Get Pet from String</b></br>
- * - Usage: <b>/wzGetPet [player] [petname]</b></br>
+ * - Usage: <b>/wzGetPet [petname] [player]</b></br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons
@@ -51,25 +51,15 @@ public class CmdWzGetPet implements WauzCommand {
 			return false;
 		}
 		
-		Player player = null;
-		String type = null;
-		
-		if(args.length > 1) {
-			player = WauzCore.getOnlinePlayer(args[0]);
-			type = args[1];
-		}
-		else {
-			player = (Player) sender;
-			type = args[0];
-		}
-		
-		if(player == null) {
-			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
+		String type = args[0];
+		if(type == null || mythicMobs.getMythicMob(type) == null) {
+			sender.sendMessage(ChatColor.RED + "Unknown pet type specified!");
 			return false;
 		}
 		
-		if(type == null || mythicMobs.getMythicMob(type) == null) {
-			sender.sendMessage(ChatColor.RED + "Unknown pet type specified!");
+		Player player = args.length < 2 ? (Player) sender : WauzCore.getOnlinePlayer(args[1]);
+		if(player == null) {
+			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;
 		}
 		

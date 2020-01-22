@@ -2,7 +2,7 @@ package eu.wauz.wauzcore.items.runes.insertion;
 
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.items.EquipmentType;
+import eu.wauz.wauzcore.items.enums.EquipmentType;
 
 /**
  * A rune, that can be inserted into a piece of equipment, with a fitting slot.

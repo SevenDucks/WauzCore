@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.items;
+package eu.wauz.wauzcore.items.weapons;
 
 import java.util.Collection;
 
@@ -13,6 +13,7 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 
 /**

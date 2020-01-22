@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.items.EquipmentType;
+import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;

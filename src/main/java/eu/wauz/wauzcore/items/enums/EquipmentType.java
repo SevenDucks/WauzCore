@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.items;
+package eu.wauz.wauzcore.items.enums;
 
 /**
  * The type of a piece of equipment.

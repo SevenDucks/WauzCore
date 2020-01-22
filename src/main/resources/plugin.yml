@@ -128,18 +128,18 @@ commands:
     permission: wauz.system
   wzGetPet:
     description: Get Pet from String
-    usage: /wzGetPet [player] [petname]
+    usage: /wzGetPet [petname] [player]
     permission: wauz.system
   wzGetEquip:
     description: Get Equip from String
-    usage: /wzGetEquip [player] [equipname] [tier]
+    usage: /wzGetEquip [equipname] [tier] [player]
   wzGetEquip.enhanced:
     description: Get Enhanced Equip from String
-    usage: /wzEnhanced [player] [enname] [enlvl]
+    usage: /wzGetEquip.enhanced [enname] [enlvl] [player]
     permission: wauz.system
   wzGetRune:
     description: Get Rune from String
-    usage: /wzGetRune [player] [runename]
+    usage: /wzGetRune [runename] [player]
     permission: wauz.system
   wzSkill:
     description: Execute Skill

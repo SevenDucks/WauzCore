@@ -1,6 +1,6 @@
 package eu.wauz.wauzcore.items.enhancements;
 
-import eu.wauz.wauzcore.items.EquipmentType;
+import eu.wauz.wauzcore.items.enums.EquipmentType;
 
 /**
  * An enhancement, that can be applied onto an unfinished piece of equipment.

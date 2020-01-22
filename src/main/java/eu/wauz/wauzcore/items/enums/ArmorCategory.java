@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.items;
+package eu.wauz.wauzcore.items.enums;
 
 /**
  * The category of a piece of armor.

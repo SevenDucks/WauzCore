@@ -12,7 +12,7 @@ import net.md_5.bungee.api.ChatColor;
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
  * - Description: <b>Get Rune from String</b></br>
- * - Usage: <b>/wzGetRune [player] [runename]</b></br>
+ * - Usage: <b>/wzGetRune [runename] [player]</b></br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons
@@ -44,18 +44,8 @@ public class CmdWzGetRune implements WauzCommand {
 			return false;
 		}
 		
-		Player player = null;
-		String type = null;
-		
-		if(args.length > 1) {
-			player = WauzCore.getOnlinePlayer(args[0]);
-			type = args[1];
-		}
-		else {
-			player = (Player) sender;
-			type = args[0];
-		}
-		
+		String type = args[0];
+		Player player = args.length < 2 ? (Player) sender : WauzCore.getOnlinePlayer(args[1]);
 		if(player == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;

@@ -11,10 +11,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.items.EquipmentType;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancement;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancementParameters;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
+import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;

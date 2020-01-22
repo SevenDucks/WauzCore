@@ -10,8 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.items.enums.Rarity;
+import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
-import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -48,37 +49,15 @@ public class WauzRuneIdentifier {
 	 */
 	private String identifiedItemName;
 	
+	/**
+	 * The rarity of the rune.
+	 */
+	private Rarity rarity;
 	
 	/**
-	 * The name of the rune's rarity.
+	 * The tier of the rune.
 	 */
-	private String rarityName;
-	
-	/**
-	 * The stars of the rune's rarity.
-	 */
-	private String rarityStars;
-	
-	/**
-	 * The color of the rune's rarity.
-	 */
-	private ChatColor rarityColor;
-	
-	/**
-	 * The multiplier of the rune's rarity.
-	 */
-	private double rarityMultiplier = 0;
-	
-	
-	/**
-	 * The name of the rune's tier.
-	 */
-	private String tierName;
-	
-	/**
-	 * The multiplier of the rune's tier.
-	 */
-	private double tierMultiplier = 0;
+	private Tier tier;
 	
 	/**
 	 * Identifies the item, based on the given event.
@@ -89,8 +68,8 @@ public class WauzRuneIdentifier {
 	 * @param player The player who identifies the item.
 	 * @param runeItemStack The rune item stack, that is getting identified.
 	 * 
-	 * @see WauzRuneIdentifier#determineRarity()
-	 * @see WauzRuneIdentifier#determineTier()
+	 * @see Rarity#getRandomRuneRarity()
+	 * @see Tier#getRuneTier(String)
 	 * @see WauzRuneIdentifier#generateIdentifiedRune()
 	 */
 	public void identifyRune(Player player, ItemStack runeItemStack) {
@@ -98,12 +77,12 @@ public class WauzRuneIdentifier {
 		this.runeItemStack = runeItemStack;	
 		itemName = runeItemStack.getItemMeta().getDisplayName();
 		
-		determineRarity();
-		determineTier();
+		rarity = Rarity.getRandomRuneRarity();
+		tier = Tier.getRuneTier(itemName);
 		
 		List<String> runeNames = WauzRuneInserter.getAllRuneIds();
 		String runeName = runeNames.get(random.nextInt(runeNames.size()));
-		identifiedItemName = rarityColor + "Rune of " + runeName;
+		identifiedItemName = rarity.getColor() + "Rune of " + runeName;
 		
 		generateIdentifiedRune();
 	}
@@ -117,10 +96,10 @@ public class WauzRuneIdentifier {
 		ItemMeta itemMeta = runeItemStack.getItemMeta();
 		itemMeta.setDisplayName(identifiedItemName);
 			
-		int power = (int) ((2 + random.nextDouble() / 2) * tierMultiplier * rarityMultiplier);
+		int power = (int) ((2 + random.nextDouble() / 2) * tier.getMultiplier() * rarity.getMultiplier());
 		
 		List<String> lores = new ArrayList<String>();
-		lores.add(ChatColor.WHITE + tierName + rarityName + "Rune " + rarityStars);
+		lores.add(ChatColor.WHITE + tier.getName() + " " + rarity.getName() + " Rune " + ChatColor.GREEN + rarity.getStars());
 		lores.add("");
 		lores.add(ChatColor.GRAY + "Can be inserted into Equipment,");
 		lores.add(ChatColor.GRAY + "which possesses an empty Rune Slot.");
@@ -132,53 +111,6 @@ public class WauzRuneIdentifier {
 		runeItemStack.setType(Material.FIREWORK_STAR);
 		
 		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
-	}
-	
-	/**
-	 * Determines the random rarity with a multiplier of 1-2 on a scale of 1-3 stars.
-	 * Automatically sets the rarity name and color and creates the star string.
-	 */
-	private void determineRarity() {
-		int rarity = random.nextInt(1000) + 1;
-		String x = UnicodeUtils.ICON_DIAMOND;
-				
-		if(rarity <= 800) {
-			rarityColor = ChatColor.GREEN;
-			rarityName = "Whispering ";
-			rarityStars = ChatColor.GREEN +x + ChatColor.GRAY +x +x;
-			rarityMultiplier = 1.00;
-		}
-		else if(rarity <= 975) {
-			rarityColor = ChatColor.BLUE;
-			rarityName = "Screaming ";
-			rarityStars = ChatColor.GREEN +x +x + ChatColor.GRAY +x;
-			rarityMultiplier = 1.50;
-		}
-		else if(rarity <= 1000) {
-			rarityColor = ChatColor.GOLD;
-			rarityName = "Deafening ";
-			rarityStars = ChatColor.GREEN +x +x +x;
-			rarityMultiplier = 2.00;
-		}
-	}
-	
-	/**
-	 * Determines the tier, based on the item name, with a multiplier of 6, 9 or 12 on a scale of T1 to T3.
-	 * Automatically sets the tier name and level.
-	 */
-	private void determineTier() {
-		if(itemName.contains("T3")) {
-			tierMultiplier = 12;
-			tierName = "Angelic" + ChatColor.GRAY + " T3 " + ChatColor.WHITE;
-		}
-		else if(itemName.contains("T2")) {
-			tierMultiplier = 9;
-			tierName = "Greater" + ChatColor.GRAY + " T2 " + ChatColor.WHITE;
-		}
-		else {
-			tierMultiplier = 6;
-			tierName = "Lesser" + ChatColor.GRAY + " T1 " + ChatColor.WHITE;
-		}
 	}
 
 }

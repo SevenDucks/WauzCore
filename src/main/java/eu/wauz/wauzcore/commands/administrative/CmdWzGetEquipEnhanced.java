@@ -12,7 +12,7 @@ import net.md_5.bungee.api.ChatColor;
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
  * - Description: <b>Get Enhanced Equip from String</b></br>
- * - Usage: <b>/wzGetEquip.enhanced [player] [enname] [enlvl]</b></br>
+ * - Usage: <b>/wzGetEquip.enhanced [enname] [enlvl] [player]</b></br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons
@@ -44,21 +44,9 @@ public class CmdWzGetEquipEnhanced implements WauzCommand {
 			return false;
 		}
 		
-		Player player = null;
-		String type = null;
-		int level = 1;
-		
-		if(args.length > 2) {
-			player = WauzCore.getOnlinePlayer(args[0]);
-			type = args[1];
-			level = Integer.parseInt(args[2]);
-		}
-		else {
-			player = (Player) sender;
-			type = args[0];
-			level = Integer.parseInt(args[1]);
-		}
-		
+		String type = args[0];
+		int level = Integer.parseInt(args[1]);
+		Player player = args.length < 3 ? (Player) sender : WauzCore.getOnlinePlayer(args[2]);
 		if(player == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;

@@ -9,7 +9,7 @@ import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.items.EquipmentType;
+import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 

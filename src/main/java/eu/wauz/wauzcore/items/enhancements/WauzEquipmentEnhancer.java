@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import eu.wauz.wauzcore.items.EquipmentType;
+import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import net.md_5.bungee.api.ChatColor;
 

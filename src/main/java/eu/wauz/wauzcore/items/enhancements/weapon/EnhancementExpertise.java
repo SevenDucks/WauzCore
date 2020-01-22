@@ -2,9 +2,9 @@ package eu.wauz.wauzcore.items.enhancements.weapon;
 
 import org.bukkit.ChatColor;
 
-import eu.wauz.wauzcore.items.EquipmentType;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancement;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancementParameters;
+import eu.wauz.wauzcore.items.enums.EquipmentType;
 
 /**
  * An enhancement, that can be applied onto an unfinished piece of equipment.

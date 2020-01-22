@@ -65,13 +65,13 @@ import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent
 
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEventListener;
-import eu.wauz.wauzcore.items.CustomWeaponBow;
-import eu.wauz.wauzcore.items.CustomWeaponGlider;
-import eu.wauz.wauzcore.items.CustomWeaponHook;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.Equipment;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponHook;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.mobs.MenacingMobsSpawner;

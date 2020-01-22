@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.items;
+package eu.wauz.wauzcore.items.weapons;
 
 import org.bukkit.Effect;
 import org.bukkit.Location;

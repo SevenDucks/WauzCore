@@ -15,7 +15,7 @@ import net.md_5.bungee.api.ChatColor;
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
  * - Description: <b>Get Equip from String</b></br>
- * - Usage: <b>/wzGetEquip [player] [equipname] [tier]</b></br>
+ * - Usage: <b>/wzGetEquip [equipname] [tier] [player]</b></br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons
@@ -47,21 +47,9 @@ public class CmdWzGetEquip implements WauzCommand {
 			return false;
 		}
 		
-		final Player player;
-		String type = null;
-		String tier = null;
-		
-		if(args.length > 2) {
-			player = WauzCore.getOnlinePlayer(args[0]);
-			type = args[1].replace("_", " ");
-			tier = "T" + args[2];
-		}
-		else {
-			player = (Player) sender;
-			type = args[0].replace("_", " ");
-			tier = "T" + args[1];
-		}
-		
+		String type = args[0].replace("_", " ");
+		String tier = "T" + args[1];
+		Player player = args.length < 3 ? (Player) sender : WauzCore.getOnlinePlayer(args[2]);
 		if(player == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;

@@ -5,6 +5,23 @@ Patch 60X: Powerful Professions
 Patch 601: Quest for Loot
 
 Patch 511: Achievement Arsenal
+	New Feature: Achievements
+	  - 9 Different Categories
+	  - Progress viewable in Menu
+	  - Soulstone Rewards
+	  
+	New Weapon: Lance
+	  - Right Click, Thrust Attack
+	  - Shift Right Click, Spin Attack
+	  
+	New Weapon: Shield
+	  - Right Click, Block
+	  - Shift Right Click, Area Taunt
+	  
+	Miscellaneous
+	  - Added Discord Server Log
+	  - Added New Debug Commands
+	  - A lot of Code Documentation
 
 Patch 510: Clashing Classes
 	New Feature: 3 Selectable Classes

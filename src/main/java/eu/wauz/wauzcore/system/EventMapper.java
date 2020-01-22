@@ -15,13 +15,13 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
-import eu.wauz.wauzcore.items.CustomWeaponBow;
-import eu.wauz.wauzcore.items.CustomWeaponGlider;
-import eu.wauz.wauzcore.items.CustomWeaponLance;
-import eu.wauz.wauzcore.items.CustomWeaponShield;
 import eu.wauz.wauzcore.items.WauzScrolls;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponLance;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.QuestBuilder;
 import eu.wauz.wauzcore.menu.ShopBuilder;

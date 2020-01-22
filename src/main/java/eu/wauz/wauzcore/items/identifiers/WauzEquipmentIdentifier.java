@@ -17,18 +17,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
-import eu.wauz.wauzcore.items.CustomWeaponShield;
 import eu.wauz.wauzcore.items.Equipment;
-import eu.wauz.wauzcore.items.EquipmentType;
+import eu.wauz.wauzcore.items.EquipmentParameters;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
+import eu.wauz.wauzcore.items.enums.EquipmentType;
+import eu.wauz.wauzcore.items.enums.Rarity;
+import eu.wauz.wauzcore.items.enums.Tier;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Formatters;
-import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -38,7 +39,7 @@ import net.md_5.bungee.api.ChatColor;
  * 
  * @see WauzIdentifier
  */
-public class WauzEquipmentIdentifier {
+public class WauzEquipmentIdentifier extends EquipmentParameters {
 	
 	/**
 	 * A map of all possible equipment types, by name.
@@ -100,7 +101,7 @@ public class WauzEquipmentIdentifier {
 			ChatColor.WHITE + "Rune Slot (" + ChatColor.GREEN + "Empty" + ChatColor.WHITE + ")";
 	
 	/**
-	 * A random instance, for rolling item stats and rarities.
+	 * A random instance, for rolling item stats.
 	 */
 	private Random random = new Random();
 	
@@ -109,16 +110,10 @@ public class WauzEquipmentIdentifier {
 	 */
 	private Player player;
 	
-	
 	/**
 	 * The equipment item stack, that is getting identified.
 	 */
 	private ItemStack equipmentItemStack;
-	
-	/**
-	 * The item meta of the equipment item stack.
-	 */
-	private ItemMeta itemMeta;
 	
 	/**
 	 * The initial display name of the equipment item stack.
@@ -131,44 +126,9 @@ public class WauzEquipmentIdentifier {
 	private String identifiedItemName;
 	
 	/**
-	 * The lores of the equipment item stack.
-	 */
-	private List<String> lores;
-	
-	/**
-	 * The type of the equipment.
-	 */
-	private Equipment equipmentType;
-	
-	/**
 	 * The main stat of the equipment.
 	 */
 	private int mainStat;
-	
-	/**
-	 * The main stat of the equipment, as displayed in lore.
-	 */
-	private String mainStatString;
-	
-	/**
-	 * The attack stat of the equipment.
-	 */
-	private int attackStat;
-	
-	/**
-	 * The defense stat of the equipment.
-	 */
-	private int defenseStat;
-	
-	/**
-	 * The speed stat of the equipment.
-	 */
-	private double speedStat;
-	
-	/**
-	 * The durability stat of the equipment.
-	 */
-	private int durabilityStat;
 	
 	/**
 	 * The multiplier of the equipment's type.
@@ -181,46 +141,24 @@ public class WauzEquipmentIdentifier {
 	private double baseMultiplier = 0;
 	
 	/**
-	 * The level of the equipment's enhancement.
+	 * The rarity of the equipment.
 	 */
-	private int enhancementLevel = 0;
-	
+	private Rarity rarity;
 	
 	/**
-	 * The name of the equipment's rarity.
+	 * The tier of the equipment.
 	 */
-	private String rarityName;
+	private Tier tier;
 	
 	/**
-	 * The stars of the equipment's rarity.
+	 * The prefix of the name of the equipment's rarity.
 	 */
-	private String rarityStars;
+	private String rarityNamePrefix;
 	
 	/**
-	 * The color of the equipment's rarity.
+	 * The prefix of the star rating of the equipment's rarity.
 	 */
-	private ChatColor rarityColor;
-	
-	/**
-	 * The multiplier of the equipment's rarity.
-	 */
-	private double rarityMultiplier = 0;
-	
-	
-	/**
-	 * The name of the equipment's tier.
-	 */
-	private String tierName;
-	
-	/**
-	 * The level of the equipment's tier.
-	 */
-	private int tier = 0;
-	
-	/**
-	 * The multiplier of the equipment's tier.
-	 */
-	private double tierMultiplier = 0;
+	private String rarityStarPrefix;
 	
 	/**
 	 * Identifies the item, based on the given event.
@@ -234,8 +172,8 @@ public class WauzEquipmentIdentifier {
 	 * @param equipmentItemStack The equipment item stack, that is getting identified.
 	 * 
 	 * @see WauzEquipmentIdentifier#determineBaseMultiplier()
-	 * @see WauzEquipmentIdentifier#determineRarity()
-	 * @see WauzEquipmentIdentifier#determineTier()
+	 * @see Rarity#getRandomEquipmentRarity()
+	 * @see Tier#getEquipmentTier(String)
 	 * @see WauzEquipmentIdentifier#generateIdentifiedEquipment()
 	 */
 	public void identifyItem(Player player, ItemStack equipmentItemStack) {
@@ -267,11 +205,11 @@ public class WauzEquipmentIdentifier {
 		}
 		
 		determineBaseMultiplier();
-		determineRarity();
-		determineTier();
+		rarity = Rarity.getRandomEquipmentRarity();
+		tier = Tier.getEquipmentTier(itemName);
 		
 		String verb = equipPrefixes.get(random.nextInt(equipPrefixes.size()));
-		identifiedItemName = rarityColor + verb + " " + equipmentType.getName();
+		identifiedItemName = rarity.getColor() + verb + " " + equipmentType.getName();
 		itemMeta.setDisplayName(identifiedItemName);
 		
 		generateIdentifiedEquipment();
@@ -283,7 +221,7 @@ public class WauzEquipmentIdentifier {
 	 * Plays an anvil sound to the player, when the identifying has been completed.
 	 */
 	private void generateIdentifiedEquipment() {
-		mainStat = (int) (baseMultiplier * typeMultiplicator * tierMultiplier * rarityMultiplier);
+		mainStat = (int) (baseMultiplier * typeMultiplicator * tier.getMultiplier() * rarity.getMultiplier());
 		
 		lores = new ArrayList<String>();
 		addMainStatToEquipment();
@@ -310,13 +248,13 @@ public class WauzEquipmentIdentifier {
 	private void determineBaseMultiplier() {
 		if(Chance.oneIn(150)) {
 			if(Chance.oneIn(2)) {
-				rarityName = "Primal ";
-				rarityStars = "" + ChatColor.RED;
+				rarityNamePrefix = "Primal ";
+				rarityStarPrefix = "" + ChatColor.RED;
 				baseMultiplier = 3.5;
 			}
 			else {
-				rarityName = "Stable ";
-				rarityStars = "" + ChatColor.DARK_AQUA;
+				rarityNamePrefix = "Stable ";
+				rarityStarPrefix = "" + ChatColor.DARK_AQUA;
 				baseMultiplier = 1.5;
 				
 				itemMeta.setUnbreakable(true);
@@ -324,70 +262,10 @@ public class WauzEquipmentIdentifier {
 			}
 		}
 		else {
-			rarityName = "";
-			rarityStars = "" + ChatColor.YELLOW;
+			rarityNamePrefix = "";
+			rarityStarPrefix = "" + ChatColor.YELLOW;
 			baseMultiplier = 2 + random.nextDouble();
 		}
-	}
-	
-	/**
-	 * Determines the random rarity with a multiplier of 1-3 on a scale of 1-5 stars.
-	 * Automatically sets the rarity name and color and creates the star string.
-	 */
-	private void determineRarity() {
-		int rarity = random.nextInt(10000) + 1;
-		String x = UnicodeUtils.ICON_DIAMOND;
-		
-		if(rarity <= 7000) {
-			rarityColor = ChatColor.GREEN;
-			rarityName += "Normal ";
-			rarityStars += x + ChatColor.GRAY +x +x +x +x;
-			rarityMultiplier = 1.00;
-		}
-		else if(rarity <= 9500) {
-			rarityColor = ChatColor.BLUE;
-			rarityName += "Magic ";
-			rarityStars += x +x + ChatColor.GRAY +x +x +x;
-			rarityMultiplier = 1.50;
-		}
-		else if(rarity <= 9900) {
-			rarityColor = ChatColor.GOLD;
-			rarityName += "Rare ";
-			rarityStars += x +x +x + ChatColor.GRAY +x +x;
-			rarityMultiplier = 2.00;
-		}
-		else if(rarity <= 9995) {
-			rarityColor = ChatColor.DARK_PURPLE;
-			rarityName += "Epic ";
-			rarityStars += x +x +x +x + ChatColor.GRAY +x;
-			rarityMultiplier = 2.50;
-		}
-		else if(rarity <= 10000) {
-			rarityColor = ChatColor.DARK_RED;
-			rarityName += "Unique ";
-			rarityStars += x +x +x +x +x;
-			rarityMultiplier = 3.00;
-		}
-	}
-	
-	/**
-	 * Determines the tier, based on the item name, with a multiplier of 2^1 to 2^3 on a scale of T1 to T3.
-	 * Automatically sets the tier name and level.
-	 */
-	private void determineTier() {
-		if(itemName.contains("T3")) {
-			tier = 3;
-			tierName = "Angelic" + ChatColor.GRAY + " T3 " + ChatColor.WHITE;
-		}
-		else if(itemName.contains("T2")) {
-			tier = 2;
-			tierName = "Greater" + ChatColor.GRAY + " T2 " + ChatColor.WHITE;
-		}
-		else {
-			tier = 1;
-			tierName = "Lesser" + ChatColor.GRAY + " T1 " + ChatColor.WHITE;
-		}
-		tierMultiplier = (double) (Math.pow(2, tier));
 	}
 	
 	/**
@@ -403,10 +281,10 @@ public class WauzEquipmentIdentifier {
 	 * to prevent the player from using items, out of their reach.
 	 */
 	private void addMainStatToEquipment() {
-		float scalingLevel = player.getLevel() - (tier * 10 - 10);
+		float scalingLevel = player.getLevel() - (tier.getLevel() * 10 - 10);
 		scalingLevel = (float) (scalingLevel < 1 ? 3 : (scalingLevel + 2 > 10 ? 10 : scalingLevel + 2)) / 10;	
 		WauzDebugger.log(player, "Level-Scaling Weapon: " + mainStat + " * " + scalingLevel);
-		int level = Math.max(Math.min((tier * 10), player.getLevel()), tier * 10 - 15);
+		int level = Math.max(Math.min((tier.getLevel() * 10), player.getLevel()), tier.getLevel() * 10 - 15);
 		String levelString = ChatColor.YELLOW + "lvl " + ChatColor.AQUA + level + ChatColor.DARK_GRAY + ")";
 		String scalingString = scalingLevel == 1
 				? " " + ChatColor.DARK_GRAY + "(" + levelString
@@ -417,14 +295,17 @@ public class WauzEquipmentIdentifier {
 		defenseStat = (mainStat / 4) + 1;
 		
 		mainStatString = "";
+		String rarityName = rarityNamePrefix + rarity.getName() + " ";
+		String rarityStars = rarityStarPrefix + rarity.getStars();
+		
 		if(equipmentType.getType().equals(EquipmentType.WEAPON)) {	
-			lores.add(ChatColor.WHITE + tierName + rarityName + "Weapon " + rarityStars);
+			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Weapon " + rarityStars);
 			lores.add("");
 			mainStatString = "Attack:" + ChatColor.RED + " " + attackStat + scalingString;
 			lores.add(mainStatString);
 		}
 		else if(equipmentType.getType().equals(EquipmentType.ARMOR)) {		
-			lores.add(ChatColor.WHITE + tierName + rarityName + "Armor " + rarityStars);
+			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Armor " + rarityStars);
 			lores.add("");
 			mainStatString = "Defense:" + ChatColor.BLUE + " " + defenseStat + scalingString;
 			lores.add(mainStatString);
@@ -529,131 +410,20 @@ public class WauzEquipmentIdentifier {
 			lores.add(ChatColor.GRAY + "Use while Sneaking to pull you to a Block");
 			lores.add(ChatColor.GRAY + "Right Click to grab Enemies");
 		}
-		else if(rarityMultiplier >= 1.5) {
+		else if(rarity.getMultiplier() >= 1.5) {
 			if(equipmentType.getType().equals(EquipmentType.WEAPON) && Chance.oneIn(2)) {
 				lores.add("");
 				lores.add(EMPTY_SKILL_SLOT);
 			}
 		}
-		if(rarityMultiplier >= 1.5)	{
+		
+		if(rarity.getMultiplier() >= 1.5)	{
 			lores.add("");
 			lores.add(EMPTY_RUNE_SLOT);
-			if(rarityMultiplier >= 2.5) {
+			if(rarity.getMultiplier() >= 2.5) {
 				lores.add(EMPTY_RUNE_SLOT);
 			}
 		}
 	}
 
-	/**
-	 * @return The level of the equipment's enhancement.
-	 */
-	public int getEnhancementLevel() {
-		return enhancementLevel;
-	}
-
-	/**
-	 * @return The type of the equipment.
-	 */
-	public EquipmentType getEquipmentType() {
-		return equipmentType.getType();
-	}
-
-	/**
-	 * @return The item meta of the equipment item stack.
-	 */
-	public ItemMeta getItemMeta() {
-		return itemMeta;
-	}
-
-	/**
-	 * @param itemMeta The new item meta of the equipment item stack.
-	 */
-	public void setItemMeta(ItemMeta itemMeta) {
-		this.itemMeta = itemMeta;
-	}
-
-	/**
-	 * @return The lores of the equipment item stack.
-	 */
-	public List<String> getLores() {
-		return lores;
-	}
-
-	/**
-	 * @param lores The new lores of the equipment item stack.
-	 */
-	public void setLores(List<String> lores) {
-		this.lores = lores;
-	}
-
-	/**
-	 * @return The main stat of the equipment, as displayed in lore.
-	 */
-	public String getMainStatString() {
-		return mainStatString;
-	}
-
-	/**
-	 * @param mainStatString The new main stat of the equipment, as displayed in lore.
-	 */
-	public void setMainStatString(String mainStatString) {
-		this.mainStatString = mainStatString;
-	}
-
-	/**
-	 * @return The attack stat of the equipment.
-	 */
-	public int getAttackStat() {
-		return attackStat;
-	}
-
-	/**
-	 * @param attackStat The new attack stat of the equipment.
-	 */
-	public void setAttackStat(int attackStat) {
-		this.attackStat = attackStat;
-	}
-
-	/**
-	 * @return The defense stat of the equipment.
-	 */
-	public int getDefenseStat() {
-		return defenseStat;
-	}
-
-	/**
-	 * @param defenseStat The new defense stat of the equipment.
-	 */
-	public void setDefenseStat(int defenseStat) {
-		this.defenseStat = defenseStat;
-	}
-
-	/**
-	 * @return The speed stat of the equipment.
-	 */
-	public double getSpeedStat() {
-		return speedStat;
-	}
-
-	/**
-	 * @param speedStat The new speed stat of the equipment.
-	 */
-	public void setSpeedStat(double speedStat) {
-		this.speedStat = speedStat;
-	}
-
-	/**
-	 * @return The durability stat of the equipment.
-	 */
-	public int getDurabilityStat() {
-		return durabilityStat;
-	}
-
-	/**
-	 * @param durabilityStat The new durability stat of the equipment.
-	 */
-	public void setDurabilityStat(int durabilityStat) {
-		this.durabilityStat = durabilityStat;
-	}
-	
 }
