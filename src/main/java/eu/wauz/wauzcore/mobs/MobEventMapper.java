@@ -47,6 +47,15 @@ public class MobEventMapper {
 	 * It drops exp or a key, depending on mob type.
 	 * 
 	 * @param event The death event.
+	 * 
+	 * @see PetOverviewMenu#removeOwner(String, Player)
+	 * @see AchievementTracker#addProgress(Player, WauzAchievementType, double)
+	 * @see Strongbox#destroy(MythicMobDeathEvent)
+	 * @see CmdWzTravelEvent#getEventTravelMap()
+	 * @see MobEventMapper#explodeMob(MythicMob, Entity, Location)
+	 * @see MobEventMapper#splitMob(MythicMob, Location)
+	 * @see MenacingMobsLoot#dropExp(Entity, Entity)
+	 * @see MenacingMobsLoot#dropKey(Entity)
 	 */
 	public static void death(MythicMobDeathEvent event) {
 		Entity entity = event.getEntity();
@@ -65,16 +74,16 @@ public class MobEventMapper {
 		if(CmdWzTravelEvent.getEventTravelMap().containsKey(mobId)) {
 			CmdWzTravelEvent.getEventTravelMap().remove(mobId);
 		}
-		if(entity.hasMetadata("wzModExplosive")) {
+		if(MobMetadataUtils.hasMenacingModifier(entity, MenacingModifier.EXPLOSIVE)) {
 			explodeMob(event.getMobType(), entity, entity.getLocation());
 		}
-		if(entity.hasMetadata("wzModSplitting")) {
+		if(MobMetadataUtils.hasMenacingModifier(entity, MenacingModifier.SPLITTING)) {
 			splitMob(event.getMobType(), entity.getLocation());
 		}
-		if(entity.hasMetadata("wzExpAmount")) {
+		if(MobMetadataUtils.hasExpDrop(entity)) {
 			MenacingMobsLoot.dropExp(entity, event.getKiller());
 		}
-		if(entity.hasMetadata("wzKeyId")) {
+		if(MobMetadataUtils.hasKeyDrop(entity)) {
 			MenacingMobsLoot.dropKey(entity);
 		}
 	}

@@ -10,9 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 
-import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.util.Chance;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.adapters.bukkit.BukkitAdapter;
@@ -51,10 +49,13 @@ public class Strongbox {
 	 * so the number can be reduced if they die, to finally drop loot, if it reaches zero.
 	 * 
 	 * @param event The death event.
+	 * 
+	 * @see MobMetadataUtils#setStrongboxTier(ArmorStand, int)
+	 * @see MobMetadataUtils#setStrongboxMob(Entity, ArmorStand)
 	 */
 	public static void destroy(MythicMobDeathEvent event) {
 		Entity entity = event.getEntity();
-		if(entity.getMetadata("wzStrongbox").isEmpty()) {
+		if(!MobMetadataUtils.hasStrongboxMob(entity)) {
 			Location location = entity.getLocation();
 			location.setY(location.getY() + 1);
 			
@@ -72,7 +73,7 @@ public class Strongbox {
 			strongbox.setCustomNameVisible(true);
 			
 			int strongboxTier = Integer.parseInt(StringUtils.substringAfterLast(event.getMobType().getInternalName(), "T"));
-			strongbox.setMetadata("wzStrongboxTier", new FixedMetadataValue(WauzCore.getInstance(), strongboxTier));
+			MobMetadataUtils.setStrongboxTier(strongbox, strongboxTier);
 			
 			try {
 				for(int iterator = 1; iterator <= enemyAmount; iterator++) {
@@ -82,19 +83,19 @@ public class Strongbox {
 					
 					String mobSuffix = Chance.percent(40) ? "-Elite" : "";
 					Entity mob = mythicMobs.spawnMythicMob("StrongboxGuardT" + strongboxTier + mobSuffix, offsetLocation);
-					mob.setMetadata("wzStrongbox", new FixedMetadataValue(WauzCore.getInstance(), strongbox.getUniqueId().toString()));
+					MobMetadataUtils.setStrongboxMob(mob, strongbox);
 				}
 				
-				for(Player player : strongbox.getWorld().getPlayers())
+				for(Player player : strongbox.getWorld().getPlayers()) {
 					player.sendMessage(ChatColor.GOLD + "Remaining Strongbox Guards: " + ChatColor.DARK_RED + enemyAmount);
-				
+				}
 			}
 			catch (InvalidMobTypeException e) {
 				e.printStackTrace();
 			}
 		}
 		else {
-			String uuidString = entity.getMetadata("wzStrongbox").get(0).asString();
+			String uuidString = MobMetadataUtils.getStronboxMob(entity);
 			ArmorStand strongbox = activeStrongboxMap.get(uuidString);
 			int enemyAmount = Integer.parseInt(StringUtils.substringBetween(
 					strongbox.getCustomName(), "[" + ChatColor.DARK_RED, ChatColor.GOLD + "]"));
@@ -103,8 +104,8 @@ public class Strongbox {
 			if(enemyAmount < 1) {
 				activeStrongboxMap.remove(uuidString);
 				
-				String strongboxTierString = strongbox.getMetadata("wzStrongboxTier").get(0).asString();
-				DropTable dropTable = MythicMobs.inst().getDropManager().getDropTable("StrongboxDropsT" + strongboxTierString).get();
+				int strongboxTier = MobMetadataUtils.getStrongboxTier(strongbox);
+				DropTable dropTable = MythicMobs.inst().getDropManager().getDropTable("StrongboxDropsT" + strongboxTier).get();
 				LootBag lootBag = dropTable.generate(new DropMetadata(event.getMob(), BukkitAdapter.adapt(event.getKiller())));
 				lootBag.drop(BukkitAdapter.adapt(strongbox.getLocation()));
 				
@@ -115,8 +116,9 @@ public class Strongbox {
 				strongbox.setCustomName(ChatColor.GOLD + "Strongbox Guards Left: ["
 						+ ChatColor.DARK_RED + enemyAmount + ChatColor.GOLD + "]");
 			}
-			for(Player player : strongbox.getWorld().getPlayers())
+			for(Player player : strongbox.getWorld().getPlayers()) {
 				player.sendMessage(ChatColor.GOLD + "Remaining Strongbox Guards: " + ChatColor.DARK_RED + enemyAmount);
+			}
 		}
 	}
 

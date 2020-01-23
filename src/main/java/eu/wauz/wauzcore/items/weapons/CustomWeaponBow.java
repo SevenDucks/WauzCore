@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
@@ -22,6 +21,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.menu.ArrowMenu;
+import eu.wauz.wauzcore.mobs.MobMetadataUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -71,6 +71,7 @@ public class CustomWeaponBow {
 	 * 
 	 * @see PlayerConfigurator#getSelectedArrows(Player)
 	 * @see PlayerConfigurator#getArrowAmount(Player, String)
+	 * @see MobMetadataUtils#setArrowTypeAndDamage(Arrow, String, int)
 	 * @see CustomWeaponBow#spawnArrowTrail(Arrow, Color)
 	 * @see CustomWeaponBow#getArrowColor(String)
 	 * @see DurabilityCalculator#damageItem(Player, ItemStack, boolean)
@@ -95,8 +96,7 @@ public class CustomWeaponBow {
 		Vector vector = player.getLocation().getDirection().multiply(1.75);
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 1);
         Arrow arrow = (Arrow) player.getWorld().spawnEntity(player.getEyeLocation(), EntityType.ARROW);
-        arrow.setMetadata("wzArrowType", new FixedMetadataValue(WauzCore.getInstance(), arrowType));
-        arrow.setMetadata("wzArrowDmg", new FixedMetadataValue(WauzCore.getInstance(), damage));
+        MobMetadataUtils.setArrowTypeAndDamage(arrow, arrowType, damage);
         arrow.setShooter(player);
         arrow.setVelocity(vector);
         spawnArrowTrail(arrow, getArrowColor(arrowType));
@@ -201,6 +201,9 @@ public class CustomWeaponBow {
 	 * @param arrow The arrow that hit the entity.
 	 * 
 	 * @see CustomWeaponBow#tryToShoot(Player, ItemStack)
+	 * @see MobMetadataUtils#hasArrowTypeAndDamage(Arrow)
+	 * @see MobMetadataUtils#getArrowType(Arrow)
+	 * @see MobMetadataUtils#getArrowDamage(Arrow)
 	 * @see SkillUtils#callPlayerFixedDamageEvent(Player, Entity, double)
 	 * @see SkillUtils#callPlayerDamageOverTimeEvent(Player, Entity, Color, int, int, int)
 	 * @see SkillUtils#addPotionEffect(Entity, PotionEffectType, int, int)
@@ -208,11 +211,12 @@ public class CustomWeaponBow {
 	 * @see SkillUtils#createExplosion(org.bukkit.Location, float)
 	 */
 	public static void onArrowHit(Player player, Entity entity, Arrow arrow) {
-		if(arrow.getMetadata("wzArrowType").isEmpty() && arrow.getMetadata("wzArrowDmg").isEmpty())
+		if(!MobMetadataUtils.hasArrowTypeAndDamage(arrow)) {
 			return;
+		}
 		
-		String arrowType = arrow.getMetadata("wzArrowType").get(0).asString();
-		int arrowDamage = arrow.getMetadata("wzArrowDmg").get(0).asInt();
+		String arrowType = MobMetadataUtils.getArrowType(arrow);
+		int arrowDamage = MobMetadataUtils.getArrowDamage(arrow);
 		
 		if(arrowType.equals("normal")) {
 			WauzDebugger.log(player, "Normal Arrow Hit");

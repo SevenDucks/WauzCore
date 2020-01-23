@@ -19,15 +19,15 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffectType;
 
-import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.mobs.MenacingModifier;
+import eu.wauz.wauzcore.mobs.MobMetadataUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
@@ -89,10 +89,9 @@ public class DamageCalculator {
 			return;
 		}
 		
-		boolean isFixedDamage = false;
-		if(!entity.getMetadata("wzFixedDmg").isEmpty()) {
-			isFixedDamage = entity.getMetadata("wzFixedDmg").get(0).asBoolean();
-			entity.setMetadata("wzFixedDmg", new FixedMetadataValue(WauzCore.getInstance(), false));
+		boolean isFixedDamage = MobMetadataUtils.hasFixedDamage(entity);
+		if(isFixedDamage) {
+			MobMetadataUtils.setFixedDamage(entity, false);
 		}
 		
 		int damage = 1;
@@ -124,12 +123,10 @@ public class DamageCalculator {
 				return;
 			}
 			
-			if(!entity.getMetadata("wzMagic").isEmpty()) {
-				double wzMagicValue = entity.getMetadata("wzMagic").get(0).asDouble();
-				if(wzMagicValue > 0) {
-					magicMultiplier = wzMagicValue + EquipmentUtils.getEnhancementSkillDamageMultiplier(itemStack);
-				}
-				entity.setMetadata("wzMagic", new FixedMetadataValue(WauzCore.getInstance(), 0d));
+			double magicBaseMultiplier = MobMetadataUtils.getMagicDamageMultiplier(entity);
+			if(magicBaseMultiplier > 0) {
+				magicMultiplier = magicBaseMultiplier + EquipmentUtils.getEnhancementSkillDamageMultiplier(itemStack);
+				MobMetadataUtils.setMagicDamageMultiplier(entity, 0);
 				WauzDebugger.log(player, "Magic Damage-Multiplier: " + magicMultiplier);
 				isMagic = true;
 			}
@@ -159,10 +156,10 @@ public class DamageCalculator {
 		if(isAttackDebugMode) {
 			multiplier += 100;
 		}
-		if(entity.hasMetadata("wzModMassive")) {
+		if(MobMetadataUtils.hasMenacingModifier(entity, MenacingModifier.MASSIVE)) {
 			multiplier = 0.2f * multiplier;
 		}
-		if(entity.hasMetadata("wzModDeflecting")) {
+		if(MobMetadataUtils.hasMenacingModifier(entity, MenacingModifier.DEFLECTING)) {
 			SkillUtils.throwBackEntity(player, entity.getLocation(), 1.2);
 		}
 		

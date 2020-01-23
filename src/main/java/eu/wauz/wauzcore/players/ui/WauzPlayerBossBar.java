@@ -16,6 +16,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.mobs.MenacingModifier;
+import eu.wauz.wauzcore.mobs.MobMetadataUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
@@ -104,7 +106,7 @@ public class WauzPlayerBossBar {
 	 * 
 	 * @see WauzPlayerBossBar#doPlayerChecks()
 	 */
-	public WauzPlayerBossBar(Entity entity, List<String> modifiers, double maxHealth, boolean raidBoss) {
+	public WauzPlayerBossBar(Entity entity, List<MenacingModifier> modifiers, double maxHealth, boolean raidBoss) {
 		if(!(entity instanceof Damageable)) {
 			return;
 		}
@@ -229,7 +231,7 @@ public class WauzPlayerBossBar {
 	        			if(particle != null) {
 	        				ParticleSpawner.spawnParticleCircle(damageable.getLocation(), particle, 1, 8);
 	        			}
-	        			if(damageable.hasMetadata("wzModRavenous")) {
+	        			if(MobMetadataUtils.hasMenacingModifier(damageable, MenacingModifier.RAVENOUS)) {
 	        				SkillUtils.addPotionEffect(damageable, PotionEffectType.SPEED, 2, 4);
 	        			}
 	        			doPlayerChecks();

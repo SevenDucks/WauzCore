@@ -7,9 +7,7 @@ import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
-import org.bukkit.metadata.FixedMetadataValue;
 
-import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 
@@ -22,22 +20,6 @@ import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 public class MenacingMobsSpawner {
 	
 	/**
-	 * A direct reference to the main class.
-	 */
-	private static WauzCore core = WauzCore.getInstance();
-	
-	/**
-	 * A list of possible menacing modifiers (prefixes):
-	 * 
-	 * Explosive = Explodes on death, dealing 500% damage.
-	 * Deflecting = Knocks back everyone who attacks the mob.
-	 * Massive = Takes only 20% of inflicted damage.
-	 * Ravenous = Chases the player with 200% speed.
-	 * Splitting = Splits into 4 mobs on death.
-	 */
-	private static String[] possibleModifiers = {"Deflecting", "Explosive", "Massive", "Ravenous", "Splitting"};
-	
-	/**
 	 * Spawns a mob and configures its metadata according to the generated config.
 	 * This includes menacing modifiers, boss bars, aswell as exp and key drops.
 	 * 
@@ -46,15 +28,18 @@ public class MenacingMobsSpawner {
 	 * 
 	 * @see MenacingMobsConfig
 	 * @see MenacingMobsSpawner#possibleModifiers
+	 * @see MobMetadataUtils#setMenacingModifier(Entity, String)
+	 * @see MobMetadataUtils#setExpDrop(Entity, int, double)
+	 * @see MobMetadataUtils#setKeyDrop(Entity, String)
 	 */
 	public static void addMenacingMob(Entity entity, MythicMob mythicMob) {
 		MenacingMobsConfig config = new MenacingMobsConfig(mythicMob.getConfig());
-		List<String> modifiers = new ArrayList<String>();
+		List<MenacingModifier> modifiers = new ArrayList<>();
 		
 		if(config.isEnableModifiers()) {
 			modifiers = getRandomModifiers(config.isEnableSecondModifier() ? 2 : 1);
-			for(String modifier : modifiers) {
-				entity.setMetadata("wzMod" + modifier, new FixedMetadataValue(core, true));
+			for(MenacingModifier modifier : modifiers) {
+				MobMetadataUtils.setMenacingModifier(entity, modifier);
 			}
 		}
 		if(config.isEnableHealthBar()) {
@@ -62,11 +47,10 @@ public class MenacingMobsSpawner {
 		}
 		if(StringUtils.isNotBlank(config.getExpDropString())) {
 			String[] expStrings = config.getExpDropString().split(" ");
-			entity.setMetadata("wzExpTier", new FixedMetadataValue(core, Integer.parseInt(expStrings[0])));
-			entity.setMetadata("wzExpAmount", new FixedMetadataValue(core, Double.parseDouble(expStrings[1])));
+			MobMetadataUtils.setExpDrop(entity, Integer.parseInt(expStrings[0]), Double.parseDouble(expStrings[1]));
 		}
 		if(StringUtils.isNotBlank(config.getKeyDropString())) {
-			entity.setMetadata("wzKeyId", new FixedMetadataValue(core, config.getKeyDropString()));
+			MobMetadataUtils.setKeyDrop(entity, config.getKeyDropString());
 		}
 	}
 	
@@ -77,13 +61,13 @@ public class MenacingMobsSpawner {
 	 * 
 	 * @see MenacingMobsSpawner#possibleModifiers
 	 */
-	public static List<String> getRandomModifiers(int amount) {
-		List<String> modifiers = new ArrayList<String>();
-		List<String> unusedModifiers = new ArrayList<String>(Arrays.asList(possibleModifiers));
+	public static List<MenacingModifier> getRandomModifiers(int amount) {
+		List<MenacingModifier> modifiers = new ArrayList<>();
+		List<MenacingModifier> unusedModifiers = new ArrayList<>(Arrays.asList(MenacingModifier.values()));
 		
 		Random random = new Random();
 		while(modifiers.size() < amount) {
-			String modifier = unusedModifiers.get(random.nextInt(unusedModifiers.size()));
+			MenacingModifier modifier = unusedModifiers.get(random.nextInt(unusedModifiers.size()));
 			unusedModifiers.remove(modifier);
 			modifiers.add(modifier);
 		}

@@ -23,16 +23,16 @@ public class MenacingMobsLoot {
 	/**
 	 * Drops exp for the killer, according to the entity's metadata.
 	 * 
-	 * @param entity
-	 * @param killer
+	 * @param entity The entity that died.
+	 * @param killer The killer of the entity.
 	 */
 	public static void dropExp(Entity entity, Entity killer) {
 		if(killer == null || !(killer instanceof Player)) {
 			return;
 		}
 		
-		int tier = entity.getMetadata("wzExpTier").get(0).asInt();
-		double amount = entity.getMetadata("wzExpAmount").get(0).asDouble();
+		int tier = MobMetadataUtils.getExpDropTier(entity);
+		double amount = MobMetadataUtils.getExpDropAmount(entity);
 		if(tier > 0 && amount > 0) {
 			WauzRewards.level((Player) killer, tier, amount, entity.getLocation());
 		}
@@ -41,10 +41,10 @@ public class MenacingMobsLoot {
 	/**
 	 * Drops a key for its current world, according to the entity's metadata.
 	 * 
-	 * @param entity
+	 * @param entity The entity that died.
 	 */
 	public static void dropKey(Entity entity) {
-		String keyId = entity.getMetadata("wzKeyId").get(0).asString();
+		String keyId = MobMetadataUtils.getKeyDrop(entity);
 		if(StringUtils.isNotBlank(keyId)) {
 			World world = entity.getWorld();
 			InstanceConfigurator.setInstanceWorldKeyStatus(world, keyId, InstanceConfigurator.KEY_STATUS_OBTAINED);

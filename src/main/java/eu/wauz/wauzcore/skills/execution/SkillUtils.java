@@ -15,13 +15,13 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.mobs.MobMetadataUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -177,6 +177,8 @@ public class SkillUtils {
 	 * @param player The player who casted the attack.
 	 * @param entities The entities that got hit by the attack.
 	 * @param damageMultiplier The magic multiplier of the damage.
+	 * 
+	 * @see SkillUtils#callPlayerMagicDamageEvent(Player, Entity, double)
 	 */
 	public static void callPlayerMagicDamageEvent(Player player, List<Entity> entities, double damageMultiplier) {
 		for(Entity entity : entities) {
@@ -190,11 +192,13 @@ public class SkillUtils {
 	 * @param player The player who casted the attack.
 	 * @param entity The entity that got hit by the attack.
 	 * @param damageMultiplier The magic multiplier of the damage.
+	 * 
+	 * @see MobMetadataUtils#setMagicDamageMultiplier(Entity, double)
 	 */
 	public static void callPlayerMagicDamageEvent(Player player, Entity entity, double damageMultiplier) {	
 		if(entity instanceof Damageable && player.getWorld().equals(entity.getWorld())) {
 			Damageable damagable = (Damageable) entity;
-			damagable.setMetadata("wzMagic", new FixedMetadataValue(WauzCore.getInstance(), damageMultiplier));
+			MobMetadataUtils.setMagicDamageMultiplier(damagable, damageMultiplier);
 			damagable.damage(10, player);
 		}
 	}
@@ -205,10 +209,13 @@ public class SkillUtils {
 	 * @param player The player who casted the attack.
 	 * @param entity The entity that got hit by the attack.
 	 * @param damage The fixed damage value.
+	 * 
+	 * @see SkillUtils#callPlayerFixedDamageEvent(Player, Entity, double)
 	 */
 	public static void callPlayerFixedDamageEvent(Player player, List<Entity> entities, double damage) {
-		for(Entity entity : entities)
+		for(Entity entity : entities) {
 			callPlayerFixedDamageEvent(player, entity, damage);
+		}
 	}
 	
 	/**
@@ -217,11 +224,13 @@ public class SkillUtils {
 	 * @param player The player who casted the attack.
 	 * @param entity The entity that got hit by the attack.
 	 * @param damage The fixed damage value.
+	 * 
+	 * @see MobMetadataUtils#setFixedDamage(Entity, boolean)
 	 */
 	public static void callPlayerFixedDamageEvent(Player player, Entity entity, double damage) {
 		if(entity instanceof Damageable && player.getWorld().equals(entity.getWorld())) {
 			Damageable damageable = (Damageable) entity;
-			damageable.setMetadata("wzFixedDmg", new FixedMetadataValue(WauzCore.getInstance(), true));
+			MobMetadataUtils.setFixedDamage(damageable, true);
 			damageable.damage(damage, player);
 		}
 	}
