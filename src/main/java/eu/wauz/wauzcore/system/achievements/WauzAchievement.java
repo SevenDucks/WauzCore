@@ -28,6 +28,19 @@ public class WauzAchievement {
 	private static Map<WauzAchievementType, List<WauzAchievement>> achievementMap = new HashMap<>();
 	
 	/**
+	 * Gets the number of all earnable achievements.
+	 * 
+	 * @return The achievement count.
+	 */
+	public static int getAchievementCount() {
+		int count = 0;
+		for(List<WauzAchievement> achievementList : achievementMap.values()) {
+			count += achievementList.size();
+		}
+		return count;
+	}
+	
+	/**
 	 * Initializes all achievements and fills the internal achievement map.
 	 * 
 	 * @see AchievementConfigurator#getAchievementKeys()

@@ -3,6 +3,7 @@ package eu.wauz.wauzdiscord;
 import java.awt.Color;
 
 import org.apache.logging.log4j.LogManager;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
@@ -39,7 +40,8 @@ public class WauzDiscord extends JavaPlugin {
 	 * 1. Creates a new Discord bot instance and logs it in.
 	 * 2. Registers the event listeners.
 	 * 3. Adds the log filter.
-	 * 4. Sends a start message to Discord, if enabled.
+	 * 4. Starts all repeating tasks.
+	 * 5. Sends a start message to Discord, if enabled.
 	 * 
 	 * @see ShiroDiscordBot
 	 * @see WauzDiscordListener
@@ -71,6 +73,19 @@ public class WauzDiscord extends JavaPlugin {
 		logFilter = new WauzLogFilter();
 		((org.apache.logging.log4j.core.Logger) LogManager.getRootLogger()).addFilter(logFilter);
 		getLogger().info("Added LogFilter!");
+		
+		/**
+		 * Every 30 seconds
+		 */
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			
+			@Override
+			public void run() {
+				shiroDiscordBot.updateLoggingChannelServerStats();
+			}
+		}, 200, 600);
+		
+		getLogger().info("Scheduled Repeating Tasks!");
 		
 		if(DiscordConfigurator.showStartStopNotification()) {
 			shiroDiscordBot.sendEmbedFromMinecraft(":white_check_mark: " + WauzCore.getServerKey() + " has been started!", Color.GREEN, false);

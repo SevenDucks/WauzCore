@@ -2,9 +2,9 @@ package eu.wauz.wauzcore.commands.administrative;
 
 import org.bukkit.command.CommandSender;
 
-import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.system.SystemAnalytics;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -45,7 +45,8 @@ public class CmdWzSystem implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		return WauzCore.printSystemAnalytics(sender);
+		new SystemAnalytics().print(sender);
+		return true;
 	}
 
 }

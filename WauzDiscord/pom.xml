@@ -56,7 +56,7 @@
 		<dependency>
 			<groupId>eu.wauz</groupId>
 			<artifactId>WauzCore</artifactId>
-			<version>Pallasite.11.Pre</version>
+			<version>Behelit.1.Pre</version>
 		</dependency>
 		
 		

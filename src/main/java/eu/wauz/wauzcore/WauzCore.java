@@ -1,7 +1,5 @@
 package eu.wauz.wauzcore;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +25,11 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerNotifier;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.InstanceManager;
-import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.api.WebServerManager;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * The main class of the plugin and holder of system information.
@@ -322,44 +318,4 @@ public class WauzCore extends JavaPlugin {
 		return RegionConfigurator.getServerRegionKey();
 	}
 	
-	/**
-	 * Prints information about the system to the requestor.
-	 * 
-	 * @param sender The person who requested the analytics.
-	 * @return If the action was successful.
-	 */
-	public static boolean printSystemAnalytics(CommandSender sender) {
-		try {
-			OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
-			String sys = os.getName() + " " + os.getArch();
-			String cpu = os.getAvailableProcessors() + " Processors, " + os.getSystemLoadAverage() + " Load Avg";
-			String ram = getByteUnit(Runtime.getRuntime().freeMemory()) + " / " + getByteUnit(Runtime.getRuntime().maxMemory());
-			long spaceTotal = instance.getDataFolder().getTotalSpace();
-			long spaceInUse = spaceTotal - instance.getDataFolder().getFreeSpace();
-			String ssd = getByteUnit(spaceInUse) + " / " + getByteUnit(spaceTotal);
-			sender.sendMessage(ChatColor.DARK_RED + "[System: " + sys + " " + cpu + "]");
-			sender.sendMessage(ChatColor.DARK_RED + "[RAM: " + ram + "] [SSD: " + ssd + "]");
-			return true;
-		}
-		catch (Exception e) {
-			WauzDebugger.catchException(instance.getClass(), e);
-			return false;
-		}
-	}
-	
-	/**
-	 * Formats byte units for displaying in the system analytics.
-	 * 
-	 * @param bytes The raw amount of bytes.
-	 * @return A formatted string with byte unit.
-	 * 
-	 * @see WauzCore#printSystemAnalytics(CommandSender)
-	 */
-	private static String getByteUnit(long bytes) {
-		if (bytes < 1024)
-			return bytes + " B";
-		int exp = (int) (Math.log(bytes) / Math.log(1024));
-		return String.format("%.1f %sB", bytes / Math.pow(1024, exp), ("KMGTPE").charAt(exp - 1));
-	}
-
 }

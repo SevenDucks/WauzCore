@@ -24,6 +24,7 @@ import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.ChatFormatter;
+import eu.wauz.wauzcore.system.SystemAnalytics;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzdiscord.data.DiscordConfigurator;
@@ -113,7 +114,12 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	/**
 	 * An instance of the random class to select hentai images. (Oof)
 	 */
-	private Random random = new Random(); 
+	private Random random = new Random();
+	
+	/**
+	 * If the bot is still running.
+	 */
+	private boolean isRunning = false;
 	
 	/**
 	 * The token for the Discord bot user.
@@ -163,6 +169,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			audioChannel = guild.getVoiceChannelById(DiscordConfigurator.getAudioChannelId());
 			audioManager = guild.getAudioManager();
 			configureLavaPlayer();
+			isRunning = true;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -173,6 +180,8 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	 * Sets the bot user's status to offline and stops the bot.
 	 */
 	public void stop() {
+		isRunning = false;
+		loggingChannel.getManager().setTopic("Server Offline").submit();
 		jda.getPresence().setStatus(OnlineStatus.OFFLINE);
 		jda.shutdown();
 	}
@@ -210,6 +219,22 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		}
 		else {
 			generalChannel.sendMessage(embedBuilder.build()).queue();
+		}
+	}
+	
+	/**
+	 * Updates the topic of the logging channel, to display the newest system analytics.
+	 * 
+	 * @see SystemAnalytics
+	 */
+	public void updateLoggingChannelServerStats() {
+		if(isRunning) {
+			SystemAnalytics systemAnalytics = new SystemAnalytics();
+			String topic = systemAnalytics.getPlayersOnline()
+					+ " " + systemAnalytics.getCpuUsage()
+					+ " " + systemAnalytics.getRamUsage()
+					+ " " + systemAnalytics.getSsdUsage();
+			loggingChannel.getManager().setTopic(topic).submit();
 		}
 	}
 
