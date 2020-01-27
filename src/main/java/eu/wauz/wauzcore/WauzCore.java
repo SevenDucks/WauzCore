@@ -110,8 +110,9 @@ public class WauzCore extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ArmorEquipEventListener(), this);
 		getLogger().info("Registered EventListeners!");
 		
-		webServerManager = new WebServerManager(7069);
-		getLogger().info("Started WebServerManager!");
+		int port = getWebApiPort();
+		webServerManager = new WebServerManager(port);
+		getLogger().info("Started WebServerManager on port " + port + "!");
 		
 		/**
 		 * Every second
@@ -316,6 +317,13 @@ public class WauzCore extends JavaPlugin {
 	 */
 	public static String getServerKey() {
 		return RegionConfigurator.getServerRegionKey();
+	}
+	
+	/**
+	 * @return The port of the web api, defined in the .yml configuration.
+	 */
+	public static int getWebApiPort() {
+		return RegionConfigurator.getServerRegionApiPort();
 	}
 	
 }

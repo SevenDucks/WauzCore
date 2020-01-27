@@ -25,6 +25,13 @@ public class RegionConfigurator extends GlobalConfigurationUtils {
 	}
 	
 	/**
+	 * @return The port for the web api of the server.
+	 */
+	public static int getServerRegionApiPort() {
+		return mainConfigGetInt("Server", "apiport");
+	}
+	
+	/**
 	 * @return The keys of the master regions.
 	 */
 	public static List<String> getMasterRegionKeys() {
