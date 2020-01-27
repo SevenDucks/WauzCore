@@ -23,8 +23,25 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * This inventory lets a player choose their equipped tabard / banner.
+ * 
+ * @author Wauzmons
+ * 
+ * @see TabardBuilder
+ */
 public class TabardMenu implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows a list of all selectable tabards / banners.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see TabardMenu#getTabardByName(Player, String)
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new TabardMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Tabard!");
@@ -58,18 +75,30 @@ public class TabardMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and equips the tabard / banner, if a valid one was clicked.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see PlayerConfigurator#setCharacterTabard(Player, String)
+	 * @see TabardMenu#equipSelectedTabard(Player)
+	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null)
+		if(clicked == null) {
 			return;
+		}
 		
-		if(!ItemUtils.isBanner(clicked))
-			if(!ItemUtils.isMaterial(clicked, Material.BARRIER) || !ItemUtils.isSpecificItem(clicked, "No Tabard"))
+		if(!ItemUtils.isBanner(clicked)) {
+			if(!ItemUtils.isMaterial(clicked, Material.BARRIER) || !ItemUtils.isSpecificItem(clicked, "No Tabard")) {
 				return;
+			}
+		}
 		
 		String tabardDisplay = ChatColor.stripColor(clicked.getItemMeta().getDisplayName());
 		PlayerConfigurator.setCharacterTabard(player, tabardDisplay);
@@ -78,6 +107,15 @@ public class TabardMenu implements WauzInventory {
 		player.closeInventory();
 	}
 	
+	/**
+	 * Lets the player equip the tabard that has been set in their config.
+	 * If it is null or a barrier, air will be equipped in the tabard slot.
+	 * 
+	 * @param player The player that should equip the tabard.
+	 * 
+	 * @see PlayerConfigurator#getCharacterTabard(Player)
+	 * @see TabardMenu#getTabardByName(Player, String)
+	 */
 	public static void equipSelectedTabard(Player player) {
 		String tabardName = PlayerConfigurator.getCharacterTabard(player);
 		ItemStack bannerItemStack = getTabardByName(player, tabardName);
@@ -93,6 +131,15 @@ public class TabardMenu implements WauzInventory {
 		player.getEquipment().setHelmet(bannerItemStack);
 	}
 	
+	/**
+	 * Creates a banner item stack for the given tabard name,
+	 * that is either based on a preset, a custom guild tabard, or a barrier menu item, able to unequip the current tabard.
+	 * 
+	 * @param player The player who requested the tabard.
+	 * @param tabardName The name of the requested tabard.
+	 * 
+	 * @return The requested tabard.
+	 */
 	private static ItemStack getTabardByName(Player player, String tabardName) {
 		ItemStack bannerItemStack;
 		BannerMeta bannerMeta;

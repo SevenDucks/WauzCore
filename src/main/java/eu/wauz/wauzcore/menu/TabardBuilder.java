@@ -27,8 +27,27 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * This inventory lets a player create a tabard / banner for their guild.
+ * 
+ * @author Wauzmons
+ * 
+ * @see TabardMenu
+ */
 public class TabardBuilder implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Used for the initial opening, where a new tabard builder is initialized and the real editing menu is loaded.
+	 * Only openable if  the player is a guild officer or higher.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see GuildOverviewMenu#validateOfficerAccess(Player, WauzPlayerGuild)
+	 * @see TabardBuilder#TabardBuilder(ItemStack, String)
+	 * @see TabardBuilder#open(Player, TabardBuilder)
+	 */
 	public static void open(Player player) {
 		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
 		if(!GuildOverviewMenu.validateOfficerAccess(player, playerGuild)) {
@@ -42,6 +61,17 @@ public class TabardBuilder implements WauzInventory {
 		open(player, new TabardBuilder(bannerItemStack, playerGuild.getGuildUuidString()));
 	}
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows the tabard that is being edited, aswell as options to change the base color or add a new layer.
+	 * The tabard can also be saved or discarded from this menu.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * @param tabardBuilder
+	 * 
+	 * @see TabardBuilder#getTabard()
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public static void open(Player player, TabardBuilder tabardBuilder) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(tabardBuilder);
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Tabard Builder");
@@ -78,33 +108,77 @@ public class TabardBuilder implements WauzInventory {
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * The tabard / banner item stack that is getting edited.
+	 */
 	private ItemStack tabard;
 	
+	/**
+	 * The uuid of the guild that owns the tabard.
+	 */
 	private String guildUuidString;
 	
+	/**
+	 * The name of the current editing page view.
+	 */
 	private String page;
 	
+	/**
+	 * Creates a new tabard builder for the given guild.
+	 * 
+	 * @param tabard The initial tabard / banner item stack that is getting edited.
+	 * @param guildUuidString The uuid of the guild that owns the tabard.
+	 */
 	public TabardBuilder(ItemStack tabard, String guildUuidString) {
 		this.tabard = tabard;
 		this.guildUuidString = guildUuidString;
 	}
 
+	/**
+	 * @return The tabard / banner item stack that is getting edited.
+	 */
 	public ItemStack getTabard() {
 		return tabard;
 	}
 
+	/**
+	 * @param tabard The new tabard / banner item stack that is getting edited.
+	 */
 	public void setTabard(ItemStack tabard) {
 		this.tabard = tabard;
 	}
 
+	/**
+	 * @return The uuid of the guild that owns the tabard.
+	 */
 	public String getGuildUuidString() {
 		return guildUuidString;
 	}
 
+	/**
+	 * @param guildUuidString The new uuid of the guild that owns the tabard.
+	 */
 	public void setGuildUuidString(String guildUuidString) {
 		this.guildUuidString = guildUuidString;
 	}
 
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and opens the selected view or executes the editing action.
+	 * Possible actions are determined through the view name.
+	 * From the overview a new layer can be added, the base color can be changed, or the tabard can be saved or declined.
+	 * From the base color selection, the new color can be directly loaded into the tabard.
+	 * From the layer color selection, the layer pattern selection can be viewed with the selected color.
+	 * From the layer pattern selection, the colored layer can be directly added to the tabard.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see TabardBuilder#open(Player, TabardBuilder)
+	 * @see TabardBuilder#openColorSelection(Player)
+	 * @see TabardBuilder#openPatternSelection(Player, DyeColor)
+	 * @see GuildConfigurator#setGuildTabard(String, ItemStack)
+	 * @see GuildOverviewMenu#open(Player)
+	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
@@ -173,6 +247,13 @@ public class TabardBuilder implements WauzInventory {
 		}
 	}
 	
+	/**
+	 * Shows a view of all selectable base or layer colors for the tabard / banner.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public void openColorSelection(Player player) {
 		String colorType = page.contains("layer") ? "Layer" : "Base";
 		WauzInventoryHolder holder = new WauzInventoryHolder(this);
@@ -200,6 +281,14 @@ public class TabardBuilder implements WauzInventory {
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * Shows a view of all selectable layer patterns in the given dye color.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * @param color The color to show the patterns in.
+	 * 
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public void openPatternSelection(Player player, DyeColor color) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(this);
 		Inventory menu = Bukkit.createInventory(holder, 45, ChatColor.BLACK + "" + ChatColor.BOLD + "Select Tabard Layer Pattern");

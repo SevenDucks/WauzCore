@@ -22,8 +22,25 @@ import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Sub menu of the main menu, that is used to teleport the player to other locations.
+ * 
+ * @author Wauzmons
+ * 
+ * @see WauzTeleporter
+ */
 public class TravellingMenu implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows teleport items, to the hub, spawn, home and instance exit, aswell as a link to the overview map.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see PlayerConfigurator#getCharacterHearthstoneRegion(Player)
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new TravellingMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Travelling Menu");
@@ -89,26 +106,39 @@ public class TravellingMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and initiates the corresponding teleport over the teleporter.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see WauzTeleporter#hubTeleportManual(Player)
+	 * @see WauzTeleporter#spawnTeleportManual(Player)
+	 * @see WauzTeleporter#hearthstoneTeleport(Player)
+	 * @see WauzTeleporter#exitInstanceTeleportManual(Player)
+	 * @see WauzNmsClient#nmsChatHyperlink(Player, String, String, boolean)
+	 */
+	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null)
+		if(clicked == null) {
 			return;
-		
-		else if(clicked.getType().equals(Material.ENDER_EYE))
+		}
+		else if(clicked.getType().equals(Material.ENDER_EYE)) {
 			WauzTeleporter.hubTeleportManual(player);
-		
-		else if(clicked.getType().equals(Material.ENDER_PEARL))
+		}
+		else if(clicked.getType().equals(Material.ENDER_PEARL)) {
 			WauzTeleporter.spawnTeleportManual(player);
-		
-		else if(clicked.getType().equals(Material.MAGMA_CREAM))
+		}
+		else if(clicked.getType().equals(Material.MAGMA_CREAM)) {
 			WauzTeleporter.hearthstoneTeleport(player);
-		
-		else if(clicked.getType().equals(Material.OAK_DOOR))
+		}
+		else if(clicked.getType().equals(Material.OAK_DOOR)) {
 			WauzTeleporter.exitInstanceTeleportManual(player);
-		
+		}
 		else if(clicked.getType().equals(Material.MAP)) {
 			WauzNmsClient.nmsChatHyperlink(player, "http://wauz.eu/map.html",
 					ChatColor.YELLOW + "Open the Overview Map:", true);

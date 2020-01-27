@@ -25,17 +25,39 @@ import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Sub menu of the main menu, that is used for crafting items out of materials.
+ * 
+ * @author Wauzmons
+ * 
+ * @see CraftingConfigurator
+ */
 public class CraftingMenu implements WauzInventory {
 	
+	/**
+	 * The first page index of the craftable item list.
+	 */
 	private static final int MIN_PAGE = 1;
 	
+	/**
+	 * The last page index of the craftable item list.
+	 */
 	private static final int MAX_PAGE = 2;
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows a list of all pages of craftable items, to choose from.
+	 * Based on the min and max page constants.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CraftingMenu());
 		Integer playerCraftingLevel = PlayerPassiveSkillConfigurator.getCraftingSkill(player);
@@ -56,6 +78,16 @@ public class CraftingMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows the list of craftable items, with the given page index.
+	 * Lets the player craft an item, by clicking on it or switch the page, by clicking on prev/next buttons.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * @param page The page index of the craftable item list.
+	 * 
+	 * @see CraftingMenu#generateRecipe(Inventory, Player, Integer, int, int)
+	 */
 	public static void listRecipes(Player player, int page) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CraftingMenu());
 		Integer playerCraftingLevel = PlayerPassiveSkillConfigurator.getCraftingSkill(player);
@@ -87,6 +119,22 @@ public class CraftingMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * Creates a recipe to show in the given menu.
+	 * If the player has not reached the needed crafting skill level, it will be displayed as locked.
+	 * Shows the needed materials to craft the item, and if a craft can increase the skill level.
+	 * Players in crafting debug mode will be able to see and craft everything.
+	 * 
+	 * @param menu The menu that should display the recipe.
+	 * @param player The player that should view the inventory.
+	 * @param playerCraftingLevel The crafting skill level of the player.
+	 * @param itemIndex The item index in the crafting config.
+	 * @param baseIndex The item index as shown in the menu.
+	 * 
+	 * @see CraftingConfigurator
+	 * @see CraftingMenu#getLocked(Inventory, int, int, int)
+	 * @see WauzDebugger#toggleCraftingDebugMode(Player)
+	 */
 	public static void generateRecipe(Inventory menu, Player player, Integer playerCraftingLevel, int itemIndex, int baseIndex) {
 		String material = CraftingConfigurator.getItemMaterial(itemIndex);
 		if(StringUtils.isBlank(material)) {
@@ -117,16 +165,18 @@ public class CraftingMenu implements WauzInventory {
 					itemAmount = itemAmount + itemStack.getAmount();
 			}
 			
-			if(itemAmount >= requiredAmount || player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString()))
+			if(itemAmount >= requiredAmount || player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString())) {
 				finished = ChatColor.GREEN;
+			}
 			
 			lores.add(finished + "- " + itemAmount + " / " + requiredAmount + " " + itemName);
 		}
 		lores.add("");
 		lores.add(ChatColor.DARK_GRAY + "Index: " + itemIndex);
 		
-		if((level + 10) >= playerCraftingLevel && playerCraftingLevel < WauzCore.MAX_CRAFTING_SKILL) 
+		if((level + 10) >= playerCraftingLevel && playerCraftingLevel < WauzCore.MAX_CRAFTING_SKILL) {
 			lores.add(ChatColor.YELLOW + "Increases Crafting Level");
+		}
 		
 		ItemStack recipeItemStack = new ItemStack(Material.getMaterial(material), amount);
 		ItemMeta recipeItemMeta = recipeItemStack.getItemMeta();
@@ -142,6 +192,15 @@ public class CraftingMenu implements WauzInventory {
 		menu.setItem(baseIndex, recipeItemStack);
 	}
 	
+	/**
+	 * Creates a locked recipe to show in the given menu.
+	 * This item can not be crafted from the menu.
+	 * 
+	 * @param menu The menu that should display the locked recipe.
+	 * @param level The level needed to unlock the recipe.
+	 * @param itemIndex The item index in the crafting config.
+	 * @param baseIndex The item index as shown in the menu.
+	 */
 	public static void getLocked(Inventory menu, int level, int itemIndex, int baseIndex) {
 		ItemStack lockedItemStack = new ItemStack(Material.BARRIER);
 		ItemMeta lockedItemMeta = lockedItemStack.getItemMeta();
@@ -155,27 +214,42 @@ public class CraftingMenu implements WauzInventory {
 		menu.setItem(baseIndex, lockedItemStack);
 	}
 	
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and initiates the corresponding craft or displays the selected page.
+	 * Flint and steel is used to select a page directly, while prev/next buttons can turn one page.
+	 * Items cannot be crafted if the recipe is locked or is missing materials.
+	 * Once the crafting has been started, the materials are removed (only if not in crafting debug mode)
+	 * and the crafting skill level might be increased, depending on the recipe level shown in lore.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see CraftingConfigurator
+	 * @see CraftingMenu#open(Player)
+	 * @see CraftingMenu#listRecipes(Player, int)
+	 * @see PlayerPassiveSkillConfigurator#increaseCraftingSkill(Player)
+	 * @see WauzDebugger#toggleCraftingDebugMode(Player)
+	 */
+	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null ||
-			!clicked.hasItemMeta() ||
-			!clicked.getItemMeta().hasDisplayName())
+		if(!ItemUtils.hasDisplayName(clicked)) {
 			return;
-		
+		}
 		if(clicked.getType().equals(Material.FLINT_AND_STEEL)) {
 			String clickedName = clicked.getItemMeta().getDisplayName();
 			if(clickedName.contains("Page ")) {
 				int page = Integer.parseInt(StringUtils.substringAfter(clickedName, "Page "));
 				listRecipes(player, page);
 			}
-			else
+			else {
 				open(player);
+			}
 			return;
 		}
-		
 		else if(HeadUtils.isHeadMenuItem(clicked, "Page PREV")) {
 			int index = getIndex(player.getOpenInventory());
 			index = index > MIN_PAGE ? index - 1 : MAX_PAGE;
@@ -192,8 +266,9 @@ public class CraftingMenu implements WauzInventory {
 			return;
 		}
 		
-		if(!clicked.getItemMeta().hasLore())
+		if(!clicked.getItemMeta().hasLore()) {
 			return;
+		}
 		
 		int itemIndex = 0;
 		boolean valid = false;
@@ -207,14 +282,17 @@ public class CraftingMenu implements WauzInventory {
 				itemIndex = Integer.parseInt(val[1]);
 				valid = true;
 			}
-			else if(lore.contains("Increases Crafting Level"))
+			else if(lore.contains("Increases Crafting Level")) {
 				increasesLevel = true;
-			else if(lore.contains(ChatColor.RED + "- "))
+			}
+			else if(lore.contains(ChatColor.RED + "- ")) {
 				missingMaterial = true;
+			}
 		}
 		
-		if(!valid)
+		if(!valid) {
 			return;
+		}
 		
 		if(clicked.getItemMeta().getDisplayName().contains(ChatColor.RED + "Recipe Locked")) {
 			player.sendMessage(ChatColor.RED + "You haven't unlocked this recipe yet!");
@@ -252,14 +330,22 @@ public class CraftingMenu implements WauzInventory {
 			itemRemover.execute();
 		}
 		
-		if(increasesLevel)
+		if(increasesLevel) {
 			PlayerPassiveSkillConfigurator.increaseCraftingSkill(player);
+		}
 		player.getInventory().addItem(itemStack);
 		AchievementTracker.addProgress(player, WauzAchievementType.CRAFT_ITEMS, 1);
 		
 		listRecipes(player, getIndex(player.getOpenInventory()));
 	}
 	
+	/**
+	 * Gets the page index from the title of the given crafting inventory.
+	 * 
+	 * @param inventory The inventory to fetch the page index from.
+	 * 
+	 * @return The page index.
+	 */
 	private static int getIndex(InventoryView inventory) {
 		return Integer.parseInt(StringUtils.substringBetween(inventory.getTitle(), "Page ", " "));
 	}

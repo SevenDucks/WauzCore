@@ -54,39 +54,51 @@ public class QuestBuilder implements WauzInventory {
 		if(!slotm.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, slotm);
 			menu.setItem(0, generateQuest(player, slotm, phase, Material.MAGENTA_CONCRETE));
-		}else
+		}
+		else {
 			menu.setItem(0, generateEmptyQust("Main"));
+		}
 		
 		if(!cmpn1.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, cmpn1);
 			menu.setItem(1, generateQuest(player, cmpn1, phase, Material.LIGHT_BLUE_CONCRETE));
-		}else
+		}
+		else {
 			menu.setItem(1, generateEmptyQust("Campaign"));
+		}
 		
 		if(!cmpn2.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, cmpn2);
 			menu.setItem(2, generateQuest(player, cmpn2, phase, Material.LIGHT_BLUE_CONCRETE));
-		}else
+		}
+		else {
 			menu.setItem(2, generateEmptyQust("Campaign"));
+		}
 		
 		
 		if(!slot1.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot1);
 			menu.setItem(3, generateQuest(player, slot1, phase, Material.YELLOW_CONCRETE));
-		}else
+		}
+		else {
 			menu.setItem(3, generateEmptyQust("Daily"));	
+		}
 		
 		if(!slot2.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot2);
 			menu.setItem(4, generateQuest(player, slot2, phase, Material.YELLOW_CONCRETE));
-		}else
+		}
+		else {
 			menu.setItem(4, generateEmptyQust("Daily"));
+		}
 		
 		if(!slot3.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot3);
 			menu.setItem(5, generateQuest(player, slot3, phase, Material.YELLOW_CONCRETE));
-		}else
+		}
+		else {
 			menu.setItem(5, generateEmptyQust("Daily"));
+		}
 		
 		ItemStack questFinderItemStack = new ItemStack(Material.BOOKSHELF);
 		ItemMeta questFinderItemMeta = questFinderItemStack.getItemMeta();
@@ -184,8 +196,9 @@ public class QuestBuilder implements WauzInventory {
 		questLores.add(ChatColor.GRAY + "Level " + level + " [" + quest.getType().toUpperCase() + "] Quest");
 		questLores.add("");
 		
-		for(String lore : quest.getPhaseDialog(phase))
+		for(String lore : quest.getPhaseDialog(phase)) {
 			questLores.add(ChatColor.WHITE + lore.replaceAll("player", player.getName()));
+		}
 		questLores.add("");
 		
 		QuestRequirementChecker questRequirementChecker = new QuestRequirementChecker(player, quest, phase);
@@ -193,8 +206,9 @@ public class QuestBuilder implements WauzInventory {
 		
 		boolean isMainQuest = colorMaterial.equals(Material.MAGENTA_CONCRETE);
 		
-		if(quest.getRequirementAmount(phase) > 0)
+		if(quest.getRequirementAmount(phase) > 0) {
 			questLores.add("");
+		}
 		questLores.add(ChatColor.GRAY + (isMainQuest ? "" : "Left ") + "Click to Track Objective");
 		
 		if(!isMainQuest)
@@ -233,8 +247,9 @@ public class QuestBuilder implements WauzInventory {
 		unacceptedQuestLores.addAll(questRequirementChecker.getItemStackLoresUnaccepted());
 		
 		if(trackable) {
-			if(quest.getRequirementAmount(phase) > 0)
+			if(quest.getRequirementAmount(phase) > 0) {
 				unacceptedQuestLores.add("");
+			}
 			unacceptedQuestLores.add(ChatColor.GRAY + "Left Click to Track Objective");
 		}
 		
@@ -250,16 +265,18 @@ public class QuestBuilder implements WauzInventory {
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null || !clicked.hasItemMeta() || !clicked.getItemMeta().hasDisplayName())
+		if(clicked == null || !clicked.hasItemMeta() || !clicked.getItemMeta().hasDisplayName()) {
 			return;
+		}
 
 		String displayName = clicked.getItemMeta().getDisplayName();
 		Material material = clicked.getType();
 		
 		if(material.equals(Material.BOOKSHELF)) {
 			String worldString = PlayerConfigurator.getCharacterWorldString(player);
-			if(player.getWorld().getName().equals(worldString))
+			if(player.getWorld().getName().equals(worldString)) {
 				find(player);
+			}
 			else {
 				player.sendMessage(ChatColor.RED + "The quest finder is only usable in " + worldString + "!");
 				player.closeInventory();
@@ -375,10 +392,12 @@ public class QuestBuilder implements WauzInventory {
 			long hours = TimeUnit.MILLISECONDS.toHours(millis);
 			long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
 			
-			if(hours > 0)
+			if(hours > 0) {
 				player.sendMessage(ChatColor.RED + "You have to wait " + (hours + 1) + " hour/s before you can do this quest again!");
-			else
+			}
+			else {
 				player.sendMessage(ChatColor.RED + "You have to wait " + (minutes + 1) + " minute/s before you can do this quest again!");
+			}
 			return;
 		}
 		

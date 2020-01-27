@@ -27,25 +27,57 @@ import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Builds an usable shop out of a shop config file.
+ * 
+ * @author Wauzmons
+ *
+ * @see ShopConfigurator
+ */
 public class ShopBuilder implements WauzInventory {
 	
+	/**
+	 * A map of all currencies, that can be used to buy items, indexed by display name.
+	 */
 	private static HashMap<String, String> currency = new HashMap<String, String>();
 	
+	/**
+	 * Registers a new currency, that can be used to buy items.
+	 * 
+	 * @param displayName The name of the currency in the shop menu.
+	 * @param configKey The name of the currency in the player configs.
+	 */
 	public static void registerCurrency(String displayName, String configKey) {
 		currency.put(displayName, configKey);
 	}
 	
 // Load Items from Config
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Reads all buyable items out of a shop config file.
+	 * If the shop is global, only global currencies will be shown, the other 8 slots can be buyable items.
+	 * Otherwhise all currencies, aswell as repair and sell options are shown, allowing only 6 buyable items.
+	 * Empty slots will be filled with "SOLD OUT" signs.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * @param shopName The name of the shop to load.
+	 * 
+	 * @see ShopConfigurator#isShopGlobal(String)
+	 * @see ShopConfigurator#getItemAmount(String, int)
+	 */
 	public static void open(Player player, String shopName) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new ShopBuilder());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Shop of " + shopName);
 		
 		boolean isGlobal = ShopConfigurator.isShopGlobal(shopName);
-		if(isGlobal)
+		if(isGlobal) {
 			MenuUtils.setGlobalCurrencyDisplay(menu, player, 0);
-		else
+		}
+		else {
 			MenuUtils.setCurrencyDisplay(menu, player, 0);
+		}
 		
 		for(int itemIndex = ShopConfigurator.getShopItemsAmout(shopName); itemIndex > 0; itemIndex--) {		
 			ItemStack offerItemStack = new ItemStack(Material.getMaterial(ShopConfigurator.getItemMaterial(shopName, itemIndex)),
@@ -91,6 +123,23 @@ public class ShopBuilder implements WauzInventory {
 		player.openInventory(menu);
 	}	
 	
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and initiates the corresponding buy, sell or repair event.
+	 * On an anvil click items on the cursor are repaired, while they are sold on a barrier click.
+	 * Unlike ammo items (arrows), physical items, can only be bought when there is inventory space left.
+	 * Items cannot be bought, if the player doesn't have enough money.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see ShopBuilder#sell(Player, ItemStack, Boolean)
+	 * @see ShopBuilder#repair(Player, ItemStack, Boolean)
+	 * @see ItemUtils#fitsInInventory(Inventory, ItemStack)
+	 * @see ItemUtils#isAmmoItem(ItemStack)
+	 * @see PlayerConfigurator#setCharacterCurrency(Player, String, long)
+	 * @see PlayerConfigurator#setArrowAmount(Player, String, int)
+	 */
+	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
@@ -107,12 +156,10 @@ public class ShopBuilder implements WauzInventory {
 		if(clicked.getType().equals(Material.EMERALD) && ItemUtils.hasColoredName(clicked, ChatColor.GREEN)) {
 			event.setCancelled(true);
 		}
-		
 		else if(clicked.getType().equals(Material.BARRIER) && ItemUtils.hasColoredName(clicked, ChatColor.RED)) {
 			event.setCancelled(true);
 			sell(player, itemOnCursor, true);				
 		}
-		
 		else if(clicked.getType().equals(Material.ANVIL) && ItemUtils.hasColoredName(clicked, ChatColor.BLUE)) {
 			event.setCancelled(true);
 			repair(player, itemOnCursor, true);
@@ -177,6 +224,22 @@ public class ShopBuilder implements WauzInventory {
 	
 // Sell Item
 	
+	/**
+	 * Tries to sell the given item for the player.
+	 * The item stack will either be sold for a random value per item or with bonus on attack / defense.
+	 * Some items have a fixed sell value in lore, while bought items are worth nothing.
+	 * TODO: Also refactor this, when implementing equipment builder.
+	 * 
+	 * @param player The player who wants to sell the item.
+	 * @param itemToSell The item that should be sold.
+	 * @param fromShop If the selling was triggered from a shop menu.
+	 * 
+	 * @return If the selling was successful.
+	 * 
+	 * @see PlayerConfigurator#setCharacterCoins(Player, long)
+	 * @see PlayerPassiveSkillConfigurator#getTradingFloat(Player)
+	 * @see AchievementTracker#addProgress(Player, WauzAchievementType, double)
+	 */
 	public static boolean sell(Player player, ItemStack itemToSell, Boolean fromShop) {
 		if(itemToSell.equals(null) || itemToSell.getType().equals(Material.AIR)) {
 			return false;
@@ -227,6 +290,22 @@ public class ShopBuilder implements WauzInventory {
 	
 // Repair Item
 	
+	/**
+	 * Tries to repair the given item for the player.
+	 * Cannot repair items with no or max durability value.
+	 * If the item is repaired in a shop menu, it will have a cost, equal to the lost durability.
+	 * 
+	 * @param player The player who wants to repair the item.
+	 * @param itemToRepair The item that should be repaired.
+	 * @param fromShop If the repairing was triggered from a shop menu.
+	 * 
+	 * @return If the repairing was successful.
+	 * 
+	 * @see EquipmentUtils#getCurrentDurability(ItemStack)
+	 * @see EquipmentUtils#getMaximumDurability(ItemStack)
+	 * @see PlayerConfigurator#setCharacterCoins(Player, long)
+	 * @see DurabilityCalculator#repairItem(Player, ItemStack)
+	 */
 	public static boolean repair(Player player, ItemStack itemToRepair, Boolean fromShop) {
 		if(itemToRepair.equals(null) || itemToRepair.getType().equals(Material.AIR)) {
 			if(fromShop) {

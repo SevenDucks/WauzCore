@@ -20,8 +20,35 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.util.Formatters;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Sub menu of the main menu, that is used for viewing passive skills and spending statpoints.
+ * 
+ * @author Wauzmons
+ *
+ * @see PlayerPassiveSkillConfigurator
+ */
 public class SkillMenu implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Lists all passive skills, to spent points in, aswell as weapon skill stats.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see PlayerPassiveSkillConfigurator#getHealth(Player)
+	 * @see PlayerPassiveSkillConfigurator#getTrading(Player)
+	 * @see PlayerPassiveSkillConfigurator#getLuck(Player)
+	 * @see PlayerPassiveSkillConfigurator#getMana(Player)
+	 * @see PlayerPassiveSkillConfigurator#getStrength(Player)
+	 * @see PlayerPassiveSkillConfigurator#getAgility(Player)
+	 * 
+	 * @see PlayerPassiveSkillConfigurator#getStaffSkill(Player)
+	 * @see PlayerPassiveSkillConfigurator#getAxeSkill(Player)
+	 * @see PlayerPassiveSkillConfigurator#getSwordSkill(Player)
+	 * 
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new SkillMenu());
 		int pts = PlayerPassiveSkillConfigurator.getUnusedStatpoints(player);
@@ -190,6 +217,23 @@ public class SkillMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and adds a point to the selected skill, if any statpoints are left.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see PlayerPassiveSkillConfigurator#getTotalStatpoints(Player)
+	 * @see PlayerPassiveSkillConfigurator#getSpentStatpoints(Player)
+	 * 
+	 * @see PlayerPassiveSkillConfigurator#increaseHealth(Player)
+	 * @see PlayerPassiveSkillConfigurator#increaseTrading(Player)
+	 * @see PlayerPassiveSkillConfigurator#increaseLuck(Player)
+	 * @see PlayerPassiveSkillConfigurator#increaseMana(Player)
+	 * @see PlayerPassiveSkillConfigurator#increaseStrength(Player)
+	 * @see PlayerPassiveSkillConfigurator#increaseAgility(Player)
+	 */
+	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
