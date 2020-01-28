@@ -35,8 +35,42 @@ import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.util.Formatters;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Sub menu of the main menu, that is used for viewing your guild and interacting with guild buildings.
+ * 
+ * @author Wauzmons
+ *
+ * @see GuildApplicationMenu
+ */
 public class GuildOverviewMenu implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * If the player isn't already in a guild an overview of random guilds and an instruction to create your own are shown.
+	 * If you are in a guild, there will be a display showing the guild's name, leader, member count, description and commands.
+	 * There is always the option to select your own tabard, or create a custom one, for your guild, if you are a guild officer.
+	 * There is also a list of upgradable buildings, shown for your guild, including the enterable guildhall.
+	 * Officers also have the option to view applications to the guild.
+	 * A list of guild members, including last online time and character stats, can also be used to pro- or demote members.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see WauzPlayerGuild#getGuilds()
+	 * @see WauzPlayerGuild#getGuildName()
+	 * @see WauzPlayerGuild#getAdminUuidString()
+	 * @see WauzPlayerGuild#getMemberUuidStrings()
+	 * @see WauzPlayerGuild#getMemberAmount()
+	 * @see WauzPlayerGuild#getApplicationCount()
+	 * @see WauzPlayerGuild#getWrappedGuildDescription()
+	 * @see WauzPlayerGuild#getGuildTabard()
+	 * 
+	 * @see PlayerConfigurator#getLastPlayed(OfflinePlayer)
+	 * @see PlayerConfigurator#getRaceString(OfflinePlayer, int)
+	 * @see PlayerConfigurator#getWorldString(OfflinePlayer, int)
+	 * @see PlayerConfigurator#getLevelString(OfflinePlayer, int)
+	 * @see PlayerConfigurator#getSurvivalScore(OfflinePlayer)
+	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new GuildOverviewMenu());
 		Inventory menu = Bukkit.createInventory(holder, 54, ChatColor.BLACK + "" + ChatColor.BOLD + "Guild Overview");
@@ -150,12 +184,15 @@ public class GuildOverviewMenu implements WauzInventory {
 				boolean isGuildLeader = playerGuild.isGuildAdmin(member);
 				boolean isGuildOfficer = playerGuild.isGuildOfficer(member);
 				String name = member.getName();
-				if(isGuildLeader)
+				if(isGuildLeader) {
 					name = ChatColor.GOLD + name + " [Leader]";
-				else if(isGuildOfficer)
+				}
+				else if(isGuildOfficer) {
 					name = ChatColor.YELLOW + name + " [Officer]";
-				else
+				}
+				else {
 					name = ChatColor.GREEN + name + " [Member]";
+				}
 				
 				ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
 				SkullMeta sm = (SkullMeta) skull.getItemMeta();
@@ -240,8 +277,9 @@ public class GuildOverviewMenu implements WauzInventory {
 			
 			int guildNumber = 2;
 			for(WauzPlayerGuild listedGuild : playerGuilds) {
-				if(guildNumber >= inventorySize)
+				if(guildNumber >= inventorySize) {
 					break;
+				}
 				
 				ItemStack guildItemStack = listedGuild.getGuildTabard();
 				ItemMeta guildItemMeta = guildItemStack.getItemMeta();
@@ -272,51 +310,71 @@ public class GuildOverviewMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and initiates the corresponding guild interaction.
+	 * If the tabard is left clicked, the selection will be shown, or it can be edited if it was a right click.
+	 * A click on the application item opens the list of guild applications for officers.
+	 * A right click on the guild hall teleports the player inside.
+	 * A click on the barrier lets the player leave the guild.
+	 * A click on a guild banner in the guild list, sents a guild application to them.
+	 * Clicking on player heads in the member list can open a pro- or demote dialog, based on permissions.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see TabardMenu#open(Player)
+	 * @see TabardBuilder#open(Player)
+	 * @see GuildApplicationMenu#open(Player)
+	 * @see InstanceManager#enterGuild(Player)
+	 * @see WauzPlayerEventGuildLeave
+	 * @see WauzPlayerGuild#applyForGuild(Player, String)
+	 * @see WauzPlayerEventGuildDemoteMember
+	 * @see WauzPlayerEventGuildKick
+	 * @see WauzPlayerEventGuildPromoteOfficer
+	 * @see WauzPlayerEventGuildPromoteLeader
+	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null)
+		if(clicked == null) {
 			return;
-		
+		}
 		else if(ItemUtils.isSpecificItem(clicked, "Select (Guild) Tabard")) {
 			boolean isRightClick = event.getClick().toString().contains("RIGHT");
-			if(isRightClick && ItemUtils.hasLore(clicked) && ItemUtils.doesLoreContain(clicked, "Right Click"))
+			if(isRightClick && ItemUtils.hasLore(clicked) && ItemUtils.doesLoreContain(clicked, "Right Click")) {
 				TabardBuilder.open(player);
-			else
+			}
+			else {
 				TabardMenu.open(player);
+			}
 		}
-		
 		else if(ItemUtils.isSpecificItem(clicked, "View Applications")) {
 			GuildApplicationMenu.open(player);
 		}
-		
 		else if(HeadUtils.isHeadMenuItem(clicked, "Building: Guildhall")) {
 			if(event.getClick().toString().contains("RIGHT")) {
 				InstanceManager.enterGuild(player);
 			}
 		}
-		
 		else if(clicked.getType().equals(Material.BARRIER)) {
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 			playerData.setWauzPlayerEventName("Leave Guild");
 			playerData.setWauzPlayerEvent(new WauzPlayerEventGuildLeave());
 			WauzDialog.open(player);
 		}
-		
 		else if(clicked.getType().toString().endsWith("_BANNER") && ItemUtils.hasDisplayName(clicked)) {
 			WauzPlayerGuild.applyForGuild(player, ChatColor.stripColor(clicked.getItemMeta().getDisplayName()));
 			player.closeInventory();
 		}
-		
 		else if(clicked.getType().equals(Material.PLAYER_HEAD)) {
 			SkullMeta skullMeta = (SkullMeta) clicked.getItemMeta();
 			OfflinePlayer member = skullMeta.getOwningPlayer();
-			if(member == null || !ItemUtils.hasLore(clicked))
+			if(member == null || !ItemUtils.hasLore(clicked)) {
 				return;
-			
+			}
 			if(event.getClick().toString().contains("RIGHT")) {
 				if(ItemUtils.doesLoreContain(clicked, "Right Click to demote to Member")) {
 					WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
@@ -348,6 +406,14 @@ public class GuildOverviewMenu implements WauzInventory {
 		}
 	}
 	
+	/**
+	 * Checks if the given player is a guild officer or higher.
+	 * 
+	 * @param player The player to check.
+	 * @param playerGuild The guild of the player.
+	 * 
+	 * @return If the player is a guild officer.
+	 */
 	public static boolean validateOfficerAccess(Player player, WauzPlayerGuild playerGuild) {
 		if(playerGuild == null) {
 			player.sendMessage(ChatColor.RED + "You are not in a guild!");

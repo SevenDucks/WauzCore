@@ -33,7 +33,7 @@ public class WauzRestartScheduler {
 			public void run() {
 				if(minutesTillRestart > 0) {
 					for(Player player : Bukkit.getOnlinePlayers()) {
-						player.sendMessage(ChatColor.DARK_RED + "The Server will restart in " + ChatColor.BOLD + minutesTillRestart + " Minutes!");
+						player.sendMessage(ChatColor.DARK_RED + "The server will restart in " + ChatColor.BOLD + minutesTillRestart + " minute/s!");
 					}
 				}
 				else {

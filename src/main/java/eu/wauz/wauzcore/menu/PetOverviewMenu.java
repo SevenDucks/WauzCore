@@ -18,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -27,12 +28,34 @@ import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Sub menu of the main menu, that is used to view and organize your pets.
+ * 
+ * @author Wauzmons
+ *
+ * @see PetOptionsMenu
+ */
 public class PetOverviewMenu implements WauzInventory {
 	
+	/**
+	 * A map that contains all players with active pets, indexed by pet uuid.
+	 */
 	private static Map<String, Player> petOwnerMap = new HashMap<>();
 	
 // Pet Overview Menu
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows all pets in the posession of the player, aswell as an option to unsummon the active pet.
+	 * Also shows the breeding station, with a counter, that shows when the offspring will hatch.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * @param highlightedSlot The slot id to highlight a pet or -1 for none.
+	 * 
+	 * @see PlayerConfigurator#getCharacterPetType(Player, int)
+	 * @see PlayerConfigurator#getCharacterPetBreedingHatchTime(Player)
+	 */
 	public static void open(Player player, int highlightedSlot) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new PetOverviewMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Pet Overview");
@@ -113,22 +136,35 @@ public class PetOverviewMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and initiates the corresponding pet action.
+	 * Clicking on a pet will open their options menu.
+	 * Clicking on the string will retrieve / unsummon the pet.
+	 * Clicking on the egg tries to hatch the offspring in the breeding station.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see PetOverviewMenu#getIndex(ItemStack)
+	 * @see PetOptionsMenu#open(Player, Integer)
+	 * @see PetOverviewMenu#unsummon(Player)
+	 * @see PetOverviewMenu#hatch(Player, ItemStack)
+	 */
+	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null)
+		if(clicked == null) {
 			return;
-		
+		}
 		else if(clicked.getType().equals(Material.CHICKEN_SPAWN_EGG) || clicked.getType().equals(Material.PARROT_SPAWN_EGG)) {
 			PetOptionsMenu.open(player, getIndex(clicked));
 		}
-		
 		else if(clicked.getType().equals(Material.STRING)) {
 			unsummon(player);
 		}
-		
 		else if(clicked.getType().equals(Material.EGG)) {
 			hatch(player, clicked);
 		}
@@ -136,8 +172,15 @@ public class PetOverviewMenu implements WauzInventory {
 
 // Support Methods
 	
-	private static Integer getIndex(ItemStack item) {
-		for(String string : item.getItemMeta().getLore()) {
+	/**
+	 * Gets the index of an item stack, based on its lore.
+	 * 
+	 * @param itemStack The item to get the index from.
+	 * 
+	 * @return The index of the item.
+	 */
+	private static Integer getIndex(ItemStack itemStack) {
+		for(String string : itemStack.getItemMeta().getLore()) {
 			if(string.contains("Index")) {
 				String[] indexStringParts = string.split(" ");
 				return Integer.parseInt(indexStringParts[1]);
@@ -146,14 +189,33 @@ public class PetOverviewMenu implements WauzInventory {
 		return null;
 	}
 	
+	/**
+	 * Gets the owner of a pet, from the pet owner map.
+	 * 
+	 * @param entity The pet to get the owner from.
+	 * 
+	 * @return The owner of the pet.
+	 */
 	public static Player getOwner(Entity entity) {
 		return petOwnerMap.get(entity.getUniqueId().toString());
 	}
 	
+	/**
+	 * Adds a player to the owner map, to bind them to the pet.
+	 * 
+	 * @param petId The uuid of the pet, owned by the player.
+	 * @param player The player to add to the owner map.
+	 */
 	public static void setOwner(String petId, Player player) {
 		petOwnerMap.put(petId, player);
 	}
 	
+	/**
+	 * Removes a player from the owner map and resets their walk speed.
+	 * 
+	 * @param petId The uuid of the pet, owned by the player.
+	 * @param player The player to remove from the owner map.
+	 */
 	public static void removeOwner(String petId, Player player) {
 		petOwnerMap.remove(petId);
 		player.setWalkSpeed(0.2f);
@@ -161,22 +223,36 @@ public class PetOverviewMenu implements WauzInventory {
 	
 // Unsummoning
 	
+	/**
+	 * Unsummons the currently active pet of the given player.
+	 * Only works if an MMORPG character is selected and a valid pet exists.
+	 * Sets the active pet slot of the player to -1.
+	 * 
+	 * @param player The player whose pet should be unsummoned.
+	 * 
+	 * @see WauzMode#isMMORPG(Entity)
+	 * @see WauzPlayerDataPool#isCharacterSelected(Player)
+	 * @see PlayerConfigurator#setCharacterActivePetSlot(Player, int)
+	 * @see PetOverviewMenu#removeOwner(String, Player)
+	 */
 	public static void unsummon(Player player) {
 		try {
-			if(!WauzMode.isMMORPG(player))
+			if(!WauzMode.isMMORPG(player)) {
 				return;
-			if(!WauzPlayerDataPool.isCharacterSelected(player))
+			}
+			if(!WauzPlayerDataPool.isCharacterSelected(player)) {
 				return;
+			}
 							
 			String petId = PlayerConfigurator.getCharacterActivePetId(player);
-			
 			PlayerConfigurator.setCharacterActivePetSlot(player, -1);
 			
 			if(!petId.contains("none")) {
 				Entity entity = Bukkit.getServer().getEntity(UUID.fromString(petId));		
 				if(entity != null) {
-					for(Entity passenger : entity.getPassengers())
+					for(Entity passenger : entity.getPassengers()) {
 						passenger.remove();
+					}
 					entity.remove();
 					removeOwner(petId, player);
 					player.sendMessage(ChatColor.GREEN + "Your current Pet was unsommoned!");
@@ -190,11 +266,18 @@ public class PetOverviewMenu implements WauzInventory {
 	
 // Adding
 	
+	/**
+	 * Adds a new pet to a player, who used a scroll of summoning.
+	 * 
+	 * @param event The interaction event with the scroll.
+	 * 
+	 * @see PetOverviewMenu#addPet(Player, ItemStack, String) Continued in this method.
+	 */
 	public static void addPet(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack scroll = event.getItem();
 		
-		if(scroll == null || !scroll.hasItemMeta() || !scroll.getItemMeta().hasDisplayName()) {
+		if(!ItemUtils.hasDisplayName(scroll)) {
 			return;
 		}
 		
@@ -203,14 +286,47 @@ public class PetOverviewMenu implements WauzInventory {
 		addPet(player, scroll, type);
 	}
 	
+	/**
+	 * Adds a new pet to the given player, that starts with standard max stats of level 3.
+	 * 
+	 * @param player The player that should receive the pet.
+	 * @param scroll The scroll used to receive the pet or null if none.
+	 * @param petType The type of the pet.
+	 * 
+	 * @see PetOverviewMenu#addPet(Player, ItemStack, String, int, int, int) Continued in this method.
+	 */
 	public static void addPet(Player player, ItemStack scroll, String petType) {
 		addPet(player, scroll, petType, 3, 3, 3);
 	}
 
+	/**
+	 * Adds a new pet to the given player.
+	 * Only possible if the character has a free pet slot.
+	 * Sets the initial and max level for the pet's stats, aswell as the exp needed to reach the next level.
+	 * Opens the pet overview menu afterwards, in which the new pet will be highlighted.
+	 * 
+	 * @param player The player that should receive the pet.
+	 * @param scroll The scroll used to receive the pet or null if none.
+	 * @param petType The type of the pet.
+	 * @param maxInt The maximum intelligence level of the pet.
+	 * @param maxDex The maximum dexterity level of the pet.
+	 * @param maxAbs The maximum absorption level of the pet.
+	 * 
+	 * @see PlayerConfigurator#getCharacterPetType(Player, int)
+	 * @see PlayerConfigurator#setCharacterPetType(Player, int, String)
+	 * @see PetOverviewMenu#getBaseExpToFeedingLevel(int)
+	 * @see PlayerConfigurator#setCharacterPetIntelligenceMax(Player, int, int)
+	 * @see PlayerConfigurator#setCharacterPetDexterityMax(Player, int, int)
+	 * @see PlayerConfigurator#setCharacterPetAbsorptionMax(Player, int, int)
+	 * @see AchievementTracker#addProgress(Player, WauzAchievementType, double)
+	 * @see PetOverviewMenu#open(Player, int)
+	 */
 	public static void addPet(Player player, ItemStack scroll, String petType, int maxInt, int maxDex, int maxAbs) {
 		for(int petSlot = 0; petSlot < 5; petSlot++) {
 			String slotType = PlayerConfigurator.getCharacterPetType(player, petSlot);
-			if(!slotType.equals("none")) continue;
+			if(!slotType.equals("none")) {
+				continue;
+			}
 			
 			try {
 				PlayerConfigurator.setCharacterPetType(player, petSlot, petType);
@@ -232,12 +348,13 @@ public class PetOverviewMenu implements WauzInventory {
 				player.sendMessage(ChatColor.GREEN + "You learned to summon " + petType + " from the Menu!");
 				AchievementTracker.addProgress(player, WauzAchievementType.COLLECT_PETS, 1);
 				
-				if(scroll != null)
+				if(scroll != null) {
 					scroll.setAmount(scroll.getAmount() - 1);
-				
+				}
 				open(player, petSlot);
 				return;
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}		
 		}
@@ -247,6 +364,13 @@ public class PetOverviewMenu implements WauzInventory {
 	
 // Leveling
 	
+	/**
+	 * Gets the amount of exp needed to reach the next feeding level of the pet.
+	 * 
+	 * @param level The next level to be reached.
+	 * 
+	 * @return The needed exp to the level.
+	 */
 	public static int getBaseExpToFeedingLevel(int level) {
 		switch (level) {
 		case 1:
@@ -276,11 +400,31 @@ public class PetOverviewMenu implements WauzInventory {
 	
 // Hatching
 	
+	/**
+	 * Tries to hatch the pet egg, to let the player receive the offspring from the breeding station.
+	 * It will not be possible if it is still breeding or no free slot is available.
+	 * The pet will receive the type of a random parent.
+	 * The pet will receive the highest max stats of its parents, plus 1 point extra,
+	 * for each parent, that had the stat leveled to its possible maximum, capped at 10 points.
+	 * Resets the breeding hatch time and parent slots, before adding the new pet to the overview menu.
+	 * 
+	 * @param player The player who tries to hatch the pet egg.
+	 * @param eggStack The pet egg item stack.
+	 * 
+	 * @see PlayerConfigurator#getCharacterPetType(Player, int)
+	 * @see PlayerConfigurator#setCharacterPetType(Player, int, String)
+	 * @see PlayerConfigurator#getCharacterPetIntelligence(Player, int)
+	 * @see PlayerConfigurator#getCharacterPetDexterity(Player, int)
+	 * @see PlayerConfigurator#getCharacterPetAbsorption(Player, int)
+	 * @see PlayerConfigurator#setCharacterPetBreedingHatchTime(Player, long)
+	 * @see PetOverviewMenu#addPet(Player, ItemStack, String, int, int, int)
+	 */
 	public static void hatch(Player player, ItemStack eggStack) {
 		String eggDisplayNamme = eggStack.getItemMeta().getDisplayName();
 		if(eggDisplayNamme.contains("Breeding")) {
-			if (eggDisplayNamme.contains("..."))
+			if (eggDisplayNamme.contains("...")) {
 				open(player, -1);
+			}
 			return;
 		}
 		

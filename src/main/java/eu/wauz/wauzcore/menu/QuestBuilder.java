@@ -36,10 +36,32 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzQuest;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Sub menu of the main menu, that builds a quest display out of quest configs and manages quest progression.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzQuest
+ */
 public class QuestBuilder implements WauzInventory {
 	
 // Load Quests from Questlog
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows all quests that the player currently has, aswell as their progress.
+	 * Also shows options to open the quest finder and toggle the visibility of certain quests.
+	 * A quest can be tracked, by clicking on it.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see PlayerConfigurator#getCharacterRunningMainQuest(Player)
+	 * @see QuestBuilder#generateQuest(Player, String, int, Material)
+	 * @see QuestBuilder#generateEmptyQust(String)
+	 * @see PlayerConfigurator#getHideSpecialQuestsForCharacter(Player)
+	 * @see PlayerConfigurator#getHideCompletedQuestsForCharacter(Player)
+	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new QuestBuilder());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Questlog");
@@ -136,6 +158,17 @@ public class QuestBuilder implements WauzInventory {
 		player.openInventory(menu);		
 	}
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows all unaccepted quests that are near the player, trackable by clicking on the results.
+	 * Ordered by level, then by distance from the player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see WauzQuest#getQuestsForLevel(int)
+	 * @see QuestBuilder#generateUnacceptedQuest(Player, WauzQuest, int, boolean)
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public static void find(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new QuestBuilder());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Quests near "
@@ -182,6 +215,20 @@ public class QuestBuilder implements WauzInventory {
 	
 // Generate a taken Quest-Slot
 	
+	/**
+	 * Creates an item stack, containing information about a running quest.
+	 * If it is not a main quest, an option to cancel the quest, will be added to the lore.
+	 * 
+	 * @param player The player that is doing the quest.
+	 * @param questName The name of the quest.
+	 * @param phase The current quest phase.
+	 * @param colorMaterial The material of the item stack.
+	 * 
+	 * @return The quest item stack.
+	 * 
+	 * @see WauzQuest#getDisplayName()
+	 * @see QuestRequirementChecker#getItemStackLores()
+	 */
 	public static ItemStack generateQuest(Player player, String questName, int phase, Material colorMaterial) {
 		WauzQuest quest = WauzQuest.getQuest(questName);
 		
@@ -211,8 +258,9 @@ public class QuestBuilder implements WauzInventory {
 		}
 		questLores.add(ChatColor.GRAY + (isMainQuest ? "" : "Left ") + "Click to Track Objective");
 		
-		if(!isMainQuest)
+		if(!isMainQuest) {
 			questLores.add(ChatColor.GRAY + "Right Click to Cancel");
+		}
 		
 		questItemMeta.setLore(questLores);
 		questItemStack.setItemMeta(questItemMeta);
@@ -221,6 +269,14 @@ public class QuestBuilder implements WauzInventory {
 	
 // Generate a free Quest-Slot
 	
+	/**
+	 * Creates an item stack, that represents a free quest slot, that isn't bound to any quest.
+	 * Used for showing free slots in the quest overview menu.
+	 * 
+	 * @param type The type of the quest, for showing in the display name.
+	 * 
+	 * @return The quest item stack.
+	 */
 	public static ItemStack generateEmptyQust(String type) {
 		ItemStack emptyQuestItemStack = new ItemStack(Material.WHITE_CONCRETE);
 		ItemMeta emptyQuestItemMeta = emptyQuestItemStack.getItemMeta();
@@ -229,6 +285,20 @@ public class QuestBuilder implements WauzInventory {
 		return emptyQuestItemStack;
 	}
 	
+	/**
+	 * Creates an item stack, containing information about an unstarted quest.
+	 * Can be trackable for showing in the quest finder, or not, for showing in a dialog.
+	 * 
+	 * @param player The player that is viewing the quest.
+	 * @param quest The name of the quest.
+	 * @param phase The displayed quest phase.
+	 * @param trackable If the quest can be tracked.
+	 * 
+	 * @return The quest item stack.
+	 * 
+	 * @see WauzQuest#getDisplayName()
+	 * @see QuestRequirementChecker#getItemStackLoresUnaccepted()
+	 */
 	public static ItemStack generateUnacceptedQuest(Player player, WauzQuest quest, int phase, boolean trackable) {
 		ItemStack unacceptedQuestItemStack = new ItemStack(Material.WRITABLE_BOOK);
 		ItemMeta unacceptedQuestItemMeta = unacceptedQuestItemStack.getItemMeta();
@@ -260,12 +330,30 @@ public class QuestBuilder implements WauzInventory {
 	
 // Select Quest or Option
 	
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and handles the interaction with a quest or display option.
+	 * If a bookshelf was clicked and the player is in the main world, the quest finder will be opened.
+	 * If an option to hide quests was clicked, it will be toggled and the menu will be reloaded.
+	 * If a quest is clicked, it will be tracked.
+	 * If a cancelable quest is right clicked, the cancel dialog will be shown.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see QuestBuilder#find(Player)
+	 * @see PlayerConfigurator#setHideSpecialQuestsForCharacter(Player, boolean)
+	 * @see PlayerConfigurator#setHideCompletedQuestsForCharacter(Player, boolean)
+	 * @see WauzPlayerScoreboard#scheduleScoreboard(Player)
+	 * @see QuestRequirementChecker#trackQuestObjective()
+	 * @see WauzPlayerEventQuestCancel
+	 */
+	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null || !clicked.hasItemMeta() || !clicked.getItemMeta().hasDisplayName()) {
+		if(!ItemUtils.hasDisplayName(clicked)) {
 			return;
 		}
 
@@ -320,10 +408,51 @@ public class QuestBuilder implements WauzInventory {
 	
 // When Player talks to Questgiver
 	
+	/**
+	 * Tries to accept or continue the quest.
+	 * Simplified version.
+	 * 
+	 * @param player The player who is accepting the quest.
+	 * @param questName The name of the quest.
+	 * 
+	 * @see QuestBuilder#accept(Player, String, Location) Calls this with null as last param.
+	 */
 	public static void accept(Player player, String questName) {
 		accept(player, questName, null);
 	}
 	
+	/**
+	 * Tries to accept or continue the quest.
+	 * If the quest isn't already running and no quest slot of the fitting type is available, it is cancelled.
+	 * If the quest is daily and has a cooldown, the remaining time, till the quest is redoable is shown.
+	 * If the quest is not daily and already complete, a completion message is shown.
+	 * If the quest is unstarted, an accept dialog is shown, or accepted directly, if it is a main quest.
+	 * If the quest is running and phase requirements are not met, an "uncomplete" message is shown.
+	 * If the phase is completed, the next phase is initiated and an phase description message is shown.
+	 * If all phases are completed, the quest slot and the phase are cleared,
+	 * the cooldown for daily quests gets resetted, the quest completions increase,
+	 * an effect and the completion message is shown and the reward is handed out.
+	 * 
+	 * @param player The player who is accepting the quest.
+	 * @param questName The name of the quest.
+	 * @param questLocation The location to show exp rewards.
+	 * 
+	 * @see PlayerConfigurator#getCharacterRunningMainQuest(Player)
+	 * @see PlayerQuestConfigurator#getQuestPhase(Player, String)
+	 * @see PlayerQuestConfigurator#getQuestCooldown(Player, String)
+	 * @see PlayerQuestConfigurator#isQuestCompleted(Player, String)
+	 * @see WauzPlayerEventQuestAccept
+	 * @see WauzQuest#getCompletedDialog()
+	 * @see QuestRequirementChecker#tryToHandInQuest()
+	 * @see WauzQuest#getUncompletedMessage(int)
+	 * @see WauzQuest#getPhaseDialog(int)
+	 * @see PlayerQuestConfigurator#setQuestPhase(Player, String, int)
+	 * @see PlayerConfigurator#setCharacterQuestSlot(Player, String, String)
+	 * @see PlayerQuestConfigurator#setQuestCooldown(Player, String)
+	 * @see PlayerQuestConfigurator#addQuestCompletions(Player, String)
+	 * @see WauzRewards#level(Player, int, double, Location)
+	 * @see WauzRewards#mmorpgToken(Player)
+	 */
 	public static void accept(Player player, String questName, Location questLocation) {
 		WauzQuest quest = WauzQuest.getQuest(questName);
 		

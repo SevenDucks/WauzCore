@@ -22,8 +22,33 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.util.Formatters;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Sub menu of the guild menu, that is used for viewing and managing guild applications.
+ * 
+ * @author Wauzmons
+ *
+ * @see GuildOverviewMenu
+ */
 public class GuildApplicationMenu implements WauzInventory {
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows a list of guild applicants, only viewable by guild officers or higher.
+	 * Lists up to 27 applicants (3 inventory rows), including last online time and character stats.
+	 * The officer can decide which application to accept by left or right clicking them.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see GuildOverviewMenu#validateOfficerAccess(Player, WauzPlayerGuild)
+	 * @see WauzPlayerGuild#getApplicantUuidStrings()
+	 * @see PlayerConfigurator#getLastPlayed(OfflinePlayer)
+	 * @see PlayerConfigurator#getRaceString(OfflinePlayer, int)
+	 * @see PlayerConfigurator#getWorldString(OfflinePlayer, int)
+	 * @see PlayerConfigurator#getLevelString(OfflinePlayer, int)
+	 * @see PlayerConfigurator#getSurvivalScore(OfflinePlayer)
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
 	public static void open(Player player) {
 		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
 		if(!GuildOverviewMenu.validateOfficerAccess(player, playerGuild)) {
@@ -77,6 +102,19 @@ public class GuildApplicationMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and accepts or rejects the clicked application.
+	 * The application has to be boúnd to a valid player and the guild must have free slots, to accept them.
+	 * A right click rejects the application, while a left click will accept the player into the guild.
+	 * The menu is updated after each processed application.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see PlayerConfigurator#getGuild(OfflinePlayer)
+	 * @see WauzPlayerGuild#removeApplicant(String)
+	 * @see WauzPlayerGuild#addPlayer(OfflinePlayer)
+	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
@@ -84,14 +122,16 @@ public class GuildApplicationMenu implements WauzInventory {
 		final Player player = (Player) event.getWhoClicked();
 		WauzPlayerGuild guild = PlayerConfigurator.getGuild(player);
 		
-		if(clicked == null || guild == null)
+		if(clicked == null || guild == null) {
 			return;
+		}
 		
 		else if(clicked.getType().equals(Material.PLAYER_HEAD)) {
 			SkullMeta sm = (SkullMeta) clicked.getItemMeta();
 			OfflinePlayer applicant = sm.getOwningPlayer();
-			if(applicant == null)
+			if(applicant == null) {
 				return;
+			}
 			
 			if(event.getClick().toString().contains("RIGHT")) {
 				if(applicant.isOnline()) {
@@ -99,11 +139,9 @@ public class GuildApplicationMenu implements WauzInventory {
 				}
 				guild.removeApplicant(applicant.getUniqueId().toString());
 			}
-			else {
-				if(!guild.isFull()) {
-					guild.removeApplicant(applicant.getUniqueId().toString());
-					guild.addPlayer(applicant);
-				}
+			else if(!guild.isFull()) {
+				guild.removeApplicant(applicant.getUniqueId().toString());
+				guild.addPlayer(applicant);
 			}
 			open(player);
 		}

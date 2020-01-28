@@ -36,8 +36,19 @@ import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Sub menu of the pet menu, that is used for interacting with a specific pet.
+ * 
+ * @author Wauzmons
+ *
+ * @see PetOverviewMenu
+ */
 public class PetOptionsMenu implements WauzInventory {
 	
+	/**
+	 * A direct reference to the main class.
+	 */
 	private static WauzCore core = WauzCore.getInstance();
 	
 	/**
@@ -47,6 +58,27 @@ public class PetOptionsMenu implements WauzInventory {
 	
 // Single Pet Options Menu
 	
+	/**
+	 * Opens the menu for the given player.
+	 * Views the details of an pet and shows all possible interaction options.
+	 * The first option is the summoning of the pet.
+	 * The second option is to send the pet as parent to the breeding station, which may be disallowed for some pets.
+	 * The third option is to release the pet back to the wild, deleting it permanently.
+	 * All three stats of the pet will be shown differently based on their level.
+	 * Level 0 = Raw Pork, Level X = Cooked Pork, Level Max = Beef.
+	 * The levels can be increased by dragging food on these slots.
+	 * Additionally there are options to move the pet one slot to the left or the right in the overview menu,
+	 * aswell as an option to return to the overview menu.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * @param petSlot The slot of the pet to view.
+	 * 
+	 * @see PlayerConfigurator#getCharacterPetType(Player, int)
+	 * @see PlayerConfigurator#getCharcterPetBreedingDisallowString(Player, int)
+	 * @see PlayerConfigurator#getCharacterPetIntelligence(Player, int)
+	 * @see PlayerConfigurator#getCharacterPetDexterity(Player, int)
+	 * @see PlayerConfigurator#getCharacterPetAbsorption(Player, int)
+	 */
 	public static void open(Player player, Integer petSlot) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new PetOptionsMenu());
 		String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
@@ -97,12 +129,15 @@ public class PetOptionsMenu implements WauzInventory {
 		int intelligenceLevelMax = PlayerConfigurator.getCharacterPetIntelligenceMax(player, petSlot);
 		
 		ItemStack intelligenceSkillItemStack;
-		if(intelligenceLevel == 0)
+		if(intelligenceLevel == 0) {
 			intelligenceSkillItemStack = new ItemStack(Material.PORKCHOP);
-		else if(intelligenceLevel < intelligenceLevelMax)
+		}
+		else if(intelligenceLevel < intelligenceLevelMax) {
 			intelligenceSkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, intelligenceLevel);
-		else
+		}
+		else {
 			intelligenceSkillItemStack = new ItemStack(Material.COOKED_BEEF, intelligenceLevel);
+		}
 		
 		ItemMeta intelligenceSkillItemMeta = intelligenceSkillItemStack.getItemMeta();
 		intelligenceSkillItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Intelligence");
@@ -124,12 +159,15 @@ public class PetOptionsMenu implements WauzInventory {
 		int dexterityLevelMax = PlayerConfigurator.getCharacterPetDexterityMax(player, petSlot);
 		
 		ItemStack dexteritySkillItemStack;
-		if(dexterityLevel == 0)
+		if(dexterityLevel == 0) {
 			dexteritySkillItemStack = new ItemStack(Material.PORKCHOP);
-		else if(dexterityLevel < dexterityLevelMax)
+		}
+		else if(dexterityLevel < dexterityLevelMax) {
 			dexteritySkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, dexterityLevel);
-		else
+		}
+		else {
 			dexteritySkillItemStack = new ItemStack(Material.COOKED_BEEF, dexterityLevel);
+		}
 		
 		ItemMeta dexteritySkillItemMeta = dexteritySkillItemStack.getItemMeta();
 		dexteritySkillItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Dexterity");
@@ -151,12 +189,15 @@ public class PetOptionsMenu implements WauzInventory {
 		int absorptionLevelMax = PlayerConfigurator.getCharacterPetAbsorptionMax(player, petSlot);
 		
 		ItemStack absorptionSkillItemStack;
-		if(absorptionLevel == 0)
+		if(absorptionLevel == 0) {
 			absorptionSkillItemStack = new ItemStack(Material.PORKCHOP);
-		else if(absorptionLevel < absorptionLevelMax)
+		}
+		else if(absorptionLevel < absorptionLevelMax) {
 			absorptionSkillItemStack = new ItemStack(Material.COOKED_PORKCHOP, absorptionLevel);
-		else
+		}
+		else {
 			absorptionSkillItemStack = new ItemStack(Material.COOKED_BEEF, absorptionLevel);
+		}
 		
 		ItemMeta absorptionSkillItemMeta = absorptionSkillItemStack.getItemMeta();
 		absorptionSkillItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Absorption");
@@ -195,6 +236,27 @@ public class PetOptionsMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 	
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and tries to interact with the pet.
+	 * Clicking the lead will summon the pet.
+	 * Clicking the egg tries to move the pet to the breeding station.
+	 * Clicking the barrier will show a dialog to release the pet.
+	 * Clicking the porkchop with food on the cursor will feed the pet.
+	 * Clicking left or right arrows will move the pet in the overview menu.
+	 * Clicking the pufferfish egg will lead back to the overview menu.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see PetOptionsMenu#getIndex(InventoryView)
+	 * @see PetOptionsMenu#summon(Player, Integer)
+	 * @see PetOptionsMenu#breed(Player, int, ItemStack)
+	 * @see PetOptionsMenu#discard(Player, Integer)
+	 * @see PetOptionsMenu#feed(Player, int, ItemStack)
+	 * @see PetOptionsMenu#move(Player, int, int, boolean)
+	 * @see PetOverviewMenu#open(Player, int)
+	 */
+	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
@@ -204,38 +266,31 @@ public class PetOptionsMenu implements WauzInventory {
 			event.setCancelled(false);
 			return;
 		}
-		
 		else if(clicked.getType().equals(Material.LEAD)) {
 			summon(player, getIndex(player.getOpenInventory()));
 			player.closeInventory();
 		}
-		
 		else if(clicked.getType().equals(Material.EGG)) {
 			int index = getIndex(player.getOpenInventory());
 			breed(player, index, clicked);
 		}
-		
 		else if(clicked.getType().equals(Material.BARRIER)) {
 			discard(player, getIndex(player.getOpenInventory()));
 		}
-		
 		else if(clicked.getType().equals(Material.PORKCHOP) || clicked.getType().equals(Material.COOKED_PORKCHOP)) {
 			int index = getIndex(player.getOpenInventory());
 			feed(player, index, clicked);
 		}
-		
 		else if(HeadUtils.isHeadMenuItem(clicked, "Move LEFT")) {
 			int index = getIndex(player.getOpenInventory());
 			int moveTo = index > 0 ? index - 1 : 4;
 			move(player, index, moveTo, true);
 		}
-		
 		else if(HeadUtils.isHeadMenuItem(clicked, "Move RIGHT")) {
 			int index = getIndex(player.getOpenInventory());
 			int moveTo = index < 4 ? index + 1 : 0;
 			move(player, index, moveTo, true);
 		}
-		
 		else if(clicked.getType().equals(Material.PUFFERFISH_SPAWN_EGG)) {
 			PetOverviewMenu.open(player, -1);
 		}
@@ -243,6 +298,13 @@ public class PetOptionsMenu implements WauzInventory {
 
 // Support Methods
 	
+	/**
+	 * Gets the index of a pet by reading the title of their options menu.
+	 * 
+	 * @param inventory The inventory of the pet's options menu.
+	 * 
+	 * @return The index of the pet.
+	 */
 	private static Integer getIndex(InventoryView inventory) {
 		String indexString = StringUtils.substringBetween(inventory.getTitle(), "\"");
 		return Integer.parseInt(indexString);
@@ -250,6 +312,21 @@ public class PetOptionsMenu implements WauzInventory {
 	
 // Summoning, Discarding and Moving
 	
+	/**
+	 * Lets the given player summon a specific pet.
+	 * Tries to remove the entity from an old pet first, if any exists.
+	 * Sets the active pet id and slot, aswell as the pet's owner afterwards.
+	 * Also recalculates the player movement speed, based on the pet's dexterity stat.
+	 * 
+	 * @param player The player who summons the pet.
+	 * @param petSlot The slot of the pet being summoned.
+	 * 
+	 * @see PlayerConfigurator#getCharacterPetType(Player, int)
+	 * @see PlayerConfigurator#getCharacterActivePetId(Player)
+	 * @see PlayerConfigurator#setCharacterActivePetId(Player, String)
+	 * @see PlayerConfigurator#setCharacterActivePetSlot(Player, int)
+	 * @see PetOverviewMenu#setOwner(String, Player)
+	 */
 	public static void summon(Player player, Integer petSlot) {	
 		Location location = player.getLocation();	
 		String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
@@ -257,8 +334,9 @@ public class PetOptionsMenu implements WauzInventory {
 		String petId = PlayerConfigurator.getCharacterActivePetId(player);
 		if(!petId.contains("none")) {
 			Entity entity = Bukkit.getServer().getEntity(UUID.fromString(petId));		
-			if(entity != null)
+			if(entity != null) {
 				entity.remove();
+			}
 		}
 		
 		try {
@@ -282,6 +360,15 @@ public class PetOptionsMenu implements WauzInventory {
 		}
 	}
 	
+	/**
+	 * Lets the given player release a pet into the wild, permanently deleting it.
+	 * A confirm dialog is shown beforehand.
+	 * 
+	 * @param player The player who discards the pet.
+	 * @param petSlot The slot of the pet being discarded.
+	 * 
+	 * @see WauzPlayerEventPetDelete
+	 */
 	public static void discard(Player player, Integer petSlot) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
@@ -290,6 +377,23 @@ public class PetOptionsMenu implements WauzInventory {
 		WauzDialog.open(player);
 	}
 	
+	/**
+	 * Lets the given player move a pet to another slot in the overview menu. 
+	 * Unsummons the player's current pet, if it is affected from the movement.
+	 * The config file gets directly edited with a file writer, to swap the slots.
+	 * Afterwards the overview menu is opened, highlighting the pet's new position.
+	 * 
+	 * @param player The player who moves the pet.
+	 * @param fromIndex The current overview index of the pet.
+	 * @param toIndex The new overview index of the pet.
+	 * @param openMenu If the overview should be opened afterwards.
+	 * 
+	 * @see PlayerConfigurator#getCharacterActivePetSlot(Player)
+	 * @see PetOverviewMenu#unsummon(Player)
+	 * @see PetOverviewMenu#open(Player, int)
+	 * @see BufferedReader
+	 * @see FileWriter
+	 */
 	public static void move(Player player, int fromIndex, int toIndex, boolean openMenu) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		String characterSlot = playerData.getSelectedCharacterSlot();
@@ -324,39 +428,68 @@ public class PetOptionsMenu implements WauzInventory {
             FileWriter writer = new FileWriter(playerConfigPath);
             writer.write(content);
             writer.close();
-            if(openMenu)
+            if(openMenu) {
             	PetOverviewMenu.open(player, toIndex);
-		} catch (Exception e) {
+            }
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 // Feeding
 	
+	/**
+	 * Feeds the current pet, the item on the player's curser, to increase the given stat's exp.
+	 * The exp gain is based on the food item's saturation modifier.
+	 * If the pet's stat reaches a new level, the stat will be increased by 1 and the exp to the next level will be set.
+	 * If the pet is active while reaching a new level, it will be unsummoned.
+	 * If the max level is reached, this method won't be called anymore from the stat item interaction.
+	 * 
+	 * @param player The player who feeds the pet.
+	 * @param petSlot The slot of the pet, that is getting fed.
+	 * @param statItem The item stack showing the pet stat.
+	 * 
+	 * @see ItemUtils#isFoodItem(ItemStack)
+	 * @see ItemUtils#getSaturation(ItemStack)
+	 * @see PetOverviewMenu#unsummon(Player)
+	 * @see PlayerConfigurator#getCharacterPetIntelligence(Player, int)
+	 * @see PlayerConfigurator#setCharacterPetIntelligence(Player, int, int)
+	 * @see PlayerConfigurator#getCharacterPetIntelligenceExpNeeded(Player, int)
+	 * @see PlayerConfigurator#setCharacterPetIntelligenceExpNeeded(Player, int, int)
+	 * @see PetOverviewMenu#getBaseExpToFeedingLevel(int)
+	 */
 	private static void feed(Player player, int petSlot, ItemStack statItem) {
 		int foodStatId = 0;
-		if(!statItem.hasItemMeta() || !statItem.getItemMeta().hasDisplayName())
+		if(!statItem.hasItemMeta() || !statItem.getItemMeta().hasDisplayName()) {
 			return;
-		else if(statItem.getItemMeta().getDisplayName().contains(ChatColor.DARK_GREEN + "Intelligence"))
+		}
+		else if(statItem.getItemMeta().getDisplayName().contains(ChatColor.DARK_GREEN + "Intelligence")) {
 			foodStatId = 1;
-		else if(statItem.getItemMeta().getDisplayName().contains(ChatColor.DARK_GREEN + "Dexterity"))
+		}
+		else if(statItem.getItemMeta().getDisplayName().contains(ChatColor.DARK_GREEN + "Dexterity")) {
 			foodStatId = 2;
-		else if(statItem.getItemMeta().getDisplayName().contains(ChatColor.DARK_GREEN + "Absorption"))
+		}
+		else if(statItem.getItemMeta().getDisplayName().contains(ChatColor.DARK_GREEN + "Absorption")) {
 			foodStatId = 3;
-		else
+		}
+		else {
 			return;
+		}
 		
 		ItemStack foodItem = player.getItemOnCursor();
-		if(!ItemUtils.isFoodItem(foodItem) || !ItemUtils.containsSaturationModifier(foodItem))
+		if(!ItemUtils.isFoodItem(foodItem) || !ItemUtils.containsSaturationModifier(foodItem)) {
 			return;
+		}
 		
 		int feedingValue = ItemUtils.getSaturation(foodItem) * foodItem.getAmount();
 		foodItem.setAmount(0);
 		
 		if(foodStatId == 1) {
 			int remainingExp = PlayerConfigurator.getCharacterPetIntelligenceExpNeeded(player, petSlot) - feedingValue;
-			if(remainingExp > 0)
+			if(remainingExp > 0) {
 				PlayerConfigurator.setCharacterPetIntelligenceExpNeeded(player, petSlot, remainingExp);
+			}
 			else {
 				Integer activePetSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
 				if(activePetSlot != -1 && activePetSlot == petSlot) {
@@ -370,8 +503,9 @@ public class PetOptionsMenu implements WauzInventory {
 		}
 		else if(foodStatId == 2) {
 			int remainingExp = PlayerConfigurator.getCharacterPetDexterityExpNeeded(player, petSlot) - feedingValue;
-			if(remainingExp > 0)
+			if(remainingExp > 0) {
 				PlayerConfigurator.setCharacterPetDexterityExpNeeded(player, petSlot, remainingExp);
+			}
 			else {
 				Integer activePetSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
 				if(activePetSlot != -1 && activePetSlot == petSlot) {
@@ -385,8 +519,9 @@ public class PetOptionsMenu implements WauzInventory {
 		}
 		else if(foodStatId == 3) {
 			int remainingExp = PlayerConfigurator.getCharacterPetAbsorptionExpNeeded(player, petSlot) - feedingValue;
-			if(remainingExp > 0)
+			if(remainingExp > 0) {
 				PlayerConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, remainingExp);
+			}
 			else {
 				Integer activePetSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
 				if(activePetSlot != -1 && activePetSlot == petSlot) {
@@ -404,9 +539,21 @@ public class PetOptionsMenu implements WauzInventory {
 	
 // Breeding
 	
+	/**
+	 * Tries to add the pet to the breeding station, if it is allowed.
+	 * The station must be free and the pet needs at least 1 maxed stat.
+	 * A confirm dialog is shown beforehand.
+	 * 
+	 * @param player The player who wants to breed the pet.
+	 * @param petSlot The slot of the pet to breed.
+	 * @param breedStack The breeding option item stack.
+	 * 
+	 * @see WauzPlayerEventPetBreed
+	 */
 	public static void breed(Player player, int petSlot, ItemStack breedStack) {
-		if(breedStack.getItemMeta().getLore().get(3).contains("Disallowed"))
+		if(breedStack.getItemMeta().getLore().get(3).contains("Disallowed")) {
 			return;
+		}
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
