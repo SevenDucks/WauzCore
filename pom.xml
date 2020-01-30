@@ -13,11 +13,11 @@
 
 
 	<repositories>
-		
+
 		<!-- Paper -->
 		<repository>
-		    <id>papermc</id>
-		    <url>https://papermc.io/repo/repository/maven-public/</url>
+			<id>papermc</id>
+			<url>https://papermc.io/repo/repository/maven-public/</url>
 		</repository>
 
 		<!-- MythicMobsAPI -->
@@ -31,23 +31,29 @@
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
-		
+
+		<!-- NPCLib -->
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+		</repository>
+
 		<!-- SkullCreator -->
 		<repository>
-	        <id>skullcreator-repo</id>
-	        <url>https://dl.bintray.com/deanveloper/SkullCreator</url>
-	    </repository>
+			<id>skullcreator-repo</id>
+			<url>https://dl.bintray.com/deanveloper/SkullCreator</url>
+		</repository>
 
 	</repositories>
 
 
 	<dependencies>
-	
+
 		<dependency>
-		    <groupId>com.destroystokyo.paper</groupId>
-		    <artifactId>paper-api</artifactId>
-		    <version>1.14.4-R0.1-SNAPSHOT</version>
-		    <scope>provided</scope>
+			<groupId>com.destroystokyo.paper</groupId>
+			<artifactId>paper-api</artifactId>
+			<version>1.14.4-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -57,7 +63,7 @@
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
-		
+
 
 		<dependency>
 			<groupId>io.lumine.xikage</groupId>
@@ -65,19 +71,26 @@
 			<version>4.8.0-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.github.koca2000</groupId>
 			<artifactId>NoteBlockAPI</artifactId>
 			<version>-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
-	        <groupId>com.deanveloper</groupId>
-	        <artifactId>skullcreator</artifactId>
-	        <version>1.0.2</version>
-	        <scope>compile</scope>
-	    </dependency>
+			<groupId>net.jitse</groupId>
+			<artifactId>npclib-api</artifactId>
+			<version>2.3-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.deanveloper</groupId>
+			<artifactId>skullcreator</artifactId>
+			<version>1.0.2</version>
+			<scope>compile</scope>
+		</dependency>
 
 
 		<dependency>
@@ -86,7 +99,7 @@
 			<version>20070405</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
