@@ -77,11 +77,11 @@
 			<artifactId>NoteBlockAPI</artifactId>
 			<version>-SNAPSHOT</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>net.jitse</groupId>
-			<artifactId>npclib-api</artifactId>
-			<version>2.3-SNAPSHOT</version>
+			<artifactId>npclib-plugin</artifactId>
+			<version>2.3.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 
