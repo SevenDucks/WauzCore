@@ -66,6 +66,7 @@ import eu.wauz.wauzcore.items.runes.RunePower;
 import eu.wauz.wauzcore.items.runes.RuneThorns;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.menu.ShopBuilder;
+import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.skills.SkillDeath;
 import eu.wauz.wauzcore.skills.SkillJudgement;
@@ -117,6 +118,7 @@ public class WauzLoader {
 	 * @see StatisticsFetcher#calculate()
 	 */
 	public static void init() {
+		WauzCitizen.init();
 		WauzRegion.init();
 		WauzAchievement.init();
 		WauzQuest.init();

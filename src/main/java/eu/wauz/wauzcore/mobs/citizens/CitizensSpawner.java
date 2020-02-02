@@ -14,6 +14,8 @@ import net.jitse.npclib.api.skin.MineSkinFetcher;
  * Events you may want to use are NPCShowEvent, NPCHideEvent and NPCInteractEvent.
  * 
  * @author Wauzmons
+ * 
+ * @see WauzCitizen
  */
 public class CitizensSpawner {
 	

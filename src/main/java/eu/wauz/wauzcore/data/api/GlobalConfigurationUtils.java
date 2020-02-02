@@ -151,11 +151,82 @@ public class GlobalConfigurationUtils {
 		File mainDataFile = new File(core.getDataFolder(), name + ".yml");
 		FileConfiguration mainDataConfig = YamlConfiguration.loadConfiguration(mainDataFile);
 		
-		List<Double> coords = new ArrayList<Double>();
-		for(String coord : mainDataConfig.getString(path).split(" "))
+		List<Double> coords = new ArrayList<>();
+		for(String coord : mainDataConfig.getString(path).split(" ")) {
 			coords.add(Double.parseDouble(coord));
-		
+		}
 		return new Location(Bukkit.getWorld(worldName), coords.get(0), coords.get(1), coords.get(2));
+	}
+	
+// Interact with Citizen-Config
+
+	/**
+	 * Finds all citizen names by iterating through all citizen configs.
+	 * 
+	 * @return A list of all citizen names.
+	 */
+	protected static List<String> getCitizenNameList() {
+		List<String> citizenNameList = new ArrayList<>();
+		for(File file : new File(core.getDataFolder(), "CitizenData/").listFiles()) {
+			citizenNameList.add(file.getName().replaceAll(".yml", ""));
+		}
+		return citizenNameList;
+	}
+
+	/**
+	 * Gets a string from a citizen config.
+	 * 
+	 * @param citizen The name of the citizen config file.
+	 * @param path The key path of the value to get.
+	 * 
+	 * @return The requested string.
+	 */
+	protected static String citizenConfigGetString(String citizen, String path) {
+		File citizenDataFile = new File(core.getDataFolder(), "CitizenData/" + citizen + ".yml");
+		FileConfiguration citizenDataConfig = YamlConfiguration.loadConfiguration(citizenDataFile);	
+		return citizenDataConfig.getString(path);
+	}
+
+	/**
+	 * Gets a string list from a citizen config.
+	 * 
+	 * @param citizen The name of the citizen config file.
+	 * @param path The key path of the value to get.
+	 * 
+	 * @return The requested string list.
+	 */
+	protected static List<String> citizenConfigGetStringList(String citizen, String path) {
+		File citizenDataFile = new File(core.getDataFolder(), "CitizenData/" + citizen + ".yml");
+		FileConfiguration citizenDataConfig = YamlConfiguration.loadConfiguration(citizenDataFile);	
+		return citizenDataConfig.getStringList(path);
+	}
+
+	/**
+	 * Gets an int from a citizen config.
+	 * 
+	 * @param citizen The name of the citizen config file.
+	 * @param path The key path of the value to get.
+	 * 
+	 * @return The requested int.
+	 */
+	protected static int citizenConfigGetInt(String citizen, String path) {
+		File citizenDataFile = new File(core.getDataFolder(), "CitizenData/" + citizen + ".yml");
+		FileConfiguration citizenDataConfig = YamlConfiguration.loadConfiguration(citizenDataFile);	
+		return citizenDataConfig.getInt(path);
+	}
+	
+	/**
+	 * Gets a boolean from a citizen config.
+	 * 
+	 * @param citizen The name of the citizen config file.
+	 * @param path The key path of the value to get.
+	 * 
+	 * @return The requested boolean.
+	 */
+	protected static boolean citizenConfigGetBoolean(String citizen, String path) {
+		File citizenDataFile = new File(core.getDataFolder(), "CitizenData/" + citizen + ".yml");
+		FileConfiguration citizenDataConfig = YamlConfiguration.loadConfiguration(citizenDataFile);	
+		return citizenDataConfig.getBoolean(path);
 	}
 	
 // Interact with Shop-Config

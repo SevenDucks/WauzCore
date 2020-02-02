@@ -17,7 +17,7 @@ public class QuestConfigurator extends GlobalConfigurationUtils {
 	 * @return The list of all quest names.
 	 */
 	public static List<String> getQuestNameList() {
-		return GlobalConfigurationUtils.getQuestNameList();
+		return getQuestNameList();
 	}
 
 // General Parameters
