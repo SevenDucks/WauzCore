@@ -9,6 +9,7 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.CitizenConfigurator;
 
@@ -100,11 +101,6 @@ public class WauzCitizen {
 	private int skinId;
 	
 	/**
-	 * If the citizen is crouching.
-	 */
-	private boolean crouched;
-	
-	/**
 	 * If the citizen is invisible.
 	 */
 	private boolean invisible;
@@ -113,6 +109,36 @@ public class WauzCitizen {
 	 * If the citizen is burning.
 	 */
 	private boolean burning;
+	
+	/**
+	 * The equipped mainhand item.
+	 */
+	private ItemStack mainhandItemStack;
+	
+	/**
+	 * The equipped offhand item.
+	 */
+	private ItemStack offhandItemStack;
+	
+	/**
+	 * The equipped helmet item.
+	 */
+	private ItemStack helmetItemStack;
+	
+	/**
+	 * The equipped chestplate item.
+	 */
+	private ItemStack chestplateItemStack;
+	
+	/**
+	 * The equipped leggings item.
+	 */
+	private ItemStack leggingsItemStack;
+	
+	/**
+	 * The equipped boots item.
+	 */
+	private ItemStack bootsItemStack;
 	
 	/**
 	 * Constructs a citizen, based on the citizen file name in the /WauzCore/CitizenData folder.
@@ -125,10 +151,15 @@ public class WauzCitizen {
 		nameLines = CitizenConfigurator.getNameLines(citizenName);
 		location = CitizenConfigurator.getLocation(citizenName);
 		skinId = CitizenConfigurator.getSkinId(citizenName);
-		
-		crouched = CitizenConfigurator.isCrouched(citizenName);
 		invisible = CitizenConfigurator.isInvisible(citizenName);
 		burning = CitizenConfigurator.isBurning(citizenName);
+		
+		mainhandItemStack = CitizenConfigurator.getEquippedMainhandItem(citizenName);
+		offhandItemStack = CitizenConfigurator.getEquippedOffhandItem(citizenName);
+		helmetItemStack = CitizenConfigurator.getEquippedHelmetItem(citizenName);
+		chestplateItemStack = CitizenConfigurator.getEquippedChestplateItem(citizenName);
+		leggingsItemStack = CitizenConfigurator.getEquippedLeggingsItem(citizenName);
+		bootsItemStack = CitizenConfigurator.getEquippedBootsItem(citizenName);
 	}
 
 	/**
@@ -160,13 +191,6 @@ public class WauzCitizen {
 	}
 
 	/**
-	 * @return If the citizen is crouching.
-	 */
-	public boolean isCrouched() {
-		return crouched;
-	}
-
-	/**
 	 * @return If the citizen is invisible.
 	 */
 	public boolean isInvisible() {
@@ -178,6 +202,48 @@ public class WauzCitizen {
 	 */
 	public boolean isBurning() {
 		return burning;
+	}
+
+	/**
+	 * @return The equipped mainhand item.
+	 */
+	public ItemStack getMainhandItemStack() {
+		return mainhandItemStack;
+	}
+
+	/**
+	 * @return The equipped offhand item.
+	 */
+	public ItemStack getOffhandItemStack() {
+		return offhandItemStack;
+	}
+
+	/**
+	 * @return The equipped helmet item.
+	 */
+	public ItemStack getHelmetItemStack() {
+		return helmetItemStack;
+	}
+
+	/**
+	 * @return The equipped chestplate item.
+	 */
+	public ItemStack getChestplateItemStack() {
+		return chestplateItemStack;
+	}
+
+	/**
+	 * @return The equipped leggings item.
+	 */
+	public ItemStack getLeggingsItemStack() {
+		return leggingsItemStack;
+	}
+
+	/**
+	 * @return The equipped boots item.
+	 */
+	public ItemStack getBootsItemStack() {
+		return bootsItemStack;
 	}
 
 }

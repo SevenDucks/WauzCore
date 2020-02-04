@@ -1,9 +1,16 @@
 name:
-  - Water Merchant
-  - Bolvic
+  - Highlord Bolvic
+  - §eKeeper of Balance§r
 world: Wauzland
-location: -22.5 21 -624.5
+location: -22.5 21 -624.5 -90 0
 skinid: 177263
-crouched: true
 invisible: false
 burning: true
+items:
+  mainhand: WATER_BUCKET
+  offhand: LAVA_BUCKET
+  helmet:
+  chestplate: IRON_CHESTPLATE
+  leggings:
+  boots:
+ 

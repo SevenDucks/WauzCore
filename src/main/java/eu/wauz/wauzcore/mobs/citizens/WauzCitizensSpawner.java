@@ -11,6 +11,7 @@ import eu.wauz.wauzcore.WauzCore;
 import net.jitse.npclib.NPCLib;
 import net.jitse.npclib.api.NPC;
 import net.jitse.npclib.api.skin.MineSkinFetcher;
+import net.jitse.npclib.api.state.NPCSlot;
 import net.jitse.npclib.api.state.NPCState;
 
 /**
@@ -44,22 +45,24 @@ public class WauzCitizensSpawner {
             NPC npc = npcLib.createNPC(citizen.getNameLines());
             npc.setLocation(citizen.getLocation());
             npc.setSkin(skin);
-//            npc.setItem(slot, item);
-            if(citizen.isCrouched()) {
-            	npc.toggleState(NPCState.CROUCHED);
-            }
             if(citizen.isInvisible()) {
             	npc.toggleState(NPCState.INVISIBLE);
             }
             if(citizen.isBurning()) {
             	npc.toggleState(NPCState.ON_FIRE);
             }
+            npc.setItem(NPCSlot.MAINHAND, citizen.getMainhandItemStack());
+            npc.setItem(NPCSlot.OFFHAND, citizen.getOffhandItemStack());
+            npc.setItem(NPCSlot.HELMET, citizen.getHelmetItemStack());
+            npc.setItem(NPCSlot.CHESTPLATE, citizen.getChestplateItemStack());
+            npc.setItem(NPCSlot.LEGGINGS, citizen.getLeggingsItemStack());
+            npc.setItem(NPCSlot.BOOTS, citizen.getBootsItemStack());
             npc.create();
             Bukkit.getScheduler().runTask(WauzCore.getInstance(), () -> citizenNpcMap.put(citizen, npc));
         });
 	}
 	/**
-	 * Shows all npcs near the given player to them. 
+	 * Shows all npcs near the given player to them and updates the npc's look direction. 
 	 * 
 	 * @param player The player to show the npcs to.
 	 */
