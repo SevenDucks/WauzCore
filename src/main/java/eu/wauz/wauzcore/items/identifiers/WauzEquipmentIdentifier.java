@@ -410,6 +410,11 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 			lores.add(ChatColor.GRAY + "Use while Sneaking to pull you to a Block");
 			lores.add(ChatColor.GRAY + "Right Click to grab Enemies");
 		}
+		else if(material.equals(Material.FEATHER)) {
+			lores.add("");
+			lores.add(ChatColor.GRAY + "Use while Sneaking to fly into the Air");
+			lores.add(ChatColor.GRAY + "Right Click to throw Chickens");
+		}
 		else if(rarity.getMultiplier() >= 1.5) {
 			if(equipmentType.getType().equals(EquipmentType.WEAPON) && Chance.oneIn(2)) {
 				lores.add("");

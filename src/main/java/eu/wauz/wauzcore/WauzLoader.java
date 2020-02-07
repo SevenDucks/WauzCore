@@ -144,6 +144,7 @@ public class WauzLoader {
 		registerLances();
 		registerShields();
 		registerHooks();
+		registerGliders();
 		
 		registerLightArmor();
 		registerMediumArmor();
@@ -447,6 +448,22 @@ public class WauzLoader {
 		WauzEquipmentIdentifier.addEquipType(
 				new Equipment(EquipmentType.WEAPON, Material.FISHING_ROD, "Dual Hook")
 				.withMainStat(0.85).withSpeedStat(1.10).withDurabilityStat(144));
+	}
+	
+	/**
+	 * Initializes all predefined equipment of the type Weapon / Glider.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	private static void registerGliders() {
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON,  Material.FEATHER, "Chicken Wings")
+				.withMainStat(0.30).withSpeedStat(0.50).withDurabilityStat(144));
+		
+		WauzEquipmentIdentifier.addEquipType(
+				new Equipment(EquipmentType.WEAPON,  Material.FEATHER, "Chicken Glider")
+				.withMainStat(0.45).withSpeedStat(0.50).withDurabilityStat(288));
 	}
 	
 	/**
