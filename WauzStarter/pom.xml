@@ -9,6 +9,9 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 
@@ -16,8 +19,8 @@
 
 		<!-- Paper -->
 		<repository>
-		    <id>papermc</id>
-		    <url>https://papermc.io/repo/repository/maven-public/</url>
+			<id>papermc</id>
+			<url>https://papermc.io/repo/repository/maven-public/</url>
 		</repository>
 
 	</repositories>
@@ -26,11 +29,11 @@
 	<dependencies>
 
 		<dependency>
-		    <groupId>com.destroystokyo.paper</groupId>
-		    <artifactId>paper-api</artifactId>
-		    <version>1.14.4-R0.1-SNAPSHOT</version>
-		    <scope>provided</scope>
-		 </dependency>
+			<groupId>com.destroystokyo.paper</groupId>
+			<artifactId>paper-api</artifactId>
+			<version>1.14.4-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.bukkit</groupId>
