@@ -4,7 +4,7 @@
 [![JDK](https://img.shields.io/badge/Java-Oracle%20JDK%208-orange.svg)](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 [![Minecraft](https://img.shields.io/badge/Minecraft-PaperMC%201.14.4-orange.svg)](https://papermc.io/downloads#Paper-1.14)
 [![CodeSize](https://img.shields.io/github/languages/code-size/Wauzmons/WauzCore)](https://shields.io/category/size)
-[![Discord](https://img.shields.io/discord/212147184999596032)](https://discord.gg/bTEVY65)
+[![Discord](https://img.shields.io/discord/212147184999596032)](https://discord.gg/dhHJp5a)
 
 :crown: **Advanced Minecraft MMORPG Engine**: Equipment, Skills, Quests, Shops, Dungeons, Bosses, Pets, Achievements!
 
