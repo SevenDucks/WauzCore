@@ -1,26 +1,17 @@
 package eu.wauz.wauzcore.system.nms;
 
-import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_14_R1.ChatMessage;
 import net.minecraft.server.v1_14_R1.ChatMessageType;
-import net.minecraft.server.v1_14_R1.EntityArmorStand;
-import net.minecraft.server.v1_14_R1.EntityChicken;
-import net.minecraft.server.v1_14_R1.EntityTypes;
 import net.minecraft.server.v1_14_R1.IChatBaseComponent;
 import net.minecraft.server.v1_14_R1.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_14_R1.PacketPlayInClientCommand;
 import net.minecraft.server.v1_14_R1.PacketPlayInClientCommand.EnumClientCommand;
 import net.minecraft.server.v1_14_R1.PacketPlayOutChat;
-import net.minecraft.server.v1_14_R1.WorldServer;
 
 /**
  * Collection of general net.minecraft.server specific methods.
@@ -111,165 +102,4 @@ public class WauzNmsClient {
 		((CraftEntity) entity).getHandle().persist = persistent;
 	}
 	
-	/**
-	 * Creates a hologram entity.
-	 * 
-	 * @param location The spawn location of the hologram.
-	 * @param display The text of the hologram.
-	 * 
-	 * @return The created entity.
-	 */
-	public static org.bukkit.entity.Entity nmsCustomEntityHologram(Location location, String display) {
-		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
-		double x = location.getX();
-		double y = location.getY();
-		double z = location.getZ();
-		
-		return new Hologram(worldServer, x, y, z, display).getBukkitEntity();
-	}
-	
-	/**
-	 * A hologram entity based on an armor stand.
-	 * 
-	 * @author Wauzmons
-	 */
-	private static class Hologram extends EntityArmorStand {
-		
-		/**
-		 * Creates a hologram entity.
-		 * 
-		 * @param worldServer The world server to create the entity on.
-		 * @param x The x coordinate of the spawn location.
-		 * @param y The y coordinate of the spawn location.
-		 * @param z The z coordinate of the spawn location.
-		 * @param display The text of the hologram.
-		 */
-		public Hologram(WorldServer worldServer, double x, double y, double z, String display) {
-			super(worldServer, x, y, z);
-			
-			this.collides = false;
-			this.persist = false;
-			this.canPickUpLoot = false;
-			
-			this.setInvisible(true);
-			this.setInvulnerable(true);
-			this.setSmall(false);
-			this.setCustomName(new ChatMessage(display));
-			this.setCustomNameVisible(true);
-
-			worldServer.addEntity(this);
-		}
-		
-	}
-	
-	/**
-	 * Creates a totem entity.
-	 * 
-	 * @param player The owner of the totem.
-	 * @param headItemStack The head of the totem.
-	 * 
-	 * @return The created entity.
-	 */
-	public static org.bukkit.entity.Entity nmsCustomEntityTotem(Player player, ItemStack headItemStack) {
-		Location location = player.getLocation();
-		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
-		double x = location.getX();
-		double y = location.getY();
-		double z = location.getZ();
-		String display = ChatColor.GREEN + player.getDisplayName() + "'s Totem";
-		
-		return new Totem(worldServer, x, y, z, display, headItemStack).getBukkitEntity();
-	}
-	
-	/**
-	 * A totem entity based on an armor stand.
-	 * 
-	 * @author Wauzmons
-	 */
-	private static class Totem extends EntityArmorStand {
-		
-		/**
-		 * Creates a totem entity.
-		 * 
-		 * @param worldServer The world server to create the entity on.
-		 * @param x The x coordinate of the spawn location.
-		 * @param y The y coordinate of the spawn location.
-		 * @param z The z coordinate of the spawn location.
-		 * @param display The text of the totem.
-		 * @param headItemStack The head of the totem.
-		 */
-		public Totem(WorldServer worldServer, double x, double y, double z, String display, ItemStack headItemStack) {
-			super(worldServer, x, y, z);
-			
-			this.collides = false;
-			this.persist = false;
-			this.canPickUpLoot = false;
-			
-			this.setInvisible(false);
-			this.setInvulnerable(true);
-			this.setSmall(true);
-			this.setCustomName(new ChatMessage(display));
-			this.setCustomNameVisible(true);
-			
-			this.setArms(false);
-			this.setBasePlate(false);
-			
-			ArmorStand armorStand = (ArmorStand) this.getBukkitEntity();
-			armorStand.setHelmet(headItemStack);
-
-			worldServer.addEntity(this);
-		}
-		
-	}
-	
-	/**
-	 * Creates a chickoon (indestructible chicken) entity.
-	 * 
-	 * @param location The spawn location of the chickoon.
-	 * 
-	 * @return The created entity.
-	 */
-	public static org.bukkit.entity.Entity nmsCustomEntityChickoon(Location location) {
-		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
-		double x = location.getX();
-		double y = location.getY();
-		double z = location.getZ();
-		return new Chickoon(worldServer, x, y, z).getBukkitEntity();
-	}
-	
-	/**
-	 * A chickoon entity based on a normal chicken.
-	 * 
-	 * @author Wauzmons
-	 */
-	private static class Chickoon extends EntityChicken {
-		
-		/**
-		 * Creates a chickoon entity.
-		 * 
-		 * @param worldServer The world server to create the entity on.
-		 * @param x The x coordinate of the spawn location.
-		 * @param y The y coordinate of the spawn location.
-		 * @param z The z coordinate of the spawn location.
-		 */
-		public Chickoon(WorldServer worldServer, double x, double y, double z) {
-			super(EntityTypes.CHICKEN, worldServer);
-			
-			this.locX = x;
-			this.locY = y;
-			this.locZ = z;
-			
-			this.collides = false;
-			this.persist = false;
-			this.canPickUpLoot = false;
-			
-			this.setInvisible(false);
-			this.setInvulnerable(true);
-			this.setAge(1, true);
-			
-			worldServer.addEntity(this);
-		}
-		
-	}
-
 }

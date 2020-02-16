@@ -3,13 +3,14 @@ package eu.wauz.wauzcore.items.weapons;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Effect;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Chicken;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -22,9 +23,13 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
+import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.nms.NmsEntityChickoon;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Cooldown;
+import net.md_5.bungee.api.ChatColor;
 
 /**
  * A collection of methods for using the glider weapon.
@@ -32,6 +37,11 @@ import eu.wauz.wauzcore.system.util.Cooldown;
  * @author Wauzmons
  */
 public class CustomWeaponGlider {
+	
+	/**
+	 * A particle, used to represent chicken feathers.
+	 */
+	private static SkillParticle particle = new SkillParticle(Color.WHITE);
 	
 	/**
 	 * Cancels the event of a feather interaction.
@@ -57,7 +67,7 @@ public class CustomWeaponGlider {
 	/**
 	 * Shoots a chicken in the player's eye direction.
 	 * The chicken explodes and spawns more chickens and AAAAAAAHHH!!
-	 * Makes the glider loose 6 durability.
+	 * Makes the glider loose 4 durability.
 	 * 
 	 * @param player The player who is shooting the chicken.
 	 * 
@@ -74,24 +84,25 @@ public class CustomWeaponGlider {
 			return;
 		}
 		
-		player.getWorld().playSound(origin, Sound.ENTITY_CHICKEN_HURT, 1, 0.75f);
-		player.getWorld().playSound(origin, Sound.ENTITY_CHICKEN_HURT, 1, 1.00f);
-		player.getWorld().playSound(origin, Sound.ENTITY_CHICKEN_HURT, 1, 1.25f);
+		playChickenSounds(origin);
+		ParticleSpawner.spawnParticleHelix(origin, particle, 1, 2);
 		
 		ItemStack gliderItemStack = player.getEquipment().getItemInMainHand();
-		int damage = EquipmentUtils.getBaseAtk(gliderItemStack);
-		DurabilityCalculator.damageItem(player, gliderItemStack, 6, false);
+		int damage = (int) (EquipmentUtils.getBaseAtk(gliderItemStack) * 1.5);
+		DurabilityCalculator.damageItem(player, gliderItemStack, 4, false);
 		
-		Entity chicken = WauzNmsClient.nmsCustomEntityChickoon(origin.clone().add(0, 0.5, 0));
-		chicken.setVelocity(origin.getDirection().multiply(1.75));
+		Entity chicken = origin.getWorld().spawnEntity(origin.clone().add(0, 0.5, 0), EntityType.CHICKEN);
+		WauzNmsClient.nmsEntityPersistence(chicken, false);
+		chicken.setInvulnerable(true);
+		chicken.setVelocity(origin.getDirection().multiply(1.25));
 		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
 	        public void run() {
 	        	if(chicken != null && chicken.isValid()) {
         			SkillUtils.createExplosion(chicken.getLocation(), 5);
-        			for(Entity target : SkillUtils.getTargetsInRadius(origin, 3.5)) {
-        				Entity tempChicken = spawnTemporaryChicken(target.getLocation(), 20);
+        			for(Entity target : SkillUtils.getTargetsInRadius(origin, 4)) {
+        				Entity tempChicken = spawnTemporaryChicken(target.getLocation(), 30);
         				target.addPassenger(tempChicken);
         				SkillUtils.callPlayerFixedDamageEvent(player, target, damage);
         			}
@@ -99,9 +110,9 @@ public class CustomWeaponGlider {
         		}
 	        }
 	        
-		}, 200);
+		}, 20);
 	}
-	
+
 	/**
 	 * Throws the player into the air and triggers gliding.
 	 * Damages all entities inside a 2.5 block radius particle shape.
@@ -119,18 +130,33 @@ public class CustomWeaponGlider {
 		if(!Cooldown.playerProjectileShoot(player)) {
 			return;
 		}
+		ItemStack gliderItemStack = player.getEquipment().getItemInMainHand();
+		if(EquipmentUtils.getCurrentDurability(gliderItemStack) <= 12) {
+			player.sendMessage(ChatColor.RED + "Glider durability too low!");
+		}
 		
-		player.getWorld().playSound(origin, Sound.ENTITY_CHICKEN_DEATH, 1, 0.75f);
-		player.getWorld().playEffect(origin, Effect.ENDERDRAGON_GROWL, 0);
+		playChickenSounds(origin);
+		ParticleSpawner.spawnParticleCircle(origin, particle, 1.5, 8);
+		ParticleSpawner.spawnParticleCircle(origin, particle, 2.5, 18);
 		SkillUtils.throwEntityIntoAir(player, 2.5);
 		
-		ItemStack gliderItemStack = player.getEquipment().getItemInMainHand();
 		int damage = EquipmentUtils.getBaseAtk(gliderItemStack);
 		List<Entity> targets = SkillUtils.getTargetsInRadius(origin, 2.5);
 		for(Entity entity : targets) {
 			SkillUtils.callPlayerFixedDamageEvent(player, entity, damage);
 		}
 		DurabilityCalculator.damageItem(player, gliderItemStack, 12, false);
+	}
+	
+	/**
+	 * Plays three chicken sounds in different pitches at the same time.
+	 * 
+	 * @param origin The location where the sounds should originate from.
+	 */
+	private static void playChickenSounds(Location origin) {
+		origin.getWorld().playSound(origin, Sound.ENTITY_CHICKEN_HURT, 1, 0.75f);
+		origin.getWorld().playSound(origin, Sound.ENTITY_CHICKEN_HURT, 1, 1.00f);
+		origin.getWorld().playSound(origin, Sound.ENTITY_CHICKEN_HURT, 1, 1.25f);
 	}
 
 	/**
@@ -143,15 +169,15 @@ public class CustomWeaponGlider {
 	 */
 	public static void glide(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
-		boolean hasChick = false;
+		boolean hasChicken = false;
 		for(Entity passanger : player.getPassengers()) {
 			if(passanger instanceof Chicken) {
-				hasChick = true;
+				hasChicken = true;
 			}
 		}
-		if(!hasChick) {
-			Entity chick = WauzNmsClient.nmsCustomEntityChickoon(player.getLocation());
-			WauzDebugger.log(player, "Added Head-Chick: " + player.addPassenger(chick));
+		if(!hasChicken) {
+			Entity chicken = NmsEntityChickoon.create(player.getLocation());
+			WauzDebugger.log(player, "Added Head-Chicken: " + player.addPassenger(chicken));
 		}
 		if(player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType().equals(Material.AIR)) {
 			Vector dir = player.getLocation().getDirection().multiply(0.2);
@@ -208,7 +234,7 @@ public class CustomWeaponGlider {
 	 * @see WauzNmsClient#nmsCustomEntityChickoon(Location)
 	 */
 	private static Entity spawnTemporaryChicken(Location location, int duration) {
-		Entity chicken = WauzNmsClient.nmsCustomEntityChickoon(location);
+		Entity chicken = NmsEntityChickoon.create(location);
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
 	        public void run() {

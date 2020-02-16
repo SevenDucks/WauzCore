@@ -1,4 +1,5 @@
 name: WauzStarter
+description: Advanced Minecraft MMORPG Engine - Startup Module
 main: eu.wauz.wauzstarter.WauzStarter
 website: http://wauz.eu/
 version: 1.0

@@ -29,6 +29,6 @@ It is highly discouraged to compile the plugin and use it for your server. It cu
 
 There is currently a demo in development. The test server is not publicly accessible though. [Seven Ducks](https://github.com/SevenDucks) plans to create a full [MMORPG experience in Minecraft](https://www.wauz.eu) by 2022, all without the need for mods or data packs. Unlike Wynncraft it will be completely open source and provide APIs to add your own Skills or Equipment, so we hope it's worth the wait. All content will be released on the DelseyriaRPG Minecraft server, as soon as the first stable build is ready.
 
-:european_castle: Join the Delseyria Discord and chat with the Devs: https://discord.gg/bTEVY65
+:european_castle: Join the Delseyria Discord and chat with the Devs: https://discord.gg/dhHJp5a
 
 :bird: Keep up to date on Twitter: https://twitter.com/wauzmons

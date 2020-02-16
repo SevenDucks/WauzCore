@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.nms.NmsEntityHologram;
 import eu.wauz.wauzcore.system.util.Chance;
 import net.md_5.bungee.api.ChatColor;
 
@@ -115,7 +115,7 @@ public class ValueIndicator {
 	 * @see ValueIndicator#queueIndicatorDespawn(Entity)
 	 */
 	private static void spawnIndicator(Location location, String display) {		
-		Entity indicator = WauzNmsClient.nmsCustomEntityHologram(location, display);
+		Entity indicator = NmsEntityHologram.create(location, display);
 		indicator.setVelocity(new Vector(Chance.negativePositive(0.1f), 0.5f, Chance.negativePositive(0.1f)));	
 		
 		queueIndicatorDespawn(indicator);

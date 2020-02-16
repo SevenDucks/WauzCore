@@ -1,4 +1,5 @@
 name: WauzDiscord
+description: Advanced Minecraft MMORPG Engine - Discord Addon
 main: eu.wauz.wauzdiscord.WauzDiscord
 website: http://wauz.eu/
 version: 1.0

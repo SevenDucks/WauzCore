@@ -1,4 +1,5 @@
 name: WauzCore
+description: Advanced Minecraft MMORPG Engine - Main Module
 main: eu.wauz.wauzcore.WauzCore
 website: http://wauz.eu/
 version: Behelit.1.Pre

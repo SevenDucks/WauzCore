@@ -229,7 +229,7 @@ public class DamageCalculator {
 	public static void defend(EntityDamageEvent event) {
 		Player player = (Player) event.getEntity();
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null || player.getNoDamageTicks() != 0) {
+		if(playerData == null || player.getNoDamageTicks() != 0 || event.getDamage() == 0) {
 			return;
 		}
 		
@@ -271,7 +271,7 @@ public class DamageCalculator {
 		
 		event.setDamage(0);
 		if(damage < 1) {
-			damage = (blockedDamage >  0) ? 0 : 1;
+			damage = (blockedDamage > 0) ? 0 : 1;
 		}
 		int hp = playerData.getHealth() - damage;
 		if(hp < 0) {

@@ -1,8 +1,32 @@
-Patch 60X: Rapid Racing
+Patch 6XX: Rapid Racing
+
+Patch 6XX: Marvelous Mounts
+
+Patch 6XX: Kingdom Siege
+
+Patch 6XX: Survival Transcended
+
+Patch 6XX: Survival Ascended
 
 Patch 60X: Powerful Professions
 
-Patch 601: Quest for Loot
+Patch 602: Class Specializations
+
+Patch 601: Cultured Citizens
+	New Feature: Citizens
+	  - Custom NPCs roaming the World
+	  - Increase Relation to Unlock Interactions
+	  - Interactions: Talk, Quest, Shop, Inn
+	  - Soulstone Rewards on new Relation Level
+	  - Shop Discounts on new Relation Level
+
+	New Weapon: Glider
+	  - Right Click, Shoot Chicken
+	  - Shift Right Click, Fly
+	  
+	Miscellaneous
+	  - Added Improved Web API
+	  - Reached 100% Code Documentation
 
 Patch 511: Achievement Arsenal
 	New Feature: Achievements

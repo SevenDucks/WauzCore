@@ -25,7 +25,7 @@ import eu.wauz.wauzcore.mobs.MobMetadataUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.nms.NmsEntityTotem;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -276,7 +276,7 @@ public class SkillUtils {
 	 * @param interval The server ticks between each execution.
 	 */
 	public static void spawnTotem(Player owner, Material material, TotemRunnable runnable, int ticks, int interval) {
-		Entity totem = WauzNmsClient.nmsCustomEntityTotem(owner, new ItemStack(material));
+		Entity totem = NmsEntityTotem.create(owner, new ItemStack(material));
 		callTotemEvent(totem, runnable, ticks, interval);
 	}
 	
