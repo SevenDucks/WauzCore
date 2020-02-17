@@ -1,7 +1,9 @@
 package eu.wauz.wauzcore.data;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
@@ -146,6 +148,67 @@ public class CitizenConfigurator extends GlobalConfigurationUtils {
 	public static ItemStack getEquippedBootsItem(String citizen) {
 		String materialName = citizenConfigGetString(citizen, "items.boots");
 		return new ItemStack(StringUtils.isEmpty(materialName) ? Material.AIR : Material.getMaterial(materialName));
+	}
+	
+// Interactions
+	
+	/**
+	 * @param citizen The name of the citizen.
+	 * 
+	 * @return All possible interactions.
+	 */
+	public static Set<String> getInteractionKeys(String citizen) {
+		return citizenConfigGetKeys(citizen, "interactions");
+	}
+	
+	/**
+	 * @param citizen The name of the citizen.
+	 * @param interaction The key of the citizen interaction.
+	 * 
+	 * @return The type of the interaction.
+	 */
+	public static String getInteractionType(String citizen, String interaction) {
+		return citizenConfigGetString(citizen, "interactions." + interaction + ".type");
+	}
+	
+	/**
+	 * @param citizen The name of the citizen.
+	 * @param interaction The key of the citizen interaction.
+	 * 
+	 * @return The name of the interaction.
+	 */
+	public static String getInteractionName(String citizen, String interaction) {
+		return citizenConfigGetString(citizen, "interactions." + interaction + ".name");
+	}
+	
+	/**
+	 * @param citizen The name of the citizen.
+	 * @param interaction The key of the citizen interaction.
+	 * 
+	 * @return The required relation level of the interaction.
+	 */
+	public static int getInteractionLevel(String citizen, String interaction) {
+		return citizenConfigGetInt(citizen, "interactions." + interaction + ".level");
+	}
+	
+	/**
+	 * @param citizen The name of the citizen.
+	 * @param interaction The key of the citizen interaction.
+	 * 
+	 * @return The chat command of the interaction.
+	 */
+	public static String getInteractionCommand(String citizen, String interaction) {
+		return citizenConfigGetString(citizen, "interactions." + interaction + ".command");
+	}
+	
+	/**
+	 * @param citizen The name of the citizen.
+	 * @param interaction The key of the citizen interaction.
+	 * 
+	 * @return The chat messages of the interaction.
+	 */
+	public static List<String> getInteractionMessages(String citizen, String interaction) {
+		return citizenConfigGetStringList(citizen, "interactions." + interaction + ".messages");
 	}
 	
 }

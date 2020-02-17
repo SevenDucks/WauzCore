@@ -15,3 +15,43 @@ items:
   chestplate: IRON_CHESTPLATE
   leggings:
   boots:
+interactions:
+  1:
+    type: talk
+    name: Who are you?
+    level: 0
+    messages:
+      - 'I am the keeper of this realm...'
+      - 'I shall decide over the fate of the dead.'
+      - 'The death gods chose me as their representative.'
+      - 'I shall fulfill their wills.'
+  2:
+    type: talk
+    name: Where am I?
+    level: 0
+    messages:
+      - 'This is the Shinigami Library.'
+      - 'The place where all lost souls dwell.'
+      - 'Your time has not come yet.'
+      - 'The death god granted you new life.'
+  3:
+    type: shop
+    name: Grell
+    level: 0
+  4:
+    type: quest
+    name: Knuckles
+    level: 0
+  5:
+    type: inn
+    level: 1
+  6:
+    type: command
+    name: Teleport to Spawn
+    level: 0
+    command: spawn
+  7:
+    type: command
+    name: Teleport to Hub
+    level: 0
+    command: hub

@@ -141,6 +141,11 @@ public class WauzCitizen {
 	private ItemStack bootsItemStack;
 	
 	/**
+	 * The interaction options of the citizen.
+	 */
+	private WauzCitizenInteractions interactions;
+	
+	/**
 	 * Constructs a citizen, based on the citizen file name in the /WauzCore/CitizenData folder.
 	 * 
 	 * @param citizenName The canonical name of the citizen.
@@ -160,6 +165,8 @@ public class WauzCitizen {
 		chestplateItemStack = CitizenConfigurator.getEquippedChestplateItem(citizenName);
 		leggingsItemStack = CitizenConfigurator.getEquippedLeggingsItem(citizenName);
 		bootsItemStack = CitizenConfigurator.getEquippedBootsItem(citizenName);
+		
+		interactions = new WauzCitizenInteractions(citizenName);
 	}
 
 	/**
@@ -244,6 +251,13 @@ public class WauzCitizen {
 	 */
 	public ItemStack getBootsItemStack() {
 		return bootsItemStack;
+	}
+
+	/**
+	 * @return The interaction options of the citizen.
+	 */
+	public WauzCitizenInteractions getInteractions() {
+		return interactions;
 	}
 
 }

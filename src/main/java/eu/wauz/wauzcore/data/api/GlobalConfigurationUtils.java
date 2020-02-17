@@ -229,6 +229,24 @@ public class GlobalConfigurationUtils {
 		return citizenDataConfig.getBoolean(path);
 	}
 	
+	/**
+	 * Gets a key set from a citizen config.
+	 * 
+	 * @param citizen The name of the citizen config file.
+	 * @param path The key path of the value to get.
+	 * 
+	 * @return The requested key set.
+	 */
+	protected static Set<String> citizenConfigGetKeys(String citizen, String path) {
+		File citizenDataFile = new File(core.getDataFolder(), "CitizenData/" + citizen + ".yml");
+		FileConfiguration citizenDataConfig = YamlConfiguration.loadConfiguration(citizenDataFile);	
+		if(path == null) {
+			return citizenDataConfig.getKeys(false);
+		}
+		ConfigurationSection section = citizenDataConfig.getConfigurationSection(path);
+		return section != null ? section.getKeys(false) : Collections.emptySet();
+	}
+	
 // Interact with Shop-Config
 
 	/**

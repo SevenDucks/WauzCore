@@ -292,6 +292,50 @@ public class HeadUtils {
 		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGIyMjFjYjk2MDdjOGE5YmYwMmZlZjVkNzYxNGUzZWIxNjljYzIxOWJmNDI1MGZkNTcxNWQ1ZDJkNjA0NWY3In19fQ==");
 	}
 	
+// Citizen Icons
+	
+	/**
+	 * @return An item stack representing a heart icon.
+	 */
+	public static ItemStack getCitizenRelationItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDg2NWEzODNhNGRjYTA4YzVkYWFiNmFjZTQxMTc3MjA5NWVlNjMyN2MxMjI3MDNhMjIyNDQyZjIxNDFjMmMzZCJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a speech bubble.
+	 */
+	public static ItemStack getCitizenTalkItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQ4Y2UxY2YxOGFmMDVhNTc2ZDYwODEyMzAwMWI3OTFmZWRiNjIyOTExZWY4ZDM4YTMyMGRhM2JjYmY2ZmQyMCJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a green dollar sign.
+	 */
+	public static ItemStack getCitizenShopItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDdiNjljOWRmYjYxMDY3Yzk0ODRkZjdkMDNlNjNmMTc4OTVjOWNkYTMzMjVjMmM1MzRhNWMyMjM1ODU1NzYzMSJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a yellow exclamation mark.
+	 */
+	public static ItemStack getCitizenQuestItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjZlNTIyZDkxODI1MjE0OWU2ZWRlMmVkZjNmZTBmMmMyYzU4ZmVlNmFjMTFjYjg4YzYxNzIwNzIxOGFlNDU5NSJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing an inn building.
+	 */
+	public static ItemStack getCitizenInnItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzc0MTBjMDdiZmJiNDE0NTAwNGJmOTE4YzhkNjMwMWJkOTdjZTEzMjcwY2UxZjIyMWQ5YWFiZWUxYWZkNTJhMyJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a command block.
+	 */
+	public static ItemStack getCitizenCommandItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjc3MTJjYTY1NTEyODcwMWVhM2U1ZjI4ZGRkNjllNmE4ZTYzYWRmMjgwNTJjNTFiMmZkNWFkYjUzOGUxIn19fQ==");
+	}
+	
 // General Elements
 	
 	/**

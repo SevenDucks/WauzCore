@@ -140,6 +140,39 @@ public class MenuUtils {
 	}
 	
 	/**
+	 * Sets the display name of an item stack.
+	 * 
+	 * @param itemStack The item to set the display name for.
+	 * @param displayName The new display name.
+	 */
+	public static void setItemDisplayName(ItemStack itemStack, String displayName) {
+		if(itemStack == null || !itemStack.hasItemMeta()) {
+			return;
+		}
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		itemMeta.setDisplayName(displayName);
+		itemStack.setItemMeta(itemMeta);
+	}
+	
+	/**
+	 * Adds a lore line to an item stack.
+	 * 
+	 * @param itemStack The item stack which receives the lore.
+	 * @param loreLine The lore line to add to the item stack.
+	 * @param replaceAll If existing lore should be replaced.
+	 */
+	public static void addItemLore(ItemStack itemStack, String loreLine, boolean replaceAll) {
+		if(itemStack == null || !itemStack.hasItemMeta()) {
+			return;
+		}
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		List<String> lores = (replaceAll || !itemMeta.hasLore()) ? new ArrayList<>() : itemMeta.getLore();
+		lores.add(loreLine);
+		itemMeta.setLore(lores);
+		itemStack.setItemMeta(itemMeta);
+	}
+	
+	/**
 	 * Prevents interactions with static and cosmetic items on click.
 	 * Also triggers scroll effects and the main menu opening.
 	 * 
