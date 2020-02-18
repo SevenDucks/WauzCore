@@ -21,6 +21,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
+import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTalk;
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestAccept;
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestCancel;
 import eu.wauz.wauzcore.items.WauzRewards;
@@ -531,10 +532,7 @@ public class QuestBuilder implements WauzInventory {
 		}
 		
 		if(!type.equals("daily") && PlayerQuestConfigurator.isQuestCompleted(player, questName)) {
-			List<String> lores = quest.getCompletedDialog();
-			for(String lore : lores) {
-				player.sendMessage((questGiver + lore).replaceAll("player", player.getName()));
-			}
+			new WauzPlayerEventCitizenTalk(questGiver, questGiver, quest.getCompletedDialog()).execute(player);
 		}
 		
 		String questDisplayName = quest.getDisplayName();
@@ -562,7 +560,8 @@ public class QuestBuilder implements WauzInventory {
 // Check if Objectives are fulfilled
 		
 		if(!new QuestRequirementChecker(player, quest, phase).tryToHandInQuest()) {
-			player.sendMessage(questGiver + quest.getUncompletedMessage(phase).replaceAll("player", player.getName()));
+			List<String> message = Collections.singletonList(quest.getUncompletedMessage(phase));
+			new WauzPlayerEventCitizenTalk(questGiver, questGiver, message).execute(player);
 			return;
 		}
 		
@@ -572,10 +571,7 @@ public class QuestBuilder implements WauzInventory {
 			try {
 				phase++;
 				PlayerQuestConfigurator.setQuestPhase(player, questName, phase);
-				List<String> lores = quest.getPhaseDialog(phase);
-				for(String lore : lores) {
-					player.sendMessage((questGiver + lore).replaceAll("player", player.getName()));
-				}
+				new WauzPlayerEventCitizenTalk(questGiver, questGiver, quest.getPhaseDialog(phase)).execute(player);
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -594,10 +590,7 @@ public class QuestBuilder implements WauzInventory {
 				player.sendMessage(ChatColor.GREEN + "You completed [" + questDisplayName + "]");
 				WauzRewards.level(player, quest.getLevel(), 2.5 * phaseAmount, questLocation);
 				WauzRewards.mmorpgToken(player);
-				List<String> lores = quest.getCompletedDialog();
-				for(String lore : lores) {
-					player.sendMessage((questGiver + lore).replaceAll("player", player.getName()));
-				}
+				new WauzPlayerEventCitizenTalk(questGiver, questGiver, quest.getCompletedDialog()).execute(player);
 			}
 			catch(Exception e) {
 				e.printStackTrace();

@@ -72,10 +72,14 @@ import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponHook;
+import eu.wauz.wauzcore.menu.CitizenInteractionMenu;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.mobs.MenacingMobsSpawner;
 import eu.wauz.wauzcore.mobs.MobEventMapper;
+import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
+import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
+import eu.wauz.wauzcore.mobs.citizens.WauzCitizensSpawner;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
@@ -92,6 +96,7 @@ import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
 import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobSpawnEvent;
+import net.jitse.npclib.api.events.NPCInteractEvent;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -212,12 +217,27 @@ public class WauzListener implements Listener {
 	 * 
 	 * @param event
 	 * 
-	 * @see EventMapper
+	 * @see EventMapper#handleEntityInteraction(PlayerInteractEntityEvent)
 	 */
 	@EventHandler
 	public void onEntityInteraction(PlayerInteractEntityEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer()) && event.getRightClicked().getCustomName() != null) {
 			EventMapper.handleEntityInteraction(event);
+		}
+	}
+	
+	/**
+	 * Opens the citzen interaction menu for the player who clicked the npc.
+	 * 
+	 * @param event
+	 * 
+	 * @see CitizenInteractionMenu#open(Player, WauzCitizen)
+	 */
+	@EventHandler
+	public void onCitizenInteraction(NPCInteractEvent event) {
+		if(WauzMode.isMMORPG(event.getWhoClicked())) {
+			WauzCitizen citizen = WauzCitizenSpawner.getCitizen(event.getNPC());
+			CitizenInteractionMenu.open(event.getWhoClicked(), citizen);
 		}
 	}
 

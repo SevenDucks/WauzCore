@@ -15,7 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.data.RegionConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEventListener;
-import eu.wauz.wauzcore.mobs.citizens.WauzCitizensSpawner;
+import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
@@ -138,7 +138,7 @@ public class WauzCore extends JavaPlugin {
 				for(Player player : getRegisteredActivePlayers()) {
 					WauzPlayerScoreboard.scheduleScoreboard(player);
 					WauzRegion.regionCheck(player);
-					WauzCitizensSpawner.showNpcsNearPlayer(player);
+					WauzCitizenSpawner.showNpcsNearPlayer(player);
 				}
 			}
 		}, 200, 60);

@@ -3,6 +3,11 @@ package eu.wauz.wauzcore.events;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.menu.WauzDialog;
+import eu.wauz.wauzcore.players.WauzPlayerData;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import net.md_5.bungee.api.ChatColor;
+
 /**
  * An event that lets a player sleep in an inn of a citizen.
  * 
@@ -40,7 +45,19 @@ public class WauzPlayerEventCitizenInn implements WauzPlayerEvent {
 	 */
 	@Override
 	public boolean execute(Player player) {
-		return false;
+		try {
+			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+			playerData.setWauzPlayerEventName("Change Home");
+			playerData.setWauzPlayerEvent(new WauzPlayerEventHomeChange(location, false));
+			WauzDialog.open(player);
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			player.sendMessage(ChatColor.RED + "An Error occurred while interacting with " + citizenName + "!");
+			player.closeInventory();
+			return false;
+		}
 	}
 
 }

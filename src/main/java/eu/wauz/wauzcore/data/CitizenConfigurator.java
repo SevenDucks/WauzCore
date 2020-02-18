@@ -1,7 +1,6 @@
 package eu.wauz.wauzcore.data;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -30,6 +29,15 @@ public class CitizenConfigurator extends GlobalConfigurationUtils {
 	}
 
 // General Parameters
+	
+	/**
+	 * @param citizen The name of the citizen.
+	 * 
+	 * @return The name of the citizen, as shown in chat.
+	 */
+	public static String getDisplayName(String citizen) {
+		return citizenConfigGetString(citizen, "display");
+	}
 	
 	/**
 	 * @param citizen The name of the citizen.

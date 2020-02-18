@@ -105,7 +105,7 @@ public class EventMapper {
 			WauzDebugger.log(player, "Clicked Inn NPC '" + name[1] + "'");
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 			playerData.setWauzPlayerEventName("Change Home");
-			playerData.setWauzPlayerEvent(new WauzPlayerEventHomeChange(event.getRightClicked(), false));
+			playerData.setWauzPlayerEvent(new WauzPlayerEventHomeChange(event.getRightClicked().getLocation(), false));
 			WauzDialog.open(player);
 		}
 		

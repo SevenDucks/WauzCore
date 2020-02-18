@@ -16,13 +16,12 @@ import net.jitse.npclib.api.state.NPCState;
 
 /**
  * A class to handle spawning / despawning, aswell as rendering of citizen npcs.
- * Events you may want to use are NPCShowEvent, NPCHideEvent and NPCInteractEvent.
  * 
  * @author Wauzmons
  * 
  * @see WauzCitizen
  */
-public class WauzCitizensSpawner {
+public class WauzCitizenSpawner {
 	
 	/**
 	 * Access to the NPCLib API.
@@ -35,10 +34,17 @@ public class WauzCitizensSpawner {
 	private static Map<WauzCitizen, NPC> citizenNpcMap = new HashMap<>(); 
 	
 	/**
+	 * A map of citizens, indexed by npc.
+	 */
+	private static Map<NPC, WauzCitizen> npcCitizenMap = new HashMap<>();
+	
+	/**
 	 * Creates a citizen npc using the npc lib.
 	 * The npc won't be visible, till it is shown to a player.
 	 * 
 	 * @param citizen The citizen, that should be created.
+	 * 
+	 * @see WauzCitizenSpawner#registerNpc(WauzCitizen, NPC)
 	 */
 	public static void createNpc(WauzCitizen citizen) {
         MineSkinFetcher.fetchSkinFromIdAsync(citizen.getSkinId(), skin -> {
@@ -58,9 +64,36 @@ public class WauzCitizensSpawner {
             npc.setItem(NPCSlot.LEGGINGS, citizen.getLeggingsItemStack());
             npc.setItem(NPCSlot.BOOTS, citizen.getBootsItemStack());
             npc.create();
-            Bukkit.getScheduler().runTask(WauzCore.getInstance(), () -> citizenNpcMap.put(citizen, npc));
+            Bukkit.getScheduler().runTask(WauzCore.getInstance(), () -> registerNpc(citizen, npc));
         });
 	}
+	
+	/**
+	 * Registers the given citizen npc, to retrieve it when needed.
+	 * 
+	 * @param citizen The citizen to register.
+	 * @param npc The npc object bound to the citzen.
+	 * 
+	 * @see WauzCitizenSpawner#getCitizen(NPC)
+	 */
+	public static void registerNpc(WauzCitizen citizen, NPC npc) {
+		citizenNpcMap.put(citizen, npc);
+		npcCitizenMap.put(npc, citizen);
+	}
+	
+	/**
+	 * Retrieves a registered citizen from the npc map.
+	 * 
+	 * @param npc The npc object bound to the citzen.
+	 * 
+	 * @return The requested citizen.
+	 * 
+	 * @see WauzCitizenSpawner#registerNpc(WauzCitizen, NPC)
+	 */
+	public static WauzCitizen getCitizen(NPC npc) {
+		return npcCitizenMap.get(npc);
+	}
+	
 	/**
 	 * Shows all npcs near the given player to them and updates the npc's look direction. 
 	 * 

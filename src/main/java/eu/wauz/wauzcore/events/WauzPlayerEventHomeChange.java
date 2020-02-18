@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.events;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -17,9 +18,9 @@ import net.md_5.bungee.api.ChatColor;
 public class WauzPlayerEventHomeChange implements WauzPlayerEvent {
 	
 	/**
-	 * The "innkeeper" at the new home location.
+	 * The location of the innkeeper, to set the home to.
 	 */
-	private Entity innkeeper;
+	private Location innkeeperLocation;
 	
 	/**
 	 * If the event was triggered by a command.
@@ -35,11 +36,11 @@ public class WauzPlayerEventHomeChange implements WauzPlayerEvent {
 	 * Creates an event to set the new home location of a player,
 	 * to the position of an innkeeper.
 	 * 
-	 * @param innkeeper The "innkeeper" at the new home location.
+	 * @param innkeeperLocation The location of the innkeeper, to set the home to.
 	 * @param fromCommand If the event was triggered by a command.
 	 */
-	public WauzPlayerEventHomeChange(Entity innkeeper, boolean fromCommand) {
-		this.innkeeper = innkeeper;
+	public WauzPlayerEventHomeChange(Location innkeeperLocation, boolean fromCommand) {
+		this.innkeeperLocation = innkeeperLocation;
 		this.fromCommand = fromCommand;
 	}
 	
@@ -47,11 +48,11 @@ public class WauzPlayerEventHomeChange implements WauzPlayerEvent {
 	 * Creates an event to set the new home location of a player,
 	 * to the position of an innkeeper.
 	 * 
-	 * @param innkeeper The "innkeeper" (in this case likely the player himself) at the new home location.
+	 * @param innkeeper The location of the innkeeper (in this case likely the player himself), to set the home to.
 	 * @param scroll The scroll that triggered the event.
 	 */
-	public WauzPlayerEventHomeChange(Entity innkeeper, ItemStack scroll) {
-		this.innkeeper = innkeeper;
+	public WauzPlayerEventHomeChange(Location innkeeperLocation, ItemStack scroll) {
+		this.innkeeperLocation = innkeeperLocation;
 		this.scroll = scroll;
 	}
 	
@@ -74,19 +75,19 @@ public class WauzPlayerEventHomeChange implements WauzPlayerEvent {
 				player.sendMessage(ChatColor.RED + "You can't do that in this world!");
 				return true;
 			}
-			WauzRegion region = WauzRegion.getNewRegion(innkeeper.getLocation());
+			WauzRegion region = WauzRegion.getNewRegion(innkeeperLocation);
 			if(region == null) {
 				player.sendMessage(ChatColor.RED + "Setting home failed: Your current region is unknown!");
 				return true;
 			}
-			PlayerConfigurator.setCharacterHearthstone(player, innkeeper.getLocation(), region.getTitle());
+			PlayerConfigurator.setCharacterHearthstone(player, innkeeperLocation, region.getTitle());
 			player.sendMessage(ChatColor.GREEN
 					+ region.getTitle() + " is now your new home location!" + (WauzMode.isMMORPG(player)
 					? " Speak to an Innkeeper in a different place to change your home." : ""));
 			
-			if(scroll != null)
+			if(scroll != null) {
 				scroll.setAmount(scroll.getAmount() - 1);
-			
+			}
 			return true;
 		}
 		catch(Exception e) {

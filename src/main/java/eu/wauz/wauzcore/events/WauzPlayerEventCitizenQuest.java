@@ -2,6 +2,9 @@ package eu.wauz.wauzcore.events;
 
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.menu.QuestBuilder;
+import net.md_5.bungee.api.ChatColor;
+
 /**
  * An event that lets a player view a quest of a citizen.
  * 
@@ -36,10 +39,21 @@ public class WauzPlayerEventCitizenQuest implements WauzPlayerEvent {
 	 * @param player The player for the execution.
 	 * 
 	 * @return If the event was executed successfully.
+	 * 
+	 * @see QuestBuilder#accept(Player, String)
 	 */
 	@Override
 	public boolean execute(Player player) {
-		return false;
+		try {
+			QuestBuilder.accept(player, questName);
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			player.sendMessage(ChatColor.RED + "An Error occurred while interacting with " + citizenName + "!");
+			player.closeInventory();
+			return false;
+		}
 	}
 
 }

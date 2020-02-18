@@ -18,7 +18,7 @@ import eu.wauz.wauzcore.data.CitizenConfigurator;
  * 
  * @author Wauzmons
  * 
- * @see WauzCitizensSpawner
+ * @see WauzCitizenSpawner
  */
 public class WauzCitizen {
 	
@@ -26,11 +26,6 @@ public class WauzCitizen {
 	 * A map with lists of citizens, indexed by chunks.
 	 */
 	private static Map<Chunk, List<WauzCitizen>> chunkCitizensMap = new HashMap<>();
-	
-	/**
-	 * A map of citizens, indexed by name.
-	 */
-	private static Map<String, WauzCitizen> citizenMap = new HashMap<>();
 	
 	/**
 	 * The radius in chunks, in which citizens should be rendered.
@@ -45,14 +40,13 @@ public class WauzCitizen {
 	public static void init() {
 		for(String citizenName : CitizenConfigurator.getCitizenNameList()) {
 			WauzCitizen citizen = new WauzCitizen(citizenName);
-			citizenMap.put(citizenName, citizen);
 			
 			Chunk chunk = citizen.getLocation().getChunk();
 			if(chunkCitizensMap.get(chunk) == null) {
 				chunkCitizensMap.put(chunk, new ArrayList<>());
 			}
 			chunkCitizensMap.get(chunk).add(citizen);
-			WauzCitizensSpawner.createNpc(citizen);
+			WauzCitizenSpawner.createNpc(citizen);
 		}
 	}
 	
@@ -84,6 +78,11 @@ public class WauzCitizen {
 	 * The canonical name of the citizen.
 	 */
 	private String citizenName;
+	
+	/**
+	 * The name of the citizen, as shown in chat.
+	 */
+	private String displayName;
 	
 	/**
 	 * The lines of text above the citizen's head.
@@ -153,6 +152,7 @@ public class WauzCitizen {
 	public WauzCitizen(String citizenName) {
 		this.citizenName = citizenName;
 		
+		displayName = CitizenConfigurator.getDisplayName(citizenName);
 		nameLines = CitizenConfigurator.getNameLines(citizenName);
 		location = CitizenConfigurator.getLocation(citizenName);
 		skinId = CitizenConfigurator.getSkinId(citizenName);
@@ -174,6 +174,13 @@ public class WauzCitizen {
 	 */
 	public String getCitizenName() {
 		return citizenName;
+	}
+	
+	/**
+	 * @return The name of the citizen, as shown in chat.
+	 */
+	public String getDisplayName() {
+		return displayName;
 	}
 
 	/**

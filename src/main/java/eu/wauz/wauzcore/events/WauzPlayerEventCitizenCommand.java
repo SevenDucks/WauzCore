@@ -2,6 +2,8 @@ package eu.wauz.wauzcore.events;
 
 import org.bukkit.entity.Player;
 
+import net.md_5.bungee.api.ChatColor;
+
 /**
  * An event that lets a player execute a command of a citizen.
  * 
@@ -39,7 +41,15 @@ public class WauzPlayerEventCitizenCommand implements WauzPlayerEvent {
 	 */
 	@Override
 	public boolean execute(Player player) {
-		return false;
+		try {
+			return player.performCommand(command);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			player.sendMessage(ChatColor.RED + "An Error occurred while interacting with " + citizenName + "!");
+			player.closeInventory();
+			return false;
+		}
 	}
 
 }
