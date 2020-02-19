@@ -25,16 +25,12 @@ import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.QuestBuilder;
 import eu.wauz.wauzcore.menu.ShopBuilder;
-import eu.wauz.wauzcore.menu.WauzDialog;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.WauzModeMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
-import eu.wauz.wauzcore.players.WauzPlayerData;
-import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
-import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -51,8 +47,7 @@ public class EventMapper {
 	 * Called when a player interacts with an entity.
 	 * Only works after a certain cooldown.
 	 * Cancels the sit command for pets.
-	 * Opens according menus for shops, quests, inns and gamemodes.
-	 * NPC type determined by name prefixex like "(S)" for shop.
+	 * TODO: Refactor after npc update.
 	 * 
 	 * @param event The received PlayerInteractEvent.
 	 * 
@@ -89,26 +84,6 @@ public class EventMapper {
 			}, 10);
 			return;
 		}
-		
-		else if(name[0].contains("(S)")) {
-			WauzDebugger.log(player, "Clicked Shop NPC '" + name[1] + "'");
-			ShopBuilder.open(player, name[1]);
-		}
-		
-		else if(name[0].contains("(Q)")) {
-			WauzDebugger.log(player, "Clicked Quest NPC '" + name[1] + "'");
-			QuestBuilder.accept(player, name[1], entity.getLocation());
-			WauzPlayerScoreboard.scheduleScoreboard(player);
-		}
-		
-		else if(name[0].contains("(I)")) {
-			WauzDebugger.log(player, "Clicked Inn NPC '" + name[1] + "'");
-			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-			playerData.setWauzPlayerEventName("Change Home");
-			playerData.setWauzPlayerEvent(new WauzPlayerEventHomeChange(event.getRightClicked().getLocation(), false));
-			WauzDialog.open(player);
-		}
-		
 		else if(name[0].contains("(Play)")) {
 			WauzDebugger.log(player, "Clicked Game NPC '" + name[1] + "'");
 			WauzModeMenu.selectMode(player, name[1]);

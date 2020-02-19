@@ -1,8 +1,7 @@
-display: Highlord Bolvic
+display: Bolvic
 name:
   - Highlord Bolvic
   - §eKeeper of Balance§r
-  - ''
   - ''
 world: Wauzland
 location: -22.5 21 -624.5 -90 0
@@ -24,7 +23,7 @@ interactions:
     messages:
       - 'I am the keeper of this realm...'
       - 'I shall decide over the fate of the dead.'
-      - 'The death gods chose me as their representative.'
+      - 'The death gods chose me as their representative, to bring order to this place.'
       - 'I shall fulfill their wills.'
   2:
     type: talk
@@ -34,7 +33,7 @@ interactions:
       - 'This is the Shinigami Library.'
       - 'The place where all lost souls dwell.'
       - 'Your time has not come yet.'
-      - 'The death god granted you new life.'
+      - 'The death gods granted you new life.'
   3:
     type: shop
     name: Grell

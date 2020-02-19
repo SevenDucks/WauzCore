@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.CitizenConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTalk;
@@ -415,11 +416,12 @@ public class QuestBuilder implements WauzInventory {
 	 * 
 	 * @param player The player who is accepting the quest.
 	 * @param questName The name of the quest.
+	 * @param questCitizen The name of the citizen who gives out the quest.
 	 * 
 	 * @see QuestBuilder#accept(Player, String, Location) Calls this with null as last param.
 	 */
-	public static void accept(Player player, String questName) {
-		accept(player, questName, null);
+	public static void accept(Player player, String questName, String questCitizen) {
+		accept(player, questName, questCitizen, null);
 	}
 	
 	/**
@@ -436,6 +438,7 @@ public class QuestBuilder implements WauzInventory {
 	 * 
 	 * @param player The player who is accepting the quest.
 	 * @param questName The name of the quest.
+	 * @param questCitizen The name of the citizen who gives out the quest.
 	 * @param questLocation The location to show exp rewards.
 	 * 
 	 * @see PlayerConfigurator#getCharacterRunningMainQuest(Player)
@@ -454,10 +457,10 @@ public class QuestBuilder implements WauzInventory {
 	 * @see WauzRewards#level(Player, int, double, Location)
 	 * @see WauzRewards#mmorpgToken(Player)
 	 */
-	public static void accept(Player player, String questName, Location questLocation) {
+	public static void accept(Player player, String questName, String questCitizen, Location questLocation) {
 		WauzQuest quest = WauzQuest.getQuest(questName);
 		
-		String questGiver = "[(" + ChatColor.YELLOW + "Q" + ChatColor.RESET + ") " + questName + "] " + ChatColor.GRAY;
+		String questGiver = CitizenConfigurator.getDisplayName(questCitizen);
 		String type = quest.getType();
 		
 		WauzDebugger.log(player, "Quest: " + questName + " " + type);
@@ -532,7 +535,7 @@ public class QuestBuilder implements WauzInventory {
 		}
 		
 		if(!type.equals("daily") && PlayerQuestConfigurator.isQuestCompleted(player, questName)) {
-			new WauzPlayerEventCitizenTalk(questGiver, questGiver, quest.getCompletedDialog()).execute(player);
+			new WauzPlayerEventCitizenTalk(questGiver, quest.getCompletedDialog()).execute(player);
 		}
 		
 		String questDisplayName = quest.getDisplayName();
@@ -561,7 +564,7 @@ public class QuestBuilder implements WauzInventory {
 		
 		if(!new QuestRequirementChecker(player, quest, phase).tryToHandInQuest()) {
 			List<String> message = Collections.singletonList(quest.getUncompletedMessage(phase));
-			new WauzPlayerEventCitizenTalk(questGiver, questGiver, message).execute(player);
+			new WauzPlayerEventCitizenTalk(questGiver, message).execute(player);
 			return;
 		}
 		
@@ -571,7 +574,7 @@ public class QuestBuilder implements WauzInventory {
 			try {
 				phase++;
 				PlayerQuestConfigurator.setQuestPhase(player, questName, phase);
-				new WauzPlayerEventCitizenTalk(questGiver, questGiver, quest.getPhaseDialog(phase)).execute(player);
+				new WauzPlayerEventCitizenTalk(questGiver, quest.getPhaseDialog(phase)).execute(player);
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -590,7 +593,7 @@ public class QuestBuilder implements WauzInventory {
 				player.sendMessage(ChatColor.GREEN + "You completed [" + questDisplayName + "]");
 				WauzRewards.level(player, quest.getLevel(), 2.5 * phaseAmount, questLocation);
 				WauzRewards.mmorpgToken(player);
-				new WauzPlayerEventCitizenTalk(questGiver, questGiver, quest.getCompletedDialog()).execute(player);
+				new WauzPlayerEventCitizenTalk(questGiver, quest.getCompletedDialog()).execute(player);
 			}
 			catch(Exception e) {
 				e.printStackTrace();

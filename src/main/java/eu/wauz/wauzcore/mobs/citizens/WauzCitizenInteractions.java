@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.events.WauzPlayerEventCitizenInn;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenQuest;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenShop;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTalk;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -56,13 +57,20 @@ public class WauzCitizenInteractions {
 	 * Triggers the corresponding event, if the player clicked an interaction item stack.
 	 * 
 	 * @param player The player who chose the interaction.
-	 * @param interactionItemStack The chosen interaction item stack.
+	 * @param clickedItemStack The chosen interaction item stack.
 	 * 
 	 * @return If a successful interaction was made.
 	 */
-	public boolean checkForValidInteractions(Player player, ItemStack interactionItemStack) {
-		WauzPlayerEvent event = interactionEventMap.get(interactionItemStack);
+	public boolean checkForValidInteractions(Player player, ItemStack clickedItemStack) {
+		WauzPlayerEvent event = null;
+		for(ItemStack interactionItemStack : interactionEventMap.keySet()) {
+			if(ItemUtils.isSpecificItem(clickedItemStack, interactionItemStack.getItemMeta().getDisplayName())) {
+				event = interactionEventMap.get(interactionItemStack);
+				break;
+			}
+		}
 		if(event != null) {
+			player.closeInventory();
 			return event.execute(player);
 		}
 		return false;
@@ -77,7 +85,7 @@ public class WauzCitizenInteractions {
 	 * @return The created inventory menu.
 	 */
 	public Inventory createInteractionMenuBase(InventoryHolder holder, String title) {
-		int size = (int) Math.ceil(interactionEventMap.size() / 5);
+		int size = (int) Math.ceil((double) interactionEventMap.size() / (double) 5) * 9;
 		Inventory menu = Bukkit.createInventory(holder, size, title);
 		int row = 0;
 		int column = 0;
@@ -86,7 +94,7 @@ public class WauzCitizenInteractions {
 				row++;
 				column = 0;
 			}
-			int index = row + 2 + (column * 9);
+			int index = column + 2 + (row * 9);
 			menu.setItem(index, interactionItemStack);
 			column++;
 		}
@@ -113,7 +121,7 @@ public class WauzCitizenInteractions {
 			interactionItemStack = HeadUtils.getCitizenTalkItem();
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.AQUA + "Talk: " + interactionName);
 			List<String> messages = CitizenConfigurator.getInteractionMessages(citizenName, interactionKey);
-			event = new WauzPlayerEventCitizenTalk(citizenName, displayName, messages);
+			event = new WauzPlayerEventCitizenTalk(displayName, messages);
 			break;
 		case "shop":
 			interactionItemStack = HeadUtils.getCitizenShopItem();

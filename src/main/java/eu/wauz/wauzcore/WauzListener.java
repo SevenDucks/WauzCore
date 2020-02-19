@@ -79,7 +79,6 @@ import eu.wauz.wauzcore.mobs.MenacingMobsSpawner;
 import eu.wauz.wauzcore.mobs.MobEventMapper;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
-import eu.wauz.wauzcore.mobs.citizens.WauzCitizensSpawner;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;

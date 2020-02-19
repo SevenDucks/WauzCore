@@ -38,7 +38,7 @@ public class CmdSethome implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		return new WauzPlayerEventHomeChange((Player) sender, true).execute((Player) sender);
+		return new WauzPlayerEventHomeChange(((Player) sender).getLocation(), true).execute((Player) sender);
 	}
 
 }

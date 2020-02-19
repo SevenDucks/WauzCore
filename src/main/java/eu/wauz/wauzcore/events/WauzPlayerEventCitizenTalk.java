@@ -16,11 +16,6 @@ import net.md_5.bungee.api.ChatColor;
 public class WauzPlayerEventCitizenTalk implements WauzPlayerEvent {
 	
 	/**
-	 * The name of the citizen to interact with.
-	 */
-	private String citizenName;
-	
-	/**
 	 * The name of the citizen, as shown in chat.
 	 */
 	private String displayName;
@@ -33,11 +28,10 @@ public class WauzPlayerEventCitizenTalk implements WauzPlayerEvent {
 	/**
 	 * Creates an event to talk to the given citizen.
 	 * 
-	 * @param citizenName The name of the citizen to interact with.
+	 * @param displayName How to display the sender of the messages.
 	 * @param messages The lines the citizen should speak.
 	 */
-	public WauzPlayerEventCitizenTalk(String citizenName, String displayName, List<String> messages) {
-		this.citizenName = citizenName;
+	public WauzPlayerEventCitizenTalk(String displayName, List<String> messages) {
 		this.displayName = displayName;
 		this.messages = messages;
 	}
@@ -54,41 +48,47 @@ public class WauzPlayerEventCitizenTalk implements WauzPlayerEvent {
 	@Override
 	public boolean execute(Player player) {
 		try {
-			printDialog(player, messages);
+			printDialog(player, messages, 0);
 			return true;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			player.sendMessage(ChatColor.RED + "An Error occurred while interacting with " + citizenName + "!");
+			player.sendMessage(ChatColor.RED + "An Error occurred while interacting with " + displayName + "!");
 			player.closeInventory();
 			return false;
 		}
 	}
 	
-	private void printDialog(Player player, List<String> remainingLines) {
+	/**
+	 * Prints recursively all messages in chat.
+	 * 
+	 * @param player The player who should receive the messages.
+	 * @param messages The list of all message lines.
+	 * @param line The index of the current message line.
+	 */
+	private void printDialog(Player player, List<String> messages, int line) {
 		try {
-    		if(player == null || !player.isValid() || remainingLines.isEmpty()) {
+    		if(player == null || !player.isValid() || messages.isEmpty()) {
     			return;
     		}
     		
+    		int nextLine = line + 1;
     		String msg = ChatColor.WHITE + "[" + ChatColor.YELLOW + displayName + ChatColor.WHITE + " (" +
-					 ChatColor.AQUA  + "NPC" + ChatColor.WHITE + ")] " +
-					 ChatColor.GRAY + remainingLines.get(0);
+					 ChatColor.AQUA  + "NPC" + ChatColor.WHITE + " " + nextLine + "/" + messages.size() + ")] " +
+					 ChatColor.GRAY + messages.get(line);
     		player.sendMessage(msg.replaceAll("player", player.getName()));
     		
-    		remainingLines.remove(0);
-			if(remainingLines.size() <= 0) {
-				player.sendMessage(ChatColor.DARK_GRAY + "[End of Conversation]");
+			if(messages.size() == nextLine) {
 				return;
 			}
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(core, new Runnable() {
 				
 				@Override
 				public void run() {
-					printDialog(player, remainingLines);
+					printDialog(player, messages, nextLine);
 				}
 				
-			}, 30);
+			}, 50);
     	}
     	catch (NullPointerException e) {
     		WauzDebugger.catchException(getClass(), e);

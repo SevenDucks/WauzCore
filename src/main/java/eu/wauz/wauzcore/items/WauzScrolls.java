@@ -55,7 +55,7 @@ public class WauzScrolls {
 		}
 		
 		else if(scrollName.contains("Scroll of Comfort")) {
-			new WauzPlayerEventHomeChange(player, scroll).execute(player);
+			new WauzPlayerEventHomeChange(player.getLocation(), scroll).execute(player);
 		}
 	}
 	

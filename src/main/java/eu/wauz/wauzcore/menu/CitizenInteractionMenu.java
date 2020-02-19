@@ -61,7 +61,7 @@ public class CitizenInteractionMenu implements WauzInventory {
 		goodbyeLores.add(ChatColor.GRAY + "Closes the Interaction Menu");
 		goodbyeItemMeta.setLore(goodbyeLores);
 		goodbyeItemStack.setItemMeta(goodbyeItemMeta);
-		menu.setItem(9, goodbyeItemStack);
+		menu.setItem(8, goodbyeItemStack);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -95,7 +95,7 @@ public class CitizenInteractionMenu implements WauzInventory {
 		ItemStack clicked = event.getCurrentItem();
 		Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null || clicked.getType().equals(Material.PLAYER_HEAD)) {
+		if(clicked == null || !clicked.getType().equals(Material.PLAYER_HEAD)) {
 			return;
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Goodbye")) {

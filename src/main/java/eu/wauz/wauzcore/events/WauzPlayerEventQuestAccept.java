@@ -1,7 +1,5 @@
 package eu.wauz.wauzcore.events;
 
-import java.util.List;
-
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
@@ -62,13 +60,9 @@ public class WauzPlayerEventQuestAccept implements WauzPlayerEvent {
 			PlayerQuestConfigurator.setQuestPhase(player, questName, 1);
 			PlayerConfigurator.setCharacterQuestSlot(player, questSlot, questName);
 			
-			List<String> lores = quest.getPhaseDialog(1);
-			for(String lore : lores) {
-				player.sendMessage((questGiver + lore).replaceAll("player", player.getName()));
-			}
-			
-			WauzPlayerScoreboard.scheduleScoreboard(player);
 			player.sendMessage(ChatColor.GREEN + "You accepted the " + quest.getType() + "-quest [" + quest.getDisplayName() + "]");
+			new WauzPlayerEventCitizenTalk(questGiver, quest.getPhaseDialog(1)).execute(player);
+			WauzPlayerScoreboard.scheduleScoreboard(player);
 			player.closeInventory();
 			return true;
 		}

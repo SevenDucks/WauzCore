@@ -367,7 +367,7 @@ public class CharacterManager {
 			equipCharacterItems(player);
 			
 			if(characterWorld.equals("Wauzland")) {
-				QuestBuilder.accept(player, "Yamir");
+				QuestBuilder.accept(player, "Yamir", "Yamir");
 			}
 			try {
 				WauzRewards.daily(player);
