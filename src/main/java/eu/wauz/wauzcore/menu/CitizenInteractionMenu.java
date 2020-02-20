@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -34,14 +35,24 @@ public class CitizenInteractionMenu implements WauzInventory {
 	 * Opens the menu for the given player.
 	 * Always shows the relation to the given citizen and a "goodbye" option.
 	 * A list of interactions is shown, based on the citizen.
+	 * If a the citizen contains a mode selection,
+	 * the screen of that gamemode is opened, instead of the menu.
 	 * 
 	 * @param player The player that should view the inventory.
 	 * @param citizen The citizen that should be interacted with.
 	 * 
 	 * @see WauzCitizenInteractions#createInteractionMenuBase(org.bukkit.inventory.InventoryHolder, String)
+	 * @see WauzCitizenInteractions#getModeSelection()
+	 * @see WauzModeMenu#selectMenuPoint(InventoryClickEvent)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player, WauzCitizen citizen) {
+		String modeSelection = citizen.getInteractions().getModeSelection();
+		if(StringUtils.isNotBlank(modeSelection)) {
+			WauzModeMenu.selectMode(player, modeSelection);
+			return;
+		}
+		
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CitizenInteractionMenu(citizen));
 		Inventory menu = citizen.getInteractions().createInteractionMenuBase(holder,
 				ChatColor.BLACK + "" + ChatColor.BOLD + citizen.getDisplayName());

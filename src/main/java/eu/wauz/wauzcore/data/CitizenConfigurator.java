@@ -163,6 +163,15 @@ public class CitizenConfigurator extends GlobalConfigurationUtils {
 	/**
 	 * @param citizen The name of the citizen.
 	 * 
+	 * @return The mode that should be selected from the hub on interaction.
+	 */
+	public static String getModeSelection(String citizen) {
+		return citizenConfigGetString(citizen, "modeselect");
+	}
+	
+	/**
+	 * @param citizen The name of the citizen.
+	 * 
 	 * @return All possible interactions.
 	 */
 	public static Set<String> getInteractionKeys(String citizen) {

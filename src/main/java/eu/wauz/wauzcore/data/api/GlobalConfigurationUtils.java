@@ -107,6 +107,20 @@ public class GlobalConfigurationUtils {
 	}
 	
 	/**
+	 * Gets a double from a specific config.
+	 * 
+	 * @param name The name of the config file.
+	 * @param path The key path of the value to get.
+	 * 
+	 * @return The requested double.
+	 */
+	protected static double mainConfigGetDouble(String name, String path) {
+		File mainDataFile = new File(core.getDataFolder(), name + ".yml");
+		FileConfiguration mainDataConfig = YamlConfiguration.loadConfiguration(mainDataFile);	
+		return mainDataConfig.getDouble(path);
+	}
+	
+	/**
 	 * Gets a boolean from a specific config.
 	 * 
 	 * @param name The name of the config file.

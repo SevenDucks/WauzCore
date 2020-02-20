@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -35,6 +36,11 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 public class WauzCitizenInteractions {
 	
 	/**
+	 * The mode that should be selected from the hub on interaction.
+	 */
+	public String modeSelection;
+	
+	/**
 	 * A map of interaction events, indexed by the triggering item stacks.
 	 */
 	public Map<ItemStack, WauzPlayerEvent> interactionEventMap = new HashMap<>();
@@ -44,9 +50,14 @@ public class WauzCitizenInteractions {
 	 * 
 	 * @param citizenName The canonical name of the citizen.
 	 * 
+	 * @see CitizenConfigurator#getModeSelection(String)
 	 * @see WauzCitizenInteractions#createInteractionItemStack(String, String)
 	 */
 	public WauzCitizenInteractions(String citizenName) {
+		modeSelection = CitizenConfigurator.getModeSelection(citizenName);
+		if(StringUtils.isNotBlank(modeSelection)) {
+			return;
+		}
 		Set<String> interactionKeys = CitizenConfigurator.getInteractionKeys(citizenName);
 		for(String interactionKey : interactionKeys) {
 			createInteractionItemStack(citizenName, interactionKey);
@@ -151,6 +162,13 @@ public class WauzCitizenInteractions {
 		}
 		MenuUtils.addItemLore(interactionItemStack, ChatColor.GRAY + "Required Relation Level: " + level, false);
 		interactionEventMap.put(interactionItemStack, event);
+	}
+
+	/**
+	 * @return The mode that should be selected from the hub on interaction.
+	 */
+	public String getModeSelection() {
+		return modeSelection;
 	}
 	
 }

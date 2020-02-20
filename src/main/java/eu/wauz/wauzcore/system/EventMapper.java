@@ -84,11 +84,6 @@ public class EventMapper {
 			}, 10);
 			return;
 		}
-		else if(name[0].contains("(Play)")) {
-			WauzDebugger.log(player, "Clicked Game NPC '" + name[1] + "'");
-			WauzModeMenu.selectMode(player, name[1]);
-			event.setCancelled(true);
-		}
 	}
 	
 	/**

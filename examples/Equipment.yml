@@ -1,0 +1,249 @@
+Shortsword:
+  type: WEAPON
+  material: WOODEN_SWORD
+  name: Shortsword
+  mainstat: 1.50
+  speedstat: 1.20
+  durabilitystat: 32
+Rapier:
+  type: WEAPON
+  material: GOLDEN_SWORD
+  name: Rapier
+  mainstat: 1.55
+  speedstat: 1.30
+  durabilitystat: 64
+Longsword:
+  type: WEAPON
+  material: STONE_SWORD
+  name: Longsword
+  mainstat: 1.60
+  speedstat: 1.20
+  durabilitystat: 128
+Claymore:
+  type: WEAPON
+  material: IRON_SWORD
+  name: Claymore
+  mainstat: 1.65
+  speedstat: 1.20
+  durabilitystat: 256
+Excalibur:
+  type: WEAPON
+  material: DIAMOND_SWORD
+  name: Excalibur
+  mainstat: 1.70
+  speedstat: 1.40
+  durabilitystat: 512
+Hatchet:
+  type: WEAPON
+  material: WOODEN_AXE
+  name: Hatchet
+  mainstat: 1.70
+  speedstat: 0.90
+  durabilitystat: 32
+Halberd:
+  type: WEAPON
+  material: GOLDEN_AXE
+  name: Halberd
+  mainstat: 1.75
+  speedstat: 1.00
+  durabilitystat: 64
+Waraxe:
+  type: WEAPON
+  material: STONE_AXE
+  name: Waraxe
+  mainstat: 1.80
+  speedstat: 0.90
+  durabilitystat: 128
+Greataxe:
+  type: WEAPON
+  material: IRON_AXE
+  name: Greataxe
+  mainstat: 1.85
+  speedstat: 0.90
+  durabilitystat: 256
+Worldbreaker:
+  type: WEAPON
+  material: DIAMOND_AXE
+  name: Worldbreaker
+  mainstat: 1.90
+  speedstat: 1.10
+  durabilitystat: 512
+Staff:
+  type: WEAPON
+  material: WOODEN_HOE
+  name: Staff
+  mainstat: 1.30
+  speedstat: 1.50
+  durabilitystat: 32
+Pole:
+  type: WEAPON
+  material: GOLDEN_HOE
+  name: Pole
+  mainstat: 1.35
+  speedstat: 1.60
+  durabilitystat: 64
+Mace:
+  type: WEAPON
+  material: STONE_HOE
+  name: Mace
+  mainstat: 1.40
+  speedstat: 1.50
+  durabilitystat: 128
+Sceptre:
+  type: WEAPON
+  material: IRON_HOE
+  name: Sceptre
+  mainstat: 1.45
+  speedstat: 1.50
+  durabilitystat: 256
+Soulreaver:
+  type: WEAPON
+  material: DIAMOND_HOE
+  name: Soulreaver
+  mainstat: 1.50
+  speedstat: 1.70
+  durabilitystat: 512
+Crude_Bow:
+  type: WEAPON
+  material: BOW
+  name: Crude Bow
+  mainstat: 0.60
+  speedstat: 1.00
+  durabilitystat: 64
+Recurve_Bow:
+  type: WEAPON
+  material: BOW
+  name: Recurve Bow
+  mainstat: 0.90
+  speedstat: 1.00
+  durabilitystat: 128
+Infractem_Bow:
+  type: WEAPON
+  material: BOW
+  name: Infractem Bow
+  mainstat: 1.20
+  speedstat: 1.00
+  durabilitystat: 256
+Lance:
+  type: WEAPON
+  material: TRIDENT
+  name: Lance
+  mainstat: 0.40
+  speedstat: 1.40
+  durabilitystat: 72
+Trident:
+  type: WEAPON
+  material: TRIDENT
+  name: Trident
+  mainstat: 0.75
+  speedstat: 1.40
+  durabilitystat: 144
+Buckler:
+  type: WEAPON
+  material: SHIELD
+  name: Buckler
+  mainstat: 0.60
+  speedstat: 0.80
+  durabilitystat: 72
+Shield:
+  type: WEAPON
+  material: SHIELD
+  name: Shield
+  mainstat: 0.95
+  speedstat: 0.80
+  durabilitystat: 144
+Grappling_Hook:
+  type: WEAPON
+  material: FISHING_ROD
+  name: Grappling Hook
+  mainstat: 0.50
+  speedstat: 1.10
+  durabilitystat: 72
+Dual_Hook:
+  type: WEAPON
+  material: FISHING_ROD
+  name: Dual Hook
+  mainstat: 0.85
+  speedstat: 1.10
+  durabilitystat: 144
+Chicken_Wings:
+  type: WEAPON
+  material: FEATHER
+  name: Chicken Wings
+  mainstat: 0.30
+  speedstat: 0.50
+  durabilitystat: 144
+Chicken_Glider:
+  type: WEAPON
+  material: FEATHER
+  name: Chicken Glider
+  mainstat: 0.45
+  speedstat: 0.50
+  durabilitystat: 288
+Vest:
+  type: ARMOR
+  material: LEATHER_CHESTPLATE
+  name: Vest
+  mainstat: 1.15
+  durabilitystat: 64
+  category: LIGHT
+Robe:
+  type: ARMOR
+  material: LEATHER_CHESTPLATE
+  name: Robe
+  mainstat: 1.30
+  durabilitystat: 128
+  category: LIGHT
+  leatherdye: PURPLE
+Tunic:
+  type: ARMOR
+  material: LEATHER_CHESTPLATE
+  name: Tunic
+  mainstat: 1.45
+  durabilitystat: 192
+  category: LIGHT
+  leatherdye: GREEN
+Mail:
+  type: ARMOR
+  material: CHAINMAIL_CHESTPLATE
+  name: Mail
+  mainstat: 1.30
+  durabilitystat: 128
+  category: MEDIUM
+Guard:
+  type: ARMOR
+  material: GOLDEN_CHESTPLATE
+  name: Guard
+  mainstat: 1.45
+  durabilitystat: 256
+  category: MEDIUM
+Hellscales:
+  type: ARMOR
+  material: LEATHER_CHESTPLATE
+  name: Hellscales
+  mainstat: 1.60
+  durabilitystat: 384
+  category: MEDIUM
+  leatherdye: MAROON
+Plate:
+  type: ARMOR
+  material: IRON_CHESTPLATE
+  name: Plate
+  mainstat: 1.45
+  durabilitystat: 256
+  category: HEAVY
+Herogarb:
+  type: ARMOR
+  material: DIAMOND_CHESTPLATE
+  name: Herogarb
+  mainstat: 1.60
+  durabilitystat: 512
+  category: HEAVY
+Dragonbones:
+  type: ARMOR
+  material: LEATHER_CHESTPLATE
+  name: Dragonbones
+  mainstat: 1.75
+  durabilitystat: 768
+  category: HEAVY
+  leatherdye: ORANGE

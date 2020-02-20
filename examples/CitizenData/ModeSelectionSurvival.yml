@@ -1,0 +1,19 @@
+display: Survival
+name:
+  - Gamemode Selection
+  - §eSurvival§r
+  - ''
+world: HubNexus
+location: -22.5 21 -624.5 -90 0
+skinid: 481191
+invisible: false
+burning: false
+items:
+  mainhand:
+  offhand:
+  helmet:
+  chestplate:
+  leggings:
+  boots:
+modeselect: Survival
+interactions:
