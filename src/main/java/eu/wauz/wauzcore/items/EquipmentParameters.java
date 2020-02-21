@@ -19,7 +19,7 @@ public class EquipmentParameters {
 	/**
 	 * The type of the equipment.
 	 */
-	protected Equipment equipmentType;
+	protected WauzEquipment equipmentType;
 	
 	/**
 	 * The item meta of the equipment item stack.

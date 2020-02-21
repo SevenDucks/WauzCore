@@ -1,5 +1,7 @@
 package eu.wauz.wauzcore.system.util;
 
+import net.md_5.bungee.api.ChatColor;
+
 /**
  * An util class for stuff like unicode icons.
  * 
@@ -54,5 +56,30 @@ public class UnicodeUtils {
 	 * <a href="https://www.fileformat.info/info/unicode/char/2764/index.htm">fileformat.info</a>
 	 */
 	public static final String ICON_HEART = "\u2764";
+	
+	/**
+	 * Creates a progress bar, with a percentage display.
+	 * 
+	 * @param progress The current value.
+	 * @param goal The maximum value.
+	 * @param lines The amount of vertical lines, the bar consists of.
+	 * @param color The color of the bar.
+	 * 
+	 * @return The progress bar string.
+	 */
+	public static String createProgressBar(double progress, double goal, int lines, ChatColor color) {
+		double precisePercantage = progress * 100.0 / goal;
+		int barPercentage = (int) (progress * lines / goal);
+		
+		String progressBar = String.valueOf(color);
+		for(int bar = 1; barPercentage > bar; bar++) {
+			progressBar += "|";
+		}
+		progressBar += String.valueOf(ChatColor.GRAY);
+		for(int bar = barPercentage; bar <= lines; bar++) {
+			progressBar += "|";
+		}
+		return progressBar + " " + ChatColor.WHITE + ((int) precisePercantage) + "%";
+	}
 
 }

@@ -17,7 +17,7 @@ import org.bukkit.potion.PotionEffect;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
-import eu.wauz.wauzcore.items.Equipment;
+import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.InventoryStringConverter;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
@@ -354,16 +354,16 @@ public class CharacterManager {
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			ItemStack starterWeapon = null;
 			if(classNephilim) {
-				starterWeapon = Equipment.getNephilimStarterWeapon();
+				starterWeapon = WauzEquipment.getNephilimStarterWeapon();
 			}
 			else if(classCrusader) {
-				starterWeapon = Equipment.getCrusaderStarterWeapon();
+				starterWeapon = WauzEquipment.getCrusaderStarterWeapon();
 			}
 			else if(classAssassin) {
-				starterWeapon = Equipment.getAssassinStarterWeapon();
+				starterWeapon = WauzEquipment.getAssassinStarterWeapon();
 			}
 			player.getInventory().addItem(starterWeapon);
-			player.getInventory().addItem(Equipment.getStarterRune());
+			player.getInventory().addItem(WauzEquipment.getStarterRune());
 			equipCharacterItems(player);
 			
 			if(characterWorld.equals("Wauzland")) {

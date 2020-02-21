@@ -20,7 +20,7 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
-import eu.wauz.wauzcore.items.Equipment;
+import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.EquipmentParameters;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
@@ -44,14 +44,14 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	/**
 	 * A map of all possible equipment types, by name.
 	 */
-	private static Map<String, Equipment> equipTypes = new HashMap<>();
+	private static Map<String, WauzEquipment> equipTypes = new HashMap<>();
 	
 	/**
 	 * Adds a new equipment type.
 	 * 
 	 * @param equip The equipment type to add.
 	 */
-	public static void addEquipType(Equipment equip) {
+	public static void addEquipType(WauzEquipment equip) {
 		equipTypes.put(equip.getName(), equip);
 	}
 	
@@ -60,7 +60,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	 * 
 	 * @return A list of all possible equipment types.
 	 */
-	public static List<Equipment> getAllEquipTypes() {
+	public static List<WauzEquipment> getAllEquipTypes() {
 		return new ArrayList<>(equipTypes.values());
 	}
 	

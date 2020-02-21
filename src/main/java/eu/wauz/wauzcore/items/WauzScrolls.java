@@ -71,9 +71,9 @@ public class WauzScrolls {
 	 * @see WauzIdentifier#identify(InventoryClickEvent, String)
 	 * @see ShopBuilder#sell(Player, ItemStack, Boolean)
 	 * @see ShopBuilder#repair(Player, ItemStack, Boolean)
-	 * @see Equipment#clearAllSockets(InventoryClickEvent)
-	 * @see Equipment#insertRune(InventoryClickEvent)
-	 * @see Equipment#insertSkillgem(InventoryClickEvent)
+	 * @see WauzEquipment#clearAllSockets(InventoryClickEvent)
+	 * @see WauzEquipment#insertRune(InventoryClickEvent)
+	 * @see WauzEquipment#insertSkillgem(InventoryClickEvent)
 	 */
 	public static void onScrollItemInteract(InventoryClickEvent event, String itemName) {
 		Player player = (Player) event.getWhoClicked();
@@ -108,19 +108,19 @@ public class WauzScrolls {
 			}
 		}
 		else if(isNotScroll && scrollName.contains("Scroll of Regret")) {
-			if(Equipment.clearAllSockets(event)) {
+			if(WauzEquipment.clearAllSockets(event)) {
 				scroll.setAmount(scroll.getAmount() - 1);
 				event.setCancelled(true);
 			}
 		}
 		else if(scrollName.contains("Rune")) {
-			if(isIdentified && Equipment.insertRune(event)) {
+			if(isIdentified && WauzEquipment.insertRune(event)) {
 				scroll.setAmount(scroll.getAmount() - 1);
 				event.setCancelled(true);
 			}
 		}
 		else if(scrollName.contains("Skillgem")) {
-			if(isIdentified && Equipment.insertSkillgem(event)) {
+			if(isIdentified && WauzEquipment.insertSkillgem(event)) {
 				scroll.setAmount(scroll.getAmount() - 1);
 				event.setCancelled(true);
 			}
