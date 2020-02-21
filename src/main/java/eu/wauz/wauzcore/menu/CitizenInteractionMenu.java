@@ -15,6 +15,8 @@ import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.mobs.citizens.RelationLevel;
+import eu.wauz.wauzcore.mobs.citizens.RelationTracker;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenInteractions;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
@@ -54,24 +56,19 @@ public class CitizenInteractionMenu implements WauzInventory {
 		}
 		
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CitizenInteractionMenu(citizen));
+		String displayName = citizen.getDisplayName();
 		Inventory menu = citizen.getInteractions().createInteractionMenuBase(holder,
-				ChatColor.BLACK + "" + ChatColor.BOLD + citizen.getDisplayName());
+				ChatColor.BLACK + "" + ChatColor.BOLD + displayName);
 		
 		ItemStack citizenItemStack = HeadUtils.getCitizenRelationItem();
 		ItemMeta citizenItemMeta = citizenItemStack.getItemMeta();
-		citizenItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Relation: " + citizen.getCitizenName());
-		List<String> citizenLores = new ArrayList<>();
-		citizenItemMeta.setLore(citizenLores);
+		citizenItemMeta.setDisplayName(ChatColor.YELLOW + displayName);
+		citizenItemMeta.setLore(RelationTracker.generateProgressLore(player, displayName));
 		citizenItemStack.setItemMeta(citizenItemMeta);
 		menu.setItem(0, citizenItemStack);
 		
 		ItemStack goodbyeItemStack = HeadUtils.getDeclineItem();
-		ItemMeta goodbyeItemMeta = goodbyeItemStack.getItemMeta();
-		goodbyeItemMeta.setDisplayName(ChatColor.DARK_RED + "Goodbye");
-		List<String> goodbyeLores = new ArrayList<>();
-		goodbyeLores.add(ChatColor.GRAY + "Closes the Interaction Menu");
-		goodbyeItemMeta.setLore(goodbyeLores);
-		goodbyeItemStack.setItemMeta(goodbyeItemMeta);
+		MenuUtils.setItemDisplayName(goodbyeItemStack, ChatColor.DARK_RED + "Goodbye");
 		menu.setItem(8, goodbyeItemStack);
 		
 		MenuUtils.setBorders(menu);

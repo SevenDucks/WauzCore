@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.system.util.Formatters;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -67,26 +68,13 @@ public class AchievementTracker {
 			int goal = nextAchievementStage.getGoal();
 			String goalString = Formatters.INT.format(goal);
 			lores.add(ChatColor.YELLOW + "Progress: " + progressString + " / " + goalString + " " + type.getMessage());
-			
-			double precisePercantage = (double) progress * 100.0 / (double) goal;
-			int barPercentage = (int) ((double) progress * 50.0 / (double) goal);
-			
-			String progressBar = String.valueOf(ChatColor.DARK_GREEN);
-			for(int bar = 1; barPercentage > bar; bar++) {
-				progressBar += "|";
-			}
-			progressBar += String.valueOf(ChatColor.GRAY);
-			for(int bar = barPercentage; bar <= 50; bar++) {
-				progressBar += "|";
-			}
-			lores.add(progressBar + " " + ChatColor.WHITE + ((int) precisePercantage) + "%");
+			lores.add(UnicodeUtils.createProgressBar(progress, goal, 50, ChatColor.DARK_GREEN));
 			lores.add(ChatColor.YELLOW + "Reward: " + nextAchievementStage.getReward() + " Soulstones");
 		}
 		else {
 			lores.add(ChatColor.YELLOW + "Next: " + ChatColor.GREEN + "COMPLETED");
 			lores.add(ChatColor.YELLOW + "Progress: " + progressString + " " + type.getMessage());
 		}
-		
 		return lores;
 	}
 

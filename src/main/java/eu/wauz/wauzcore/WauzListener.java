@@ -66,7 +66,7 @@ import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEventListener;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
-import eu.wauz.wauzcore.items.Equipment;
+import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
@@ -293,13 +293,13 @@ public class WauzListener implements Listener {
 	 * 
 	 * @param event
 	 * 
-	 * @see Equipment#equipArmor(ArmorEquipEvent)
+	 * @see WauzEquipment#equipArmor(ArmorEquipEvent)
 	 * @see ArmorEquipEventListener Custom Event Listener
 	 */
 	@EventHandler
 	public void onEquip(ArmorEquipEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
-			Equipment.equipArmor(event);
+			WauzEquipment.equipArmor(event);
 		}
 	}
 	

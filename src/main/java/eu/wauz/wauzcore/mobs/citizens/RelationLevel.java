@@ -6,11 +6,6 @@ package eu.wauz.wauzcore.mobs.citizens;
  * @author Wauzmons
  */
 public enum RelationLevel {
-
-	/**
-	 * Lowest level, citizens can't be talked to. 
-	 */
-	ENEMY("Enemy", -1, -1, 10.0),
 	
 	/**
 	 * Starting level, basic interactions.
@@ -40,7 +35,7 @@ public enum RelationLevel {
 	/**
 	 * Highest level, highest discounts / more quests. 
 	 */
-	IDOL("Idol", 5, 750, 0.5);
+	IDOLIZED("Idolized", 5, 750, 0.5);
 	
 	/**
 	 * Determines the relationship level, based on the amount of experience.
@@ -56,7 +51,7 @@ public enum RelationLevel {
 				currentLevel = relationLevel;
 			}
 		}
-		return currentLevel != null ? currentLevel : ENEMY;
+		return currentLevel != null ? currentLevel : STRANGER;
 	}
 	
 	/**
@@ -113,6 +108,13 @@ public enum RelationLevel {
 	 */
 	public int getNeededExp() {
 		return neededExp;
+	}
+	
+	/**
+	 * @return The following relation level.
+	 */
+	public RelationLevel getNextLevel() {
+		return relationTier >= values().length ? null : values()[relationTier + 1];
 	}
 
 	/**

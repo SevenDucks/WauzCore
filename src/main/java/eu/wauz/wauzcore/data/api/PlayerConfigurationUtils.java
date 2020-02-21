@@ -339,6 +339,59 @@ public class PlayerConfigurationUtils {
 		return playerQuestDataConfig.getLong(trimPlayerDataPath(path));
 	}
 	
+// Interact with Player-Relation-Config
+	
+	/**
+	 * Gets a config file for a player relation.
+	 * 
+	 * @param player The player that owns the config file.
+	 * @param citizen The citizen that the config belongs to.
+	 * 
+	 * @return The player relation config file.
+	 */
+	private static File getPlayerRelationDataFile(Player player, String citizen) {
+		String characterSlot = WauzPlayerDataPool.getPlayer(player).getSelectedCharacterSlot();
+		File playerQuestDirectory = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + "-relations/");
+		playerQuestDirectory.mkdirs();
+		return new File(playerQuestDirectory, citizen + ".yml");
+	}
+	
+	/**
+	 * Sets the given value in the player relation config.
+	 * 
+	 * @param player The player that owns the config file.
+	 * @param citizen The citizen that the config belongs to.
+	 * @param path The key path of the value to set.
+	 * @param value The value to set.
+	 */
+	protected static void playerRelationConfigSet(Player player, String citizen, String path, Object value) {
+		try {
+			File playerRelationDataFile = getPlayerRelationDataFile(player, citizen);
+			FileConfiguration playerRelationDataConfig = YamlConfiguration.loadConfiguration(playerRelationDataFile);
+			
+			playerRelationDataConfig.set(trimPlayerDataPath(path), value);
+			playerRelationDataConfig.save(playerRelationDataFile);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Gets an int from a player relation config.
+	 * 
+	 * @param player The player that owns the config file.
+	 * @param citizen The citizen that the config belongs to.
+	 * @param path The key path of the value to set.
+	 * 
+	 * @return The requested int.
+	 */
+	protected static Integer playerRelationConfigGetInt(Player player, String citizen, String path) {
+		File playerRelationDataFile = getPlayerRelationDataFile(player, citizen);
+		FileConfiguration playerRelationDataConfig = YamlConfiguration.loadConfiguration(playerRelationDataFile);
+		return playerRelationDataConfig.getInt(trimPlayerDataPath(path));
+	}
+	
 // Interact with Guild-Config
 	
 	/**
