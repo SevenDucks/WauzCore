@@ -1,10 +1,10 @@
 display: MMORPG
 name:
   - Gamemode Selection
-  - §eMMORPG§r
+  - Â§6MMORPGÂ§r
   - ''
 world: HubNexus
-location: -22.5 21 -624.5 -90 0
+location: 0.5 98 68.5 180 0
 skinid: 15755
 invisible: false
 burning: false

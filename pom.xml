@@ -41,12 +41,6 @@
 			<url>https://oss.sonatype.org/content/groups/public/</url>
 		</repository>
 
-		<!-- SkullCreator -->
-		<repository>
-			<id>skullcreator-repo</id>
-			<url>https://dl.bintray.com/deanveloper/SkullCreator</url>
-		</repository>
-
 	</repositories>
 
 
@@ -85,13 +79,6 @@
 			<groupId>net.jitse</groupId>
 			<artifactId>npclib-plugin</artifactId>
 			<version>2.3.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.deanveloper</groupId>
-			<artifactId>skullcreator</artifactId>
-			<version>1.0.2</version>
 			<scope>compile</scope>
 		</dependency>
 

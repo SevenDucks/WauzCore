@@ -1,8 +1,5 @@
 package eu.wauz.wauzcore.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,7 +12,6 @@ import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
-import eu.wauz.wauzcore.mobs.citizens.RelationLevel;
 import eu.wauz.wauzcore.mobs.citizens.RelationTracker;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenInteractions;

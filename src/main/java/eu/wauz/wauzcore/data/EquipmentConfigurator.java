@@ -25,24 +25,25 @@ public class EquipmentConfigurator extends GlobalConfigurationUtils {
 	 * A map of all possible leather dye colors.
 	 */
 	private static final Map<String, Color> COLORS = new HashMap<String, Color>();
-	{
-		COLORS.put(Color.AQUA.toString(), Color.AQUA);
-		COLORS.put(Color.BLACK.toString(), Color.BLACK);
-		COLORS.put(Color.BLUE.toString(), Color.BLUE);
-		COLORS.put(Color.FUCHSIA.toString(), Color.FUCHSIA);
-		COLORS.put(Color.GRAY.toString(), Color.GRAY);
-		COLORS.put(Color.GREEN.toString(), Color.GREEN);
-		COLORS.put(Color.LIME.toString(), Color.LIME);
-		COLORS.put(Color.MAROON.toString(), Color.MAROON);
-		COLORS.put(Color.NAVY.toString(), Color.NAVY);
-		COLORS.put(Color.OLIVE.toString(), Color.OLIVE);
-		COLORS.put(Color.ORANGE.toString(), Color.ORANGE);
-		COLORS.put(Color.PURPLE.toString(), Color.PURPLE);
-		COLORS.put(Color.RED.toString(), Color.RED);
-		COLORS.put(Color.SILVER.toString(), Color.SILVER);
-		COLORS.put(Color.TEAL.toString(), Color.TEAL);
-		COLORS.put(Color.WHITE.toString(), Color.WHITE);
-		COLORS.put(Color.YELLOW.toString(), Color.YELLOW);
+	
+	static {
+		COLORS.put("AQUA", Color.AQUA);
+		COLORS.put("BLACK", Color.BLACK);
+		COLORS.put("BLUE", Color.BLUE);
+		COLORS.put("FUCHSIA", Color.FUCHSIA);
+		COLORS.put("GRAY", Color.GRAY);
+		COLORS.put("GREEN", Color.GREEN);
+		COLORS.put("LIME", Color.LIME);
+		COLORS.put("MAROON", Color.MAROON);
+		COLORS.put("NAVY", Color.NAVY);
+		COLORS.put("OLIVE", Color.OLIVE);
+		COLORS.put("ORANGE", Color.ORANGE);
+		COLORS.put("PURPLE", Color.PURPLE);
+		COLORS.put("RED", Color.RED);
+		COLORS.put("SILVER", Color.SILVER);
+		COLORS.put("TEAL", Color.TEAL);
+		COLORS.put("WHITE", Color.WHITE);
+		COLORS.put("YELLOW", Color.YELLOW);
 	}
 	
 	/**

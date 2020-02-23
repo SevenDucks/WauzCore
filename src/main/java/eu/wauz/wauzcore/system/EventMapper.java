@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.WauzScrolls;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.util.ItemUtils;
@@ -23,10 +22,8 @@ import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponLance;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
-import eu.wauz.wauzcore.menu.QuestBuilder;
 import eu.wauz.wauzcore.menu.ShopBuilder;
 import eu.wauz.wauzcore.menu.WauzMenu;
-import eu.wauz.wauzcore.menu.WauzModeMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
@@ -45,37 +42,19 @@ public class EventMapper {
 	
 	/**
 	 * Called when a player interacts with an entity.
-	 * Only works after a certain cooldown.
 	 * Cancels the sit command for pets.
-	 * TODO: Refactor after npc update.
 	 * 
 	 * @param event The received PlayerInteractEvent.
-	 * 
-	 * @see Cooldown#playerEntityInteraction(Player)
-	 * @see ShopBuilder#open(Player, String)
-	 * @see QuestBuilder#accept(Player, String)
-	 * @see WauzPlayerEventHomeChange
-	 * @see WauzModeMenu#selectMode(Player, String)
 	 */
 	public static void handleEntityInteraction(PlayerInteractEntityEvent event) {
 		Player player = event.getPlayer();
 		Entity entity = event.getRightClicked();
-		
-		if(!Cooldown.playerEntityInteraction(player)) {
-			return;
-		}
-			
-		String display = ChatColor.stripColor(event.getRightClicked().getCustomName());
-		String[] name = display.split(" ");
-		
-		WauzDebugger.log(player, "Clicked NPC: " + display);
 		
 		if(player.equals(PetOverviewMenu.getOwner(entity)) && entity instanceof Wolf) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 	            public void run() {
 	            	try {
 	            		((Wolf) entity).setSitting(false);
-	        			WauzDebugger.log(player, "Canceled Pet Sit");
 	            	}
 	            	catch (NullPointerException e) {
 	            		WauzDebugger.catchException(getClass(), e);

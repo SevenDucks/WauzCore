@@ -2,7 +2,7 @@ package eu.wauz.wauzcore.data.players;
 
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
+import eu.wauz.wauzcore.data.api.PlayerMetaConfigurationUtils;
 import eu.wauz.wauzcore.mobs.citizens.RelationLevel;
 
 /**
@@ -10,7 +10,7 @@ import eu.wauz.wauzcore.mobs.citizens.RelationLevel;
  * 
  * @author Wauzmons
  */
-public class PlayerRelationConfigurator extends PlayerConfigurationUtils {
+public class PlayerRelationConfigurator extends PlayerMetaConfigurationUtils {
 	
 // General Parameters
 	
