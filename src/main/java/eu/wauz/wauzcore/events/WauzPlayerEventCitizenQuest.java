@@ -2,7 +2,8 @@ package eu.wauz.wauzcore.events;
 
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.menu.QuestBuilder;
+import eu.wauz.wauzcore.menu.QuestMenu;
+import eu.wauz.wauzcore.system.quests.QuestProcessor;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -40,12 +41,12 @@ public class WauzPlayerEventCitizenQuest implements WauzPlayerEvent {
 	 * 
 	 * @return If the event was executed successfully.
 	 * 
-	 * @see QuestBuilder#accept(Player, String)
+	 * @see QuestMenu#accept(Player, String)
 	 */
 	@Override
 	public boolean execute(Player player) {
 		try {
-			QuestBuilder.accept(player, questName, citizenName);
+			QuestProcessor.processQuest(player, questName, citizenName);
 			return true;
 		}
 		catch (Exception e) {

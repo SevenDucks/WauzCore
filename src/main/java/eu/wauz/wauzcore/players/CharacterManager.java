@@ -17,17 +17,17 @@ import org.bukkit.potion.PotionEffect;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
-import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.InventoryStringConverter;
+import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
-import eu.wauz.wauzcore.menu.QuestBuilder;
 import eu.wauz.wauzcore.menu.TabardMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
+import eu.wauz.wauzcore.system.quests.QuestProcessor;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.md_5.bungee.api.ChatColor;
 
@@ -367,7 +367,7 @@ public class CharacterManager {
 			equipCharacterItems(player);
 			
 			if(characterWorld.equals("Wauzland")) {
-				QuestBuilder.accept(player, "Yamir", "Yamir");
+				QuestProcessor.processQuest(player, "Yamir", "Yamir");
 			}
 			try {
 				WauzRewards.daily(player);

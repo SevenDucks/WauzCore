@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.menu.util;
+package eu.wauz.wauzcore.system.quests;
 
 import java.util.ArrayList;
 import java.util.List;

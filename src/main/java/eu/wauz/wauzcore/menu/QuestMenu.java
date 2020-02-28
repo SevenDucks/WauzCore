@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,23 +17,18 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.CitizenConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
-import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTalk;
-import eu.wauz.wauzcore.events.WauzPlayerEventQuestAccept;
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestCancel;
-import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
-import eu.wauz.wauzcore.menu.util.QuestRequirementChecker;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzQuest;
+import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -46,7 +39,7 @@ import net.md_5.bungee.api.ChatColor;
  *
  * @see WauzQuest
  */
-public class QuestBuilder implements WauzInventory {
+public class QuestMenu implements WauzInventory {
 	
 // Load Quests from Questlog
 	
@@ -59,13 +52,13 @@ public class QuestBuilder implements WauzInventory {
 	 * @param player The player that should view the inventory.
 	 * 
 	 * @see PlayerConfigurator#getCharacterRunningMainQuest(Player)
-	 * @see QuestBuilder#generateQuest(Player, String, int, Material)
-	 * @see QuestBuilder#generateEmptyQust(String)
+	 * @see QuestMenu#generateQuest(Player, String, int, Material)
+	 * @see QuestMenu#generateEmptyQust(String)
 	 * @see PlayerConfigurator#getHideSpecialQuestsForCharacter(Player)
 	 * @see PlayerConfigurator#getHideCompletedQuestsForCharacter(Player)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new QuestBuilder());
+		WauzInventoryHolder holder = new WauzInventoryHolder(new QuestMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Questlog");
 		
 		String slotm = PlayerConfigurator.getCharacterRunningMainQuest(player);
@@ -168,11 +161,11 @@ public class QuestBuilder implements WauzInventory {
 	 * @param player The player that should view the inventory.
 	 * 
 	 * @see WauzQuest#getQuestsForLevel(int)
-	 * @see QuestBuilder#generateUnacceptedQuest(Player, WauzQuest, int, boolean)
+	 * @see QuestMenu#generateUnacceptedQuest(Player, WauzQuest, int, boolean)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void find(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new QuestBuilder());
+		WauzInventoryHolder holder = new WauzInventoryHolder(new QuestMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Quests near "
 				+ player.getName());
 		
@@ -342,7 +335,7 @@ public class QuestBuilder implements WauzInventory {
 	 * 
 	 * @param event The inventory click event.
 	 * 
-	 * @see QuestBuilder#find(Player)
+	 * @see QuestMenu#find(Player)
 	 * @see PlayerConfigurator#setHideSpecialQuestsForCharacter(Player, boolean)
 	 * @see PlayerConfigurator#setHideCompletedQuestsForCharacter(Player, boolean)
 	 * @see WauzPlayerScoreboard#scheduleScoreboard(Player)
@@ -377,13 +370,13 @@ public class QuestBuilder implements WauzInventory {
 		else if(displayName.contains("Hide Special Quests")) {
 			PlayerConfigurator.setHideSpecialQuestsForCharacter(player, !PlayerConfigurator.getHideSpecialQuestsForCharacter(player));
 			WauzPlayerScoreboard.scheduleScoreboard(player);
-			QuestBuilder.open(player);
+			QuestMenu.open(player);
 		}
 		
 		else if(displayName.contains("Hide Completed Quests")) {
 			PlayerConfigurator.setHideCompletedQuestsForCharacter(player, !PlayerConfigurator.getHideCompletedQuestsForCharacter(player));
 			WauzPlayerScoreboard.scheduleScoreboard(player);
-			QuestBuilder.open(player);
+			QuestMenu.open(player);
 		}
 		
 		else if(material.equals(Material.YELLOW_CONCRETE) ||
@@ -406,200 +399,6 @@ public class QuestBuilder implements WauzInventory {
 				new QuestRequirementChecker(player, quest, phase).trackQuestObjective();
 			}
 		}
-	}
-	
-// When Player talks to Questgiver
-	
-	/**
-	 * Tries to accept or continue the quest.
-	 * Simplified version.
-	 * 
-	 * @param player The player who is accepting the quest.
-	 * @param questName The name of the quest.
-	 * @param questCitizen The name of the citizen who gives out the quest.
-	 * 
-	 * @see QuestBuilder#accept(Player, String, Location) Calls this with null as last param.
-	 */
-	public static void accept(Player player, String questName, String questCitizen) {
-		accept(player, questName, questCitizen, null);
-	}
-	
-	/**
-	 * Tries to accept or continue the quest.
-	 * If the quest isn't already running and no quest slot of the fitting type is available, it is cancelled.
-	 * If the quest is daily and has a cooldown, the remaining time, till the quest is redoable is shown.
-	 * If the quest is not daily and already complete, a completion message is shown.
-	 * If the quest is unstarted, an accept dialog is shown, or accepted directly, if it is a main quest.
-	 * If the quest is running and phase requirements are not met, an "uncomplete" message is shown.
-	 * If the phase is completed, the next phase is initiated and an phase description message is shown.
-	 * If all phases are completed, the quest slot and the phase are cleared,
-	 * the cooldown for daily quests gets resetted, the quest completions increase,
-	 * an effect and the completion message is shown and the reward is handed out.
-	 * 
-	 * @param player The player who is accepting the quest.
-	 * @param questName The name of the quest.
-	 * @param questCitizen The name of the citizen who gives out the quest.
-	 * @param questLocation The location to show exp rewards.
-	 * 
-	 * @see PlayerConfigurator#getCharacterRunningMainQuest(Player)
-	 * @see PlayerQuestConfigurator#getQuestPhase(Player, String)
-	 * @see PlayerQuestConfigurator#getQuestCooldown(Player, String)
-	 * @see PlayerQuestConfigurator#isQuestCompleted(Player, String)
-	 * @see WauzPlayerEventQuestAccept
-	 * @see WauzQuest#getCompletedDialog()
-	 * @see QuestRequirementChecker#tryToHandInQuest()
-	 * @see WauzQuest#getUncompletedMessage(int)
-	 * @see WauzQuest#getPhaseDialog(int)
-	 * @see PlayerQuestConfigurator#setQuestPhase(Player, String, int)
-	 * @see PlayerConfigurator#setCharacterQuestSlot(Player, String, String)
-	 * @see PlayerQuestConfigurator#setQuestCooldown(Player, String)
-	 * @see PlayerQuestConfigurator#addQuestCompletions(Player, String)
-	 * @see WauzRewards#level(Player, int, double, Location)
-	 * @see WauzRewards#mmorpgToken(Player)
-	 */
-	public static void accept(Player player, String questName, String questCitizen, Location questLocation) {
-		WauzQuest quest = WauzQuest.getQuest(questName);
-		
-		String questGiver = CitizenConfigurator.getDisplayName(questCitizen);
-		String type = quest.getType();
-		
-		WauzDebugger.log(player, "Quest: " + questName + " " + type);
-		
-		String slotm = PlayerConfigurator.getCharacterRunningMainQuest(player);
-		String cmpn1 = PlayerConfigurator.getCharacterRunningCampaignQuest1(player);
-		String cmpn2 = PlayerConfigurator.getCharacterRunningCampaignQuest2(player);
-		String slot1 = PlayerConfigurator.getCharacterRunningDailyQuest1(player);
-		String slot2 = PlayerConfigurator.getCharacterRunningDailyQuest2(player);
-		String slot3 = PlayerConfigurator.getCharacterRunningDailyQuest3(player);
-		
-// Check if Player has free Quest-Slot
-		
-		String questSlot = null;
-		boolean valid = false;
-		if(type.equals("main")) {
-			if(slotm.equals(questName) || slotm.equals("none")) {
-				questSlot = "quest.running.main";
-				valid = true;
-			}
-		}
-		else if(type.equals("campaign")) {
-			if(cmpn1.equals(questName) || cmpn1.equals("none")) {
-				questSlot = "quest.running.campaign1";
-				valid = true;
-			}
-			else if(cmpn2.equals(questName) || cmpn2.equals("none")) {
-				questSlot = "quest.running.campaign2";
-				valid = true;
-			}
-		}
-		else if(type.equals("daily")) {
-			if(slot1.equals(questName) || slot1.equals("none")) {
-				questSlot = "quest.running.daily1";
-				valid = true;
-			}
-			else if(slot2.equals(questName) || slot2.equals("none")) {
-				questSlot = "quest.running.daily2";
-				valid = true;
-			}
-			else if(slot3.equals(questName) || slot3.equals("none")) {
-				questSlot = "quest.running.daily3";
-				valid = true;
-			}
-		}
-		
-		WauzDebugger.log(player, "Valid: " + valid + " " + questSlot);
-		
-		if(!valid) {
-			player.sendMessage(ChatColor.RED + "Your Quest-Slots are full!");
-			return;
-		}
-		
-// Check Cooldown of Daily-Quests
-		
-		int phase = PlayerQuestConfigurator.getQuestPhase(player, questName);
-		long cooldown = PlayerQuestConfigurator.getQuestCooldown(player, questName);
-		long millis = System.currentTimeMillis() - cooldown;
-		
-		if(phase == 0 && millis < 14400000) {
-			millis = 14400000 - millis;
-			long hours = TimeUnit.MILLISECONDS.toHours(millis);
-			long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
-			
-			if(hours > 0) {
-				player.sendMessage(ChatColor.RED + "You have to wait " + (hours + 1) + " hour/s before you can do this quest again!");
-			}
-			else {
-				player.sendMessage(ChatColor.RED + "You have to wait " + (minutes + 1) + " minute/s before you can do this quest again!");
-			}
-			return;
-		}
-		
-		if(!type.equals("daily") && PlayerQuestConfigurator.isQuestCompleted(player, questName)) {
-			new WauzPlayerEventCitizenTalk(questGiver, quest.getCompletedDialog()).execute(player);
-		}
-		
-		String questDisplayName = quest.getDisplayName();
-		int phaseAmount = quest.getPhaseAmount();
-		
-		WauzDebugger.log(player, "Phase: " + phase + " / " + phaseAmount);
-		
-// Accept the Quest
-		
-		if(phase == 0) {
-			WauzPlayerEventQuestAccept event = new WauzPlayerEventQuestAccept(quest, questSlot, questGiver);
-			
-			if(type.equals("main")) {
-				event.execute(player);
-			}
-			else {
-				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-				playerData.setWauzPlayerEventName("Accept Quest");
-				playerData.setWauzPlayerEvent(event);
-				WauzDialog.open(player, generateUnacceptedQuest(player, quest, 1, false));
-			}
-			return;
-		}
-		
-// Check if Objectives are fulfilled
-		
-		if(!new QuestRequirementChecker(player, quest, phase).tryToHandInQuest()) {
-			List<String> message = Collections.singletonList(quest.getUncompletedMessage(phase));
-			new WauzPlayerEventCitizenTalk(questGiver, message).execute(player);
-			return;
-		}
-		
-// Complete or Continue Quest-Chain
-		
-		if(phase < phaseAmount) {
-			try {
-				phase++;
-				PlayerQuestConfigurator.setQuestPhase(player, questName, phase);
-				new WauzPlayerEventCitizenTalk(questGiver, quest.getPhaseDialog(phase)).execute(player);
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-				return;
-			}
-		}
-		else {
-			try {
-				PlayerQuestConfigurator.setQuestPhase(player, questName, 0);
-				PlayerConfigurator.setCharacterQuestSlot(player, questSlot, "none");
-				if(type.equals("daily")) {
-					PlayerQuestConfigurator.setQuestCooldown(player, questName);
-				}
-				PlayerQuestConfigurator.addQuestCompletions(player, questName);
-				player.getWorld().playEffect(player.getLocation(), Effect.DRAGON_BREATH, 0);
-				player.sendMessage(ChatColor.GREEN + "You completed [" + questDisplayName + "]");
-				WauzRewards.level(player, quest.getLevel(), 2.5 * phaseAmount, questLocation);
-				WauzRewards.mmorpgToken(player);
-				new WauzPlayerEventCitizenTalk(questGiver, quest.getCompletedDialog()).execute(player);
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-				return;
-			}
-		}	
 	}
 
 }

@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.events;
+package eu.wauz.wauzcore.system.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -22,6 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.ArmorType;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.EquipMethod;
 

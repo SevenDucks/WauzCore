@@ -11,7 +11,7 @@ import eu.wauz.wauzcore.menu.CraftingMenu;
 import eu.wauz.wauzcore.menu.GroupMenu;
 import eu.wauz.wauzcore.menu.GuildOverviewMenu;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
-import eu.wauz.wauzcore.menu.QuestBuilder;
+import eu.wauz.wauzcore.menu.QuestMenu;
 import eu.wauz.wauzcore.menu.SkillMenu;
 import eu.wauz.wauzcore.menu.TravellingMenu;
 import eu.wauz.wauzcore.menu.WauzMenu;
@@ -79,7 +79,7 @@ public class CmdMenu implements WauzCommand {
 			return true;
 		}
 		else if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Questlog")) {
-			QuestBuilder.open(player);
+			QuestMenu.open(player);
 			return true;
 		}
 		else if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Crafting")) {

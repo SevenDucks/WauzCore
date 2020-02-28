@@ -2,11 +2,11 @@ package eu.wauz.wauzcore.menu.util;
 
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.system.util.DeprecatedUtils;
 
 /**
  * An util class to create item stacks of specific heads / skulls.
@@ -379,22 +379,16 @@ public class HeadUtils {
 	/**
 	 * Creates a player head item stack, based on a base64 string.
 	 * 
-	 * Suppresses deprecation of UnsafeValues,
-	 * because there are currently no better alternatives.
-	 * 
 	 * @param base64 A base64 string representing the data value of a skin.
 	 * 
 	 * @return A player head with the given skin.
 	 */
-	@SuppressWarnings("deprecation")
 	public static ItemStack getPlayerHead(String base64) {
 		ItemStack headItemStack = new ItemStack(Material.PLAYER_HEAD);
 		UUID hashAsId = new UUID(base64.hashCode(), base64.hashCode());
-		return Bukkit.getUnsafe().modifyItemStack(headItemStack,
-				"{SkullOwner:{Id:\"" + hashAsId + "\",Properties:{textures:[{Value:\"" + base64 + "\"}]}}}"
-		);
+		return DeprecatedUtils.addPlayerHeadTexture(headItemStack, base64, hashAsId);
 	}
-	
+
 	/**
 	 * Name based equals check for head menu items.
 	 * 

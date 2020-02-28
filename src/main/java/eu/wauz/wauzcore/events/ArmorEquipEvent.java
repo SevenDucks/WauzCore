@@ -7,6 +7,8 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
+
 /**
  * A custom Bukkit event to track the change of player equipment.
  * 

@@ -10,11 +10,11 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.data.RegionConfigurator;
-import eu.wauz.wauzcore.events.ArmorEquipEventListener;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -30,6 +30,14 @@ import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.api.WebServerManager;
+import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
+import eu.wauz.wauzcore.system.listeners.BlockProtectionListener;
+import eu.wauz.wauzcore.system.listeners.InventoryListener;
+import eu.wauz.wauzcore.system.listeners.MythicMobsListener;
+import eu.wauz.wauzcore.system.listeners.PlayerAmbientListener;
+import eu.wauz.wauzcore.system.listeners.PlayerCombatListener;
+import eu.wauz.wauzcore.system.listeners.PlayerInteractionListener;
+import eu.wauz.wauzcore.system.listeners.ProjectileMovementListener;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -84,7 +92,6 @@ public class WauzCore extends JavaPlugin {
 	 * 4. And finally starts all repeating tasks.
 	 * 
 	 * @see WauzLoader
-	 * @see WauzListener
 	 * @see WebServerManager
 	 */
 	@Override
@@ -107,8 +114,15 @@ public class WauzCore extends JavaPlugin {
 		WauzLoader.init();
 		getLogger().info("Loaded Data from Files!");
 		
-		getServer().getPluginManager().registerEvents(new WauzListener(), this);
-		getServer().getPluginManager().registerEvents(new ArmorEquipEventListener(), this);
+		PluginManager pluginManager = getServer().getPluginManager();
+		pluginManager.registerEvents(new ArmorEquipEventListener(), this);
+		pluginManager.registerEvents(new BlockProtectionListener(), this);
+		pluginManager.registerEvents(new InventoryListener(), this);
+		pluginManager.registerEvents(new MythicMobsListener(), this);
+		pluginManager.registerEvents(new PlayerAmbientListener(), this);
+		pluginManager.registerEvents(new PlayerCombatListener(), this);
+		pluginManager.registerEvents(new PlayerInteractionListener(), this);
+		pluginManager.registerEvents(new ProjectileMovementListener(), this);
 		getLogger().info("Registered EventListeners!");
 		
 		int port = getWebApiPort();

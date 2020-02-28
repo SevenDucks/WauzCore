@@ -99,7 +99,7 @@ public class StatisticsFetcher {
 			}
 			foldersToScan.remove(foldersToScan.get(0));
 		}
-		return new Integer(customEntities).toString();
+		return Integer.toString(customEntities);
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class StatisticsFetcher {
 	 */
 	private static String getTotalPlayers() {
 		File statisticsFolder = new File(core.getDataFolder().getAbsolutePath().replace("plugins/WauzCore", "HubNexus/stats/"));
-		return new Integer(statisticsFolder.list().length).toString();
+		return Integer.toString(statisticsFolder.list().length);
 	}
 	
 	/**
@@ -124,7 +124,7 @@ public class StatisticsFetcher {
 			File statisticsFile = new File(statisticsPath.replace("%uuid%", player.getUniqueId().toString()));
 			playedHours += getPlayedHoursFromStatistics(statisticsFile);
 		}
-		return new Long(playedHours / 24).toString();
+		return Long.toString(playedHours / 24);
 	}
 	
 	/**

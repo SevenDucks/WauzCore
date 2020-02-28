@@ -209,7 +209,7 @@ public class WauzMenu implements WauzInventory {
 	 * @see GuildOverviewMenu#open(Player)
 	 * @see GroupMenu#open(Player)
 	 * @see AchievementsMenu#open(Player)
-	 * @see QuestBuilder#open(Player)
+	 * @see QuestMenu#open(Player)
 	 * @see CraftingMenu#open(Player)
 	 * @see PetOverviewMenu#open(Player, int)
 	 * @see SkillMenu#open(Player)
@@ -236,7 +236,7 @@ public class WauzMenu implements WauzInventory {
 			AchievementsMenu.open(player);
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Questlog")) {
-			QuestBuilder.open(player);
+			QuestMenu.open(player);
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Crafting")) {
 			CraftingMenu.open(player);

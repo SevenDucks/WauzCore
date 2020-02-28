@@ -1,9 +1,5 @@
 package eu.wauz.wauzcore.players.calc;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -13,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
@@ -37,6 +32,7 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Cooldown;
+import eu.wauz.wauzcore.system.util.DeprecatedUtils;
 import eu.wauz.wauzcore.system.util.Formatters;
 import net.md_5.bungee.api.ChatColor;
 
@@ -44,14 +40,10 @@ import net.md_5.bungee.api.ChatColor;
  * Used to recalculate how much damage or heal players deal and receive.
  * Also handles stuff like damage boni, reflection, leech and PvP-potions.
  * 
- * Suppresses deprecation of DamageModifier,
- * because there are currently no better alternatives.
- * 
  * @author Wauzmons
  * 
  * @see WauzPlayerData#getHealth()
  */
-@SuppressWarnings("deprecation")
 public class DamageCalculator {
 	
 	/**
@@ -72,7 +64,7 @@ public class DamageCalculator {
 	 * @param event The damage event.
 	 * 
 	 * @see DamageCalculator#applyAttackBonus(int, Player, String)
-	 * @see DamageCalculator#removeDamageModifiers(EntityDamageEvent)
+	 * @see DeprecatedUtils#removeDamageModifiers(EntityDamageEvent)
 	 * @see EquipmentUtils#getBaseAtk(ItemStack)
 	 * @see EquipmentUtils#getLevelRequirement(ItemStack)
 	 * @see ValueIndicator#spawnDamageIndicator(Entity, Integer)
@@ -108,7 +100,7 @@ public class DamageCalculator {
 		else {
 			if((itemStack.getType().equals(Material.AIR)) || !ItemUtils.hasLore(itemStack)) {
 				event.setDamage(isAttackDebugMode ? 100: 1);
-				removeDamageModifiers(event);
+				DeprecatedUtils.removeDamageModifiers(event);
 				DurabilityCalculator.damageItem(player, itemStack, false);
 				ValueIndicator.spawnDamageIndicator(event.getEntity(), 1);
 				return;
@@ -167,7 +159,7 @@ public class DamageCalculator {
 		damage = (int) ((float) damage * (float) multiplier);
 		damage = damage < 1 ? 1 : damage;
 		event.setDamage(damage);
-		removeDamageModifiers(event);
+		DeprecatedUtils.removeDamageModifiers(event);
 		
 		if(!isMagic && !isFixedDamage && !event.getCause().equals(DamageCause.ENTITY_SWEEP_ATTACK)) {
 			DurabilityCalculator.damageItem(player, itemStack, false);
@@ -332,21 +324,6 @@ public class DamageCalculator {
 		int onKillMP = EquipmentUtils.getEnhancementOnKillMP(player.getEquipment().getItemInMainHand());
 		if(onKillMP > 0) {
 			ManaCalculator.regenerateMana(player, onKillMP);
-		}
-	}
-	
-	/**
-	 * Removes the Minecraft damage modifiers from an event.
-	 * 
-	 * @param event The damage event.
-	 */
-	public static void removeDamageModifiers(EntityDamageEvent event) {
-		List<DamageModifier> damageModifiers = Arrays.asList(DamageModifier.values()).stream()
-				.filter(damageModifier -> event.isApplicable(damageModifier))
-				.collect(Collectors.toList());
-		
-		for(int iterator = 0; iterator < damageModifiers.size(); iterator++) {
-			event.setDamage(damageModifiers.get(iterator), iterator == 0 ? event.getDamage() : 0);
 		}
 	}
 	
