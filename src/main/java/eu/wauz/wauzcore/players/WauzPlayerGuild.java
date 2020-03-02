@@ -53,6 +53,8 @@ public class WauzPlayerGuild {
 			guildMap.put(guildUuidString, guild);
 			guildNameMap.put(guild.getGuildName(), guild);
 		}
+		
+		Bukkit.getLogger().info("Loaded " + guildMap.size() + " Guilds!");
 	}
 	
 	/**

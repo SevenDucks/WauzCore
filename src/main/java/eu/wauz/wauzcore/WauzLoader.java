@@ -113,9 +113,9 @@ public class WauzLoader {
 	 * @see StatisticsFetcher#calculate()
 	 */
 	public static void init() {
-		WauzEquipment.init();
-		WauzCitizen.init();
 		WauzRegion.init();
+		WauzCitizen.init();
+		WauzEquipment.init();
 		WauzAchievement.init();
 		WauzQuest.init();
 		WauzPlayerGuild.init();

@@ -32,7 +32,7 @@ public class RelationTracker {
 		RelationLevel oldRelationLevel = RelationLevel.getRelationLevel(oldProgress);
 		RelationLevel newRelationLevel = RelationLevel.getRelationLevel(newProgress);
 		PlayerRelationConfigurator.setRelationProgress(player, citizen, newProgress);
-		player.sendMessage(ChatColor.YELLOW + "You earned " + relationExp + " relation experience with " + citizen + "!");
+		player.sendMessage(ChatColor.YELLOW + "You earned " + relationExp + " relation exp with " + citizen + "!");
 		
 		if(!Objects.equals(oldRelationLevel, newRelationLevel)) {
 			int reward = newRelationLevel.getRelationTier();
@@ -60,10 +60,10 @@ public class RelationTracker {
 		RelationLevel nextRelationLevel = currentRelationLevel.getNextLevel();
 		
 		List<String> lores = new ArrayList<>();
-		String currentRelationString = currentRelationLevel.getRelationName() + "(" + currentRelationLevel.getRelationTier() + ")";
+		String currentRelationString = currentRelationLevel.getRelationName() + " (" + currentRelationLevel.getRelationTier() + ")";
 		lores.add(ChatColor.GREEN + "Level: " + ChatColor.GOLD + currentRelationString);
 		int pricePercentage = (int) (currentRelationLevel.getDiscountMultiplier() * 100);
-		String discountString = "+" + (100 - pricePercentage) + "% Shop Discount / Quest Rewards";
+		String discountString = "+" + (100 - pricePercentage) + "% Discount / Rewards";
 		lores.add(ChatColor.YELLOW + "Bonus: " + discountString);
 		
 		lores.add("");
@@ -71,7 +71,7 @@ public class RelationTracker {
 			lores.add(ChatColor.YELLOW + "Next: " + ChatColor.GOLD + nextRelationLevel.getRelationName());
 			int nextGoal = nextRelationLevel.getNeededExp();
 			String nextGoalString = Formatters.INT.format(nextGoal);
-			lores.add(ChatColor.YELLOW + "Progress: " + progressString + " / " + nextGoalString + " Relation Experience");
+			lores.add(ChatColor.YELLOW + "Progress: " + progressString + " / " + nextGoalString + " Relation Exp");
 			lores.add(UnicodeUtils.createProgressBar(progress, nextGoal, 50, ChatColor.LIGHT_PURPLE));
 			lores.add(ChatColor.YELLOW + "Reward: " + nextRelationLevel.getRelationTier() + " Soulstones");
 		}

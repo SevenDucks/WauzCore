@@ -52,7 +52,7 @@ public class TravellingMenu implements WauzInventory {
 		ItemStack portNexusItemStack = new ItemStack(Material.ENDER_EYE);
 		ItemMeta portNexusItemMeta = portNexusItemStack.getItemMeta();
 		portNexusItemMeta.setDisplayName(ChatColor.GREEN + "Nexus Portal");
-		List<String> portNexusLores = new ArrayList<String>();
+		List<String> portNexusLores = new ArrayList<>();
 		portNexusLores.add(ChatColor.GRAY + "Sends you back to the Nexus Hub,");
 		portNexusLores.add(ChatColor.GRAY + "where you can select your characters.");
 		portNexusItemMeta.setLore(portNexusLores);
@@ -62,7 +62,7 @@ public class TravellingMenu implements WauzInventory {
 		ItemStack portSpawnItemStack = new ItemStack(Material.ENDER_PEARL);
 		ItemMeta portSpawnItemMeta = portSpawnItemStack.getItemMeta();
 		portSpawnItemMeta.setDisplayName(ChatColor.GREEN + "Spawn Portal");
-		List<String> portSpawnLores = new ArrayList<String>();
+		List<String> portSpawnLores = new ArrayList<>();
 		portSpawnLores.add(ChatColor.GRAY + "Sends you to your Overworld Spawn.");
 		portSpawnLores.add(ChatColor.GRAY + "Use it when stuck or for quick-travel.");
 		portSpawnItemMeta.setLore(portSpawnLores);
@@ -72,11 +72,11 @@ public class TravellingMenu implements WauzInventory {
 		ItemStack portHomeItemStack = new ItemStack(Material.MAGMA_CREAM);
 		ItemMeta portHomeItemMeta = portHomeItemStack.getItemMeta();
 		portHomeItemMeta.setDisplayName(ChatColor.GREEN + "Hearthstone");
-		List<String> portHomeLores = new ArrayList<String>();
+		List<String> portHomeLores = new ArrayList<>();
 		String region = PlayerConfigurator.getCharacterHearthstoneRegion(player);
 		region = StringUtils.isNotBlank(region) ? ChatColor.GREEN + region : ChatColor.DARK_GRAY + "(None)";
 		portHomeLores.add(ChatColor.GRAY + "Sends you to your home: " + region);
-		portHomeLores.add(ChatColor.GRAY + "Speak to an (" + ChatColor.RED + "I" + ChatColor.GRAY + ")nnkeeper to change it.");
+		portHomeLores.add(ChatColor.GRAY + "Speak to an Innkeeper to change it.");
 		portHomeItemMeta.setLore(portHomeLores);
 		portHomeItemStack.setItemMeta(portHomeItemMeta);
 		menu.setItem(3, portHomeItemStack);
@@ -85,7 +85,7 @@ public class TravellingMenu implements WauzInventory {
 		ItemStack portInstanceExitItemStack = new ItemStack(inInstance ? Material.OAK_DOOR : Material.IRON_DOOR);
 		ItemMeta portInstanceExitItemMeta = portInstanceExitItemStack.getItemMeta();
 		portInstanceExitItemMeta.setDisplayName(ChatColor.YELLOW + "Leave Instance" + (inInstance ? "" : ChatColor.RED + " (Disabled)"));
-		List<String> portInstanceExitLore = new ArrayList<String>();
+		List<String> portInstanceExitLore = new ArrayList<>();
 		portInstanceExitLore.add(ChatColor.GRAY + "Leave the instance and return to the");
 		portInstanceExitLore.add(ChatColor.GRAY + "place, from where you entered it.");
 		portInstanceExitItemMeta.setLore(portInstanceExitLore);
@@ -95,7 +95,7 @@ public class TravellingMenu implements WauzInventory {
 		ItemStack mapItemStack = new ItemStack(Material.MAP);
 		ItemMeta mapItemMeta = mapItemStack.getItemMeta();
 		mapItemMeta.setDisplayName(ChatColor.BLUE + "Overview Map");
-		List<String> mapLores = new ArrayList<String>();
+		List<String> mapLores = new ArrayList<>();
 		mapLores.add(ChatColor.GRAY + "Sends a link in chat to the Overview Map,");
 		mapLores.add(ChatColor.GRAY + "where you can see your position.");
 		mapItemMeta.setLore(mapLores);

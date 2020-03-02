@@ -40,6 +40,7 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.jitse.npclib.api.events.NPCInteractEvent;
 import net.md_5.bungee.api.ChatColor;
@@ -177,7 +178,7 @@ public class PlayerInteractionListener implements Listener {
 	 */
 	@EventHandler
 	public void onCitizenInteraction(NPCInteractEvent event) {
-		if(WauzMode.isMMORPG(event.getWhoClicked())) {
+		if(WauzMode.isMMORPG(event.getWhoClicked()) && Cooldown.playerEntityInteraction(event.getWhoClicked())) {
 			WauzCitizen citizen = WauzCitizenSpawner.getCitizen(event.getNPC());
 			CitizenInteractionMenu.open(event.getWhoClicked(), citizen);
 		}

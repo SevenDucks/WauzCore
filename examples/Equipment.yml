@@ -64,7 +64,7 @@ Greataxe:
 Worldbreaker:
   type: WEAPON
   material: DIAMOND_AXE
-  name: Worldbreaker
+  name: Mjölnir
   mainstat: 1.90
   speedstat: 1.10
   durabilitystat: 512
@@ -99,7 +99,7 @@ Sceptre:
 Soulreaver:
   type: WEAPON
   material: DIAMOND_HOE
-  name: Soulreaver
+  name: Rhongomyniad
   mainstat: 1.50
   speedstat: 1.70
   durabilitystat: 512

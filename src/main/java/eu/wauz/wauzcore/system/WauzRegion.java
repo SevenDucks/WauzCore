@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -31,6 +32,11 @@ public class WauzRegion {
 	private static List<WauzRegion> masterRegions = new ArrayList<>();
 	
 	/**
+	 * The number of all constructed regions.
+	 */
+	private static int regionCount;
+	
+	/**
 	 * The flag to allow building in a region.
 	 */
 	private static final String FLAG_BUILD = "build";
@@ -52,6 +58,8 @@ public class WauzRegion {
 		for(String masterRegionKey : RegionConfigurator.getMasterRegionKeys()) {
 			masterRegions.add(new WauzRegion(null, masterRegionKey));
 		}
+		
+		Bukkit.getLogger().info("Loaded " + regionCount + " Regions!");
 	}
 	
 	/**
@@ -339,6 +347,8 @@ public class WauzRegion {
 		for(String subRegionKey : RegionConfigurator.getSubRegionKeys(regionKey)) {
 			children.add(new WauzRegion(this, regionKey + ".areas." + subRegionKey));
 		}
+		
+		regionCount++;
 	}
 	
 	/**

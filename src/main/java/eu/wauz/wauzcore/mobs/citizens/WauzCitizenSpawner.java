@@ -95,6 +95,15 @@ public class WauzCitizenSpawner {
 	}
 	
 	/**
+	 * Gets the number of all registered citizens.
+	 * 
+	 * @return The citizen count.
+	 */
+	public static int getCitizenCount() {
+		return npcCitizenMap.size();
+	}
+	
+	/**
 	 * Shows all npcs near the given player to them and updates the npc's look direction. 
 	 * 
 	 * @param player The player to show the npcs to.

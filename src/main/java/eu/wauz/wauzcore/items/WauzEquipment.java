@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.items;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -59,6 +60,8 @@ public class WauzEquipment {
 			
 			WauzEquipmentIdentifier.addEquipType(equipment);
 		}
+		
+		Bukkit.getLogger().info("Loaded " + WauzEquipmentIdentifier.getEquipmentTypeCount() + " Equipment Types!");
 	}
 	
 	/**

@@ -25,6 +25,8 @@ Patch 601: Cultured Citizens
 	Miscellaneous
 	  - Added Improved Web API
 	  - Reached 100% Code Documentation
+	  - Choosable Quest Rewards
+	  - New Equipment Tiers (T4-T6)
 
 Patch 511: Achievement Arsenal
 	New Feature: Achievements

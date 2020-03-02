@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.AchievementConfigurator;
@@ -58,6 +59,8 @@ public class WauzAchievement {
 			achievement.setReward(AchievementConfigurator.getReward(key));
 			achievementMap.get(achievement.getType()).add(achievement);
 		}
+		
+		Bukkit.getLogger().info("Loaded " + getAchievementCount() + " Achievements!");
 	}
 	
 	/**

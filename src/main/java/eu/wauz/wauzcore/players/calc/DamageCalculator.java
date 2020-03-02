@@ -1,39 +1,26 @@
 package eu.wauz.wauzcore.players.calc;
 
 import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffectType;
 
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
-import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.mobs.MenacingModifier;
-import eu.wauz.wauzcore.mobs.MobMetadataUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.WauzPermission;
-import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Cooldown;
-import eu.wauz.wauzcore.system.util.DeprecatedUtils;
-import eu.wauz.wauzcore.system.util.Formatters;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -47,127 +34,25 @@ import net.md_5.bungee.api.ChatColor;
 public class DamageCalculator {
 	
 	/**
-	 * The chance that a weapon skill increases on weapon usage. One in x.
-	 */
-	private static int INCREASE_SKILL_CHANCE = 5;
-	
-	/**
 	 * Determines the amount of damage a player dealt.
-	 * Determines if it is normal (with boni), fixed (without boni) or magic (multiplied) damage.
-	 * Checks level requirements and cooldown on the used weapon,
-	 * so the attack can be cancelled and an according message can be shown.
-	 * Minecraft damage modifiers are removed and replaced by custom bonuses and (crit) randomizers.
-	 * In attack debug mode, the damage output is multiplied by 100.
-	 * Also lets damage indicators pop up after the attack,
-	 * aswell as reducing weapon durability, if necessary.
 	 * 
 	 * @param event The damage event.
 	 * 
-	 * @see DamageCalculator#applyAttackBonus(int, Player, String)
-	 * @see DeprecatedUtils#removeDamageModifiers(EntityDamageEvent)
-	 * @see EquipmentUtils#getBaseAtk(ItemStack)
-	 * @see EquipmentUtils#getLevelRequirement(ItemStack)
-	 * @see ValueIndicator#spawnDamageIndicator(Entity, Integer)
-	 * @see ValueIndicator#spawnMissedIndicator(Entity)
-	 * @see DurabilityCalculator#damageItem(Player, ItemStack, boolean)
-	 * @see WauzDebugger#toggleAttackDebugMode(Player)
+	 * @see DamageCalculatorAttack
 	 */
 	public static void attack(EntityDamageByEntityEvent event) {
-		Player player = (Player) event.getDamager();
-		Entity entity = event.getEntity();
-		
-		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null) {
-			return;
-		}
-		
-		boolean isFixedDamage = MobMetadataUtils.hasFixedDamage(entity);
-		if(isFixedDamage) {
-			MobMetadataUtils.setFixedDamage(entity, false);
-		}
-		
-		int damage = 1;
-		int unmodifiedDamage = (int) event.getDamage();
-		
-		boolean isAttackDebugMode = player.hasPermission(WauzPermission.DEBUG_ATTACK.toString());
-		boolean isMagic = false;
-		double magicMultiplier = 1;
-		
-		ItemStack itemStack = player.getEquipment().getItemInMainHand();
-		if(isFixedDamage) {
-			damage = (int) event.getDamage();
-		}
-		else {
-			if((itemStack.getType().equals(Material.AIR)) || !ItemUtils.hasLore(itemStack)) {
-				event.setDamage(isAttackDebugMode ? 100: 1);
-				DeprecatedUtils.removeDamageModifiers(event);
-				DurabilityCalculator.damageItem(player, itemStack, false);
-				ValueIndicator.spawnDamageIndicator(event.getEntity(), 1);
-				return;
-			}
-			
-			int requiredLevel = EquipmentUtils.getLevelRequirement(itemStack);
-			WauzDebugger.log(player, "Required Level: " + requiredLevel);
-			if(player.getLevel() < requiredLevel) {
-				event.setCancelled(true);
-				DurabilityCalculator.damageItem(player, itemStack, false);
-				player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
-				return;
-			}
-			
-			double magicBaseMultiplier = MobMetadataUtils.getMagicDamageMultiplier(entity);
-			if(magicBaseMultiplier > 0) {
-				magicMultiplier = magicBaseMultiplier + EquipmentUtils.getEnhancementSkillDamageMultiplier(itemStack);
-				MobMetadataUtils.setMagicDamageMultiplier(entity, 0);
-				WauzDebugger.log(player, "Magic Damage-Multiplier: " + magicMultiplier);
-				isMagic = true;
-			}
-			else if(!Cooldown.playerWeaponUse(player)) {
-				WauzDebugger.log(player, "Missed - Weapon Not Ready");
-				event.setCancelled(true);
-				player.resetCooldown();
-				
-				ValueIndicator.spawnMissedIndicator(entity);
-				return;
-			}
-			
-			damage = EquipmentUtils.getBaseAtk(itemStack);
-			unmodifiedDamage = (int) (damage * magicMultiplier);
-			damage = applyAttackBonus(unmodifiedDamage, player, itemStack.getType().name());
-		}
-		
-		boolean isCritical = Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player));
-		float multiplier = 1;
-		if(isCritical) {
-			multiplier += 1 + EquipmentUtils.getEnhancementCriticalDamageMultiplier(player.getEquipment().getItemInMainHand());
-		}
-		else {
-			multiplier += Chance.negativePositive(0.15f);
-		}
-		
-		if(isAttackDebugMode) {
-			multiplier += 100;
-		}
-		if(MobMetadataUtils.hasMenacingModifier(entity, MenacingModifier.MASSIVE)) {
-			multiplier = 0.2f * multiplier;
-		}
-		if(MobMetadataUtils.hasMenacingModifier(entity, MenacingModifier.DEFLECTING)) {
-			SkillUtils.throwBackEntity(player, entity.getLocation(), 1.2);
-		}
-		
-		WauzDebugger.log(player, "Randomized Multiplier: " + Formatters.DEC.format(multiplier) + (isCritical ? " CRIT" : ""));
-		damage = (int) ((float) damage * (float) multiplier);
-		damage = damage < 1 ? 1 : damage;
-		event.setDamage(damage);
-		DeprecatedUtils.removeDamageModifiers(event);
-		
-		if(!isMagic && !isFixedDamage && !event.getCause().equals(DamageCause.ENTITY_SWEEP_ATTACK)) {
-			DurabilityCalculator.damageItem(player, itemStack, false);
-		}
-		ValueIndicator.spawnDamageIndicator(event.getEntity(), damage, isCritical);
-		
-		WauzDebugger.log(player, "You inflicted " + damage + " (" + unmodifiedDamage + ") damage!");
-		WauzDebugger.log(player, "Cause: " + event.getCause() + " " + event.getFinalDamage());
+		new DamageCalculatorAttack(event).run();
+	}
+	
+	/**
+	 * Determines the amount of damage a player takes.
+	 * 
+	 * @param event The damage event.
+	 * 
+	 * @see DamageCalculatorDefense
+	 */
+	public static void defend(EntityDamageEvent event) {
+		new DamageCalculatorDefense(event).run();
 	}
 	
 	/**
@@ -199,83 +84,6 @@ public class DamageCalculator {
 				SkillUtils.throwBackEntity(damageable, player.getLocation(), 0.4);
 			}
 		}
-	}
-	
-	/**
-	 * Determines the amount of damage a player takes, with a minimum of 1.
-	 * If a shield is used, damage is reduced by 60% and the minimum damage is set to 0.
-	 * The player can also evade damage by having either invisibility, defense debug mode enabled or simply high agility.
-	 * Also lets damage indicators pop up after the attack,
-	 * aswell as reducing armor / shield durability and adding no-damage-ticks, if necessary.
-	 * 
-	 * @param event The damage event.
-	 * 
-	 * @see DamageCalculator#applyDefendBonus(int, Player)
-	 * @see EquipmentUtils#getBaseDef(ItemStack)
-	 * @see ValueIndicator#spawnDamageIndicator(Entity, Integer)
-	 * @see ValueIndicator#spawnEvadedIndicator(Entity)
-	 * @see EquipmentUtils#getBaseDef(ItemStack)
-	 * @see DurabilityCalculator#damageItem(Player, ItemStack, boolean)
-	 * @see WauzDebugger#toggleDefenseDebugMode(Player)
-	 */
-	public static void defend(EntityDamageEvent event) {
-		Player player = (Player) event.getEntity();
-		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null || player.getNoDamageTicks() != 0 || event.getDamage() == 0) {
-			return;
-		}
-		
-		if(player.hasPotionEffect(PotionEffectType.INVISIBILITY)
-				|| player.hasPermission(WauzPermission.DEBUG_DEFENSE.toString())
-				|| Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player))) {
-			
-			event.setDamage(0);
-			
-			ValueIndicator.spawnEvadedIndicator(player);
-			player.setNoDamageTicks(10);
-			
-			WauzDebugger.log(player, "You evaded an attack!");
-			return;
-		}
-		
-		int damage = (int) event.getDamage();
-		int unmodifiedDamage = damage;
-		int blockedDamage = 0;
-		
-		if(player.isBlocking() && event instanceof EntityDamageByEntityEvent) {
-			blockedDamage = (int) Math.ceil(damage * 0.60);
-			damage = damage - blockedDamage;
-			player.getWorld().playSound(player.getLocation(), Sound.ITEM_SHIELD_BLOCK, 1, 0.75f);
-			WauzDebugger.log(player, "Blocked Damage: " + blockedDamage);
-			
-			ItemStack shieldItemStack = player.getEquipment().getItemInMainHand();
-			DurabilityCalculator.damageItem(player, shieldItemStack, false);
-		}
-		
-		ItemStack itemStack = player.getEquipment().getChestplate();
-		if((itemStack != null) && (!itemStack.getType().equals(Material.AIR)) && (itemStack.getItemMeta().getLore() != null)) {
-			int defense = EquipmentUtils.getBaseDef(itemStack);
-			if(defense > 0 ) {
-				damage = (int) (damage - applyDefendBonus(defense, player));
-				DurabilityCalculator.damageItem(player, itemStack, true);
-			}
-		}
-		
-		event.setDamage(0);
-		if(damage < 1) {
-			damage = (blockedDamage > 0) ? 0 : 1;
-		}
-		int hp = playerData.getHealth() - damage;
-		if(hp < 0) {
-			hp = 0;
-		}
-		setHealth(player, hp);
-		
-		ValueIndicator.spawnDamageIndicator(player, damage);
-		player.setNoDamageTicks(10);
-		
-		WauzDebugger.log(player, "You took " + damage + " (" + unmodifiedDamage + ") damage!");
-		WauzDebugger.log(player, "Cause: " + event.getCause() + " " + event.getFinalDamage());
 	}
 	
 	/**
@@ -354,84 +162,6 @@ public class DamageCalculator {
 	}
 	
 	/**
-	 * Applies attack bonuses to a damage value, based on weapon and passive skills.
-	 * Also has a chance to increse the weapon skill.
-	 * Increases the damge to 150%, if the player has a strength status effect.
-	 * 
-	 * @param damage The damage value.
-	 * @param player The player that is attacking.
-	 * @param weaponType The weapon that the player uses.
-	 * 
-	 * @return The new damage value.
-	 * 
-	 * @see PlayerPassiveSkillConfigurator#getSwordSkill(Player)
-	 * @see PlayerPassiveSkillConfigurator#getAxeSkill(Player)
-	 * @see PlayerPassiveSkillConfigurator#getStaffSkill(Player)
-	 * @see PlayerPassiveSkillConfigurator#getAgility(Player)
-	 * @see PlayerPassiveSkillConfigurator#getStrength(Player)
-	 * @see PlayerPassiveSkillConfigurator#getManaStatpoints(Player)
-	 */
-	private static int applyAttackBonus(int damage, Player player, String weaponType) {
-		WauzDebugger.log(player, "Attacking with weapon-type: " + weaponType);
-		
-		float multiplier = 1;
-		if(weaponType.contains("SWORD")) {
-			multiplier = (float) ((float) PlayerPassiveSkillConfigurator.getSwordSkill(player) / 100000)
-					* ((float) PlayerPassiveSkillConfigurator.getAgilityStatpoints(player) * 5 / 100 + 1);
-			
-			if(Chance.oneIn(INCREASE_SKILL_CHANCE)) {
-				PlayerPassiveSkillConfigurator.increaseSwordSkill(player);
-			}
-		}
-		else if(weaponType.contains("AXE")) {
-			multiplier = (float) ((float) PlayerPassiveSkillConfigurator.getAxeSkill(player) / 100000)
-					* ((float) PlayerPassiveSkillConfigurator.getStrengthStatpoints(player) * 5 / 100 + 1);
-			
-			if(Chance.oneIn(INCREASE_SKILL_CHANCE)) {
-				PlayerPassiveSkillConfigurator.increaseAxeSkill(player);
-			}
-		}
-		else if(weaponType.contains("HOE")) {
-			multiplier = (float) ((float) PlayerPassiveSkillConfigurator.getStaffSkill(player) / 100000)
-					* ((float) PlayerPassiveSkillConfigurator.getManaStatpoints(player) * 5 / 100 + 1);
-			
-			if(Chance.oneIn(INCREASE_SKILL_CHANCE)) {
-				PlayerPassiveSkillConfigurator.increaseStaffSkill(player);
-			}
-		}
-		
-		if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
-			multiplier *= 1.5;
-		}
-		
-		WauzDebugger.log(player, "Base Multiplier: " + Formatters.DEC.format(multiplier));	
-		return (int) ((float) damage * (float) multiplier);
-	}
-	
-	/**
-	 * Applies defense bonuses to a resist value, based on strength bonus and pet absorption.
-	 * 
-	 * @param resist The resist value.
-	 * @param player The player that gets attacked.
-	 * 
-	 * @return The new resist value.
-	 * 
-	 * @see PlayerPassiveSkillConfigurator#getStrengthFloat(Player)
-	 * @see PlayerConfigurator#getCharacterPetAbsorption(Player, int)
-	 */
-	private static int applyDefendBonus(int resist, Player player) {
-		float multiplier = PlayerPassiveSkillConfigurator.getStrengthFloat(player);
-		
-		int petSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
-		if(petSlot >= 0) {
-			multiplier += (float) ((float) PlayerConfigurator.getCharacterPetAbsorption(player, petSlot) / (float) 10f);
-		}
-		
-		WauzDebugger.log(player, "Base Multiplier: " + Formatters.DEC.format(multiplier));	
-		return (int) ((float) resist * (float) multiplier);
-	}
-	
-	/**
 	 * Checks if a player has a pvp protection effect.
 	 * 
 	 * @param player The player to check.
@@ -445,7 +175,6 @@ public class DamageCalculator {
 		if(playerData == null) {
 			return false;
 		}
-		
 		return playerData.getResistancePvP() > 0;
 	}
 	
@@ -461,7 +190,6 @@ public class DamageCalculator {
 		if(playerData == null) {
 			return;
 		}
-		
 		playerData.decreasePvPProtection();
 	}
 	
@@ -480,7 +208,6 @@ public class DamageCalculator {
 		if(playerData == null) {
 			return;
 		}
-		
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		if(ItemUtils.containsPvPProtectionModifier(itemStack)) {
 			event.setCancelled(true);

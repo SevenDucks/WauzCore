@@ -10,19 +10,34 @@ import net.md_5.bungee.api.ChatColor;
 public enum Tier {
 	
 	/**
-	 * First tier for equipment items "Lesser", with a multiplier of 2 (2^1).
+	 * First tier for equipment items "Lesser", with a multiplier of 2.
 	 */
-	EQUIP_T1("Lesser" + ChatColor.GRAY + " T1" + ChatColor.WHITE, 1, (double) Math.pow(2, 1)),
+	EQUIP_T1("Lesser" + ChatColor.GRAY + " T1" + ChatColor.WHITE, 1, 2),
 	
 	/**
-	 * Second tier for equipment items "Greater", with a multiplier of 4 (2^2).
+	 * Second tier for equipment items "Greater", with a multiplier of 3.
 	 */
-	EQUIP_T2("Greater" + ChatColor.GRAY + " T2" + ChatColor.WHITE, 2, (double) Math.pow(2, 2)),
+	EQUIP_T2("Greater" + ChatColor.GRAY + " T2" + ChatColor.WHITE, 2, 3),
 	
 	/**
-	 * Third tier for equipment items "Angelic", with a multiplier of 8 (2^3).
+	 * Third tier for equipment items "Angelic", with a multiplier of 5.
 	 */
-	EQUIP_T3("Angelic" + ChatColor.GRAY + " T3" + ChatColor.WHITE, 3, (double) Math.pow(2, 3)),
+	EQUIP_T3("Angelic" + ChatColor.GRAY + " T3" + ChatColor.WHITE, 3, 5),
+	
+	/**
+	 * Fourth tier for equipment items "Mythic", with a multiplier of 8.
+	 */
+	EQUIP_T4("Mythic" + ChatColor.GRAY + " T4" + ChatColor.WHITE, 4, 8),
+	
+	/**
+	 * Fifth tier for equipment items "Divine", with a multiplier of 13.
+	 */
+	EQUIP_T5("Divine" + ChatColor.GRAY + " T5" + ChatColor.WHITE, 5, 13),
+	
+	/**
+	 * Highest tier for equipment items "Eternal", with a multiplier of 21.
+	 */
+	EQUIP_T6("Eternal" + ChatColor.GRAY + " T6" + ChatColor.WHITE, 6, 21),
 	
 	/**
 	 * First tier for rune items "Lesser", with a multiplier of 6.
@@ -40,7 +55,7 @@ public enum Tier {
 	RUNE_T3("Angelic" + ChatColor.GRAY + " T3" + ChatColor.WHITE, 3, 12);
 	
 	/**
-	 * Determines a tier, based on an item name, with a multiplier of 2^1 to 2^3 on a scale of T1 to T3.
+	 * Determines a tier, based on an item name, with a multiplier of 2 to 21 on a scale of T1 to T6.
 	 * Contains the tier name, level and multiplier.
 	 * 
 	 * @param itemName The name of the equipment item.
@@ -48,7 +63,16 @@ public enum Tier {
 	 * @return The tier of the item.
 	 */
 	public static Tier getEquipmentTier(String itemName) {
-		if(itemName.contains("T3")) {
+		if(itemName.contains("T6")) {
+			return EQUIP_T6;
+		}
+		else if(itemName.contains("T5")) {
+			return EQUIP_T5;
+		}
+		else if(itemName.contains("T4")) {
+			return EQUIP_T4;
+		}
+		else if(itemName.contains("T3")) {
 			return EQUIP_T3;
 		}
 		else if(itemName.contains("T2")) {

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -48,6 +49,8 @@ public class WauzCitizen {
 			chunkCitizensMap.get(chunk).add(citizen);
 			WauzCitizenSpawner.createNpc(citizen);
 		}
+		
+		Bukkit.getLogger().info("Loaded " + WauzCitizenSpawner.getCitizenCount() + " Citizens!");
 	}
 	
 	/**
