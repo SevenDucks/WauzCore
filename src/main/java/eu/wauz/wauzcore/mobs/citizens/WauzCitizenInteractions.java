@@ -15,6 +15,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.CitizenConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerRelationConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEvent;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenCommand;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenInn;
@@ -36,14 +37,19 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 public class WauzCitizenInteractions {
 	
 	/**
+	 * The name of the citizen, as shown in chat.
+	 */
+	private String displayName;
+	
+	/**
 	 * The mode that should be selected from the hub on interaction.
 	 */
-	public String modeSelection;
+	private String modeSelection;
 	
 	/**
 	 * A map of interaction events, indexed by the triggering item stacks.
 	 */
-	public Map<ItemStack, WauzPlayerEvent> interactionEventMap = new HashMap<>();
+	private Map<ItemStack, WauzPlayerEvent> interactionEventMap = new HashMap<>();
 	
 	/**
 	 * Constructs a set of interactions for the citizen with the given name.
@@ -53,7 +59,8 @@ public class WauzCitizenInteractions {
 	 * @see CitizenConfigurator#getModeSelection(String)
 	 * @see WauzCitizenInteractions#createInteractionItemStack(String, String)
 	 */
-	public WauzCitizenInteractions(String citizenName) {
+	public WauzCitizenInteractions(String citizenName, String displayName) {
+		this.displayName = displayName;
 		modeSelection = CitizenConfigurator.getModeSelection(citizenName);
 		if(StringUtils.isNotBlank(modeSelection)) {
 			return;
@@ -76,6 +83,13 @@ public class WauzCitizenInteractions {
 		WauzPlayerEvent event = null;
 		for(ItemStack interactionItemStack : interactionEventMap.keySet()) {
 			if(ItemUtils.isSpecificItem(clickedItemStack, interactionItemStack.getItemMeta().getDisplayName())) {
+				int relationLevel = RelationLevel.getRelationLevel(PlayerRelationConfigurator.getRelationProgress(player, displayName)).getRelationTier();
+				int requiredLevel = Integer.parseInt(ItemUtils.getStringFromLore(interactionItemStack, "Required Relation Level", 3));
+				if(relationLevel < requiredLevel) {
+					player.sendMessage(ChatColor.RED + "Your relation with this citizen is not good enough to do that!");
+					player.closeInventory();
+					return false;
+				}
 				event = interactionEventMap.get(interactionItemStack);
 				break;
 			}
@@ -160,7 +174,7 @@ public class WauzCitizenInteractions {
 			WauzDebugger.log("Invalid Citizen Interaction Type: " + type);
 			return;
 		}
-		MenuUtils.addItemLore(interactionItemStack, ChatColor.GRAY + "Required Relation Level: " + level, false);
+		MenuUtils.addItemLore(interactionItemStack, ChatColor.GRAY + "Required Relation Level:" + ChatColor.YELLOW + " " + level, false);
 		interactionEventMap.put(interactionItemStack, event);
 	}
 

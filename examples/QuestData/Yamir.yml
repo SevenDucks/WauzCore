@@ -3,6 +3,10 @@ name: Calamity Beneath Wauzland
 level: 5
 amount: 2
 coords: 0 5 0
+reward:
+  exp: 0
+  relation: 0
+  coins: 0
 phases:
   1:
     lores:

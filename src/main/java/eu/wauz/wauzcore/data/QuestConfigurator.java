@@ -67,6 +67,35 @@ public class QuestConfigurator extends GlobalConfigurationUtils {
 		return questConfigGetInt(questName, "amount");
 	}
 	
+// Rewards
+	
+	/**
+	 * @param questName The name of the quest.
+	 * 
+	 * @return The exp reward of the quest.
+	 */
+	public static double getRewardExp(String questName) {
+		return questConfigGetDouble(questName, "reward.exp");
+	}
+	
+	/**
+	 * @param questName The name of the quest.
+	 * 
+	 * @return The relation exp reward of the quest.
+	 */
+	public static int getRewardRelationExp(String questName) {
+		return questConfigGetInt(questName, "reward.relation");
+	}
+	
+	/**
+	 * @param questName The name of the quest.
+	 * 
+	 * @return The coin reward of the quest.
+	 */
+	public static int getRewardCoins(String questName) {
+		return questConfigGetInt(questName, "reward.coins");
+	}
+	
 // Dialog and Lore
 	
 	/**

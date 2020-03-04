@@ -185,14 +185,14 @@ public class WauzRewards {
 		ItemStack armorItemStack = player.getEquipment().getChestplate();
 		double armorBonus = ItemUtils.isNotAir(armorItemStack) ? EquipmentUtils.getExperienceBonus(armorItemStack) : 0;
 		
-		double multiplier = 1 + ((double) (weaponBonus / 100)) + ((double) (armorBonus / 100));
+		double multiplier = 1 + (weaponBonus / 100.0) + (armorBonus / 100.0);
 		
 		int petSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
 		if(petSlot >= 0) {
-			multiplier += (float) ((float) PlayerConfigurator.getCharacterPetIntelligence(player, petSlot) / (float) 10f);
+			multiplier += (float) PlayerConfigurator.getCharacterPetIntelligence(player, petSlot) / 10f;
 		}
 		
-		return (double) ((double) experience * (double) multiplier);
+		return experience * multiplier;
 	}
 	
 	/**

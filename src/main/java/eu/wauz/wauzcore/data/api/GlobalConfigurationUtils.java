@@ -362,6 +362,20 @@ public class GlobalConfigurationUtils {
 		return questDataConfig.getInt(path);
 	}
 	
+	/**
+	 * Gets a double from a quest config.
+	 * 
+	 * @param quest The name of the quest config file.
+	 * @param path The key path of the value to get.
+	 * 
+	 * @return The requested double.
+	 */
+	protected static double questConfigGetDouble(String quest, String path) {
+		File questDataFile = new File(core.getDataFolder(), "QuestData/" + quest + ".yml");
+		FileConfiguration questDataConfig = YamlConfiguration.loadConfiguration(questDataFile);	
+		return questDataConfig.getDouble(path);
+	}
+	
 // Interact with Instance-Config
 	
 	/**

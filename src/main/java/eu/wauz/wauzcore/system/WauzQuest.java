@@ -103,6 +103,21 @@ public class WauzQuest {
 	private int phaseAmount;
 	
 	/**
+	 * The exp reward of the quest.
+	 */
+	private double rewardExp;
+	
+	/**
+	 * The relation exp reward of the quest.
+	 */
+	private int rewardRelationExp;
+	
+	/**
+	 * The coin reward of the quest.
+	 */
+	private int rewardCoins;
+	
+	/**
 	 * The list of messages in the completion dialog.
 	 */
 	private List<String> completedDialog;
@@ -125,6 +140,9 @@ public class WauzQuest {
 		type = QuestConfigurator.getType(questName);
 		level = QuestConfigurator.getLevel(questName);
 		phaseAmount = QuestConfigurator.getPhaseAmount(questName);
+		rewardExp = QuestConfigurator.getRewardExp(questName);
+		rewardRelationExp = QuestConfigurator.getRewardRelationExp(questName);
+		rewardCoins = QuestConfigurator.getRewardCoins(questName);
 		completedDialog = QuestConfigurator.getCompletedDialog(questName);
 		
 		for(int phase = 1; phase <= phaseAmount; phase++) {
@@ -151,6 +169,16 @@ public class WauzQuest {
 	 */
 	public String getCoordinates() {
 		return coordinates;
+	}
+	
+	/**
+	 * @return The coordinates of the quest location parsed to a 2D point.
+	 */
+	public Point2D getQuestPoint() {
+		String[] splitCoordinated = coordinates.split(" ");
+		double x = Double.parseDouble(splitCoordinated[0]);
+		double z = Double.parseDouble(splitCoordinated[2]);
+		return new Point2D.Double(x, z);
 	}
 
 	/**
@@ -182,13 +210,24 @@ public class WauzQuest {
 	}
 	
 	/**
-	 * @return The coordinates of the quest location parsed to a 2D point.
+	 * @return 
 	 */
-	public Point2D getQuestPoint() {
-		String[] splitCoordinated = coordinates.split(" ");
-		double x = Double.parseDouble(splitCoordinated[0]);
-		double z = Double.parseDouble(splitCoordinated[2]);
-		return new Point2D.Double(x, z);
+	public double getRewardExp() {
+		return rewardExp;
+	}
+	
+	/**
+	 * @return 
+	 */
+	public int getRewardRelationExp() {
+		return rewardRelationExp;
+	}
+	
+	/**
+	 * @return 
+	 */
+	public int getRewardCoins() {
+		return rewardCoins;
 	}
 	
 	/**

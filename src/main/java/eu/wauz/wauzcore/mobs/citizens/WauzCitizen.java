@@ -169,7 +169,7 @@ public class WauzCitizen {
 		leggingsItemStack = CitizenConfigurator.getEquippedLeggingsItem(citizenName);
 		bootsItemStack = CitizenConfigurator.getEquippedBootsItem(citizenName);
 		
-		interactions = new WauzCitizenInteractions(citizenName);
+		interactions = new WauzCitizenInteractions(citizenName, displayName);
 	}
 
 	/**

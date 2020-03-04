@@ -3,6 +3,10 @@ name: The Way of Uganda
 level: 5
 amount: 3
 coords: 219 21 378
+reward:
+  exp: 5.0
+  relation: 30
+  coins: 50
 phases:
   1:
     lores:

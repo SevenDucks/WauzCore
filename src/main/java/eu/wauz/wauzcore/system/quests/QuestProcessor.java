@@ -19,10 +19,13 @@ import eu.wauz.wauzcore.events.WauzPlayerEventQuestAccept;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.menu.QuestMenu;
 import eu.wauz.wauzcore.menu.WauzDialog;
+import eu.wauz.wauzcore.mobs.citizens.RelationTracker;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzQuest;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -303,8 +306,13 @@ public class QuestProcessor {
 			PlayerQuestConfigurator.addQuestCompletions(player, questName);
 			player.getWorld().playEffect(player.getLocation(), Effect.DRAGON_BREATH, 0);
 			player.sendMessage(ChatColor.GREEN + "You completed [" + quest.getDisplayName() + "]");
-			WauzRewards.level(player, quest.getLevel(), 2.5 * questPhaseAmount, questLocation);
+			
+			WauzRewards.level(player, quest.getLevel(), quest.getRewardExp(), questLocation);
 			WauzRewards.mmorpgToken(player);
+			RelationTracker.addProgress(player, questGiver, quest.getRewardRelationExp());
+			PlayerConfigurator.setCharacterCoins(player, PlayerConfigurator.getCharacterCoins(player) + quest.getRewardCoins());
+			AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, quest.getRewardCoins());
+			
 			new WauzPlayerEventCitizenTalk(questGiver, quest.getCompletedDialog()).execute(player);
 		}
 	}

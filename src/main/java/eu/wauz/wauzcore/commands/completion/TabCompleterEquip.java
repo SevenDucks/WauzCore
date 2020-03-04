@@ -50,7 +50,7 @@ public class TabCompleterEquip implements TabCompleter {
 		}
 		
 		if(args.length == 2) {
-			return Arrays.asList("1", "2", "3").stream()
+			return Arrays.asList("1", "2", "3", "4", "5", "6").stream()
 					.filter(tier -> StringUtils.startsWith(tier, args[1]))
 					.collect(Collectors.toList());
 		}
