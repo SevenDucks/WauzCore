@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
-
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.QuestConfigurator;
 
@@ -44,7 +42,7 @@ public class WauzQuest {
 			questMap.put(questName, quest);
 		}
 		
-		Bukkit.getLogger().info("Loaded " + getQuestCount() + " Quests!");
+		WauzCore.getInstance().getLogger().info("Loaded " + getQuestCount() + " Quests!");
 	}
 	
 	/**

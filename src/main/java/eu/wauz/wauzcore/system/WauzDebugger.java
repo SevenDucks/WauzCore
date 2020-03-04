@@ -3,7 +3,6 @@ package eu.wauz.wauzcore.system;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -47,7 +46,7 @@ public class WauzDebugger {
 	 * @param message The content of the message.
 	 */
 	public static void log(String message) {
-		Bukkit.getLogger().info("[WauzCore Debug] " + message);
+		WauzCore.getInstance().getLogger().info("[Debug] " + message);
 	}
 	
 	/**
@@ -57,7 +56,7 @@ public class WauzDebugger {
 	 * @param e The catched exception.
 	 */
 	public static void catchException(Class<?> clazz, Exception e) {
-		Bukkit.getLogger().warning("[WauzCore Catcher] Irrelevant Exception in " + clazz.getName() + ": " + e.getMessage());
+		WauzCore.getInstance().getLogger().warning("[Catcher] Irrelevant Exception in " + clazz.getName() + ": " + e.getMessage());
 	}
 	
 	/**

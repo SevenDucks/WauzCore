@@ -104,7 +104,7 @@ public class MobMetadataUtils {
 	 * @return The multiplier where 1 equals 100 percent, or 0 if disabled.
 	 */
 	public static double getMagicDamageMultiplier(Entity mob) {
-		return mob.hasMetadata(MAGIC_DAMAGE_MULTIPLIER) ? getMetadata(mob, MENACING_MODIFIER).asDouble() : 0;
+		return mob.hasMetadata(MAGIC_DAMAGE_MULTIPLIER) ? getMetadata(mob, MAGIC_DAMAGE_MULTIPLIER).asDouble() : 0;
 	}
 	
 	/**

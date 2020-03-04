@@ -26,7 +26,7 @@ public class CmdGuild implements WauzCommand {
 	 */
 	@Override
 	public String getCommandId() {
-		return "gld";
+		return "guild";
 	}
 
 	/**

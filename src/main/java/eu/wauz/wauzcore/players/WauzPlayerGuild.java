@@ -15,6 +15,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.GuildConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.GuildOverviewMenu;
@@ -54,7 +55,7 @@ public class WauzPlayerGuild {
 			guildNameMap.put(guild.getGuildName(), guild);
 		}
 		
-		Bukkit.getLogger().info("Loaded " + guildMap.size() + " Guilds!");
+		WauzCore.getInstance().getLogger().info("Loaded " + guildMap.size() + " Guilds!");
 	}
 	
 	/**

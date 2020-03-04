@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.CitizenConfigurator;
 
 /**
@@ -27,6 +27,11 @@ public class WauzCitizen {
 	 * A map with lists of citizens, indexed by chunks.
 	 */
 	private static Map<Chunk, List<WauzCitizen>> chunkCitizensMap = new HashMap<>();
+	
+	/**
+	 * The number of all registred citizens.
+	 */
+	private static int citizenCount;
 	
 	/**
 	 * The radius in chunks, in which citizens should be rendered.
@@ -48,9 +53,10 @@ public class WauzCitizen {
 			}
 			chunkCitizensMap.get(chunk).add(citizen);
 			WauzCitizenSpawner.createNpc(citizen);
+			citizenCount++;
 		}
 		
-		Bukkit.getLogger().info("Loaded " + WauzCitizenSpawner.getCitizenCount() + " Citizens!");
+		WauzCore.getInstance().getLogger().info("Loaded " + citizenCount + " Citizens!");
 	}
 	
 	/**

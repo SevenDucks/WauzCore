@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.RegionConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -59,7 +59,7 @@ public class WauzRegion {
 			masterRegions.add(new WauzRegion(null, masterRegionKey));
 		}
 		
-		Bukkit.getLogger().info("Loaded " + regionCount + " Regions!");
+		WauzCore.getInstance().getLogger().info("Loaded " + regionCount + " Regions!");
 	}
 	
 	/**

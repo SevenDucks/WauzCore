@@ -213,6 +213,7 @@ public class DamageCalculatorAttack {
 		}
 		damage = EquipmentUtils.getBaseAtk(weaponItemStack);
 		unmodifiedDamage = (int) (damage * magicMultiplier);
+		damage = unmodifiedDamage;
 		return true;
 	}
 	

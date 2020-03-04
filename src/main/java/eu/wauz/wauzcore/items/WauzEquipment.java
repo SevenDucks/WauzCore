@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.items;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.EquipmentConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
@@ -61,7 +61,7 @@ public class WauzEquipment {
 			WauzEquipmentIdentifier.addEquipType(equipment);
 		}
 		
-		Bukkit.getLogger().info("Loaded " + WauzEquipmentIdentifier.getEquipmentTypeCount() + " Equipment Types!");
+		WauzCore.getInstance().getLogger().info("Loaded " + WauzEquipmentIdentifier.getEquipmentTypeCount() + " Equipment Types!");
 	}
 	
 	/**
