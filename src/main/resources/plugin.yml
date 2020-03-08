@@ -3,7 +3,7 @@ description: Advanced Minecraft MMORPG Engine - Main Module
 main: eu.wauz.wauzcore.WauzCore
 website: http://wauz.eu/
 version: Behelit.1.Pre
-api-version: 1.14
+api-version: 1.15
 author: Nikolas Keller
 depend: [MythicMobs, NoteBlockAPI]
 commands:

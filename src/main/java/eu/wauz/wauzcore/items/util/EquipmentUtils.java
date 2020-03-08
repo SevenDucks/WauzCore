@@ -1,7 +1,7 @@
 package eu.wauz.wauzcore.items.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.DurabilityCalculator;

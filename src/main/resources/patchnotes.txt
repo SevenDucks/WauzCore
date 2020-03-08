@@ -11,6 +11,10 @@ Patch 60X: Powerful Professions
 Patch 602: Class Specializations
 
 Patch 601: Cultured Citizens
+	Minecraft Update
+	  - Server now runs on Paper 1.15.2
+	  - New WauzCore Version: "Behelit"
+
 	New Feature: Citizens
 	  - Custom NPCs roaming the World
 	  - Increase Relation to Unlock Interactions

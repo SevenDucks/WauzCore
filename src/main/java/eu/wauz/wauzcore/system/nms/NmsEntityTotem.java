@@ -1,15 +1,15 @@
 package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_14_R1.ChatMessage;
-import net.minecraft.server.v1_14_R1.EntityArmorStand;
-import net.minecraft.server.v1_14_R1.WorldServer;
+import net.minecraft.server.v1_15_R1.ChatMessage;
+import net.minecraft.server.v1_15_R1.EntityArmorStand;
+import net.minecraft.server.v1_15_R1.WorldServer;
 
 /**
  * A totem entity based on an armor stand.
@@ -64,7 +64,7 @@ public class NmsEntityTotem extends EntityArmorStand {
 		this.setBasePlate(false);
 		
 		ArmorStand armorStand = (ArmorStand) this.getBukkitEntity();
-		armorStand.setHelmet(headItemStack);
+		armorStand.getEquipment().setHelmet(headItemStack);
 
 		worldServer.addEntity(this);
 	}

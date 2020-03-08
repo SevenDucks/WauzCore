@@ -167,7 +167,7 @@ public class SkillUtils {
 	public static void addPotionEffect(Entity entity, PotionEffectType potionEffectType,  int duration, int amplifier) {
 		if(entity instanceof LivingEntity) {
 			PotionEffect potionEffect = new PotionEffect(potionEffectType, duration * 20, amplifier);
-			((LivingEntity) entity).addPotionEffect(potionEffect, true);
+			((LivingEntity) entity).addPotionEffect(potionEffect);
 		}
 	}
 	

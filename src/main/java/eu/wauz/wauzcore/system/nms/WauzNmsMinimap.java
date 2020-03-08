@@ -5,10 +5,10 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_14_R1.map.CraftMapRenderer;
-import org.bukkit.craftbukkit.v1_14_R1.map.CraftMapView;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_15_R1.map.CraftMapRenderer;
+import org.bukkit.craftbukkit.v1_15_R1.map.CraftMapView;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
@@ -27,10 +27,10 @@ import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.minecraft.server.v1_14_R1.EntityHuman;
-import net.minecraft.server.v1_14_R1.ItemWorldMap;
-import net.minecraft.server.v1_14_R1.WorldMap;
-import net.minecraft.server.v1_14_R1.WorldServer;
+import net.minecraft.server.v1_15_R1.EntityHuman;
+import net.minecraft.server.v1_15_R1.ItemWorldMap;
+import net.minecraft.server.v1_15_R1.WorldMap;
+import net.minecraft.server.v1_15_R1.WorldServer;
 
 /**
  * Live minimap using net.minecraft.server classes.
@@ -79,7 +79,7 @@ public class WauzNmsMinimap {
 		mapView.setCenterZ(player.getLocation().getBlockZ());
         mapView.setScale(Scale.CLOSEST);
         
-        net.minecraft.server.v1_14_R1.ItemStack craftItemStack = CraftItemStack.asNMSCopy(mapItem);
+        net.minecraft.server.v1_15_R1.ItemStack craftItemStack = CraftItemStack.asNMSCopy(mapItem);
 		ItemWorldMap itemWorldMap = (ItemWorldMap) craftItemStack.getItem();
 		
 		WorldServer worldServer = ((CraftWorld) mapView.getWorld()).getHandle();
@@ -199,8 +199,7 @@ public class WauzNmsMinimap {
 		public void updateMap(ItemWorldMap itemWorldMap, WorldMap worldMap, int size) {
 			for (int x = worldMap.centerX - size / 2; x <= worldMap.centerX + size / 2; x += 24) {
 	            for (int z = worldMap.centerZ - size / 2; z <= worldMap.centerZ + size / 2; z += 24) {
-	                locX = x;
-	                locZ = z;
+	                setLocation(x, 64, z, 0, 0);
 	                itemWorldMap.a(worldServer, this, worldMap);
 	            }
 	        }
