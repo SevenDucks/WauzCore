@@ -3,7 +3,8 @@ package eu.wauz.wauzcore.items.runes.insertion;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -12,7 +13,6 @@ import eu.wauz.wauzcore.items.identifiers.WauzSkillgemIdentifier;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A helper class for inserting skillgems into items.

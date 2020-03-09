@@ -1,9 +1,10 @@
 package eu.wauz.wauzcore.system;
 
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -31,7 +32,6 @@ import eu.wauz.wauzcore.players.calc.FoodCalculator;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * Used for mapping interaction events to WauzCore functionalities.

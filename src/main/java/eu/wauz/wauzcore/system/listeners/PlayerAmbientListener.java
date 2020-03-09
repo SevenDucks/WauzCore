@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.system.listeners;
 
+import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,7 +26,6 @@ import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A listener to catch events, related to interactions between the environment and the player.

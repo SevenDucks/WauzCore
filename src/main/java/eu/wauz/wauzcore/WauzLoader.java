@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 import eu.wauz.wauzcore.commands.CmdApply;
 import eu.wauz.wauzcore.commands.CmdDesc;
@@ -91,7 +92,6 @@ import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * Used by the main class to load all static data.

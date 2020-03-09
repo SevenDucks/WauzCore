@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.commands.administrative;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -10,7 +11,6 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>

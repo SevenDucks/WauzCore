@@ -2,7 +2,7 @@ package eu.wauz.wauzcore.mobs;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
 import eu.wauz.wauzcore.system.util.Chance;
 import io.lumine.xikage.mythicmobs.io.MythicConfig;

@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
@@ -43,7 +42,7 @@ public class SeasonalSurvivalManager {
 		if(seasonFile.exists()) {
 			FileConfiguration seasonConfig = YamlConfiguration.loadConfiguration(seasonFile);
 			String season = seasonConfig.getString("season");
-			if(StringUtils.equals(season, currentSeason)) {
+			if(currentSeason.equals(season)) {
 				core.getLogger().info("Survival World is up to date!");
 			}
 			else {

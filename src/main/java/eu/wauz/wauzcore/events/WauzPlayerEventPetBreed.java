@@ -2,12 +2,12 @@ package eu.wauz.wauzcore.events;
 
 import java.util.Random;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.PetOptionsMenu;
 import eu.wauz.wauzcore.menu.PetOverviewMenu;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An event to let a player move a pet to the breeding station.

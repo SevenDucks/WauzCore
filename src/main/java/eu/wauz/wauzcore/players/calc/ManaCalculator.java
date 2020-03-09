@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.players.calc;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
@@ -7,7 +8,6 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * Used to calculate the amount of mana a player has.

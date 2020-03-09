@@ -4,9 +4,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * The restart scheduler schedules restarts. (Useful Documentation)

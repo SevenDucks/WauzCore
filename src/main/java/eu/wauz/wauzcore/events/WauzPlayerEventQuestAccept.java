@@ -1,12 +1,12 @@
 package eu.wauz.wauzcore.events;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzQuest;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An event that lets a player accept a new quest.

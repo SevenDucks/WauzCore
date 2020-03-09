@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -29,7 +30,6 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.

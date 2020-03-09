@@ -3,12 +3,12 @@ package eu.wauz.wauzcore.data;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * Configurator to fetch or modify data from the Instance.yml files.

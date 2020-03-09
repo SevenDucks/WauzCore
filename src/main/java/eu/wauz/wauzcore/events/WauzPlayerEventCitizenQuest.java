@@ -1,10 +1,10 @@
 package eu.wauz.wauzcore.events;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.menu.QuestMenu;
 import eu.wauz.wauzcore.system.quests.QuestProcessor;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An event that lets a player view a quest of a citizen.

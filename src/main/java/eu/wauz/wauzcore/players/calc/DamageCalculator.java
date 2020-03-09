@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.players.calc;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
@@ -21,7 +22,6 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * Used to recalculate how much damage or heal players deal and receive.

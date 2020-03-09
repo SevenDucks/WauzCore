@@ -1,6 +1,6 @@
 package eu.wauz.wauzcore.items.enums;
 
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
 
 /**
  * The tier of an equipment or rune item, containing name, level and multiplier.

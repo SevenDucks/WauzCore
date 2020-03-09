@@ -1,7 +1,7 @@
 package eu.wauz.wauzcore.commands;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;

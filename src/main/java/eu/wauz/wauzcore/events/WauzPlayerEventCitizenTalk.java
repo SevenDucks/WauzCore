@@ -3,10 +3,10 @@ package eu.wauz.wauzcore.events;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.system.WauzDebugger;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An event that lets a player talk to a citizen.

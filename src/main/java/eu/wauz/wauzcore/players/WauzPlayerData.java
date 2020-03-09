@@ -3,8 +3,8 @@ package eu.wauz.wauzcore.players;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer;

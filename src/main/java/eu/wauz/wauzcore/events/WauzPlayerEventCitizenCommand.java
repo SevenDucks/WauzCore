@@ -1,8 +1,7 @@
 package eu.wauz.wauzcore.events;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An event that lets a player execute a command of a citizen.

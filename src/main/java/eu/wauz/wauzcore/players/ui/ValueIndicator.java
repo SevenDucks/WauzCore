@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.players.ui;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -10,7 +11,6 @@ import org.bukkit.util.Vector;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.nms.NmsEntityHologram;
 import eu.wauz.wauzcore.system.util.Chance;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An UI class to spawn hovering numbers to indicate things like received damage.

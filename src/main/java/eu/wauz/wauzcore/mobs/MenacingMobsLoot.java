@@ -1,14 +1,14 @@
 package eu.wauz.wauzcore.mobs;
 
-import org.apache.commons.lang3.StringUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * This is the place, where exp and key drops are generated

@@ -1,13 +1,13 @@
 package eu.wauz.wauzcore.items.util;
 
-import org.apache.commons.lang3.StringUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.enums.ArmorCategory;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An util class for reading and writing equipment properties.

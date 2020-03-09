@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.items;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -29,7 +30,6 @@ import eu.wauz.wauzcore.skills.SkillTheMagician;
 import eu.wauz.wauzcore.skills.SkillTheStar;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A class that represents a base type of equipment.

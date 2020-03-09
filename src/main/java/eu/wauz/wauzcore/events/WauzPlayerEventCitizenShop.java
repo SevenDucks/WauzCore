@@ -1,9 +1,9 @@
 package eu.wauz.wauzcore.events;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.menu.ShopBuilder;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An event that lets a player view a shop of a citizen.

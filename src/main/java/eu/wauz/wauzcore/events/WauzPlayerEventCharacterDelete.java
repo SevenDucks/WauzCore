@@ -2,12 +2,12 @@ package eu.wauz.wauzcore.events;
 
 import java.io.File;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.util.WauzFileUtils;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An event for deleting the character data file of a player.

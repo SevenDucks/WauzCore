@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -43,7 +44,6 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.jitse.npclib.api.events.NPCInteractEvent;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A listener to catch events, related to interactions between the player and the server or other entities.

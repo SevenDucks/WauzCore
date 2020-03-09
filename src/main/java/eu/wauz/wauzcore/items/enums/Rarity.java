@@ -2,8 +2,9 @@ package eu.wauz.wauzcore.items.enums;
 
 import java.util.Random;
 
+import org.bukkit.ChatColor;
+
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * The rarity of an equipment or rune item, containing name, color, multiplier and star string.

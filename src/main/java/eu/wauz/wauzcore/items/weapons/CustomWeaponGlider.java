@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.items.weapons;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -29,7 +30,6 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.nms.NmsEntityChickoon;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Cooldown;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A collection of methods for using the glider weapon.

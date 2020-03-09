@@ -1,6 +1,6 @@
 package eu.wauz.wauzcore.system.util;
 
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
 
 /**
  * An util class for stuff like unicode icons.

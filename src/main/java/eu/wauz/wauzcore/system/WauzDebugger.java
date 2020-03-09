@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.system;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -19,7 +20,6 @@ import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * Used for debug logging and administrative command mechanics.

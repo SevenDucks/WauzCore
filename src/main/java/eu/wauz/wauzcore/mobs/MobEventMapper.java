@@ -2,8 +2,8 @@ package eu.wauz.wauzcore.mobs;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -101,7 +101,7 @@ public class MobEventMapper {
 		SkillUtils.createExplosion(location, 8);
 		for(Player player : players) {
 			WauzDebugger.log(player, "Hit by Mob Explosion!");
-			int damage = (int) ((double) mythicMob.getBaseDamage() * (double) 5);
+			int damage = (int) ((double) mythicMob.getDamage().get() * (double) 5);
 			EntityDamageEvent event = new EntityDamageByEntityEvent(entity, player, DamageCause.ENTITY_EXPLOSION, damage);
 			DamageCalculator.defend(event);
 		}

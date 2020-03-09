@@ -3,9 +3,10 @@ package eu.wauz.wauzcore.system.quests;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -15,7 +16,6 @@ import eu.wauz.wauzcore.items.InventoryItemRemover;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A helper class for checking the completion of quest phase requirements.

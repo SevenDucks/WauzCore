@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -20,7 +21,6 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.util.Formatters;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -105,7 +105,7 @@ public class GuildApplicationMenu implements WauzInventory {
 	/**
 	 * Checks if an event in this inventory was triggered by a player click.
 	 * Cancels the event and accepts or rejects the clicked application.
-	 * The application has to be boúnd to a valid player and the guild must have free slots, to accept them.
+	 * The application has to be boï¿½nd to a valid player and the guild must have free slots, to accept them.
 	 * A right click rejects the application, while a left click will accept the player into the guild.
 	 * The menu is updated after each processed application.
 	 * 

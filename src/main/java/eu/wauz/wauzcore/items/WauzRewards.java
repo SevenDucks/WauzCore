@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.items;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +19,6 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A collection of static methods to pay out currency rewards to players.

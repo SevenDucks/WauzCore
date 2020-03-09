@@ -1,9 +1,8 @@
 package eu.wauz.wauzcore.skills.execution;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A skill, that can be executed by a player.

@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.bukkit.ChatColor;
+
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * This class is used to register, find and apply enhancements.

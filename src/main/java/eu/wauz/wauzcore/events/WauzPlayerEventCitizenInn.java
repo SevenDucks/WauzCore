@@ -1,12 +1,12 @@
 package eu.wauz.wauzcore.events;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.menu.WauzDialog;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An event that lets a player sleep in an inn of a citizen.

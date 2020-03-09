@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.commons.lang3.StringUtils;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
@@ -43,7 +43,7 @@ public class MenacingMobsSpawner {
 			}
 		}
 		if(config.isEnableHealthBar()) {
-			new WauzPlayerBossBar(entity, modifiers, mythicMob.getBaseHealth(), config.isEnableRaidHealthBar());
+			new WauzPlayerBossBar(entity, modifiers, mythicMob.getHealth().get(), config.isEnableRaidHealthBar());
 		}
 		if(StringUtils.isNotBlank(config.getExpDropString())) {
 			String[] expStrings = config.getExpDropString().split(" ");

@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.players.calc;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -25,7 +26,6 @@ import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.DeprecatedUtils;
 import eu.wauz.wauzcore.system.util.Formatters;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A calculation of the dealt damage from a player attack.

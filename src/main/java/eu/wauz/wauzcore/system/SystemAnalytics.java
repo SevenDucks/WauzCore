@@ -4,10 +4,10 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import eu.wauz.wauzcore.WauzCore;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A class used to display system info and usage at the point of its creation.

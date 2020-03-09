@@ -1,7 +1,8 @@
 package eu.wauz.wauzcore.commands;
 
-import org.apache.commons.lang3.StringUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
@@ -16,7 +17,6 @@ import eu.wauz.wauzcore.menu.SkillMenu;
 import eu.wauz.wauzcore.menu.TravellingMenu;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>

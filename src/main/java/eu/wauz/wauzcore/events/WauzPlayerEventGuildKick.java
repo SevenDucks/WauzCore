@@ -1,12 +1,12 @@
 package eu.wauz.wauzcore.events;
 
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.GuildOverviewMenu;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * An event that lets a player kick one of their guild members.
