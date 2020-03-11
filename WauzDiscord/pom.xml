@@ -120,10 +120,10 @@
 							<artifactSet>
 								<excludes>
 									<exclude>eu.wauz:WauzCore</exclude>
-									<exclude>com.sun.net.httpserver:*</exclude>
 									<exclude>io.lumine.xikage:*</exclude>
 									<exclude>com.github.koca2000:*</exclude>
-									<exclude>com.deanveloper:*</exclude>
+									<exclude>net.jitse:*</exclude>
+									<exclude>com.sun.net.httpserver:*</exclude>
 								</excludes>
 							</artifactSet>
 						</configuration>
