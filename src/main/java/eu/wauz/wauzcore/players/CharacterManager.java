@@ -295,7 +295,7 @@ public class CharacterManager {
 			playerDataConfig.set("skills.staffmax", classNephilim ? 250000 : 200000);
 				
 			playerDataConfig.set("reput.exp", 0);
-			playerDataConfig.set("reput.cow", 0);
+			playerDataConfig.set("reput.coins", 0);
 			playerDataConfig.set("reput.souls", 0);
 			playerDataConfig.set("reput.wauzland", 0);
 			playerDataConfig.set("reput.empire", 0);

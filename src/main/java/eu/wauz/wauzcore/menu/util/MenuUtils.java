@@ -47,9 +47,9 @@ public class MenuUtils {
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
 		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Currency");
 		List<String> lores = new ArrayList<String>();
-		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getCharacterCoins(player))
-			+ ChatColor.DARK_PURPLE + " Coins of Wauzland");
-		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getCharacterSoulstones(player))
+		lores.add(Formatters.formatCoins(PlayerConfigurator.getCharacterCoins(player))
+			+ ChatColor.DARK_PURPLE + " Coins");
+		lores.add(ChatColor.RED + Formatters.INT.format(PlayerConfigurator.getCharacterSoulstones(player))
 			+ ChatColor.DARK_PURPLE + " Soulstones");
 		lores.add("");
 		lores.add(ChatColor.GREEN + "Reputation");

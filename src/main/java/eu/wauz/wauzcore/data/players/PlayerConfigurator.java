@@ -330,7 +330,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @return The amount of coins the character owns.
 	 */
 	public static long getCharacterCoins(Player player) {
-		return playerConfigGetLong(player, "reput.cow", true);
+		return playerConfigGetLong(player, "reput.coins", true);
 	}
 	
 	/**
@@ -338,7 +338,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @param amount The new amount of coins the character owns.
 	 */
 	public static void setCharacterCoins(Player player, long amount) {
-		playerConfigSet(player, "reput.cow", amount, true);
+		playerConfigSet(player, "reput.coins", amount, true);
 	}
 	
 	/**

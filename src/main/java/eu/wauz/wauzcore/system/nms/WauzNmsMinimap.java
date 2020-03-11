@@ -1,7 +1,5 @@
 package eu.wauz.wauzcore.system.nms;
 
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,14 +18,11 @@ import org.bukkit.map.MapView;
 import org.bukkit.map.MapView.Scale;
 import org.bukkit.map.MinecraftFont;
 
-import com.mojang.authlib.GameProfile;
-
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.minecraft.server.v1_15_R1.EntityHuman;
 import net.minecraft.server.v1_15_R1.ItemWorldMap;
 import net.minecraft.server.v1_15_R1.WorldMap;
 import net.minecraft.server.v1_15_R1.WorldServer;
@@ -119,7 +114,7 @@ public class WauzNmsMinimap {
 	    				mapView.setCenterX(player.getLocation().getBlockX());
 	    				mapView.setCenterZ(player.getLocation().getBlockZ());
 	    				
-	    				MockPlayer mockPlayer = new MockPlayer(worldServer);
+	    				NmsEntityMockPlayer mockPlayer = new NmsEntityMockPlayer(worldServer);
 	    				mockPlayer.updateMap(itemWorldMap, worldMap, 128 << worldMap.scale);
 	    				super.render(mapView, mapCanvas, player);
 	    				
@@ -150,61 +145,5 @@ public class WauzNmsMinimap {
 			
         });
     }
-	
-    /**
-     * A human entity used to trigger map rendering.
-     * 
-     * @author Wauzmons
-     */
-	private static class MockPlayer extends EntityHuman {
-		
-		/**
-		 * The world server the entity is located in.
-		 */
-		private WorldServer worldServer;
-		
-		/**
-		 * Creates a mock player in the given world.
-		 * 
-		 * @param worldServer The world server the entity is located in.
-		 */
-		public MockPlayer(WorldServer worldServer) {
-			super(worldServer.getMinecraftWorld(), new GameProfile(UUID.randomUUID(), ""));
-			this.worldServer = worldServer;
-		}
-		
-		/**
-		 * If the player is in creative mode. Always false.
-		 */
-		@Override
-		public boolean isCreative() {
-			return false;
-		}
-		
-		/**
-		 * If the player is in spectator mode. Always false.
-		 */
-		@Override
-		public boolean isSpectator() {
-			return false;
-		}
-		
-		/**
-		 * Uses the entity to render the given map.
-		 * 
-		 * @param itemWorldMap The map item.
-		 * @param worldMap The world map that should be rendered.
-		 * @param size The size of the world map.
-		 */
-		public void updateMap(ItemWorldMap itemWorldMap, WorldMap worldMap, int size) {
-			for (int x = worldMap.centerX - size / 2; x <= worldMap.centerX + size / 2; x += 24) {
-	            for (int z = worldMap.centerZ - size / 2; z <= worldMap.centerZ + size / 2; z += 24) {
-	                setLocation(x, 64, z, 0, 0);
-	                itemWorldMap.a(worldServer, this, worldMap);
-	            }
-	        }
-		}
-		
-	}
 
 }

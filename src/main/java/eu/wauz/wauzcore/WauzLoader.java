@@ -212,7 +212,7 @@ public class WauzLoader {
 	 */
 	private static void registerCurrenciesAndReputation() {
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Tokens", "tokens");
-		ShopBuilder.registerCurrency(ChatColor.GOLD + "Coins", "reput.cow");
+		ShopBuilder.registerCurrency(ChatColor.GOLD + "Coins", "reput.coins");
 		ShopBuilder.registerCurrency(ChatColor.GOLD + "Soulstones", "reput.souls");
 		ShopBuilder.registerCurrency(ChatColor.BLUE + "Republic", "reput.wauzland");
 		ShopBuilder.registerCurrency(ChatColor.BLUE + "Eternal", "reput.empire");

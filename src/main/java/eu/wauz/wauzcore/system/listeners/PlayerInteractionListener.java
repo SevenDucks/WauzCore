@@ -28,6 +28,7 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.spigotmc.event.entity.EntityMountEvent;
 
+import eu.wauz.wauzcore.data.ServerConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.menu.CitizenInteractionMenu;
@@ -64,8 +65,7 @@ public class PlayerInteractionListener implements Listener {
 	 * @return Name of the player or "Hero" if unknown.
 	 */
 	private String getNameFromAddress(InetAddress address) {
-		String name = addressNameMap.get(address);
-		return name == null ? "Hero" : name;
+		return addressNameMap.get(address);
 	}
 
 	/**
@@ -75,14 +75,8 @@ public class PlayerInteractionListener implements Listener {
 	 */
 	@EventHandler
 	public void onPing(ServerListPingEvent event) {
-		String colon = ChatColor.RED + "" + ChatColor.BOLD + ":" + ChatColor.RESET;
-		String arrowL = ChatColor.GOLD + ">>>" + ChatColor.YELLOW + "---" + ChatColor.GOLD + "> " + colon;
-		String arrowR = colon + ChatColor.GOLD + " <" + ChatColor.YELLOW + "---" + ChatColor.GOLD + "<<<";
-		String title = ChatColor.YELLOW + "" + ChatColor.BOLD  + " Wauzland Online ";
-		String greet = System.lineSeparator() + ChatColor.GRAY + "Wauzland and Dalyreos need you, ";
-		String name = getNameFromAddress(event.getAddress()) + "!";
-		String modt = arrowL + title + arrowR + greet + name;
-		event.setMotd(modt);
+		String playerName = getNameFromAddress(event.getAddress());
+		event.setMotd(ServerConfigurator.getServerMotd(playerName));
 	}
 
 	/**

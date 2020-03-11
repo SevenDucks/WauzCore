@@ -14,7 +14,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.data.RegionConfigurator;
+import eu.wauz.wauzcore.data.ServerConfigurator;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -332,14 +332,14 @@ public class WauzCore extends JavaPlugin {
 	 * @return The key of the server, defined in the .yml configuration.
 	 */
 	public static String getServerKey() {
-		return RegionConfigurator.getServerRegionKey();
+		return ServerConfigurator.getServerKey();
 	}
 	
 	/**
 	 * @return The port of the web api, defined in the .yml configuration.
 	 */
 	public static int getWebApiPort() {
-		return RegionConfigurator.getServerRegionApiPort();
+		return ServerConfigurator.getServerApiPort();
 	}
 	
 }

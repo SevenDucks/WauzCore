@@ -1,2 +1,14 @@
 key: Wauzland
 apiport: 7069
+motd:
+  base: "§f»§f§m---§b§m---§a§m---§a»§r §6§l< §2§lDelseyria§3§lReborn §6§l> §a«§a§m---§b§m---§f§m---§f«§r §3§lDRPG.us.to§f§l: §6%random%"
+  goodbye: "The Realm needs you, %player%!"
+  random:
+  - "Powered by the WauzCore Engine!"
+  - "Wauzomonsu did Nothing Wrong!"
+  - "Explore a Colossal Open World!"
+  - "Visit Inhabited Cities with Quests!"
+  - "Extensive Randomized Item System!"
+  - "Jobs with Custom Crafting System!"
+  - "Dozens of Multiplayer Instances!"
+  - "With Classes, Skills and Bosses!"
