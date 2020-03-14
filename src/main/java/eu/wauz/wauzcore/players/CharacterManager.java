@@ -62,8 +62,6 @@ public class CharacterManager {
 		}
 
 		player.setGameMode(wauzMode.equals(WauzMode.SURVIVAL) ? GameMode.SURVIVAL : GameMode.ADVENTURE);
-		player.setExp((float) (PlayerConfigurator.getCharacterExperience(player) / 100F));
-		player.setLevel(PlayerConfigurator.getCharacterLevel(player));
 		
 		playerData.setMaxHealth(PlayerPassiveSkillConfigurator.getHealth(player));
 		if(wauzMode.equals(WauzMode.MMORPG)) {
@@ -92,7 +90,7 @@ public class CharacterManager {
 					player.sendMessage(
 							ChatColor.WHITE + "[" + ChatColor.GREEN + guild.getGuildName() + ChatColor.WHITE + "] " +
 							ChatColor.GRAY + guild.getGuildDescription());
-				WauzRewards.daily(player);
+				WauzRewards.earnDailyReward(player);
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -370,7 +368,7 @@ public class CharacterManager {
 				QuestProcessor.processQuest(player, "Yamir", "Yamir");
 			}
 			try {
-				WauzRewards.daily(player);
+				WauzRewards.earnDailyReward(player);
 			}
 			catch (Exception e) {
 				e.printStackTrace();

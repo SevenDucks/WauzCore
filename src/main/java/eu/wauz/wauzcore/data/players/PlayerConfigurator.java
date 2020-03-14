@@ -321,7 +321,6 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 */
 	public static void setCharacterExperience(Player player, double experience) {
 		playerConfigSet(player, "reput.exp", experience, true);
-		player.setExp((float) (experience / 100));
 	}
 	
 	/**

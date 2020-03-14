@@ -7,7 +7,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.InstanceConfigurator;
-import eu.wauz.wauzcore.items.WauzRewards;
+import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 
 /**
@@ -34,7 +34,7 @@ public class MenacingMobsLoot {
 		int tier = MobMetadataUtils.getExpDropTier(entity);
 		double amount = MobMetadataUtils.getExpDropAmount(entity);
 		if(tier > 0 && amount > 0) {
-			WauzRewards.level((Player) killer, tier, amount, entity.getLocation());
+			ExperienceCalculator.grantExperience((Player) killer, tier, amount, entity.getLocation());
 		}
 	}
 	

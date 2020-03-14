@@ -111,12 +111,12 @@ public class PlayerAmbientListener implements Listener {
 	 * 
 	 * @param event
 	 * 
-	 * @see WauzRewards#survivalToken(Player)
+	 * @see WauzRewards#earnSurvivalToken(Player)
 	 */
 	@EventHandler
 	public void onLevelUp(PlayerLevelChangeEvent event) {
 		if(WauzMode.isSurvival(event.getPlayer()) && event.getNewLevel() > WauzCore.MAX_PLAYER_LEVEL_SURVIVAL) {
-			WauzRewards.survivalToken(event.getPlayer());
+			WauzRewards.earnSurvivalToken(event.getPlayer());
 		}
 	}
 	

@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import eu.wauz.wauzunit.CurrencyTest;
+import eu.wauz.wauzunit.LevelingTest;
 
 /**
  * This suite executes all unit tests.
@@ -12,7 +13,7 @@ import eu.wauz.wauzunit.CurrencyTest;
  * @author Wauzmons
  */
 @RunWith(Suite.class)
-@SuiteClasses({CurrencyTest.class})
+@SuiteClasses({CurrencyTest.class, LevelingTest.class})
 public class AllTests {
 
 }

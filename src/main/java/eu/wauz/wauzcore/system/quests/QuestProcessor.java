@@ -23,6 +23,7 @@ import eu.wauz.wauzcore.menu.WauzDialog;
 import eu.wauz.wauzcore.mobs.citizens.RelationTracker;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
@@ -288,8 +289,8 @@ public class QuestProcessor {
 	 * @see PlayerConfigurator#setCharacterQuestSlot(Player, String, String)
 	 * @see PlayerQuestConfigurator#setQuestCooldown(Player, String)
 	 * @see PlayerQuestConfigurator#addQuestCompletions(Player, String)
-	 * @see WauzRewards#level(Player, int, double, Location)
-	 * @see WauzRewards#mmorpgToken(Player)
+	 * @see WauzRewards#grantExperience(Player, int, double, Location)
+	 * @see WauzRewards#earnMmoRpgToken(Player)
 	 */
 	private void completeQuestStep() {
 		if(questPhase < questPhaseAmount) {
@@ -307,8 +308,8 @@ public class QuestProcessor {
 			player.getWorld().playEffect(player.getLocation(), Effect.DRAGON_BREATH, 0);
 			player.sendMessage(ChatColor.GREEN + "You completed [" + quest.getDisplayName() + "]");
 			
-			WauzRewards.level(player, quest.getLevel(), quest.getRewardExp(), questLocation);
-			WauzRewards.mmorpgToken(player);
+			ExperienceCalculator.grantExperience(player, quest.getLevel(), quest.getRewardExp(), questLocation);
+			WauzRewards.earnMmoRpgToken(player);
 			RelationTracker.addProgress(player, questGiver, quest.getRewardRelationExp());
 			PlayerConfigurator.setCharacterCoins(player, PlayerConfigurator.getCharacterCoins(player) + quest.getRewardCoins());
 			AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, quest.getRewardCoins());

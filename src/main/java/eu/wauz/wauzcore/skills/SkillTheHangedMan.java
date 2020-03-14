@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
-import eu.wauz.wauzcore.items.WauzRewards;
+import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
@@ -105,7 +105,7 @@ public class SkillTheHangedMan implements WauzPlayerSkill {
 			case 2:
 				double earnedxp = ((double) (random.nextInt(5) + 3)) / 100.0; 
 				int tier = player.getLevel();
-				int displayexp = WauzRewards.level(player, tier, earnedxp, target.getLocation());
+				int displayexp = ExperienceCalculator.grantExperience(player, tier, earnedxp, target.getLocation());
 				player.sendMessage(ChatColor.LIGHT_PURPLE + "You stole " + displayexp + " EXP from the enemy!");
 				break;
 			case 3:

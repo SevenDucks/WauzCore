@@ -12,6 +12,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
+import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -89,7 +90,7 @@ public class InventoryStringConverter {
     	else {
     		player.setHealth(playerDataConfig.getInt("stats.current.health"));
     		player.setLevel(playerDataConfig.getInt("level"));
-    		player.setExp((float) (playerDataConfig.getDouble("reput.exp") / 100F));
+    		ExperienceCalculator.updateExperienceBar(player);
     		playerData.setResistancePvP((short) playerDataConfig.getInt("pvp.resticks"));
     	}
     	player.setFoodLevel(playerDataConfig.getInt("stats.current.hunger"));

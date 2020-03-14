@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.items.WauzRewards;
+import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -53,7 +53,7 @@ public class CmdWzExp implements WauzCommand {
 		}
 		
 		if(args.length < 4) {
-			WauzRewards.level(WauzCore.getOnlinePlayer(args[0]), Integer.parseInt(args[1]), Double.parseDouble(args[2]));
+			ExperienceCalculator.grantExperience(WauzCore.getOnlinePlayer(args[0]), Integer.parseInt(args[1]), Double.parseDouble(args[2]));
 		}
 		else {
 			String[] splitLocation = args[3].split(";");
@@ -61,7 +61,7 @@ public class CmdWzExp implements WauzCommand {
 			Double y = Double.parseDouble(splitLocation[2]);
 			Double z = Double.parseDouble(splitLocation[3]);
 			Location location = new Location(Bukkit.getWorld(splitLocation[0]), x, y, z);
-			WauzRewards.level(WauzCore.getOnlinePlayer(args[0]), Integer.parseInt(args[1]), Double.parseDouble(args[2]), location);
+			ExperienceCalculator.grantExperience(WauzCore.getOnlinePlayer(args[0]), Integer.parseInt(args[1]), Double.parseDouble(args[2]), location);
 		}
 		return true;
 	}
