@@ -124,4 +124,11 @@ public enum RelationLevel {
 		return discountMultiplier;
 	}
 	
+	/**
+	 * @return The multiplier for quest rewards.
+	 */
+	public double getRewardMultiplier() {
+		return 2 - discountMultiplier;
+	}
+	
 }

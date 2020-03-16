@@ -110,9 +110,10 @@ public class ExperienceCalculator {
 			currentxp = currentxp + amplifiedxp;
 			WauzDebugger.log(player, "You earned " + amplifiedxp + " (" + earnedxp + ") experience!");
 			
-			if(currentxp >= 100) {
-				player.setLevel(player.getLevel() + 1);
-				player.sendTitle(ChatColor.GOLD + "Level Up!", "You reached level " + player.getLevel() + "!", 10, 70, 20);
+			int nextLevel = player.getLevel() + 1;
+			if(currentxp >= getExpToLevel(nextLevel)) {
+				player.setLevel(nextLevel);
+				player.sendTitle(ChatColor.GOLD + "Level Up!", "You reached level " + nextLevel + "!", 10, 70, 20);
 				PlayerConfigurator.levelUpCharacter(player);
 				currentxp = 0;
 			}

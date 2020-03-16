@@ -15,11 +15,13 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.data.CitizenConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerRelationConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTalk;
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestAccept;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.menu.QuestMenu;
 import eu.wauz.wauzcore.menu.WauzDialog;
+import eu.wauz.wauzcore.mobs.citizens.RelationLevel;
 import eu.wauz.wauzcore.mobs.citizens.RelationTracker;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -169,23 +171,23 @@ public class QuestProcessor {
 	private boolean checkQuestSlots() {
 		Map<String, String> slotValuesToCheck = new HashMap<>();
 		
-		if(questType.equals("main")) {
+		if(questType.equals(QuestType.MAIN)) {
 			String slotm = PlayerConfigurator.getCharacterRunningMainQuest(player);
-			slotValuesToCheck.put(slotm, "quest.running.main");
+			slotValuesToCheck.put(slotm, QuestSlot.MAIN.getConfigKey());
 		}
-		else if(questType.equals("campaign")) {
+		else if(questType.equals(QuestType.CAMPAIGN)) {
 			String cmpn1 = PlayerConfigurator.getCharacterRunningCampaignQuest1(player);
 			String cmpn2 = PlayerConfigurator.getCharacterRunningCampaignQuest2(player);
-			slotValuesToCheck.put(cmpn1, "quest.running.campaign1");
-			slotValuesToCheck.put(cmpn2, "quest.running.campaign2");
+			slotValuesToCheck.put(cmpn1, QuestSlot.CAMPAIGN1.getConfigKey());
+			slotValuesToCheck.put(cmpn2, QuestSlot.CAMPAIGN2.getConfigKey());
 		}
-		else if(questType.equals("daily")) {
+		else if(questType.equals(QuestType.DAILY)) {
 			String slot1 = PlayerConfigurator.getCharacterRunningDailyQuest1(player);
 			String slot2 = PlayerConfigurator.getCharacterRunningDailyQuest2(player);
 			String slot3 = PlayerConfigurator.getCharacterRunningDailyQuest3(player);
-			slotValuesToCheck.put(slot1, "quest.running.daily1");
-			slotValuesToCheck.put(slot2, "quest.running.daily2");
-			slotValuesToCheck.put(slot3, "quest.running.daily3");
+			slotValuesToCheck.put(slot1, QuestSlot.DAILY1.getConfigKey());
+			slotValuesToCheck.put(slot2, QuestSlot.DAILY2.getConfigKey());
+			slotValuesToCheck.put(slot3, QuestSlot.DAILY3.getConfigKey());
 		}
 		
 		for(String slot : slotValuesToCheck.keySet()) {
@@ -232,7 +234,7 @@ public class QuestProcessor {
 			return true;
 		}
 		
-		if(!questType.equals("daily") && PlayerQuestConfigurator.isQuestCompleted(player, questName)) {
+		if(!questType.equals(QuestType.DAILY) && PlayerQuestConfigurator.isQuestCompleted(player, questName)) {
 			new WauzPlayerEventCitizenTalk(questGiver, quest.getCompletedDialog()).execute(player);
 			return true;
 		}
@@ -266,7 +268,7 @@ public class QuestProcessor {
 	private void acceptQuest() {
 		WauzPlayerEventQuestAccept event = new WauzPlayerEventQuestAccept(quest, questSlot, questGiver);
 		
-		if(questType.equals("main")) {
+		if(questType.equals(QuestType.MAIN)) {
 			event.execute(player);
 		}
 		else {
@@ -289,6 +291,7 @@ public class QuestProcessor {
 	 * @see PlayerConfigurator#setCharacterQuestSlot(Player, String, String)
 	 * @see PlayerQuestConfigurator#setQuestCooldown(Player, String)
 	 * @see PlayerQuestConfigurator#addQuestCompletions(Player, String)
+	 * @see RelationLevel#getRewardMultiplier()
 	 * @see WauzRewards#grantExperience(Player, int, double, Location)
 	 * @see WauzRewards#earnMmoRpgToken(Player)
 	 */
@@ -301,18 +304,23 @@ public class QuestProcessor {
 		else {
 			PlayerQuestConfigurator.setQuestPhase(player, questName, 0);
 			PlayerConfigurator.setCharacterQuestSlot(player, questSlot, "none");
-			if(questType.equals("daily")) {
+			if(questType.equals(QuestType.DAILY)) {
 				PlayerQuestConfigurator.setQuestCooldown(player, questName);
 			}
 			PlayerQuestConfigurator.addQuestCompletions(player, questName);
 			player.getWorld().playEffect(player.getLocation(), Effect.DRAGON_BREATH, 0);
 			player.sendMessage(ChatColor.GREEN + "You completed [" + quest.getDisplayName() + "]");
 			
-			ExperienceCalculator.grantExperience(player, quest.getLevel(), quest.getRewardExp(), questLocation);
-			WauzRewards.earnMmoRpgToken(player);
+			int relationProgress = PlayerRelationConfigurator.getRelationProgress(player, questGiver);
+			double rewardMultiplier = RelationLevel.getRelationLevel(relationProgress).getRewardMultiplier();
+			int rewardCoins = (int) (quest.getRewardCoins() * rewardMultiplier);
+			double rewardExp = quest.getRewardExp() * rewardMultiplier;
+			
 			RelationTracker.addProgress(player, questGiver, quest.getRewardRelationExp());
-			PlayerConfigurator.setCharacterCoins(player, PlayerConfigurator.getCharacterCoins(player) + quest.getRewardCoins());
-			AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, quest.getRewardCoins());
+			PlayerConfigurator.setCharacterCoins(player, PlayerConfigurator.getCharacterCoins(player) + rewardCoins);
+			AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, rewardCoins);
+			ExperienceCalculator.grantExperience(player, quest.getLevel(), rewardExp, questLocation);
+			WauzRewards.earnMmoRpgToken(player);
 			
 			new WauzPlayerEventCitizenTalk(questGiver, quest.getCompletedDialog()).execute(player);
 		}

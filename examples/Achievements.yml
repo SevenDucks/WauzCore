@@ -229,6 +229,11 @@ generic:
     type: PLAY_HOURS
     goal: 750
     reward: 200
+  playtime9:
+    name: Netherite Player
+    type: PLAY_HOURS
+    goal: 1500
+    reward: 300
   levels1:
     name: Getting Started
     type: GAIN_LEVELS
@@ -254,3 +259,18 @@ generic:
     type: GAIN_LEVELS
     goal: 30
     reward: 75
+  levels6:
+    name: Master
+    type: GAIN_LEVELS
+    goal: 40
+    reward: 100
+  levels7:
+    name: Grandmaster
+    type: GAIN_LEVELS
+    goal: 50
+    reward: 100
+  levels8:
+    name: Champion
+    type: GAIN_LEVELS
+    goal: 60
+    reward: 100

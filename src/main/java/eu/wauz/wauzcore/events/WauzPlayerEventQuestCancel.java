@@ -7,6 +7,8 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzQuest;
+import eu.wauz.wauzcore.system.quests.QuestSlot;
+import eu.wauz.wauzcore.system.quests.QuestType;
 
 /**
  * An event that lets a player cancel a running quest.
@@ -54,25 +56,29 @@ public class WauzPlayerEventQuestCancel implements WauzPlayerEvent {
 			String slot2 = PlayerConfigurator.getCharacterRunningDailyQuest2(player);
 			String slot3 = PlayerConfigurator.getCharacterRunningDailyQuest3(player);
 			
-			if(type.equals("main")) {
-				if(slotm.equals(questName))
-					questSlot = "quest.running.main";
+			if(type.equals(QuestType.MAIN)) {
+				if(slotm.equals(questName)) {
+					questSlot = QuestSlot.MAIN.getConfigKey();
+				}
 			}
-			
-			else if(type.equals("campaign")) {
-				if(cmpn1.equals(questName))
-					questSlot = "quest.running.campaign1";
-				else if(cmpn2.equals(questName))
-					questSlot = "quest.running.campaign2";
+			else if(type.equals(QuestType.CAMPAIGN)) {
+				if(cmpn1.equals(questName)) {
+					questSlot = QuestSlot.CAMPAIGN1.getConfigKey();
+				}
+				else if(cmpn2.equals(questName)) {
+					questSlot = QuestSlot.CAMPAIGN2.getConfigKey();
+				}
 			}
-			
-			else if(type.equals("daily")) {
-				if(slot1.equals(questName))
-					questSlot = "quest.running.daily1";
-				else if(slot2.equals(questName))
-					questSlot = "quest.running.daily2";
-				else if(slot3.equals(questName))
-					questSlot = "quest.running.daily3";
+			else if(type.equals(QuestType.DAILY)) {
+				if(slot1.equals(questName)) {
+					questSlot = QuestSlot.DAILY1.getConfigKey();
+				}
+				else if(slot2.equals(questName)) {
+					questSlot = QuestSlot.DAILY2.getConfigKey();
+				}
+				else if(slot3.equals(questName)) {
+					questSlot = QuestSlot.DAILY3.getConfigKey();
+				}
 			}
 			
 			PlayerQuestConfigurator.setQuestPhase(player, questName, 0);

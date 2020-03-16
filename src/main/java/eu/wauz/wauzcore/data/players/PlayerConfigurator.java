@@ -8,6 +8,7 @@ import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.quests.QuestSlot;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
 /**
@@ -607,7 +608,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @return The name of the main quest.
 	 */
 	public static String getCharacterRunningMainQuest(Player player) {
-		return playerConfigGetString(player, "quest.running.main", true);
+		return playerConfigGetString(player, QuestSlot.MAIN.getConfigKey(), true);
 	}
 	
 	/**
@@ -616,7 +617,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @return The name of the first campaign quest.
 	 */
 	public static String getCharacterRunningCampaignQuest1(Player player) {
-		return playerConfigGetString(player, "quest.running.campaign1", true);
+		return playerConfigGetString(player, QuestSlot.CAMPAIGN1.getConfigKey(), true);
 	}
 	
 	/**
@@ -625,7 +626,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @return The name of the second campaign quest.
 	 */
 	public static String getCharacterRunningCampaignQuest2(Player player) {
-		return playerConfigGetString(player, "quest.running.campaign2", true);
+		return playerConfigGetString(player, QuestSlot.CAMPAIGN2.getConfigKey(), true);
 	}
 	
 	/**
@@ -634,7 +635,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @return The name of the first daily quest.
 	 */
 	public static String getCharacterRunningDailyQuest1(Player player) {
-		return playerConfigGetString(player, "quest.running.daily1", true);
+		return playerConfigGetString(player, QuestSlot.DAILY1.getConfigKey(), true);
 	}
 	
 	/**
@@ -643,7 +644,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @return The name of the second daily quest.
 	 */
 	public static String getCharacterRunningDailyQuest2(Player player) {
-		return playerConfigGetString(player, "quest.running.daily2", true);
+		return playerConfigGetString(player, QuestSlot.DAILY2.getConfigKey(), true);
 	}
 	
 	/**
@@ -652,7 +653,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @return The name of the third daily quest.
 	 */
 	public static String getCharacterRunningDailyQuest3(Player player) {
-		return playerConfigGetString(player, "quest.running.daily3", true);
+		return playerConfigGetString(player, QuestSlot.DAILY3.getConfigKey(), true);
 	}
 	
 // Pets

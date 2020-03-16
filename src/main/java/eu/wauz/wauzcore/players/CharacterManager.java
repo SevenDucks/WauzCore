@@ -29,6 +29,7 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.quests.QuestProcessor;
+import eu.wauz.wauzcore.system.quests.QuestSlot;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -317,12 +318,12 @@ public class CharacterManager {
 			playerDataConfig.set("pets.slot8.type", "none");
 			playerDataConfig.set("pets.egg.time", 0);
 			
-			playerDataConfig.set("quest.running.main", "none");
-			playerDataConfig.set("quest.running.campaign1", "none");
-			playerDataConfig.set("quest.running.campaign2", "none");
-			playerDataConfig.set("quest.running.daily1", "none");
-			playerDataConfig.set("quest.running.daily2", "none");
-			playerDataConfig.set("quest.running.daily3", "none");
+			playerDataConfig.set(QuestSlot.MAIN.getConfigKey(), "none");
+			playerDataConfig.set(QuestSlot.CAMPAIGN1.getConfigKey(), "none");
+			playerDataConfig.set(QuestSlot.CAMPAIGN2.getConfigKey(), "none");
+			playerDataConfig.set(QuestSlot.DAILY1.getConfigKey(), "none");
+			playerDataConfig.set(QuestSlot.DAILY2.getConfigKey(), "none");
+			playerDataConfig.set(QuestSlot.DAILY3.getConfigKey(), "none");
 			
 			playerDataConfig.set("achievements.completed", 0);
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.KILL_ENEMIES.getKey(), 0);

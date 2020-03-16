@@ -24,10 +24,10 @@ public class CurrencyTest {
 		String format09Digits = ChatColor.AQUA + "300" + ChatColor.WHITE + "," + format06Digits;
 		String format12Digits = ChatColor.AQUA + "400" + ChatColor.WHITE + "," + format09Digits;
 		
-		assertEquals(format03Digits, Formatters.formatCoins(100l));
-		assertEquals(format06Digits, Formatters.formatCoins(200100l));
-		assertEquals(format09Digits, Formatters.formatCoins(300200100l));
-		assertEquals(format12Digits, Formatters.formatCoins(400300200100l));
+		assertEquals(format03Digits, Formatters.formatCoins(100L));
+		assertEquals(format06Digits, Formatters.formatCoins(200100L));
+		assertEquals(format09Digits, Formatters.formatCoins(300200100L));
+		assertEquals(format12Digits, Formatters.formatCoins(400300200100L));
 	}
 
 }

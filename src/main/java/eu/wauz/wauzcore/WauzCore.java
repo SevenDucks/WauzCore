@@ -52,7 +52,7 @@ public class WauzCore extends JavaPlugin {
 	/**
 	 * The maximum level a player can reach in MMORPG mode.
 	 */
-	public static final int MAX_PLAYER_LEVEL = 30;
+	public static final int MAX_PLAYER_LEVEL = 60;
 	
 	/**
 	 * The maximum level a player can reach in Survival mode.
