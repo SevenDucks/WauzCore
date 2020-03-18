@@ -26,7 +26,7 @@ public class WauzDiscord extends JavaPlugin {
 	private static WauzDiscord instance;
 	
 	/**
-	 * The Discord bot running on this server.
+	 * The Discord bot running on the server.
 	 */
 	private static ShiroDiscordBot shiroDiscordBot;
 	
