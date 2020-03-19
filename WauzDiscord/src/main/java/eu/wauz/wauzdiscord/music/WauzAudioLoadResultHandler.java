@@ -11,7 +11,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import eu.wauz.wauzdiscord.ShiroDiscordBot;
 import eu.wauz.wauzdiscord.ShiroDiscordBotConfiguration;
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageChannel;
 
 /**
  * A subclass of the bot to handle loading attempts of audio.

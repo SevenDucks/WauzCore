@@ -1,9 +1,11 @@
 package eu.wauz.wauzdiscord.music;
 
+import java.nio.ByteBuffer;
+
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
 
 import eu.wauz.wauzdiscord.ShiroDiscordBot;
-import net.dv8tion.jda.core.audio.AudioSendHandler;
+import net.dv8tion.jda.api.audio.AudioSendHandler;
 
 /**
  * A subclass of the bot to handle the sending of audio frames.
@@ -41,11 +43,11 @@ public class WauzAudioSendHandler implements AudioSendHandler {
 	}
 	
 	/**
-	 * @return The latest audio frame as byte array.
+	 * @return The latest audio frame as byte buffer.
 	 */
 	@Override
-	public byte[] provide20MsAudio() {
-		return lastFrame.getData();
+	public ByteBuffer provide20MsAudio() {
+		return ByteBuffer.wrap(lastFrame.getData());
 	}
 	
 	/**

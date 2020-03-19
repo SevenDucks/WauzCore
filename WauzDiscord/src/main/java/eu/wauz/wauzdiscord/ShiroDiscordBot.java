@@ -21,20 +21,19 @@ import eu.wauz.wauzdiscord.data.DiscordConfigurator;
 import eu.wauz.wauzdiscord.music.WauzAudioEventAdapter;
 import eu.wauz.wauzdiscord.music.WauzAudioLoadResultHandler;
 import eu.wauz.wauzdiscord.music.WauzAudioSendHandler;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Game.GameType;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import net.dv8tion.jda.core.managers.AudioManager;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.managers.AudioManager;
 
 /**
  * The Discord bot running on the server.
@@ -114,10 +113,11 @@ public class ShiroDiscordBot extends ListenerAdapter {
 		jdaBuilder.setToken(ShiroDiscordBotConfiguration.TOKEN);
 		jdaBuilder.setAutoReconnect(true);
 		jdaBuilder.setStatus(OnlineStatus.ONLINE);
-		jdaBuilder.setGame(Game.of(GameType.DEFAULT, ShiroDiscordBotConfiguration.PLAYS_MESSAGE));
+		jdaBuilder.setActivity(Activity.playing(ShiroDiscordBotConfiguration.PLAYS_MESSAGE));
 		
 		try {
-			jda = jdaBuilder.buildBlocking();
+			jda = jdaBuilder.build();
+			jda.awaitReady();
 			jda.addEventListener(this);
 			guild = jda.getGuildById(DiscordConfigurator.getGuildId());
 			generalChannel = jda.getTextChannelById(DiscordConfigurator.getGeneralChannelId());
