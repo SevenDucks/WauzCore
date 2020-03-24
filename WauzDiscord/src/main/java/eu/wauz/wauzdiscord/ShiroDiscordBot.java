@@ -1,26 +1,16 @@
 package eu.wauz.wauzdiscord;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
-
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.SystemAnalytics;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzdiscord.data.DiscordConfigurator;
-import eu.wauz.wauzdiscord.music.WauzAudioEventAdapter;
-import eu.wauz.wauzdiscord.music.WauzAudioLoadResultHandler;
-import eu.wauz.wauzdiscord.music.WauzAudioSendHandler;
+import eu.wauz.wauzdiscord.music.MusicManager;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -30,10 +20,8 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.managers.AudioManager;
 
 /**
  * The Discord bot running on the server.
@@ -68,29 +56,9 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	private TextChannel botsChannel;
 	
 	/**
-	 * The audio channel for playing songs.
+	 * The manager for music functionalities.
 	 */
-	private VoiceChannel audioChannel;
-	
-	/**
-	 * The audio manager to establish an audio connection.
-	 */
-	private AudioManager audioManager;
-	
-	/**
-	 * The audio player manager to load songs into the audio connection.
-	 */
-	private AudioPlayerManager audioPlayerManager;
-	
-	/**
-	 * The player created from the player manager that provides sound.
-	 */
-	private AudioPlayer audioPlayer;
-	
-	/**
-	 * The list of all queued audio tracks.
-	 */
-	private List<AudioTrack> audioQueue = new ArrayList<>();
+	private MusicManager musicManager;
 	
 	/**
 	 * If the bot is still running.
@@ -123,9 +91,7 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			generalChannel = jda.getTextChannelById(DiscordConfigurator.getGeneralChannelId());
 			loggingChannel = jda.getTextChannelById(DiscordConfigurator.getLoggingChannelId());
 			botsChannel = jda.getTextChannelById(DiscordConfigurator.getBotsChannelId());
-			audioChannel = guild.getVoiceChannelById(DiscordConfigurator.getAudioChannelId());
-			audioManager = guild.getAudioManager();
-			setupAudioPlayer();
+			musicManager = new MusicManager(guild);
 			isRunning = true;
 			isMainServer = WauzCore.IP_AND_PORT.equals(ShiroDiscordBotConfiguration.MAIN_SERVER_IP);
 		}
@@ -191,86 +157,22 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	 * Reads a message from Discord and checks if it is a command.
 	 * Also sends it to the Minecraft chat.
 	 * 
-	 * @param event
+	 * @param event The message event.
+	 * 
+	 * @see ShiroDiscordBot#checkForGlobalCommands(String, MessageChannel, boolean)
 	 */
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {
 		try {
 			User user = event.getAuthor();
-			String id = user.getId();
-			
 			MessageChannel channel = event.getChannel();
 			String message = event.getMessage().getContentRaw();
-			
-// Minecraft Chat Connector
+			boolean isAdmin = isAdmin(user.getId());
 			
 			if(channel.getId().equals(generalChannel.getId()) && !message.startsWith("**Minecraft**")) {
-				ChatFormatter.discord(message, user.getName(), isMaster(id));
+				ChatFormatter.discord(message, user.getName(), isAdmin);
 			}
-			
-// Global Server Commands
-			
-			if(!StringUtils.startsWith(message, "shiro")) {
-				return;
-			}
-			if(StringUtils.startsWith(message, "shiro hentai") && isMainServer) {
-				channel.sendMessage(ShiroDiscordMessageUtils.getHentaiString(channel, message)).queue();
-				return;
-			}
-			if(!channel.getId().equals(botsChannel.getId()) && isMainServer) {
-				channel.sendMessage("No! Try this again here: " + botsChannel.getAsMention()).queue();
-				return;
-			}
-			if(StringUtils.startsWith(message, "shiro servers") && isMaster(id)) {
-				channel.sendMessage("`" + WauzCore.getServerKey() + "` `" + WauzCore.IP_AND_PORT + "`").queue();
-				return;
-			}
-			if(StringUtils.startsWith(message, "shiro command " + WauzCore.IP_AND_PORT + " ") && isMaster(id)) {
-				channel.sendMessage(ShiroDiscordMessageUtils.executeCommand(message)).queue();
-				return;
-			}
-			if(!isMainServer) {
-				return;
-			}
-			
-// Main Server Commands
-				
-			if(StringUtils.startsWith(message, "shiro help")) {
-				channel.sendMessage(ShiroDiscordMessageUtils.getHelpString()).queue();
-			}
-			else if(StringUtils.startsWith(message, "shiro profile ")) {
-				channel.sendMessage(ShiroDiscordMessageUtils.getProfileString(message)).queue();
-			}
-			
-// Music Player
-			
-			else if(StringUtils.startsWith(message, "shiro play ")) {
-				playAudio(message, channel, false);
-			}
-			else if(StringUtils.startsWith(message, "shiro playnow ")) {
-				playAudio(message, channel, true);
-			}
-			else if(StringUtils.startsWith(message, "shiro skip")) {
-				skipAudio();
-			}
-			else if(StringUtils.startsWith(message, "shiro stop")) {
-				leaveAudioChannel();
-			}
-			
-// Fun Stuff
-			
-			else if(StringUtils.containsAny(message.toLowerCase(), "marc", "clara", "clarc", "gay", "gae")) {
-				channel.sendMessage("Marc is really, really gay!").queue();
-			}
-			else if(StringUtils.containsAny(message.toLowerCase(), "good girl", "pat")) {
-				channel.sendMessage(":3").queue();
-			}
-			else if(StringUtils.containsAny(message.toLowerCase(), "attack", "atacc", "stand")) {
-				channel.sendMessage("ORAORAORAORAORA").queue();
-			}
-			else if(StringUtils.containsAny(message.toLowerCase(), "die", "baka", "fuck")) {
-				channel.sendMessage("Baka!").queue();
-			}
+			checkForGlobalCommands(message, channel, isAdmin);
 		}
 		catch(Exception e) {
 			WauzDebugger.catchException(getClass(), e);
@@ -278,94 +180,116 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	}
 	
 	/**
-	 * @param id The ID of an Discord user
+	 * Checks a message for global commands and executes the found command.
+	 * If no commands where found, main server commands are checked next.
 	 * 
-	 * @return If the user has administrator access to the bot.
+	 * @param message The message to check for commands.
+	 * @param channel The channel, the command was sent in.
+	 * @param isAdmin
+	 * 
+	 * @see ShiroDiscordBot#checkForMainServerCommands(String, MessageChannel)
 	 */
-	private boolean isMaster(String id) {
+	private void checkForGlobalCommands(String message, MessageChannel channel, boolean isAdmin) {
+		if(!StringUtils.startsWith(message, "shiro")) {
+			return;
+		}
+		else if(StringUtils.startsWith(message, "shiro hentai") && isMainServer) {
+			channel.sendMessage(ShiroDiscordMessageUtils.getHentaiString(channel, message)).queue();
+		}
+		else if(!channel.getId().equals(botsChannel.getId()) && isMainServer) {
+			channel.sendMessage("No! Try this again here: " + botsChannel.getAsMention()).queue();
+		}
+		else if(StringUtils.startsWith(message, "shiro servers") && isAdmin) {
+			channel.sendMessage("`" + WauzCore.getServerKey() + "` `" + WauzCore.IP_AND_PORT + "`").queue();
+		}
+		else if(StringUtils.startsWith(message, "shiro command " + WauzCore.IP_AND_PORT + " ") && isAdmin) {
+			channel.sendMessage(ShiroDiscordMessageUtils.executeCommand(message)).queue();
+		}
+		else {
+			checkForMainServerCommands(message, channel);
+		}
+	}
+	
+	/**
+	 * Checks a message for main server commands and executes the found command.
+	 * If no commands where found, music player commands are checked next.
+	 * 
+	 * @param message The message to check for commands.
+	 * @param channel The channel, the command was sent in.
+	 * 
+	 * @see ShiroDiscordBot#checkForMusicPlayerCommands(String, MessageChannel)
+	 */
+	private void checkForMainServerCommands(String message, MessageChannel channel) {
+		if(!isMainServer) {
+			return;
+		}
+		else if(StringUtils.startsWith(message, "shiro help")) {
+			channel.sendMessage(ShiroDiscordMessageUtils.getHelpString()).queue();
+		}
+		else if(StringUtils.startsWith(message, "shiro profile ")) {
+			channel.sendMessage(ShiroDiscordMessageUtils.getProfileString(message)).queue();
+		}
+		else {
+			checkForMusicPlayerCommands(message, channel);
+		}
+	}
+	
+	/**
+	 * Checks a message for music player commands and executes the found command.
+	 * If no commands where found, fun commands are checked next.
+	 * 
+	 * @param message The message to check for commands.
+	 * @param channel The channel, the command was sent in.
+	 * 
+	 * @see ShiroDiscordBot#checkForFunCommands(String, MessageChannel)
+	 */
+	private void checkForMusicPlayerCommands(String message, MessageChannel channel) {
+		if(StringUtils.startsWith(message, "shiro play ")) {
+			musicManager.playAudio(message, channel, false);
+		}
+		else if(StringUtils.startsWith(message, "shiro playnow ")) {
+			musicManager.playAudio(message, channel, true);
+		}
+		else if(StringUtils.startsWith(message, "shiro skip")) {
+			musicManager.skipAudio();
+		}
+		else if(StringUtils.startsWith(message, "shiro stop")) {
+			musicManager.leaveAudioChannel();
+		}
+		else {
+			checkForFunCommands(message, channel);
+		}
+	}
+	
+	/**
+	 * Checks a message for fun commands and executes the found command.
+	 * If no commands where found, the message is ignored.
+	 * 
+	 * @param message The message to check for commands.
+	 * @param channel The channel, the command was sent in.
+	 */
+	private void checkForFunCommands(String message, MessageChannel channel) {
+		if(StringUtils.containsAny(message.toLowerCase(), "marc", "clara", "clarc", "gay", "gae")) {
+			channel.sendMessage("Marc is really, really gay!").queue();
+		}
+		else if(StringUtils.containsAny(message.toLowerCase(), "good girl", "pat")) {
+			channel.sendMessage(":3").queue();
+		}
+		else if(StringUtils.containsAny(message.toLowerCase(), "attack", "atacc", "stand")) {
+			channel.sendMessage("ORAORAORAORAORA").queue();
+		}
+		else if(StringUtils.containsAny(message.toLowerCase(), "die", "baka", "fuck")) {
+			channel.sendMessage("Baka!").queue();
+		}
+	}
+	
+	/**
+	 * @param id The ID of a Discord user.
+	 * 
+	 * @return If the user is the administrator of the bot instance.
+	 */
+	private boolean isAdmin(String id) {
 		return id.equals(ShiroDiscordBotConfiguration.ADMIN) || id.equals(jda.getSelfUser().getId());
-	}
-	
-	/**
-	 * Tells the bot to play a song from a Discord command with a YouTube URL.
-	 * 
-	 * @param message The message that contains the song URL.
-	 * @param channel The channel to write the response.
-	 * @param startPlaying If the bot should instantly skip to this song.
-	 */
-	public void playAudio(String message, MessageChannel channel, boolean startPlaying) {
-		if(startPlaying) {
-			playSong(StringUtils.substringAfter(message, "shiro playnow "), channel, true);
-		}
-		else {
-			playSong(StringUtils.substringAfter(message, "shiro play "), channel, false);
-		}
-	}
-	
-	public void skipAudio() {
-		if(!audioQueue.isEmpty()) {
-			AudioTrack audioTrack = audioQueue.get(0);
-			audioQueue.remove(audioTrack);
-		}
-		
-		if(audioQueue.isEmpty()) {
-			leaveAudioChannel();
-		}
-		else {
-			audioPlayer.playTrack(audioQueue.get(0));
-		}
-	}
-	
-	/**
-	 * Tells the bot to join the audio channel from its config.
-	 */
-	public void joinAudioChannel() {
-		audioManager.setSendingHandler(new WauzAudioSendHandler(this));
-		audioManager.openAudioConnection(audioChannel);
-	}
-	
-	/**
-	 * Tells the bot to leave its current audio channel.
-	 */
-	public void leaveAudioChannel() {
-		audioManager.closeAudioConnection();
-		audioPlayer.stopTrack();
-		audioQueue.clear();
-	}
-	
-	/**
-	 * Sets up an audio player.
-	 */
-	private void setupAudioPlayer() {
-		audioPlayerManager = new DefaultAudioPlayerManager();
-		AudioSourceManagers.registerRemoteSources(audioPlayerManager);
-		audioPlayer = audioPlayerManager.createPlayer();
-		audioPlayer.addListener(new WauzAudioEventAdapter(this));
-	}
-	
-	/**
-	 * Tells the bot to play a song.
-	 * 
-	 * @param identifier The identifier that a specific source manager should be able to find the track with.
-	 * @param messageChannel The channel to write the response.
-	 * @param startPlaying If the bot should instantly skip to this song.
-	 */
-	private void playSong(String identifier, MessageChannel messageChannel, boolean startPlaying) {
-		audioPlayerManager.loadItem(identifier, new WauzAudioLoadResultHandler(this, messageChannel, startPlaying));
-	}
-
-	/**
-	 * @return The player created from the player manager that provides sound.
-	 */
-	public AudioPlayer getAudioPlayer() {
-		return audioPlayer;
-	}
-
-	/**
-	 * @return The list of all queued audio tracks.
-	 */
-	public List<AudioTrack> getAudioQueue() {
-		return audioQueue;
 	}
 	
 }

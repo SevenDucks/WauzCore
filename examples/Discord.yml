@@ -3,12 +3,12 @@ admin: 271386371950772224
 mainserver: 89.163.144.236:25566
 playsmsg: "with Lord Wauzmons"
 errormsg: "Oopsy! Shiro thinks something went wrong. :/"
-guild: 272417655938351106
+guild: 212147184999596032
 channels:
-  general: 620652356127948800
-  logging: 662042181992972327
-  bots: 574219369530261514
-  audio: 574183802260422677
+  general: 666641310987321344
+  logging: 664755383855742986
+  bots: 492095196641624066
+  audio: 685470426293600280
 notifications:
   startstop: true
   joinleave: true

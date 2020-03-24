@@ -4,28 +4,27 @@ import java.nio.ByteBuffer;
 
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
 
-import eu.wauz.wauzdiscord.ShiroDiscordBot;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 
 /**
- * A subclass of the bot to handle the sending of audio frames.
+ * A subclass of the music manager to handle the sending of audio frames.
  * 
  * @author Wauzmons
  */
 public class WauzAudioSendHandler implements AudioSendHandler {
 	
 	/**
-	 * The Discord bot running on the server.
+	 * The manager for music functionalities.
 	 */
-	private ShiroDiscordBot shiroDiscordBot;
+	private MusicManager musicManager;
 	
 	/**
 	 * Creates a new audio send handler for the given bot.
 	 * 
-	 * @param shiroDiscordBot The Discord bot running on the server.
+	 * @param musicManager The manager for music functionalities.
 	 */
-	public WauzAudioSendHandler(ShiroDiscordBot shiroDiscordBot) {
-		this.shiroDiscordBot = shiroDiscordBot;
+	public WauzAudioSendHandler(MusicManager musicManager) {
+		this.musicManager = musicManager;
 	}
 	
 	/**
@@ -38,7 +37,7 @@ public class WauzAudioSendHandler implements AudioSendHandler {
 	 */
 	@Override
 	public boolean canProvide() {
-		lastFrame = shiroDiscordBot.getAudioPlayer().provide();
+		lastFrame = musicManager.getAudioPlayer().provide();
 		return lastFrame != null;
 	}
 	
