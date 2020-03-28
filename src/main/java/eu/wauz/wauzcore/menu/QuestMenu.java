@@ -33,7 +33,7 @@ import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
- * Sub menu of the main menu, that builds a quest display out of quest configs and manages quest progression.
+ * Sub menu of the main menu, that builds a quest display out of quest configs.
  * 
  * @author Wauzmons
  *
@@ -234,7 +234,7 @@ public class QuestMenu implements WauzInventory {
 		List<String> questLores = new ArrayList<String>();
 		
 		int level = quest.getLevel();
-		questLores.add(ChatColor.GRAY + "Questgiver: " + questName.substring(0,1).toUpperCase() + questName.substring(1) + " at " + quest.getCoordinates());
+		questLores.add(ChatColor.GRAY + "Questgiver: " + questName.substring(0, 1).toUpperCase() + questName.substring(1) + " at " + quest.getCoordinates());
 		questLores.add(ChatColor.GRAY + "Level " + level + " [" + quest.getType().toUpperCase() + "] Quest");
 		questLores.add("");
 		
@@ -285,7 +285,7 @@ public class QuestMenu implements WauzInventory {
 	 * Can be trackable for showing in the quest finder, or not, for showing in a dialog.
 	 * 
 	 * @param player The player that is viewing the quest.
-	 * @param quest The name of the quest.
+	 * @param quest The unaccepted quest.
 	 * @param phase The displayed quest phase.
 	 * @param trackable If the quest can be tracked.
 	 * 
