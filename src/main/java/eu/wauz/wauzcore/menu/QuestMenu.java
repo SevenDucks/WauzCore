@@ -28,8 +28,8 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
+import eu.wauz.wauzcore.system.quests.WauzQuest;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.

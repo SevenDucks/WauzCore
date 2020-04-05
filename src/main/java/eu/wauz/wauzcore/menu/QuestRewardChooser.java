@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.system.WauzQuest;
+import eu.wauz.wauzcore.system.quests.WauzQuest;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.

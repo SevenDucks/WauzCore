@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.system;
+package eu.wauz.wauzcore.system.quests;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -116,6 +116,11 @@ public class WauzQuest {
 	private int rewardCoins;
 	
 	/**
+	 * The loot reward of a quest.
+	 */
+	private WauzQuestLoot rewardLoot;
+	
+	/**
 	 * The list of messages in the completion dialog.
 	 */
 	private List<String> completedDialog;
@@ -141,6 +146,7 @@ public class WauzQuest {
 		rewardExp = QuestConfigurator.getRewardExp(questName);
 		rewardRelationExp = QuestConfigurator.getRewardRelationExp(questName);
 		rewardCoins = QuestConfigurator.getRewardCoins(questName);
+		rewardLoot = new WauzQuestLoot(questName);
 		completedDialog = QuestConfigurator.getCompletedDialog(questName);
 		
 		for(int phase = 1; phase <= phaseAmount; phase++) {
@@ -208,26 +214,33 @@ public class WauzQuest {
 	}
 	
 	/**
-	 * @return 
+	 * @return The exp reward of the quest.
 	 */
 	public double getRewardExp() {
 		return rewardExp;
 	}
 	
 	/**
-	 * @return 
+	 * @return The relation exp reward of the quest.
 	 */
 	public int getRewardRelationExp() {
 		return rewardRelationExp;
 	}
 	
 	/**
-	 * @return 
+	 * @return The coin reward of the quest.
 	 */
 	public int getRewardCoins() {
 		return rewardCoins;
 	}
 	
+	/**
+	 * @return The loot reward of a quest.
+	 */
+	public WauzQuestLoot getRewardLoot() {
+		return rewardLoot;
+	}
+
 	/**
 	 * @param phase The number of the phase.
 	 * 

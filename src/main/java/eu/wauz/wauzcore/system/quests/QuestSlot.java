@@ -1,7 +1,5 @@
 package eu.wauz.wauzcore.system.quests;
 
-import eu.wauz.wauzcore.system.WauzQuest;
-
 /**
  * A slot to hold the accepted quests of a player.
  * 

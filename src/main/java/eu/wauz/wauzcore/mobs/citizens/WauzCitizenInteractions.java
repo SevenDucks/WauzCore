@@ -26,6 +26,7 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.quests.WauzQuest;
 
 /**
  * The interaction options of a citizen.
@@ -155,7 +156,8 @@ public class WauzCitizenInteractions {
 			break;
 		case "quest":
 			interactionItemStack = HeadUtils.getCitizenQuestItem();
-			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.GOLD + "Quest: " + interactionName);
+			WauzQuest quest = WauzQuest.getQuest(interactionName);
+			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.GOLD + "Quest: " + quest.getDisplayName());
 			event = new WauzPlayerEventCitizenQuest(citizenName, interactionName);
 			break;
 		case "inn":

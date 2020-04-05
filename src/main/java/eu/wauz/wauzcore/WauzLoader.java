@@ -88,10 +88,10 @@ import eu.wauz.wauzcore.skills.SkillTheWorld;
 import eu.wauz.wauzcore.skills.SkillWheelOfFortune;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.InstanceManager;
-import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
+import eu.wauz.wauzcore.system.quests.WauzQuest;
 
 /**
  * Used by the main class to load all static data.
@@ -114,10 +114,10 @@ public class WauzLoader {
 	 */
 	public static void init() {
 		WauzRegion.init();
-		WauzCitizen.init();
 		WauzEquipment.init();
 		WauzAchievement.init();
 		WauzQuest.init();
+		WauzCitizen.init();
 		WauzPlayerGuild.init();
 		
 		InstanceManager.removeInactiveInstances();

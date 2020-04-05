@@ -16,8 +16,8 @@ import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.SystemAnalytics;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
+import eu.wauz.wauzcore.system.quests.WauzQuest;
 
 /**
  * Starts a HTTP server, that can deliver game information over an api.

@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -236,6 +237,26 @@ public class EventMapper {
 				player.setItemOnCursor(null);
 			}
 			MenuUtils.onSpecialItemInventoryClick(event);
+		}
+	}
+	
+	/**
+	 * Called when a player closes an inventory menu.
+	 * If the inventory has a fitting inventory holder, it tries properly destroy the menu contents.
+	 * 
+	 * @param event The received InventoryCloseEvent.
+	 * 
+	 * @see WauzInventoryHolder#destroyInventory(InventoryCloseEvent)
+	 */
+	public static void handleMenuClose(InventoryCloseEvent event) {
+		Player player = (Player) event.getPlayer();
+		String inventoryName = ChatColor.stripColor(player.getOpenInventory().getTitle());
+		String inventoryType = event.getInventory().getType().toString();
+		WauzDebugger.log(player, "You closed the Inventory: " + inventoryName + " " + inventoryType);
+		
+		if(event.getInventory().getHolder() instanceof WauzInventoryHolder) {
+			WauzInventoryHolder holder = (WauzInventoryHolder) event.getInventory().getHolder();
+			holder.destroyInventory(event);
 		}
 	}
 	

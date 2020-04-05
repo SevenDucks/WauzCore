@@ -6,9 +6,9 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.WauzQuest;
 import eu.wauz.wauzcore.system.quests.QuestSlot;
 import eu.wauz.wauzcore.system.quests.QuestType;
+import eu.wauz.wauzcore.system.quests.WauzQuest;
 
 /**
  * An event that lets a player cancel a running quest.

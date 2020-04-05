@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.menu.util;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
@@ -52,6 +53,15 @@ public class WauzInventoryHolder implements InventoryHolder {
 	 */
 	public void selectMenuPoint(InventoryClickEvent event) {
 		inventory.selectMenuPoint(event);
+	}
+	
+	/**
+	 * Cleans up everything, so the inventory can be closed.
+	 * 
+	 * @param event The inventory close event.
+	 */
+	public void destroyInventory(InventoryCloseEvent event) {
+		inventory.destroyInventory(event);
 	}
 	
 }

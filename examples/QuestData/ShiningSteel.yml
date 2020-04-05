@@ -1,0 +1,30 @@
+type: daily
+name: Shining Steel
+level: 10
+amount: 1
+coords: 219 21 378
+reward:
+  exp: 0
+  relation: 0
+  coins: 50
+  items:
+  - 'SoW'
+  - 'BerryForest'
+  - 'BerryForest'
+  - 'BerryForest'
+  choice:
+  - 'EquipT1? : Claymore'
+  - 'EquipT1? : Greataxe'
+  - 'EquipT1? : Sceptre'
+phases:
+  1:
+    lores:
+    - 'It is dangerous to go alone.'
+    - 'You should take a weapon with you...'
+    - 'I shall provide you with one of your choice!'
+    - 'Talk to me again, when you are ready to choose.'
+    uncomplete:
+    requirements:
+      amount: 0
+completed:
+- 'Handle your weapon with care!'

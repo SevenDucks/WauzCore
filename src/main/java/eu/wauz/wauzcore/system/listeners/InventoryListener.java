@@ -1,12 +1,17 @@
 package eu.wauz.wauzcore.system.listeners;
 
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.EventMapper;
@@ -20,7 +25,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 public class InventoryListener implements Listener {
 	
 	/**
-	 * Lets the mapper decide how to handle the interaction with an inventory / menu.
+	 * Lets the mapper decide how to handle the interaction with an inventory menu.
 	 * 
 	 * @param event
 	 * 
@@ -29,6 +34,18 @@ public class InventoryListener implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
 		EventMapper.handleMenuInteraction(event);
+	}
+	
+	/**
+	 * Lets the mapper decide how to handle the closing of an inventory menu.
+	 * 
+	 * @param event
+	 * 
+	 * @see EventMapper#handleMenuClose(InventoryCloseEvent)
+	 */
+	@EventHandler
+	public void onInventoryClose(InventoryCloseEvent event) {
+		EventMapper.handleMenuClose(event);
 	}
 
 	/**
@@ -48,7 +65,7 @@ public class InventoryListener implements Listener {
 			WauzPlayerScoreboard.scheduleScoreboard(event.getPlayer());
 		}
 	}
-
+	
 	/**
 	 * Prevents swapping of static items (e.g. mana points) in MMORPG mode.
 	 * 
@@ -60,6 +77,23 @@ public class InventoryListener implements Listener {
 	public void onSwapItem(PlayerSwapHandItemsEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
 			MenuUtils.checkForStaticItemSwap(event);
+		}
+	}
+	
+	/**
+	 * Adds a name label to every item that was dropped on the ground.
+	 * 
+	 * @param event
+	 * 
+	 * @see ItemUtils#hasDisplayName(ItemStack)
+	 */
+	@EventHandler
+	public void onItemSpawn(ItemSpawnEvent event) {
+		Item item = event.getEntity();
+		ItemStack itemStack = item.getItemStack();
+		if(ItemUtils.hasDisplayName(itemStack)) {
+			item.setCustomName(itemStack.getItemMeta().getDisplayName());
+			item.setCustomNameVisible(true);
 		}
 	}
 
