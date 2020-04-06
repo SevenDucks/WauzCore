@@ -7,28 +7,20 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.CitizenConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerRelationConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTalk;
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestAccept;
-import eu.wauz.wauzcore.items.WauzRewards;
-import eu.wauz.wauzcore.menu.QuestMenu;
+import eu.wauz.wauzcore.events.WauzPlayerEventQuestComplete;
+import eu.wauz.wauzcore.menu.QuestRewardChooser;
 import eu.wauz.wauzcore.menu.WauzDialog;
-import eu.wauz.wauzcore.mobs.citizens.RelationLevel;
-import eu.wauz.wauzcore.mobs.citizens.RelationTracker;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
-import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.achievements.AchievementTracker;
-import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 
 /**
  * A class to manage quest progression of players.
@@ -42,26 +34,11 @@ public class QuestProcessor {
 	 * 
 	 * @param player The player who is doing the quest.
 	 * @param questName The name of the quest.
-	 * @param questCitizen The name of the citizen who gives out the quest.
-	 * 
-	 * @see QuestProcessor#processQuest(Player, String, String, Location) Calls this with null as last param.
-	 */
-	public static void processQuest(Player player, String questName, String questCitizen) {
-		processQuest(player, questName, questCitizen, null);
-	}
-	
-	/**
-	 * Tries to accept or continue the quest.
-	 * 
-	 * @param player The player who is doing the quest.
-	 * @param questName The name of the quest.
-	 * @param questCitizen The name of the citizen who gives out the quest.
-	 * @param questLocation The location to show exp rewards.
 	 * 
 	 * @see QuestProcessor#run(Player, String, String, Location) The internal logic.
 	 */
-	public static void processQuest(Player player, String questName, String questCitizen, Location questLocation) {
-		new QuestProcessor(player, questName, questCitizen, questLocation).run();
+	public static void processQuest(Player player, String questName) {
+		new QuestProcessor(player, questName).run();
 	}
 	
 	/**
@@ -95,16 +72,6 @@ public class QuestProcessor {
 	private final int questPhaseAmount;
 	
 	/**
-	 * The display name of the citizen who gave out the quest.
-	 */
-	private final String questGiver;
-	
-	/**
-	 * The location to show exp rewards.
-	 */
-	private final Location questLocation;
-	
-	/**
 	 * The slot of the quest.
 	 */
 	private String questSlot = null;
@@ -114,16 +81,12 @@ public class QuestProcessor {
 	 * 
 	 * @param player The player who is doing the quest.
 	 * @param questName The name of the quest.
-	 * @param questCitizen The name of the citizen who gives out the quest.
-	 * @param questLocation The location to show exp rewards.
 	 */
-	private QuestProcessor(Player player, String questName, String questCitizen, Location questLocation) {
+	private QuestProcessor(Player player, String questName) {
 		this.player = player;
 		this.questName = questName;
-		this.questLocation = questLocation;
 		
 		quest = WauzQuest.getQuest(questName);
-		questGiver = CitizenConfigurator.getDisplayName(questCitizen);
 		questType = quest.getType();
 		questPhase = PlayerQuestConfigurator.getQuestPhase(player, questName);
 		questPhaseAmount = quest.getPhaseAmount();
@@ -234,7 +197,7 @@ public class QuestProcessor {
 		}
 		
 		if(!questType.equals(QuestType.DAILY) && PlayerQuestConfigurator.isQuestCompleted(player, questName)) {
-			new WauzPlayerEventCitizenTalk(questGiver, quest.getCompletedDialog()).execute(player);
+			new WauzPlayerEventCitizenTalk(quest.getQuestGiver(), quest.getCompletedDialog()).execute(player);
 			return true;
 		}
 		return false;
@@ -252,7 +215,7 @@ public class QuestProcessor {
 	private boolean checkQuestObjectives() {
 		if(!new QuestRequirementChecker(player, quest, questPhase).tryToHandInQuest()) {
 			List<String> message = Collections.singletonList(quest.getUncompletedMessage(questPhase));
-			new WauzPlayerEventCitizenTalk(questGiver, message).execute(player);
+			new WauzPlayerEventCitizenTalk(quest.getQuestGiver(), message).execute(player);
 			return false;
 		}
 		return true;
@@ -265,7 +228,7 @@ public class QuestProcessor {
 	 * @see WauzPlayerEventQuestAccept
 	 */
 	private void acceptQuest() {
-		WauzPlayerEventQuestAccept event = new WauzPlayerEventQuestAccept(quest, questSlot, questGiver);
+		WauzPlayerEventQuestAccept event = new WauzPlayerEventQuestAccept(quest, questSlot);
 		
 		if(questType.equals(QuestType.MAIN)) {
 			event.execute(player);
@@ -274,54 +237,28 @@ public class QuestProcessor {
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 			playerData.setWauzPlayerEventName("Accept Quest");
 			playerData.setWauzPlayerEvent(event);
-			WauzDialog.open(player, QuestMenu.generateUnacceptedQuest(player, quest, 1, false));
+			WauzDialog.open(player, QuestMenuItems.generateUnacceptedQuest(player, quest, 1, false));
 		}
 	}
 	
 	/**
 	 * Starts the next quest phase or completes the quest.
 	 * If the phase is completed, the next phase is initiated and an phase description message is shown.
-	 * If all phases are completed, the quest slot and the phase are cleared,
-	 * the cooldown for daily quests gets resetted, the quest completions increase,
-	 * an effect and the completion message is shown and the reward is handed out.
+	 * If all phases are completed, the reward chooser dialog is opened.
 	 * 
 	 * @see WauzQuest#getPhaseDialog(int)
 	 * @see PlayerQuestConfigurator#setQuestPhase(Player, String, int)
-	 * @see PlayerConfigurator#setCharacterQuestSlot(Player, String, String)
-	 * @see PlayerQuestConfigurator#setQuestCooldown(Player, String)
-	 * @see PlayerQuestConfigurator#addQuestCompletions(Player, String)
-	 * @see RelationLevel#getRewardMultiplier()
-	 * @see WauzRewards#grantExperience(Player, int, double, Location)
-	 * @see WauzRewards#earnMmoRpgToken(Player)
+	 * @see QuestRewardChooser#open(Player, WauzQuest, WauzPlayerEventQuestComplete)
 	 */
 	private void completeQuestStep() {
 		if(questPhase < questPhaseAmount) {
 			questPhase++;
 			PlayerQuestConfigurator.setQuestPhase(player, questName, questPhase);
-			new WauzPlayerEventCitizenTalk(questGiver, quest.getPhaseDialog(questPhase)).execute(player);
+			new WauzPlayerEventCitizenTalk(quest.getQuestGiver(), quest.getPhaseDialog(questPhase)).execute(player);
 		}
 		else {
-			PlayerQuestConfigurator.setQuestPhase(player, questName, 0);
-			PlayerConfigurator.setCharacterQuestSlot(player, questSlot, "none");
-			if(questType.equals(QuestType.DAILY)) {
-				PlayerQuestConfigurator.setQuestCooldown(player, questName);
-			}
-			PlayerQuestConfigurator.addQuestCompletions(player, questName);
-			player.getWorld().playEffect(player.getLocation(), Effect.DRAGON_BREATH, 0);
-			player.sendMessage(ChatColor.GREEN + "You completed [" + quest.getDisplayName() + "]");
-			
-			int relationProgress = PlayerRelationConfigurator.getRelationProgress(player, questGiver);
-			double rewardMultiplier = RelationLevel.getRelationLevel(relationProgress).getRewardMultiplier();
-			int rewardCoins = (int) (quest.getRewardCoins() * rewardMultiplier);
-			double rewardExp = quest.getRewardExp() * rewardMultiplier;
-			
-			RelationTracker.addProgress(player, questGiver, quest.getRewardRelationExp());
-			PlayerConfigurator.setCharacterCoins(player, PlayerConfigurator.getCharacterCoins(player) + rewardCoins);
-			AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, rewardCoins);
-			ExperienceCalculator.grantExperience(player, quest.getLevel(), rewardExp, questLocation);
-			WauzRewards.earnMmoRpgToken(player);
-			
-			new WauzPlayerEventCitizenTalk(questGiver, quest.getCompletedDialog()).execute(player);
+			WauzPlayerEventQuestComplete completeEvent = new WauzPlayerEventQuestComplete(quest, questSlot);
+			QuestRewardChooser.open(player, quest, completeEvent);
 		}
 	}
 

@@ -34,6 +34,15 @@ public class QuestConfigurator extends GlobalConfigurationUtils {
 	/**
 	 * @param questName The name of the quest.
 	 * 
+	 * @return The citizen who gives out the quest.
+	 */
+	public static String getQuestGiver(String questName) {
+		return questConfigGetString(questName, "giver");
+	}
+	
+	/**
+	 * @param questName The name of the quest.
+	 * 
 	 * @return The coordinates of the quest as string.
 	 */
 	public static String getCoordinates(String questName) {
@@ -94,6 +103,24 @@ public class QuestConfigurator extends GlobalConfigurationUtils {
 	 */
 	public static int getRewardCoins(String questName) {
 		return questConfigGetInt(questName, "reward.coins");
+	}
+	
+	/**
+	 * @param questName The name of the quest.
+	 * 
+	 * @return The fixed item reward.
+	 */
+	public static List<String> getRewardItems(String questName) {
+		return questConfigGetStringList(questName, "reward.items");
+	}
+	
+	/**
+	 * @param questName The name of the quest.
+	 * 
+	 * @return The choosable item reward.
+	 */
+	public static List<String> getRewardChoiceItems(String questName) {
+		return questConfigGetStringList(questName, "reward.choice");
 	}
 	
 // Dialog and Lore

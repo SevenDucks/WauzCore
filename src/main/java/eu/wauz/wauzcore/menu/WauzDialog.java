@@ -97,11 +97,9 @@ public class WauzDialog implements WauzInventory {
 		if(playerData == null || clicked == null) {
 			return;
 		}
-		
 		else if(HeadUtils.isHeadMenuItem(clicked, "CONFIRM")) {
 			playerData.getWauzPlayerEvent().execute(player);
 		}
-		
 		else if(HeadUtils.isHeadMenuItem(clicked, "DECLINE")) {
 			player.closeInventory();
 		}

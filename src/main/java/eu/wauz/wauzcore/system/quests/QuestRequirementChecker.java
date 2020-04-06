@@ -109,7 +109,7 @@ public class QuestRequirementChecker {
 			questObjectives.addAll(objectiveLores);
 		}
 		else if(!PlayerConfigurator.getHideCompletedQuestsForCharacter(player)) {
-			questObjectives.add(ChatColor.GREEN + "  > " + ChatColor.WHITE + "Talk to " + quest.getQuestName() + " " + quest.getCoordinates());
+			questObjectives.add(ChatColor.GREEN + "  > " + ChatColor.WHITE + "Talk to " + quest.getQuestGiver() + " " + quest.getCoordinates());
 		}
 		else {
 			return new ArrayList<>();
@@ -128,7 +128,7 @@ public class QuestRequirementChecker {
 		}
 		else {
 			trackerLocationString = quest.getCoordinates();
-			trackerName = quest.getQuestName();
+			trackerName = quest.getDisplayName();
 		}
 		
 		if(StringUtils.isNotBlank(trackerName) && StringUtils.isNotBlank(trackerLocationString)) {
@@ -226,7 +226,7 @@ public class QuestRequirementChecker {
 		boolean success = fulfilledAmount == requirementAmount;
 		if(success) {
 			trackerLocationString = quest.getCoordinates();
-			trackerName = quest.getQuestName();
+			trackerName = quest.getDisplayName();
 		}
 		
 		return success;

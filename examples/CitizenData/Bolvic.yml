@@ -40,11 +40,12 @@ interactions:
     level: 0
   4:
     type: quest
-    name: Knuckles
+    name: ShiningSteel
     level: 0
   5:
-    type: inn
-    level: 1
+    type: quest
+    name: TheWayOfUganda
+    level: 0
   6:
     type: command
     name: Teleport to Spawn
@@ -55,3 +56,6 @@ interactions:
     name: Teleport to Hub
     level: 0
     command: hub
+  8:
+    type: inn
+    level: 1

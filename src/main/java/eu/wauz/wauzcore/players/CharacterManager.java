@@ -366,7 +366,7 @@ public class CharacterManager {
 			equipCharacterItems(player);
 			
 			if(characterWorld.equals("Wauzland")) {
-				QuestProcessor.processQuest(player, "Yamir", "Yamir");
+				QuestProcessor.processQuest(player, "CalamityBeneathWauzland");
 			}
 			try {
 				WauzRewards.earnDailyReward(player);

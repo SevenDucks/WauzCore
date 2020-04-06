@@ -28,6 +28,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.quests.QuestMenuItems;
 import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 
@@ -70,51 +71,51 @@ public class QuestMenu implements WauzInventory {
 		
 		if(!slotm.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, slotm);
-			menu.setItem(0, generateQuest(player, slotm, phase, Material.MAGENTA_CONCRETE));
+			menu.setItem(0, QuestMenuItems.generateQuest(player, slotm, phase, Material.MAGENTA_CONCRETE));
 		}
 		else {
-			menu.setItem(0, generateEmptyQust("Main"));
+			menu.setItem(0, QuestMenuItems.generateEmptyQust("Main"));
 		}
 		
 		if(!cmpn1.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, cmpn1);
-			menu.setItem(1, generateQuest(player, cmpn1, phase, Material.LIGHT_BLUE_CONCRETE));
+			menu.setItem(1, QuestMenuItems.generateQuest(player, cmpn1, phase, Material.LIGHT_BLUE_CONCRETE));
 		}
 		else {
-			menu.setItem(1, generateEmptyQust("Campaign"));
+			menu.setItem(1, QuestMenuItems.generateEmptyQust("Campaign"));
 		}
 		
 		if(!cmpn2.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, cmpn2);
-			menu.setItem(2, generateQuest(player, cmpn2, phase, Material.LIGHT_BLUE_CONCRETE));
+			menu.setItem(2, QuestMenuItems.generateQuest(player, cmpn2, phase, Material.LIGHT_BLUE_CONCRETE));
 		}
 		else {
-			menu.setItem(2, generateEmptyQust("Campaign"));
+			menu.setItem(2, QuestMenuItems.generateEmptyQust("Campaign"));
 		}
 		
 		
 		if(!slot1.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot1);
-			menu.setItem(3, generateQuest(player, slot1, phase, Material.YELLOW_CONCRETE));
+			menu.setItem(3, QuestMenuItems.generateQuest(player, slot1, phase, Material.YELLOW_CONCRETE));
 		}
 		else {
-			menu.setItem(3, generateEmptyQust("Daily"));	
+			menu.setItem(3, QuestMenuItems.generateEmptyQust("Daily"));	
 		}
 		
 		if(!slot2.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot2);
-			menu.setItem(4, generateQuest(player, slot2, phase, Material.YELLOW_CONCRETE));
+			menu.setItem(4, QuestMenuItems.generateQuest(player, slot2, phase, Material.YELLOW_CONCRETE));
 		}
 		else {
-			menu.setItem(4, generateEmptyQust("Daily"));
+			menu.setItem(4, QuestMenuItems.generateEmptyQust("Daily"));
 		}
 		
 		if(!slot3.equals("none")) {
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, slot3);
-			menu.setItem(5, generateQuest(player, slot3, phase, Material.YELLOW_CONCRETE));
+			menu.setItem(5, QuestMenuItems.generateQuest(player, slot3, phase, Material.YELLOW_CONCRETE));
 		}
 		else {
-			menu.setItem(5, generateEmptyQust("Daily"));
+			menu.setItem(5, QuestMenuItems.generateEmptyQust("Daily"));
 		}
 		
 		ItemStack questFinderItemStack = new ItemStack(Material.BOOKSHELF);
@@ -195,7 +196,7 @@ public class QuestMenu implements WauzInventory {
 			Collections.sort(quests, questLocationDistanceComparator);
 			
 			for(WauzQuest quest : quests) {
-				menu.setItem(currentSlot, generateUnacceptedQuest(player, quest, 1, true));
+				menu.setItem(currentSlot, QuestMenuItems.generateUnacceptedQuest(player, quest, 1, true));
 				currentSlot++;
 				if(currentSlot > 8) {
 					player.openInventory(menu);
@@ -206,121 +207,6 @@ public class QuestMenu implements WauzInventory {
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
-	}
-	
-// Generate a taken Quest-Slot
-	
-	/**
-	 * Creates an item stack, containing information about a running quest.
-	 * If it is not a main quest, an option to cancel the quest, will be added to the lore.
-	 * 
-	 * @param player The player that is doing the quest.
-	 * @param questName The name of the quest.
-	 * @param phase The current quest phase.
-	 * @param colorMaterial The material of the item stack.
-	 * 
-	 * @return The quest item stack.
-	 * 
-	 * @see WauzQuest#getDisplayName()
-	 * @see QuestRequirementChecker#getItemStackLores()
-	 */
-	public static ItemStack generateQuest(Player player, String questName, int phase, Material colorMaterial) {
-		WauzQuest quest = WauzQuest.getQuest(questName);
-		
-		ItemStack questItemStack = new ItemStack(colorMaterial);
-		ItemMeta questItemMeta = questItemStack.getItemMeta();
-		questItemMeta.setDisplayName(ChatColor.GOLD + quest.getDisplayName());
-		
-		List<String> questLores = new ArrayList<String>();
-		
-		int level = quest.getLevel();
-		questLores.add(ChatColor.GRAY + "Questgiver: " + questName.substring(0, 1).toUpperCase() + questName.substring(1) + " at " + quest.getCoordinates());
-		questLores.add(ChatColor.GRAY + "Level " + level + " [" + quest.getType().toUpperCase() + "] Quest");
-		questLores.add("");
-		
-		for(String lore : quest.getPhaseDialog(phase)) {
-			questLores.add(ChatColor.WHITE + lore.replaceAll("player", player.getName()));
-		}
-		questLores.add("");
-		
-		QuestRequirementChecker questRequirementChecker = new QuestRequirementChecker(player, quest, phase);
-		questLores.addAll(questRequirementChecker.getItemStackLores());
-		
-		boolean isMainQuest = colorMaterial.equals(Material.MAGENTA_CONCRETE);
-		
-		if(quest.getRequirementAmount(phase) > 0) {
-			questLores.add("");
-		}
-		questLores.add(ChatColor.GRAY + (isMainQuest ? "" : "Left ") + "Click to Track Objective");
-		
-		if(!isMainQuest) {
-			questLores.add(ChatColor.GRAY + "Right Click to Cancel");
-		}
-		
-		questItemMeta.setLore(questLores);
-		questItemStack.setItemMeta(questItemMeta);
-		return questItemStack;
-	}
-	
-// Generate a free Quest-Slot
-	
-	/**
-	 * Creates an item stack, that represents a free quest slot, that isn't bound to any quest.
-	 * Used for showing free slots in the quest overview menu.
-	 * 
-	 * @param type The type of the quest, for showing in the display name.
-	 * 
-	 * @return The quest item stack.
-	 */
-	public static ItemStack generateEmptyQust(String type) {
-		ItemStack emptyQuestItemStack = new ItemStack(Material.WHITE_CONCRETE);
-		ItemMeta emptyQuestItemMeta = emptyQuestItemStack.getItemMeta();
-		emptyQuestItemMeta.setDisplayName(ChatColor.DARK_GRAY + "No " + type + "-Quest in progress...");
-		emptyQuestItemStack.setItemMeta(emptyQuestItemMeta);
-		return emptyQuestItemStack;
-	}
-	
-	/**
-	 * Creates an item stack, containing information about an unstarted quest.
-	 * Can be trackable for showing in the quest finder, or not, for showing in a dialog.
-	 * 
-	 * @param player The player that is viewing the quest.
-	 * @param quest The unaccepted quest.
-	 * @param phase The displayed quest phase.
-	 * @param trackable If the quest can be tracked.
-	 * 
-	 * @return The quest item stack.
-	 * 
-	 * @see WauzQuest#getDisplayName()
-	 * @see QuestRequirementChecker#getItemStackLoresUnaccepted()
-	 */
-	public static ItemStack generateUnacceptedQuest(Player player, WauzQuest quest, int phase, boolean trackable) {
-		ItemStack unacceptedQuestItemStack = new ItemStack(Material.WRITABLE_BOOK);
-		ItemMeta unacceptedQuestItemMeta = unacceptedQuestItemStack.getItemMeta();
-		unacceptedQuestItemMeta.setDisplayName(ChatColor.GOLD + quest.getDisplayName());
-		
-		List<String> unacceptedQuestLores = new ArrayList<String>();
-		
-		int level = quest.getLevel();
-		String questName = quest.getQuestName();
-		
-		unacceptedQuestLores.add(ChatColor.GRAY + "Questgiver: " + questName.substring(0,1).toUpperCase() + questName.substring(1) + " at " + quest.getCoordinates());
-		unacceptedQuestLores.add(ChatColor.GRAY + "Level " + level + " [" + quest.getType().toUpperCase() + "] Quest");
-		unacceptedQuestLores.add("");
-		
-		QuestRequirementChecker questRequirementChecker = new QuestRequirementChecker(player, quest, phase);
-		unacceptedQuestLores.addAll(questRequirementChecker.getItemStackLoresUnaccepted());
-		
-		if(trackable) {
-			if(quest.getRequirementAmount(phase) > 0) {
-				unacceptedQuestLores.add("");
-			}
-			unacceptedQuestLores.add(ChatColor.GRAY + "Left Click to Track Objective");
-		}
-		
-		unacceptedQuestItemMeta.setLore(unacceptedQuestLores);
-		unacceptedQuestItemStack.setItemMeta(unacceptedQuestItemMeta);
-		return unacceptedQuestItemStack;
 	}
 	
 // Select Quest or Option
@@ -384,7 +270,7 @@ public class QuestMenu implements WauzInventory {
 				material.equals(Material.MAGENTA_CONCRETE) ||
 				material.equals(Material.WRITABLE_BOOK)) {
 			
-			String questName = ItemUtils.getStringBetweenFromLore(clicked, "Questgiver: ", " at ");
+			String questName = ItemUtils.getStringFromLore(clicked, "Quest-ID", 1);
 			WauzQuest quest = WauzQuest.getQuest(questName);
 			int phase = PlayerQuestConfigurator.getQuestPhase(player, questName);
 			
@@ -393,7 +279,7 @@ public class QuestMenu implements WauzInventory {
 				playerData.setWauzPlayerEventName("Cancel Quest");
 				playerData.setWauzPlayerEvent(new WauzPlayerEventQuestCancel(questName));
 				clicked.setType(Material.WRITABLE_BOOK);
-				WauzDialog.open(player, generateUnacceptedQuest(player, quest, phase, false));
+				WauzDialog.open(player, QuestMenuItems.generateUnacceptedQuest(player, quest, phase, false));
 			}
 			else {
 				new QuestRequirementChecker(player, quest, phase).trackQuestObjective();

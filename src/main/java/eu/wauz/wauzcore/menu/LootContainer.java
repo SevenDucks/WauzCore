@@ -48,6 +48,8 @@ public class LootContainer implements WauzInventory {
 			menu.setItem(slot, lootItemStack);
 			freeSlots.remove(slot);
 		}
+		
+		player.openInventory(menu);
 	}
 	
 	/**

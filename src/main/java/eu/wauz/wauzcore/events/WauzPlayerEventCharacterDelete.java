@@ -28,12 +28,12 @@ public class WauzPlayerEventCharacterDelete implements WauzPlayerEvent {
 	public boolean execute(Player player) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		String characterSlot = playerData.getSelectedCharacterSlot();
-		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + ".yml");
-		File playerDataQuestFiles = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + "-quests");
+		String basePath = core.getDataFolder().getAbsolutePath() + "/PlayerData/" + player.getUniqueId() + "/" + characterSlot;
 		
 		try {
-			playerDataFile.delete();
-			WauzFileUtils.removeFilesRecursive(playerDataQuestFiles);
+			new File(basePath + ".yml").delete();
+			WauzFileUtils.removeFilesRecursive(new File(basePath + "-quests"));
+			WauzFileUtils.removeFilesRecursive(new File(basePath + "-relations"));
 			player.sendMessage(ChatColor.DARK_PURPLE + "Character succesfully deleted!");
 			player.closeInventory();
 			return true;

@@ -84,15 +84,15 @@ public class InventoryStringConverter {
     	WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
     	
     	if(WauzMode.isMMORPG(player)) {
-    		playerData.setMana(playerDataConfig.getInt("stats.current.mana"));
     		DamageCalculator.setHealth(player, playerDataConfig.getInt("stats.current.health"));
+    		playerData.setMana(playerDataConfig.getInt("stats.current.mana"));
     	}
     	else {
     		player.setHealth(playerDataConfig.getInt("stats.current.health"));
-    		player.setLevel(playerDataConfig.getInt("level"));
-    		ExperienceCalculator.updateExperienceBar(player);
     		playerData.setResistancePvP((short) playerDataConfig.getInt("pvp.resticks"));
     	}
+    	player.setLevel(playerDataConfig.getInt("level"));
+    	ExperienceCalculator.updateExperienceBar(player);
     	player.setFoodLevel(playerDataConfig.getInt("stats.current.hunger"));
     	player.setSaturation((float) playerDataConfig.getDouble("stats.current.saturation"));
     	

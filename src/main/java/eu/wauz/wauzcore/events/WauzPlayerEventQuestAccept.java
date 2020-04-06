@@ -26,21 +26,14 @@ public class WauzPlayerEventQuestAccept implements WauzPlayerEvent {
 	private String questSlot;
 	
 	/**
-	 * Tne chat display name of the quest giver.
-	 */
-	private String questGiver;
-	
-	/**
 	 * Creates an event to accept the given quest.
 	 * 
 	 * @param quest The quest to accept.
 	 * @param questSlot The slot this quest will be saved to.
-	 * @param questGiver Tne chat display name of the quest giver.
 	 */
-	public WauzPlayerEventQuestAccept(WauzQuest quest, String questSlot, String questGiver) {
+	public WauzPlayerEventQuestAccept(WauzQuest quest, String questSlot) {
 		this.quest = quest;
 		this.questSlot = questSlot;
-		this.questGiver = questGiver;
 	}
 
 	/**
@@ -61,7 +54,7 @@ public class WauzPlayerEventQuestAccept implements WauzPlayerEvent {
 			PlayerConfigurator.setCharacterQuestSlot(player, questSlot, questName);
 			
 			player.sendMessage(ChatColor.GREEN + "You accepted the " + quest.getType() + "-quest [" + quest.getDisplayName() + "]");
-			new WauzPlayerEventCitizenTalk(questGiver, quest.getPhaseDialog(1)).execute(player);
+			new WauzPlayerEventCitizenTalk(quest.getQuestGiver(), quest.getPhaseDialog(1)).execute(player);
 			WauzPlayerScoreboard.scheduleScoreboard(player);
 			player.closeInventory();
 			return true;

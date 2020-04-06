@@ -138,7 +138,7 @@ public class ExperienceCalculator {
 	 * @see EquipmentUtils#getExperienceBonus(ItemStack)
 	 * @see PlayerConfigurator#getCharacterPetIntelligence(Player, int)
 	 */
-	private static double applyExperienceBonus(Player player, double experience) {		
+	public static double applyExperienceBonus(Player player, double experience) {		
 		ItemStack weaponItemStack = player.getEquipment().getItemInMainHand();
 		double weaponBonus = ItemUtils.isNotAir(weaponItemStack) ? EquipmentUtils.getExperienceBonus(weaponItemStack) : 0;	
 		ItemStack armorItemStack = player.getEquipment().getChestplate();

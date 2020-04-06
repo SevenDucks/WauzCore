@@ -46,7 +46,7 @@ public class WauzPlayerEventCitizenQuest implements WauzPlayerEvent {
 	@Override
 	public boolean execute(Player player) {
 		try {
-			QuestProcessor.processQuest(player, questName, citizenName);
+			QuestProcessor.processQuest(player, questName);
 			return true;
 		}
 		catch (Exception e) {

@@ -1,8 +1,9 @@
 type: daily
 name: Shining Steel
+giver: Bolvic
 level: 10
 amount: 1
-coords: 219 21 378
+coords: -23 21 -625
 reward:
   exp: 0
   relation: 0
@@ -13,9 +14,9 @@ reward:
   - 'BerryForest'
   - 'BerryForest'
   choice:
-  - 'EquipT1? : Claymore'
-  - 'EquipT1? : Greataxe'
-  - 'EquipT1? : Sceptre'
+  - 'EquipT1; : Claymore'
+  - 'EquipT1; : Greataxe'
+  - 'EquipT1; : Sceptre'
 phases:
   1:
     lores:

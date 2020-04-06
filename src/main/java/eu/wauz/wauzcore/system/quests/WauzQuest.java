@@ -81,6 +81,11 @@ public class WauzQuest {
 	private String displayName;
 	
 	/**
+	 * The citizen who gives out the quest.
+	 */
+	private String questGiver;
+	
+	/**
 	 * The coordinates of the quest location as text.
 	 */
 	private String coordinates;
@@ -139,6 +144,7 @@ public class WauzQuest {
 		this.questName = questName;
 		
 		displayName = QuestConfigurator.getDisplayName(questName);
+		questGiver = QuestConfigurator.getQuestGiver(questName);
 		coordinates = QuestConfigurator.getCoordinates(questName);
 		type = QuestConfigurator.getType(questName);
 		level = QuestConfigurator.getLevel(questName);
@@ -166,6 +172,13 @@ public class WauzQuest {
 	 */
 	public String getDisplayName() {
 		return displayName;
+	}
+
+	/**
+	 * @return The citizen who gives out the quest.
+	 */
+	public String getQuestGiver() {
+		return questGiver;
 	}
 
 	/**
