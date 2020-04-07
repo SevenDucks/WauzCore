@@ -21,6 +21,7 @@ eu.wauz.wauzcore.legacy
 eu.wauz.wauzcore.menu
 eu.wauz.wauzcore.menu.util
 eu.wauz.wauzcore.mobs
+eu.wauz.wauzcore.mobs.citizens
 eu.wauz.wauzcore.players
 eu.wauz.wauzcore.players.calc
 eu.wauz.wauzcore.players.ui
@@ -30,8 +31,13 @@ eu.wauz.wauzcore.skills.particles
 eu.wauz.wauzcore.system
 eu.wauz.wauzcore.system.achievements
 eu.wauz.wauzcore.system.api
+eu.wauz.wauzcore.system.listeners
 eu.wauz.wauzcore.system.nms
+eu.wauz.wauzcore.system.quests
 eu.wauz.wauzcore.system.util
 eu.wauz.wauzdiscord
 eu.wauz.wauzdiscord.data
+eu.wauz.wauzdiscord.music
 eu.wauz.wauzstarter
+eu.wauz.wauzunit
+eu.wauz.wauzunit.suites
