@@ -1,14 +1,14 @@
 package eu.wauz.wauzcore.system.quests;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
@@ -131,36 +131,36 @@ public class QuestProcessor {
 	 * @see PlayerConfigurator#getCharacterRunningMainQuest(Player)
 	 */
 	private boolean checkQuestSlots() {
-		Map<String, String> slotValuesToCheck = new HashMap<>();
+		List<Pair<String, String>> slotsToCheck = new ArrayList<>();
 		
 		if(questType.equals(QuestType.MAIN)) {
 			String slotm = PlayerConfigurator.getCharacterRunningMainQuest(player);
-			slotValuesToCheck.put(slotm, QuestSlot.MAIN.getConfigKey());
+			slotsToCheck.add(Pair.of(slotm, QuestSlot.MAIN.getConfigKey()));
 		}
 		else if(questType.equals(QuestType.CAMPAIGN)) {
 			String cmpn1 = PlayerConfigurator.getCharacterRunningCampaignQuest1(player);
 			String cmpn2 = PlayerConfigurator.getCharacterRunningCampaignQuest2(player);
-			slotValuesToCheck.put(cmpn1, QuestSlot.CAMPAIGN1.getConfigKey());
-			slotValuesToCheck.put(cmpn2, QuestSlot.CAMPAIGN2.getConfigKey());
+			slotsToCheck.add(Pair.of(cmpn1, QuestSlot.CAMPAIGN1.getConfigKey()));
+			slotsToCheck.add(Pair.of(cmpn2, QuestSlot.CAMPAIGN2.getConfigKey()));
 		}
 		else if(questType.equals(QuestType.DAILY)) {
 			String slot1 = PlayerConfigurator.getCharacterRunningDailyQuest1(player);
 			String slot2 = PlayerConfigurator.getCharacterRunningDailyQuest2(player);
 			String slot3 = PlayerConfigurator.getCharacterRunningDailyQuest3(player);
-			slotValuesToCheck.put(slot1, QuestSlot.DAILY1.getConfigKey());
-			slotValuesToCheck.put(slot2, QuestSlot.DAILY2.getConfigKey());
-			slotValuesToCheck.put(slot3, QuestSlot.DAILY3.getConfigKey());
+			slotsToCheck.add(Pair.of(slot1, QuestSlot.DAILY1.getConfigKey()));
+			slotsToCheck.add(Pair.of(slot2, QuestSlot.DAILY2.getConfigKey()));
+			slotsToCheck.add(Pair.of(slot3, QuestSlot.DAILY3.getConfigKey()));
 		}
 		
-		for(String slot : slotValuesToCheck.keySet()) {
-			if(questName.equals(slot)) {
-				questSlot =  slotValuesToCheck.get(slot);
+		for(Pair<String, String> slot : slotsToCheck) {
+			if(questName.equals(slot.getKey())) {
+				questSlot =  slot.getValue();
 				return true;
 			}
 		}
-		for(String slot : slotValuesToCheck.keySet()) {
-			if("none".equals(slot)) {
-				questSlot =  slotValuesToCheck.get(slot);
+		for(Pair<String, String> slot : slotsToCheck) {
+			if("none".equals(slot.getKey())) {
+				questSlot =  slot.getValue();
 				return true;
 			}
 		}
@@ -234,6 +234,16 @@ public class QuestProcessor {
 			event.execute(player);
 		}
 		else {
+			String requiredClass = quest.getRequiredClass();
+			if(StringUtils.isNotBlank(requiredClass) && !PlayerConfigurator.getCharacterRace(player).contains(requiredClass)) {
+				player.sendMessage(ChatColor.RED + "Only " + requiredClass + "s can accept this quest!");
+				return;
+			}
+			String requiredPrequest = quest.getRequiredPrequest();
+			if(StringUtils.isNotBlank(requiredPrequest) && PlayerQuestConfigurator.getQuestCompletions(player, requiredPrequest) < 1) {
+				player.sendMessage(ChatColor.RED + "You must complete \"" + requiredPrequest + "\" before this quest!");
+				return;
+			}
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 			playerData.setWauzPlayerEventName("Accept Quest");
 			playerData.setWauzPlayerEvent(event);

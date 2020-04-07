@@ -106,6 +106,16 @@ public class WauzQuest {
 	private int phaseAmount;
 	
 	/**
+	 * The required class to start the quest.
+	 */
+	private String requiredClass;
+	
+	/**
+	 * The required prequest to start the quest.
+	 */
+	private String requiredPrequest;
+	
+	/**
 	 * The exp reward of the quest.
 	 */
 	private double rewardExp;
@@ -149,6 +159,8 @@ public class WauzQuest {
 		type = QuestConfigurator.getType(questName);
 		level = QuestConfigurator.getLevel(questName);
 		phaseAmount = QuestConfigurator.getPhaseAmount(questName);
+		requiredClass = QuestConfigurator.getRequiredClass(questName);
+		requiredPrequest = QuestConfigurator.getRequiredPrequest(questName);
 		rewardExp = QuestConfigurator.getRewardExp(questName);
 		rewardRelationExp = QuestConfigurator.getRewardRelationExp(questName);
 		rewardCoins = QuestConfigurator.getRewardCoins(questName);
@@ -217,6 +229,20 @@ public class WauzQuest {
 	 */
 	public int getPhaseAmount() {
 		return phaseAmount;
+	}
+
+	/**
+	 * @return The required class to start the quest.
+	 */
+	public String getRequiredClass() {
+		return requiredClass;
+	}
+
+	/**
+	 * @return The required prequest to start the quest.
+	 */
+	public String getRequiredPrequest() {
+		return requiredPrequest;
 	}
 
 	/**

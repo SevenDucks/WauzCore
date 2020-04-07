@@ -85,16 +85,13 @@ public class CharacterManager {
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			equipCharacterItems(player);
 			
-			try {
-				WauzPlayerGuild guild = PlayerConfigurator.getGuild(player);
-				if(guild != null)
-					player.sendMessage(
-							ChatColor.WHITE + "[" + ChatColor.GREEN + guild.getGuildName() + ChatColor.WHITE + "] " +
-							ChatColor.GRAY + guild.getGuildDescription());
-				WauzRewards.earnDailyReward(player);
-			}
-			catch(Exception e) {
-				e.printStackTrace();
+			WauzRewards.earnDailyReward(player);
+			
+			WauzPlayerGuild guild = PlayerConfigurator.getGuild(player);
+			if(guild != null) {
+				player.sendMessage(
+						ChatColor.WHITE + "[" + ChatColor.GREEN + guild.getGuildName() + ChatColor.WHITE + "] " +
+						ChatColor.GRAY + guild.getGuildDescription());
 			}
 		}
 	}
@@ -365,14 +362,10 @@ public class CharacterManager {
 			player.getInventory().addItem(WauzEquipment.getStarterRune());
 			equipCharacterItems(player);
 			
+			WauzRewards.earnDailyReward(player);
+			
 			if(characterWorld.equals("Wauzland")) {
 				QuestProcessor.processQuest(player, "CalamityBeneathWauzland");
-			}
-			try {
-				WauzRewards.earnDailyReward(player);
-			}
-			catch (Exception e) {
-				e.printStackTrace();
 			}
 		}
 				

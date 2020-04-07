@@ -76,6 +76,26 @@ public class QuestConfigurator extends GlobalConfigurationUtils {
 		return questConfigGetInt(questName, "amount");
 	}
 	
+// Requirements
+	
+	/**
+	 * @param questName The name of the quest.
+	 * 
+	 * @return The required class to start the quest.
+	 */
+	public static String getRequiredClass(String questName) {
+		return questConfigGetString(questName, "class");
+	}
+	
+	/**
+	 * @param questName The name of the quest.
+	 * 
+	 * @return The required prequest to start the quest.
+	 */
+	public static String getRequiredPrequest(String questName) {
+		return questConfigGetString(questName, "prequest");
+	}
+	
 // Rewards
 	
 	/**

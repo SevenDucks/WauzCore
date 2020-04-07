@@ -111,14 +111,29 @@ public class WauzQuestLoot {
 	 * @return The fixed item reward.
 	 */
 	public List<ItemStack> getRewardItems() {
-		return rewardItems;
+		return cloneItemList(rewardItems);
 	}
 
 	/**
 	 * @return The choosable item reward.
 	 */
 	public List<ItemStack> getRewardChoiceItems() {
-		return rewardChoiceItems;
+		return cloneItemList(rewardChoiceItems);
+	}
+	
+	/**
+	 * Creates a save copy of a list of reward item stacks.
+	 * 
+	 * @param itemsToClone The list of items to clone.
+	 * 
+	 * @return The list of cloned items.
+	 */
+	private List<ItemStack> cloneItemList(List<ItemStack> itemsToClone) {
+		List<ItemStack> clonedItems = new ArrayList<>();
+		for(ItemStack itemToClone : itemsToClone) {
+			clonedItems.add(itemToClone.clone());
+		}
+		return clonedItems;
 	}
 	
 }
