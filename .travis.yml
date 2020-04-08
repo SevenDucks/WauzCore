@@ -9,11 +9,13 @@ script:
 - java -jar BuildTools.jar --rev 1.15.2 > /dev/null 2>&1
 - pwd
 - ls
-- cd WauzStarter
-- mvn clean install
+- cd CraftBukkit
+- mvn install -D org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+- cd ../WauzStarter
+- mvn install -D org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 - cd ..
-- mvn clean install
+- mvn install -D org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 - cd WauzDiscord
-- mvn clean install
+- mvn install -D org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 - cd ../WauzUnit
-- mvn clean install
+- mvn install -D org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
