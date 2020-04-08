@@ -241,7 +241,8 @@ public class QuestProcessor {
 			}
 			String requiredPrequest = quest.getRequiredPrequest();
 			if(StringUtils.isNotBlank(requiredPrequest) && PlayerQuestConfigurator.getQuestCompletions(player, requiredPrequest) < 1) {
-				player.sendMessage(ChatColor.RED + "You must complete \"" + requiredPrequest + "\" before this quest!");
+				String requiredPrequestName = WauzQuest.getQuest(requiredPrequest).getDisplayName();
+				player.sendMessage(ChatColor.RED + "You must complete \"" + requiredPrequestName + "\" before this quest!");
 				return;
 			}
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
