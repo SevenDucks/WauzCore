@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.menu;
+package eu.wauz.wauzcore.menu.collection;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,6 +27,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventPetBreed;
 import eu.wauz.wauzcore.events.WauzPlayerEventPetDelete;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.WauzDialog;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;

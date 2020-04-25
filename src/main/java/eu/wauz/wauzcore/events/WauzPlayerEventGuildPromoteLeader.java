@@ -5,7 +5,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.menu.GuildOverviewMenu;
+import eu.wauz.wauzcore.menu.social.GuildOverviewMenu;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 
 /**

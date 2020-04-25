@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.menu;
+package eu.wauz.wauzcore.menu.social;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
- * Sub menu of the main menu, that is used for teaming up with other players.
+ * Sub menu of the social menu, that is used for teaming up with other players.
  * 
  * @author Wauzmons
  *
@@ -109,13 +109,7 @@ public class GroupMenu implements WauzInventory {
 		}
 		else {
 			List<WauzPlayerGroup> groups = WauzPlayerGroupPool.getGroups();
-			int inventorySize = groups.size() + 2;
-			if(inventorySize <= 9) inventorySize = 9;
-			else if(inventorySize <= 18) inventorySize = 18;
-			else if(inventorySize <= 27) inventorySize = 27;
-			else if(inventorySize <= 36) inventorySize = 36;
-			else if(inventorySize <= 45) inventorySize = 45;
-			else inventorySize = 54;
+			int inventorySize = MenuUtils.roundInventorySize(groups.size() + 2);
 			
 			menu = Bukkit.createInventory(holder, inventorySize, ChatColor.BLACK + "" + ChatColor.BOLD + "Group List");
 			

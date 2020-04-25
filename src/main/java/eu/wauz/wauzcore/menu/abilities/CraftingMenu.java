@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.menu;
+package eu.wauz.wauzcore.menu.abilities;
 
 import java.util.ArrayList;
 import java.util.List;

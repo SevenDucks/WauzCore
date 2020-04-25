@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.menu;
+package eu.wauz.wauzcore.menu.collection;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestCancel;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.WauzDialog;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -34,7 +35,7 @@ import eu.wauz.wauzcore.system.quests.WauzQuest;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
- * Sub menu of the main menu, that builds a quest display out of quest configs.
+ * Sub menu of the collection menu, that builds a quest display out of quest configs.
  * 
  * @author Wauzmons
  *

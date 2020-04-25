@@ -3,7 +3,7 @@ package eu.wauz.wauzcore.events;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.menu.QuestMenu;
+import eu.wauz.wauzcore.menu.collection.QuestMenu;
 import eu.wauz.wauzcore.system.quests.QuestProcessor;
 
 /**

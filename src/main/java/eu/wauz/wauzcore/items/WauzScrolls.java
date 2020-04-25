@@ -13,8 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.identifiers.WauzIdentifier;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.ShopBuilder;
+import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 

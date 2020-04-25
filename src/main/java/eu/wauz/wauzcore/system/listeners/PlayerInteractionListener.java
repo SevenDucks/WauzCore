@@ -32,7 +32,7 @@ import eu.wauz.wauzcore.data.ServerConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.menu.CitizenInteractionMenu;
-import eu.wauz.wauzcore.menu.PetOverviewMenu;
+import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;

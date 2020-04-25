@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.menu;
+package eu.wauz.wauzcore.menu.collection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
- * Sub menu of the main menu, that is used to view and organize your pets.
+ * Sub menu of the collection menu, that is used to view and organize your pets.
  * 
  * @author Wauzmons
  *

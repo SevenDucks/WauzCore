@@ -7,15 +7,15 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.menu.AchievementsMenu;
-import eu.wauz.wauzcore.menu.CraftingMenu;
-import eu.wauz.wauzcore.menu.GroupMenu;
-import eu.wauz.wauzcore.menu.GuildOverviewMenu;
-import eu.wauz.wauzcore.menu.PetOverviewMenu;
-import eu.wauz.wauzcore.menu.QuestMenu;
-import eu.wauz.wauzcore.menu.SkillMenu;
-import eu.wauz.wauzcore.menu.TravellingMenu;
 import eu.wauz.wauzcore.menu.WauzMenu;
+import eu.wauz.wauzcore.menu.abilities.CraftingMenu;
+import eu.wauz.wauzcore.menu.abilities.SkillMenu;
+import eu.wauz.wauzcore.menu.abilities.TravellingMenu;
+import eu.wauz.wauzcore.menu.collection.AchievementsMenu;
+import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
+import eu.wauz.wauzcore.menu.collection.QuestMenu;
+import eu.wauz.wauzcore.menu.social.GroupMenu;
+import eu.wauz.wauzcore.menu.social.GuildOverviewMenu;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**

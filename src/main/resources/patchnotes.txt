@@ -8,7 +8,9 @@ Patch 6XX: Survival Ascended
 
 Patch 60X: Powerful Professions
 
-Patch 602: Class Specializations
+Patch 60X: Class Specializations
+
+Patch 602: Social Stnadards
 
 Patch 601: Cultured Citizens
 	Minecraft Update

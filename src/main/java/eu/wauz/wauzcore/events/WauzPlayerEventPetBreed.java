@@ -6,8 +6,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.menu.PetOptionsMenu;
-import eu.wauz.wauzcore.menu.PetOverviewMenu;
+import eu.wauz.wauzcore.menu.collection.PetOptionsMenu;
+import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 
 /**
  * An event to let a player move a pet to the breeding station.

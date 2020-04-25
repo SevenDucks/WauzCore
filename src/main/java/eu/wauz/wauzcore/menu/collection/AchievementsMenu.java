@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.menu;
+package eu.wauz.wauzcore.menu.collection;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,7 +17,7 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
- * Sub menu of the main menu, that shows the player's progress towards achievements.
+ * Sub menu of the collection menu, that shows the player's progress towards achievements.
  * 
  * @author Wauzmons
  * 

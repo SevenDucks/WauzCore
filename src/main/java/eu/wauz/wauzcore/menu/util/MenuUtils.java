@@ -173,6 +173,35 @@ public class MenuUtils {
 	}
 	
 	/**
+	 * Rounds the given inventory size, to a valid chest size.
+	 * 
+	 * @param inventorySize The raw inventory size.
+	 * 
+	 * @return The rounded inventory size.
+	 */
+	public static int roundInventorySize(int inventorySize) {
+		if(inventorySize <= 9) {
+			inventorySize = 9;
+		}
+		else if(inventorySize <= 18) {
+			inventorySize = 18;
+		}
+		else if(inventorySize <= 27) {
+			inventorySize = 27;
+		}
+		else if(inventorySize <= 36) {
+			inventorySize = 36;
+		}
+		else if(inventorySize <= 45) {
+			inventorySize = 45;
+		}
+		else {
+			inventorySize = 54;
+		}
+		return inventorySize;
+	}
+	
+	/**
 	 * Prevents interactions with static and cosmetic items on click.
 	 * Also triggers scroll effects and the main menu opening.
 	 * 
