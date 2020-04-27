@@ -10,7 +10,15 @@ Patch 60X: Powerful Professions
 
 Patch 60X: Class Specializations
 
-Patch 602: Social Stnadards
+Patch 602: Social Standards
+	New Feature: Mailbox
+	  - Lets you view your Received Mail
+	  - /send Sends a Text Mail
+	  - /send.item Sends an Item
+	  - /send.coins Sends Coins
+
+	Miscellaneous
+	  - Split Main Menu in Sub Menus
 
 Patch 601: Cultured Citizens
 	Minecraft Update

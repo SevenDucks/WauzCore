@@ -33,7 +33,7 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
- * Sub menu of the main menu, that is used for crafting items out of materials.
+ * Sub menu of the abilities menu, that is used for crafting items out of materials.
  * 
  * @author Wauzmons
  * 

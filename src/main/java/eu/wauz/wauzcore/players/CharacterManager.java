@@ -381,14 +381,12 @@ public class CharacterManager {
 	 * Currently only the mode selection menu.
 	 * 
 	 * @param player The player that should receive the items.
+	 * 
+	 * @see MenuUtils#setMainMenuOpener(org.bukkit.inventory.Inventory, int)
 	 */
 	public static void equipHubItems(Player player) {
-		ItemStack mainMenuItemStack = new ItemStack(Material.NETHER_STAR);
-		ItemMeta mainMenuItemMeta = mainMenuItemStack.getItemMeta();
-		mainMenuItemMeta.setDisplayName(ChatColor.GOLD + "Open Menu");
-		mainMenuItemStack.setItemMeta(mainMenuItemMeta);
 		player.getInventory().clear();
-		player.getInventory().setItem(4, mainMenuItemStack);
+		MenuUtils.setMainMenuOpener(player.getInventory(), 4);
 	}
 	
 	/**
@@ -397,6 +395,7 @@ public class CharacterManager {
 	 * 
 	 * @param player The player that should receive the items.
 	 * 
+	 * @see MenuUtils#setMainMenuOpener(org.bukkit.inventory.Inventory, int)
 	 * @see MenuUtils#setTrashcan(org.bukkit.inventory.Inventory, int...)
 	 * @see TabardMenu#equipSelectedTabard(Player)
 	 */
@@ -406,12 +405,7 @@ public class CharacterManager {
 		trackerItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getTrackerDestinationName(player));
 		trackerItemStack.setItemMeta(trackerItemMeta);
 		player.getInventory().setItem(7, trackerItemStack);
-
-		ItemStack mainMenuItemStack = new ItemStack(Material.NETHER_STAR);
-		ItemMeta mainMenuItemMeta = mainMenuItemStack.getItemMeta();
-		mainMenuItemMeta.setDisplayName(ChatColor.GOLD + "Open Menu");
-		mainMenuItemStack.setItemMeta(mainMenuItemMeta);
-		player.getInventory().setItem(8, mainMenuItemStack);
+		MenuUtils.setMainMenuOpener(player.getInventory(), 8);
 		
 		ItemStack mapItemStack = new ItemStack(Material.FILLED_MAP);
 		ItemMeta mapItemMeta = mapItemStack.getItemMeta();

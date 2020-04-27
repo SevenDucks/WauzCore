@@ -24,7 +24,7 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
- * Sub menu of the main menu, that is used to teleport the player to other locations.
+ * Sub menu of the abilities menu, that is used to teleport the player to other locations.
  * 
  * @author Wauzmons
  * 

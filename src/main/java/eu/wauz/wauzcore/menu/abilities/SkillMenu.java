@@ -22,7 +22,7 @@ import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
- * Sub menu of the main menu, that is used for viewing passive skills and spending statpoints.
+ * Sub menu of the abilities menu, that is used for viewing passive skills and spending statpoints.
  * 
  * @author Wauzmons
  *

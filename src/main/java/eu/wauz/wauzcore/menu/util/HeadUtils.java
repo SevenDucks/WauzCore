@@ -15,6 +15,29 @@ import eu.wauz.wauzcore.system.util.DeprecatedUtils;
  */
 public class HeadUtils {
 	
+// Main Menu Categories
+	
+	/**
+	 * @return An item stack representing a spirit orb.
+	 */
+	public static ItemStack getAbilityItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2JkY2Q2YTA3NGQ1NzBkYmIzNDNlYzRhZGVmMTIxMmE1Y2M1NDlkZDdiNDkwMWJkNjYyYWE2MzMxMWQzYTgzZiJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a decorated chest.
+	 */
+	public static ItemStack getCollectionItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWM5NmJlNzg4NmViN2RmNzU1MjVhMzYzZTVmNTQ5NjI2YzIxMzg4ZjBmZGE5ODhhNmU4YmY0ODdhNTMifX19");
+	}
+	
+	/**
+	 * @return An item stack representing a villager.
+	 */
+	public static ItemStack getSocialItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGQ5ZWU1ZDhiNThmZGRkMjdiYzY3OWMwNTQ4ZjU1YmFhODQ1ZjlmMWRmNWU4OGM3YzViZGE2ZWI5ZGYyYjM5OSJ9fX0=");
+	}
+	
 // Main Menu
 	
 	/**

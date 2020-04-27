@@ -35,6 +35,20 @@ public class MenuUtils {
 	private static List<Material> staticItems = new ArrayList<>(Arrays.asList(
 			Material.FILLED_MAP, Material.COMPASS, Material.NETHER_STAR, Material.BARRIER, Material.PLAYER_HEAD));
 	
+	/*
+	 * Sets a main menu opener to an inventory slot.
+	 * 
+	 * @param menu The menu inventory.
+	 * @param index The slot to use in the inventory.
+	 */
+	public static void setMainMenuOpener(Inventory menu, int index) {
+		ItemStack mainMenuItemStack = new ItemStack(Material.NETHER_STAR);
+		ItemMeta mainMenuItemMeta = mainMenuItemStack.getItemMeta();
+		mainMenuItemMeta.setDisplayName(ChatColor.GOLD + "Open Main Menu");
+		mainMenuItemStack.setItemMeta(mainMenuItemMeta);
+		menu.setItem(index, mainMenuItemStack);
+	}
+	
 	/**
 	 * Sets a currency and reputation display to an inventory slot.
 	 * 
