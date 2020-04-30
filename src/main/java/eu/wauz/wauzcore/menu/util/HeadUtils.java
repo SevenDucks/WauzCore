@@ -38,48 +38,13 @@ public class HeadUtils {
 		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGQ5ZWU1ZDhiNThmZGRkMjdiYzY3OWMwNTQ4ZjU1YmFhODQ1ZjlmMWRmNWU4OGM3YzViZGE2ZWI5ZGYyYjM5OSJ9fX0=");
 	}
 	
-// Main Menu
-	
-	/**
-	 * @return An item stack representing a money bag.
-	 */
-	public static ItemStack getMoneyItem() {
-		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTliOTA2YjIxNTVmMTkzNzg3MDQyMzM4ZDA1Zjg0MDM5MWMwNWE2ZDNlODE2MjM5MDFiMjk2YmVlM2ZmZGQyIn19fQ==");
-	}
+// Ability Menu
 	
 	/**
 	 * @return An item stack representing a portal.
 	 */
 	public static ItemStack getPortsItem() {
 		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGUzZjlkYjdiNDU3MzE3MWEyYjU4MzZlNjliYzZhNjMxNDUxNGZmZjViYzc5NzQzMzE5ZmQxOTFmNTM0NDQifX19");
-	}
-	
-	/**
-	 * @return An item stack representing a guild icon.
-	 */
-	public static ItemStack getGuildItem() {
-		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWYwYThhMGJlNWQzZjNmOTRiZDMyYTNlZDkyNjJlNjYyYTVkYTkxMTkxOWZlZTkxZWJjY2YzYjc5YmY2NTgifX19");
-	}
-	
-	/**
-	 * @return An item stack representing a group icon.
-	 */
-	public static ItemStack getGroupItem() {
-		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzhhMzMyNGM3N2ZkY2NkNTk3Nzc0MzA0YmJkYTE1NTE3ZWEyMzU5ZGU1Mzg5N2FlZDA5NTI4ZDFjNmVjOSJ9fX0=");
-	}
-	
-	/**
-	 * @return An item stack representing a golden trophy.
-	 */
-	public static ItemStack getAchievementsItem() {
-		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTNlNDU4MzFjMWVhODE3Zjc0NzdiY2FlYmZhM2QyZWUzYTkzNmVlOGVhMmI4YmRlMjkwMDZiN2U5YmRmNTgifX19");
-	}
-	
-	/**
-	 * @return An item stack representing a questlog book.
-	 */
-	public static ItemStack getQuestItem() {
-		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWVlOGQ2ZjVjYjdhMzVhNGRkYmRhNDZmMDQ3ODkxNWRkOWViYmNlZjkyNGViOGNhMjg4ZTkxZDE5YzhjYiJ9fX0=");
 	}
 	
 	/**
@@ -90,17 +55,63 @@ public class HeadUtils {
 	}
 	
 	/**
+	 * @return An item stack representing an ender crystal.
+	 */
+	public static ItemStack getSkillItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTQ5ZDIxMmJmYzBhMzRhNzA3NjNlMmE2OGRlNGZhOTI3MGNjZjJkODA3MWIxY2M4MzgxM2U0MTA2YjlkMWRmZSJ9fX0=");
+	}
+
+// Collection Menu
+	
+	/**
+	 * @return An item stack representing a money bag.
+	 */
+	public static ItemStack getMoneyItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTliOTA2YjIxNTVmMTkzNzg3MDQyMzM4ZDA1Zjg0MDM5MWMwNWE2ZDNlODE2MjM5MDFiMjk2YmVlM2ZmZGQyIn19fQ==");
+	}
+	
+	/**
+	 * @return An item stack representing a questlog book.
+	 */
+	public static ItemStack getQuestItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWVlOGQ2ZjVjYjdhMzVhNGRkYmRhNDZmMDQ3ODkxNWRkOWViYmNlZjkyNGViOGNhMjg4ZTkxZDE5YzhjYiJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a golden trophy.
+	 */
+	public static ItemStack getAchievementsItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTNlNDU4MzFjMWVhODE3Zjc0NzdiY2FlYmZhM2QyZWUzYTkzNmVlOGVhMmI4YmRlMjkwMDZiN2U5YmRmNTgifX19");
+	}
+	
+	/**
 	 * @return An item stack representing a little bird.
 	 */
 	public static ItemStack getTamesItem() {
 		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWVhNzU5Zjk3OWI5YjhlYTgzMWNhN2UyZDY2ZGYxNDgyOTNmMWE1MTQ3OTgzYjUyYzQ4ZWZlMmMzMTVlIn19fQ==");
 	}
 	
+// Social Menu
+	
 	/**
-	 * @return An item stack representing an ender crystal.
+	 * @return An item stack representing a letter.
 	 */
-	public static ItemStack getSkillItem() {
-		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTQ5ZDIxMmJmYzBhMzRhNzA3NjNlMmE2OGRlNGZhOTI3MGNjZjJkODA3MWIxY2M4MzgxM2U0MTA2YjlkMWRmZSJ9fX0=");
+	public static ItemStack getMailItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmJmM2ZjZGNjZmZkOTYzZTQzMzQ4MTgxMDhlMWU5YWUzYTgwNTY2ZDBkM2QyZDRhYjMwNTFhMmNkODExMzQ4YyJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a group icon.
+	 */
+	public static ItemStack getGroupItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzhhMzMyNGM3N2ZkY2NkNTk3Nzc0MzA0YmJkYTE1NTE3ZWEyMzU5ZGU1Mzg5N2FlZDA5NTI4ZDFjNmVjOSJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a guild icon.
+	 */
+	public static ItemStack getGuildItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWYwYThhMGJlNWQzZjNmOTRiZDMyYTNlZDkyNjJlNjYyYTVkYTkxMTkxOWZlZTkxZWJjY2YzYjc5YmY2NTgifX19");
 	}
 	
 // Class Heads
@@ -251,7 +262,7 @@ public class HeadUtils {
 		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjQ1NTlkNzU0NjRiMmU0MGE1MThlNGRlOGU2Y2YzMDg1ZjBhM2NhMGIxYjcwMTI2MTRjNGNkOTZmZWQ2MDM3OCJ9fX0=");
 	}
 	
-// AchievementIcons
+// Achievement Icons
 	
 	/**
 	 * @return An item stack representing a reaper skull.

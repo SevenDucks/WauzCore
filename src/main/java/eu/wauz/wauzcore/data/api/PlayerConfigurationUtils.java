@@ -134,7 +134,7 @@ public class PlayerConfigurationUtils {
 	 * Gets a string from a player config.
 	 * 
 	 * @param player The player that owns the config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * @param characterSpecific If the character specific file should be used.
 	 * 
 	 * @return The requested string.
@@ -149,7 +149,7 @@ public class PlayerConfigurationUtils {
 	 * Gets a string from a player config.
 	 * 
 	 * @param player The offline player that owns the config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * @param characterSpecific If the character specific file should be used.
 	 * 
 	 * @return The requested string.
@@ -164,7 +164,7 @@ public class PlayerConfigurationUtils {
 	 * Gets an int from a player config.
 	 * 
 	 * @param player The player that owns the config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * @param characterSpecific If the character specific file should be used.
 	 * 
 	 * @return The requested int.
@@ -179,7 +179,7 @@ public class PlayerConfigurationUtils {
 	 * Gets a long from a player config.
 	 * 
 	 * @param player The player that owns the config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * @param characterSpecific If the character specific file should be used.
 	 * 
 	 * @return The requested long.
@@ -194,7 +194,7 @@ public class PlayerConfigurationUtils {
 	 * Gets a long from a player config.
 	 * 
 	 * @param player offline The player that owns the config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * @param characterSpecific If the character specific file should be used.
 	 * 
 	 * @return The requested long.
@@ -209,7 +209,7 @@ public class PlayerConfigurationUtils {
 	 * Gets a double from a player config.
 	 * 
 	 * @param player The player that owns the config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * @param characterSpecific If the character specific file should be used.
 	 * 
 	 * @return The requested double.
@@ -224,7 +224,7 @@ public class PlayerConfigurationUtils {
 	 * Gets a boolean from a player config.
 	 * 
 	 * @param player The player that owns the config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * @param characterSpecific If the character specific file should be used.
 	 * 
 	 * @return The requested boolean.
@@ -239,7 +239,7 @@ public class PlayerConfigurationUtils {
 	 * Gets a boolean from a player config.
 	 * 
 	 * @param player The offline player that owns the config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * @param characterSpecific If the character specific file should be used.
 	 * 
 	 * @return The requested boolean.
@@ -254,7 +254,7 @@ public class PlayerConfigurationUtils {
 	 * Gets a location from a player config.
 	 * 
 	 * @param player The player that owns the config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * @param characterSpecific If the character specific file should be used.
 	 * 
 	 * @return The requested location.

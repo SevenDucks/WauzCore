@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -68,7 +69,7 @@ public class PlayerMetaConfigurationUtils {
 	 * 
 	 * @param player The player that owns the config file.
 	 * @param quest The quest that the config belongs to.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * 
 	 * @return The requested int.
 	 */
@@ -83,7 +84,7 @@ public class PlayerMetaConfigurationUtils {
 	 * 
 	 * @param player The player that owns the config file.
 	 * @param quest The quest that the config belongs to.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * 
 	 * @return The requested long.
 	 */
@@ -136,7 +137,7 @@ public class PlayerMetaConfigurationUtils {
 	 * 
 	 * @param player The player that owns the config file.
 	 * @param citizen The citizen that the config belongs to.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * 
 	 * @return The requested int.
 	 */
@@ -144,6 +145,88 @@ public class PlayerMetaConfigurationUtils {
 		File playerRelationDataFile = getPlayerRelationDataFile(player, citizen);
 		FileConfiguration playerRelationDataConfig = YamlConfiguration.loadConfiguration(playerRelationDataFile);
 		return playerRelationDataConfig.getInt(PlayerConfigurationUtils.trimPlayerDataPath(path));
+	}
+	
+// Interact with Player-Mail-Config
+
+	/**
+	 * Gets a config file for a player mail.
+	 * 
+	 * @param player The player that owns the config file.
+	 * @param mail The name of the mail.
+	 * 
+	 * @return The player mail config file.
+	 */
+	private static File getPlayerMailDataFile(OfflinePlayer player, String mail) {
+		File playerMailDirectory = new File(core.getDataFolder(), "PlayerData/mail/");
+		playerMailDirectory.mkdirs();
+		return new File(playerMailDirectory, mail + ".yml");
+	}
+	
+	/**
+	 * Sets the given value in the player mail config.
+	 * 
+	 * @param player The player that owns the config file.
+	 * @param mail The name of the mail.
+	 * @param path The key path of the value to set.
+	 * @param value The value to set.
+	 */
+	protected static void playerMailConfigSet(OfflinePlayer player, String mail, String path, Object value) {
+		try {
+			File playerMailDataFile = getPlayerMailDataFile(player, mail);
+			FileConfiguration playerMailDataConfig = YamlConfiguration.loadConfiguration(playerMailDataFile);
+			
+			playerMailDataConfig.set(PlayerConfigurationUtils.trimPlayerDataPath(path), value);
+			playerMailDataConfig.save(playerMailDataFile);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Gets a string from a player mail config.
+	 * 
+	 * @param player The player that owns the config file.
+	 * @param mail The name of the mail.
+	 * @param path The key path of the value to get.
+	 * 
+	 * @return The requested string.
+	 */
+	protected static String playerMailConfigGetString(OfflinePlayer player, String mail, String path) {
+		File playerMailDataFile = getPlayerMailDataFile(player, mail);
+		FileConfiguration playerMailDataConfig = YamlConfiguration.loadConfiguration(playerMailDataFile);
+		return playerMailDataConfig.getString(PlayerConfigurationUtils.trimPlayerDataPath(path));
+	}
+	
+	/**
+	 * Gets a long from a player mail config.
+	 * 
+	 * @param player The player that owns the config file.
+	 * @param mail The name of the mail.
+	 * @param path The key path of the value to get.
+	 * 
+	 * @return The requested long.
+	 */
+	protected static Long playerMailConfigGetLong(OfflinePlayer player, String mail, String path) {
+		File playerMailDataFile = getPlayerMailDataFile(player, mail);
+		FileConfiguration playerMailDataConfig = YamlConfiguration.loadConfiguration(playerMailDataFile);
+		return playerMailDataConfig.getLong(PlayerConfigurationUtils.trimPlayerDataPath(path));
+	}
+	
+	/**
+	 * Gets an item stack from a player mail config.
+	 * 
+	 * @param player The player that owns the config file.
+	 * @param mail The name of the mail.
+	 * @param path The key path of the value to get.
+	 * 
+	 * @return The requested item stack.
+	 */
+	protected static ItemStack playerMailConfigGetItemStack(OfflinePlayer player, String mail, String path) {
+		File playerMailDataFile = getPlayerMailDataFile(player, mail);
+		FileConfiguration playerMailDataConfig = YamlConfiguration.loadConfiguration(playerMailDataFile);
+		return playerMailDataConfig.getItemStack(PlayerConfigurationUtils.trimPlayerDataPath(path));
 	}
 	
 // Interact with Guild-Config
@@ -195,7 +278,7 @@ public class PlayerMetaConfigurationUtils {
 	 * Gets a string from a guild config.
 	 * 
 	 * @param guild The uuid of the guild config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * 
 	 * @return The requested string.
 	 */
@@ -209,7 +292,7 @@ public class PlayerMetaConfigurationUtils {
 	 * Gets a string list from a guild config.
 	 * 
 	 * @param guild The uuid of the guild config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * 
 	 * @return The requested string list.
 	 */
@@ -223,7 +306,7 @@ public class PlayerMetaConfigurationUtils {
 	 * Gets an int from a guild config.
 	 * 
 	 * @param guild The uuid of the guild config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * 
 	 * @return The requested int.
 	 */
@@ -237,7 +320,7 @@ public class PlayerMetaConfigurationUtils {
 	 * Gets an item stack from a guild config.
 	 * 
 	 * @param guild The uuid of the guild config file.
-	 * @param path The key path of the value to set.
+	 * @param path The key path of the value to get.
 	 * 
 	 * @return The requested item stack.
 	 */
