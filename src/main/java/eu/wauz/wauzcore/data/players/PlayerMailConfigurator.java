@@ -97,7 +97,7 @@ public class PlayerMailConfigurator extends PlayerMetaConfigurationUtils {
 	 * @return The item attachment of the mail.
 	 */
 	public static ItemStack getMailItem(OfflinePlayer player, String mail) {
-		return playerMailConfigGetItemStack(player, mail, "sender");
+		return playerMailConfigGetItemStack(player, mail, "item");
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class PlayerMailConfigurator extends PlayerMetaConfigurationUtils {
 	 * @param item The new item attachment of the mail.
 	 */
 	public static void setMailItem(OfflinePlayer player, String mail, ItemStack item) {
-		playerMailConfigSet(player, mail, "sender", item);
+		playerMailConfigSet(player, mail, "item", item);
 	}
 	
 }

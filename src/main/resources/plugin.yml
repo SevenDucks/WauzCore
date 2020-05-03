@@ -55,6 +55,18 @@ commands:
     description: Set the Guild Message of the Day
     usage: /modt [text]
     permission: wauz.normal
+  send:
+    description: Send a Text Mail to a Player
+    usage: /send [player] [text]
+    permission: wauz.normal
+  send.item:
+    description: Send your Hand Item to a Player
+    usage: /send.item [player] [text]
+    permission: wauz.normal
+  send.coins:
+    description: Send Coins to a Player
+    usage: /send.coins [player] [amount] [text]
+    permission: wauz.normal
   tip:
     description: Print a Tip in Chat
     usage: /tip
