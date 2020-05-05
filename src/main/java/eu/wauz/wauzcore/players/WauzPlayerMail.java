@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
  * A mail with optional attachment, that can be send to a player.
@@ -141,6 +142,10 @@ public class WauzPlayerMail {
 			itemAttachment.setAmount(0);
 		}
 		player.sendMessage(ChatColor.GREEN + "Your mail was successfully sent to " + receiver.getName() + "!");
+		if(receiver.getPlayer() != null) {
+			String newMailMessage = ChatColor.YELLOW + "You received a mail! To read it:";
+			WauzNmsClient.nmsChatCommand(receiver.getPlayer(), "menu mail", newMailMessage, false);
+		}
 	}
 
 }

@@ -16,6 +16,7 @@ import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.collection.QuestMenu;
 import eu.wauz.wauzcore.menu.social.GroupMenu;
 import eu.wauz.wauzcore.menu.social.GuildOverviewMenu;
+import eu.wauz.wauzcore.menu.social.MailMenu;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -92,6 +93,10 @@ public class CmdMenu implements WauzCommand {
 		}
 		else if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Skills")) {
 			SkillMenu.open(player);
+			return true;
+		}
+		else if(gamemodeMMORPG && StringUtils.equalsAnyIgnoreCase(menuType, "Mail")) {
+			MailMenu.open(player);
 			return true;
 		}
 		else {

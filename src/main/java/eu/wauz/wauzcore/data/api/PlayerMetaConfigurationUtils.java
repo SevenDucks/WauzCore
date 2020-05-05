@@ -148,6 +148,24 @@ public class PlayerMetaConfigurationUtils {
 	}
 	
 // Interact with Player-Mail-Config
+	
+	/**
+	 * Finds all player mail names by iterating through all player mail configs.
+	 * 
+	 * @param player The player that owns the config files.
+	 * 
+	 * @return A list of all player mail names.
+	 */
+	protected static List<String> getPlayerMailNameList(Player player) {
+		List<String> playerMailNameList = new ArrayList<>();
+		File playerMailDataFolder = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/mail/");
+		if(playerMailDataFolder.exists()) {
+			for(File file : playerMailDataFolder.listFiles()) {
+				playerMailNameList.add(file.getName().replace(".yml", ""));
+			}
+		}
+		return playerMailNameList;
+	}
 
 	/**
 	 * Gets a config file for a player mail.
@@ -158,7 +176,7 @@ public class PlayerMetaConfigurationUtils {
 	 * @return The player mail config file.
 	 */
 	private static File getPlayerMailDataFile(OfflinePlayer player, String mail) {
-		File playerMailDirectory = new File(core.getDataFolder(), "PlayerData/mail/");
+		File playerMailDirectory = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/mail/");
 		playerMailDirectory.mkdirs();
 		return new File(playerMailDirectory, mail + ".yml");
 	}

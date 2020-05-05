@@ -181,8 +181,11 @@ public class GlobalConfigurationUtils {
 	 */
 	protected static List<String> getCitizenNameList() {
 		List<String> citizenNameList = new ArrayList<>();
-		for(File file : new File(core.getDataFolder(), "CitizenData/").listFiles()) {
-			citizenNameList.add(file.getName().replaceAll(".yml", ""));
+		File citizenDataFolder = new File(core.getDataFolder(), "CitizenData/");
+		if(citizenDataFolder.exists()) {
+			for(File file : citizenDataFolder.listFiles()) {
+				citizenNameList.add(file.getName().replace(".yml", ""));
+			}
 		}
 		return citizenNameList;
 	}
@@ -314,8 +317,11 @@ public class GlobalConfigurationUtils {
 	 */
 	protected static List<String> getQuestNameList() {
 		List<String> questNameList = new ArrayList<>();
-		for(File file : new File(core.getDataFolder(), "QuestData/").listFiles()) {
-			questNameList.add(file.getName().replaceAll(".yml", ""));
+		File questDataFolder = new File(core.getDataFolder(), "QuestData/");
+		if(questDataFolder.exists()) {
+			for(File file : questDataFolder.listFiles()) {
+				questNameList.add(file.getName().replace(".yml", ""));
+			}
 		}
 		return questNameList;
 	}

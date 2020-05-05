@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
@@ -34,12 +35,14 @@ public class SocialMenu implements WauzInventory {
 	 * Opens the menu for the given player.
 	 * All menus for social mechanics plus a short information are shown.
 	 * Here is a quick summary:</br>
+	 * Slot 1: The mail menu + unread mail count display.</br>
 	 * Slot 4: Return to main menu...</br>
 	 * Slot 5: The group menu + total active groups display.</br>
 	 * Slot 6: The guild menu + guild name display.
 	 * 
 	 * @param player The player that should view the inventory.
 	 * 
+	 * @see PlayerMailConfigurator#getPlayerMailNameList(Player)
 	 * @see WauzPlayerGroupPool#getGroups()
 	 * @see PlayerConfigurator#getGuild(org.bukkit.OfflinePlayer)
 	 * @see MenuUtils#setMainMenuOpener(Inventory, int)
@@ -49,7 +52,19 @@ public class SocialMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Social Menu");
 		
-		MenuUtils.setComingSoon(menu, "Mailbox", 1);
+		ItemStack mailItemStack = HeadUtils.getMailItem();
+		ItemMeta mailItemMeta = mailItemStack.getItemMeta();
+		mailItemMeta.setDisplayName(ChatColor.GOLD + "Mailbox");
+		List<String> mailLores = new ArrayList<>();
+		mailLores.add(ChatColor.DARK_PURPLE + "Unread Mails: " + ChatColor.YELLOW
+				+ PlayerMailConfigurator.getPlayerMailNameList(player).size());
+		mailLores.add("");
+		mailLores.add(ChatColor.GRAY + "View your Mails and claim the Attachments");
+		mailLores.add(ChatColor.GRAY + "or find out how to send Mails yourself.");
+		mailItemMeta.setLore(mailLores);
+		mailItemStack.setItemMeta(mailItemMeta);
+		menu.setItem(1, mailItemStack);
+		
 		MenuUtils.setComingSoon(menu, "Titles", 2);
 		MenuUtils.setComingSoon(menu, "Player vs Player", 3);
 		
@@ -94,6 +109,7 @@ public class SocialMenu implements WauzInventory {
 	 * 
 	 * @param event The inventory click event.
 	 * 
+	 * @see MailMenu#open(Player)
 	 * @see GroupMenu#open(Player)
 	 * @see GuildOverviewMenu#open(Player)
 	 */
@@ -105,6 +121,9 @@ public class SocialMenu implements WauzInventory {
 		
 		if(clicked == null) {
 			return;
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Mailbox")) {
+			MailMenu.open(player);
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Group")) {
 			GroupMenu.open(player);

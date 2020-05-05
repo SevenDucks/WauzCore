@@ -1,6 +1,9 @@
 package eu.wauz.wauzcore.data.players;
 
+import java.util.List;
+
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.api.PlayerMetaConfigurationUtils;
@@ -12,6 +15,15 @@ import eu.wauz.wauzcore.data.api.PlayerMetaConfigurationUtils;
  */
 public class PlayerMailConfigurator extends PlayerMetaConfigurationUtils {
 
+// Mail Files
+
+	/**
+	 * @return The list of all player mail names.
+	 */
+	public static List<String> getPlayerMailNameList(Player player) {
+		return PlayerMetaConfigurationUtils.getPlayerMailNameList(player);
+	}
+	
 // General Parameters
 	
 	/**
