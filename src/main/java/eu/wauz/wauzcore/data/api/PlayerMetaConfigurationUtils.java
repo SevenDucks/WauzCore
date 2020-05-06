@@ -166,6 +166,16 @@ public class PlayerMetaConfigurationUtils {
 		}
 		return playerMailNameList;
 	}
+	
+	/**
+	 * Deletes the player mail config file with given name.
+	 * 
+	 * @param guild The name of the player mail config file.
+	 */
+	protected static void deletePlayerMail(Player player, String mail) {
+		File mailDataFile = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/mail/" + mail + ".yml");
+		mailDataFile.delete();
+	}
 
 	/**
 	 * Gets a config file for a player mail.

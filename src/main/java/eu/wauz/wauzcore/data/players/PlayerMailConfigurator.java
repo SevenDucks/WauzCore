@@ -24,6 +24,14 @@ public class PlayerMailConfigurator extends PlayerMetaConfigurationUtils {
 		return PlayerMetaConfigurationUtils.getPlayerMailNameList(player);
 	}
 	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param mail The name of the mail to delete.
+	 */
+	public static void deletePlayerMail(Player player, String mail) {
+		PlayerMetaConfigurationUtils.deletePlayerMail(player, mail);
+	}
+	
 // General Parameters
 	
 	/**
