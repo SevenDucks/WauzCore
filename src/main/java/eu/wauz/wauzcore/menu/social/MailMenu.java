@@ -64,6 +64,7 @@ public class MailMenu implements WauzInventory {
 				+ mailAmount + ChatColor.DARK_PURPLE + " Mails");
 		inboxLores.add("");
 		inboxLores.add(ChatColor.GRAY + "You can view 16 Mails at a time.");
+		inboxLores.add(ChatColor.GRAY + "Claimed mails will be removed from the inbox.");
 		inboxLores.add(ChatColor.GRAY + "To view more, claim the existing ones.");
 		inboxItemMeta.setLore(inboxLores);
 		inboxItemStack.setItemMeta(inboxItemMeta);
@@ -73,7 +74,8 @@ public class MailMenu implements WauzInventory {
 		ItemMeta sendItemMeta = sendItemStack.getItemMeta();
 		sendItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Send Mails");
 		List<String> sendLores = new ArrayList<>();
-		sendLores.add("");
+		sendLores.add(ChatColor.DARK_PURPLE + "Sent Today: " + ChatColor.YELLOW
+				+ WauzPlayerMail.getMailsSentToday(player) + " / " + WauzPlayerMail.MAX_MAILS_PER_DAY);
 		sendLores.add("");
 		sendLores.add(ChatColor.DARK_PURPLE + "Commands:");
 		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "send [player] [text] " + ChatColor.GRAY + "Send a Text Mail to a Player");
