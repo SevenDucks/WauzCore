@@ -31,6 +31,22 @@ import eu.wauz.wauzcore.system.util.Formatters;
 public class SkillMenu implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "skills";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		SkillMenu.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * Lists all passive skills, to spent points in, aswell as weapon skill stats.
 	 * 

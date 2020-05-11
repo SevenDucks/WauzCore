@@ -52,6 +52,22 @@ public class CraftingMenu implements WauzInventory {
 	private static final int MAX_PAGE = 2;
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "crafting";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		CraftingMenu.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * Shows a list of all pages of craftable items, to choose from.
 	 * Based on the min and max page constants.

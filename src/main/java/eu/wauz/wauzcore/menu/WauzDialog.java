@@ -27,6 +27,22 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 public class WauzDialog implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "dialog";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		throw new RuntimeException("Inventory cannot be opened directly!");
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * Shows options to confirm or decline the event from the player data.
 	 * Also shows the event title from the player date in the menu name.

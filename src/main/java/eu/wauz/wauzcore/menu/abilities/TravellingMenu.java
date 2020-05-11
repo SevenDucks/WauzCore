@@ -33,6 +33,22 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 public class TravellingMenu implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "travelling";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		TravellingMenu.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * Shows teleport items, to the hub, spawn, home and instance exit, aswell as a link to the overview map.
 	 * 

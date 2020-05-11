@@ -30,6 +30,22 @@ import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
 public class CitizenInteractionMenu implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "citizens";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		throw new RuntimeException("Inventory cannot be opened directly!");
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * Always shows the relation to the given citizen and a "goodbye" option.
 	 * A list of interactions is shown, based on the citizen.

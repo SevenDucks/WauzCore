@@ -57,6 +57,22 @@ public class PetOptionsMenu implements WauzInventory {
 	 */
 	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
 	
+	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "petoptions";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		throw new RuntimeException("Inventory cannot be opened directly!");
+	}
+	
 // Single Pet Options Menu
 	
 	/**

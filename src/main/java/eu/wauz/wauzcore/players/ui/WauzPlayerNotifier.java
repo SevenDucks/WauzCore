@@ -57,7 +57,7 @@ public class WauzPlayerNotifier {
 				}
 				int unreadMails = PlayerMailConfigurator.getPlayerMailNameList(player).size();
 				if(unreadMails > 0) {
-					WauzNmsClient.nmsChatCommand(player, "menu mail",
+					WauzNmsClient.nmsChatCommand(player, "menu mails",
 							ChatColor.YELLOW + "You have " + unreadMails +
 							" unread Mails! To read them:", false);
 				}

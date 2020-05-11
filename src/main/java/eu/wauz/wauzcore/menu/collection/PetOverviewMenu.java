@@ -43,6 +43,22 @@ public class PetOverviewMenu implements WauzInventory {
 	 */
 	private static Map<String, Player> petOwnerMap = new HashMap<>();
 	
+	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "pets";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		PetOverviewMenu.open(player, -1);
+	}
+	
 // Pet Overview Menu
 	
 	/**

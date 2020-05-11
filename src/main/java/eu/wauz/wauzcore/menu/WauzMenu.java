@@ -31,6 +31,22 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 public class WauzMenu implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "mainmenu";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		WauzMenu.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * If it is opened in the hub, it will be redirected to the mode selection.
 	 * Else all sub menus of the MMORPG mode plus a short information is shown.

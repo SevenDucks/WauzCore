@@ -34,6 +34,22 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 public class TabardMenu implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "tabards";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		TabardMenu.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * Shows a list of all selectable tabards / banners.
 	 * 

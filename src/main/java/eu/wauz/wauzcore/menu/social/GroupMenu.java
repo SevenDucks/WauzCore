@@ -41,6 +41,22 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 public class GroupMenu implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "groups";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		GroupMenu.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * If the player is not in a group, a list of groups, aswell as options to create their own, will be shown.
 	 * The color of a group changes depending on status: full (black), protected (yellow), open (lime).

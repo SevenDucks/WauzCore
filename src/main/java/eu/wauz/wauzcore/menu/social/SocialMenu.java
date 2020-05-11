@@ -30,6 +30,22 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
  * @see WauzMenu
  */
 public class SocialMenu implements WauzInventory {
+	
+	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "social";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		SocialMenu.open(player);
+	}
 
 	/**
 	 * Opens the menu for the given player.

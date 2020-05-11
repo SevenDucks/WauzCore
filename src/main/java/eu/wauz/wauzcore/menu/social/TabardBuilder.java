@@ -38,6 +38,22 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 public class TabardBuilder implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "tabardbuilder";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		TabardBuilder.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * Used for the initial opening, where a new tabard builder is initialized and the real editing menu is loaded.
 	 * Only openable if  the player is a guild officer or higher.

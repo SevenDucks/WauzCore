@@ -26,6 +26,22 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 public class WauzModeMenu implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "modes";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		WauzModeMenu.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * Shows three hardcoded modes to choose: "MineKart", "MMORPG", "Survival".
 	 * 

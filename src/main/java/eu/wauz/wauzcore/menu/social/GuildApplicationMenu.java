@@ -33,6 +33,22 @@ import eu.wauz.wauzcore.system.util.Formatters;
 public class GuildApplicationMenu implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "applications";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		GuildApplicationMenu.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * Shows a list of guild applicants, only viewable by guild officers or higher.
 	 * Lists up to 27 applicants (3 inventory rows), including last online time and character stats.

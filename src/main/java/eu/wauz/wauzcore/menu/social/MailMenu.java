@@ -36,6 +36,22 @@ import eu.wauz.wauzcore.system.util.WauzDateUtils;
  * @see WauzPlayerMail
  */
 public class MailMenu implements WauzInventory {
+	
+	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "mails";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		MailMenu.open(player);
+	}
 
 	/**
 	 * Opens the menu for the given player.

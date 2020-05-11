@@ -34,6 +34,22 @@ import eu.wauz.wauzcore.system.WauzRegion;
  * @see WauzMenu
  */
 public class AbilityMenu implements WauzInventory {
+	
+	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "abilities";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		AbilityMenu.open(player);
+	}
 
 	/**
 	 * Opens the menu for the given player.

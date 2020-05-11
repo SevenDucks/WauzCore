@@ -26,6 +26,22 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 public class AchievementsMenu implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "achievements";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		AchievementsMenu.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * Shows progress towards achievements, displayed as one item stack per achievement type.
 	 * 

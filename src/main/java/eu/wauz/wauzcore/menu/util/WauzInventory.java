@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.menu.util;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
@@ -9,6 +10,18 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
  * @author Wauzmons
  */
 public interface WauzInventory {
+	
+	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId();
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player);
 	
 	/**
 	 * Checks if an event in this inventory was triggered by a player click.

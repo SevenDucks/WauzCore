@@ -52,6 +52,22 @@ public class ShopBuilder implements WauzInventory {
 		currency.put(displayName, configKey);
 	}
 	
+	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "shop";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		throw new RuntimeException("Inventory cannot be opened directly!");
+	}
+	
 // Load Items from Config
 	
 	/**

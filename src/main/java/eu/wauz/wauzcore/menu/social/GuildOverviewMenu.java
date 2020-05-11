@@ -47,6 +47,22 @@ import eu.wauz.wauzcore.system.util.Formatters;
 public class GuildOverviewMenu implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "guilds";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		GuildOverviewMenu.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * If the player isn't already in a guild an overview of random guilds and an instruction to create your own are shown.
 	 * If you are in a guild, there will be a display showing the guild's name, leader, member count, description and commands.

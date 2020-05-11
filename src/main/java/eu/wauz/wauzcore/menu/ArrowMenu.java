@@ -36,6 +36,22 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 public class ArrowMenu implements WauzInventory {
 	
 	/**
+	 * @return The id of the inventory.
+	 */
+	public String getInventoryId() {
+		return "arrows";
+	}
+	
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public void openInstance(Player player) {
+		ArrowMenu.open(player);
+	}
+	
+	/**
 	 * Opens the menu for the given player.
 	 * Shows all selectable arrow types, aswell as the count of arrows left.
 	 * 
