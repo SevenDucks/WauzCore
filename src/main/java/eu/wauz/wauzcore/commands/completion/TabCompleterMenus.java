@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.commands.completion;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +9,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
 import eu.wauz.wauzcore.commands.CmdMenu;
+import eu.wauz.wauzcore.menu.util.MenuRegister;
 
 /**
  * A completer for the chat, that suggests menu ids.
@@ -37,9 +37,7 @@ public class TabCompleterMenus implements TabCompleter {
 		}
 		
 		if(menuList == null) {
-			menuList = Arrays.asList(
-					"main", "travelling", "guild", "group", "achievements",
-					"questlog", "crafting", "pets", "skills");
+			menuList = MenuRegister.getAllInventoryIds();
 		}
 		
 		if(args.length == 1) {
