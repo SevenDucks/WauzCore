@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -45,7 +44,6 @@ public class CmdSend implements WauzCommand {
 		
 		Player player = (Player) sender;
 		if(!WauzPlayerMail.canSendMail(player)) {
-			player.sendMessage(ChatColor.RED + "You already reached the limit of mails sent today!");
 			return true;
 		}
 		WauzPlayerMail mail = new WauzPlayerMail();

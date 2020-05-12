@@ -291,5 +291,17 @@ public class MenuUtils {
 			event.setCancelled(true);
 		}
 	}
+	
+	/**
+	 * Checks if the given item stack is a static item.
+	 * No null check included.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return If it is a static item.
+	 */
+	public static boolean checkForStaticItem(ItemStack itemStack) {
+		return staticItems.contains(itemStack.getType());
+	}
 
 }

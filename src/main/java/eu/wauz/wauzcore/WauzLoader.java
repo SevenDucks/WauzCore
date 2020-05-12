@@ -65,6 +65,17 @@ import eu.wauz.wauzcore.items.runes.RunePower;
 import eu.wauz.wauzcore.items.runes.RuneThorns;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.menu.ShopBuilder;
+import eu.wauz.wauzcore.menu.WauzMenu;
+import eu.wauz.wauzcore.menu.abilities.CraftingMenu;
+import eu.wauz.wauzcore.menu.abilities.SkillMenu;
+import eu.wauz.wauzcore.menu.abilities.TravellingMenu;
+import eu.wauz.wauzcore.menu.collection.AchievementsMenu;
+import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
+import eu.wauz.wauzcore.menu.collection.QuestMenu;
+import eu.wauz.wauzcore.menu.social.GroupMenu;
+import eu.wauz.wauzcore.menu.social.GuildOverviewMenu;
+import eu.wauz.wauzcore.menu.social.MailMenu;
+import eu.wauz.wauzcore.menu.util.MenuRegister;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.skills.SkillDeath;
@@ -95,6 +106,7 @@ import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * Used by the main class to load all static data.
@@ -126,6 +138,7 @@ public class WauzLoader {
 		InstanceManager.removeInactiveInstances();
 		StatisticsFetcher.calculate();
 		
+		registerPublicMenus();
 		registerPlayerCommands();
 		registerAdministrativeCommands();
 		registerCommandCompleters();
@@ -135,6 +148,25 @@ public class WauzLoader {
 		registerSkillgems();
 		registerRunes();
 		registerEnhancements();
+	}
+	
+	/**
+	 * Initializes all predefined public menus for usage in commands or similar.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	private static void registerPublicMenus() {
+		MenuRegister.registerInventory(new AchievementsMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new CraftingMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new GroupMenu(), WauzMode.MMORPG, WauzMode.SURVIVAL);
+		MenuRegister.registerInventory(new GuildOverviewMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new MailMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new PetOverviewMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new QuestMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new SkillMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new TravellingMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new WauzMenu(), WauzMode.MMORPG);
 	}
 	
 	/**

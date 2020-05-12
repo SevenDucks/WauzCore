@@ -14,8 +14,10 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * A mail with optional attachment, that can be send to a player.
@@ -62,7 +64,15 @@ public class WauzPlayerMail {
 	 * @return If the player can send more mails today.
 	 */
 	public static boolean canSendMail(Player player) {
-		return getMailsSentToday(player) < MAX_MAILS_PER_DAY;
+		if(!WauzMode.isMMORPG(player) || WauzMode.inHub(player)) {
+			player.sendMessage(ChatColor.RED + "You can't do that in this world!");
+			return false;
+		}
+		if(getMailsSentToday(player) >= MAX_MAILS_PER_DAY) {
+			player.sendMessage(ChatColor.RED + "You already reached the limit of mails sent today!");
+			return false;
+		}
+		return true;
 	}
 		
 	/**
@@ -136,12 +146,12 @@ public class WauzPlayerMail {
 	 */
 	public boolean tryToSetItemStack(Player player) {
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
-		if(ItemUtils.isNotAir(itemStack)) {
+		if(ItemUtils.isNotAir(itemStack) && !MenuUtils.checkForStaticItem(itemStack)) {
 			itemAttachment = itemStack;
 			return true;
 		}
 		else {
-			player.sendMessage(ChatColor.RED + "No item attachment selected (in hand)!");
+			player.sendMessage(ChatColor.RED + "Invalid item attachment selected (in hand)!");
 			return false;
 		}
 	}

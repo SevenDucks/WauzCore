@@ -2,21 +2,12 @@ package eu.wauz.wauzcore.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.menu.WauzMenu;
-import eu.wauz.wauzcore.menu.abilities.CraftingMenu;
-import eu.wauz.wauzcore.menu.abilities.SkillMenu;
-import eu.wauz.wauzcore.menu.abilities.TravellingMenu;
-import eu.wauz.wauzcore.menu.collection.AchievementsMenu;
-import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
-import eu.wauz.wauzcore.menu.collection.QuestMenu;
-import eu.wauz.wauzcore.menu.social.GroupMenu;
-import eu.wauz.wauzcore.menu.social.GuildOverviewMenu;
-import eu.wauz.wauzcore.menu.social.MailMenu;
+import eu.wauz.wauzcore.menu.util.MenuRegister;
+import eu.wauz.wauzcore.menu.util.MenuRegisterEntry;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -55,54 +46,17 @@ public class CmdMenu implements WauzCommand {
 		}
 		
 		Player player = (Player) sender;
-		String menuType = args[0];
-		boolean gamemodeMMORPG = WauzMode.isMMORPG(player) && !WauzMode.inHub(player);
-		boolean gamemodeSurvivalOrMMORPG = WauzMode.isSurvival(player) || gamemodeMMORPG;
+		String menuType = args[0].toLowerCase();
 		
-		if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Main")) {
-			WauzMenu.open(player);
-			return true;
+		if(!WauzMode.inHub(player)) {
+			MenuRegisterEntry menu = MenuRegister.getInventory(menuType);
+			if(menu != null && menu.getValidModes().contains(WauzMode.getMode(player))) {
+				menu.getInventory().openInstance(player);
+				return true;
+			}
 		}
-		else if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Travelling")) {
-			TravellingMenu.open(player);
-			return true;
-		}
-		else if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Guild")) {
-			GuildOverviewMenu.open(player);
-			return true;
-		}
-		else if(gamemodeSurvivalOrMMORPG && StringUtils.equalsIgnoreCase(menuType, "Group")) {
-			GroupMenu.open(player);
-			return true;
-		}
-		else if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Achievements")) {
-			AchievementsMenu.open(player);
-			return true;
-		}
-		else if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Questlog")) {
-			QuestMenu.open(player);
-			return true;
-		}
-		else if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Crafting")) {
-			CraftingMenu.open(player);
-			return true;
-		}
-		else if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Pets")) {
-			PetOverviewMenu.open(player, -1);
-			return true;
-		}
-		else if(gamemodeMMORPG && StringUtils.equalsIgnoreCase(menuType, "Skills")) {
-			SkillMenu.open(player);
-			return true;
-		}
-		else if(gamemodeMMORPG && StringUtils.equalsAnyIgnoreCase(menuType, "Mail")) {
-			MailMenu.open(player);
-			return true;
-		}
-		else {
-			player.sendMessage(ChatColor.RED + "This menu does not exist or you can't open it here!");
-			return true;
-		}
+		player.sendMessage(ChatColor.RED + "This menu does not exist or you can't open it here!");
+		return true;
 	}
 
 }
