@@ -10,6 +10,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
@@ -168,9 +169,9 @@ public class DamageCalculatorDefense {
 		DurabilityCalculator.damageItem(player, armorItemStack, true);
 		
 		float multiplier = PlayerPassiveSkillConfigurator.getStrengthFloat(player);
-		int petSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
+		int petSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
 		if(petSlot >= 0) {
-			multiplier += ((float) PlayerConfigurator.getCharacterPetAbsorption(player, petSlot) / 10f);
+			multiplier += ((float) PlayerPetsConfigurator.getCharacterPetAbsorption(player, petSlot) / 10f);
 		}
 		
 		WauzDebugger.log(player, "Defense Multiplier: " + Formatters.DEC.format(multiplier));	

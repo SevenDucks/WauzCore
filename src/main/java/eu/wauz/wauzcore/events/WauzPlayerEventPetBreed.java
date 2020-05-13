@@ -5,7 +5,7 @@ import java.util.Random;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.menu.collection.PetOptionsMenu;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 
@@ -45,13 +45,13 @@ public class WauzPlayerEventPetBreed implements WauzPlayerEvent {
 	@Override
 	public boolean execute(Player player) {
 		try {
-			String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
-			int breedingSlot = PlayerConfigurator.getCharacterPetBreedingFreeSlot(player);
+			String petType = PlayerPetsConfigurator.getCharacterPetType(player, petSlot);
+			int breedingSlot = PlayerPetsConfigurator.getCharacterPetBreedingFreeSlot(player);
 			PetOptionsMenu.move(player, petSlot, breedingSlot, false);
 			
-			if(PlayerConfigurator.getCharacterPetBreedingFreeSlot(player) == -1) {
+			if(PlayerPetsConfigurator.getCharacterPetBreedingFreeSlot(player) == -1) {
 				long hatchTime = (2 + new Random().nextInt(5)) * 1800000;
-				PlayerConfigurator.setCharacterPetBreedingHatchTime(player, hatchTime + System.currentTimeMillis());
+				PlayerPetsConfigurator.setCharacterPetBreedingHatchTime(player, hatchTime + System.currentTimeMillis());
 			}
 			player.sendMessage(ChatColor.GREEN + petType + " was moved to the Breeding Station!");
 			PetOverviewMenu.open(player, -1);

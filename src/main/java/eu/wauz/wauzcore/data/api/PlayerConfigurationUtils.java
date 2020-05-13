@@ -159,6 +159,36 @@ public class PlayerConfigurationUtils {
 		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
 		return playerDataConfig.getString(trimPlayerDataPath(path));
 	}
+	
+	/**
+	 * Gets a string list from a player config.
+	 * 
+	 * @param player The player that owns the config file.
+	 * @param path The key path of the value to get.
+	 * @param characterSpecific If the character specific file should be used.
+	 * 
+	 * @return The requested string list.
+	 */
+	protected static List<String> playerConfigGetStringList(Player player, String path, Boolean characterSpecific) {
+		File playerDataFile = getPlayerDataFile(player, path, characterSpecific);
+		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
+		return playerDataConfig.getStringList(trimPlayerDataPath(path));
+	}
+	
+	/**
+	 * Gets a string list from a player config.
+	 * 
+	 * @param player The offline player that owns the config file.
+	 * @param path The key path of the value to get.
+	 * @param characterSpecific If the character specific file should be used.
+	 * 
+	 * @return The requested string list.
+	 */
+	protected static List<String> playerConfigGetStringList(OfflinePlayer player, String path, Boolean characterSpecific) {
+		File playerDataFile = getPlayerDataFile(player, path, characterSpecific);
+		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
+		return playerDataConfig.getStringList(trimPlayerDataPath(path));
+	}
 
 	/**
 	 * Gets an int from a player config.

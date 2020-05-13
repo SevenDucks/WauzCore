@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
@@ -106,7 +107,7 @@ public class CollectionMenu implements WauzInventory {
 		petsItemMeta.setDisplayName(ChatColor.GOLD + "Pets");
 		List<String> petsLores = new ArrayList<String>();
 		petsLores.add(ChatColor.DARK_PURPLE + "Used Pet Slots: " + ChatColor.YELLOW
-				+ PlayerConfigurator.getCharacterUsedPetSlots(player) + " / 5");
+				+ PlayerPetsConfigurator.getCharacterUsedPetSlots(player) + " / 5");
 			petsLores.add("");
 		petsLores.add(ChatColor.GRAY + "View and Summon your tamed Pets.");
 		petsLores.add(ChatColor.GRAY + "Breed them to get stronger Offsprings.");

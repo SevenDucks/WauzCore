@@ -24,6 +24,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventPetBreed;
 import eu.wauz.wauzcore.events.WauzPlayerEventPetDelete;
 import eu.wauz.wauzcore.items.util.ItemUtils;
@@ -98,7 +99,7 @@ public class PetOptionsMenu implements WauzInventory {
 	 */
 	public static void open(Player player, Integer petSlot) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new PetOptionsMenu());
-		String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
+		String petType = PlayerPetsConfigurator.getCharacterPetType(player, petSlot);
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Pet Options"
 				+ " \"" + petSlot + "\" " + ChatColor.DARK_PURPLE + petType);
 		
@@ -116,7 +117,7 @@ public class PetOptionsMenu implements WauzInventory {
 		ItemMeta breedingItemMeta = breedingItemStack.getItemMeta();
 		breedingItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Breed " + petType);
 		List<String> breedingLores = new ArrayList<String>();
-		String disallowString = PlayerConfigurator.getCharcterPetBreedingDisallowString(player, petSlot);
+		String disallowString = PlayerPetsConfigurator.getCharcterPetBreedingDisallowString(player, petSlot);
 		breedingLores.add(ChatColor.GRAY + "Combine Pets to raise the Offspring's max Stats.");
 		breedingLores.add(ChatColor.GRAY + "WARNING: Both Parents will be lost!");
 		breedingLores.add("");
@@ -142,8 +143,8 @@ public class PetOptionsMenu implements WauzInventory {
 		discardItemStack.setItemMeta(discardItemMeta);
 		menu.setItem(2, discardItemStack);
 		
-		int intelligenceLevel = PlayerConfigurator.getCharacterPetIntelligence(player, petSlot);
-		int intelligenceLevelMax = PlayerConfigurator.getCharacterPetIntelligenceMax(player, petSlot);
+		int intelligenceLevel = PlayerPetsConfigurator.getCharacterPetIntelligence(player, petSlot);
+		int intelligenceLevelMax = PlayerPetsConfigurator.getCharacterPetIntelligenceMax(player, petSlot);
 		
 		ItemStack intelligenceSkillItemStack;
 		if(intelligenceLevel == 0) {
@@ -160,7 +161,7 @@ public class PetOptionsMenu implements WauzInventory {
 		intelligenceSkillItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Intelligence");
 		List<String> intelligenceSkillLores = new ArrayList<String>();
 		intelligenceSkillLores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + intelligenceLevel + " / " + intelligenceLevelMax + ChatColor.GRAY + " (Max: 10)");
-		intelligenceSkillLores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerConfigurator.getCharacterPetIntelligenceExpNeeded(player, petSlot));
+		intelligenceSkillLores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerPetsConfigurator.getCharacterPetIntelligenceExpNeeded(player, petSlot));
 		intelligenceSkillLores.add("");
 		intelligenceSkillLores.add(ChatColor.GRAY + "Adds 10% Bonus Experience Points per Level.");
 		intelligenceSkillLores.add(ChatColor.GRAY + "This Boost is only applied while your Pet is active.");
@@ -172,8 +173,8 @@ public class PetOptionsMenu implements WauzInventory {
 		intelligenceSkillItemStack.setItemMeta(intelligenceSkillItemMeta);
 		menu.setItem(3, intelligenceSkillItemStack);
 		
-		int dexterityLevel = PlayerConfigurator.getCharacterPetDexterity(player, petSlot);
-		int dexterityLevelMax = PlayerConfigurator.getCharacterPetDexterityMax(player, petSlot);
+		int dexterityLevel = PlayerPetsConfigurator.getCharacterPetDexterity(player, petSlot);
+		int dexterityLevelMax = PlayerPetsConfigurator.getCharacterPetDexterityMax(player, petSlot);
 		
 		ItemStack dexteritySkillItemStack;
 		if(dexterityLevel == 0) {
@@ -190,7 +191,7 @@ public class PetOptionsMenu implements WauzInventory {
 		dexteritySkillItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Dexterity");
 		List<String> dexteritySkillLores = new ArrayList<String>();
 		dexteritySkillLores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + dexterityLevel + " / " + dexterityLevelMax + ChatColor.GRAY + " (Max: 10)");
-		dexteritySkillLores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerConfigurator.getCharacterPetDexterityExpNeeded(player, petSlot));
+		dexteritySkillLores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerPetsConfigurator.getCharacterPetDexterityExpNeeded(player, petSlot));
 		dexteritySkillLores.add("");
 		dexteritySkillLores.add(ChatColor.GRAY + "Adds 10% per Level to your Movement Speed.");
 		dexteritySkillLores.add(ChatColor.GRAY + "This Boost is only applied while your Pet is active.");
@@ -202,8 +203,8 @@ public class PetOptionsMenu implements WauzInventory {
 		dexteritySkillItemStack.setItemMeta(dexteritySkillItemMeta);
 		menu.setItem(4, dexteritySkillItemStack);
 		
-		int absorptionLevel = PlayerConfigurator.getCharacterPetAbsorption(player, petSlot);
-		int absorptionLevelMax = PlayerConfigurator.getCharacterPetAbsorptionMax(player, petSlot);
+		int absorptionLevel = PlayerPetsConfigurator.getCharacterPetAbsorption(player, petSlot);
+		int absorptionLevelMax = PlayerPetsConfigurator.getCharacterPetAbsorptionMax(player, petSlot);
 		
 		ItemStack absorptionSkillItemStack;
 		if(absorptionLevel == 0) {
@@ -220,7 +221,7 @@ public class PetOptionsMenu implements WauzInventory {
 		absorptionSkillItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Absorption");
 		List<String> absorptionSkillLores = new ArrayList<String>();
 		absorptionSkillLores.add(ChatColor.DARK_PURPLE + "Level: " + ChatColor.GREEN + absorptionLevel + " / " + absorptionLevelMax + ChatColor.GRAY + " (Max: 10)");
-		absorptionSkillLores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerConfigurator.getCharacterPetAbsorptionExpNeeded(player, petSlot));
+		absorptionSkillLores.add(ChatColor.DARK_PURPLE + "Food to next Level: " + ChatColor.GREEN + PlayerPetsConfigurator.getCharacterPetAbsorptionExpNeeded(player, petSlot));
 		absorptionSkillLores.add("");
 		absorptionSkillLores.add(ChatColor.GRAY + "Absorbs 10% of your Armor per Level from Damage.");
 		absorptionSkillLores.add(ChatColor.GRAY + "This Boost is only applied while your Pet is active.");
@@ -346,9 +347,9 @@ public class PetOptionsMenu implements WauzInventory {
 	 */
 	public static void summon(Player player, Integer petSlot) {	
 		Location location = player.getLocation();	
-		String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
+		String petType = PlayerPetsConfigurator.getCharacterPetType(player, petSlot);
 					
-		String petId = PlayerConfigurator.getCharacterActivePetId(player);
+		String petId = PlayerPetsConfigurator.getCharacterActivePetId(player);
 		if(!petId.contains("none")) {
 			Entity entity = Bukkit.getServer().getEntity(UUID.fromString(petId));		
 			if(entity != null) {
@@ -362,11 +363,11 @@ public class PetOptionsMenu implements WauzInventory {
 				((Tameable) entity).setOwner(player);
 			}
 			petId = entity.getUniqueId().toString();
-			PlayerConfigurator.setCharacterActivePetId(player, petId);
-			PlayerConfigurator.setCharacterActivePetSlot(player, petSlot);
+			PlayerPetsConfigurator.setCharacterActivePetId(player, petId);
+			PlayerPetsConfigurator.setCharacterActivePetSlot(player, petSlot);
 			
 			PetOverviewMenu.setOwner(petId, player);
-			player.setWalkSpeed(0.2f + PlayerConfigurator.getCharacterPetDexterity(player, petSlot) * 0.02f);
+			player.setWalkSpeed(0.2f + PlayerPetsConfigurator.getCharacterPetDexterity(player, petSlot) * 0.02f);
 			
 			WauzDebugger.log(player, player.getName() + " summoned Pet " + petId);
 			player.sendMessage(ChatColor.GREEN + petType + " was summoned!");
@@ -388,7 +389,7 @@ public class PetOptionsMenu implements WauzInventory {
 	 */
 	public static void discard(Player player, Integer petSlot) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
+		String petType = PlayerPetsConfigurator.getCharacterPetType(player, petSlot);
 		playerData.setWauzPlayerEventName("Release " + petType);
 		playerData.setWauzPlayerEvent(new WauzPlayerEventPetDelete(petSlot));
 		WauzDialog.open(player);
@@ -415,7 +416,7 @@ public class PetOptionsMenu implements WauzInventory {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		String characterSlot = playerData.getSelectedCharacterSlot();
 		
-		Integer activePetSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
+		Integer activePetSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
 		if(activePetSlot != -1 && (activePetSlot == fromIndex || activePetSlot == toIndex)) {
 			PetOverviewMenu.unsummon(player);
 		}
@@ -503,51 +504,51 @@ public class PetOptionsMenu implements WauzInventory {
 		foodItem.setAmount(0);
 		
 		if(foodStatId == 1) {
-			int remainingExp = PlayerConfigurator.getCharacterPetIntelligenceExpNeeded(player, petSlot) - feedingValue;
+			int remainingExp = PlayerPetsConfigurator.getCharacterPetIntelligenceExpNeeded(player, petSlot) - feedingValue;
 			if(remainingExp > 0) {
-				PlayerConfigurator.setCharacterPetIntelligenceExpNeeded(player, petSlot, remainingExp);
+				PlayerPetsConfigurator.setCharacterPetIntelligenceExpNeeded(player, petSlot, remainingExp);
 			}
 			else {
-				Integer activePetSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
+				Integer activePetSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
 				if(activePetSlot != -1 && activePetSlot == petSlot) {
 					PetOverviewMenu.unsummon(player);
 				}
 				
-				int level = PlayerConfigurator.getCharacterPetIntelligence(player, petSlot) + 1;
-				PlayerConfigurator.setCharacterPetIntelligence(player, petSlot, level);
-				PlayerConfigurator.setCharacterPetIntelligenceExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
+				int level = PlayerPetsConfigurator.getCharacterPetIntelligence(player, petSlot) + 1;
+				PlayerPetsConfigurator.setCharacterPetIntelligence(player, petSlot, level);
+				PlayerPetsConfigurator.setCharacterPetIntelligenceExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
 			}
 		}
 		else if(foodStatId == 2) {
-			int remainingExp = PlayerConfigurator.getCharacterPetDexterityExpNeeded(player, petSlot) - feedingValue;
+			int remainingExp = PlayerPetsConfigurator.getCharacterPetDexterityExpNeeded(player, petSlot) - feedingValue;
 			if(remainingExp > 0) {
-				PlayerConfigurator.setCharacterPetDexterityExpNeeded(player, petSlot, remainingExp);
+				PlayerPetsConfigurator.setCharacterPetDexterityExpNeeded(player, petSlot, remainingExp);
 			}
 			else {
-				Integer activePetSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
+				Integer activePetSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
 				if(activePetSlot != -1 && activePetSlot == petSlot) {
 					PetOverviewMenu.unsummon(player);
 				}
 				
-				int level = PlayerConfigurator.getCharacterPetDexterity(player, petSlot) + 1;
-				PlayerConfigurator.setCharacterPetDexterity(player, petSlot, level);
-				PlayerConfigurator.setCharacterPetDexterityExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
+				int level = PlayerPetsConfigurator.getCharacterPetDexterity(player, petSlot) + 1;
+				PlayerPetsConfigurator.setCharacterPetDexterity(player, petSlot, level);
+				PlayerPetsConfigurator.setCharacterPetDexterityExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
 			}
 		}
 		else if(foodStatId == 3) {
-			int remainingExp = PlayerConfigurator.getCharacterPetAbsorptionExpNeeded(player, petSlot) - feedingValue;
+			int remainingExp = PlayerPetsConfigurator.getCharacterPetAbsorptionExpNeeded(player, petSlot) - feedingValue;
 			if(remainingExp > 0) {
-				PlayerConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, remainingExp);
+				PlayerPetsConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, remainingExp);
 			}
 			else {
-				Integer activePetSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
+				Integer activePetSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
 				if(activePetSlot != -1 && activePetSlot == petSlot) {
 					PetOverviewMenu.unsummon(player);
 				}
 				
-				int level = PlayerConfigurator.getCharacterPetAbsorption(player, petSlot) + 1;
-				PlayerConfigurator.setCharacterPetAbsorption(player, petSlot, level);
-				PlayerConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
+				int level = PlayerPetsConfigurator.getCharacterPetAbsorption(player, petSlot) + 1;
+				PlayerPetsConfigurator.setCharacterPetAbsorption(player, petSlot, level);
+				PlayerPetsConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
 			}
 		}
 		
@@ -573,7 +574,7 @@ public class PetOptionsMenu implements WauzInventory {
 		}
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
+		String petType = PlayerPetsConfigurator.getCharacterPetType(player, petSlot);
 		playerData.setWauzPlayerEventName("Breed " + petType);
 		playerData.setWauzPlayerEvent(new WauzPlayerEventPetBreed(petSlot));
 		WauzDialog.open(player);

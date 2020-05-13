@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 
 /**
@@ -40,10 +41,10 @@ public class WauzPlayerEventPetDelete implements WauzPlayerEvent {
 	@Override
 	public boolean execute(Player player) {
 		try {
-			String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
-			PlayerConfigurator.setCharacterPetType(player, petSlot, "none");	
+			String petType = PlayerPetsConfigurator.getCharacterPetType(player, petSlot);
+			PlayerPetsConfigurator.setCharacterPetType(player, petSlot, "none");	
 			
-			Integer activePetSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
+			Integer activePetSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
 			if(activePetSlot != -1 && activePetSlot == petSlot) {
 				PetOverviewMenu.unsummon(player);
 			}

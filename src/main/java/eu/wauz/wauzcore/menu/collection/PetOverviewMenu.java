@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -82,7 +83,7 @@ public class PetOverviewMenu implements WauzInventory {
 		emptySlotItemStack.setItemMeta(emptySlotItemMeta);
 		
 		for(int petSlot = 0; petSlot < 5; petSlot++) {
-			String petType = PlayerConfigurator.getCharacterPetType(player, petSlot);
+			String petType = PlayerPetsConfigurator.getCharacterPetType(player, petSlot);
 			if(!petType.equals("none")) {
 				ItemStack petItemStack = new ItemStack(highlightedSlot == petSlot ? Material.PARROT_SPAWN_EGG : Material.CHICKEN_SPAWN_EGG);
 				ItemMeta petItemMeta = petItemStack.getItemMeta();
@@ -106,7 +107,7 @@ public class PetOverviewMenu implements WauzInventory {
 		unsummonItemStack.setItemMeta(unsummonItemMeta);
 		menu.setItem(5, unsummonItemStack);
 		
-		String parentAPetType = PlayerConfigurator.getCharacterPetType(player, 6);
+		String parentAPetType = PlayerPetsConfigurator.getCharacterPetType(player, 6);
 		boolean parentSlotAIsEmpty = parentAPetType.equals("none");
 		
 		ItemStack parentAItemStack = new ItemStack(parentSlotAIsEmpty ? Material.GHAST_SPAWN_EGG : Material.SHEEP_SPAWN_EGG);
@@ -118,7 +119,7 @@ public class PetOverviewMenu implements WauzInventory {
 		parentAItemStack.setItemMeta(parentAItemMeta);
 		menu.setItem(6, parentAItemStack);
 		
-		String parentBPetType = PlayerConfigurator.getCharacterPetType(player, 8);
+		String parentBPetType = PlayerPetsConfigurator.getCharacterPetType(player, 8);
 		boolean parentSlotBIsEmpty = parentBPetType.equals("none");
 		
 		ItemStack parentBItemStack = new ItemStack(parentSlotBIsEmpty ? Material.GHAST_SPAWN_EGG : Material.SHEEP_SPAWN_EGG);
@@ -132,7 +133,7 @@ public class PetOverviewMenu implements WauzInventory {
 		
 		ItemStack childItemStack = new ItemStack(Material.EGG);
 		ItemMeta childItemMeta = childItemStack.getItemMeta();
-		long hatchTime = PlayerConfigurator.getCharacterPetBreedingHatchTime(player);
+		long hatchTime = PlayerPetsConfigurator.getCharacterPetBreedingHatchTime(player);
 		if(hatchTime == 0) {
 			childItemMeta.setDisplayName(ChatColor.RED + "No Egg in Breeding Station");
 		}
@@ -260,8 +261,8 @@ public class PetOverviewMenu implements WauzInventory {
 				return;
 			}
 							
-			String petId = PlayerConfigurator.getCharacterActivePetId(player);
-			PlayerConfigurator.setCharacterActivePetSlot(player, -1);
+			String petId = PlayerPetsConfigurator.getCharacterActivePetId(player);
+			PlayerPetsConfigurator.setCharacterActivePetSlot(player, -1);
 			
 			if(!petId.contains("none")) {
 				Entity entity = Bukkit.getServer().getEntity(UUID.fromString(petId));		
@@ -339,27 +340,27 @@ public class PetOverviewMenu implements WauzInventory {
 	 */
 	public static void addPet(Player player, ItemStack scroll, String petType, int maxInt, int maxDex, int maxAbs) {
 		for(int petSlot = 0; petSlot < 5; petSlot++) {
-			String slotType = PlayerConfigurator.getCharacterPetType(player, petSlot);
+			String slotType = PlayerPetsConfigurator.getCharacterPetType(player, petSlot);
 			if(!slotType.equals("none")) {
 				continue;
 			}
 			
 			try {
-				PlayerConfigurator.setCharacterPetType(player, petSlot, petType);
+				PlayerPetsConfigurator.setCharacterPetType(player, petSlot, petType);
 				
 				int baseExp = getBaseExpToFeedingLevel(1);
 				
-				PlayerConfigurator.setCharacterPetIntelligence(player, petSlot, 0);
-				PlayerConfigurator.setCharacterPetIntelligenceMax(player, petSlot, maxInt);
-				PlayerConfigurator.setCharacterPetIntelligenceExpNeeded(player, petSlot, baseExp);
+				PlayerPetsConfigurator.setCharacterPetIntelligence(player, petSlot, 0);
+				PlayerPetsConfigurator.setCharacterPetIntelligenceMax(player, petSlot, maxInt);
+				PlayerPetsConfigurator.setCharacterPetIntelligenceExpNeeded(player, petSlot, baseExp);
 				
-				PlayerConfigurator.setCharacterPetDexterity(player, petSlot, 0);
-				PlayerConfigurator.setCharacterPetDexterityMax(player, petSlot, maxDex);
-				PlayerConfigurator.setCharacterPetDexterityExpNeeded(player, petSlot, baseExp);
+				PlayerPetsConfigurator.setCharacterPetDexterity(player, petSlot, 0);
+				PlayerPetsConfigurator.setCharacterPetDexterityMax(player, petSlot, maxDex);
+				PlayerPetsConfigurator.setCharacterPetDexterityExpNeeded(player, petSlot, baseExp);
 				
-				PlayerConfigurator.setCharacterPetAbsorption(player, petSlot, 0);
-				PlayerConfigurator.setCharacterPetAbsorptionMax(player, petSlot, maxAbs);
-				PlayerConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, baseExp);
+				PlayerPetsConfigurator.setCharacterPetAbsorption(player, petSlot, 0);
+				PlayerPetsConfigurator.setCharacterPetAbsorptionMax(player, petSlot, maxAbs);
+				PlayerPetsConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, baseExp);
 				
 				player.sendMessage(ChatColor.GREEN + "You learned to summon " + petType + " from the Menu!");
 				AchievementTracker.addProgress(player, WauzAchievementType.COLLECT_PETS, 1);
@@ -446,7 +447,7 @@ public class PetOverviewMenu implements WauzInventory {
 		
 		boolean freeSlot = false;
 		for(int petSlot = 0; petSlot < 5; petSlot++) {
-			String slotType = PlayerConfigurator.getCharacterPetType(player, petSlot);
+			String slotType = PlayerPetsConfigurator.getCharacterPetType(player, petSlot);
 			if(slotType.equals("none")) {
 				freeSlot = true;
 				break;
@@ -458,21 +459,21 @@ public class PetOverviewMenu implements WauzInventory {
 			return;
 		}
 		
-		String typeA = PlayerConfigurator.getCharacterPetType(player, 6);
-		int intA = PlayerConfigurator.getCharacterPetIntelligence(player, 6);
-		int intMaxA = PlayerConfigurator.getCharacterPetIntelligenceMax(player, 6);
-		int dexA = PlayerConfigurator.getCharacterPetDexterity(player, 6);
-		int dexMaxA = PlayerConfigurator.getCharacterPetDexterityMax(player, 6);
-		int absA = PlayerConfigurator.getCharacterPetAbsorption(player, 6);
-		int absMaxA = PlayerConfigurator.getCharacterPetAbsorptionMax(player, 6);
+		String typeA = PlayerPetsConfigurator.getCharacterPetType(player, 6);
+		int intA = PlayerPetsConfigurator.getCharacterPetIntelligence(player, 6);
+		int intMaxA = PlayerPetsConfigurator.getCharacterPetIntelligenceMax(player, 6);
+		int dexA = PlayerPetsConfigurator.getCharacterPetDexterity(player, 6);
+		int dexMaxA = PlayerPetsConfigurator.getCharacterPetDexterityMax(player, 6);
+		int absA = PlayerPetsConfigurator.getCharacterPetAbsorption(player, 6);
+		int absMaxA = PlayerPetsConfigurator.getCharacterPetAbsorptionMax(player, 6);
 		
-		String typeB = PlayerConfigurator.getCharacterPetType(player, 8);
-		int intB = PlayerConfigurator.getCharacterPetIntelligence(player, 8);
-		int intMaxB = PlayerConfigurator.getCharacterPetIntelligenceMax(player, 8);
-		int dexB = PlayerConfigurator.getCharacterPetDexterity(player, 8);
-		int dexMaxB = PlayerConfigurator.getCharacterPetDexterityMax(player, 8);
-		int absB = PlayerConfigurator.getCharacterPetAbsorption(player, 8);
-		int absMaxB = PlayerConfigurator.getCharacterPetAbsorptionMax(player, 8);
+		String typeB = PlayerPetsConfigurator.getCharacterPetType(player, 8);
+		int intB = PlayerPetsConfigurator.getCharacterPetIntelligence(player, 8);
+		int intMaxB = PlayerPetsConfigurator.getCharacterPetIntelligenceMax(player, 8);
+		int dexB = PlayerPetsConfigurator.getCharacterPetDexterity(player, 8);
+		int dexMaxB = PlayerPetsConfigurator.getCharacterPetDexterityMax(player, 8);
+		int absB = PlayerPetsConfigurator.getCharacterPetAbsorption(player, 8);
+		int absMaxB = PlayerPetsConfigurator.getCharacterPetAbsorptionMax(player, 8);
 		
 		String petType = Chance.percent(50) ? typeA : typeB;
 		
@@ -480,9 +481,9 @@ public class PetOverviewMenu implements WauzInventory {
 		int maxDex = Math.max(dexMaxA, dexMaxB) + (dexA >= dexMaxA ? 1 : 0) + (dexB >= dexMaxB ? 1 : 0);
 		int maxAbs = Math.max(absMaxA, absMaxB) + (absA >= absMaxA ? 1 : 0) + (absB >= absMaxB ? 1 : 0);
 		
-		PlayerConfigurator.setCharacterPetType(player, 6, "none");
-		PlayerConfigurator.setCharacterPetType(player, 8, "none");
-		PlayerConfigurator.setCharacterPetBreedingHatchTime(player, 0);
+		PlayerPetsConfigurator.setCharacterPetType(player, 6, "none");
+		PlayerPetsConfigurator.setCharacterPetType(player, 8, "none");
+		PlayerPetsConfigurator.setCharacterPetBreedingHatchTime(player, 0);
 		
 		addPet(player, null, petType, maxInt > 10 ? 10 : maxInt, maxDex > 10 ? 10 : maxDex, maxAbs > 10 ? 10 : maxAbs);
 	}

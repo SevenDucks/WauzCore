@@ -101,17 +101,24 @@ public class HeadUtils {
 	}
 	
 	/**
-	 * @return An item stack representing a group icon.
+	 * @return An item stack representing a blue group icon.
 	 */
 	public static ItemStack getGroupItem() {
 		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzhhMzMyNGM3N2ZkY2NkNTk3Nzc0MzA0YmJkYTE1NTE3ZWEyMzU5ZGU1Mzg5N2FlZDA5NTI4ZDFjNmVjOSJ9fX0=");
 	}
 	
 	/**
-	 * @return An item stack representing a guild icon.
+	 * @return An item stack representing a green guild icon.
 	 */
 	public static ItemStack getGuildItem() {
 		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWYwYThhMGJlNWQzZjNmOTRiZDMyYTNlZDkyNjJlNjYyYTVkYTkxMTkxOWZlZTkxZWJjY2YzYjc5YmY2NTgifX19");
+	}
+	
+	/**
+	 * @return An item stack representing a yellow friends icon.
+	 */
+	public static ItemStack getFriendsItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTIzN2QwOTkyYzYzZjNhNDlmZDIzNmE1ZDY4NjgwYmRhNWQxN2MzOGJkZDhjYWQ0MTdjYzkxZDUxMDY4ZDIifX19");
 	}
 	
 // Class Heads

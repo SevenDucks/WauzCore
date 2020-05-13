@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
@@ -146,9 +147,9 @@ public class ExperienceCalculator {
 		
 		double multiplier = 1 + (weaponBonus / 100.0) + (armorBonus / 100.0);
 		
-		int petSlot = PlayerConfigurator.getCharacterActivePetSlot(player);
+		int petSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
 		if(petSlot >= 0) {
-			multiplier += (float) PlayerConfigurator.getCharacterPetIntelligence(player, petSlot) / 10f;
+			multiplier += (float) PlayerPetsConfigurator.getCharacterPetIntelligence(player, petSlot) / 10f;
 		}
 		
 		return experience * multiplier;
