@@ -69,7 +69,7 @@ public class AbilityMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzMenu());
+		WauzInventoryHolder holder = new WauzInventoryHolder(new AbilityMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Ability Menu");
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);

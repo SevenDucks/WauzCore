@@ -34,6 +34,15 @@ public class WauzDateUtils {
 	/**
 	 * @param millis A timestamp.
 	 * 
+	 * @return A string that shows the server date of the timestamp.
+	 */
+	public static String formatTime(long millis) {
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(millis));
+	}
+	
+	/**
+	 * @param millis A timestamp.
+	 * 
 	 * @return A string that shows how much time has passed, since the timestamp.
 	 */
 	public static String formatTimeSince(long millis) {

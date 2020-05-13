@@ -17,7 +17,6 @@ import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventMailClaim;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzDialog;
-import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
@@ -65,7 +64,7 @@ public class MailMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzMenu());
+		WauzInventoryHolder holder = new WauzInventoryHolder(new MailMenu());
 		Inventory menu = Bukkit.createInventory(holder, 18, ChatColor.BLACK + "" + ChatColor.BOLD + "Mailbox");
 		List<String> mailNames = PlayerMailConfigurator.getPlayerMailNameList(player);
 		int mailAmount = mailNames.size();
@@ -80,7 +79,7 @@ public class MailMenu implements WauzInventory {
 				+ mailAmount + ChatColor.DARK_PURPLE + " Mails");
 		inboxLores.add("");
 		inboxLores.add(ChatColor.GRAY + "You can view 16 Mails at a time.");
-		inboxLores.add(ChatColor.GRAY + "Claimed mails will be removed from the inbox.");
+		inboxLores.add(ChatColor.GRAY + "Claimed mails will be removed.");
 		inboxLores.add(ChatColor.GRAY + "To view more, claim the existing ones.");
 		inboxItemMeta.setLore(inboxLores);
 		inboxItemStack.setItemMeta(inboxItemMeta);
@@ -94,9 +93,12 @@ public class MailMenu implements WauzInventory {
 				+ WauzPlayerMail.getMailsSentToday(player) + " / " + WauzPlayerMail.MAX_MAILS_PER_DAY);
 		sendLores.add("");
 		sendLores.add(ChatColor.DARK_PURPLE + "Commands:");
-		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "send [player] [text] " + ChatColor.GRAY + "Send a Text Mail to a Player");
-		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "send.item [player] [text] " + ChatColor.GRAY + "Send your Hand Item to a Player");
-		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "send.coins [player] [amount] [text] " + ChatColor.GRAY + "Send Coins to a Player");
+		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "send [player] [text]");
+		sendLores.add(ChatColor.GRAY + "Send a Text Mail to a Player");
+		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "send.item [player] [text]");
+		sendLores.add(ChatColor.GRAY + "Send your Hand Item to a Player");
+		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "send.coins [player] [amount] [text]");
+		sendLores.add(ChatColor.GRAY + "Send Coins to a Player");
 		sendItemMeta.setLore(sendLores);
 		sendItemStack.setItemMeta(sendItemMeta);
 		menu.setItem(1, sendItemStack);

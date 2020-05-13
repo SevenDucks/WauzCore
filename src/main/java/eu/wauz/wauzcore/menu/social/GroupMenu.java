@@ -361,10 +361,10 @@ public class GroupMenu implements WauzInventory {
 						return;
 					}
 				}
-				else
+				else {
 					passwordInput(player, groupUuidString, passwordString);
+				}
 			}
-			
 			else {
 				WauzDebugger.log(player, "Password: " + passwordString + ", Length: " + passwordString.length());
 				if(passwordString.length() == 5) {

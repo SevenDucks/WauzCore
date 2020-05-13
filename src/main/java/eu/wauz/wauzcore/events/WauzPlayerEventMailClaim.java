@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -11,8 +12,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.LootContainer;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -59,16 +60,19 @@ public class WauzPlayerEventMailClaim implements WauzPlayerEvent {
 		coinAttachment = PlayerMailConfigurator.getMailCoins(player, mailName);
 		itemAttachment = PlayerMailConfigurator.getMailItem(player, mailName);
 		
-		mailItemStack = HeadUtils.getMailItem();
+		mailItemStack = new ItemStack(Material.GLOBE_BANNER_PATTERN);
 		ItemMeta mailItemMeta = mailItemStack.getItemMeta();
 		mailItemMeta.setDisplayName(ChatColor.YELLOW + "Mail from " + sender);
 		List<String> mailLores = new ArrayList<>();
-		mailLores.add(ChatColor.GRAY + "Received " + WauzDateUtils.formatTimeSince(time) + " ago");
+		mailLores.add(ChatColor.GRAY + "Received " + WauzDateUtils.formatTime(time));
 		if(coinAttachment > 0) {
 			mailLores.add(ChatColor.GRAY + "Coins: " + Formatters.formatCoins(coinAttachment));
 		}
 		if(itemAttachment != null) {
-			mailLores.add(ChatColor.GRAY + "Item: " + itemAttachment.getI18NDisplayName());
+			String attachmentName = ItemUtils.hasDisplayName(itemAttachment)
+					? itemAttachment.getItemMeta().getDisplayName()
+					: itemAttachment.getI18NDisplayName();
+			mailLores.add(ChatColor.GRAY + "Item: " + attachmentName);
 		}
 		mailLores.add("");
 		String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;

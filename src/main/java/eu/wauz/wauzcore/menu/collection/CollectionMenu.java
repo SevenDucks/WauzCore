@@ -67,7 +67,7 @@ public class CollectionMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzMenu());
+		WauzInventoryHolder holder = new WauzInventoryHolder(new CollectionMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Collection Menu");
 		
 		MenuUtils.setCurrencyDisplay(menu, player, 1);

@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.players;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -72,6 +73,7 @@ public class WauzPlayerRegistrator {
 			playerDataConfig.set("tokenlimit.mails.date", dateLong);
 			playerDataConfig.set("tokenlimit.mails.amount", 0);
 			playerDataConfig.set("score.survival", 0);
+			playerDataConfig.set("friends", new ArrayList<>());
 		}
 		playerDataConfig.save(playerDataFile);
 

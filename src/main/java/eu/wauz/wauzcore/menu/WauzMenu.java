@@ -81,7 +81,7 @@ public class WauzMenu implements WauzInventory {
 		collectionItemMeta.setDisplayName(ChatColor.GOLD + "Collection");
 		List<String> collectionLores = new ArrayList<String>();
 		collectionLores.add(ChatColor.YELLOW + "Sub Menu Contents:");
-		collectionLores.add(ChatColor.GRAY + "Currency and Reputation, Tabards, Questlog");
+		collectionLores.add(ChatColor.GRAY + "Currency, Tabards, Questlog");
 		collectionLores.add(ChatColor.GRAY + "Achievements, Bestiary, Pets");
 		collectionItemMeta.setLore(collectionLores);
 		collectionItemStack.setItemMeta(collectionItemMeta);

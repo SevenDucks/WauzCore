@@ -2,7 +2,6 @@ package eu.wauz.wauzcore.players;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -182,7 +181,7 @@ public class WauzPlayerMail {
 	 */
 	public void send(Player player) {
 		long timestamp = System.currentTimeMillis();
-		String mailName = timestamp + "_" + UUID.randomUUID();
+		String mailName = timestamp + "_" + player.getName();
 		
 		PlayerMailConfigurator.setMailSender(receiver, mailName, player.getName());
 		PlayerMailConfigurator.setMailTime(receiver, mailName, timestamp);
@@ -200,7 +199,7 @@ public class WauzPlayerMail {
 		player.sendMessage(ChatColor.GREEN + "Your mail was successfully sent to " + receiver.getName() + "!");
 		if(receiver.getPlayer() != null) {
 			String newMailMessage = ChatColor.YELLOW + "You received a mail! To read it:";
-			WauzNmsClient.nmsChatCommand(receiver.getPlayer(), "menu mail", newMailMessage, false);
+			WauzNmsClient.nmsChatCommand(receiver.getPlayer(), "menu mails", newMailMessage, false);
 		}
 	}
 

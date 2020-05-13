@@ -65,7 +65,7 @@ public class SocialMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzMenu());
+		WauzInventoryHolder holder = new WauzInventoryHolder(new SocialMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Social Menu");
 		
 		ItemStack mailItemStack = HeadUtils.getMailItem();

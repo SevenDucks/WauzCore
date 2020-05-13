@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.data.players;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.bukkit.OfflinePlayer;
@@ -21,7 +22,9 @@ public class PlayerMailConfigurator extends PlayerMetaConfigurationUtils {
 	 * @return The list of all player mail names.
 	 */
 	public static List<String> getPlayerMailNameList(Player player) {
-		return PlayerMetaConfigurationUtils.getPlayerMailNameList(player);
+		List<String> playerMailNames = PlayerMetaConfigurationUtils.getPlayerMailNameList(player);
+		playerMailNames.sort(Comparator.naturalOrder());
+		return playerMailNames;
 	}
 	
 	/**
