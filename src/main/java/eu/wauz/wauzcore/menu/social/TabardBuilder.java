@@ -40,6 +40,7 @@ public class TabardBuilder implements WauzInventory {
 	/**
 	 * @return The id of the inventory.
 	 */
+	@Override
 	public String getInventoryId() {
 		return "tabardbuilder";
 	}
@@ -49,6 +50,7 @@ public class TabardBuilder implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 */
+	@Override
 	public void openInstance(Player player) {
 		TabardBuilder.open(player);
 	}

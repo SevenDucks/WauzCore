@@ -37,6 +37,7 @@ public class CharacterSlotMenu implements WauzInventory {
 	/**
 	 * @return The id of the inventory.
 	 */
+	@Override
 	public String getInventoryId() {
 		return "slots";
 	}
@@ -46,6 +47,7 @@ public class CharacterSlotMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 */
+	@Override
 	public void openInstance(Player player) {
 		CharacterSlotMenu.open(player, WauzMode.MMORPG);
 	}

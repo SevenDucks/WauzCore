@@ -18,6 +18,7 @@ import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.players.WauzPlayerFriends;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 
@@ -34,6 +35,7 @@ public class SocialMenu implements WauzInventory {
 	/**
 	 * @return The id of the inventory.
 	 */
+	@Override
 	public String getInventoryId() {
 		return "social";
 	}
@@ -43,6 +45,7 @@ public class SocialMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 */
+	@Override
 	public void openInstance(Player player) {
 		SocialMenu.open(player);
 	}
@@ -54,13 +57,15 @@ public class SocialMenu implements WauzInventory {
 	 * Slot 1: The mail menu + unread mail count display.</br>
 	 * Slot 4: Return to main menu...</br>
 	 * Slot 5: The group menu + total active groups display.</br>
-	 * Slot 6: The guild menu + guild name display.
+	 * Slot 6: The guild menu + guild name display.</br>
+	 * Slot 7: The friends menu + friend count display.
 	 * 
 	 * @param player The player that should view the inventory.
 	 * 
 	 * @see PlayerMailConfigurator#getPlayerMailNameList(Player)
 	 * @see WauzPlayerGroupPool#getGroups()
 	 * @see PlayerConfigurator#getGuild(org.bukkit.OfflinePlayer)
+	 * @see WauzPlayerFriends#getFriendCount(org.bukkit.OfflinePlayer)
 	 * @see MenuUtils#setMainMenuOpener(Inventory, int)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
@@ -87,7 +92,7 @@ public class SocialMenu implements WauzInventory {
 		ItemStack groupItemStack = HeadUtils.getGroupItem();
 		ItemMeta groupItemMeta = groupItemStack.getItemMeta();
 		groupItemMeta.setDisplayName(ChatColor.GOLD + "Group");
-		List<String> groupLores = new ArrayList<String>();
+		List<String> groupLores = new ArrayList<>();
 		groupLores.add(ChatColor.DARK_PURPLE + "Listed Groups: " + ChatColor.YELLOW
 				+ WauzPlayerGroupPool.getGroups().size());
 		groupLores.add("");
@@ -100,7 +105,7 @@ public class SocialMenu implements WauzInventory {
 		ItemStack guildItemStack = HeadUtils.getGuildItem();
 		ItemMeta guildItemMeta = guildItemStack.getItemMeta();
 		guildItemMeta.setDisplayName(ChatColor.GOLD + "Guild");
-		List<String> guildLores = new ArrayList<String>();
+		List<String> guildLores = new ArrayList<>();
 		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
 		guildLores.add(ChatColor.DARK_PURPLE + "Your Guild: " + ChatColor.YELLOW
 				+ (playerGuild != null ?  playerGuild.getGuildName() : "(None)"));
@@ -111,7 +116,18 @@ public class SocialMenu implements WauzInventory {
 		guildItemStack.setItemMeta(guildItemMeta);
 		menu.setItem(6, guildItemStack);
 		
-		MenuUtils.setComingSoon(menu, "Friends", 7);
+		ItemStack friendsItemStack = HeadUtils.getFriendsItem();
+		ItemMeta friendsItemMeta = friendsItemStack.getItemMeta();
+		friendsItemMeta.setDisplayName(ChatColor.GOLD + "Friends");
+		List<String> friendsLores = new ArrayList<>();
+		friendsLores.add(ChatColor.DARK_PURPLE + "Friend Count: " + ChatColor.YELLOW
+				+ WauzPlayerFriends.getFriendCount(player) + " / " + WauzPlayerFriends.MAX_FRIEND_AMOUNT);
+		friendsLores.add("");
+		friendsLores.add(ChatColor.GRAY + "View and Manage your list of Friends.");
+		friendsLores.add(ChatColor.GRAY + "Use /friend [player] to add new Friends.");
+		friendsItemMeta.setLore(friendsLores);
+		friendsItemStack.setItemMeta(friendsItemMeta);
+		menu.setItem(7, friendsItemStack);
 		
 		MenuUtils.setMainMenuOpener(menu, 4);
 		MenuUtils.setBorders(menu);

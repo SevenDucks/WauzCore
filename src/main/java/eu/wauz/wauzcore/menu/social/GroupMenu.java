@@ -43,6 +43,7 @@ public class GroupMenu implements WauzInventory {
 	/**
 	 * @return The id of the inventory.
 	 */
+	@Override
 	public String getInventoryId() {
 		return "groups";
 	}
@@ -52,6 +53,7 @@ public class GroupMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 */
+	@Override
 	public void openInstance(Player player) {
 		GroupMenu.open(player);
 	}

@@ -35,6 +35,7 @@ public class TravellingMenu implements WauzInventory {
 	/**
 	 * @return The id of the inventory.
 	 */
+	@Override
 	public String getInventoryId() {
 		return "travelling";
 	}
@@ -44,6 +45,7 @@ public class TravellingMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 */
+	@Override
 	public void openInstance(Player player) {
 		TravellingMenu.open(player);
 	}

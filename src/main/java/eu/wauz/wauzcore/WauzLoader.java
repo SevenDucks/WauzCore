@@ -72,6 +72,7 @@ import eu.wauz.wauzcore.menu.abilities.TravellingMenu;
 import eu.wauz.wauzcore.menu.collection.AchievementsMenu;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.collection.QuestMenu;
+import eu.wauz.wauzcore.menu.social.FriendsMenu;
 import eu.wauz.wauzcore.menu.social.GroupMenu;
 import eu.wauz.wauzcore.menu.social.GuildOverviewMenu;
 import eu.wauz.wauzcore.menu.social.MailMenu;
@@ -159,6 +160,7 @@ public class WauzLoader {
 	private static void registerPublicMenus() {
 		MenuRegister.registerInventory(new AchievementsMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new CraftingMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new FriendsMenu(), WauzMode.MMORPG, WauzMode.SURVIVAL);
 		MenuRegister.registerInventory(new GroupMenu(), WauzMode.MMORPG, WauzMode.SURVIVAL);
 		MenuRegister.registerInventory(new GuildOverviewMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new MailMenu(), WauzMode.MMORPG);

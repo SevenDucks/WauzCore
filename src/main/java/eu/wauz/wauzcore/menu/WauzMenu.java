@@ -33,6 +33,7 @@ public class WauzMenu implements WauzInventory {
 	/**
 	 * @return The id of the inventory.
 	 */
+	@Override
 	public String getInventoryId() {
 		return "mainmenu";
 	}
@@ -42,6 +43,7 @@ public class WauzMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 */
+	@Override
 	public void openInstance(Player player) {
 		WauzMenu.open(player);
 	}

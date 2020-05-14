@@ -28,6 +28,7 @@ public class AchievementsMenu implements WauzInventory {
 	/**
 	 * @return The id of the inventory.
 	 */
+	@Override
 	public String getInventoryId() {
 		return "achievements";
 	}
@@ -37,6 +38,7 @@ public class AchievementsMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 */
+	@Override
 	public void openInstance(Player player) {
 		AchievementsMenu.open(player);
 	}

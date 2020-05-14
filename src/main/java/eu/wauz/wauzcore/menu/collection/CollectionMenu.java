@@ -34,6 +34,7 @@ public class CollectionMenu implements WauzInventory {
 	/**
 	 * @return The id of the inventory.
 	 */
+	@Override
 	public String getInventoryId() {
 		return "collection";
 	}
@@ -43,6 +44,7 @@ public class CollectionMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 */
+	@Override
 	public void openInstance(Player player) {
 		CollectionMenu.open(player);
 	}

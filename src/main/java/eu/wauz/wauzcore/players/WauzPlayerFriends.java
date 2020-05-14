@@ -73,6 +73,8 @@ public class WauzPlayerFriends {
 	 * 
 	 * @see WauzPlayerFriends#canAddFriend(Player, OfflinePlayer)
 	 * @see WauzPlayerFriends#getFriendsList(OfflinePlayer)
+	 * @see WauzNmsClient#nmsChatCommand(Player, String, String, boolean)
+	 * @see PlayerConfigurator#setFriendsList(OfflinePlayer, List)
 	 */
 	public static boolean addFriend(Player requestingPlayer, String requestedPlayerName) {
 		OfflinePlayer requestedPlayer = WauzCore.getOfflinePlayer(requestedPlayerName);
@@ -118,6 +120,20 @@ public class WauzPlayerFriends {
 			requestMap.remove(requestedPlayer.getUniqueId().toString());
 			return true;
 		}
+	}
+	
+	/**
+	 * Removes a friend from the player's friend list.
+	 * Also tries to send a notification to the unfriended player.
+	 * 
+	 * @param player The player who wants to remove a friend.
+	 * @param friend The friend that is removed.
+	 * 
+	 * @see WauzPlayerFriends#getFriendsList(OfflinePlayer)
+	 * @see PlayerConfigurator#setFriendsList(OfflinePlayer, List)
+	 */
+	public static void removeFriend(Player player, OfflinePlayer friend) {
+		
 	}
 	
 	/**

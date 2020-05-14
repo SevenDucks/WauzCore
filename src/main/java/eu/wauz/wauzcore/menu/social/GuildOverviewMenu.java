@@ -49,6 +49,7 @@ public class GuildOverviewMenu implements WauzInventory {
 	/**
 	 * @return The id of the inventory.
 	 */
+	@Override
 	public String getInventoryId() {
 		return "guilds";
 	}
@@ -58,6 +59,7 @@ public class GuildOverviewMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 */
+	@Override
 	public void openInstance(Player player) {
 		GuildOverviewMenu.open(player);
 	}

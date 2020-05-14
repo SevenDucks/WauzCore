@@ -35,6 +35,7 @@ public class GuildApplicationMenu implements WauzInventory {
 	/**
 	 * @return The id of the inventory.
 	 */
+	@Override
 	public String getInventoryId() {
 		return "applications";
 	}
@@ -44,6 +45,7 @@ public class GuildApplicationMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 */
+	@Override
 	public void openInstance(Player player) {
 		GuildApplicationMenu.open(player);
 	}

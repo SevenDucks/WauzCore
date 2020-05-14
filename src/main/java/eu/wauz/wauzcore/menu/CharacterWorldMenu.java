@@ -32,6 +32,7 @@ public class CharacterWorldMenu implements WauzInventory {
 	/**
 	 * @return The id of the inventory.
 	 */
+	@Override
 	public String getInventoryId() {
 		return "worlds";
 	}
@@ -41,6 +42,7 @@ public class CharacterWorldMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 */
+	@Override
 	public void openInstance(Player player) {
 		CharacterWorldMenu.open(player);
 	}
