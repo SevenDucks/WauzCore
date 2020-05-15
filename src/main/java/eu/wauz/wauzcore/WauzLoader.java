@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 
 import eu.wauz.wauzcore.commands.CmdApply;
 import eu.wauz.wauzcore.commands.CmdDesc;
+import eu.wauz.wauzcore.commands.CmdFriend;
 import eu.wauz.wauzcore.commands.CmdGld;
 import eu.wauz.wauzcore.commands.CmdGroup;
 import eu.wauz.wauzcore.commands.CmdGrp;
@@ -180,6 +181,7 @@ public class WauzLoader {
 	private static void registerPlayerCommands() {
 		WauzCommandExecutor.registerCommand(new CmdApply());
 		WauzCommandExecutor.registerCommand(new CmdDesc());
+		WauzCommandExecutor.registerCommand(new CmdFriend());
 		WauzCommandExecutor.registerCommand(new CmdGld());
 		WauzCommandExecutor.registerCommand(new CmdGroup());
 		WauzCommandExecutor.registerCommand(new CmdGrp());

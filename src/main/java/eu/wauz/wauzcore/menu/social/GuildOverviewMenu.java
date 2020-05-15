@@ -34,6 +34,7 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.InstanceManager;
+import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
@@ -199,11 +200,7 @@ public class GuildOverviewMenu implements WauzInventory {
 	 * 
 	 * @return The guild member item stack.
 	 * 
-	 * @see PlayerConfigurator#getLastPlayed(OfflinePlayer)
-	 * @see PlayerConfigurator#getRaceString(OfflinePlayer, int)
-	 * @see PlayerConfigurator#getWorldString(OfflinePlayer, int)
-	 * @see PlayerConfigurator#getLevelString(OfflinePlayer, int)
-	 * @see PlayerConfigurator#getSurvivalScore(OfflinePlayer)
+	 * @see StatisticsFetcher#addCharacterLores(List)
 	 */
 	private static ItemStack getGuildMemberItemStack(Player player, WauzPlayerGuild playerGuild, OfflinePlayer member) {
 		boolean isGuildLeader = playerGuild.isGuildAdmin(member);
@@ -219,50 +216,33 @@ public class GuildOverviewMenu implements WauzInventory {
 			name = ChatColor.GREEN + name + " [Member]";
 		}
 		
-		ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-		SkullMeta sm = (SkullMeta) skull.getItemMeta();
-		sm.setDisplayName(name);
-		sm.setOwningPlayer(member);
-		List<String> slores = new ArrayList<String>();
+		ItemStack skullItemStack = new ItemStack(Material.PLAYER_HEAD);
+		SkullMeta skullItemMeta = (SkullMeta) skullItemStack.getItemMeta();
+		skullItemMeta.setDisplayName(name);
+		skullItemMeta.setOwningPlayer(member);
+		List<String> skullLores = new ArrayList<String>();
 		if(!player.getUniqueId().equals(member.getUniqueId()) && !isGuildLeader) {
 			if(playerGuild.isGuildAdmin(player)) {
 				if(isGuildOfficer) {
-					slores.add(ChatColor.GRAY + "Left Click to promote to Leader");
-					slores.add(ChatColor.GRAY + "Right Click to demote to Member");
+					skullLores.add(ChatColor.GRAY + "Left Click to promote to Leader");
+					skullLores.add(ChatColor.GRAY + "Right Click to demote to Member");
 				}
 				else {
-					slores.add(ChatColor.GRAY + "Left Click to promote to Officer");
-					slores.add(ChatColor.GRAY + "Right Click to Kick");
+					skullLores.add(ChatColor.GRAY + "Left Click to promote to Officer");
+					skullLores.add(ChatColor.GRAY + "Right Click to Kick");
 				}
-				slores.add("");
+				skullLores.add("");
 			}
 			else if(playerGuild.isGuildOfficer(player) && !isGuildOfficer) {
-				slores.add(ChatColor.GRAY + "Right Click to Kick");
-				slores.add("");
+				skullLores.add(ChatColor.GRAY + "Right Click to Kick");
+				skullLores.add("");
 			}
 		}
-		slores.add(ChatColor.GRAY + "Last Online: " + (member.isOnline()
-				? ChatColor.GREEN + "Now"
-				: ChatColor.BLUE + PlayerConfigurator.getLastPlayed(member) + " ago"));
-		slores.add("");
-		slores.add(ChatColor.DARK_PURPLE + "MMORPG Characters: ");
-		for(int character = 1; character <= 3; character++) {
-			if(PlayerConfigurator.doesCharacterExist(member, character)) {
-				slores.add(ChatColor.WHITE 
-						+ PlayerConfigurator.getRaceString(member, character) + ", "
-						+ PlayerConfigurator.getWorldString(member, character) + ", "
-						+ PlayerConfigurator.getLevelString(member, character));
-			}
-			else {
-				slores.add(ChatColor.GRAY + "Empty");
-			}
-		}
-		slores.add("");
-		slores.add(ChatColor.DARK_PURPLE + "Survival Score: ");
-		slores.add(ChatColor.WHITE + Formatters.INT.format(PlayerConfigurator.getSurvivalScore(member)));
-		sm.setLore(slores);
-		skull.setItemMeta(sm);
-		return skull;
+		StatisticsFetcher statistics = new StatisticsFetcher(member);
+		statistics.addCharacterLores(skullLores);
+		skullItemMeta.setLore(skullLores);
+		skullItemStack.setItemMeta(skullItemMeta);
+		return skullItemStack;
 	}
 
 	/**

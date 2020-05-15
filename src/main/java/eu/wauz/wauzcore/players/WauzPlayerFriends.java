@@ -23,7 +23,7 @@ public class WauzPlayerFriends {
 	/**
 	 * The maximum amount of friends a player can have at a time.
 	 */
-	public static final int MAX_FRIEND_AMOUNT = 10;
+	public static final int MAX_FRIEND_AMOUNT = 17;
 	
 	/**
 	 * A map of send friend requests as player uuids.
@@ -133,7 +133,22 @@ public class WauzPlayerFriends {
 	 * @see PlayerConfigurator#setFriendsList(OfflinePlayer, List)
 	 */
 	public static void removeFriend(Player player, OfflinePlayer friend) {
+		String playerUuid = player.getUniqueId().toString();
+		String friendUuid = friend.getUniqueId().toString();
 		
+		List<String> playerFriends = getFriendsList(player);
+		playerFriends.remove(friendUuid);
+		PlayerConfigurator.setFriendsList(player, playerFriends);
+		
+		List<String> friendFriends = getFriendsList(friend);
+		friendFriends.remove(playerUuid);
+		PlayerConfigurator.setFriendsList(friend, friendFriends);
+		
+		player.sendMessage(ChatColor.YELLOW + "You unfriended " + friend.getName() + "!");
+		Player onlineFriend = friend.getPlayer();
+		if(onlineFriend != null) {
+			onlineFriend.sendMessage(ChatColor.YELLOW + player.getName() + " unfriended you!");
+		}
 	}
 	
 	/**

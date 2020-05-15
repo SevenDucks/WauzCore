@@ -1,22 +1,32 @@
 package eu.wauz.wauzcore.menu.social;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventUnfriend;
 import eu.wauz.wauzcore.menu.WauzDialog;
+import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerFriends;
+import eu.wauz.wauzcore.players.WauzPlayerMail;
+import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -48,13 +58,46 @@ public class FriendsMenu implements WauzInventory {
 	
 	/**
 	 * Opens the menu for the given player.
-	 * A list of all the player's friends will be shown.
+	 * A list of all the player's friends, including stats will be shown.
+	 * Friends can be removed through right clicking them.
 	 * 
 	 * @param player The player that should view the inventory.
+	 * 
+	 * @see PlayerConfigurator#getFriendsList(OfflinePlayer)
+	 * @see StatisticsFetcher#addCharacterLores(List)
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new FriendsMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Friends List");
+		Inventory menu = Bukkit.createInventory(holder, 18, ChatColor.BLACK + "" + ChatColor.BOLD + "Friends List");
+		
+		ItemStack sendItemStack = HeadUtils.getCitizenCommandItem();
+		ItemMeta sendItemMeta = sendItemStack.getItemMeta();
+		sendItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Send Mails");
+		List<String> sendLores = new ArrayList<>();
+		sendLores.add(ChatColor.DARK_PURPLE + "Sent Today: " + ChatColor.YELLOW
+				+ WauzPlayerMail.getMailsSentToday(player) + " / " + WauzPlayerMail.MAX_MAILS_PER_DAY);
+		sendLores.add("");
+		sendLores.add(ChatColor.DARK_PURPLE + "Commands:");
+		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "friend [player]" + ChatColor.GRAY + "Send a Friend Request to a Player");
+		sendItemMeta.setLore(sendLores);
+		sendItemStack.setItemMeta(sendItemMeta);
+		menu.setItem(1, sendItemStack);
+		
+		List<String> friends = PlayerConfigurator.getFriendsList(player);
+		for(int index = 0; index < friends.size(); index++) {
+			UUID friendUuid = UUID.fromString(friends.get(index));
+			OfflinePlayer friend = Bukkit.getOfflinePlayer(friendUuid);
+			ItemStack skullItemStack = new ItemStack(Material.PLAYER_HEAD);
+			SkullMeta skullItemMeta = (SkullMeta) skullItemStack.getItemMeta();
+			skullItemMeta.setDisplayName(ChatColor.GREEN + friend.getName());
+			skullItemMeta.setOwningPlayer(friend);
+			List<String> skullLores = new ArrayList<String>();
+			StatisticsFetcher statistics = new StatisticsFetcher(friend);
+			statistics.addCharacterLores(skullLores);
+			skullItemMeta.setLore(skullLores);
+			skullItemStack.setItemMeta(skullItemMeta);
+			menu.setItem(index + 1, skullItemStack);
+		}
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);

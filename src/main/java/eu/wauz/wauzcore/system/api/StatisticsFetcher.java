@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,6 +16,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import com.google.common.io.Files;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Formatters;
 
@@ -128,6 +130,11 @@ public class StatisticsFetcher {
 	}
 	
 	/**
+	 * The player whose statistics are collected.
+	 */
+	private OfflinePlayer offlinePlayer;
+	
+	/**
 	 * The Minecraft file, that contains statistics of a specific player.
 	 */
 	private File statisticsFile;
@@ -153,6 +160,7 @@ public class StatisticsFetcher {
 	 * @param offlinePlayer The player whose statistics are collected.
 	 */
 	public StatisticsFetcher(OfflinePlayer offlinePlayer) {
+		this.offlinePlayer = offlinePlayer;
 		String statisticsPath = core.getDataFolder().getAbsolutePath().replace("plugins/WauzCore", "HubNexus/stats/%uuid%.json");
 		statisticsFile = new File(statisticsPath.replace("%uuid%", offlinePlayer.getUniqueId().toString()));
 		createCharacterStrings(offlinePlayer.getUniqueId().toString());
@@ -178,7 +186,7 @@ public class StatisticsFetcher {
 	 * @return Information about the player's character slot.
 	 */
 	private String createCharacterString(String uuidString, int slot) {
-		String characterString = "None";
+		String characterString = "Empty";
 		
 		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + uuidString + "/char" + slot + ".yml");
 		if(!playerDataFile.exists()) {
@@ -215,6 +223,29 @@ public class StatisticsFetcher {
 		default:
 			return "None";
 		}
+	}
+	
+	/**
+	 * Adds infos about the player and their characters to a list of lores.
+	 * 
+	 * @param lores The lore list that should be extended.
+	 * 
+	 * @see PlayerConfigurator#getLastPlayed(OfflinePlayer)
+	 * @see PlayerConfigurator#getSurvivalScore(OfflinePlayer)
+	 * @see StatisticsFetcher#getCharacterString(int)
+	 */
+	public void addCharacterLores(List<String> lores) {
+		lores.add(ChatColor.GRAY + "Last Online: " + (offlinePlayer.isOnline()
+				? ChatColor.GREEN + "Now"
+				: ChatColor.BLUE + PlayerConfigurator.getLastPlayed(offlinePlayer) + " ago"));
+		lores.add("");
+		lores.add(ChatColor.DARK_PURPLE + "MMORPG Characters: ");
+		for(int character = 1; character <= 3; character++) {
+			lores.add(getCharacterString(character));
+		}
+		lores.add("");
+		lores.add(ChatColor.DARK_PURPLE + "Survival Score: ");
+		lores.add(ChatColor.WHITE + Formatters.INT.format(PlayerConfigurator.getSurvivalScore(offlinePlayer)));
 	}
 	
 	/**

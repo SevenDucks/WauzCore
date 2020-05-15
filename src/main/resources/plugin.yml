@@ -55,6 +55,10 @@ commands:
     description: Set the Guild Message of the Day
     usage: /modt [text]
     permission: wauz.normal
+  friend:
+    description: Send a Friend Request to a Player
+    usage: /friend [player]
+    permission: wauz.normal
   send:
     description: Send a Text Mail to a Player
     usage: /send [player] [text]
