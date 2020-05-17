@@ -203,7 +203,7 @@ public class WauzPlayerGroup {
 	 * @return If the group is password protected.
 	 */
 	public boolean isPasswordProtected() {
-		return StringUtils.isBlank(groupPassword);
+		return StringUtils.isNotBlank(groupPassword);
 	}
 
 	/**

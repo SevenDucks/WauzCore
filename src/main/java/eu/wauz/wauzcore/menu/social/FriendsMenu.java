@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -25,7 +26,6 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerFriends;
-import eu.wauz.wauzcore.players.WauzPlayerMail;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 
 /**
@@ -70,22 +70,36 @@ public class FriendsMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new FriendsMenu());
 		Inventory menu = Bukkit.createInventory(holder, 18, ChatColor.BLACK + "" + ChatColor.BOLD + "Friends List");
 		
-		ItemStack sendItemStack = HeadUtils.getCitizenCommandItem();
+		ItemStack sendItemStack = HeadUtils.getFriendsItem();
 		ItemMeta sendItemMeta = sendItemStack.getItemMeta();
-		sendItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Send Mails");
+		sendItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Your Friends");
 		List<String> sendLores = new ArrayList<>();
-		sendLores.add(ChatColor.DARK_PURPLE + "Sent Today: " + ChatColor.YELLOW
-				+ WauzPlayerMail.getMailsSentToday(player) + " / " + WauzPlayerMail.MAX_MAILS_PER_DAY);
+		sendLores.add(ChatColor.GRAY + "Being Friends allows you to:");
+		sendLores.add(ChatColor.GRAY + "1. See your Friends Characters in this Menu");
+		sendLores.add(ChatColor.GRAY + "2. Always have their Status in your Tablist");
 		sendLores.add("");
 		sendLores.add(ChatColor.DARK_PURPLE + "Commands:");
-		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "friend [player]" + ChatColor.GRAY + "Send a Friend Request to a Player");
+		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "friend [player] " + ChatColor.GRAY + "Send a Friend Request to a Player");
 		sendItemMeta.setLore(sendLores);
 		sendItemStack.setItemMeta(sendItemMeta);
 		menu.setItem(1, sendItemStack);
 		
+		ItemStack freeSlotItemStack = HeadUtils.getSocialItem();
+		ItemMeta freeSlotItemMeta = freeSlotItemStack.getItemMeta();
+		freeSlotItemMeta.setDisplayName(ChatColor.YELLOW + "Free Slot");
+		freeSlotItemStack.setItemMeta(freeSlotItemMeta);
+		
+		int friendNumber = 0;
 		List<String> friends = PlayerConfigurator.getFriendsList(player);
-		for(int index = 0; index < friends.size(); index++) {
-			UUID friendUuid = UUID.fromString(friends.get(index));
+		for(int slot = 2; slot < 17; slot++) {
+			if(StringUtils.equalsAny("" + slot, "8", "9")) {
+				continue;
+			}
+			else if(friendNumber + 1 > friends.size()) {
+				menu.setItem(slot, freeSlotItemStack);
+				continue;
+			}
+			UUID friendUuid = UUID.fromString(friends.get(friendNumber));
 			OfflinePlayer friend = Bukkit.getOfflinePlayer(friendUuid);
 			ItemStack skullItemStack = new ItemStack(Material.PLAYER_HEAD);
 			SkullMeta skullItemMeta = (SkullMeta) skullItemStack.getItemMeta();
@@ -96,7 +110,8 @@ public class FriendsMenu implements WauzInventory {
 			statistics.addCharacterLores(skullLores);
 			skullItemMeta.setLore(skullLores);
 			skullItemStack.setItemMeta(skullItemMeta);
-			menu.setItem(index + 1, skullItemStack);
+			menu.setItem(slot, skullItemStack);
+			friendNumber++;
 		}
 		
 		MenuUtils.setBorders(menu);

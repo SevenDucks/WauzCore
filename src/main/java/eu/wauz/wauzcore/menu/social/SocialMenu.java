@@ -144,6 +144,7 @@ public class SocialMenu implements WauzInventory {
 	 * @see MailMenu#open(Player)
 	 * @see GroupMenu#open(Player)
 	 * @see GuildOverviewMenu#open(Player)
+	 * @see FriendsMenu#open(Player)
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
@@ -162,6 +163,9 @@ public class SocialMenu implements WauzInventory {
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Guild")) {
 			GuildOverviewMenu.open(player);
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Friends")) {
+			FriendsMenu.open(player);
 		}
 	}
 

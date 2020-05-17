@@ -13,6 +13,7 @@ Patch 60X: Class Specializations
 Patch 602: Social Standards
 	New Feature: Friend List
 	  - Lets you view your Friend's Activity
+	  - Shows Friend's Status in Tablist
 	  - /friend Sends a Friend Request
 
 	New Feature: Mailbox

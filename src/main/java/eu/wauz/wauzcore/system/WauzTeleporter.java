@@ -220,7 +220,7 @@ public class WauzTeleporter {
 			player.closeInventory();
 			return;
 		}
-		if(Objects.equals(WauzMode.getMode(player), WauzMode.getMode(target))) {
+		if(!Objects.equals(WauzMode.getMode(player), WauzMode.getMode(target))) {
 			player.sendMessage(ChatColor.RED + "You can only teleport to players in the same gamemode!");
 			player.closeInventory();
 			return;

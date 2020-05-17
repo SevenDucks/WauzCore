@@ -23,7 +23,7 @@ public class WauzPlayerFriends {
 	/**
 	 * The maximum amount of friends a player can have at a time.
 	 */
-	public static final int MAX_FRIEND_AMOUNT = 17;
+	public static final int MAX_FRIEND_AMOUNT = 13;
 	
 	/**
 	 * A map of send friend requests as player uuids.
@@ -41,6 +41,10 @@ public class WauzPlayerFriends {
 	 * @see WauzPlayerFriends#getFriendsList(OfflinePlayer)
 	 */
 	public static boolean canAddFriend(Player requestingPlayer, OfflinePlayer requestedPlayer) {
+		if(requestingPlayer.getUniqueId().equals(requestedPlayer.getUniqueId())) {
+			requestingPlayer.sendMessage(ChatColor.RED + "You (sadly) cannot be your own friend!");
+			return false;
+		}
 		List<String> requestingPlayerFriends = getFriendsList(requestingPlayer);
 		List<String> requestedPlayerFriends = getFriendsList(requestedPlayer);
 		if(requestingPlayerFriends.contains(requestedPlayer.getUniqueId().toString())) {
@@ -115,7 +119,7 @@ public class WauzPlayerFriends {
 			requestedPlayerFriends.add(requestingPlayerUuid);
 			PlayerConfigurator.setFriendsList(requestedPlayer, requestedPlayerFriends);
 			if(requestedOnlinePlayer != null) {
-				requestedOnlinePlayer.sendMessage(ChatColor.GREEN + "Your are now friends with " + requestingPlayer.getName() + "!");
+				requestedOnlinePlayer.sendMessage(ChatColor.GREEN + "You are now friends with " + requestingPlayer.getName() + "!");
 			}
 			requestMap.remove(requestedPlayer.getUniqueId().toString());
 			return true;

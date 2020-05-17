@@ -241,7 +241,7 @@ public class StatisticsFetcher {
 		lores.add("");
 		lores.add(ChatColor.DARK_PURPLE + "MMORPG Characters: ");
 		for(int character = 1; character <= 3; character++) {
-			lores.add(getCharacterString(character));
+			lores.add(ChatColor.WHITE + getCharacterString(character));
 		}
 		lores.add("");
 		lores.add(ChatColor.DARK_PURPLE + "Survival Score: ");

@@ -40,6 +40,7 @@ public class WauzPlayerEventUnfriend implements WauzPlayerEvent {
 	public boolean execute(Player player) {
 		try {
 			WauzPlayerFriends.removeFriend(player, friend);
+			player.closeInventory();
 			return true;
 		}
 		catch (Exception e) {
