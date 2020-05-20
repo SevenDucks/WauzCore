@@ -25,9 +25,6 @@ Patch 602: Social Standards
 	Miscellaneous
 	  - Split Main Menu into Sub Menus
 	  - Improved Tablist
-	  	> Shows Group and Friends
-	  	> Contains Ranks and Online Status
-	  	> Server Time and IP Display
 
 Patch 601: Cultured Citizens
 	Minecraft Update

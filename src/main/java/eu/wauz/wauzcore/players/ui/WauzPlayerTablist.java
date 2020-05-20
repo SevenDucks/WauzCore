@@ -4,8 +4,11 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.RenderType;
+import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
@@ -19,7 +22,6 @@ import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
-import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An UI class to show your group, friends, health, rank and more in the tablist.
@@ -41,9 +43,19 @@ public class WauzPlayerTablist {
 	private Scoreboard scoreboard;
 	
 	/**
-	 * The last used empty slot in the scoreboard.
+	 * The 1st scoreboard objective for showing the health of players.
 	 */
-	private String emptySlot = "";
+	private Objective healthObjective1;
+	
+	/**
+	 * The 2nd scoreboard objective for showing the health of players.
+	 */
+	private Objective healthObjective2;
+	
+	/**
+	 * The prefix to apply to the next created team.
+	 */
+	private String teamPrefix;
 	
 	/**
 	 * The last used team id in the scoreboard.
@@ -59,137 +71,144 @@ public class WauzPlayerTablist {
 	public WauzPlayerTablist(Player player, Scoreboard scoreboard) {
 		this.player = player;
 		this.scoreboard = scoreboard;
+		
+		healthObjective1 = registerHealthObjective("health1", DisplaySlot.PLAYER_LIST);
+		healthObjective2 = registerHealthObjective("health2", DisplaySlot.BELOW_NAME);
+	}
+	
+	/**
+	 * Registers a new health objective with the given name.
+	 * 
+	 * @param name The name of the objective.
+	 * @param slot The display slot of the objective.
+	 * 
+	 * @return The created objective.
+	 */
+	private Objective registerHealthObjective(String name, DisplaySlot slot) {
+		Objective healthObjective = scoreboard.registerNewObjective(name, "health", ChatColor.RED + UnicodeUtils.ICON_HEART);
+		healthObjective.setDisplaySlot(slot);
+		healthObjective.setRenderType(RenderType.HEARTS);
+		return healthObjective;
 	}
 	
 	/**
 	 * Creates and shows the tablist.
 	 * 
 	 * @see WauzPlayerTablist#addGroupEntries()
+	 * @see WauzPlayerTablist#addGuildEntries()
 	 * @see WauzPlayerTablist#addFriendsEntries()
 	 * @see WauzPlayerTablist#addRemainingEntries()
 	 */
 	public void createAndShow() {
+		teamPrefix = ChatColor.LIGHT_PURPLE + "YOU ";
+		addEntry(player);
+		
 		addGroupEntries();
+		addGuildEntries();
 		addFriendsEntries();
 		addRemainingEntries();
-		String seperatorString = " " + ChatColor.WHITE + "|" + ChatColor.RESET + " ";
-		String titleString = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Delseyria" + ChatColor.DARK_AQUA + ChatColor.BOLD + "Reborn";
-		String ipString = ChatColor.GREEN + "IP: play.wauz.eu";
-		String webString = ChatColor.AQUA + "WEB: drpg.wauz.eu";
-		String timeString = ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Server Time: " + WauzDateUtils.getServerTime();
-		player.setPlayerListHeader(titleString + seperatorString + ipString + seperatorString + webString);
-		player.setPlayerListFooter("-~-~-~-" + seperatorString + timeString + seperatorString + "-~-~-~-");
+		player.setPlayerListHeader(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Delseyria" + ChatColor.DARK_AQUA + ChatColor.BOLD + "Reborn");
+		player.setPlayerListFooter(ChatColor.LIGHT_PURPLE + "" + ChatColor.AQUA + "----------" + WauzDateUtils.getServerTime() + "----------");
 		player.setScoreboard(scoreboard);
 	}
 	
 	/**
-	 * Adds all group members, including your, to the tablist.
-	 * Also shows health displays for all members.
+	 * Adds all group members to the tablist.
 	 * 
-	 * @see WauzPlayerTablist#addEntry(OfflinePlayer, boolean)
+	 * @see WauzPlayerTablist#addEntry(Player)
 	 */
 	private void addGroupEntries() {
-		addEntry("GROUP", ChatColor.BLUE);
-		int addedEntries = 1;
+		teamPrefix = ChatColor.BLUE + "GRP ";
 		
-		addEntry(player, true);
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData != null && playerData.isInGroup()) {
-			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
-			for(Player member : playerGroup.getPlayers()) {
-				if(player != member) {
-					addEntry(member, true);
-					addedEntries++;
-				}
+		if(playerData == null || !playerData.isInGroup()) {
+			return;
+		}
+		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+		for(Player member : playerGroup.getPlayers()) {
+			if(player != member) {
+				addEntry(member);
 			}
 		}
-		while(addedEntries < 6) {
-			addEntry(getNextEmptySlot(), ChatColor.WHITE);
+	}
+	
+	/**
+	 * Adds all guild members to the tablist.
+	 * 
+	 * @see WauzPlayerTablist#addEntry(Player)
+	 */
+	private void addGuildEntries() {
+		teamPrefix = ChatColor.GREEN + "GLD ";
+		
+		WauzPlayerGuild guild = PlayerConfigurator.getGuild(player);
+		if(guild == null) {
+			return;
+		}
+		for(String memberUuid : guild.getMemberUuidStrings()) {
+			Player member = Bukkit.getPlayer(UUID.fromString(memberUuid));
+			if(member == null) {
+				continue;
+			}
+			Team team = scoreboard.getEntryTeam(member.getName());
+			if(team == null) {
+				addEntry(member);
+			}
 		}
 	}
 	
 	/**
 	 * Adds all friends of the player to the tablist.
-	 * If the friend list is not full, it is filled up with empty slots.
 	 * 
-	 * @see WauzPlayerTablist#addEntry(OfflinePlayer, boolean)
+	 * @see WauzPlayerTablist#addEntry(Player)
 	 */
 	private void addFriendsEntries() {
-		addEntry("FRIENDS --------------------", ChatColor.YELLOW);
-		int addedEntries = 1;
+		teamPrefix = ChatColor.YELLOW + "FRN ";
 		
 		for(String friendUuid : PlayerConfigurator.getFriendsList(player)) {
-			OfflinePlayer friend = Bukkit.getOfflinePlayer(UUID.fromString(friendUuid));
+			Player friend = Bukkit.getPlayer(UUID.fromString(friendUuid));
+			if(friend == null) {
+				continue;
+			}
 			Team team = scoreboard.getEntryTeam(friend.getName());
-			if(team != null) {
-				addEntry("(" + addedEntries + ") In your Group", ChatColor.BLACK);
-				return;
+			if(team == null) {
+				addEntry(friend);
 			}
-			addEntry(friend, false);
-			addedEntries++;
-			if(addedEntries >= 14) {
-				return;
-			}
-		}
-		while(addedEntries < 14) {
-			addEntry(getNextEmptySlot(), ChatColor.WHITE);
 		}
 	}
 	
 	/**
 	 * Adds all players to the list, that aren't already shown.
-	 * The maximum amount of visible players is 20.
 	 * 
-	 * @see WauzPlayerTablist#addEntry(OfflinePlayer, boolean)
+	 * @see WauzPlayerTablist#addEntry(Player)
 	 */
 	private void addRemainingEntries() {
-		addEntry("ONLINE PLAYERS --------------------", ChatColor.LIGHT_PURPLE);
-		int addedEntries = 1;
+		teamPrefix = ChatColor.GRAY + "/// ";
 		
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			Team team = scoreboard.getEntryTeam(player.getName());
-			if(team != null) {
-				return;
-			}
-			addEntry(player, false);
-			addedEntries++;
-			if(addedEntries >= 20) {
-				return;
+			if(team == null) {
+				addEntry(player);
 			}
 		}
-		while(addedEntries < 20) {
-			addEntry(getNextEmptySlot(), ChatColor.WHITE);
-		}
-	}
-	
-	/**
-	 * Adds a custom entry to the player tablist.
-	 * 
-	 * @param entryName The name of the entry to add.
-	 * @param color The color of the entry to add.
-	 */
-	private void addEntry(String entryName, ChatColor color) {
-		Team team = scoreboard.registerNewTeam(getNextTeamId());
-		team.setColor(color);
-		team.addEntry(entryName);
 	}
 	
 	/**
 	 * Adds a player entry to the player tablist.
 	 * 
-	 * @param offlinePlayer The player to add as entry.
-	 * @param showHealth If a health suffix should be shown.
+	 * @param player The player to add as entry.
 	 * 
 	 * @see WauzPlayerTablist#generatePrefix(Team, Player)
 	 * @see WauzPlayerTablist#generateSuffix(Team, Player)
 	 */
-	private void addEntry(OfflinePlayer offlinePlayer, boolean showHealth) {
+	private void addEntry(Player player) {
 		Team team = scoreboard.registerNewTeam(getNextTeamId());
-		Player player = offlinePlayer.getPlayer();
-		generatePrefix(team, player, WauzPlayerGuild.doShareGuild(this.player, offlinePlayer, false));
-		if(showHealth) {
-			generateSuffix(team, player);
-		}
+		generatePrefix(team, player);
+		team.addEntry(player.getName());
+		
+		Score health1 = healthObjective1.getScore(player.getName());
+		Score health2 = healthObjective2.getScore(player.getName());
+		health1.setScore((int) player.getHealth());
+		health2.setScore((int) player.getHealth());
 	}
 	
 	/**
@@ -197,50 +216,16 @@ public class WauzPlayerTablist {
 	 * 
 	 * @param team The team to receive the prefix.
 	 * @param player The player whose rank should be shown.
-	 * @param sameGuild If the player is in the same guild.
 	 */
-	private void generatePrefix(Team team, Player player, boolean sameGuild) {
-		String guildPrefix = sameGuild ? ChatColor.GREEN + "" + ChatColor.BOLD + "G " : "";
-		if(player == null) {
-			team.setPrefix(guildPrefix + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "OFF ");
-			team.setColor(ChatColor.GRAY);
-		}
-		else if(player.hasPermission(WauzPermission.SYSTEM.toString())) {
-			team.setPrefix(guildPrefix + ChatColor.DARK_RED + "" + ChatColor.BOLD + "ADMIN ");
+	private void generatePrefix(Team team, Player player) {
+		if(player.hasPermission(WauzPermission.SYSTEM.toString())) {
+			team.setPrefix(teamPrefix + ChatColor.DARK_RED + "" + ChatColor.BOLD + "ADMIN ");
 			team.setColor(ChatColor.GOLD);
 		}
 		else {
-			team.setPrefix(guildPrefix);
+			team.setPrefix(teamPrefix);
 			team.setColor(ChatColor.GREEN);
 		}
-	}
-	
-	/**
-	 * Adds a suffix, showing the player's health, to the given team.
-	 * 
-	 * @param team The team to receive the suffix.
-	 * @param player The player whose health should be shown.
-	 */
-	private void generateSuffix(Team team, Player player) {
-		if(player == null) {
-			return;
-		}
-		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null || WauzMode.isSurvival(player)) {
-			team.setSuffix(ChatColor.RED + " " + ((int) player.getHealth()) + " / 20 " + UnicodeUtils.ICON_HEART);
-		}
-		else {
-			team.setSuffix(ChatColor.RED + " " + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + UnicodeUtils.ICON_HEART);
-		}
-	}
-	
-	/**
-	 * Gets the next unqiue empty slot, by adding an additional space to the previous one.
-	 * 
-	 * @return The next empty slot.
-	 */
-	private String getNextEmptySlot() {
-		return emptySlot += " ";
 	}
 	
 	/**
