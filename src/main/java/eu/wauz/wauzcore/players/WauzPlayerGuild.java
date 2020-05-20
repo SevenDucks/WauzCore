@@ -99,6 +99,24 @@ public class WauzPlayerGuild {
 	}
 	
 	/**
+	 * Checks if the given players share the same guild.
+	 * 
+	 * @param player1 The first player.
+	 * @param player2 The other player.
+	 * @param allowSame If it counts, when the players are equal.
+	 * 
+	 * @return If the players are in the same guild.
+	 */
+	public static boolean doShareGuild(OfflinePlayer player1, OfflinePlayer player2, boolean allowSame) {
+		if(player1 == player2) {
+			return allowSame;
+		}
+		WauzPlayerGuild guild1 = PlayerConfigurator.getGuild(player1);
+		WauzPlayerGuild guild2 = PlayerConfigurator.getGuild(player2);
+		return guild1 != null && guild2 != null && StringUtils.equals(guild1.getGuildUuidString(), guild2.getGuildUuidString());
+	}
+	
+	/**
 	 * Creates a new guild.
 	 * The leader must be in a MMORPG world and cannot already be in a guild.
 	 * 300 Tokens are required for the guild creation.

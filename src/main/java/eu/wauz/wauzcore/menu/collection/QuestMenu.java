@@ -243,7 +243,7 @@ public class QuestMenu implements WauzInventory {
 	 * @see QuestMenu#find(Player)
 	 * @see PlayerConfigurator#setHideSpecialQuestsForCharacter(Player, boolean)
 	 * @see PlayerConfigurator#setHideCompletedQuestsForCharacter(Player, boolean)
-	 * @see WauzPlayerScoreboard#scheduleScoreboard(Player)
+	 * @see WauzPlayerScoreboard#scheduleScoreboardRefresh(Player)
 	 * @see QuestRequirementChecker#trackQuestObjective()
 	 * @see WauzPlayerEventQuestCancel
 	 */
@@ -274,13 +274,13 @@ public class QuestMenu implements WauzInventory {
 		
 		else if(displayName.contains("Hide Special Quests")) {
 			PlayerConfigurator.setHideSpecialQuestsForCharacter(player, !PlayerConfigurator.getHideSpecialQuestsForCharacter(player));
-			WauzPlayerScoreboard.scheduleScoreboard(player);
+			WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 			QuestMenu.open(player);
 		}
 		
 		else if(displayName.contains("Hide Completed Quests")) {
 			PlayerConfigurator.setHideCompletedQuestsForCharacter(player, !PlayerConfigurator.getHideCompletedQuestsForCharacter(player));
-			WauzPlayerScoreboard.scheduleScoreboard(player);
+			WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 			QuestMenu.open(player);
 		}
 		

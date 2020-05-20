@@ -24,6 +24,11 @@ public class Formatters {
 	public static final DecimalFormat INT = new DecimalFormat("#,###", SYMBOLS);
 	
 	/**
+	 * A formatter for displaying integer values with at least three digits.
+	 */
+	public static final DecimalFormat INT_THREE = new DecimalFormat("000", SYMBOLS);
+	
+	/**
 	 * A formatter for displaying float values with separated digits and 3 decimal places.
 	 */
 	public static final DecimalFormat DEC = new DecimalFormat("#,###.000", SYMBOLS);

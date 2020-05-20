@@ -56,7 +56,7 @@ public class PlayerAmbientListener implements Listener {
 	public void onWorldEnter(PlayerChangedWorldEvent event) {
 		WauzNoteBlockPlayer.play(event.getPlayer());
 		WauzPlayerBossBar.clearBar(event.getPlayer());
-		WauzPlayerScoreboard.scheduleScoreboard(event.getPlayer());
+		WauzPlayerScoreboard.scheduleScoreboardRefresh(event.getPlayer());
 		WauzNmsMinimap.init(event.getPlayer());
 	}
 	

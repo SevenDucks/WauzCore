@@ -201,12 +201,12 @@ public class PlayerInteractionListener implements Listener {
 	 * 
 	 * @param event
 	 * 
-	 * @see WauzPlayerScoreboard#scheduleScoreboard(Player)
+	 * @see WauzPlayerScoreboard#scheduleScoreboardRefresh(Player)
 	 */
 	@EventHandler
 	public void onPickup(EntityPickupItemEvent event) {
 		if (event.getEntity() instanceof Player && WauzMode.isMMORPG(event.getEntity())) {
-			WauzPlayerScoreboard.scheduleScoreboard((Player) event.getEntity());
+			WauzPlayerScoreboard.scheduleScoreboardRefresh((Player) event.getEntity());
 		}
 	}
 

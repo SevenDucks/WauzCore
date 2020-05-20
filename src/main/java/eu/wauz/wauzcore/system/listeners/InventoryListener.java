@@ -55,14 +55,14 @@ public class InventoryListener implements Listener {
 	 * 
 	 * @param event
 	 * 
-	 * @see WauzPlayerScoreboard#scheduleScoreboard(Player)
+	 * @see WauzPlayerScoreboard#scheduleScoreboardRefresh(Player)
 	 * @see MenuUtils#checkForStaticItemDrop(PlayerDropItemEvent)
 	 */
 	@EventHandler
 	public void onItemDrop(PlayerDropItemEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
 			MenuUtils.checkForStaticItemDrop(event);
-			WauzPlayerScoreboard.scheduleScoreboard(event.getPlayer());
+			WauzPlayerScoreboard.scheduleScoreboardRefresh(event.getPlayer());
 		}
 	}
 	

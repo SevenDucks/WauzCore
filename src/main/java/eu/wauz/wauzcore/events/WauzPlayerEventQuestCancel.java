@@ -84,7 +84,7 @@ public class WauzPlayerEventQuestCancel implements WauzPlayerEvent {
 			PlayerQuestConfigurator.setQuestPhase(player, questName, 0);
 			PlayerConfigurator.setCharacterQuestSlot(player, questSlot, "none");
 			
-			WauzPlayerScoreboard.scheduleScoreboard(player);
+			WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 			player.sendMessage(ChatColor.DARK_PURPLE + "[" + quest.getDisplayName() + "] was canceled!");
 			player.closeInventory();
 			return true;

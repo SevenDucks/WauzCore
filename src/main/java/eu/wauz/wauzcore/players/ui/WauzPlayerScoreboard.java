@@ -2,28 +2,21 @@ package eu.wauz.wauzcore.players.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
-import org.bukkit.scoreboard.Team;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
-import eu.wauz.wauzcore.players.WauzPlayerData;
-import eu.wauz.wauzcore.players.WauzPlayerDataPool;
-import eu.wauz.wauzcore.players.WauzPlayerGuild;
-import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 import eu.wauz.wauzcore.system.util.Formatters;
@@ -35,6 +28,8 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * An UI class to show a player quests and the like in the sidebar, based on their current world.
  * 
  * @author Wauzmons
+ * 
+ * @see WauzPlayerTablist
  */
 public class WauzPlayerScoreboard {
 	
@@ -44,52 +39,54 @@ public class WauzPlayerScoreboard {
 	 * 
 	 * @param player The player who should receive the scoreboard.
 	 * 
-	 * @see WauzPlayerScoreboard#scoreboardHub(Player)
-	 * @see WauzPlayerScoreboard#scoreboardDungeon(Player)
-	 * @see WauzPlayerScoreboard#scoreboardQuests(Player)
-	 * @see WauzPlayerScoreboard#scoreboardSurvival(Player)
+	 * @see WauzPlayerScoreboard#getHubBoard(Player)
+	 * @see WauzPlayerScoreboard#getDungeonBoard(Player)
+	 * @see WauzPlayerScoreboard#getQuestBoard(Player)
+	 * @see WauzPlayerScoreboard#getSurvivalBoard(Player)
+	 * @see WauzPlayerTablist#createAndShow()
 	 */
-	public static void scheduleScoreboard(final Player player) {
+	public static void scheduleScoreboardRefresh(final Player player) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
             public void run() {
             	String worldName = player.getWorld().getName();
+            	Scoreboard scoreboard = null;
             	
             	if(WauzMode.isMMORPG(player)) {
             		if(worldName.startsWith("Hub")) {
-            			scoreboardHub(player);
+            			scoreboard = getHubBoard(player);
             		}
             		else if(worldName.startsWith("WzInstance")) {
-            			scoreboardDungeon(player);
+            			scoreboard = getDungeonBoard(player);
             		}
             		else {
-            			scoreboardQuests(player);
+            			scoreboard = getQuestBoard(player);
             		}
             	}
             	else if(WauzMode.isSurvival(player)) {
-            		scoreboardSurvival(player);
+            		scoreboard = getSurvivalBoard(player);
             	}
             	else {
-            		scoreboardHub(player);
+            		scoreboard = getHubBoard(player);
             	}
+            	new WauzPlayerTablist(player, scoreboard).createAndShow();
             }
 		}, 10);
 	}
 	
 	/**
-	 * Shows a hub sidebar with the ip, aswell as their rank and tokens to a player.
-	 * Also adds online player team prefixes to the scoreboard.
+	 * Creates a hub sidebar with the ip, aswell as their rank and tokens to a player.
 	 * 
 	 * @param player The player who should receive the scoreboard.
 	 * 
-	 * @see WauzPlayerScoreboard#addScoreboardTeams(Player, Scoreboard)
+	 * @return The created scoreboard.
 	 */
-	private static void scoreboardHub(Player player) {
+	private static Scoreboard getHubBoard(Player player) {
 		ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 		Scoreboard hubBoard = scoreboardManager.getNewScoreboard();
 		Objective objective = hubBoard.registerNewObjective("row", "dummy", "displayName");
 		
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		objective.setDisplayName("-*-*-*-" + ChatColor.GOLD + ChatColor.BOLD + ChatColor.UNDERLINE + "WAUZLAND" + ChatColor.RESET + "-*-*-*-");
+		objective.setDisplayName("-*-*-*-" + ChatColor.GOLD + ChatColor.BOLD + ChatColor.UNDERLINE + "DELSEYRIA" + ChatColor.RESET + "-*-*-*-");
 		List<String> rowStrings = new ArrayList<>();
 		
 		rowStrings.add("");
@@ -103,26 +100,23 @@ public class WauzPlayerScoreboard {
 			Score score = objective.getScore(rowStrings.get(index));
 			score.setScore(rowStrings.size() - index);
 		}
-		
-		addScoreboardTeams(player, hubBoard);
-		player.setScoreboard(hubBoard);
+		return hubBoard;
 	}
 	
 	/**
-	 * Shows a survival sidebar with the ip, season, commands, aswell as their score and tokens to a player.
-	 * Also adds online player team prefixes to the scoreboard.
+	 * Creates a survival sidebar with the ip, season, commands, aswell as their score and tokens to a player.
 	 * 
 	 * @param player The player who should receive the scoreboard.
 	 * 
-	 * @see WauzPlayerScoreboard#addScoreboardTeams(Player, Scoreboard)
+	 * @return The created scoreboard.
 	 */
-	private static void scoreboardSurvival(Player player) {
+	private static Scoreboard getSurvivalBoard(Player player) {
 		ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 		Scoreboard survivalBoard = scoreboardManager.getNewScoreboard();
 		Objective objective = survivalBoard.registerNewObjective("row", "dummy", "displayName");
 		
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		objective.setDisplayName("-*-*-*-" + ChatColor.GOLD + ChatColor.BOLD + ChatColor.UNDERLINE + "WAUZLAND" + ChatColor.RESET + "-*-*-*-");
+		objective.setDisplayName("-*-*-*-" + ChatColor.GOLD + ChatColor.BOLD + ChatColor.UNDERLINE + "DELSEYRIA" + ChatColor.RESET + "-*-*-*-");
 		List<String> rowStrings = new ArrayList<>();
 		
 		rowStrings.add("");
@@ -144,20 +138,17 @@ public class WauzPlayerScoreboard {
 			Score score = objective.getScore(rowStrings.get(index));
 			score.setScore(rowStrings.size() - index);
 		}
-		
-		addScoreboardTeams(player, survivalBoard);
-		player.setScoreboard(survivalBoard);
+		return survivalBoard;
 	}
 	
 	/**
-	 * Shows a dungeon sidebar with the name and keys of the instance to a player.
-	 * Also adds online player team prefixes to the scoreboard.
+	 * Creates a dungeon sidebar with the name and keys of the instance to a player.
 	 * 
 	 * @param player The player who should receive the scoreboard.
 	 * 
-	 * @see WauzPlayerScoreboard#addScoreboardTeams(Player, Scoreboard)
+	 * @return The created scoreboard.
 	 */
-	private static void scoreboardDungeon(Player player) {
+	private static Scoreboard getDungeonBoard(Player player) {
 		ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 		Scoreboard dungeonBoard = scoreboardManager.getNewScoreboard();
 		Objective objective = dungeonBoard.registerNewObjective("row", "dummy", "displayName");
@@ -182,21 +173,19 @@ public class WauzPlayerScoreboard {
 			Score score = objective.getScore(rowStrings.get(index));
 			score.setScore(rowStrings.size() - index);
 		}
-		
-		addScoreboardTeams(player, dungeonBoard);
-		player.setScoreboard(dungeonBoard);
+		return dungeonBoard;
 	}
 	
 	/**
-	 * Shows a quest sidebar with all running quests and their objectives to a player.
-	 * Also adds online player team prefixes to the scoreboard.
+	 * Creates a quest sidebar with all running quests and their objectives to a player.
 	 * 
 	 * @param player The player who should receive the scoreboard.
 	 * 
+	 * @return The created scoreboard.
+	 * 
 	 * @see WauzPlayerScoreboard#generateQuestObjectiveList(Player, String, String, int, ChatColor)
-	 * @see WauzPlayerScoreboard#addScoreboardTeams(Player, Scoreboard)
 	 */
-	private static void scoreboardQuests(Player player) {
+	private static Scoreboard getQuestBoard(Player player) {
 		ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 		Scoreboard questBoard = scoreboardManager.getNewScoreboard();
 		Objective objective = questBoard.registerNewObjective("row", "dummy", "displayName");
@@ -248,14 +237,11 @@ public class WauzPlayerScoreboard {
 			Score score = objective.getScore(rowStrings.get(index));
 			score.setScore(rowStrings.size() - index);
 		}
-		
 		if(rowStrings.isEmpty()) {
 			Score score = objective.getScore(ChatColor.GRAY + "(None)");
 			score.setScore(1);
 		}
-		
-		addScoreboardTeams(player, questBoard);
-		player.setScoreboard(questBoard);
+		return questBoard;
 	}
 	
 	
@@ -275,66 +261,4 @@ public class WauzPlayerScoreboard {
 		return new QuestRequirementChecker(player, quest, questPhase).getObjectiveLores(questMargin, questColor);
 	}
 	
-	/**
-	 * Adds prefixes to the online players listed on the scoreboard, by creating new teams.
-	 * Following prefixes are possible, ordered by priority: GROUP, GUILD, ADMIN.
-	 * There will be also a suffix added to each team, to show the player's health.
-	 * 
-	 * @param player The player who should receive the scoreboard.
-	 * @param scoreboard The scoreboard that should receive the player teams.
-	 */
-	private static void addScoreboardTeams(Player player, Scoreboard scoreboard) {
-		WauzPlayerData ownData = WauzPlayerDataPool.getPlayer(player);
-		if(ownData == null) {
-			return;
-		}
-		
-		for(Player online : Bukkit.getOnlinePlayers()) {
-			try {
-				Team team = scoreboard.getTeam(online.getName());
-				if(team == null) {
-					team = scoreboard.registerNewTeam(online.getName());
-				}
-				
-				if(online.hasPermission(WauzPermission.SYSTEM.toString())) {
-					team.setPrefix(ChatColor.DARK_RED + "" + ChatColor.BOLD + "ADMIN ");
-					team.setColor(org.bukkit.ChatColor.GOLD);
-				}
-				else {
-					team.setColor(org.bukkit.ChatColor.GREEN);
-				}
-				
-				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(online);
-				if(playerData == null) {
-					team.setSuffix(ChatColor.RED + " " + ((int) online.getHealth()) + " / 20 " + UnicodeUtils.ICON_HEART);
-				}
-				else {
-					if(WauzMode.isSurvival(player)) {
-						team.setSuffix(ChatColor.RED + " " + ((int) online.getHealth()) + " / 20 " + UnicodeUtils.ICON_HEART);
-					}
-					else {
-						team.setSuffix(ChatColor.RED + " " + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + UnicodeUtils.ICON_HEART);
-					}
-					
-					if(!Objects.equals(ownData, playerData)) {
-						if(ownData.isInGroup() && playerData.isInGroup() && StringUtils.equals(ownData.getGroupUuidString(), playerData.getGroupUuidString())) {
-							team.setPrefix(ChatColor.BLUE + "GROUP ");
-						}
-						else {
-							WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(online);
-							WauzPlayerGuild ownGuild = PlayerConfigurator.getGuild(player);
-							if(ownGuild != null && playerGuild != null && StringUtils.equals(ownGuild.getGuildUuidString(), playerGuild.getGuildUuidString())) {
-								team.setPrefix(ChatColor.GREEN + "GUILD ");
-							}
-						}
-					}
-				}
-				team.addEntry(online.getName());
-			}
-			catch(NullPointerException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 }

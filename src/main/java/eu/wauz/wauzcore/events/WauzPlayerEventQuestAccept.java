@@ -55,7 +55,7 @@ public class WauzPlayerEventQuestAccept implements WauzPlayerEvent {
 			
 			player.sendMessage(ChatColor.GREEN + "You accepted the " + quest.getType() + "-quest [" + quest.getDisplayName() + "]");
 			new WauzPlayerEventCitizenTalk(quest.getQuestGiver(), quest.getPhaseDialog(1)).execute(player);
-			WauzPlayerScoreboard.scheduleScoreboard(player);
+			WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 			player.closeInventory();
 			return true;
 		}

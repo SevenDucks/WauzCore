@@ -194,7 +194,7 @@ public class WauzSigns {
 		
 		InstanceConfigurator.setInstanceWorldKeyStatus(player.getWorld(), keyId, InstanceConfigurator.KEY_STATUS_USED);
 		for(Player member : player.getWorld().getPlayers()) {
-			WauzPlayerScoreboard.scheduleScoreboard(member);
+			WauzPlayerScoreboard.scheduleScoreboardRefresh(member);
 			member.sendMessage(ChatColor.GREEN + "The door \"" + ChatColor.DARK_AQUA + keyId + ChatColor.GREEN + "\" was unlocked!");
 		}
 	}

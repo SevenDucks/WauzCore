@@ -228,7 +228,7 @@ public class ShopBuilder implements WauzInventory {
 						PlayerConfigurator.setCharacterCurrency(player, currency.get(type), money - price);
 						player.getInventory().addItem(clicked);
 						player.sendMessage(ChatColor.GREEN + "Your purchase was successful!");
-						WauzPlayerScoreboard.scheduleScoreboard(player);
+						WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 					}
 				}
 				else {
@@ -298,7 +298,7 @@ public class ShopBuilder implements WauzInventory {
 		AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, price);
 		itemToSell.setAmount(0);
 		
-		WauzPlayerScoreboard.scheduleScoreboard(player);
+		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 		player.sendMessage(ChatColor.GREEN + "Your item was sold for " + price + " Coins!");
 		if(fromShop) {
 			MenuUtils.setCurrencyDisplay(player.getOpenInventory().getTopInventory(), player, 0);

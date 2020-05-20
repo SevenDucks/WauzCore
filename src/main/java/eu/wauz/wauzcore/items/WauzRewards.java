@@ -140,7 +140,7 @@ public class WauzRewards {
 				? "You reached the daily limit in " + modeDisplay + "!"
 				: "You can earn " + leftToday + " more in " + modeDisplay + " today!";
 		player.sendMessage(ChatColor.GOLD + "You earned a token! " + leftString);
-		WauzPlayerScoreboard.scheduleScoreboard(player);
+		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 	}
 
 }

@@ -91,7 +91,7 @@ public class WauzPlayerRegistrator {
         		
         		player.sendMessage("Welcome! Running WauzCore v" + core.getDescription().getVersion());
         		WauzPlayerDataPool.regPlayer(player);
-        		WauzPlayerScoreboard.scheduleScoreboard(player);
+        		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
         		CharacterManager.equipHubItems(player);
             }
 		}, 10);

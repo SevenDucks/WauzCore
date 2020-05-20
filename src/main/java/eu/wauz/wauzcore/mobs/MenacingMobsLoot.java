@@ -50,7 +50,7 @@ public class MenacingMobsLoot {
 			InstanceConfigurator.setInstanceWorldKeyStatus(world, keyId, InstanceConfigurator.KEY_STATUS_OBTAINED);
 			
 			for(Player player : world.getPlayers()) {
-				WauzPlayerScoreboard.scheduleScoreboard(player);
+				WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 				player.sendMessage(ChatColor.GREEN + "You obtained the Key \"" + ChatColor.DARK_AQUA + keyId + ChatColor.GREEN + "\"!");
 			}
 		}

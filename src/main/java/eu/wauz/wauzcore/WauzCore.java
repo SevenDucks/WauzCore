@@ -150,7 +150,7 @@ public class WauzCore extends JavaPlugin {
 			@Override
 			public void run() {
 				for(Player player : getRegisteredActivePlayers()) {
-					WauzPlayerScoreboard.scheduleScoreboard(player);
+					WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 					WauzRegion.regionCheck(player);
 					WauzCitizenSpawner.showNpcsNearPlayer(player);
 				}

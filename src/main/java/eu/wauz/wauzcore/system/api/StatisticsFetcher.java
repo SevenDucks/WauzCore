@@ -85,7 +85,7 @@ public class StatisticsFetcher {
 	 */
 	private static String getTotalCustomEntities() {
 		int customEntities = 0;
-		String statisticsPath = core.getDataFolder().getAbsolutePath().replace("WauzCore", "MythicMobs/Mobs/Wauzland");
+		String statisticsPath = core.getDataFolder().getAbsolutePath().replace("WauzCore", "MythicMobs/Mobs");
 		
 		List<File> foldersToScan = new ArrayList<>();
 		foldersToScan.addAll(Arrays.asList(new File(statisticsPath).listFiles()));

@@ -69,7 +69,7 @@ public class CmdWzKey implements WauzCommand {
 		
 		InstanceConfigurator.setInstanceWorldKeyStatus(world, keyId, keyStatus);
 		for(Player player : world.getPlayers()) {
-			WauzPlayerScoreboard.scheduleScoreboard(player);
+			WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 			player.sendMessage(ChatColor.GREEN + "You obtained the Key \"" + ChatColor.DARK_AQUA + keyId + ChatColor.GREEN + "\"!");
 		}
 		return true;

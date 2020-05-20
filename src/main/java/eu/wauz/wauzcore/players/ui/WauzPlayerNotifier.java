@@ -27,7 +27,7 @@ public class WauzPlayerNotifier {
 			"You can type /hub to return to the Nexus.",
 			"We are reachable under dev@wauz.eu",
 			"Got lost? Open map.wauz.eu in your browser!",
-			"Wauzland was originally made by a single dev!",
+			"The game was originally made by a single dev!",
 			"Gabor Gehrig is ill today."));
 	
 	/**
