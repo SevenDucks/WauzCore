@@ -46,7 +46,7 @@
 		<dependency>
 			<groupId>eu.wauz</groupId>
 			<artifactId>WauzCore</artifactId>
-			<version>Behelit.2.Pre</version>
+			<version>Behelit.3.Pre</version>
 		</dependency>
 
 	</dependencies>

@@ -6,11 +6,18 @@ Patch 6XX: Content Extension
 
 Patch 6XX: Survival Ascended
 
-Patch 60X: Powerful Professions
+Patch 6XX: Powerful Professions
 
-Patch 60X: Class Specializations
+Patch 6XX: Class Specializations
 
-Patch 602: Social Standards
+Patch 603: Social Standards II
+	New Feature: Ranks and Titles
+	
+	New Feature: Trading
+	
+	Experimental: One Block Gamemode
+
+Patch 602: Social Standards I
 	New Feature: Friend List
 	  - Lets you view your Friend's Activity
 	  - Shows Friend's Status in Tablist

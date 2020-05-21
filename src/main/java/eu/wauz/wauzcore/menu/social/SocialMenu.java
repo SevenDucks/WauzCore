@@ -87,7 +87,7 @@ public class SocialMenu implements WauzInventory {
 		menu.setItem(1, mailItemStack);
 		
 		MenuUtils.setComingSoon(menu, "Titles", 2);
-		MenuUtils.setComingSoon(menu, "Player vs Player", 3);
+		MenuUtils.setComingSoon(menu, "Arena", 3);
 		
 		ItemStack groupItemStack = HeadUtils.getGroupItem();
 		ItemMeta groupItemMeta = groupItemStack.getItemMeta();
