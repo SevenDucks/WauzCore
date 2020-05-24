@@ -6,8 +6,6 @@ import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.generator.ChunkGenerator;
 
-import com.sun.istack.internal.NotNull;
-
 /**
  * Represents various types of options that may be used to create an empty world.
  * 
@@ -20,7 +18,7 @@ public class EmptyWorldCreator extends WorldCreator {
 	 * 
 	 * @param name The name of the world that will be created.
 	 */
-	public EmptyWorldCreator(@NotNull String name) {
+	public EmptyWorldCreator(String name) {
 		super(name);
 		generator(new ChunkGenerator() {
 			

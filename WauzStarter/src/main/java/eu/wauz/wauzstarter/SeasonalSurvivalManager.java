@@ -99,20 +99,21 @@ public class SeasonalSurvivalManager {
 				seasonFile.getParentFile().mkdir();
 				FileConfiguration seasonConfig = YamlConfiguration.loadConfiguration(seasonFile);
 				seasonConfig.set("season", currentSeason);
+				seasonConfig.set("lastplot", 1);
 				seasonConfig.save(seasonFile);
 				
-				World survival = core.getServer().getWorld("Survival");
-				Location spawnLocation = new Location(survival, 0, 70, 0);
+				World world = core.getServer().getWorld(worldName);
+				Location spawnLocation = new Location(world, 0, 70, 0);
 				if(createSpawn) {
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzStarter.getInstance(), new Runnable() {
 						public void run() {
-							SeasonalSurvivalUtils.createSpawnCircle(survival, spawnLocation);
+							SeasonalSurvivalUtils.createSpawnCircle(world, spawnLocation);
 						}
 					}, 600);
 				}
-				survival.setSpawnLocation(spawnLocation.clone().add(0, 1, 0));
-				survival.setGameRule(GameRule.MOB_GRIEFING, false);
-				survival.setGameRule(GameRule.SPAWN_RADIUS, 0);
+				world.setSpawnLocation(spawnLocation.clone().add(0, 1, 0));
+				world.setGameRule(GameRule.MOB_GRIEFING, false);
+				world.setGameRule(GameRule.SPAWN_RADIUS, 0);
 			}
 			core.getLogger().info(worldName + " Season: " + currentSeason);
 		}

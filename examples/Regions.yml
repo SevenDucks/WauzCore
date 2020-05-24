@@ -45,6 +45,14 @@ Survival:
       temperature: 6
       flags: 'protected'
       areas:
+OneBlockSurvival:
+  type: world
+  world: SurvivalOneBlock
+  title: Ancient Skylands
+  subtitle: (PvP) Free Building Zone
+  temperature: 5
+  flags: 'build,pvp'
+  areas:
 Wauzland:
   type: world
   world: Wauzland

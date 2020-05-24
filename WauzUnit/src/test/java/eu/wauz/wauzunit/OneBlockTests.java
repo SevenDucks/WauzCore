@@ -18,9 +18,9 @@ public class OneBlockTests {
 	 */
 	@Test
 	public void testPlotNumberCoords() {
-		assertArrayEquals(OnePlotManager.get(1), new int[]{0, 0});
-		assertArrayEquals(OnePlotManager.get(3), new int[]{1, 1});
-		assertArrayEquals(OnePlotManager.get(42), new int[]{-3, -2});
+		assertArrayEquals(OnePlotManager.getPlotGridPosition(1), new int[]{0, 0});
+		assertArrayEquals(OnePlotManager.getPlotGridPosition(3), new int[]{1, 1});
+		assertArrayEquals(OnePlotManager.getPlotGridPosition(42), new int[]{-3, -2});
 	}
 
 }

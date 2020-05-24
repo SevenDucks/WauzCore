@@ -18,6 +18,8 @@ Patch 603: Social Standards II
 	Experimental: One Block Gamemode
 	  - Survival Skyblock with only One Block
 	  - Block can be Mined Infinitely
+	  - Different Phases -> Block Changes Type
+	  - Mining can spawn Mobs and Chests
 
 Patch 602: Social Standards I
 	New Feature: Friend List

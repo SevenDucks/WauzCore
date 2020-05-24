@@ -98,11 +98,12 @@ public class GuildApplicationMenu implements WauzInventory {
 			slores.add("");
 			slores.add(ChatColor.DARK_PURPLE + "MMORPG Characters: ");
 			for(int character = 1; character <= 3; character++) {
-				if(PlayerConfigurator.doesCharacterExist(applicant, character)) {
+				String slotId = "MMORPG-" + character;
+				if(PlayerConfigurator.doesCharacterExist(applicant, slotId)) {
 					slores.add(ChatColor.WHITE 
-							+ PlayerConfigurator.getRaceString(applicant, character) + ", "
-							+ PlayerConfigurator.getWorldString(applicant, character) + ", "
-							+ PlayerConfigurator.getLevelString(applicant, character));
+							+ PlayerConfigurator.getRaceString(applicant, slotId) + ", "
+							+ PlayerConfigurator.getWorldString(applicant, slotId) + ", "
+							+ PlayerConfigurator.getLevelString(applicant, slotId));
 				}
 				else {
 					slores.add(ChatColor.GRAY + "Empty");

@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.RegionConfigurator;
+import eu.wauz.wauzcore.oneblock.OneBlock;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
@@ -110,7 +111,7 @@ public class WauzRegion {
 			return false;
 		}
 		WauzRegion region = getNewRegion(block.getLocation());
-		return region == null || !region.getFlags().contains(FLAG_BUILD);
+		return region == null || !region.getFlags().contains(FLAG_BUILD) || OneBlock.isOneBlock(block);
 	}
 	
 	/**
@@ -120,7 +121,7 @@ public class WauzRegion {
 	 */
 	public static boolean disallowBlockChange(Block block) {
 		WauzRegion region = getNewRegion(block.getLocation());
-		return region != null && region.getFlags().contains(FLAG_PROTECTED);
+		return (region != null && region.getFlags().contains(FLAG_PROTECTED)) || OneBlock.isOneBlock(block);
 	}
 	
 	/**

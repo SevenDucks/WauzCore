@@ -148,7 +148,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * 
 	 * @return If the character exists.
 	 */
-	public static boolean doesCharacterExist(OfflinePlayer player, int slot) {
+	public static boolean doesCharacterExist(OfflinePlayer player, String slot) {
 		return playerConfigGetBoolean(player, "char" + slot + ".exists", false);
 	}
 	
@@ -158,7 +158,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * 
 	 * @return The last login of the character.
 	 */
-	public static String getLastCharacterLogin(OfflinePlayer player, int slot) {
+	public static String getLastCharacterLogin(OfflinePlayer player, String slot) {
 		return WauzDateUtils.formatTimeSince(playerConfigGetLong(player, "char" + slot + ".lastplayed", false));
 	}
 	
@@ -168,7 +168,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * 
 	 * @return The race / class of the character.
 	 */
-	public static String getRaceString(OfflinePlayer player, int slot) {
+	public static String getRaceString(OfflinePlayer player, String slot) {
 		return playerConfigGetString(player, "char" + slot + ".race", false);
 	}
 	
@@ -178,7 +178,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * 
 	 * @return The world of the character.
 	 */
-	public static String getWorldString(OfflinePlayer player, int slot) {
+	public static String getWorldString(OfflinePlayer player, String slot) {
 		return playerConfigGetString(player, "char" + slot + ".pos.world", false);
 	}
 	
@@ -188,7 +188,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * 
 	 * @return The level of the character.
 	 */
-	public static String getLevelString(OfflinePlayer player, int slot) {
+	public static String getLevelString(OfflinePlayer player, String slot) {
 		return playerConfigGetString(player, "char" + slot + ".level", false);
 	}
 	

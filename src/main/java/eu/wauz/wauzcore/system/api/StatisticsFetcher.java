@@ -188,7 +188,7 @@ public class StatisticsFetcher {
 	private String createCharacterString(String uuidString, int slot) {
 		String characterString = "Empty";
 		
-		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + uuidString + "/char" + slot + ".yml");
+		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + uuidString + "/charMMORPG-" + slot + ".yml");
 		if(!playerDataFile.exists()) {
 			return characterString;
 		}

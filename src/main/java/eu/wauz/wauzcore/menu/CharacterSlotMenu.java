@@ -59,7 +59,7 @@ public class CharacterSlotMenu implements WauzInventory {
 	 * @param player The player that should view the inventory.
 	 * @param wauzMode The wauz mode of the character slots.
 	 * 
-	 * @see CharacterSlotMenu#getCharacterSlot(Player, int, boolean)
+	 * @see CharacterSlotMenu#getCharacterSlot(Player, String, boolean)
 	 * @see WauzDateUtils#getSurvivalSeasonInteger()
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
@@ -69,10 +69,12 @@ public class CharacterSlotMenu implements WauzInventory {
 
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			for(int slotId = 1; slotId <= 3; slotId++)
-				menu.setItem(slotId * 2, getCharacterSlot(player, slotId, true));
+				menu.setItem(slotId * 2, getCharacterSlot(player, "MMORPG-" + slotId, true));
 		}
 		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
-			menu.setItem(4, getCharacterSlot(player, WauzDateUtils.getSurvivalSeasonInteger(), true));
+			int season = WauzDateUtils.getSurvivalSeasonInteger();
+			menu.setItem(3, getCharacterSlot(player, "OneBlock-Survival-" + season, true));
+			menu.setItem(5, getCharacterSlot(player, "Classic-Survival-" + season, true));
 		}
 		
 		MenuUtils.setBorders(menu);
@@ -92,13 +94,13 @@ public class CharacterSlotMenu implements WauzInventory {
 	 * 
 	 * @return The character slot item stack.
 	 * 
-	 * @see PlayerConfigurator#getRaceString(org.bukkit.OfflinePlayer, int)
-	 * @see PlayerConfigurator#getWorldString(org.bukkit.OfflinePlayer, int)
-	 * @see PlayerConfigurator#getLevelString(org.bukkit.OfflinePlayer, int)
-	 * @see PlayerConfigurator#getLastCharacterLogin(org.bukkit.OfflinePlayer, int)
+	 * @see PlayerConfigurator#getRaceString(org.bukkit.OfflinePlayer, String)
+	 * @see PlayerConfigurator#getWorldString(org.bukkit.OfflinePlayer, String)
+	 * @see PlayerConfigurator#getLevelString(org.bukkit.OfflinePlayer, String)
+	 * @see PlayerConfigurator#getLastCharacterLogin(org.bukkit.OfflinePlayer, String)
 	 * @see WauzDateUtils#getTimeTillNextSeason()
 	 */
-	private static ItemStack getCharacterSlot(Player player, int slotId, boolean deletable) {
+	private static ItemStack getCharacterSlot(Player player, String slotId, boolean deletable) {
 		boolean characterExists = PlayerConfigurator.doesCharacterExist(player, slotId);
 		ItemStack slotItemStack = new ItemStack(Material.TOTEM_OF_UNDYING);
 		ItemMeta slotItemMeta = slotItemStack.getItemMeta();
@@ -113,7 +115,7 @@ public class CharacterSlotMenu implements WauzInventory {
 			lores.add("");
 			lores.add(ChatColor.GRAY + "Last Played: " + ChatColor.GREEN
 					+ PlayerConfigurator.getLastCharacterLogin(player, slotId) + " ago");
-			if(slotId > 20000) {
+			if(slotId.contains("Survival")) {
 				String timeTillNextSeason = WauzDateUtils.getTimeTillNextSeason();
 				lores.add(ChatColor.GRAY + "End of Season: " + ChatColor.RED + timeTillNextSeason);
 			}
@@ -162,13 +164,13 @@ public class CharacterSlotMenu implements WauzInventory {
 			return;
 		}
 
-		int slotId = Integer.parseInt(clicked.getItemMeta().getDisplayName().split(" ")[1]);
+		String slotId = clicked.getItemMeta().getDisplayName().split(" ")[1];
 		playerData.setSelectedCharacterSlot("char" + slotId);		
 		
 		String clickedName = clicked.getItemMeta().getDisplayName();
 		if(clickedName.contains("" + ChatColor.RED)) {
-			if(slotId > 20000) {
-				playerData.setSelectedCharacterWorld("Survival");
+			if(slotId.contains("Survival")) {
+				playerData.setSelectedCharacterWorld(slotId.startsWith("OneBlock") ? "SurvivalOneBlock" : "Survival");
 				playerData.setSelectedCharacterRace(WauzDateUtils.getSurvivalSeason());
 				CharacterManager.createCharacter(player, WauzMode.SURVIVAL);
 			}
@@ -177,11 +179,9 @@ public class CharacterSlotMenu implements WauzInventory {
 			}
 		}
 		else if(event.getClick().toString().contains("RIGHT")) {
-			String characterSlot = playerData.getSelectedCharacterSlot();
-			String characterSlotNumber = characterSlot.substring(4, 5);
-			playerData.setWauzPlayerEventName("Delete Char " + characterSlotNumber);
+			playerData.setWauzPlayerEventName("Delete Slot");
 			playerData.setWauzPlayerEvent(new WauzPlayerEventCharacterDelete());
-			WauzDialog.open(player, getCharacterSlot(player, event.getSlot() / 2, false));
+			WauzDialog.open(player, getCharacterSlot(player, slotId, false));
 		}
 		else {
 			CharacterManager.loginCharacter(player, WauzMode.getMode(PlayerConfigurator.getCharacterWorldString(player)));

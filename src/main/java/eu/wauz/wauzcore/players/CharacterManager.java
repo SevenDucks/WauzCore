@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.social.TabardMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
+import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
@@ -215,8 +216,16 @@ public class CharacterManager {
 		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + ".yml");
 		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
 		
-		Location spawnLocation = core.getServer().getWorld(characterWorld).getSpawnLocation();
-		String characterPosition = (spawnLocation.getX() + 0.5) + " " + spawnLocation.getY() + " " + (spawnLocation.getZ() + 0.5);
+		String characterPosition = null;
+		if(characterSlot.contains("OneBlock")) {
+			Location oneBlockLocation = OnePlotManager.getNextFreePlotLocation();
+			oneBlockLocation.getBlock().setType(Material.GRASS_BLOCK);
+			characterPosition = (oneBlockLocation.getX() + 0.5) + " " + (oneBlockLocation.getY() + 1) + " " + (oneBlockLocation.getZ() + 0.5);
+		}
+		else {
+			Location spawnLocation = core.getServer().getWorld(characterWorld).getSpawnLocation();
+			characterPosition = (spawnLocation.getX() + 0.5) + " " + spawnLocation.getY() + " " + (spawnLocation.getZ() + 0.5);
+		}
 		
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			player.setGameMode(GameMode.ADVENTURE);
