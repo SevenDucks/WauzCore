@@ -16,6 +16,8 @@ Patch 603: Social Standards II
 	New Feature: Trading
 	
 	Experimental: One Block Gamemode
+	  - Survival Skyblock with only One Block
+	  - Block can be Mined Infinitely
 
 Patch 602: Social Standards I
 	New Feature: Friend List

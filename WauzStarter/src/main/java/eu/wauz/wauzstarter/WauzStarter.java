@@ -18,7 +18,7 @@ public class WauzStarter extends JavaPlugin {
 
 	/**
 	 * Gets called when the server is started.
-	 * 1. Loads worlds and creates a new Survival world each season.
+	 * 1. Loads worlds and creates a new Survival / OneBlock world each season.
 	 * 2. Initializes the restart scheduler.
 	 * 
 	 * @see SeasonalSurvivalManager
@@ -43,7 +43,8 @@ public class WauzStarter extends JavaPlugin {
 		
 		getServer().createWorld(new WorldCreator("Wauzland"));
 		getServer().createWorld(new WorldCreator("Dalyreos"));
-		SeasonalSurvivalManager.generateSurvivalWorld();
+		new SeasonalSurvivalManager(new WorldCreator("Survival"), true).generateSurvivalWorld();
+		new SeasonalSurvivalManager(new EmptyWorldCreator("SurvivalOneBlock"), false).generateSurvivalWorld();
 		getLogger().info("Created Worlds!");
 		
 		WauzRestartScheduler.init();

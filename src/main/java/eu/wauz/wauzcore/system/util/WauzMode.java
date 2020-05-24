@@ -95,6 +95,15 @@ public enum WauzMode {
 	/**
 	 * @param entity The entity for checking the mode.
 	 * 
+	 * @return If the entity is in the one-block world.
+	 */
+	public static boolean inOneBlock(Entity entity) {
+		return entity.getWorld().getName().equals("SurvivalOneBlock");
+	}
+	
+	/**
+	 * @param entity The entity for checking the mode.
+	 * 
 	 * @return If the entity is in MMORPG mode.
 	 */
 	public static boolean isMMORPG(Entity entity) {
@@ -145,7 +154,7 @@ public enum WauzMode {
 	 */
 	public static boolean isSurvival(String worldName) {
 		return isInstanceOfType(worldName, "Survival") ||
-				StringUtils.equals(worldName, "Survival");
+				StringUtils.startsWith(worldName, "Survival");
 	}
 	
 	/**
