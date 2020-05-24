@@ -1,0 +1,28 @@
+Normal:
+  prefix:
+  color: GREEN
+  permission: wauz.normal
+  rewards:
+    coins: 100
+    soulstones: 0
+Ultra:
+  prefix: §eULTRA
+  color: GREEN
+  permission: wauz.normal
+  rewards:
+    coins: 500
+    soulstones: 1
+Staff:
+  prefix: §2STAFF
+  color: GOLD
+  permission: wauz.normal
+  rewards:
+    coins: 500
+    soulstones: 1
+Admin:
+  prefix: §4ADMIN
+  color: GOLD
+  permission: wauz.system
+  rewards:
+    coins: 500
+    soulstones: 500

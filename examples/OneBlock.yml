@@ -1,0 +1,51 @@
+phases:
+  1:
+    name: Test Phase
+    mobs:
+      spawnchance: 0.3
+      hostilechance: 0.5
+      passive:
+      - 'PIG'
+      - 'SHEEP'
+      - 'CHICKEN'
+      - 'COW'
+      hostile:
+      - 'ZOMBIE'
+      - 'SPIDER'
+    chests:
+      common:
+        stackcount: 1
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 2
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 3
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 5
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+      1-2:
+        name: Test B
+        blockamount: 20
+        blocks:
+        - 'PODZOL 3'
+        - 'SPRUCE_LOG 2'
+        - 'GRANITE 2'
+        - 'GOLD_ORE 1'
