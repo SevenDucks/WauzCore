@@ -57,7 +57,7 @@ public class WauzQuest {
 	/**
 	 * @param questName A quest name.
 	 * 
-	 * @return Thr quest with that name.
+	 * @return The quest with that name.
 	 */
 	public static WauzQuest getQuest(String questName) {
 		return questMap.get(questName);
