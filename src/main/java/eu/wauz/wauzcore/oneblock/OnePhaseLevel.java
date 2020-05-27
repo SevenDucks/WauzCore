@@ -4,6 +4,8 @@ package eu.wauz.wauzcore.oneblock;
  * A level of a phase of the one-block gamemode.
  * 
  * @author Wauzmons
+ * 
+ * @see OnePhase
  */
 public class OnePhaseLevel {
 	

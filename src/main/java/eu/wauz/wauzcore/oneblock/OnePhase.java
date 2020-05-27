@@ -14,6 +14,9 @@ import eu.wauz.wauzcore.data.OneBlockConfigurator;
  * A phase of the one-block gamemode.
  * 
  * @author Wauzmons
+ * 
+ * @see OnePhaseLevel
+ * @see OneChest
  */
 public class OnePhase {
 	
@@ -71,6 +74,11 @@ public class OnePhase {
 	private List<OnePhaseLevel> phaseLevels;
 	
 	/**
+	 * The chests that can spawn in this phase, indexed by type.
+	 */
+	private Map<OneChestType, OneChest> chests;
+	
+	/**
 	 * Constructs a phase, based on the one-block file in the /WauzCore folder.
 	 * 
 	 * @param phaseKey The key of the phase.
@@ -86,6 +94,10 @@ public class OnePhase {
 		phaseLevels = new ArrayList<>();
 		for(String levelKey : OneBlockConfigurator.getPhaseLevelKeys(phaseKey)) {
 			phaseLevels.add(new OnePhaseLevel(this, levelKey));
+		}
+		
+		for(OneChestType chestType : OneChestType.values()) {
+			chests.put(chestType, new OneChest(this, chestType));
 		}
 	}
 
@@ -136,6 +148,13 @@ public class OnePhase {
 	 */
 	public List<OnePhaseLevel> getPhaseLevels() {
 		return phaseLevels;
+	}
+
+	/**
+	 * @return The chests that can spawn in this phase, indexed by type.
+	 */
+	public Map<OneChestType, OneChest> getChests() {
+		return chests;
 	}
 
 }

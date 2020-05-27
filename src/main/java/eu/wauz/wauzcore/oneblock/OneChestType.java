@@ -4,8 +4,8 @@ import java.util.Random;
 
 /**
  * The types of chests, that can spawn in the one-block gamemode.
- * @author keller
- *
+ * 
+ * @author Wauzmons
  */
 public enum OneChestType {
 	
