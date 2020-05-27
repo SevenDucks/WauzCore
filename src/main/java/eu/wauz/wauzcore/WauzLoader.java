@@ -79,6 +79,7 @@ import eu.wauz.wauzcore.menu.social.GuildOverviewMenu;
 import eu.wauz.wauzcore.menu.social.MailMenu;
 import eu.wauz.wauzcore.menu.util.MenuRegister;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
+import eu.wauz.wauzcore.oneblock.OnePhase;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.skills.SkillDeath;
 import eu.wauz.wauzcore.skills.SkillJudgement;
@@ -104,6 +105,7 @@ import eu.wauz.wauzcore.skills.SkillTheWorld;
 import eu.wauz.wauzcore.skills.SkillWheelOfFortune;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.InstanceManager;
+import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
@@ -135,7 +137,9 @@ public class WauzLoader {
 		WauzAchievement.init();
 		WauzQuest.init();
 		WauzCitizen.init();
+		WauzRank.init();
 		WauzPlayerGuild.init();
+		OnePhase.init();
 		
 		InstanceManager.removeInactiveInstances();
 		StatisticsFetcher.calculate();

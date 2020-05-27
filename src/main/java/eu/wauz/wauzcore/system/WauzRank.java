@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.bukkit.ChatColor;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.RankConfigurator;
 
 /**
@@ -28,6 +29,8 @@ public class WauzRank {
 		for(String rankName : RankConfigurator.getAllRankKeys()) {
 			rankMap.put(rankName, new WauzRank(rankName));
 		}
+		
+		WauzCore.getInstance().getLogger().info("Loaded " + rankMap.size() + " Ranks!");
 	}
 	
 	/**
@@ -77,6 +80,11 @@ public class WauzRank {
 	 */
 	public WauzRank(String rankName) {
 		this.rankName = rankName;
+		rankPrefix = RankConfigurator.getRankPrefix(rankName);
+		rankColor = RankConfigurator.getRankColor(rankName);
+		rankPermission = RankConfigurator.getRankPermission(rankName);
+		dailyCoins = RankConfigurator.getRankRewardCoins(rankName);
+		dailySoulstones = RankConfigurator.getRankRewardSoulstones(rankName);
 	}
 
 	/**

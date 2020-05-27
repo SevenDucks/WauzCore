@@ -42,7 +42,7 @@ phases:
         - 'STONE 2'
         - 'COAL_ORE 1'
       1-2:
-        name: Test B
+        name: 2
         blockamount: 20
         blocks:
         - 'PODZOL 3'
