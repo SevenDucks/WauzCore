@@ -1,5 +1,13 @@
 package eu.wauz.wauzcore.oneblock;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import org.bukkit.Material;
+
+import eu.wauz.wauzcore.data.OneBlockConfigurator;
+
 /**
  * A level of a phase of the one-block gamemode.
  * 
@@ -8,6 +16,11 @@ package eu.wauz.wauzcore.oneblock;
  * @see OnePhase
  */
 public class OnePhaseLevel {
+	
+	/**
+	 * A random instance for rolling random blocks.
+	 */
+	private static Random random = new Random();
 	
 	/**
 	 * The phase that the level is part of.
@@ -30,6 +43,11 @@ public class OnePhaseLevel {
 	private int blockAmount;
 	
 	/**
+	 * All the possible blocks spawning in the level.
+	 */
+	private List<Material> blocks;
+	
+	/**
 	 * Constructs a level of a phase, based on the one-block file in the /WauzCore folder.
 	 * 
 	 * @param phase The phase that the level is part of.
@@ -38,6 +56,16 @@ public class OnePhaseLevel {
 	public OnePhaseLevel(OnePhase phase, String levelKey) {
 		this.phase = phase;
 		this.levelKey = levelKey;
+		
+		blocks = new ArrayList<>();
+		for(String blockString : OneBlockConfigurator.getPhaseLevelBlocks(phase.getPhaseKey(), levelKey)) {
+			String[] blockStringParts = blockString.split(" ");
+			Material material = Material.valueOf(blockStringParts[0]);
+			int probability = Integer.parseInt(blockStringParts[1]);
+			for(int count = 0; count < probability; count++) {
+				blocks.add(material);
+			}
+		}
 	}
 
 	/**
@@ -66,6 +94,20 @@ public class OnePhaseLevel {
 	 */
 	public int getBlockAmount() {
 		return blockAmount;
+	}
+
+	/**
+	 * @return All the possible blocks spawning in the level.
+	 */
+	public List<Material> getBlocks() {
+		return blocks;
+	}
+	
+	/**
+	 * @return A random material for the next block to spawn.
+	 */
+	public Material getRandomBlockMaterial() {
+		return blocks.get(random.nextInt(blocks.size()));
 	}
 	
 }

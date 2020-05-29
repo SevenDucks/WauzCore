@@ -2,6 +2,14 @@ package eu.wauz.wauzcore.oneblock;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.Chest;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
+import org.bukkit.inventory.Inventory;
 
 import eu.wauz.wauzcore.data.OneBlockConfigurator;
 
@@ -14,6 +22,11 @@ import eu.wauz.wauzcore.data.OneBlockConfigurator;
  * @see OneChestItem
  */
 public class OneChest {
+	
+	/**
+	 * A random instance for rolling random chest contents.
+	 */
+	private static Random random = new Random();
 
 	/**
 	 * The phase that the chest is part of.
@@ -78,6 +91,22 @@ public class OneChest {
 	 */
 	public List<OneChestItem> getContentItemStacks() {
 		return contentItemStacks;
+	}
+	
+	/**
+	 * Spawns a randomly filled instance of this chest.
+	 * 
+	 * @param block The block to turn into a chest.
+	 */
+	public void spawnRandomFilledChest(Block block) {
+		block.setType(Material.CHEST);
+		Chest chest = (Chest) block.getState();
+		chest.setCustomName(ChatColor.GOLD + StringUtils.capitalize(type.toString()) + " Chest");
+		Inventory inventory = chest.getInventory();
+		for(int count = 0; count < stackCount; count++) {
+			OneChestItem randomItem = contentItemStacks.get(random.nextInt(contentItemStacks.size()));
+			inventory.addItem(randomItem.generateItemStack());
+		}
 	}
 	
 }
