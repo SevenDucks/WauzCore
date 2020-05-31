@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.commands.CmdSendItem;
 import eu.wauz.wauzcore.commands.CmdSethome;
 import eu.wauz.wauzcore.commands.CmdSpawn;
 import eu.wauz.wauzcore.commands.CmdTip;
+import eu.wauz.wauzcore.commands.CmdTrade;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebug;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebugAttack;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebugBuilding;
@@ -200,6 +201,7 @@ public class WauzLoader {
 		WauzCommandExecutor.registerCommand(new CmdSethome());
 		WauzCommandExecutor.registerCommand(new CmdSpawn());
 		WauzCommandExecutor.registerCommand(new CmdTip());
+		WauzCommandExecutor.registerCommand(new CmdTrade());
 	}
 	
 	/**

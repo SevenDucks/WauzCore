@@ -59,6 +59,10 @@ commands:
     description: Send a Friend Request to a Player
     usage: /friend [player]
     permission: wauz.normal
+  trade:
+    description: Send a Trade Request to a Player
+    usage: /trade [player]
+    permission: wauz.normal
   send:
     description: Send a Text Mail to a Player
     usage: /send [player] [text]
