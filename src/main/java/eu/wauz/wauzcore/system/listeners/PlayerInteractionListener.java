@@ -249,7 +249,7 @@ public class PlayerInteractionListener implements Listener {
 	 */
 	@EventHandler
 	public void onArmorStandEquip(PlayerArmorStandManipulateEvent event) {
-		if(WauzMode.isMMORPG(event.getPlayer())) {
+		if(WauzMode.isMMORPG(event.getPlayer()) && !event.getPlayer().getGameMode().equals(GameMode.CREATIVE)) {
 			event.setCancelled(true);
 		}
 	}

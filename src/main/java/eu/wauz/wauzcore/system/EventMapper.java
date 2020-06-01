@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.system;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
@@ -87,6 +88,9 @@ public class EventMapper {
 	 */
 	public static void handleItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
+		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+			return;
+		}
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		
 		if(event.getAction() == Action.LEFT_CLICK_AIR) {
@@ -175,6 +179,9 @@ public class EventMapper {
 	 */
 	public static void handleSurvivalItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
+		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+			return;
+		}
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		
 		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND)) {
@@ -220,6 +227,9 @@ public class EventMapper {
 	 */
 	public static void handleMenuInteraction(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
+		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+			return;
+		}
 		String inventoryName = ChatColor.stripColor(player.getOpenInventory().getTitle());
 		String inventoryType = event.getInventory().getType().toString();
 		WauzDebugger.log(player, "You clicked in Inventory: " + inventoryName + " " + inventoryType);
@@ -250,6 +260,9 @@ public class EventMapper {
 	 */
 	public static void handleMenuClose(InventoryCloseEvent event) {
 		Player player = (Player) event.getPlayer();
+		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+			return;
+		}
 		String inventoryName = ChatColor.stripColor(player.getOpenInventory().getTitle());
 		String inventoryType = event.getInventory().getType().toString();
 		WauzDebugger.log(player, "You closed the Inventory: " + inventoryName + " " + inventoryType);
