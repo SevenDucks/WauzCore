@@ -1,9 +1,11 @@
 package eu.wauz.wauzcore.commands;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.players.WauzPlayerTrade;
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
  * - Description: <b>Send a Trade Request to a Player</b></br>
@@ -21,7 +23,7 @@ public class CmdTrade implements WauzCommand {
 	 */
 	@Override
 	public String getCommandId() {
-	  return"trade";
+	  return "trade";
 	}
 
 	/**
@@ -37,7 +39,8 @@ public class CmdTrade implements WauzCommand {
 		if(args.length < 1) {
 			return false;
 		}
-		return false;
+		WauzPlayerTrade.Trading((Player) sender, args[0]);
+		return true;
 	}
 
 }
