@@ -2,6 +2,8 @@ Normal:
   prefix: ''
   color: GREEN
   permission: NORMAL
+  level: 1
+  op: false
   rewards:
     coins: 100
     soulstones: 0
@@ -9,6 +11,8 @@ Ultra:
   prefix: '§eULTRA'
   color: GREEN
   permission: NORMAL
+  level: 2
+  op: false
   rewards:
     coins: 500
     soulstones: 1
@@ -16,6 +20,8 @@ Staff:
   prefix: '§2STAFF'
   color: GOLD
   permission: SYSTEM
+  level: 3
+  op: false
   rewards:
     coins: 500
     soulstones: 1
@@ -23,6 +29,8 @@ Admin:
   prefix: '§4ADMIN'
   color: GOLD
   permission: SYSTEM
+  level: 4
+  op: true
   rewards:
     coins: 500
     soulstones: 500

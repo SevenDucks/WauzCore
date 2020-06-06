@@ -38,6 +38,7 @@ import eu.wauz.wauzcore.commands.administrative.CmdWzGetRune;
 import eu.wauz.wauzcore.commands.administrative.CmdWzHeal;
 import eu.wauz.wauzcore.commands.administrative.CmdWzKey;
 import eu.wauz.wauzcore.commands.administrative.CmdWzLeave;
+import eu.wauz.wauzcore.commands.administrative.CmdWzRank;
 import eu.wauz.wauzcore.commands.administrative.CmdWzRepair;
 import eu.wauz.wauzcore.commands.administrative.CmdWzSkill;
 import eu.wauz.wauzcore.commands.administrative.CmdWzSkillWeapon;
@@ -48,6 +49,7 @@ import eu.wauz.wauzcore.commands.completion.TabCompleterEnhancements;
 import eu.wauz.wauzcore.commands.completion.TabCompleterEquip;
 import eu.wauz.wauzcore.commands.completion.TabCompleterGuilds;
 import eu.wauz.wauzcore.commands.completion.TabCompleterMenus;
+import eu.wauz.wauzcore.commands.completion.TabCompleterRanks;
 import eu.wauz.wauzcore.commands.completion.TabCompleterRunes;
 import eu.wauz.wauzcore.commands.completion.TabCompleterSkills;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
@@ -228,6 +230,7 @@ public class WauzLoader {
 		WauzCommandExecutor.registerCommand(new CmdWzHeal());
 		WauzCommandExecutor.registerCommand(new CmdWzKey());
 		WauzCommandExecutor.registerCommand(new CmdWzLeave());
+		WauzCommandExecutor.registerCommand(new CmdWzRank());
 		WauzCommandExecutor.registerCommand(new CmdWzRepair());
 		WauzCommandExecutor.registerCommand(new CmdWzSkill());
 		WauzCommandExecutor.registerCommand(new CmdWzSkillWeapon());
@@ -248,6 +251,7 @@ public class WauzLoader {
 		Bukkit.getPluginCommand("wzGetEquip").setTabCompleter(new TabCompleterEquip());
 		Bukkit.getPluginCommand("wzGetEquip.enhanced").setTabCompleter(new TabCompleterEnhancements());
 		Bukkit.getPluginCommand("wzGetRune").setTabCompleter(new TabCompleterRunes());
+		Bukkit.getPluginCommand("wzRank").setTabCompleter(new TabCompleterRanks());
 		Bukkit.getPluginCommand("wzSkill").setTabCompleter(new TabCompleterSkills());
 		Bukkit.getPluginCommand("wzSkill.weapon").setTabCompleter(new TabCompleterSkills());
 	}

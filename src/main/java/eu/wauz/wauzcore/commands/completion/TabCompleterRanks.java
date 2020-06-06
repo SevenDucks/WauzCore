@@ -8,46 +8,46 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
-import eu.wauz.wauzcore.commands.administrative.CmdWzGetRune;
-import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
+import eu.wauz.wauzcore.commands.administrative.CmdWzRank;
+import eu.wauz.wauzcore.system.WauzRank;
 
 /**
- * A completer for the chat, that suggests rune ids.
+ * A completer for the chat, that suggests rank ids.
  * 
  * @author Wauzmons
  * 
- * @see CmdWzGetRune
+ * @see CmdWzRank
  */
-public class TabCompleterRunes implements TabCompleter {
+public class TabCompleterRanks implements TabCompleter {
 	
 	/**
-	 * A list of available rune ids.
+	 * A list of available rank ids.
 	 */
-	private List<String> runeTypesList;
+	private List<String> rankTypesList;
 
 	/**
 	 * Delivers a list of possible completions for a command argument.
 	 * 
-	 * @return A list of available rune ids.
+	 * @return A list of available rank ids.
 	 */
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzGetRune")) {
+		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzRank")) {
 			return null;
 		}
 		
-		if(runeTypesList == null) {
-			runeTypesList = WauzRuneInserter.getAllRuneIds();
+		if(rankTypesList == null) {
+			rankTypesList = WauzRank.getAllRankIds();
 		}
 		
 		if(args.length == 1) {
-			return runeTypesList.stream()
+			return rankTypesList.stream()
 					.filter(runeId -> StringUtils.startsWith(runeId, args[0]))
 					.collect(Collectors.toList());
 		}
 		
 		if(args.length == 0) {
-			return runeTypesList;
+			return rankTypesList;
 		}
 		
 		return null;

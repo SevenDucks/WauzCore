@@ -41,8 +41,8 @@ public class ChatFormatter {
 			level = "" + player.getLevel();
 		}
 		
-		ChatColor rankColor = getMinecraftRankColor(player);
-		String msg = ChatColor.WHITE + "[" + rankColor + player.getDisplayName() + ChatColor.WHITE + " (" +
+		String rankPrefix = getMinecraftRankPrefix(player);
+		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getDisplayName() + ChatColor.WHITE + " (" +
 					 ChatColor.AQUA  + level + ChatColor.WHITE + ")] " +
 					 ChatColor.GRAY + event.getMessage();
 		
@@ -67,8 +67,8 @@ public class ChatFormatter {
 			return false;
 		}
 		
-		ChatColor rankColor = getMinecraftRankColor(player);
-		String msg = ChatColor.WHITE + "[" + rankColor + player.getDisplayName() + ChatColor.WHITE + " (" +
+		String rankPrefix = getMinecraftRankPrefix(player);
+		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getDisplayName() + ChatColor.WHITE + " (" +
 				 ChatColor.BLUE + "Group" + ChatColor.WHITE + ")] " +
 				 ChatColor.GRAY + message;
 		
@@ -93,8 +93,8 @@ public class ChatFormatter {
 			return false;
 		}
 		
-		ChatColor rankColor = getMinecraftRankColor(player);
-		String msg = ChatColor.WHITE + "[" + rankColor + player.getDisplayName() + ChatColor.WHITE + " (" +
+		String rankPrefix = getMinecraftRankPrefix(player);
+		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getDisplayName() + ChatColor.WHITE + " (" +
 				 ChatColor.GREEN + "Guild" + ChatColor.WHITE + ")] " +
 				 ChatColor.GRAY + message;
 		
@@ -127,17 +127,15 @@ public class ChatFormatter {
 	}
 	
 	/**
-	 * @param player The player to get the colot for.
+	 * @param player The player to get the prefix for.
 	 * 
-	 * @return A rank color, based on player permissions.
+	 * @return A rank prefix and color, based on player rank.
 	 */
-	public static ChatColor getMinecraftRankColor(Player player) {
-		if(player.hasPermission(WauzPermission.SYSTEM.toString())) {
-			return ChatColor.GOLD;
-		}
-		else {
-			return ChatColor.GREEN;
-		}
+	public static String getMinecraftRankPrefix(Player player) {
+		WauzRank rank = WauzRank.getRank(player);
+		String rankPrefix = rank.getRankPrefix();
+		rankPrefix = StringUtils.isBlank(rankPrefix) ? "" : rankPrefix + " ";
+		return rankPrefix + rank.getRankColor();
 	}
 	
 	/**

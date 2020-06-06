@@ -119,6 +119,10 @@ commands:
     description: Event-Travel to Location per UUID
     usage: /wzTravelEvent [uuid]
     permission: wauz.normal
+  wzRank:
+    description: Change Rank of a Player
+    usage: /wzRank [rank] [player]
+    permission: wauz.system
   wzDebug:
     description: Toggle Debug Mode
     usage: /wzDebug [player]

@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -18,7 +19,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
-import eu.wauz.wauzcore.system.WauzPermission;
+import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -212,20 +213,17 @@ public class WauzPlayerTablist {
 	}
 	
 	/**
-	 * Adds a prefix, showing the players rank or "offline", to the given team.
+	 * Adds a prefix, showing the players rank, to the given team.
 	 * 
 	 * @param team The team to receive the prefix.
 	 * @param player The player whose rank should be shown.
 	 */
 	private void generatePrefix(Team team, Player player) {
-		if(player.hasPermission(WauzPermission.SYSTEM.toString())) {
-			team.setPrefix(teamPrefix + ChatColor.DARK_RED + "" + ChatColor.BOLD + "ADMIN ");
-			team.setColor(ChatColor.GOLD);
-		}
-		else {
-			team.setPrefix(teamPrefix);
-			team.setColor(ChatColor.GREEN);
-		}
+		WauzRank rank = WauzRank.getRank(player);
+		String rankPrefix = rank.getRankPrefix();
+		rankPrefix = StringUtils.isBlank(rankPrefix) ? "" : rankPrefix + " ";
+		team.setPrefix(teamPrefix + rankPrefix);
+		team.setColor(rank.getRankColor());
 	}
 	
 	/**

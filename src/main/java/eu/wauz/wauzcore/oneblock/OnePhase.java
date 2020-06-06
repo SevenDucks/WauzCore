@@ -76,7 +76,7 @@ public class OnePhase {
 	/**
 	 * The chests that can spawn in this phase, indexed by type.
 	 */
-	private Map<OneChestType, OneChest> chests;
+	private Map<OneChestType, OneChest> chests = new HashMap<>();
 	
 	/**
 	 * Constructs a phase, based on the one-block file in the /WauzCore folder.

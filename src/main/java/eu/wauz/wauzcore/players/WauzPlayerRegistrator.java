@@ -10,6 +10,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachment;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
@@ -17,7 +18,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.WauzPermission;
+import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
@@ -55,15 +56,8 @@ public class WauzPlayerRegistrator {
 		playerDataConfig.set("lastplayed", System.currentTimeMillis());
 		
 		if(!playerDataFile.exists()) {
-			if(player.hasPermission(WauzPermission.SYSTEM.toString())) {
-				playerDataConfig.set("rank", "Admin");
-			}
-			else {
-				playerDataConfig.set("rank", "Normal");
-			}
-			
+			playerDataConfig.set("rank", "Normal");
 			playerDataConfig.set("guild", "none");
-			
 			playerDataConfig.set("tokens", 0);
 			long dateLong = WauzDateUtils.getDateLong();
 			playerDataConfig.set("tokenlimit.survival.date", dateLong);
@@ -76,6 +70,11 @@ public class WauzPlayerRegistrator {
 			playerDataConfig.set("friends", new ArrayList<>());
 		}
 		playerDataConfig.save(playerDataFile);
+		
+		WauzRank rank = WauzRank.getRank(player);
+		PermissionAttachment attachment = player.addAttachment(core);
+		attachment.setPermission(rank.getRankPermission().toString(), true);
+		player.setOp(rank.isGrantOp());
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
             public void run() {

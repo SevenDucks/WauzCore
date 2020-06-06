@@ -42,6 +42,8 @@ public class RankConfigurator extends GlobalConfigurationUtils {
 		return ChatColor.valueOf(mainConfigGetString("Ranks", rank + ".color"));
 	}
 	
+// Permissions
+	
 	/**
 	 * @param rank The name of the rank.
 	 * 
@@ -49,6 +51,24 @@ public class RankConfigurator extends GlobalConfigurationUtils {
 	 */
 	public static WauzPermission getRankPermission(String rank) {
 		return WauzPermission.valueOf(mainConfigGetString("Ranks", rank + ".permission"));
+	}
+	
+	/**
+	 * @param rank The name of the rank.
+	 * 
+	 * @return The permission level of the rank, used for staff hierarchies.
+	 */
+	public static int getRankPermissionLevel(String rank) {
+		return mainConfigGetInt("Ranks", rank + ".level");
+	}
+	
+	/**
+	 * @param rank The name of the rank.
+	 * 
+	 * @return If the rank grants operator permissions.
+	 */
+	public static boolean hasRankOp(String rank) {
+		return mainConfigGetBoolean("Ranks", rank + ".op");
 	}
 	
 // Daily Rewards

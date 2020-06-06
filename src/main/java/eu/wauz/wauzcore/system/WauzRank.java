@@ -1,12 +1,16 @@
 package eu.wauz.wauzcore.system;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.RankConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 
 /**
  * A player rank, generated from a rank config file.
@@ -36,11 +40,37 @@ public class WauzRank {
 	/**
 	 * @param rankName A rank name.
 	 * 
+	 * @return If the rank name is valid.
+	 */
+	public static boolean isValidRank(String rankName) {
+		WauzRank rank = rankMap.get(rankName);
+		return rank != null;
+	}
+	
+	/**
+	 * @param rankName A rank name.
+	 * 
 	 * @return The rank with that name.
 	 */
 	public static WauzRank getRank(String rankName) {
 		WauzRank rank = rankMap.get(rankName);
 		return rank != null ? rank : rankMap.get("Normal");
+	}
+	
+	/**
+	 * @param player The player to get the rank of.
+	 * 
+	 * @return The rank of the player.
+	 */
+	public static WauzRank getRank(OfflinePlayer player) {
+		return getRank(PlayerConfigurator.getRank(player));
+	}
+	
+	/**
+	 * @return A list of all rank ids.
+	 */
+	public static List<String> getAllRankIds() {
+		return new ArrayList<>(rankMap.keySet());
 	}
 	
 	/**
@@ -64,6 +94,16 @@ public class WauzRank {
 	private WauzPermission rankPermission;
 	
 	/**
+	 * The permission level of the rank, used for staff hierarchies.
+	 */
+	private int rankPermissionLevel;
+	
+	/**
+	 * If the rank grants operator permissions.
+	 */
+	private boolean grantOp;
+	
+	/**
 	 * The daily coin reward of the rank.
 	 */
 	private int dailyCoins;
@@ -83,6 +123,8 @@ public class WauzRank {
 		rankPrefix = RankConfigurator.getRankPrefix(rankName);
 		rankColor = RankConfigurator.getRankColor(rankName);
 		rankPermission = RankConfigurator.getRankPermission(rankName);
+		rankPermissionLevel = RankConfigurator.getRankPermissionLevel(rankName);
+		grantOp = RankConfigurator.hasRankOp(rankName);
 		dailyCoins = RankConfigurator.getRankRewardCoins(rankName);
 		dailySoulstones = RankConfigurator.getRankRewardSoulstones(rankName);
 	}
@@ -113,6 +155,20 @@ public class WauzRank {
 	 */
 	public WauzPermission getRankPermission() {
 		return rankPermission;
+	}
+
+	/**
+	 * @return The permission level of the rank, used for staff hierarchies.
+	 */
+	public int getRankPermissionLevel() {
+		return rankPermissionLevel;
+	}
+
+	/**
+	 * @return If the rank grants operator permissions.
+	 */
+	public boolean isGrantOp() {
+		return grantOp;
 	}
 
 	/**

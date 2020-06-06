@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -17,6 +18,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
+import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 import eu.wauz.wauzcore.system.util.Formatters;
@@ -93,7 +95,10 @@ public class WauzPlayerScoreboard {
 		rowStrings.add("" + ChatColor.WHITE + ChatColor.BOLD + "The Minecraft MMORPG");
 		rowStrings.add("" + ChatColor.WHITE + ChatColor.BOLD + "IP: play.wauz.eu");
 		rowStrings.add(" ");
-		rowStrings.add("Rank: " + ChatColor.GREEN + PlayerConfigurator.getRank(player));
+		WauzRank rank = WauzRank.getRank(player);
+		String rankTitle = rank.getRankPrefix();
+		rankTitle = StringUtils.isNotBlank(rankTitle) ? rankTitle : (rank.getRankColor() + rank.getRankName());
+		rowStrings.add("Rank: " + rankTitle);
 		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getTokens(player)));
 		
 		for(int index =  0; index != rowStrings.size(); index++) {

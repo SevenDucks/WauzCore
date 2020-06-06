@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Cooldown;
@@ -32,27 +33,20 @@ public class WauzRewards {
 		if(!Cooldown.characterDailyReward(player)) {
 			return;
 		}
-			
-    	long money = PlayerConfigurator.getCharacterCoins(player);
-    	long amount = 0;
-    	String reward = null;
-    	
-    	switch(PlayerConfigurator.getRank(player)) {
-			case "Admin":
-				amount = 500;
-				reward = "Admin Reward: ";			
-				break;
-			case "Normal":
-				amount = 100;
-				reward = "Normal Reward: ";
-				break;
-			default:
-				break;
-		}
+    	WauzRank rank = WauzRank.getRank(player);
+    	int coins = rank.getDailyCoins();
+    	int souls = rank.getDailySoulstones();
 
-    	PlayerConfigurator.setCharacterCoins(player, money + amount);
-    	AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, amount);
-    	player.sendMessage(ChatColor.GOLD + reward + "You claimed your daily " + amount + " coins!");	
+    	long currentCoins = PlayerConfigurator.getCharacterCoins(player);
+    	PlayerConfigurator.setCharacterCoins(player, currentCoins + coins);
+    	AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, coins);
+    	player.sendMessage(ChatColor.GOLD + rank.getRankName() + " Reward: " + "You claimed your daily " + coins + " coins!");
+    	
+    	if(souls > 0) {
+    		long currentSouls = PlayerConfigurator.getCharacterCurrency(player, "reput.souls");
+    		PlayerConfigurator.setCharacterCurrency(player, "reput.souls", currentSouls + souls);
+    		player.sendMessage(ChatColor.GOLD + "You also received " + souls + " additional soulstones!");
+    	}
 	}
 	
 	/**

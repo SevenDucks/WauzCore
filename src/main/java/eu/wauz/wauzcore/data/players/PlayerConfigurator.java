@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.quests.QuestSlot;
@@ -29,6 +30,15 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 */
 	public static String getRank(OfflinePlayer player) {
 		return playerConfigGetString(player, "rank", false);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * 
+	 * @param rank The new rank of the player.
+	 */
+	public static void setRank(OfflinePlayer player, WauzRank rank) {
+		playerConfigSet(player, "rank", rank.getRankName(), false);
 	}
 	
 	/**
