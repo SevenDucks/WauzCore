@@ -1,0 +1,72 @@
+explorer:
+  name: Explorer
+  level: 5
+  cost: 10
+crafter:
+  name: Crafter
+  level: 5
+  cost: 10
+miner:
+  name: Miner
+  level: 5
+  cost: 10
+raider:
+  name: Raider
+  level: 10
+  cost: 20
+artisan:
+  name: Artisan
+  level: 10
+  cost: 20
+spelunker:
+  name: Spelunker
+  level: 10
+  cost: 20
+knight:
+  name: Knight
+  level: 20
+  cost: 40
+merchant:
+  name: Merchant
+  level: 20
+  cost: 40
+adventurer:
+  name: Adventurer
+  level: 20
+  cost: 40
+veteran:
+  name: Veteran
+  level: 30
+  cost: 80
+shaper:
+  name: Shaper
+  level: 30
+  cost: 80
+seeker:
+  name: Seeker
+  level: 30
+  cost: 80
+hero:
+  name: Hero
+  level: 45
+  cost: 120
+count:
+  name: Count
+  level: 45
+  cost: 120
+demon:
+  name: Demon
+  level: 45
+  cost: 120
+warlord:
+  name: Warlord
+  level: 60
+  cost: 160
+jarl:
+  name: Jarl
+  level: 60
+  cost: 160
+devil:
+  name: Devil
+  level: 60
+  cost: 160
