@@ -75,7 +75,7 @@ public class WauzDiscord extends JavaPlugin {
 		getLogger().info("Added LogFilter!");
 		
 		/**
-		 * Every 30 seconds
+		 * Every 12 minutes
 		 */
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			
@@ -83,7 +83,7 @@ public class WauzDiscord extends JavaPlugin {
 			public void run() {
 				shiroDiscordBot.updateLoggingChannelServerStats();
 			}
-		}, 200, 600);
+		}, 200, 14400);
 		
 		getLogger().info("Scheduled Repeating Tasks!");
 		
