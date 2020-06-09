@@ -83,7 +83,8 @@ public class WauzDiscord extends JavaPlugin {
 			public void run() {
 				shiroDiscordBot.updateLoggingChannelServerStats();
 			}
-		}, 200, 14400);
+			
+		}, 14400, 14400);
 		
 		getLogger().info("Scheduled Repeating Tasks!");
 		

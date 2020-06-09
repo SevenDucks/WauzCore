@@ -2,6 +2,7 @@ package eu.wauz.wauzcore.players;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -309,6 +310,8 @@ public class CharacterManager {
 			playerDataConfig.set("options.hideSpecialQuests", 0);
 			playerDataConfig.set("options.hideCompletedQuests", 0);
 			playerDataConfig.set("options.tabard", "No Tabard");
+			playerDataConfig.set("options.title", "none");
+			playerDataConfig.set("options.titlelist", new ArrayList<>());
 			
 			playerDataConfig.set("cooldown.reward", 0);
 			

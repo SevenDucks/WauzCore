@@ -231,6 +231,42 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 		playerConfigSet(player, "options.tabard", tabardName, true);
 	}
 	
+	/**
+	 * @param player The player that owns the config file.
+	 * 
+	 * @return The title name of the selected character.
+	 */
+	public static String getCharacterTitle(Player player) {
+		return playerConfigGetString(player, "options.title", true);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * 
+	 * @param tabardName The new title name of the selected character.
+	 */
+	public static void setCharacterTitle(Player player, String titleName) {
+		playerConfigSet(player, "options.title", titleName, true);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * 
+	 * @return The choosable titles of the selected character.
+	 */
+	public static List<String> getCharacterTitleList(Player player) {
+		return playerConfigGetStringList(player, "options.titlelist", true);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * 
+	 * @param tabardName The new choosable titles of the selected character.
+	 */
+	public static void setCharacterTitleList(Player player, List<String> titleList) {
+		playerConfigSet(player, "options.titlelist", titleList, true);
+	}
+	
 // Locations
 	
 	/**

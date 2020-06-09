@@ -110,6 +110,7 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
@@ -141,6 +142,7 @@ public class WauzLoader {
 		WauzQuest.init();
 		WauzCitizen.init();
 		WauzRank.init();
+		WauzTitle.init();
 		WauzPlayerGuild.init();
 		OnePhase.init();
 		

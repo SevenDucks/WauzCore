@@ -140,6 +140,7 @@ public class WauzCore extends JavaPlugin {
 					WauzPlayerActionBar.update(player);
 				}
 			}
+			
 		}, 200, 20);
 		
 		/**
@@ -155,6 +156,7 @@ public class WauzCore extends JavaPlugin {
 					WauzCitizenSpawner.showNpcsNearPlayer(player);
 				}
 			}
+			
 		}, 200, 60);
 		
 		/**
@@ -174,6 +176,7 @@ public class WauzCore extends JavaPlugin {
 					}
 				}
 			}
+			
 		}, 200, 100);
 		
 		/**
@@ -189,6 +192,7 @@ public class WauzCore extends JavaPlugin {
 					}
 				}
 			}
+			
 		}, 200, 3600);
 		
 		/**
@@ -205,6 +209,7 @@ public class WauzCore extends JavaPlugin {
 					CharacterManager.saveCharacter(player);
 				}
 			}
+			
 		}, 200, 6000);
 		
 		/**
@@ -218,6 +223,7 @@ public class WauzCore extends JavaPlugin {
 					WauzPlayerNotifier.execute(player);
 				}
 			}
+			
 		}, 200, 18000);
 		
 		getLogger().info("Scheduled Repeating Tasks!");

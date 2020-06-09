@@ -17,14 +17,14 @@ public class TitleConfigurator extends GlobalConfigurationUtils {
 	/**
 	 * @return The keys of all titles.
 	 */
-	public static List<String> getTitleKeys() {
+	public static List<String> getAllTitleKeys() {
 		return new ArrayList<>(mainConfigGetKeys("Titles", null));
 	}
 	
 	/**
 	 * @param titleKey The key of the title.
 	 * 
-	 * @return The display name of the title.
+	 * @return The chat display name of the title.
 	 */
 	public static String getTitleName(String titleKey) {
 		return mainConfigGetString("Titles", titleKey + ".title");
