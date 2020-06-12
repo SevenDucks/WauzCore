@@ -101,6 +101,13 @@ public class HeadUtils {
 	}
 	
 	/**
+	 * @return An item stack representing an orange hash icon.
+	 */
+	public static ItemStack getTitlesItem() {
+		return getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWFiOTg1YzM0NDM1YjM4YTc0ZjYzZWU2ODUxZjY1OWRhZmU4YzY4MjY5MmQ2MjI4ZjUwYjdkODRjMjdiZDEifX19");
+	}
+	
+	/**
 	 * @return An item stack representing a blue group icon.
 	 */
 	public static ItemStack getGroupItem() {

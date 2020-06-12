@@ -21,6 +21,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerFriends;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.WauzTitle;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -55,6 +56,7 @@ public class SocialMenu implements WauzInventory {
 	 * All menus for social mechanics plus a short information are shown.
 	 * Here is a quick summary:</br>
 	 * Slot 1: The mail menu + unread mail count display.</br>
+	 * Slot 2: The titles menu + unlocked title count display.</br>
 	 * Slot 4: Return to main menu...</br>
 	 * Slot 5: The group menu + total active groups display.</br>
 	 * Slot 6: The guild menu + guild name display.</br>
@@ -63,6 +65,7 @@ public class SocialMenu implements WauzInventory {
 	 * @param player The player that should view the inventory.
 	 * 
 	 * @see PlayerMailConfigurator#getPlayerMailNameList(Player)
+	 * @see PlayerConfigurator#getCharacterTitleList(Player)
 	 * @see WauzPlayerGroupPool#getGroups()
 	 * @see PlayerConfigurator#getGuild(org.bukkit.OfflinePlayer)
 	 * @see WauzPlayerFriends#getFriendCount(org.bukkit.OfflinePlayer)
@@ -86,7 +89,19 @@ public class SocialMenu implements WauzInventory {
 		mailItemStack.setItemMeta(mailItemMeta);
 		menu.setItem(1, mailItemStack);
 		
-		MenuUtils.setComingSoon(menu, "Titles", 2);
+		ItemStack titlesItemStack = HeadUtils.getTitlesItem();
+		ItemMeta titlesItemMeta = titlesItemStack.getItemMeta();
+		titlesItemMeta.setDisplayName(ChatColor.GOLD + "Titles");
+		List<String> titlesLores = new ArrayList<>();
+		titlesLores.add(ChatColor.DARK_PURPLE + "Unlocked Titles: " + ChatColor.YELLOW
+				+ PlayerConfigurator.getCharacterTitleList(player).size() + " / " + WauzTitle.getTitleCount());
+		titlesLores.add("");
+		titlesLores.add(ChatColor.GRAY + "View and select your Chat Titles");
+		titlesLores.add(ChatColor.GRAY + "or buy new ones with your Soulstones.");
+		titlesItemMeta.setLore(titlesLores);
+		titlesItemStack.setItemMeta(titlesItemMeta);
+		menu.setItem(2, titlesItemStack);
+		
 		MenuUtils.setComingSoon(menu, "Arena", 3);
 		
 		ItemStack groupItemStack = HeadUtils.getGroupItem();
@@ -142,6 +157,7 @@ public class SocialMenu implements WauzInventory {
 	 * @param event The inventory click event.
 	 * 
 	 * @see MailMenu#open(Player)
+	 * @see TitleMenu#open(Player)
 	 * @see GroupMenu#open(Player)
 	 * @see GuildOverviewMenu#open(Player)
 	 * @see FriendsMenu#open(Player)
@@ -157,6 +173,9 @@ public class SocialMenu implements WauzInventory {
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Mailbox")) {
 			MailMenu.open(player);
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Titles")) {
+			TitleMenu.open(player);
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Group")) {
 			GroupMenu.open(player);

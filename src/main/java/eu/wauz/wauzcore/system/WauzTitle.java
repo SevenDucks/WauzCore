@@ -1,10 +1,15 @@
 package eu.wauz.wauzcore.system;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.TitleConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 
 /**
  * A player title, generated from a title config file.
@@ -29,6 +34,45 @@ public class WauzTitle {
 		}
 		
 		WauzCore.getInstance().getLogger().info("Loaded " + titleMap.size() + " Titles!");
+	}
+	
+	/**
+	 * @param titleName A title name.
+	 * 
+	 * @return The title with that name.
+	 */
+	public static WauzTitle getTitle(String titleName) {
+		return titleMap.get(titleName);
+	}
+	
+	/**
+	 * @param player The player to get the title of.
+	 * 
+	 * @return The display name of the player's title.
+	 */
+	public static String getTitle(Player player) {
+		String titleName = PlayerConfigurator.getCharacterTitle(player);
+		WauzTitle title = titleMap.get(titleName);
+		if(title != null) {
+			return title.getTitleDisplayName();
+		}
+		else {
+			return "";
+		}
+	}
+	
+	/**
+	 * @return A list of all titles.
+	 */
+	public static List<WauzTitle> getAllTitles() {
+		return new ArrayList<>(titleMap.values());
+	}
+	
+	/**
+	 * @return The count of all titles.
+	 */
+	public static int getTitleCount() {
+		return titleMap.size();
 	}
 	
 	/**

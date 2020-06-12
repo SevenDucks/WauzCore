@@ -80,6 +80,7 @@ import eu.wauz.wauzcore.menu.social.FriendsMenu;
 import eu.wauz.wauzcore.menu.social.GroupMenu;
 import eu.wauz.wauzcore.menu.social.GuildOverviewMenu;
 import eu.wauz.wauzcore.menu.social.MailMenu;
+import eu.wauz.wauzcore.menu.social.TitleMenu;
 import eu.wauz.wauzcore.menu.util.MenuRegister;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.oneblock.OnePhase;
@@ -177,6 +178,7 @@ public class WauzLoader {
 		MenuRegister.registerInventory(new PetOverviewMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new QuestMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new SkillMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new TitleMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new TravellingMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new WauzMenu(), WauzMode.MMORPG);
 	}
