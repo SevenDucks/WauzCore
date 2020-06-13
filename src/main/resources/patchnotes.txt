@@ -12,6 +12,12 @@ Patch 6XX: Class Specializations
 
 Patch 603: Social Standards II
 	New Feature: Ranks and Titles
+	  - Ranks determine Permissions, Rewards, Colors
+	  - Ranks can be set by OPs or Command APIs
+	  - Chat Titles choosable from Menu
+	  - Individual Title for each Character
+	  - Rank and Class are Default Titles
+	  - Additonal Titles can be Bought
 	
 	New Feature: Trading
 	

@@ -129,12 +129,19 @@ public class ChatFormatter {
 	/**
 	 * @param player The player to get the prefix for.
 	 * 
-	 * @return A rank prefix and color, based on player rank.
+	 * @return A rank prefix and color, based on player rank and title.
 	 */
 	public static String getMinecraftRankPrefix(Player player) {
 		WauzRank rank = WauzRank.getRank(player);
-		String rankPrefix = rank.getRankPrefix();
-		rankPrefix = StringUtils.isBlank(rankPrefix) ? "" : rankPrefix + " ";
+		String title = WauzTitle.getTitle(player);
+		
+		String rankPrefix;
+		if(StringUtils.isNotBlank(title)) {
+			rankPrefix = rank.getRankColor() + title + " ";
+		}
+		else {
+			rankPrefix = StringUtils.isBlank(rank.getRankPrefix()) ? "" : rank.getRankPrefix() + " ";
+		}
 		return rankPrefix + rank.getRankColor();
 	}
 	

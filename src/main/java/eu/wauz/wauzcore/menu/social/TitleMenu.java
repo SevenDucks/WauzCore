@@ -15,11 +15,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.events.WauzPlayerEventTitleBuy;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.WauzDialog;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.players.WauzPlayerData;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzTitle;
 
@@ -68,8 +72,9 @@ public class TitleMenu implements WauzInventory {
 		List<String> unlockedTitles = PlayerConfigurator.getCharacterTitleList(player);
 		String currentTitle = PlayerConfigurator.getCharacterTitle(player);
 		
+		MenuUtils.setCurrencyDisplay(menu, player, 2);
 		boolean defaultSelected = StringUtils.equals("default", currentTitle);
-		menu.setItem(2, getTitleItemStack("default", WauzRank.getRank(player).getRankPrefix(), 1, 0, true, defaultSelected));
+		menu.setItem(4, getTitleItemStack("default", WauzRank.getRank(player).getRankPrefix(), 1, 0, true, defaultSelected));
 		boolean classSelected = StringUtils.equals("class", currentTitle);
 		menu.setItem(6, getTitleItemStack("class", PlayerConfigurator.getCharacterClass(player), 1, 0, true, classSelected));
 		
@@ -142,6 +147,7 @@ public class TitleMenu implements WauzInventory {
 	 * @param event The inventory click event.
 	 * 
 	 * @see PlayerConfigurator#setCharacterTitle(Player, String)
+	 * @see WauzPlayerEventTitleBuy
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
@@ -153,29 +159,39 @@ public class TitleMenu implements WauzInventory {
 			return;
 		}
 		
+		int level = PlayerConfigurator.getCharacterLevel(player);
+		int requiredLevel = ItemUtils.getIntegerFromLore(clicked, "Required Level", 2);
 		String titleName = ItemUtils.getStringFromLore(clicked, "Title-ID", 1);
-		WauzTitle title = WauzTitle.getTitle(titleName);
-		if(title == null) {
+		if(level < requiredLevel) {
+			player.sendMessage(ChatColor.RED + "You don't meet the level requirement for this title yet!");
+			player.closeInventory();
 			return;
 		}
-		else if(HeadUtils.isHeadMenuItem(clicked, "Unlocked")) {
-			int level = PlayerConfigurator.getCharacterLevel(player);
-			if(level < title.getTitleLevel()) {
-				player.sendMessage(ChatColor.RED + "You don't meet the level requirement for this title!");
-				player.closeInventory();
-				return;
-			}
+		
+		if(HeadUtils.isHeadMenuItem(clicked, "Unlocked")) {
 			PlayerConfigurator.setCharacterTitle(player, titleName);
 			String newTitle = WauzTitle.getTitle(player);
+			if(StringUtils.isBlank(newTitle)) {
+				newTitle = "Default / Rank";
+			}
 			player.sendMessage(ChatColor.GREEN + "Your chat title was changed to \"" + newTitle + "\"!");
+			TitleMenu.open(player);
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Locked")) {
+			WauzTitle title = WauzTitle.getTitle(titleName);
 			long souls = PlayerConfigurator.getCharacterSoulstones(player);
 			if(souls < title.getTitleCost()) {
 				player.sendMessage(ChatColor.RED + "You don't have enough soulstones to unlock this title!");
 				player.closeInventory();
 				return;
 			}
+			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+			playerData.setWauzPlayerEventName("Buy Title");
+			playerData.setWauzPlayerEvent(new WauzPlayerEventTitleBuy(title));
+			ItemStack titleItemStack = HeadUtils.getTitlesItem();
+			MenuUtils.setItemDisplayName(titleItemStack, ChatColor.YELLOW + "Title: " + title.getTitleDisplayName());
+			MenuUtils.addItemLore(titleItemStack, ChatColor.GRAY + "Cost: " + title.getTitleCost() + " Soulstones", true);
+			WauzDialog.open(player, titleItemStack);
 		}
 	}
 

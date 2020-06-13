@@ -19,7 +19,7 @@ public class WauzPlayerEventPetBreed implements WauzPlayerEvent {
 	/**
 	 * The slot number of the pet to breed.
 	 */
-	int petSlot;
+	private int petSlot;
 
 	/**
 	 * Creates an event to breed the given pet.

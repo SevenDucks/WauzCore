@@ -27,7 +27,7 @@ public class TitleConfigurator extends GlobalConfigurationUtils {
 	 * @return The chat display name of the title.
 	 */
 	public static String getTitleName(String titleKey) {
-		return mainConfigGetString("Titles", titleKey + ".title");
+		return mainConfigGetString("Titles", titleKey + ".name");
 	}
 	
 	/**

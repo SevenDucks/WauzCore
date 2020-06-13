@@ -36,8 +36,8 @@ public class RelationTracker {
 		
 		if(!Objects.equals(oldRelationLevel, newRelationLevel)) {
 			int reward = newRelationLevel.getRelationTier();
-			long soulstones = PlayerConfigurator.getCharacterCurrency(player, "reput.souls");
-			PlayerConfigurator.setCharacterCurrency(player, "reput.souls", soulstones + reward);
+			long soulstones = PlayerConfigurator.getCharacterSoulstones(player);
+			PlayerConfigurator.setCharacterSoulstones(player, soulstones + reward);
 			
 			String relationName = newRelationLevel.getRelationName();
 			player.sendMessage(ChatColor.YELLOW + "Your relation with " + citizen + " improved to \"" + relationName + "\"!");

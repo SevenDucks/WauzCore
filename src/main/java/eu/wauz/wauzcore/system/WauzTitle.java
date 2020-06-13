@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.TitleConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * A player title, generated from a title config file.
@@ -25,13 +27,20 @@ public class WauzTitle {
 	private static Map<String, WauzTitle> titleMap = new HashMap<>();
 	
 	/**
+	 * A list of all titles.
+	 */
+	private static List<WauzTitle> titleList = new ArrayList<>();
+	
+	/**
 	 * Initializes all titles from the config and fills the internal title map.
 	 * 
 	 * @see TitleConfigurator#getAllTitleKeys()
 	 */
 	public static void init() {
 		for(String titleName : TitleConfigurator.getAllTitleKeys()) {
-			titleMap.put(titleName, new WauzTitle(titleName));
+			WauzTitle title = new WauzTitle(titleName);
+			titleMap.put(titleName, title);
+			titleList.add(title);
 		}
 		
 		WauzCore.getInstance().getLogger().info("Loaded " + titleMap.size() + " Titles!");
@@ -52,6 +61,10 @@ public class WauzTitle {
 	 * @return The display name of the player's title.
 	 */
 	public static String getTitle(Player player) {
+		if(!WauzMode.isMMORPG(player) || !WauzPlayerDataPool.isCharacterSelected(player)) {
+			return "";
+		}
+		
 		String titleName = PlayerConfigurator.getCharacterTitle(player);
 		WauzTitle title = titleMap.get(titleName);
 		if(title != null) {
@@ -69,14 +82,14 @@ public class WauzTitle {
 	 * @return A list of all titles.
 	 */
 	public static List<WauzTitle> getAllTitles() {
-		return new ArrayList<>(titleMap.values());
+		return titleList;
 	}
 	
 	/**
 	 * @return The count of all titles.
 	 */
 	public static int getTitleCount() {
-		return titleMap.size();
+		return titleList.size();
 	}
 	
 	/**

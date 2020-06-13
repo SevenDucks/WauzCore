@@ -142,8 +142,8 @@ public class WauzAchievement {
 	 */
 	public void award(Player player) {
 		PlayerConfigurator.addCharacterCompletedAchievements(player);
-		long soulstones = PlayerConfigurator.getCharacterCurrency(player, "reput.souls");
-		PlayerConfigurator.setCharacterCurrency(player, "reput.souls", soulstones + reward);
+		long soulstones = PlayerConfigurator.getCharacterSoulstones(player);
+		PlayerConfigurator.setCharacterSoulstones(player, soulstones + reward);
 		
 		player.sendTitle(ChatColor.GOLD + "Achievement Earned", name, 10, 70, 20);
 		player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");

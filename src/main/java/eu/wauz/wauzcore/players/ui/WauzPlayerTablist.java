@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.WauzRank;
+import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -213,15 +214,22 @@ public class WauzPlayerTablist {
 	}
 	
 	/**
-	 * Adds a prefix, showing the players rank, to the given team.
+	 * Adds a prefix, showing the players rank or title, to the given team.
 	 * 
 	 * @param team The team to receive the prefix.
 	 * @param player The player whose rank should be shown.
 	 */
 	private void generatePrefix(Team team, Player player) {
 		WauzRank rank = WauzRank.getRank(player);
-		String rankPrefix = rank.getRankPrefix();
-		rankPrefix = StringUtils.isBlank(rankPrefix) ? "" : rankPrefix + " ";
+		String title = WauzTitle.getTitle(player);
+		
+		String rankPrefix;
+		if(StringUtils.isNotBlank(title)) {
+			rankPrefix = rank.getRankColor() + title + " ";
+		}
+		else {
+			rankPrefix = StringUtils.isBlank(rank.getRankPrefix()) ? "" : rank.getRankPrefix() + " ";
+		}
 		team.setPrefix(teamPrefix + rankPrefix);
 		team.setColor(rank.getRankColor());
 	}

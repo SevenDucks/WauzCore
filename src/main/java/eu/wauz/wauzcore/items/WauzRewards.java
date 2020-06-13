@@ -43,8 +43,8 @@ public class WauzRewards {
     	player.sendMessage(ChatColor.GOLD + rank.getRankName() + " Reward: " + "You claimed your daily " + coins + " coins!");
     	
     	if(souls > 0) {
-    		long currentSouls = PlayerConfigurator.getCharacterCurrency(player, "reput.souls");
-    		PlayerConfigurator.setCharacterCurrency(player, "reput.souls", currentSouls + souls);
+    		long currentSouls = PlayerConfigurator.getCharacterSoulstones(player);
+    		PlayerConfigurator.setCharacterSoulstones(player, currentSouls + souls);
     		player.sendMessage(ChatColor.GOLD + "You also received " + souls + " additional soulstones!");
     	}
 	}
