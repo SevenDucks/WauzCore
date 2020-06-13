@@ -103,9 +103,9 @@ public class WauzPlayerData {
 	private String selectedCharacterWorld;
 	
 	/**
-	 * The currently selected character race.
+	 * The currently selected character class.
 	 */
-	private String selectedCharacterRace;
+	private String selectedCharacterClass;
 	
 	/**
 	 * The uuid of this players group.
@@ -414,17 +414,17 @@ public class WauzPlayerData {
 	}
 
 	/**
-	 * @return The currently selected character race.
+	 * @return The currently selected character class.
 	 */
-	public String getSelectedCharacterRace() {
-		return selectedCharacterRace;
+	public String getSelectedCharacterClass() {
+		return selectedCharacterClass;
 	}
 
 	/**
-	 * @param selectedCharacterRace The new currently selected character race.
+	 * @param selectedCharacterClass The new currently selected character class.
 	 */
-	public void setSelectedCharacterRace(String selectedCharacterRace) {
-		this.selectedCharacterRace = selectedCharacterRace;
+	public void setSelectedCharacterClass(String selectedCharacterClass) {
+		this.selectedCharacterClass = selectedCharacterClass;
 	}
 
 	/**

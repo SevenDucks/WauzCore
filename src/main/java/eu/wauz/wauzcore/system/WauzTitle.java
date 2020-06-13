@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
@@ -55,6 +56,9 @@ public class WauzTitle {
 		WauzTitle title = titleMap.get(titleName);
 		if(title != null) {
 			return title.getTitleDisplayName();
+		}
+		if(StringUtils.equals("class", titleName)) {
+			return PlayerConfigurator.getCharacterClass(player);
 		}
 		else {
 			return "";

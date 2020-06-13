@@ -22,21 +22,21 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
- * A character creation menu, that will let the player select their race/class.
+ * A character creation menu, that will let the player select their class.
  * 
  * @author Wauzmons
  * 
  * @see CharacterSlotMenu
  * @see CharacterWorldMenu
  */
-public class CharacterRaceClassMenu implements WauzInventory {
+public class CharacterClassMenu implements WauzInventory {
 	
 	/**
 	 * @return The id of the inventory.
 	 */
 	@Override
 	public String getInventoryId() {
-		return "raceclasses";
+		return "classes";
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class CharacterRaceClassMenu implements WauzInventory {
 	 */
 	@Override
 	public void openInstance(Player player) {
-		CharacterRaceClassMenu.open(player);
+		CharacterClassMenu.open(player);
 	}
 	
 	/**
@@ -58,11 +58,11 @@ public class CharacterRaceClassMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterRaceClassMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Race/Class!");
+		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterClassMenu());
+		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Class!");
 		
-		ItemStack race1 = HeadUtils.getNephilimItem();
-		ItemMeta im1 = race1.getItemMeta();
+		ItemStack class1 = HeadUtils.getNephilimItem();
+		ItemMeta im1 = class1.getItemMeta();
 		im1.setDisplayName(ChatColor.RED + "Nephilim");
 		List<String> lores1 = new ArrayList<String>();
 		lores1.add(ChatColor.WHITE + "Preferred Weapons (+35% Atk):" + ChatColor.LIGHT_PURPLE + " Staves");
@@ -71,11 +71,11 @@ public class CharacterRaceClassMenu implements WauzInventory {
 		lores1.add(ChatColor.GRAY + "Children of fallen Angels,");
 		lores1.add(ChatColor.GRAY + "who fight to gain more power.");
 		im1.setLore(lores1);
-		race1.setItemMeta(im1);
-		menu.setItem(2, race1);
+		class1.setItemMeta(im1);
+		menu.setItem(2, class1);
 		
-		ItemStack race2 = HeadUtils.getCrusaderItem();
-		ItemMeta im2 = race2.getItemMeta();
+		ItemStack class2 = HeadUtils.getCrusaderItem();
+		ItemMeta im2 = class2.getItemMeta();
 		im2.setDisplayName(ChatColor.GOLD + "Crusader");
 		List<String> lores2 = new ArrayList<String>();
 		lores2.add(ChatColor.WHITE + "Preferred Weapons (+35% Atk):" + ChatColor.LIGHT_PURPLE + " Axes");
@@ -84,11 +84,11 @@ public class CharacterRaceClassMenu implements WauzInventory {
 		lores2.add(ChatColor.GRAY + "Holy Warriors,");
 		lores2.add(ChatColor.GRAY + "who fight in the name of their god.");
 		im2.setLore(lores2);
-		race2.setItemMeta(im2);
-		menu.setItem(4, race2);
+		class2.setItemMeta(im2);
+		menu.setItem(4, class2);
 		
-		ItemStack race3 = HeadUtils.getAssassinItem();
-		ItemMeta im3 = race3.getItemMeta();
+		ItemStack class3 = HeadUtils.getAssassinItem();
+		ItemMeta im3 = class3.getItemMeta();
 		im3.setDisplayName(ChatColor.GREEN + "Assassin");
 		List<String> lores3 = new ArrayList<String>();
 		lores3.add(ChatColor.WHITE + "Preferred Weapons (+35% Atk):" + ChatColor.LIGHT_PURPLE + " Swords");
@@ -97,8 +97,8 @@ public class CharacterRaceClassMenu implements WauzInventory {
 		lores3.add(ChatColor.GRAY + "Ruthless Mercenaries,");
 		lores3.add(ChatColor.GRAY + "who fight to fill their wallets.");
 		im3.setLore(lores3);
-		race3.setItemMeta(im3);
-		menu.setItem(6, race3);
+		class3.setItemMeta(im3);
+		menu.setItem(6, class3);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -107,12 +107,12 @@ public class CharacterRaceClassMenu implements WauzInventory {
 	/**
 	 * Checks if an event in this inventory was triggered by a player click.
 	 * The default event will be automatically canceled.
-	 * If the clicked item is a race/class selection, it will be cached in the player data.
+	 * If the clicked item is a class selection, it will be cached in the player data.
 	 * Next the character creation will be triggered.
 	 * 
 	 * @param event The inventory click event.
 	 * 
-	 * @see WauzPlayerData#setSelectedCharacterRace(String)
+	 * @see WauzPlayerData#setSelectedCharacterClass(String)
 	 * @see CharacterManager#createCharacter(Player, WauzMode)
 	 */
 	@Override
@@ -126,17 +126,17 @@ public class CharacterRaceClassMenu implements WauzInventory {
 			return;
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Nephilim")) {
-			playerData.setSelectedCharacterRace("Human Nephilim");
+			playerData.setSelectedCharacterClass("Nephilim");
 			CharacterManager.createCharacter(player, WauzMode.MMORPG);
 			player.closeInventory();
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Crusader")) {
-			playerData.setSelectedCharacterRace("Human Crusader");
+			playerData.setSelectedCharacterClass("Crusader");
 			CharacterManager.createCharacter(player, WauzMode.MMORPG);
 			player.closeInventory();
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Assassin")) {
-			playerData.setSelectedCharacterRace("Human Assassin");
+			playerData.setSelectedCharacterClass("Assassin");
 			CharacterManager.createCharacter(player, WauzMode.MMORPG);
 			player.closeInventory();
 		}

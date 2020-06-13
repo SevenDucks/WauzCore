@@ -54,18 +54,18 @@ public enum ArmorCategory {
 	/**
 	 * Determines the fitting armor category based on the class of a player.
 	 * 
-	 * @param raceAndClass The race and class of the player.
+	 * @param characterClass The class of the player.
 	 * 
 	 * @return The fitting armor category.
 	 */
-	public static ArmorCategory fromRaceAndClass(String raceAndClass) {
-		if(raceAndClass.contains("Crusader")) {
+	public static ArmorCategory fromClass(String characterClass) {
+		if(characterClass.contains("Crusader")) {
 			return HEAVY;
 		}
-		else if(raceAndClass.contains("Nephilim")) {
+		else if(characterClass.contains("Nephilim")) {
 			return MEDIUM;
 		}
-		else if(raceAndClass.contains("Assassin")) {
+		else if(characterClass.contains("Assassin")) {
 			return LIGHT;
 		}
 		else {

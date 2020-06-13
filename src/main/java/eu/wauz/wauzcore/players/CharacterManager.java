@@ -32,6 +32,7 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.quests.QuestProcessor;
 import eu.wauz.wauzcore.system.quests.QuestSlot;
+import eu.wauz.wauzcore.system.util.WauzFileUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -40,6 +41,11 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * @author Wauzmons
  */
 public class CharacterManager {
+	
+	/**
+	 * The current schema version of character files.
+	 */
+	public static final int SCHEMA_VERSION = 1;
 	
 	/**
 	 * A direct reference to the main class.
@@ -128,7 +134,7 @@ public class CharacterManager {
 		
 		playerData.setSelectedCharacterSlot(null);
 		playerData.setSelectedCharacterWorld(null);
-		playerData.setSelectedCharacterRace(null);
+		playerData.setSelectedCharacterClass(null);
 		
 	    player.setExp(0);
 		player.setLevel(0);
@@ -200,15 +206,15 @@ public class CharacterManager {
 			return;
 		}
 		
-		String characterRaceAndClass = null;
+		String characterClass = null;
 		boolean classNephilim;
 		boolean classCrusader;
 		boolean classAssassin;
-		if(playerData.getSelectedCharacterRace() != null) {
-			characterRaceAndClass = playerData.getSelectedCharacterRace();
-			classNephilim = characterRaceAndClass.contains("Nephilim");
-			classCrusader = characterRaceAndClass.contains("Crusader");
-			classAssassin = characterRaceAndClass.contains("Assassin");
+		if(playerData.getSelectedCharacterClass() != null) {
+			characterClass = playerData.getSelectedCharacterClass();
+			classNephilim = characterClass.contains("Nephilim");
+			classCrusader = characterClass.contains("Crusader");
+			classAssassin = characterClass.contains("Assassin");
 		}
 		else {
 			return;
@@ -253,8 +259,9 @@ public class CharacterManager {
 // Create new Player-Config
 		
 		playerDataConfig.set("exists", true);
+		playerDataConfig.set("schemaversion", SCHEMA_VERSION);
 		playerDataConfig.set("lastplayed", System.currentTimeMillis());
-		playerDataConfig.set("race", characterRaceAndClass);
+		playerDataConfig.set("class", characterClass);
 		playerDataConfig.set("level", wauzMode.equals(WauzMode.MMORPG) ? 1 : 0);
 		playerDataConfig.set("pos.world", characterWorld);
 		playerDataConfig.set("pos.spawn", characterPosition);
@@ -310,7 +317,7 @@ public class CharacterManager {
 			playerDataConfig.set("options.hideSpecialQuests", 0);
 			playerDataConfig.set("options.hideCompletedQuests", 0);
 			playerDataConfig.set("options.tabard", "No Tabard");
-			playerDataConfig.set("options.title", "none");
+			playerDataConfig.set("options.title", "default");
 			playerDataConfig.set("options.titlelist", new ArrayList<>());
 			
 			playerDataConfig.set("cooldown.reward", 0);
@@ -386,6 +393,19 @@ public class CharacterManager {
 		player.setCompassTarget(spawn);
 		player.setBedSpawnLocation(spawn, true);
 		player.teleport(spawn);
+	}
+	
+	/**
+	 * Deletes the given character permanently.
+	 * 
+	 * @param player The player who owns the character.
+	 * @param characterSlot The slot of the character.
+	 */
+	public static void deleteCharacter(Player player, String characterSlot) {
+		String basePath = core.getDataFolder().getAbsolutePath() + "/PlayerData/" + player.getUniqueId() + "/" + characterSlot;
+		new File(basePath + ".yml").delete();
+		WauzFileUtils.removeFilesRecursive(new File(basePath + "-quests"));
+		WauzFileUtils.removeFilesRecursive(new File(basePath + "-relations"));
 	}
 	
 	/**

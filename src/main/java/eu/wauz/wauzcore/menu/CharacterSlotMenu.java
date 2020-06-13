@@ -30,7 +30,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * @author Wauzmons
  * 
  * @see CharacterWorldMenu
- * @see CharacterRaceClassMenu
+ * @see CharacterClassMenu
  */
 public class CharacterSlotMenu implements WauzInventory {
 	
@@ -83,10 +83,10 @@ public class CharacterSlotMenu implements WauzInventory {
 	
 	/**
 	 * Generates an item stack, to show infos about a character slot.
-	 * Most slots will be handled as MMO slots and will show race/class, world and level.
-	 * Slots with an id over 20000 (survival seasons) will be Survival slots
-	 * and will show the time left till the current season will end.
+	 * The slots will show class, world and level of the character.
+	 * Survival slots will also show the time left till the current season will end.
 	 * Empty slots will show "Empty" and deletable slots a delete instruction.
+	 * Outdated slots will be deleted automatically.
 	 * 
 	 * @param player The player who owns the character.
 	 * @param slotId The slot of the character.
@@ -94,7 +94,9 @@ public class CharacterSlotMenu implements WauzInventory {
 	 * 
 	 * @return The character slot item stack.
 	 * 
-	 * @see PlayerConfigurator#getRaceString(org.bukkit.OfflinePlayer, String)
+	 * @see PlayerConfigurator#getCharecterSchemaVersion(org.bukkit.OfflinePlayer, String)
+	 * @see CharacterManager#deleteCharacter(Player, String)
+	 * @see PlayerConfigurator#getClassString(org.bukkit.OfflinePlayer, String)
 	 * @see PlayerConfigurator#getWorldString(org.bukkit.OfflinePlayer, String)
 	 * @see PlayerConfigurator#getLevelString(org.bukkit.OfflinePlayer, String)
 	 * @see PlayerConfigurator#getLastCharacterLogin(org.bukkit.OfflinePlayer, String)
@@ -102,6 +104,11 @@ public class CharacterSlotMenu implements WauzInventory {
 	 */
 	private static ItemStack getCharacterSlot(Player player, String slotId, boolean deletable) {
 		boolean characterExists = PlayerConfigurator.doesCharacterExist(player, slotId);
+		if(characterExists && PlayerConfigurator.getCharecterSchemaVersion(player, slotId) < CharacterManager.SCHEMA_VERSION) {
+			CharacterManager.deleteCharacter(player, slotId);
+			characterExists = false;
+		}
+		
 		ItemStack slotItemStack = new ItemStack(Material.TOTEM_OF_UNDYING);
 		ItemMeta slotItemMeta = slotItemStack.getItemMeta();
 		slotItemMeta.setDisplayName((characterExists ? ChatColor.GOLD : ChatColor.RED) + "Slot " + slotId);
@@ -109,7 +116,7 @@ public class CharacterSlotMenu implements WauzInventory {
 		
 		if(characterExists) {
 			lores.add(ChatColor.WHITE 
-					+ PlayerConfigurator.getRaceString(player, slotId) + ", "
+					+ PlayerConfigurator.getClassString(player, slotId) + ", "
 					+ PlayerConfigurator.getWorldString(player, slotId) + ", "
 					+ PlayerConfigurator.getLevelString(player, slotId));
 			lores.add("");
@@ -171,7 +178,7 @@ public class CharacterSlotMenu implements WauzInventory {
 		if(clickedName.contains("" + ChatColor.RED)) {
 			if(slotId.contains("Survival")) {
 				playerData.setSelectedCharacterWorld(slotId.startsWith("OneBlock") ? "SurvivalOneBlock" : "Survival");
-				playerData.setSelectedCharacterRace(WauzDateUtils.getSurvivalSeason());
+				playerData.setSelectedCharacterClass(WauzDateUtils.getSurvivalSeason());
 				CharacterManager.createCharacter(player, WauzMode.SURVIVAL);
 			}
 			else {

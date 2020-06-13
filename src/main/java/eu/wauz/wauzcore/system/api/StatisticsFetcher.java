@@ -198,10 +198,10 @@ public class StatisticsFetcher {
 			return characterString;
 		}
 		
-		String race = playerDataConfig.getString("race");
+		String characterClass = playerDataConfig.getString("class");
 		String world = playerDataConfig.getString("pos.world");
 		String level = playerDataConfig.getString("level");
-		characterString = "Level " + level + " " + race + " on " + world;
+		characterString = "Level " + level + " " + characterClass + " on " + world;
 		return characterString;
 	}
 	

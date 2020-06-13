@@ -159,9 +159,9 @@ public class WauzEquipment {
 	 * @return If the class matches.
 	 */
 	private static boolean doesClassMatch(Player player, ItemStack armorItemStack) {
-		String raceAndClass = PlayerConfigurator.getCharacterRace(player);
+		String characterClass = PlayerConfigurator.getCharacterClass(player);
 		ArmorCategory armorCategory = EquipmentUtils.getArmorCategory(armorItemStack);
-		ArmorCategory classArmorCategory = ArmorCategory.fromRaceAndClass(raceAndClass);
+		ArmorCategory classArmorCategory = ArmorCategory.fromClass(characterClass);
 		boolean unknownCategory = armorCategory.equals(ArmorCategory.UNKNOWN);
 		boolean classMatches = unknownCategory || armorCategory.equals(classArmorCategory); 
 		if(!classMatches) {

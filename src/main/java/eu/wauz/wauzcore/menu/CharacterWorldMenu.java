@@ -25,7 +25,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
  * @author Wauzmons
  * 
  * @see CharacterSlotMenu
- * @see CharacterRaceClassMenu
+ * @see CharacterClassMenu
  */
 public class CharacterWorldMenu implements WauzInventory {
 	
@@ -85,12 +85,12 @@ public class CharacterWorldMenu implements WauzInventory {
 	 * Checks if an event in this inventory was triggered by a player click.
 	 * The default event will be automatically canceled.
 	 * If the clicked item is a world selection, it will be cached in the player data.
-	 * Next the race/class selection will be shown.
+	 * Next the class selection will be shown.
 	 * 
 	 * @param event The inventory click event.
 	 * 
 	 * @see WauzPlayerData#setSelectedCharacterWorld(String)
-	 * @see CharacterRaceClassMenu#open(Player)
+	 * @see CharacterClassMenu#open(Player)
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
@@ -111,7 +111,7 @@ public class CharacterWorldMenu implements WauzInventory {
 		else if(clicked.getItemMeta().getDisplayName().contains("Dalyreos")) {
 			playerData.setSelectedCharacterWorld("Dalyreos");
 		}
-		CharacterRaceClassMenu.open(player);
+		CharacterClassMenu.open(player);
 	}
 	
 }

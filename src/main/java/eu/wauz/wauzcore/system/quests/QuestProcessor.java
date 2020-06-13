@@ -235,7 +235,7 @@ public class QuestProcessor {
 		}
 		else {
 			String requiredClass = quest.getRequiredClass();
-			if(StringUtils.isNotBlank(requiredClass) && !PlayerConfigurator.getCharacterRace(player).contains(requiredClass)) {
+			if(StringUtils.isNotBlank(requiredClass) && !PlayerConfigurator.getCharacterClass(player).contains(requiredClass)) {
 				player.sendMessage(ChatColor.RED + "Only " + requiredClass + "s can accept this quest!");
 				return;
 			}

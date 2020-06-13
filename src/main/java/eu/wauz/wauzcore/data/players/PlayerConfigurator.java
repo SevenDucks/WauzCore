@@ -166,6 +166,16 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @param player The player that owns the config file.
 	 * @param slot The slot of the character.
 	 * 
+	 * @return The schema version of the character file.
+	 */
+	public static int getCharecterSchemaVersion(OfflinePlayer player, String slot) {
+		return playerConfigGetInt(player, "char" + slot + ".schemaversion", false);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param slot The slot of the character.
+	 * 
 	 * @return The last login of the character.
 	 */
 	public static String getLastCharacterLogin(OfflinePlayer player, String slot) {
@@ -176,10 +186,10 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @param player The player that owns the config file.
 	 * @param slot The slot of the character.
 	 * 
-	 * @return The race / class of the character.
+	 * @return The class of the character.
 	 */
-	public static String getRaceString(OfflinePlayer player, String slot) {
-		return playerConfigGetString(player, "char" + slot + ".race", false);
+	public static String getClassString(OfflinePlayer player, String slot) {
+		return playerConfigGetString(player, "char" + slot + ".class", false);
 	}
 	
 	/**
@@ -207,10 +217,10 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	/**
 	 * @param player The player that owns the config file.
 	 * 
-	 * @return The reace / class of the selected character.
+	 * @return The class of the selected character.
 	 */
-	public static String getCharacterRace(Player player) {
-		return playerConfigGetString(player, "race", true);
+	public static String getCharacterClass(Player player) {
+		return playerConfigGetString(player, "class", true);
 	}
 	
 	/**

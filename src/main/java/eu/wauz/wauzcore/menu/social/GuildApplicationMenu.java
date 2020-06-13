@@ -61,7 +61,7 @@ public class GuildApplicationMenu implements WauzInventory {
 	 * @see GuildOverviewMenu#validateOfficerAccess(Player, WauzPlayerGuild)
 	 * @see WauzPlayerGuild#getApplicantUuidStrings()
 	 * @see PlayerConfigurator#getLastPlayed(OfflinePlayer)
-	 * @see PlayerConfigurator#getRaceString(OfflinePlayer, int)
+	 * @see PlayerConfigurator#getClassString(OfflinePlayer, int)
 	 * @see PlayerConfigurator#getWorldString(OfflinePlayer, int)
 	 * @see PlayerConfigurator#getLevelString(OfflinePlayer, int)
 	 * @see PlayerConfigurator#getSurvivalScore(OfflinePlayer)
@@ -101,7 +101,7 @@ public class GuildApplicationMenu implements WauzInventory {
 				String slotId = "MMORPG-" + character;
 				if(PlayerConfigurator.doesCharacterExist(applicant, slotId)) {
 					slores.add(ChatColor.WHITE 
-							+ PlayerConfigurator.getRaceString(applicant, slotId) + ", "
+							+ PlayerConfigurator.getClassString(applicant, slotId) + ", "
 							+ PlayerConfigurator.getWorldString(applicant, slotId) + ", "
 							+ PlayerConfigurator.getLevelString(applicant, slotId));
 				}

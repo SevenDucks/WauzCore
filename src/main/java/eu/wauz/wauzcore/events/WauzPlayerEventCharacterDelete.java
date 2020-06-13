@@ -1,13 +1,11 @@
 package eu.wauz.wauzcore.events;
 
-import java.io.File;
-
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
-import eu.wauz.wauzcore.system.util.WauzFileUtils;
 
 /**
  * An event for deleting the character data file of a player.
@@ -28,12 +26,9 @@ public class WauzPlayerEventCharacterDelete implements WauzPlayerEvent {
 	public boolean execute(Player player) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		String characterSlot = playerData.getSelectedCharacterSlot();
-		String basePath = core.getDataFolder().getAbsolutePath() + "/PlayerData/" + player.getUniqueId() + "/" + characterSlot;
 		
 		try {
-			new File(basePath + ".yml").delete();
-			WauzFileUtils.removeFilesRecursive(new File(basePath + "-quests"));
-			WauzFileUtils.removeFilesRecursive(new File(basePath + "-relations"));
+			CharacterManager.deleteCharacter(player, characterSlot);
 			player.sendMessage(ChatColor.DARK_PURPLE + "Character succesfully deleted!");
 			player.closeInventory();
 			return true;

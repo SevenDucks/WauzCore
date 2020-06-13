@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzTitle;
 
 /**
@@ -67,6 +68,11 @@ public class TitleMenu implements WauzInventory {
 		List<String> unlockedTitles = PlayerConfigurator.getCharacterTitleList(player);
 		String currentTitle = PlayerConfigurator.getCharacterTitle(player);
 		
+		boolean defaultSelected = StringUtils.equals("default", currentTitle);
+		menu.setItem(2, getTitleItemStack("default", WauzRank.getRank(player).getRankPrefix(), 1, 0, true, defaultSelected));
+		boolean classSelected = StringUtils.equals("class", currentTitle);
+		menu.setItem(6, getTitleItemStack("class", PlayerConfigurator.getCharacterClass(player), 1, 0, true, classSelected));
+		
 		int titleNumber = 9;
 		for(WauzTitle title : titles) {
 			if(titleNumber + 9 >= inventorySize) {
@@ -74,38 +80,57 @@ public class TitleMenu implements WauzInventory {
 			}
 			
 			String titleName = title.getTitleName();
+			String displayName = title.getTitleDisplayName();
+			int level = title.getTitleLevel();
+			int cost = title.getTitleCost();
 			boolean unlocked = unlockedTitles.contains(titleName);
 			boolean selected = StringUtils.equals(titleName, currentTitle);
-			
-			ItemStack titleItemStack = unlocked ? HeadUtils.getTitlesItem() : HeadUtils.getDeclineItem();
-			ItemMeta titleItemMeta = titleItemStack.getItemMeta();
-			titleItemMeta.setDisplayName(unlocked ? ChatColor.GREEN + "Unlocked" : ChatColor.RED + "Locked");
-			List<String> titleLores = new ArrayList<>();
-			titleLores.add(ChatColor.YELLOW + "Title: " + title.getTitleDisplayName());
-			titleLores.add(ChatColor.GRAY + "Title-ID: " + titleName);
-			titleLores.add(ChatColor.GRAY + "Required Level: " + title.getTitleLevel());
-			titleLores.add("");
-			if(unlocked) {
-				if(selected) {
-					titleLores.add(ChatColor.GRAY + "Currently Selected");
-					titleItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
-					titleItemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-				}
-				else {
-					titleLores.add(ChatColor.GRAY + "Click to Select");
-				}
-			}
-			else {
-				titleLores.add(ChatColor.GRAY + "Click to Buy for " + title.getTitleCost() + " Soulstones");
-			}
-			titleItemMeta.setLore(titleLores);
-			titleItemStack.setItemMeta(titleItemMeta);
-			menu.setItem(titleNumber, titleItemStack);
+			menu.setItem(titleNumber, getTitleItemStack(titleName, displayName, level, cost, unlocked, selected));
 			titleNumber++;
 		}
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
+	}
+	
+	/**
+	 * Creates an item stack, that represents a chat title.
+	 * Used for showing slectable titles in the title menu.
+	 * 
+	 * @param titleName The key of the title.
+	 * @param displayName The chat display name of the title.
+	 * @param level The required level of the title.
+	 * @param cost The soulstone cost of the title.
+	 * @param unlocked If the title has been unlocked.
+	 * @param selected If the title is currently selected.
+	 * 
+	 * @return The title item stack.
+	 */
+	private static ItemStack getTitleItemStack(String titleName, String displayName, int level, int cost, boolean unlocked, boolean selected) {
+		ItemStack titleItemStack = unlocked ? HeadUtils.getTitlesItem() : HeadUtils.getDeclineItem();
+		ItemMeta titleItemMeta = titleItemStack.getItemMeta();
+		titleItemMeta.setDisplayName(unlocked ? ChatColor.GREEN + "Unlocked" : ChatColor.RED + "Locked");
+		List<String> titleLores = new ArrayList<>();
+		titleLores.add(ChatColor.YELLOW + "Title: " + displayName);
+		titleLores.add(ChatColor.GRAY + "Title-ID: " + titleName);
+		titleLores.add(ChatColor.GRAY + "Required Level: " + level);
+		titleLores.add("");
+		if(unlocked) {
+			if(selected) {
+				titleLores.add(ChatColor.GRAY + "Currently Selected");
+				titleItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
+				titleItemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+			}
+			else {
+				titleLores.add(ChatColor.GRAY + "Click to Select");
+			}
+		}
+		else {
+			titleLores.add(ChatColor.GRAY + "Click to Buy for " + cost + " Soulstones");
+		}
+		titleItemMeta.setLore(titleLores);
+		titleItemStack.setItemMeta(titleItemMeta);
+		return titleItemStack;
 	}
 
 	/**
