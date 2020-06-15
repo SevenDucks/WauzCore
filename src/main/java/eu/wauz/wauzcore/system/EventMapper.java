@@ -199,7 +199,7 @@ public class EventMapper {
 			}
 		}
 		
-		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+		if(event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			Material type = event.getClickedBlock().getType();
 			WauzDebugger.log(event.getPlayer(), "Clicked Block: " + type.toString());
 			

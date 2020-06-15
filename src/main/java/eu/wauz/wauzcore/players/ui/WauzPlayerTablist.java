@@ -45,14 +45,9 @@ public class WauzPlayerTablist {
 	private Scoreboard scoreboard;
 	
 	/**
-	 * The 1st scoreboard objective for showing the health of players.
+	 * The scoreboard objective for showing the health of players.
 	 */
-	private Objective healthObjective1;
-	
-	/**
-	 * The 2nd scoreboard objective for showing the health of players.
-	 */
-	private Objective healthObjective2;
+	private Objective healthObjective;
 	
 	/**
 	 * The prefix to apply to the next created team.
@@ -73,9 +68,7 @@ public class WauzPlayerTablist {
 	public WauzPlayerTablist(Player player, Scoreboard scoreboard) {
 		this.player = player;
 		this.scoreboard = scoreboard;
-		
-		healthObjective1 = registerHealthObjective("health1", DisplaySlot.PLAYER_LIST);
-		healthObjective2 = registerHealthObjective("health2", DisplaySlot.BELOW_NAME);
+		healthObjective = registerHealthObjective("health", DisplaySlot.PLAYER_LIST);
 	}
 	
 	/**
@@ -207,10 +200,8 @@ public class WauzPlayerTablist {
 		generatePrefix(team, player);
 		team.addEntry(player.getName());
 		
-		Score health1 = healthObjective1.getScore(player.getName());
-		Score health2 = healthObjective2.getScore(player.getName());
-		health1.setScore((int) player.getHealth());
-		health2.setScore((int) player.getHealth());
+		Score health = healthObjective.getScore(player.getName());
+		health.setScore((int) Math.ceil(player.getHealth()));
 	}
 	
 	/**

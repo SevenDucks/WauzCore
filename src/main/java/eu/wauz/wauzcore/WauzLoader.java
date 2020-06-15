@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.commands.CmdHome;
 import eu.wauz.wauzcore.commands.CmdHub;
 import eu.wauz.wauzcore.commands.CmdMenu;
 import eu.wauz.wauzcore.commands.CmdMotd;
+import eu.wauz.wauzcore.commands.CmdRoll;
 import eu.wauz.wauzcore.commands.CmdSend;
 import eu.wauz.wauzcore.commands.CmdSendCoins;
 import eu.wauz.wauzcore.commands.CmdSendItem;
@@ -201,6 +202,7 @@ public class WauzLoader {
 		WauzCommandExecutor.registerCommand(new CmdHub());
 		WauzCommandExecutor.registerCommand(new CmdMenu());
 		WauzCommandExecutor.registerCommand(new CmdMotd());
+		WauzCommandExecutor.registerCommand(new CmdRoll());
 		WauzCommandExecutor.registerCommand(new CmdSend());
 		WauzCommandExecutor.registerCommand(new CmdSendCoins());
 		WauzCommandExecutor.registerCommand(new CmdSendItem());
