@@ -1,0 +1,48 @@
+currency:
+  name: Currency
+  factions:
+    medals:
+      name: Medals
+      key: medals
+reput-act1:
+  name: Anemor
+  factions:
+    devils:
+      name: Devil Knights
+      key: devils
+    wrayvell:
+      name: Wrayvell
+      key: wrayvell
+    dunkelhaven:
+      name: Dunkelhaven (Karisa)
+      key: dunkelhaven
+    umbrastein:
+      name: Umbrastein (Balron)
+      key: umbrastein
+    hellgate:
+      name: Hellgate (Variel)
+      key: hellgate
+reput-act2:
+  name: Kanthraka
+  factions:
+reput-act3:
+  name: Vakanem
+  factions:
+reput-act4:
+  name: Sköllmark
+  factions:
+reput-act5:
+  name: Inferris
+  factions:
+reput-wauzland:
+  name: Wauzland
+  factions:
+    republic:
+      name: Republic Wauzland
+      key: wauzland
+    empire:
+      name: Eternal Empire
+      key: empire
+    legion:
+      name: Dark Legion
+      key: legion
