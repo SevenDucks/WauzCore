@@ -265,6 +265,22 @@ public class GlobalConfigurationUtils {
 	}
 	
 // Interact with Shop-Config
+	
+	/**
+	 * Finds all shop names by iterating through all shop configs.
+	 * 
+	 * @return A list of all shop names.
+	 */
+	protected static List<String> getShopNameList() {
+		List<String> shopNameList = new ArrayList<>();
+		File shopDataFolder = new File(core.getDataFolder(), "ShopData/");
+		if(shopDataFolder.exists()) {
+			for(File file : shopDataFolder.listFiles()) {
+				shopNameList.add(file.getName().replace(".yml", ""));
+			}
+		}
+		return shopNameList;
+	}
 
 	/**
 	 * Gets a string from a shop config.

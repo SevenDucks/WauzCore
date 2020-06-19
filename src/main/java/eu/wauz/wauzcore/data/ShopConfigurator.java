@@ -11,19 +11,28 @@ import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
  */
 public class ShopConfigurator extends GlobalConfigurationUtils {
 	
+// Shop Files
+
+	/**
+	 * @return The list of all shop names.
+	 */
+	public static List<String> getShopNameList() {
+		return GlobalConfigurationUtils.getShopNameList();
+	}
+	
 // General Parameters
 	
 	/**
-	 * @param shopName Name of the shop.
+	 * @param shopName The name of the shop.
 	 * 
-	 * @return If the shop is global.
+	 * @return If the shop is global (gamemode independent).
 	 */
 	public static boolean isShopGlobal(String shopName) {
 		return shopConfigGetString(shopName, "type").equals("Global");
 	}
 	
 	/**
-	 * @param shopName Name of the shop.
+	 * @param shopName The name of the shop.
 	 * 
 	 * @return The amount of items in the shop.
 	 */
@@ -34,8 +43,8 @@ public class ShopConfigurator extends GlobalConfigurationUtils {
 // Shop Item Details
 	
 	/**
-	 * @param shopName Name of the shop.
-	 * @param itemIndex Number of the shop item.
+	 * @param shopName The name of the shop.
+	 * @param itemIndex The number of the shop item.
 	 * 
 	 * @return The material of the shop item.
 	 */
@@ -44,8 +53,8 @@ public class ShopConfigurator extends GlobalConfigurationUtils {
 	}
 	
 	/**
-	 * @param shopName Name of the shop.
-	 * @param itemIndex Number of the shop item.
+	 * @param shopName The name of the shop.
+	 * @param itemIndex The number of the shop item.
 	 * 
 	 * @return The amount of the shop item.
 	 */
@@ -54,8 +63,8 @@ public class ShopConfigurator extends GlobalConfigurationUtils {
 	}
 	
 	/**
-	 * @param shopName Name of the shop.
-	 * @param itemIndex Number of the shop item.
+	 * @param shopName The name of the shop.
+	 * @param itemIndex The number of the shop item.
 	 * 
 	 * @return The name of the shop item.
 	 */
@@ -64,8 +73,8 @@ public class ShopConfigurator extends GlobalConfigurationUtils {
 	}
 	
 	/**
-	 * @param shopName Name of the shop.
-	 * @param itemIndex Number of the shop item.
+	 * @param shopName The name of the shop.
+	 * @param itemIndex The number of the shop item.
 	 * 
 	 * @return The lores of the shop item.
 	 */
