@@ -110,8 +110,10 @@ import eu.wauz.wauzcore.skills.SkillTheWorld;
 import eu.wauz.wauzcore.skills.SkillWheelOfFortune;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.InstanceManager;
+import eu.wauz.wauzcore.system.WauzCurrency;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.WauzShop;
 import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
@@ -140,7 +142,9 @@ public class WauzLoader {
 	public static void init() {
 		WauzRegion.init();
 		WauzEquipment.init();
+		WauzCurrency.init();
 		WauzAchievement.init();
+		WauzShop.init();
 		WauzQuest.init();
 		WauzCitizen.init();
 		WauzRank.init();

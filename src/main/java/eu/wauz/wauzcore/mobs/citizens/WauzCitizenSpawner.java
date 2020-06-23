@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import net.jitse.npclib.NPCLib;
 import net.jitse.npclib.api.NPC;
 import net.jitse.npclib.api.skin.MineSkinFetcher;
@@ -95,12 +96,13 @@ public class WauzCitizenSpawner {
 	}
 	
 	/**
-	 * Shows all npcs near the given player to them and updates the npc's look direction. 
+	 * Shows all npcs near the given player to them. 
 	 * 
 	 * @param player The player to show the npcs to.
 	 */
 	public static void showNpcsNearPlayer(Player player) {
 		List<WauzCitizen> citizens = WauzCitizen.getCitizensNearPlayer(player);
+		WauzDebugger.log(player, "Rendered " + citizens.size() + " Citizens");
 		for(WauzCitizen citizen : citizens) {
 			NPC npc = citizenNpcMap.get(citizen);
 			showNpc(npc, player);

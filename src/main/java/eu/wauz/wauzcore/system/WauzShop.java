@@ -46,17 +46,24 @@ public class WauzShop {
 	private String shopName;
 	
 	/**
+	 * The display name of the shop.
+	 */
+	private String shopDisplayName;
+	
+	/**
 	 *  If the shop is global (gamemode independent).
 	 */
 	private boolean isGlobal;
 	
 	/**
-	 * Constructs a title, based on the title file in the /WauzCore folder.
+	 * Constructs a shop, based on the shop file in the /WauzCore/ShopData folder.
 	 * 
-	 * @param titleName The key of the title.
+	 * @param shopName The name of the shop.
 	 */
 	public WauzShop(String shopName) {
 		this.shopName = shopName;
+		this.shopDisplayName = ShopConfigurator.getShopName(shopName);
+		this.isGlobal = ShopConfigurator.isShopGlobal(shopName);
 	}
 
 	/**
@@ -64,6 +71,13 @@ public class WauzShop {
 	 */
 	public String getShopName() {
 		return shopName;
+	}
+
+	/**
+	 * @return The display name of the shop.
+	 */
+	public String getShopDisplayName() {
+		return shopDisplayName;
 	}
 
 	/**

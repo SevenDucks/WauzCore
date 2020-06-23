@@ -18,7 +18,7 @@ public class CurrencyConfigurator extends GlobalConfigurationUtils {
 	 * @return The keys of all categories.
 	 */
 	public static List<String> getAllCurrencyCategoryKeys() {
-		return new ArrayList<>(mainConfigGetKeys("Currency", null));
+		return new ArrayList<>(mainConfigGetKeys("Currencies", null));
 	}
 	
 	/**
@@ -27,7 +27,7 @@ public class CurrencyConfigurator extends GlobalConfigurationUtils {
 	 * @return The display name of the category.
 	 */
 	public static String getCurrencyCategoryName(String category) {
-		return mainConfigGetString("Currency", category + ".name");
+		return mainConfigGetString("Currencies", category + ".name");
 	}
 	
 // Factions
@@ -38,7 +38,7 @@ public class CurrencyConfigurator extends GlobalConfigurationUtils {
 	 * @return The keys of the factions in the category.
 	 */
 	public static List<String> getCurrencyFactionKeys(String category) {
-		return new ArrayList<>(mainConfigGetKeys("Currency", category + ".factions"));
+		return new ArrayList<>(mainConfigGetKeys("Currencies", category + ".factions"));
 	}
 	
 	/**
@@ -48,7 +48,7 @@ public class CurrencyConfigurator extends GlobalConfigurationUtils {
 	 * @return The display name of the faction's curreny.
 	 */
 	public static String getCurrencyFactionDisplayName(String category, String faction) {
-		return mainConfigGetString("Currency", category + ".factions." + faction + ".name");
+		return mainConfigGetString("Currencies", category + ".factions." + faction + ".name");
 	}
 	
 	/**
@@ -58,7 +58,7 @@ public class CurrencyConfigurator extends GlobalConfigurationUtils {
 	 * @return The player config key of the faction's curreny.
 	 */
 	public static String getCurrencyFactionConfigName(String category, String faction) {
-		return mainConfigGetString("Currency", category + ".factions." + faction + ".key");
+		return mainConfigGetString("Currencies", category + ".factions." + faction + ".key");
 	}
 
 }

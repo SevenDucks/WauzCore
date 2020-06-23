@@ -97,16 +97,16 @@ public class ShopBuilder implements WauzInventory {
 			MenuUtils.setCurrencyDisplay(menu, player, 0);
 		}
 		
-		for(int itemIndex = ShopConfigurator.getShopItemsAmout(shopName); itemIndex > 0; itemIndex--) {		
-			ItemStack offerItemStack = new ItemStack(Material.getMaterial(ShopConfigurator.getItemMaterial(shopName, itemIndex)),
-					 ShopConfigurator.getItemAmount(shopName, itemIndex));
-			
-			ItemMeta offerItemMeta = offerItemStack.getItemMeta();
-			offerItemMeta.setDisplayName(ShopConfigurator.getItemName(shopName, itemIndex));
-			offerItemMeta.setLore(ShopConfigurator.getItemLores(shopName, itemIndex));
-			offerItemStack.setItemMeta(offerItemMeta);
-			menu.setItem(itemIndex, offerItemStack);
-		}
+//		for(int itemIndex = ShopConfigurator.getShopItemsAmout(shopName); itemIndex > 0; itemIndex--) {		
+//			ItemStack offerItemStack = new ItemStack(Material.getMaterial(ShopConfigurator.getItemMaterial(shopName, itemIndex)),
+//					 ShopConfigurator.getItemAmount(shopName, itemIndex));
+//			
+//			ItemMeta offerItemMeta = offerItemStack.getItemMeta();
+//			offerItemMeta.setDisplayName(ShopConfigurator.getItemName(shopName, itemIndex));
+//			offerItemMeta.setLore(ShopConfigurator.getItemLores(shopName, itemIndex));
+//			offerItemStack.setItemMeta(offerItemMeta);
+//			menu.setItem(itemIndex, offerItemStack);
+//		}
 		
 		for(int index = isGlobal ? 8 : 6; index > ShopConfigurator.getShopItemsAmout(shopName); index--) {
 			ItemStack soldItemStack = new ItemStack(Material.OAK_SIGN, 1);
