@@ -26,7 +26,7 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.WauzShop;
+import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 
 /**

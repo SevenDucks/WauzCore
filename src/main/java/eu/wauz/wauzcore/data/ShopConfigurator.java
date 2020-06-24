@@ -3,7 +3,7 @@ package eu.wauz.wauzcore.data;
 import java.util.List;
 
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
-import eu.wauz.wauzcore.system.WauzCurrency;
+import eu.wauz.wauzcore.system.economy.WauzCurrency;
 
 /**
  * Configurator to fetch or modify data from the Shop.yml files.

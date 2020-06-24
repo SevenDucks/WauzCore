@@ -87,11 +87,29 @@ public class ShopBuilder implements WauzInventory {
 	 */
 	public static void open(Player player, String shopName) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new ShopBuilder());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Shop of " + shopName);
+		Inventory menu = Bukkit.createInventory(holder, 27, ChatColor.BLACK + "" + ChatColor.BOLD + "Shop of " + shopName);
 		
 		boolean isGlobal = ShopConfigurator.isShopGlobal(shopName);
 		if(isGlobal) {
 			MenuUtils.setGlobalCurrencyDisplay(menu, player, 0);
+			
+			ItemStack repairItemStack = new ItemStack(Material.ANVIL);
+			ItemMeta repairItemMeta = repairItemStack.getItemMeta();
+			repairItemMeta.setDisplayName(ChatColor.BLUE + "Repair Items");
+			List<String> repairLores = new ArrayList<String>();
+			repairLores.add(ChatColor.DARK_PURPLE + "Drag Items here, to repair them for Coins.");
+			repairItemMeta.setLore(repairLores);
+			repairItemStack.setItemMeta(repairItemMeta);
+			menu.setItem(8, repairItemStack);
+			
+			ItemStack sellItemStack = new ItemStack(Material.BARRIER, 1);
+			ItemMeta sellItemMeta = sellItemStack.getItemMeta();
+			sellItemMeta.setDisplayName(ChatColor.RED + "Sell Items");
+			List<String> sellLores = new ArrayList<String>();
+			sellLores.add(ChatColor.DARK_PURPLE + "Drag Items here, to trade them for Coins.");
+			sellItemMeta.setLore(sellLores);
+			sellItemStack.setItemMeta(sellItemMeta);
+			menu.setItem(17, sellItemStack);
 		}
 		else {
 			MenuUtils.setCurrencyDisplay(menu, player, 0);
@@ -114,28 +132,6 @@ public class ShopBuilder implements WauzInventory {
 			soldItemMeta.setDisplayName(ChatColor.DARK_GRAY + "SOLD OUT");
 			soldItemStack.setItemMeta(soldItemMeta);
 			menu.setItem(index, soldItemStack);
-		}
-		
-		if(!isGlobal) {
-			ItemStack repairItemStack = new ItemStack(Material.ANVIL);
-			ItemMeta repairItemMeta = repairItemStack.getItemMeta();
-			repairItemMeta.setDisplayName(ChatColor.BLUE + "Repair Items");
-			List<String> repairLores = new ArrayList<String>();
-			repairLores.add(ChatColor.DARK_PURPLE + "Drag Items here, to repair them for Coins.");
-			repairItemMeta.setLore(repairLores);
-			repairItemStack.setItemMeta(repairItemMeta);
-			menu.setItem(7, repairItemStack);
-		}
-		
-		if(!isGlobal) {
-			ItemStack sellItemStack = new ItemStack(Material.BARRIER, 1);
-			ItemMeta sellItemMeta = sellItemStack.getItemMeta();
-			sellItemMeta.setDisplayName(ChatColor.RED + "Sell Items");
-			List<String> sellLores = new ArrayList<String>();
-			sellLores.add(ChatColor.DARK_PURPLE + "Drag Items here, to trade them for Coins.");
-			sellItemMeta.setLore(sellLores);
-			sellItemStack.setItemMeta(sellItemMeta);
-			menu.setItem(8, sellItemStack);
 		}
 		
 		player.openInventory(menu);

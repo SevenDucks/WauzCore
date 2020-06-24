@@ -1,15 +1,21 @@
-package eu.wauz.wauzcore.system;
+package eu.wauz.wauzcore.system.economy;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.ShopConfigurator;
+import eu.wauz.wauzcore.menu.ShopBuilder;
 
 /**
  * A shop, generated from a shop config file.
  * 
  * @author Wauzmons
+ * 
+ * @see WauzShopItem
+ * @see ShopBuilder
  */
 public class WauzShop {
 	
@@ -56,6 +62,16 @@ public class WauzShop {
 	private boolean isGlobal;
 	
 	/**
+	 * The amount of items in the shop.
+	 */
+	private int itemAmount;
+	
+	/**
+	 * All the items the shop offers.
+	 */
+	private List<WauzShopItem> shopItems = new ArrayList<>();
+	
+	/**
 	 * Constructs a shop, based on the shop file in the /WauzCore/ShopData folder.
 	 * 
 	 * @param shopName The name of the shop.
@@ -64,6 +80,11 @@ public class WauzShop {
 		this.shopName = shopName;
 		this.shopDisplayName = ShopConfigurator.getShopName(shopName);
 		this.isGlobal = ShopConfigurator.isShopGlobal(shopName);
+		this.itemAmount = ShopConfigurator.getShopItemsAmout(shopName);
+		
+		for(int itemIndex = 1; itemIndex <= itemAmount; itemIndex++) {
+			shopItems.add(new WauzShopItem(shopName, itemIndex));
+		}
 	}
 
 	/**
@@ -85,6 +106,20 @@ public class WauzShop {
 	 */
 	public boolean isGlobal() {
 		return isGlobal;
+	}
+
+	/**
+	 * @return The amount of items in the shop.
+	 */
+	public int getItemAmount() {
+		return itemAmount;
+	}
+
+	/**
+	 * @return All the items the shop offers.
+	 */
+	public List<WauzShopItem> getShopItems() {
+		return shopItems;
 	}
 
 }

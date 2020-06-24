@@ -454,7 +454,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 			return getTokens(player);
 		}
 		else {
-			return playerConfigGetLong(player, currency, true);
+			return playerConfigGetLong(player, "reput." + currency, true);
 		}
 	}
 	
@@ -468,7 +468,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 			setTokens(player, amount);
 		}
 		else {
-			playerConfigSet(player, currency, amount, true);
+			playerConfigSet(player, "reput." + currency, amount, true);
 		}
 	}
 	

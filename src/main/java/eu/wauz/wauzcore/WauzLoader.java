@@ -110,13 +110,13 @@ import eu.wauz.wauzcore.skills.SkillTheWorld;
 import eu.wauz.wauzcore.skills.SkillWheelOfFortune;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.InstanceManager;
-import eu.wauz.wauzcore.system.WauzCurrency;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzRegion;
-import eu.wauz.wauzcore.system.WauzShop;
 import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
+import eu.wauz.wauzcore.system.economy.WauzCurrency;
+import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
