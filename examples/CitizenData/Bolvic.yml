@@ -36,7 +36,7 @@ interactions:
       - 'The death gods granted you new life.'
   3:
     type: shop
-    name: Grell
+    name: ShinigamiShop
     level: 0
   4:
     type: quest

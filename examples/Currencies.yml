@@ -1,6 +1,13 @@
 currency:
+  # Default Category - Do not change!
   name: Currency
   factions:
+    coins:
+      name: Coins
+      key: coins
+    souls:
+      name: Soulstones
+      key: souls
     medals:
       name: Medals
       key: medals

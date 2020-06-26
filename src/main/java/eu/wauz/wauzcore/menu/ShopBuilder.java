@@ -87,36 +87,12 @@ public class ShopBuilder implements WauzInventory {
 	 */
 	public static void open(Player player, String shopName) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new ShopBuilder());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Shop of " + shopName);
+		Inventory menu = Bukkit.createInventory(holder, 27, ChatColor.BLACK + "" + ChatColor.BOLD + "Shop of " + shopName);
 		
 		boolean isGlobal = ShopConfigurator.isShopGlobal(shopName);
 		if(isGlobal) {
 			MenuUtils.setGlobalCurrencyDisplay(menu, player, 0);
-		}
-		else {
-			MenuUtils.setCurrencyDisplay(menu, player, 0);
-		}
-		
-		for(int itemIndex = ShopConfigurator.getShopItemsAmout(shopName); itemIndex > 0; itemIndex--) {		
-			ItemStack offerItemStack = new ItemStack(Material.getMaterial(ShopConfigurator.getItemMaterial(shopName, itemIndex)),
-					 ShopConfigurator.getItemAmount(shopName, itemIndex));
 			
-			ItemMeta offerItemMeta = offerItemStack.getItemMeta();
-			offerItemMeta.setDisplayName(ShopConfigurator.getItemName(shopName, itemIndex));
-			offerItemMeta.setLore(ShopConfigurator.getItemLores(shopName, itemIndex));
-			offerItemStack.setItemMeta(offerItemMeta);
-			menu.setItem(itemIndex, offerItemStack);
-		}
-		
-		for(int index = isGlobal ? 8 : 6; index > ShopConfigurator.getShopItemsAmout(shopName); index--) {
-			ItemStack soldItemStack = new ItemStack(Material.OAK_SIGN, 1);
-			ItemMeta soldItemMeta = soldItemStack.getItemMeta();
-			soldItemMeta.setDisplayName(ChatColor.DARK_GRAY + "SOLD OUT");
-			soldItemStack.setItemMeta(soldItemMeta);
-			menu.setItem(index, soldItemStack);
-		}
-		
-		if(!isGlobal) {
 			ItemStack repairItemStack = new ItemStack(Material.ANVIL);
 			ItemMeta repairItemMeta = repairItemStack.getItemMeta();
 			repairItemMeta.setDisplayName(ChatColor.BLUE + "Repair Items");
@@ -124,10 +100,8 @@ public class ShopBuilder implements WauzInventory {
 			repairLores.add(ChatColor.DARK_PURPLE + "Drag Items here, to repair them for Coins.");
 			repairItemMeta.setLore(repairLores);
 			repairItemStack.setItemMeta(repairItemMeta);
-			menu.setItem(7, repairItemStack);
-		}
-		
-		if(!isGlobal) {
+			menu.setItem(8, repairItemStack);
+			
 			ItemStack sellItemStack = new ItemStack(Material.BARRIER, 1);
 			ItemMeta sellItemMeta = sellItemStack.getItemMeta();
 			sellItemMeta.setDisplayName(ChatColor.RED + "Sell Items");
@@ -135,7 +109,29 @@ public class ShopBuilder implements WauzInventory {
 			sellLores.add(ChatColor.DARK_PURPLE + "Drag Items here, to trade them for Coins.");
 			sellItemMeta.setLore(sellLores);
 			sellItemStack.setItemMeta(sellItemMeta);
-			menu.setItem(8, sellItemStack);
+			menu.setItem(17, sellItemStack);
+		}
+		else {
+			MenuUtils.setCurrencyDisplay(menu, player, 0);
+		}
+		
+//		for(int itemIndex = ShopConfigurator.getShopItemsAmout(shopName); itemIndex > 0; itemIndex--) {		
+//			ItemStack offerItemStack = new ItemStack(Material.getMaterial(ShopConfigurator.getItemMaterial(shopName, itemIndex)),
+//					 ShopConfigurator.getItemAmount(shopName, itemIndex));
+//			
+//			ItemMeta offerItemMeta = offerItemStack.getItemMeta();
+//			offerItemMeta.setDisplayName(ShopConfigurator.getItemName(shopName, itemIndex));
+//			offerItemMeta.setLore(ShopConfigurator.getItemLores(shopName, itemIndex));
+//			offerItemStack.setItemMeta(offerItemMeta);
+//			menu.setItem(itemIndex, offerItemStack);
+//		}
+		
+		for(int index = isGlobal ? 8 : 6; index > ShopConfigurator.getShopItemsAmout(shopName); index--) {
+			ItemStack soldItemStack = new ItemStack(Material.OAK_SIGN, 1);
+			ItemMeta soldItemMeta = soldItemStack.getItemMeta();
+			soldItemMeta.setDisplayName(ChatColor.DARK_GRAY + "SOLD OUT");
+			soldItemStack.setItemMeta(soldItemMeta);
+			menu.setItem(index, soldItemStack);
 		}
 		
 		player.openInventory(menu);

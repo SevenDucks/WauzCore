@@ -26,6 +26,7 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 
 /**
@@ -151,7 +152,8 @@ public class WauzCitizenInteractions {
 			break;
 		case "shop":
 			interactionItemStack = HeadUtils.getCitizenShopItem();
-			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.GREEN + "Shop: " + interactionName);
+			WauzShop shop = WauzShop.getShop(interactionName);
+			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.GREEN + "Shop: " + shop.getShopDisplayName());
 			event = new WauzPlayerEventCitizenShop(citizenName, interactionName);
 			break;
 		case "quest":

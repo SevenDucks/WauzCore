@@ -115,6 +115,8 @@ import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
+import eu.wauz.wauzcore.system.economy.WauzCurrency;
+import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -140,7 +142,9 @@ public class WauzLoader {
 	public static void init() {
 		WauzRegion.init();
 		WauzEquipment.init();
+		WauzCurrency.init();
 		WauzAchievement.init();
+		WauzShop.init();
 		WauzQuest.init();
 		WauzCitizen.init();
 		WauzRank.init();

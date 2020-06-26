@@ -1,0 +1,29 @@
+name: Shinigami Shop
+type: Normal
+amount: 5
+items:
+  1:
+    type: FoodSoulsteak
+    amount: 1
+    price: 5
+    currency: coins
+  2:
+    type: FoodBlessedChickoon
+    amount: 3
+    price: 10
+    currency: wauzland
+  3:
+    type: DungeonPoS
+    amount: 1
+    price: 50
+    currency: coins
+  4:
+    type: PetCharlie
+    amount: 1
+    price: 120
+    currency: coins
+  5:
+    type: PetAsuna
+    amount: 1
+    price: 240
+    currency: coins

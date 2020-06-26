@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.data;
 import java.util.List;
 
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
+import eu.wauz.wauzcore.system.economy.WauzCurrency;
 
 /**
  * Configurator to fetch or modify data from the Shop.yml files.
@@ -21,6 +22,15 @@ public class ShopConfigurator extends GlobalConfigurationUtils {
 	}
 	
 // General Parameters
+	
+	/**
+	 * @param shopName The name of the shop.
+	 * 
+	 * @return The display name of the shop.
+	 */
+	public static String getShopName(String shopName) {
+		return shopConfigGetString(shopName, "name");
+	}
 	
 	/**
 	 * @param shopName The name of the shop.
@@ -46,10 +56,10 @@ public class ShopConfigurator extends GlobalConfigurationUtils {
 	 * @param shopName The name of the shop.
 	 * @param itemIndex The number of the shop item.
 	 * 
-	 * @return The material of the shop item.
+	 * @return The type of the shop item.
 	 */
-	public static String getItemMaterial(String shopName, int itemIndex) {
-		return shopConfigGetString(shopName, "items." + itemIndex + ".material");
+	public static String getItemType(String shopName, int itemIndex) {
+		return shopConfigGetString(shopName, "items." + itemIndex + ".type");
 	}
 	
 	/**
@@ -66,20 +76,20 @@ public class ShopConfigurator extends GlobalConfigurationUtils {
 	 * @param shopName The name of the shop.
 	 * @param itemIndex The number of the shop item.
 	 * 
-	 * @return The name of the shop item.
+	 * @return The price of the shop item.
 	 */
-	public static String getItemName(String shopName, int itemIndex) {
-		return shopConfigGetString(shopName, "items." + itemIndex + ".name");
+	public static int getItemPrice(String shopName, int itemIndex) {
+		return shopConfigGetInt(shopName, "items." + itemIndex + ".price");
 	}
 	
 	/**
 	 * @param shopName The name of the shop.
 	 * @param itemIndex The number of the shop item.
 	 * 
-	 * @return The lores of the shop item.
+	 * @return The currency of the price of the shop item.
 	 */
-	public static List<String> getItemLores(String shopName, int itemIndex) {
-		return shopConfigGetStringList(shopName, "items." + itemIndex + ".lores");
+	public static WauzCurrency getItemCurrency(String shopName, int itemIndex) {
+		return WauzCurrency.getCurrency(shopConfigGetString(shopName, "items." + itemIndex + ".currency"));
 	}
 
 }
