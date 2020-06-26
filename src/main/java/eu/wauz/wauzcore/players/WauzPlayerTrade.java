@@ -1,6 +1,6 @@
 package eu.wauz.wauzcore.players;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +11,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.menu.TradeMenu;
+import eu.wauz.wauzcore.menu.social.TradeMenu;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -19,7 +19,7 @@ public class WauzPlayerTrade {
 	/**
 	 * Players currently trading with other player
 	 */
-	public static ArrayList<String> playersOnTrading = new ArrayList<String>();
+	public static Map<String, String> playersOnTrading = new HashMap<String, String>();
 	/**
 	 * Max Player range for each other to trade.
 	 */
@@ -63,7 +63,7 @@ public class WauzPlayerTrade {
 			requestingPlayer.sendMessage(ChatColor.RED + "You cannot be your trading partner.");
 			return false;
 		}
-    	if(playersOnTrading.contains(requestedPlayer.getName())) {
+    	if(playersOnTrading.containsKey(requestedPlayer.getName())) {
     		requestingPlayer.sendMessage(ChatColor.RED + "The player you requested for trade is currently trading with someone. Please, Try again later.");
     		return false;
     	}
@@ -122,12 +122,11 @@ public class WauzPlayerTrade {
 				requestingPlayer.sendMessage(ChatColor.RED + "The Requested player is not Online!");
 				return false;
 			}
-	    	//playersOnTrading.add(requestingPlayer.getName());
-	    	//playersOnTrading.add(requestedPlayer.getName());
+	    	playersOnTrading.put(requestingPlayer.getName(), requestedPlayer.getName());
+	    	playersOnTrading.put(requestedPlayer.getName(), requestingPlayer.getName());
 			TradeMenu.requestingPlayerName = requestingPlayer;
 			TradeMenu.requestedPlayerName = requestedPlayer;
-			TradeMenu.requestingPlayerMenu(requestingPlayer);
-			TradeMenu.requestedPlayerMenu(requestedPlayer);
+			TradeMenu.onTrade(requestingPlayer,requestedPlayer);
 			requestTradeMap.remove(requestedPlayer.getUniqueId().toString());
 			return false;
 		}
