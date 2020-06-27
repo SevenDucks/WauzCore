@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.system.economy;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -51,7 +52,7 @@ public class WauzShopItem {
 	 */
 	public WauzShopItem(String shopName, int itemIndex) {
 		String shopItemType = ShopConfigurator.getItemType(shopName, itemIndex);
-		this.shopItemStack = mythicMobs.getItemStack(shopItemType);
+		this.shopItemStack = new ItemStack(Material.DIRT); //mythicMobs.getItemStack(shopItemType);
 		this.shopItemAmount = ShopConfigurator.getItemAmount(shopName, itemIndex);
 		this.shopItemPrice = ShopConfigurator.getItemPrice(shopName, itemIndex);
 		this.shopItemCurrency = ShopConfigurator.getItemCurrency(shopName, itemIndex);

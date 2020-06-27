@@ -12,12 +12,13 @@ import eu.wauz.wauzcore.players.WauzPlayerTrade;
  * - Usage: <b>/trade [player]</b></br>
  * - Permission: <b>wauz.normal</b>
  * 
- * @author Wauzmons
+ * @author eddshine
  * 
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
 public class CmdTrade implements WauzCommand {
+	
 	/**
 	 * @return The id of the command.
 	 */
@@ -39,7 +40,8 @@ public class CmdTrade implements WauzCommand {
 		if(args.length < 1) {
 			return false;
 		}
-		WauzPlayerTrade.Trading((Player) sender, args[0]);
+		
+		WauzPlayerTrade.tryToTrade((Player) sender, args[0]);
 		return true;
 	}
 

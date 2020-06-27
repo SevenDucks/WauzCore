@@ -160,7 +160,7 @@ public class MenuUtils {
 	 * @param displayName The new display name.
 	 */
 	public static void setItemDisplayName(ItemStack itemStack, String displayName) {
-		if(itemStack == null || !itemStack.hasItemMeta()) {
+		if(itemStack == null) {
 			return;
 		}
 		ItemMeta itemMeta = itemStack.getItemMeta();

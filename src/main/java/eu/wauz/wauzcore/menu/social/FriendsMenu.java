@@ -65,6 +65,7 @@ public class FriendsMenu implements WauzInventory {
 	 * 
 	 * @see PlayerConfigurator#getFriendsList(OfflinePlayer)
 	 * @see StatisticsFetcher#addCharacterLores(List)
+	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new FriendsMenu());

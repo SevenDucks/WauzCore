@@ -15,122 +15,95 @@ import eu.wauz.wauzcore.menu.social.TradeMenu;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
+/**
+ * A class to let two players trade with each other.
+ * 
+ * @author eddshine
+ */
 public class WauzPlayerTrade {
-	/**
-	 * Players currently trading with other player
-	 */
-	public static Map<String, String> playersOnTrading = new HashMap<String, String>();
-	/**
-	 * Max Player range for each other to trade.
-	 */
-	/**
-	 * A map of send friend requests as player uuids.
-	 */
-	private static Map<String, String> requestTradeMap = new HashMap<>();
 	
-	
-	public static final int MAX_PLAYER_BLOCK_RANGE_FOR_TRADE = 5;
 	/**
-	 * Checks if a player can add another player as friend.
+	 * The maximum distance for players to trade with eachother.
+	 */
+	public static final int MAX_TRADE_RANGE = 5;
+	
+	/**
+	 * A map of sent trade requests as player uuids.
+	 */
+	private static Map<String, String> requestMap = new HashMap<>();
+	
+	/**
+	 * Checks if a player can trade with another player.
 	 * 
 	 * @param requestingPlayer The player who wants to send the trade request.
 	 * @param requestedPlayer The player that is requested.
 	 * 
-	 * @return If a request is possible.
-	 * 
-	 * 
+	 * @return If a trade request is possible.
 	 */
-	public static boolean onTradeCheck(Player requestingPlayer, OfflinePlayer requestedPlayerName) {
-    	Player requestedPlayer = (Player) requestedPlayerName;
-    	double playersDistance = requestingPlayer.getLocation().distance(requestedPlayer.getLocation());
-    	if(WauzMode.inHub(requestingPlayer) == true) {
-    		requestingPlayer.sendMessage(ChatColor.RED + "Sorry, that command doesn't exist in this world.");
-    		return false;
-    	}
-    	if(requestingPlayer.getUniqueId().equals(requestedPlayerName.getUniqueId())) {
-    		requestingPlayer.sendMessage(ChatColor.RED + "You cannot send trade request to yourself.");
+	public static boolean canTrade(Player requestingPlayer, Player requestedPlayer) {
+    	if(requestingPlayer.getUniqueId().equals(requestedPlayer.getUniqueId())) {
+    		requestingPlayer.sendMessage(ChatColor.RED + "You cannot send a trade request to yourself!");
     		return false;	
     	}
-    	if(!(requestingPlayer.getWorld() == requestedPlayer.getWorld())) {
-    		requestingPlayer.sendMessage(ChatColor.RED + "Requested Player is in another World.");
+    	if(WauzMode.inHub(requestingPlayer) == true) {
+    		requestingPlayer.sendMessage(ChatColor.RED + "You cannot trade in this world!");
     		return false;
     	}
-    	if(playersDistance > 7) {
-    		requestingPlayer.sendMessage(ChatColor.RED + "The requested player is too far.");
+    	if(!(requestingPlayer.getWorld().equals(requestedPlayer.getWorld()))) {
+    		requestingPlayer.sendMessage(ChatColor.RED + "You cannot trade with a player in another world!");
     		return false;
     	}
-    	if(requestingPlayer.getUniqueId().equals(requestedPlayer.getUniqueId())) {
-			requestingPlayer.sendMessage(ChatColor.RED + "You cannot be your trading partner.");
-			return false;
-		}
-    	if(playersOnTrading.containsKey(requestedPlayer.getName())) {
-    		requestingPlayer.sendMessage(ChatColor.RED + "The player you requested for trade is currently trading with someone. Please, Try again later.");
+    	if(requestingPlayer.getLocation().distance(requestedPlayer.getLocation()) > MAX_TRADE_RANGE) {
+    		requestingPlayer.sendMessage(ChatColor.RED + "The requested player is too far away!");
     		return false;
     	}
-     return true;
-    }
-    /**
-     * Accept a trade from requesting player
-     * @param requestingPlayer
-     * @param requestedPlayer
-     * @return
-     */
-    public static boolean acceptTrade(Player requestingPlayer, Player requestedPlayer) {
-		WauzNmsClient.nmsChatCommand(requestedPlayer.getPlayer(), "trade " + requestingPlayer.getName(),
-				ChatColor.RED +""+ChatColor.BOLD + "[" + ChatColor.GOLD + "TRADE" + ChatColor.RED + "] " + ChatColor.GREEN + requestingPlayer.getName() + ChatColor.RESET +""+ChatColor.GOLD+" wants to trade with you." +
-				"To accept:" + ChatColor.RESET, false);
-		requestedPlayer.playSound(requestedPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1); 
-		requestingPlayer.sendMessage(ChatColor.YELLOW + "A trade request was sent to " + requestedPlayer.getName() + "!");
-		return true;
+    	return true;
     }
     
     /**
-     *  Sending trade
-     * @param requestingPlayer
-     * @param requestedPlayerName
-     * @return 
-     * @return
+     * Tries to trade with another player.
+	 * If no request was sent before, one will be sent and must be confirmed first.
+	 * 
+     * @param requestingPlayer The player who wants to trade.
+     * @param requestedPlayerName The name of the player that should be traded with.
+     * 
+     * @return If the trade window was opened or a request was sent.
+     * 
+     * @see WauzPlayerTrade#canTrade(Player, Player)
+     * @see WauzNmsClient#nmsChatCommand(Player, String, String, boolean)
+     * @see TradeMenu#onTrade(Player, Player)
      */
-    public static boolean Trading(Player requestingPlayer, String requestedPlayerName) {
-    	Player requestedPlayer = (Player) WauzCore.getOnlinePlayer(requestedPlayerName);
-    	OfflinePlayer requestedOfflinePlayer = WauzCore.getOfflinePlayer(requestedPlayerName);
-		if(requestedOfflinePlayer == null) {
+    public static boolean tryToTrade(Player requestingPlayer, String requestedPlayerName) {
+    	OfflinePlayer requestedPlayer = WauzCore.getOfflinePlayer(requestedPlayerName);
+		if(requestedPlayer == null) {
 			requestingPlayer.sendMessage(ChatColor.RED + "The requested player is unknown!");
-			
 			return false;
 		}
-		if(!onTradeCheck(requestingPlayer, requestedPlayer)) {
+		Player requestedOnlinePlayer = requestedPlayer.getPlayer();
+		if(requestedOnlinePlayer == null) {
+			requestingPlayer.sendMessage(ChatColor.RED + "The requested player is not online!");
 			return false;
 		}
+		if(!canTrade(requestingPlayer, requestedOnlinePlayer)) {
+			return false;
+		}
+		
 		String requestingPlayerUuid = requestingPlayer.getUniqueId().toString();
 		String requestedPlayerUuid = requestedPlayer.getUniqueId().toString();
-		Player requestedOnlinePlayer = requestedPlayer.getPlayer();
-	
-		boolean isRequestAnswer = StringUtils.equals(requestTradeMap.get(requestedPlayerUuid), requestingPlayerUuid);
+		
+		boolean isRequestAnswer = StringUtils.equals(requestMap.get(requestedPlayerUuid), requestingPlayerUuid);
 		if(!isRequestAnswer) {
-			if(requestedOnlinePlayer == null) {
-				requestingPlayer.sendMessage(ChatColor.RED + "The requested player is not online!");
-				return false;
-			}
-			else {
-				requestTradeMap.put(requestingPlayerUuid, requestedPlayerUuid);
-                acceptTrade(requestingPlayer, requestedPlayer);
-			}
+			requestMap.put(requestingPlayerUuid, requestedPlayerUuid);
+			WauzNmsClient.nmsChatCommand(requestedOnlinePlayer, "trade " + requestingPlayer.getName(),
+					ChatColor.YELLOW + requestingPlayer.getName() + " wants to trade! " +
+					"To accept:", false);
+			requestedOnlinePlayer.playSound(requestedOnlinePlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1); 
+			requestingPlayer.sendMessage(ChatColor.YELLOW + "A trade request was sent to " + requestedPlayer.getName() + "!");
 		}
 		else {
-			if(requestedOnlinePlayer == null) {
-				requestingPlayer.sendMessage(ChatColor.RED + "The Requested player is not Online!");
-				return false;
-			}
-	    	playersOnTrading.put(requestingPlayer.getName(), requestedPlayer.getName());
-	    	playersOnTrading.put(requestedPlayer.getName(), requestingPlayer.getName());
-			TradeMenu.requestingPlayerName = requestingPlayer;
-			TradeMenu.requestedPlayerName = requestedPlayer;
-			TradeMenu.onTrade(requestingPlayer,requestedPlayer);
-			requestTradeMap.remove(requestedPlayer.getUniqueId().toString());
-			return false;
+			TradeMenu.onTrade(requestingPlayer, requestedOnlinePlayer);
+			requestMap.remove(requestedPlayer.getUniqueId().toString());
 		}
-		return false;
-    	
+		return true;
     }
 }

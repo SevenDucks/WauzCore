@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
@@ -26,7 +27,7 @@ public class WauzPlayerFriends {
 	public static final int MAX_FRIEND_AMOUNT = 13;
 	
 	/**
-	 * A map of send friend requests as player uuids.
+	 * A map of sent friend requests as player uuids.
 	 */
 	private static Map<String, String> requestMap = new HashMap<>();
 	
@@ -36,7 +37,7 @@ public class WauzPlayerFriends {
 	 * @param requestingPlayer The player who wants to send the friend request.
 	 * @param requestedPlayer The player that is requested.
 	 * 
-	 * @return If a request is possible.
+	 * @return If a friend request is possible.
 	 * 
 	 * @see WauzPlayerFriends#getFriendsList(OfflinePlayer)
 	 */
@@ -68,7 +69,7 @@ public class WauzPlayerFriends {
 	
 	/**
 	 * Adds a friend to the player's friend list.
-	 * If no request was send before, one is sent and must be confirmed first.
+	 * If no request was sent before, one will be sent and must be confirmed first.
 	 * 
 	 * @param requestingPlayer The player who wants to add a friend.
 	 * @param requestedPlayerName The name of the player that is added.
@@ -105,6 +106,7 @@ public class WauzPlayerFriends {
 				WauzNmsClient.nmsChatCommand(requestedOnlinePlayer, "friend " + requestingPlayer.getName(),
 						ChatColor.YELLOW + requestingPlayer.getName() + " wants to be friends! " +
 						"To accept:", false);
+				requestedOnlinePlayer.playSound(requestedOnlinePlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1); 
 				requestingPlayer.sendMessage(ChatColor.YELLOW + "A friend request was sent to " + requestedPlayer.getName() + "!");
 				return true;
 			}
@@ -119,6 +121,7 @@ public class WauzPlayerFriends {
 			requestedPlayerFriends.add(requestingPlayerUuid);
 			PlayerConfigurator.setFriendsList(requestedPlayer, requestedPlayerFriends);
 			if(requestedOnlinePlayer != null) {
+				requestedOnlinePlayer.playSound(requestedOnlinePlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1);
 				requestedOnlinePlayer.sendMessage(ChatColor.GREEN + "You are now friends with " + requestingPlayer.getName() + "!");
 			}
 			requestMap.remove(requestedPlayer.getUniqueId().toString());
