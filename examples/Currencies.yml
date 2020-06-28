@@ -44,7 +44,7 @@ reput-act5:
 reput-wauzland:
   name: Wauzland
   factions:
-    republic:
+    wauzland:
       name: Republic Wauzland
       key: wauzland
     empire:

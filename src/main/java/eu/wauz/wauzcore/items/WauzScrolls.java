@@ -13,10 +13,10 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.identifiers.WauzIdentifier;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.ShopBuilder;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.economy.WauzShopActions;
 
 /**
  * A class for handling the usage of scrolls and socketable items.
@@ -69,8 +69,8 @@ public class WauzScrolls {
 	 * 
 	 * @see WauzScrolls#onScrollItemInteract(PlayerInteractEvent) For right click scrolls...
 	 * @see WauzIdentifier#identify(InventoryClickEvent, String)
-	 * @see ShopBuilder#sell(Player, ItemStack, Boolean)
-	 * @see ShopBuilder#repair(Player, ItemStack, Boolean)
+	 * @see WauzShopActions#sell(Player, ItemStack, Boolean)
+	 * @see WauzShopActions#repair(Player, ItemStack, Boolean)
 	 * @see WauzEquipment#clearAllSockets(InventoryClickEvent)
 	 * @see WauzEquipment#insertRune(InventoryClickEvent)
 	 * @see WauzEquipment#insertSkillgem(InventoryClickEvent)
@@ -96,13 +96,13 @@ public class WauzScrolls {
 			}
 		}
 		else if(isNotScroll && scrollName.contains("Scroll of Fortune")) {
-			if(ShopBuilder.sell((Player) player, itemStack, false)) {
+			if(WauzShopActions.sell((Player) player, itemStack, false)) {
 				scroll.setAmount(scroll.getAmount() - 1);
 				event.setCancelled(true);
 			}	
 		}
 		else if(isNotScroll && scrollName.contains("Scroll of Toughness")) {
-			if(ShopBuilder.repair((Player) player, itemStack, false)) {
+			if(WauzShopActions.repair((Player) player, itemStack, false)) {
 				scroll.setAmount(scroll.getAmount() - 1);
 				event.setCancelled(true);
 			}

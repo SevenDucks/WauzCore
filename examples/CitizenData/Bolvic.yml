@@ -35,27 +35,31 @@ interactions:
       - 'Your time has not come yet.'
       - 'The death gods granted you new life.'
   3:
+    type: inn
+    level: 1
+  4:
     type: shop
     name: ShinigamiShop
     level: 0
-  4:
+  5:
+    type: shop
+    name: AmmoShop
+    level: 0
+  6:
     type: quest
     name: ShiningSteel
     level: 0
-  5:
+  7:
     type: quest
     name: TheWayOfUganda
     level: 0
-  6:
+  8:
     type: command
     name: Teleport to Spawn
     level: 0
     command: spawn
-  7:
+  9:
     type: command
     name: Teleport to Hub
     level: 0
     command: hub
-  8:
-    type: inn
-    level: 1

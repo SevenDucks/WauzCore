@@ -7,7 +7,7 @@ import java.util.Map;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.ShopConfigurator;
-import eu.wauz.wauzcore.menu.ShopBuilder;
+import eu.wauz.wauzcore.menu.ShopMenu;
 
 /**
  * A shop, generated from a shop config file.
@@ -15,7 +15,7 @@ import eu.wauz.wauzcore.menu.ShopBuilder;
  * @author Wauzmons
  * 
  * @see WauzShopItem
- * @see ShopBuilder
+ * @see ShopMenu
  */
 public class WauzShop {
 	

@@ -108,7 +108,7 @@ public class MenuUtils {
 		ItemMeta trashcanItemMeta = trashcanItemStack.getItemMeta();
 		trashcanItemMeta.setDisplayName(ChatColor.RED + "Trashcan");
 		List<String> lores = new ArrayList<String>();
-		lores.add(ChatColor.DARK_PURPLE + "Drag Items here, to destroy them.");
+		lores.add(ChatColor.GRAY + "Drag Items here to destroy them.");
 		trashcanItemMeta.setLore(lores);
 		trashcanItemStack.setItemMeta(trashcanItemMeta);
 		for(int index : indexes) {

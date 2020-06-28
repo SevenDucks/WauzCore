@@ -1,12 +1,12 @@
 package eu.wauz.wauzcore.system.economy;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.ShopConfigurator;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
+import eu.wauz.wauzcore.system.util.Formatters;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.items.ItemManager;
 
@@ -52,7 +52,7 @@ public class WauzShopItem {
 	 */
 	public WauzShopItem(String shopName, int itemIndex) {
 		String shopItemType = ShopConfigurator.getItemType(shopName, itemIndex);
-		this.shopItemStack = new ItemStack(Material.DIRT); //mythicMobs.getItemStack(shopItemType);
+		this.shopItemStack = mythicMobs.getItemStack(shopItemType);
 		this.shopItemAmount = ShopConfigurator.getItemAmount(shopName, itemIndex);
 		this.shopItemPrice = ShopConfigurator.getItemPrice(shopName, itemIndex);
 		this.shopItemCurrency = ShopConfigurator.getItemCurrency(shopName, itemIndex);
@@ -94,10 +94,16 @@ public class WauzShopItem {
 	 * @return A stack of the shop item.
 	 */
 	public ItemStack getInstance(Player player) {
-		ItemStack itemStack = shopItemStack.clone();
-		String priceString = shopItemPrice + " (" + shopItemCurrency.getCurrencyAmount(player) + ") ";
+		long currencyAmount = shopItemCurrency.getCurrencyAmount(player);
 		String currencyName = shopItemCurrency.getCurrencyDisplayName();
-		String priceLore = ChatColor.YELLOW + "Price: " + ChatColor.GOLD + priceString + ChatColor.YELLOW + currencyName;
+		ChatColor currencyAmountColor = currencyAmount >= shopItemPrice ? ChatColor.GREEN : ChatColor.RED;
+		
+		String currencyCostString = ChatColor.GOLD + Formatters.INT.format(shopItemPrice);
+		String currencyAmountString = currencyAmountColor + Formatters.INT.format(currencyAmount);
+		String priceString = currencyCostString + " (" + currencyAmountString + ChatColor.GOLD + ") ";
+		String priceLore = ChatColor.YELLOW + "Price: " + priceString + ChatColor.YELLOW + currencyName;
+		
+		ItemStack itemStack = shopItemStack.clone();
 		MenuUtils.addItemLore(itemStack, "", false);
 		MenuUtils.addItemLore(itemStack, priceLore, false);
 		itemStack.setAmount(shopItemAmount);

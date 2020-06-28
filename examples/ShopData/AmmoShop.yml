@@ -1,0 +1,29 @@
+name: Ammo Shop
+type: Normal
+amount: 5
+items:
+  1:
+    type: ArrowReinforced
+    amount: 5
+    price: 30
+    currency: coins
+  2:
+    type: ArrowFire
+    amount: 5
+    price: 75
+    currency: coins
+  3:
+    type: ArrowIce
+    amount: 5
+    price: 75
+    currency: coins
+  4:
+    type: ArrowShock
+    amount: 5
+    price: 75
+    currency: coins
+  5:
+    type: ArrowBomb
+    amount: 5
+    price: 75
+    currency: coins

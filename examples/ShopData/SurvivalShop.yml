@@ -1,0 +1,24 @@
+name: Survival Shop
+type: Global
+amount: 4
+items:
+  1:
+    type: SurvivalNether
+    amount: 1
+    price: 20
+    currency: tokens
+  2:
+    type: SurvivalEnd
+    amount: 1
+    price: 60
+    currency: tokens
+  3:
+    type: ShieldPotionT1
+    amount: 1
+    price: 15
+    currency: tokens
+  4:
+    type: ShieldPotionT2
+    amount: 1
+    price: 45
+    currency: tokens

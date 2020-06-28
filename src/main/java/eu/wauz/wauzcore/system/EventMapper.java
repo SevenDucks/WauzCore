@@ -24,7 +24,7 @@ import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponLance;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
-import eu.wauz.wauzcore.menu.ShopBuilder;
+import eu.wauz.wauzcore.menu.ShopMenu;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
@@ -175,7 +175,7 @@ public class EventMapper {
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
 	 * @see DamageCalculator#increasePvPProtection(PlayerInteractEvent)
 	 * @see WauzSigns#interact(Player, org.bukkit.block.Block)
-	 * @see ShopBuilder#open(Player, String)
+	 * @see ShopMenu#open(Player, String)
 	 */
 	public static void handleSurvivalItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -206,7 +206,7 @@ public class EventMapper {
 			
 			if(type.equals(Material.ENDER_CHEST)) {
 				event.setCancelled(true);
-				ShopBuilder.open(player, "the Wild");
+				ShopMenu.open(player, "SurvivalShop");
 			}
 			
 			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN)) {

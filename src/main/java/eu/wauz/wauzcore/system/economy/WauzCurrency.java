@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
@@ -37,6 +38,7 @@ public class WauzCurrency {
 	 * @see CurrencyConfigurator#getCurrencyFactionKeys(String)
 	 */
 	public static void init() {
+		currencyMap.put("tokens", new WauzCurrency("tokens"));
 		for(String currencyCategoryName : CurrencyConfigurator.getAllCurrencyCategoryKeys()) {
 			WauzCurrencyCategory currencyCategory = new WauzCurrencyCategory(currencyCategoryName);
 			currencyCategories.add(currencyCategory);
@@ -100,6 +102,17 @@ public class WauzCurrency {
 		this.currencyName = currencyName;
 		this.currencyDisplayName = CurrencyConfigurator.getCurrencyFactionDisplayName(categoryName, currencyName);
 		this.currencyConfigName = CurrencyConfigurator.getCurrencyFactionConfigName(categoryName, currencyName);
+	}
+	
+	/**
+	 * Constructs a global currency, without a category, with the given name.
+	 * 
+	 * @param currencyName The name of the currency.
+	 */
+	public WauzCurrency(String currencyName) {
+		this.currencyName = currencyName;
+		this.currencyDisplayName = StringUtils.capitalize(currencyName);
+		this.currencyConfigName = currencyName;
 	}
 	
 	/**

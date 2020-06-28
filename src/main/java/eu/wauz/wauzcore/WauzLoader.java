@@ -1,7 +1,6 @@
 package eu.wauz.wauzcore;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 
 import eu.wauz.wauzcore.commands.CmdApply;
 import eu.wauz.wauzcore.commands.CmdDesc;
@@ -69,7 +68,6 @@ import eu.wauz.wauzcore.items.runes.RuneKnowledge;
 import eu.wauz.wauzcore.items.runes.RunePower;
 import eu.wauz.wauzcore.items.runes.RuneThorns;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
-import eu.wauz.wauzcore.menu.ShopBuilder;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.abilities.CraftingMenu;
 import eu.wauz.wauzcore.menu.abilities.SkillMenu;
@@ -159,8 +157,6 @@ public class WauzLoader {
 		registerPlayerCommands();
 		registerAdministrativeCommands();
 		registerCommandCompleters();
-		
-		registerCurrenciesAndReputation();
 		
 		registerSkillgems();
 		registerRunes();
@@ -264,21 +260,6 @@ public class WauzLoader {
 		Bukkit.getPluginCommand("wzRank").setTabCompleter(new TabCompleterRanks());
 		Bukkit.getPluginCommand("wzSkill").setTabCompleter(new TabCompleterSkills());
 		Bukkit.getPluginCommand("wzSkill.weapon").setTabCompleter(new TabCompleterSkills());
-	}
-	
-	/**
-	 * Initializes all predefined currencies and reputation types.
-	 * Called by the init() method.
-	 * 
-	 * @see WauzLoader#init()
-	 */
-	private static void registerCurrenciesAndReputation() {
-		ShopBuilder.registerCurrency(ChatColor.GOLD + "Tokens", "tokens");
-		ShopBuilder.registerCurrency(ChatColor.GOLD + "Coins", "reput.coins");
-		ShopBuilder.registerCurrency(ChatColor.GOLD + "Soulstones", "reput.souls");
-		ShopBuilder.registerCurrency(ChatColor.BLUE + "Republic", "reput.wauzland");
-		ShopBuilder.registerCurrency(ChatColor.BLUE + "Eternal", "reput.empire");
-		ShopBuilder.registerCurrency(ChatColor.BLUE + "Dark", "reput.legion");
 	}
 	
 	/**

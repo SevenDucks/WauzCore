@@ -3,7 +3,7 @@ package eu.wauz.wauzcore.events;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.menu.ShopBuilder;
+import eu.wauz.wauzcore.menu.ShopMenu;
 
 /**
  * An event that lets a player view a shop of a citizen.
@@ -40,12 +40,12 @@ public class WauzPlayerEventCitizenShop implements WauzPlayerEvent {
 	 * 
 	 * @return If the event was executed successfully.
 	 * 
-	 * @see ShopBuilder#open(Player, String)
+	 * @see ShopMenu#open(Player, String)
 	 */
 	@Override
 	public boolean execute(Player player) {
 		try {
-			ShopBuilder.open(player, shopName);
+			ShopMenu.open(player, shopName);
 			return true;
 		}
 		catch (Exception e) {
