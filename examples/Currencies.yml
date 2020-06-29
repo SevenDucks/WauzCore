@@ -15,19 +15,19 @@ reput-act1:
   name: Anemor
   factions:
     devils:
-      name: Devil Knights
+      name: Devil Knights Favor
       key: devils
     wrayvell:
-      name: Wrayvell
+      name: Wrayvell Favor
       key: wrayvell
     dunkelhaven:
-      name: Dunkelhaven (Karisa)
+      name: Dunkelhaven Favor
       key: dunkelhaven
     umbrastein:
-      name: Umbrastein (Balron)
+      name: Umbrastein Favor
       key: umbrastein
     hellgate:
-      name: Hellgate (Variel)
+      name: Hellgate Favor
       key: hellgate
 reput-act2:
   name: Kanthraka
@@ -45,11 +45,11 @@ reput-wauzland:
   name: Wauzland
   factions:
     wauzland:
-      name: Republic Wauzland
+      name: Republic Wauzland Favor
       key: wauzland
     empire:
-      name: Eternal Empire
+      name: Eternal Empire Favor
       key: empire
     legion:
-      name: Dark Legion
+      name: Dark Legion Favor
       key: legion

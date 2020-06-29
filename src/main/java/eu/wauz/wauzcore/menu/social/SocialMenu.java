@@ -22,6 +22,7 @@ import eu.wauz.wauzcore.players.WauzPlayerFriends;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.WauzTitle;
+import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -81,7 +82,7 @@ public class SocialMenu implements WauzInventory {
 		mailItemMeta.setDisplayName(ChatColor.GOLD + "Mailbox");
 		List<String> mailLores = new ArrayList<>();
 		mailLores.add(ChatColor.DARK_PURPLE + "Unread Mails: " + ChatColor.YELLOW
-				+ PlayerMailConfigurator.getPlayerMailNameList(player).size());
+				+ Formatters.INT.format(PlayerMailConfigurator.getPlayerMailNameList(player).size()));
 		mailLores.add("");
 		mailLores.add(ChatColor.GRAY + "View your Mails and claim the Attachments");
 		mailLores.add(ChatColor.GRAY + "or find out how to send Mails yourself.");

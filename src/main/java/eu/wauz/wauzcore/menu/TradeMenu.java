@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.menu.social;
+package eu.wauz.wauzcore.menu;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +18,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.LootContainer;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
@@ -151,7 +150,7 @@ public class TradeMenu implements WauzInventory {
 	 * @param leftPlayer The player on the left side of the trade menu.
 	 * @param rightPlayer The player on the right side of the trade menu.
 	 */
-	public TradeMenu(Player leftPlayer, Player rightPlayer) {
+	private TradeMenu(Player leftPlayer, Player rightPlayer) {
 		this.leftPlayer = leftPlayer;
 		this.rightPlayer = rightPlayer;
 	}
@@ -234,8 +233,6 @@ public class TradeMenu implements WauzInventory {
 		
 		leftPlayer.sendMessage(ChatColor.RED + "The trade was cancelled!");
 		rightPlayer.sendMessage(ChatColor.RED + "The trade was cancelled!");
-		leftPlayer.playSound(leftPlayer.getLocation(), Sound.BLOCK_CHEST_CLOSE, 1, 1);
-		rightPlayer.playSound(rightPlayer.getLocation(), Sound.BLOCK_CHEST_CLOSE, 1, 1);
 		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 
@@ -279,8 +276,6 @@ public class TradeMenu implements WauzInventory {
 		if(leftPlayerReady && rightPlayerReady) {
 			leftPlayer.sendMessage(ChatColor.GREEN + "The trade was successful!");
 			rightPlayer.sendMessage(ChatColor.GREEN + "The trade was successful!");
-			leftPlayer.playSound(leftPlayer.getLocation(), Sound.ENTITY_VILLAGER_TRADE, 1, 1);
-			rightPlayer.playSound(rightPlayer.getLocation(), Sound.ENTITY_VILLAGER_TRADE, 1, 1);
 			handOutItems(false);
 		}
 	}
@@ -298,6 +293,9 @@ public class TradeMenu implements WauzInventory {
 		fillItemList(leftItems, leftSlots);
 		List<ItemStack> rightItems = new ArrayList<>();
 		fillItemList(rightItems, rightSlots);
+		
+		leftPlayer.playSound(leftPlayer.getLocation(), Sound.BLOCK_CHEST_CLOSE, 1, 1);
+		rightPlayer.playSound(rightPlayer.getLocation(), Sound.BLOCK_CHEST_CLOSE, 1, 1);
 		
 		LootContainer.open(ownItemsBack ? leftPlayer : rightPlayer, leftItems);
 		LootContainer.open(ownItemsBack ? rightPlayer : leftPlayer, rightItems);

@@ -13,7 +13,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
@@ -74,7 +73,8 @@ public class ShopMenu implements WauzInventory {
 	 */
 	public static void open(Player player, String shopName) {
 		WauzShop shop = WauzShop.getShop(shopName);
-		WauzInventoryHolder holder = new WauzInventoryHolder(new ShopMenu());
+		ShopMenu shopMenu = new ShopMenu(shop);
+		WauzInventoryHolder holder = new WauzInventoryHolder(shopMenu);
 		Inventory menu = Bukkit.createInventory(holder, 27, ChatColor.BLACK + "" + ChatColor.BOLD + shop.getShopDisplayName());
 		
 		if(shop.isGlobal()) {
@@ -122,7 +122,7 @@ public class ShopMenu implements WauzInventory {
 			int indexSlot = offerSlots.get(index);
 			if(index < shopItems.size()) {
 				WauzShopItem shopItem = shopItems.get(index);
-				menu.setItem(indexSlot, shopItem.getInstance(player));
+				menu.setItem(indexSlot, shopItem.getInstance(player, false));
 			}
 			else {
 				menu.setItem(indexSlot, soldItemStack);
@@ -131,95 +131,62 @@ public class ShopMenu implements WauzInventory {
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
-	}	
+	}
+	
+	/**
+	 * The shop displayed in the menu.
+	 */
+	private WauzShop shop;
+	
+	/**
+	 * Creates a new shop menu instance.
+	 * 
+	 * @param shop The shop displayed in the menu.
+	 */
+	private ShopMenu(WauzShop shop) {
+		this.shop = shop;
+	}
 	
 	/**
 	 * Checks if an event in this inventory was triggered by a player click.
 	 * Cancels the event and initiates the corresponding buy, sell or repair event.
 	 * On an anvil click items on the cursor are repaired, while they are sold on a barrier click.
-	 * Unlike ammo items (arrows), physical items, can only be bought when there is inventory space left.
-	 * Items cannot be bought, if the player doesn't have enough money.
 	 * 
 	 * @param event The inventory click event.
 	 * 
+	 * @see WauzShopActions#buy(Player, WauzShopItem)
 	 * @see WauzShopActions#sell(Player, ItemStack, Boolean)
 	 * @see WauzShopActions#repair(Player, ItemStack, Boolean)
-	 * @see ItemUtils#fitsInInventory(Inventory, ItemStack)
-	 * @see ItemUtils#isAmmoItem(ItemStack)
-	 * @see PlayerConfigurator#setCharacterCurrency(Player, String, long)
-	 * @see PlayerConfigurator#setArrowAmount(Player, String, int)
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		final Player player = (Player) event.getWhoClicked();
 		ItemStack clicked = event.getCurrentItem();
 		ItemStack itemOnCursor = player.getItemOnCursor();
+		int slot = event.getRawSlot();
 		
-		if(!ItemUtils.isNotAir(clicked)) {
+		if(slot < 27) {
 			event.setCancelled(true);
-		}
-		else if(clicked.getType().equals(Material.BARRIER) && ItemUtils.hasColoredName(clicked, ChatColor.RED)) {
-			event.setCancelled(true);
-			WauzShopActions.sell(player, itemOnCursor, true);				
-		}
-		else if(clicked.getType().equals(Material.ANVIL) && ItemUtils.hasColoredName(clicked, ChatColor.BLUE)) {
-			event.setCancelled(true);
-			WauzShopActions.repair(player, itemOnCursor, true);
 		}
 		
-//		if(!ItemUtils.hasLore(clicked)) {
-//			return;
-//		}
-//		
-//		List<String> lores = clicked.getItemMeta().getLore();
-//		
-//		for(String lore : lores) {
-//			if(lore.contains("Price")) {
-//				event.setCancelled(true);
-//				
-//				lores.remove(lore);
-//				lores.add(ChatColor.DARK_GRAY + "Bought (Worthless)");
-//				ItemMeta itemMeta = clicked.getItemMeta();
-//				itemMeta.setLore(lores);
-//				clicked.setItemMeta(itemMeta);
-//							
-//				String[] parts = lore.split(" ");
-//				int price = Integer.parseInt(parts[1]);
-//				String type = parts[2];
-//				
-//				long money = PlayerConfigurator.getCharacterCurrency(player, currency.get(type));
-//				
-//				if(money >= price) {
-//					if(ItemUtils.isAmmoItem(clicked)) {
-//						String displayName = ChatColor.stripColor(clicked.getItemMeta().getDisplayName());
-//						String arrowType = displayName.split(" ")[0].toLowerCase();
-//						int arrowAmount = PlayerConfigurator.getArrowAmount(player, arrowType);
-//						arrowAmount = (arrowAmount + clicked.getAmount()) > 999 ? 999 : (arrowAmount + clicked.getAmount());
-//						
-//						PlayerConfigurator.setCharacterCurrency(player, currency.get(type), money - price);
-//						PlayerConfigurator.setArrowAmount(player, arrowType, arrowAmount);
-//						String arrowString = "(" + arrowAmount + " / 999) " + displayName;
-//						player.sendMessage(ChatColor.GREEN + "Your now have " + arrowString + "s with you!");
-//					}
-//					else {
-//						if(!ItemUtils.fitsInInventory(player.getInventory(), clicked)) {
-//							player.sendMessage(ChatColor.RED + "Your inventory is full!");
-//							player.closeInventory();
-//							return;
-//						}
-//						PlayerConfigurator.setCharacterCurrency(player, currency.get(type), money - price);
-//						player.getInventory().addItem(clicked);
-//						player.sendMessage(ChatColor.GREEN + "Your purchase was successful!");
-//						WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
-//					}
-//				}
-//				else {
-//					player.sendMessage(ChatColor.RED + "You don't have enough money!");
-//				}
-//				player.closeInventory();
-//				return;
-//			}
-//		}		
+		boolean actionSuccess = false;
+		if(offerSlots.contains(slot) && !HeadUtils.isHeadMenuItem(clicked, "SOLD OUT")) {
+			int itemIndex = offerSlots.indexOf(slot);
+			actionSuccess = WauzShopActions.buy(player, shop.getShopItems().get(itemIndex));
+		}
+		else if(!ItemUtils.isNotAir(clicked)) {
+			return;
+		}
+		else if(clicked.getType().equals(Material.BARRIER) && ItemUtils.isSpecificItem(clicked, "Sell Items")) {
+			actionSuccess = WauzShopActions.sell(player, itemOnCursor, true);				
+		}
+		else if(clicked.getType().equals(Material.ANVIL) && ItemUtils.isSpecificItem(clicked, "Repair Items")) {
+			actionSuccess = WauzShopActions.repair(player, itemOnCursor, true);
+		}
+		
+		if(actionSuccess) {
+			open(player, shop.getShopName());
+		}
 	}
 	
 }

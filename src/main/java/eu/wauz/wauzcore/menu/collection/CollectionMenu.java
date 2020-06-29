@@ -53,7 +53,7 @@ public class CollectionMenu implements WauzInventory {
 	 * Opens the menu for the given player.
 	 * All menus for collection mechanics plus a short information are shown.
 	 * Here is a quick summary:</br>
-	 * Slot 1: A dsiplay of all currencies and reputations.</br>
+	 * Slot 1: The currency menu + coin amount display.</br>
 	 * Slot 3: The quest menu + completed quest count display.</br>
 	 * Slot 4: Return to main menu...</br>
 	 * Slot 5: The achievement menu + achievement count display.</br>
@@ -61,7 +61,7 @@ public class CollectionMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 * 
-	 * @see MenuUtils#setCurrencyDisplay(Inventory, Player, int)
+	 * @see PlayerConfigurator#getCharacterCoins(Player)
 	 * @see PlayerConfigurator#getCharacterAchievementProgress(Player, WauzAchievementType)
 	 * @see PlayerConfigurator#getCharacterCompletedAchievements(Player)
 	 * @see PlayerConfigurator#getCharacterUsedPetSlots(Player)
@@ -72,7 +72,18 @@ public class CollectionMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CollectionMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Collection Menu");
 		
-		MenuUtils.setCurrencyDisplay(menu, player, 1);
+		ItemStack currencyItemStack = HeadUtils.getMoneyItem();
+		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
+		currencyItemMeta.setDisplayName(ChatColor.GOLD + "Currencies");
+		List<String> currencyLores = new ArrayList<String>();
+		currencyLores.add(ChatColor.DARK_PURPLE + "Total Coins: " + ChatColor.YELLOW
+			+ Formatters.INT.format(PlayerConfigurator.getCharacterCoins(player)));
+		currencyLores.add("");
+		currencyLores.add(ChatColor.GRAY + "View all of your collected currencies");
+		currencyLores.add(ChatColor.GRAY + "and faction reputation (favor points).");
+		currencyItemMeta.setLore(currencyLores);
+		currencyItemStack.setItemMeta(currencyItemMeta);
+		menu.setItem(1, currencyItemStack);
 		
 		MenuUtils.setComingSoon(menu, "Tabards", 2);
 		
@@ -129,6 +140,7 @@ public class CollectionMenu implements WauzInventory {
 	 * 
 	 * @param event The inventory click event.
 	 * 
+	 * @see CurrencyMenu#open(Player)
 	 * @see QuestMenu#open(Player)
 	 * @see AchievementsMenu#open(Player)
 	 * @see PetOverviewMenu#open(Player, int)
@@ -141,6 +153,9 @@ public class CollectionMenu implements WauzInventory {
 		
 		if(clicked == null) {
 			return;
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Currencies")) {
+			CurrencyMenu.open(player);
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Questlog")) {
 			QuestMenu.open(player);

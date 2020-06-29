@@ -4,15 +4,17 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.ShopMenu;
-import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
@@ -27,6 +29,59 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
  * @see ShopMenu
  */
 public class WauzShopActions {
+	
+	/**
+	 * Tries to buy the given item for the player.
+	 * Unlike ammo items (arrows), physical items, can only be bought when there is inventory space left.
+	 * Items cannot be bought, if the player doesn't have enough money.
+	 * 
+	 * @param player The player who wants to buy the item.
+	 * @param itemToBuy The item that should be bought.
+	 * 
+	 * @return If the buying was successful.
+	 * 
+	 * @see WauzCurrency#getCurrencyAmount(Player)
+	 * @see ItemUtils#fitsInInventory(Inventory, ItemStack)
+	 * @see ItemUtils#isAmmoItem(ItemStack)
+	 * @see PlayerConfigurator#setArrowAmount(Player, String, int)
+	 */
+	public static boolean buy(Player player, WauzShopItem itemToBuy) {
+		WauzCurrency currency = itemToBuy.getShopItemCurrency();
+		long price = itemToBuy.getShopItemPrice();
+		long money = currency.getCurrencyAmount(player);
+		
+		if(money < price) {
+			player.sendMessage(ChatColor.RED + "You don't have enough money!");
+			player.closeInventory();
+			return false;
+		}
+		
+		ItemStack boughtItem = itemToBuy.getInstance(player, true);
+		if(ItemUtils.isAmmoItem(boughtItem)) {
+			String displayName = ChatColor.stripColor(boughtItem.getItemMeta().getDisplayName());
+			String arrowType = displayName.split(" ")[0].toLowerCase();
+			int arrowAmount = PlayerConfigurator.getArrowAmount(player, arrowType) + boughtItem.getAmount();
+			arrowAmount = arrowAmount > 999 ? 999 : arrowAmount;
+			
+			currency.setCurrencyAmount(player, money - price);
+			PlayerConfigurator.setArrowAmount(player, arrowType, arrowAmount);
+			String arrowString = "(" + arrowAmount + " / 999) " + displayName;
+			player.sendMessage(ChatColor.GREEN + "Your now have " + arrowString + "s with you!");
+		}
+		else {
+			if(!ItemUtils.fitsInInventory(player.getInventory(), boughtItem)) {
+				player.sendMessage(ChatColor.RED + "Your inventory is full!");
+				player.closeInventory();
+				return false;
+			}
+			currency.setCurrencyAmount(player, money - price);
+			player.getInventory().addItem(boughtItem);
+			player.sendMessage(ChatColor.GREEN + "Your purchase was successful!");
+			WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
+		}
+		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 1, 1);
+		return true;
+	}
 	
 	/**
 	 * Tries to sell the given item for the player.
@@ -56,28 +111,30 @@ public class WauzShopActions {
 			List<String> lores = itemToSell.getItemMeta().getLore();
 			
 			for(String s : lores) {
+				if(s.contains("Bought")) {
+					price = 0;
+					break;
+				}
+				if(s.contains("Sell Value")) {
+					String[] parts = s.split(" ");
+					price = Integer.parseInt(parts[2]) * itemToSell.getAmount();
+					break;
+				}
 				if(s.contains("Attack")) {
 					String[] parts = s.split(" ");
 					price = (int) (((Integer.parseInt(parts[1]) / 1.5) * (Math.random() + 2)) * itemToSell.getAmount());
+					break;
 				}
-				else if(s.contains("Defense")) {
+				if(s.contains("Defense")) {
 					String[] parts = s.split(" ");
 					price = (int) (((Integer.parseInt(parts[1]) * 3.0) * (Math.random() + 2)) * itemToSell.getAmount());
-				}
-				
-				if(s.contains("Bought")) {
-					price = 0;
-				}
-				else if(s.contains("Sell Value")) {
-					String[] parts = s.split(" ");
-					price = Integer.parseInt(parts[2]) * itemToSell.getAmount();
+					break;
 				}
 			}
 		}
 		
 		long priceOld = price;
 		price = (int) ((float) price * (float) PlayerPassiveSkillConfigurator.getTradingFloat(player));
-		
 		WauzDebugger.log(player, "Item-Price: " + price + " (" + priceOld + ")");
 		
 		PlayerConfigurator.setCharacterCoins(player, money + price);
@@ -86,9 +143,7 @@ public class WauzShopActions {
 		
 		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 		player.sendMessage(ChatColor.GREEN + "Your item was sold for " + price + " Coins!");
-		if(fromShop) {
-			MenuUtils.setCurrencyDisplay(player.getOpenInventory().getTopInventory(), player, 0);
-		}
+		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
 		return true;
 	}
 	
@@ -132,23 +187,20 @@ public class WauzShopActions {
 		if(fromShop) {
 			int price = maxDurability - durability;
 			long money = PlayerConfigurator.getCharacterCoins(player);
-			
-			if(price < money) {
-				PlayerConfigurator.setCharacterCoins(player, money - price);
-				
-				DurabilityCalculator.repairItem(player, itemToRepair);
-				player.sendMessage(ChatColor.GREEN + "Your item was repaired for " + price + " Coins!");
-				MenuUtils.setCurrencyDisplay(player.getOpenInventory().getTopInventory(), player, 0);
-				return true;
-			}
-			else {
+			if(money < price) {
 				player.sendMessage(ChatColor.RED + "You don't have enough money to rapair this item!");
 				return false;
 			}
+			PlayerConfigurator.setCharacterCoins(player, money - price);
+			DurabilityCalculator.repairItem(player, itemToRepair);
+			player.sendMessage(ChatColor.GREEN + "Your item was repaired for " + price + " Coins!");
+			player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 1, 1);
+			return true;
 		}
 		else {
 			DurabilityCalculator.repairItem(player, itemToRepair);
 			player.sendMessage(ChatColor.GREEN + "Your item was repaired for one Scroll!");
+			player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 1, 1);
 			return true;
 		}
 	}

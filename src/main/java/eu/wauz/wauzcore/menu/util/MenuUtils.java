@@ -59,20 +59,12 @@ public class MenuUtils {
 	public static void setCurrencyDisplay(Inventory menu, Player player, int index) {
 		ItemStack currencyItemStack = HeadUtils.getMoneyItem();
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
-		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Currency");
+		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Common Currency");
 		List<String> lores = new ArrayList<String>();
 		lores.add(Formatters.formatCoins(PlayerConfigurator.getCharacterCoins(player))
-			+ ChatColor.DARK_PURPLE + " Coins");
+			+ ChatColor.YELLOW + " Coins");
 		lores.add(ChatColor.RED + Formatters.INT.format(PlayerConfigurator.getCharacterSoulstones(player))
-			+ ChatColor.DARK_PURPLE + " Soulstones");
-		lores.add("");
-		lores.add(ChatColor.GREEN + "Reputation");
-		lores.add(ChatColor.BLUE + Formatters.INT.format(PlayerConfigurator.getCharacterRepRepublicWauzland(player))
-			+ ChatColor.DARK_PURPLE + " Republic Wauzland");
-		lores.add(ChatColor.BLUE + Formatters.INT.format(PlayerConfigurator.getCharacterRepEternalEmpire(player))
-			+ ChatColor.DARK_PURPLE + " Eternal Empire");
-		lores.add(ChatColor.BLUE + Formatters.INT.format(PlayerConfigurator.getCharacterRepDarkLegion(player))
-			+ ChatColor.DARK_PURPLE + " Dark Legion");
+			+ ChatColor.YELLOW + " Soulstones");
 		currencyItemMeta.setLore(lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
 		menu.setItem(index, currencyItemStack);
@@ -88,10 +80,10 @@ public class MenuUtils {
 	public static void setGlobalCurrencyDisplay(Inventory menu, Player player, int index) {
 		ItemStack currencyItemStack = HeadUtils.getMoneyItem();
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
-		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Currency");
+		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Global Currency");
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getTokens(player))
-			+ ChatColor.DARK_PURPLE + " Tokens");
+			+ ChatColor.YELLOW + " Tokens");
 		currencyItemMeta.setLore(lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
 		menu.setItem(index, currencyItemStack);

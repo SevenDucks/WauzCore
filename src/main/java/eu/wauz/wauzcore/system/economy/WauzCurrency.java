@@ -153,5 +153,15 @@ public class WauzCurrency {
 	public long getCurrencyAmount(Player player) {
 		return PlayerConfigurator.getCharacterCurrency(player, currencyConfigName);
 	}
+	
+	/**
+	 * Sets how much of the currency a specific player owns.
+	 * 
+	 * @param player The player who owns the currency.
+	 * @param amount The new owned currency amount.
+	 */
+	public void setCurrencyAmount(Player player, long amount) {
+		PlayerConfigurator.setCharacterCurrency(player, currencyConfigName, amount);
+	}
 
 }

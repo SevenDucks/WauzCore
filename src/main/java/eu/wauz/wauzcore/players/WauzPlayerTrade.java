@@ -11,7 +11,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.menu.social.TradeMenu;
+import eu.wauz.wauzcore.menu.TradeMenu;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
 

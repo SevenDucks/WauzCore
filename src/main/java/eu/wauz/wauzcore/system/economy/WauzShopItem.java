@@ -90,19 +90,25 @@ public class WauzShopItem {
 	 * Generates a player specific instance of the shop item stack.
 	 * 
 	 * @param player The player who can buy the item.
+	 * @param bought If the item was bought and therefore has no price anymore.
 	 * 
 	 * @return A stack of the shop item.
 	 */
-	public ItemStack getInstance(Player player) {
-		long currencyAmount = shopItemCurrency.getCurrencyAmount(player);
-		String currencyName = shopItemCurrency.getCurrencyDisplayName();
-		ChatColor currencyAmountColor = currencyAmount >= shopItemPrice ? ChatColor.GREEN : ChatColor.RED;
-		
-		String currencyCostString = ChatColor.GOLD + Formatters.INT.format(shopItemPrice);
-		String currencyAmountString = currencyAmountColor + Formatters.INT.format(currencyAmount);
-		String priceString = currencyCostString + " (" + currencyAmountString + ChatColor.GOLD + ") ";
-		String priceLore = ChatColor.YELLOW + "Price: " + priceString + ChatColor.YELLOW + currencyName;
-		
+	public ItemStack getInstance(Player player, boolean bought) {
+		String priceLore;
+		if(bought) {
+			priceLore = ChatColor.DARK_GRAY + "Bought (Worthless)";
+		}
+		else {
+			long currencyAmount = shopItemCurrency.getCurrencyAmount(player);
+			String currencyName = shopItemCurrency.getCurrencyDisplayName();
+			ChatColor currencyAmountColor = currencyAmount >= shopItemPrice ? ChatColor.GREEN : ChatColor.RED;
+			
+			String currencyCostString = ChatColor.GOLD + Formatters.INT.format(shopItemPrice);
+			String currencyAmountString = currencyAmountColor + Formatters.INT.format(currencyAmount);
+			String priceString = currencyCostString + " (" + currencyAmountString + ChatColor.GOLD + ") ";
+			priceLore = ChatColor.YELLOW + "Price: " + priceString + ChatColor.YELLOW + currencyName;
+		}
 		ItemStack itemStack = shopItemStack.clone();
 		MenuUtils.addItemLore(itemStack, "", false);
 		MenuUtils.addItemLore(itemStack, priceLore, false);
