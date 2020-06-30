@@ -45,6 +45,11 @@ public class WauzShopItem {
 	private WauzCurrency shopItemCurrency;
 	
 	/**
+	 * The relation exp gain on purchase of the shop item.
+	 */
+	private int shopItemRelationExp;
+	
+	/**
 	 * Constructs a shop item, based on the shop file in the /WauzCore/ShopData folder.
 	 * 
 	 * @param shopName The name of the shop this item can be bought in.
@@ -56,6 +61,7 @@ public class WauzShopItem {
 		this.shopItemAmount = ShopConfigurator.getItemAmount(shopName, itemIndex);
 		this.shopItemPrice = ShopConfigurator.getItemPrice(shopName, itemIndex);
 		this.shopItemCurrency = ShopConfigurator.getItemCurrency(shopName, itemIndex);
+		this.shopItemRelationExp = ShopConfigurator.getItemRelationExp(shopName, itemIndex);
 	}
 
 	/**
@@ -87,31 +93,40 @@ public class WauzShopItem {
 	}
 	
 	/**
+	 * @return The relation exp gain on purchase of the shop item.
+	 */
+	public int getShopItemRelationExp() {
+		return shopItemRelationExp;
+	}
+
+	/**
 	 * Generates a player specific instance of the shop item stack.
 	 * 
 	 * @param player The player who can buy the item.
+	 * @param discount The discount on the price of the item.
 	 * @param bought If the item was bought and therefore has no price anymore.
 	 * 
 	 * @return A stack of the shop item.
 	 */
-	public ItemStack getInstance(Player player, boolean bought) {
-		String priceLore;
-		if(bought) {
-			priceLore = ChatColor.DARK_GRAY + "Bought (Worthless)";
-		}
-		else {
-			long currencyAmount = shopItemCurrency.getCurrencyAmount(player);
-			String currencyName = shopItemCurrency.getCurrencyDisplayName();
-			ChatColor currencyAmountColor = currencyAmount >= shopItemPrice ? ChatColor.GREEN : ChatColor.RED;
-			
-			String currencyCostString = ChatColor.GOLD + Formatters.INT.format(shopItemPrice);
-			String currencyAmountString = currencyAmountColor + Formatters.INT.format(currencyAmount);
-			String priceString = currencyCostString + " (" + currencyAmountString + ChatColor.GOLD + ") ";
-			priceLore = ChatColor.YELLOW + "Price: " + priceString + ChatColor.YELLOW + currencyName;
-		}
+	public ItemStack getInstance(Player player, WauzShopDiscount discount, boolean bought) {
 		ItemStack itemStack = shopItemStack.clone();
 		MenuUtils.addItemLore(itemStack, "", false);
-		MenuUtils.addItemLore(itemStack, priceLore, false);
+		if(bought) {
+			MenuUtils.addItemLore(itemStack, ChatColor.DARK_GRAY + "Bought (Worthless)", false);
+		}
+		else {
+			int currencyCost = (int) ((1.0 - discount.getTotalDiscount()) * (double) shopItemPrice);
+			currencyCost = currencyCost < 1 ? 1 : currencyCost;
+			long currencyAmount = shopItemCurrency.getCurrencyAmount(player);
+			String currencyName = shopItemCurrency.getCurrencyDisplayName();
+			ChatColor currencyAmountColor = currencyAmount >= currencyCost ? ChatColor.GREEN : ChatColor.RED;
+			
+			String currencyCostString = ChatColor.GOLD + Formatters.INT.format(currencyCost);
+			String currencyAmountString = currencyAmountColor + Formatters.INT.format(currencyAmount);
+			String priceString = currencyCostString + " (" + currencyAmountString + ChatColor.GOLD + ") ";
+			MenuUtils.addItemLore(itemStack, ChatColor.YELLOW + "Price: " + priceString + ChatColor.YELLOW + currencyName, false);
+			MenuUtils.addItemLore(itemStack, ChatColor.YELLOW + "Relation Exp Gain: " + ChatColor.LIGHT_PURPLE + shopItemRelationExp, false);
+		}
 		itemStack.setAmount(shopItemAmount);
 		return itemStack;
 	}

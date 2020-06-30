@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.economy.WauzShopActions;
+import eu.wauz.wauzcore.system.economy.WauzShopDiscount;
 import eu.wauz.wauzcore.system.economy.WauzShopItem;
 
 /**
@@ -71,9 +72,10 @@ public class ShopMenu implements WauzInventory {
 	 * @see WauzShopItem#getInstance(Player)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
-	public static void open(Player player, String shopName) {
+	public static void open(Player player, String shopName, String citizenName) {
 		WauzShop shop = WauzShop.getShop(shopName);
-		ShopMenu shopMenu = new ShopMenu(shop);
+		WauzShopDiscount shopDiscount = new WauzShopDiscount(player, citizenName);
+		ShopMenu shopMenu = new ShopMenu(shop, shopDiscount);
 		WauzInventoryHolder holder = new WauzInventoryHolder(shopMenu);
 		Inventory menu = Bukkit.createInventory(holder, 27, ChatColor.BLACK + "" + ChatColor.BOLD + shop.getShopDisplayName());
 		
@@ -109,10 +111,7 @@ public class ShopMenu implements WauzInventory {
 			sellItemStack.setItemMeta(sellItemMeta);
 			menu.setItem(17, sellItemStack);
 		}
-		
-		ItemStack discountItemStack = HeadUtils.getCitizenRelationItem();
-		MenuUtils.setItemDisplayName(discountItemStack, ChatColor.GRAY + "Discount not possible...");
-		menu.setItem(9, discountItemStack);
+		menu.setItem(9, shopDiscount.generateDiscountDisplay());
 		
 		ItemStack soldItemStack = HeadUtils.getDeclineItem();
 		MenuUtils.setItemDisplayName(soldItemStack, ChatColor.DARK_GRAY + "SOLD OUT");
@@ -122,7 +121,7 @@ public class ShopMenu implements WauzInventory {
 			int indexSlot = offerSlots.get(index);
 			if(index < shopItems.size()) {
 				WauzShopItem shopItem = shopItems.get(index);
-				menu.setItem(indexSlot, shopItem.getInstance(player, false));
+				menu.setItem(indexSlot, shopItem.getInstance(player, shopDiscount, false));
 			}
 			else {
 				menu.setItem(indexSlot, soldItemStack);
@@ -139,12 +138,19 @@ public class ShopMenu implements WauzInventory {
 	private WauzShop shop;
 	
 	/**
+	 * The name of the citizen who owns the shop. Can be null.
+	 */
+	private WauzShopDiscount shopDiscount;
+	
+	/**
 	 * Creates a new shop menu instance.
 	 * 
 	 * @param shop The shop displayed in the menu.
+	 * @param citizenName The name of the citizen who owns the shop. Can be null.
 	 */
-	private ShopMenu(WauzShop shop) {
+	private ShopMenu(WauzShop shop, WauzShopDiscount shopDiscount) {
 		this.shop = shop;
+		this.shopDiscount = shopDiscount;
 	}
 	
 	/**
@@ -154,9 +160,9 @@ public class ShopMenu implements WauzInventory {
 	 * 
 	 * @param event The inventory click event.
 	 * 
-	 * @see WauzShopActions#buy(Player, WauzShopItem)
-	 * @see WauzShopActions#sell(Player, ItemStack, Boolean)
-	 * @see WauzShopActions#repair(Player, ItemStack, Boolean)
+	 * @see WauzShopActions#buy(Player, WauzShopItem, String)
+	 * @see WauzShopActions#sell(Player, ItemStack, boolean)
+	 * @see WauzShopActions#repair(Player, ItemStack, boolean)
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
@@ -172,7 +178,7 @@ public class ShopMenu implements WauzInventory {
 		boolean actionSuccess = false;
 		if(offerSlots.contains(slot) && !HeadUtils.isHeadMenuItem(clicked, "SOLD OUT")) {
 			int itemIndex = offerSlots.indexOf(slot);
-			actionSuccess = WauzShopActions.buy(player, shop.getShopItems().get(itemIndex));
+			actionSuccess = WauzShopActions.buy(player, shop.getShopItems().get(itemIndex), shopDiscount);
 		}
 		else if(!ItemUtils.isNotAir(clicked)) {
 			return;
@@ -185,7 +191,7 @@ public class ShopMenu implements WauzInventory {
 		}
 		
 		if(actionSuccess) {
-			open(player, shop.getShopName());
+			open(player, shop.getShopName(), shopDiscount.getCitizenName());
 		}
 	}
 	

@@ -7,23 +7,28 @@ items:
     amount: 1
     price: 5
     currency: coins
+    relation: 1
   2:
     type: FoodBlessedChickoon
     amount: 3
     price: 10
     currency: wauzland
+    relation: 6
   3:
     type: DungeonPoS
     amount: 1
     price: 50
     currency: coins
+    relation: 5
   4:
     type: PetCharlie
     amount: 1
     price: 120
     currency: coins
+    relation: 10
   5:
     type: PetAsuna
     amount: 1
     price: 240
     currency: coins
+    relation: 18

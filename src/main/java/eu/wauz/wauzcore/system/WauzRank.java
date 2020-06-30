@@ -114,6 +114,11 @@ public class WauzRank {
 	private int dailySoulstones;
 	
 	/**
+	 * The global shop discount of the rank.
+	 */
+	private double shopDiscount;
+	
+	/**
 	 * Constructs a rank, based on the rank file in the /WauzCore folder.
 	 * 
 	 * @param rankName The name of the rank.
@@ -127,6 +132,7 @@ public class WauzRank {
 		grantOp = RankConfigurator.hasRankOp(rankName);
 		dailyCoins = RankConfigurator.getRankRewardCoins(rankName);
 		dailySoulstones = RankConfigurator.getRankRewardSoulstones(rankName);
+		shopDiscount = RankConfigurator.getRankRewardDiscount(rankName);
 	}
 
 	/**
@@ -183,6 +189,13 @@ public class WauzRank {
 	 */
 	public int getDailySoulstones() {
 		return dailySoulstones;
+	}
+
+	/**
+	 * @return The global shop discount of the rank.
+	 */
+	public double getShopDiscount() {
+		return shopDiscount;
 	}
 
 }

@@ -40,12 +40,12 @@ public class WauzPlayerEventCitizenShop implements WauzPlayerEvent {
 	 * 
 	 * @return If the event was executed successfully.
 	 * 
-	 * @see ShopMenu#open(Player, String)
+	 * @see ShopMenu#open(Player, String, String)
 	 */
 	@Override
 	public boolean execute(Player player) {
 		try {
-			ShopMenu.open(player, shopName);
+			ShopMenu.open(player, shopName, citizenName);
 			return true;
 		}
 		catch (Exception e) {

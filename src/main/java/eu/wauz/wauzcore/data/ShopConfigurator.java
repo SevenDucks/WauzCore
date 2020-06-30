@@ -91,5 +91,15 @@ public class ShopConfigurator extends GlobalConfigurationUtils {
 	public static WauzCurrency getItemCurrency(String shopName, int itemIndex) {
 		return WauzCurrency.getCurrency(shopConfigGetString(shopName, "items." + itemIndex + ".currency"));
 	}
+	
+	/**
+	 * @param shopName The name of the shop.
+	 * @param itemIndex The number of the shop item.
+	 * 
+	 * @return The relation exp gain on purchase of the shop item.
+	 */
+	public static int getItemRelationExp(String shopName, int itemIndex) {
+		return shopConfigGetInt(shopName, "items." + itemIndex + ".relation");
+	}
 
 }

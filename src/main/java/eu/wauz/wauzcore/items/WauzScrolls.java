@@ -69,8 +69,8 @@ public class WauzScrolls {
 	 * 
 	 * @see WauzScrolls#onScrollItemInteract(PlayerInteractEvent) For right click scrolls...
 	 * @see WauzIdentifier#identify(InventoryClickEvent, String)
-	 * @see WauzShopActions#sell(Player, ItemStack, Boolean)
-	 * @see WauzShopActions#repair(Player, ItemStack, Boolean)
+	 * @see WauzShopActions#sell(Player, ItemStack, boolean)
+	 * @see WauzShopActions#repair(Player, ItemStack, boolean)
 	 * @see WauzEquipment#clearAllSockets(InventoryClickEvent)
 	 * @see WauzEquipment#insertRune(InventoryClickEvent)
 	 * @see WauzEquipment#insertSkillgem(InventoryClickEvent)

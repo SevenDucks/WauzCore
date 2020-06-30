@@ -10,6 +10,10 @@ Patch 6XX: Powerful Professions
 
 Patch 6XX: Class Specializations
 
+Patch 605: Bloody Bestiary
+
+Patch 604: Crucible of Classes
+
 Patch 603: Social Standards II
 	New Feature: Ranks and Titles
 	  - Ranks determine Permissions, Rewards, Colors
@@ -19,9 +23,13 @@ Patch 603: Social Standards II
 	  - Rank and Class are Default Titles
 	  - Additonal Titles can be Bought
 	
-	New Feature: Trading
+	Economy Update
+	  - New Currency Overview Menu
+	  - Improved Shop Screen
+	  - /trade Sends a Trade Request
+	  - /roll Rolls a Random Number
 	
-	Experimental: One Block Gamemode
+	Experimental: One Block Gamemode (WIP)
 	  - Survival Skyblock with only One Block
 	  - Block can be Mined Infinitely
 	  - Different Phases -> Block Changes Type

@@ -91,4 +91,13 @@ public class RankConfigurator extends GlobalConfigurationUtils {
 		return mainConfigGetInt("Ranks", rank + ".rewards.soulstones");
 	}
 	
+	/**
+	 * @param rank The name of the rank.
+	 * 
+	 * @return The global shop discount of the rank.
+	 */
+	public static double getRankRewardDiscount(String rank) {
+		return mainConfigGetDouble("Ranks", rank + ".rewards.discount");
+	}
+	
 }

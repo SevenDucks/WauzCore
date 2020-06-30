@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -15,6 +16,7 @@ import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.ShopMenu;
+import eu.wauz.wauzcore.mobs.citizens.RelationTracker;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
@@ -37,6 +39,7 @@ public class WauzShopActions {
 	 * 
 	 * @param player The player who wants to buy the item.
 	 * @param itemToBuy The item that should be bought.
+	 * @param discount The discount on the price of the item.
 	 * 
 	 * @return If the buying was successful.
 	 * 
@@ -45,25 +48,27 @@ public class WauzShopActions {
 	 * @see ItemUtils#isAmmoItem(ItemStack)
 	 * @see PlayerConfigurator#setArrowAmount(Player, String, int)
 	 */
-	public static boolean buy(Player player, WauzShopItem itemToBuy) {
+	public static boolean buy(Player player, WauzShopItem itemToBuy, WauzShopDiscount discount) {
 		WauzCurrency currency = itemToBuy.getShopItemCurrency();
-		long price = itemToBuy.getShopItemPrice();
+		long shopItemPrice = itemToBuy.getShopItemPrice();
+		int currencyCost = (int) ((1.0 - discount.getTotalDiscount()) * (double) shopItemPrice);
+		currencyCost = currencyCost < 1 ? 1 : currencyCost;
 		long money = currency.getCurrencyAmount(player);
 		
-		if(money < price) {
+		if(money < currencyCost) {
 			player.sendMessage(ChatColor.RED + "You don't have enough money!");
 			player.closeInventory();
 			return false;
 		}
 		
-		ItemStack boughtItem = itemToBuy.getInstance(player, true);
+		ItemStack boughtItem = itemToBuy.getInstance(player, discount, true);
 		if(ItemUtils.isAmmoItem(boughtItem)) {
 			String displayName = ChatColor.stripColor(boughtItem.getItemMeta().getDisplayName());
 			String arrowType = displayName.split(" ")[0].toLowerCase();
 			int arrowAmount = PlayerConfigurator.getArrowAmount(player, arrowType) + boughtItem.getAmount();
 			arrowAmount = arrowAmount > 999 ? 999 : arrowAmount;
 			
-			currency.setCurrencyAmount(player, money - price);
+			currency.setCurrencyAmount(player, money - currencyCost);
 			PlayerConfigurator.setArrowAmount(player, arrowType, arrowAmount);
 			String arrowString = "(" + arrowAmount + " / 999) " + displayName;
 			player.sendMessage(ChatColor.GREEN + "Your now have " + arrowString + "s with you!");
@@ -74,10 +79,13 @@ public class WauzShopActions {
 				player.closeInventory();
 				return false;
 			}
-			currency.setCurrencyAmount(player, money - price);
+			currency.setCurrencyAmount(player, money - currencyCost);
 			player.getInventory().addItem(boughtItem);
 			player.sendMessage(ChatColor.GREEN + "Your purchase was successful!");
 			WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
+		}
+		if(StringUtils.isNotBlank(discount.getCitizenName()) && itemToBuy.getShopItemRelationExp() > 0) {
+			RelationTracker.addProgress(player, discount.getCitizenName(), itemToBuy.getShopItemRelationExp());
 		}
 		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 1, 1);
 		return true;
@@ -99,7 +107,7 @@ public class WauzShopActions {
 	 * @see PlayerPassiveSkillConfigurator#getTradingFloat(Player)
 	 * @see AchievementTracker#addProgress(Player, WauzAchievementType, double)
 	 */
-	public static boolean sell(Player player, ItemStack itemToSell, Boolean fromShop) {
+	public static boolean sell(Player player, ItemStack itemToSell, boolean fromShop) {
 		if(itemToSell.equals(null) || itemToSell.getType().equals(Material.AIR)) {
 			return false;
 		}
@@ -163,7 +171,7 @@ public class WauzShopActions {
 	 * @see PlayerConfigurator#setCharacterCoins(Player, long)
 	 * @see DurabilityCalculator#repairItem(Player, ItemStack)
 	 */
-	public static boolean repair(Player player, ItemStack itemToRepair, Boolean fromShop) {
+	public static boolean repair(Player player, ItemStack itemToRepair, boolean fromShop) {
 		if(itemToRepair.equals(null) || itemToRepair.getType().equals(Material.AIR)) {
 			if(fromShop) {
 				player.sendMessage(ChatColor.RED + "You can't repair air!");

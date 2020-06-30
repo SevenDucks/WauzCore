@@ -175,7 +175,7 @@ public class EventMapper {
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
 	 * @see DamageCalculator#increasePvPProtection(PlayerInteractEvent)
 	 * @see WauzSigns#interact(Player, org.bukkit.block.Block)
-	 * @see ShopMenu#open(Player, String)
+	 * @see ShopMenu#open(Player, String, String)
 	 */
 	public static void handleSurvivalItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -206,7 +206,7 @@ public class EventMapper {
 			
 			if(type.equals(Material.ENDER_CHEST)) {
 				event.setCancelled(true);
-				ShopMenu.open(player, "SurvivalShop");
+				ShopMenu.open(player, "SurvivalShop", null);
 			}
 			
 			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN)) {

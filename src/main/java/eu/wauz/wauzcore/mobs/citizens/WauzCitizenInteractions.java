@@ -139,7 +139,6 @@ public class WauzCitizenInteractions {
 		ItemStack interactionItemStack;
 		WauzPlayerEvent event;
 		String type = CitizenConfigurator.getInteractionType(citizenName, interactionKey);
-		String displayName = CitizenConfigurator.getDisplayName(citizenName);
 		String interactionName = CitizenConfigurator.getInteractionName(citizenName, interactionKey);
 		int level = CitizenConfigurator.getInteractionLevel(citizenName, interactionKey);
 		
@@ -154,25 +153,25 @@ public class WauzCitizenInteractions {
 			interactionItemStack = HeadUtils.getCitizenShopItem();
 			WauzShop shop = WauzShop.getShop(interactionName);
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.GREEN + "Shop: " + shop.getShopDisplayName());
-			event = new WauzPlayerEventCitizenShop(citizenName, interactionName);
+			event = new WauzPlayerEventCitizenShop(displayName, interactionName);
 			break;
 		case "quest":
 			interactionItemStack = HeadUtils.getCitizenQuestItem();
 			WauzQuest quest = WauzQuest.getQuest(interactionName);
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.GOLD + "Quest: " + quest.getDisplayName());
-			event = new WauzPlayerEventCitizenQuest(citizenName, interactionName);
+			event = new WauzPlayerEventCitizenQuest(displayName, interactionName);
 			break;
 		case "inn":
 			interactionItemStack = HeadUtils.getCitizenInnItem();
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.RED + "Inn: Set as New Home");
 			Location location = CitizenConfigurator.getLocation(citizenName);
-			event = new WauzPlayerEventCitizenInn(citizenName, location);
+			event = new WauzPlayerEventCitizenInn(displayName, location);
 			break;
 		case "command":
 			interactionItemStack = HeadUtils.getCitizenCommandItem();
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.BLUE + "Action: " + interactionName);
 			String command = CitizenConfigurator.getInteractionCommand(citizenName, interactionKey);
-			event = new WauzPlayerEventCitizenCommand(citizenName, command);
+			event = new WauzPlayerEventCitizenCommand(displayName, command);
 			break;
 		default:
 			WauzDebugger.log("Invalid Citizen Interaction Type: " + type);
