@@ -19,9 +19,13 @@ eu.wauz.wauzcore.items.util
 eu.wauz.wauzcore.items.weapons
 eu.wauz.wauzcore.legacy
 eu.wauz.wauzcore.menu
+eu.wauz.wauzcore.menu.abilities
+eu.wauz.wauzcore.menu.collection
+eu.wauz.wauzcore.menu.social
 eu.wauz.wauzcore.menu.util
 eu.wauz.wauzcore.mobs
 eu.wauz.wauzcore.mobs.citizens
+eu.wauz.wauzcore.oneblock
 eu.wauz.wauzcore.players
 eu.wauz.wauzcore.players.calc
 eu.wauz.wauzcore.players.ui
@@ -31,6 +35,7 @@ eu.wauz.wauzcore.skills.particles
 eu.wauz.wauzcore.system
 eu.wauz.wauzcore.system.achievements
 eu.wauz.wauzcore.system.api
+eu.wauz.wauzcore.system.economy
 eu.wauz.wauzcore.system.listeners
 eu.wauz.wauzcore.system.nms
 eu.wauz.wauzcore.system.quests
