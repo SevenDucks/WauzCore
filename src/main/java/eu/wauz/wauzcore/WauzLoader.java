@@ -85,6 +85,11 @@ import eu.wauz.wauzcore.menu.util.MenuRegister;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.oneblock.OnePhase;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.players.classes.ClassCleric;
+import eu.wauz.wauzcore.players.classes.ClassMage;
+import eu.wauz.wauzcore.players.classes.ClassRogue;
+import eu.wauz.wauzcore.players.classes.ClassWarrior;
+import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.skills.SkillDeath;
 import eu.wauz.wauzcore.skills.SkillJudgement;
 import eu.wauz.wauzcore.skills.SkillJustice;
@@ -159,6 +164,7 @@ public class WauzLoader {
 		registerAdministrativeCommands();
 		registerCommandCompleters();
 		
+		registerClasses();
 		registerSkillgems();
 		registerRunes();
 		registerEnhancements();
@@ -262,6 +268,19 @@ public class WauzLoader {
 		Bukkit.getPluginCommand("wzRank").setTabCompleter(new TabCompleterRanks());
 		Bukkit.getPluginCommand("wzSkill").setTabCompleter(new TabCompleterSkills());
 		Bukkit.getPluginCommand("wzSkill.weapon").setTabCompleter(new TabCompleterSkills());
+	}
+	
+	/**
+	 * Initializes all predefined player classes.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	private static void registerClasses() {
+		WauzPlayerClassPool.registerClass(new ClassWarrior());
+		WauzPlayerClassPool.registerClass(new ClassRogue());
+		WauzPlayerClassPool.registerClass(new ClassMage());
+		WauzPlayerClassPool.registerClass(new ClassCleric());
 	}
 	
 	/**

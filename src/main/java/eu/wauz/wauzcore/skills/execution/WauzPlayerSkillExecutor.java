@@ -36,7 +36,7 @@ public class WauzPlayerSkillExecutor {
 	private static Map<String, WauzPlayerSkill> playerSkillMap = new HashMap<>();
 	
 	/**
-	 * Gets a skill for given id from the map.
+	 * Gets a skill for the given id from the map.
 	 * 
 	 * @param skillId The id of the skill.
 	 * 

@@ -61,7 +61,7 @@ public class CharacterClassMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterClassMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Class!");
 		
-		ItemStack class1 = HeadUtils.getNephilimItem();
+		ItemStack class1 = HeadUtils.getMageItem();
 		ItemMeta im1 = class1.getItemMeta();
 		im1.setDisplayName(ChatColor.RED + "Nephilim");
 		List<String> lores1 = new ArrayList<String>();
@@ -74,7 +74,7 @@ public class CharacterClassMenu implements WauzInventory {
 		class1.setItemMeta(im1);
 		menu.setItem(2, class1);
 		
-		ItemStack class2 = HeadUtils.getCrusaderItem();
+		ItemStack class2 = HeadUtils.getWarriorItem();
 		ItemMeta im2 = class2.getItemMeta();
 		im2.setDisplayName(ChatColor.GOLD + "Crusader");
 		List<String> lores2 = new ArrayList<String>();
@@ -87,7 +87,7 @@ public class CharacterClassMenu implements WauzInventory {
 		class2.setItemMeta(im2);
 		menu.setItem(4, class2);
 		
-		ItemStack class3 = HeadUtils.getAssassinItem();
+		ItemStack class3 = HeadUtils.getRogueItem();
 		ItemMeta im3 = class3.getItemMeta();
 		im3.setDisplayName(ChatColor.GREEN + "Assassin");
 		List<String> lores3 = new ArrayList<String>();

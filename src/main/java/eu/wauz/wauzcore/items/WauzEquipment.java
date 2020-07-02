@@ -19,16 +19,10 @@ import eu.wauz.wauzcore.events.ArmorEquipEvent.EquipMethod;
 import eu.wauz.wauzcore.items.enums.ArmorCategory;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
-import eu.wauz.wauzcore.items.runes.RuneHardening;
-import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneRemover;
 import eu.wauz.wauzcore.items.runes.insertion.WauzSkillgemInserter;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
-import eu.wauz.wauzcore.skills.SkillTheChariot;
-import eu.wauz.wauzcore.skills.SkillTheMagician;
-import eu.wauz.wauzcore.skills.SkillTheStar;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
 /**
@@ -248,57 +242,6 @@ public class WauzEquipment {
 		Player player = (Player) event.getWhoClicked();
 		ItemStack equipmentItemStack = event.getCurrentItem();
 		return new WauzRuneRemover().clearAllSockets(player, equipmentItemStack);
-	}
-	
-	/**
-	 * Gets a starter weapon for the nephilim.
-	 * Contains the skill "the magician".
-	 * 
-	 * @return The generated weapon.
-	 * 
-	 * @see WauzDebugger#getSkillgemWeapon(WauzPlayerSkill, boolean)
-	 */
-	public static ItemStack getNephilimStarterWeapon() {
-		WauzPlayerSkill skill = new SkillTheMagician();
-		return WauzDebugger.getSkillgemWeapon(skill, false);
-	}
-	
-	/**
-	 * Gets a starter weapon for the crusader.
-	 * Contains the skill "the chariot".
-	 * 
-	 * @return The generated weapon.
-	 * 
-	 * @see WauzDebugger#getSkillgemWeapon(WauzPlayerSkill, boolean)
-	 */
-	public static ItemStack getCrusaderStarterWeapon() {
-		WauzPlayerSkill skill = new SkillTheChariot();
-		return WauzDebugger.getSkillgemWeapon(skill, false);
-	}
-
-	/**
-	 * Gets a starter weapon for the assassin.
-	 * Contains the skill "the star".
-	 * 
-	 * @return The generated weapon.
-	 * 
-	 * @see WauzDebugger#getSkillgemWeapon(WauzPlayerSkill, boolean)
-	 */
-	public static ItemStack getAssassinStarterWeapon() {
-		WauzPlayerSkill skill = new SkillTheStar();
-		return WauzDebugger.getSkillgemWeapon(skill, false);
-	}
-	
-	/**
-	 * Gets a starter rune of hardening.
-	 * 
-	 * @return The generated rune.
-	 * 
-	 * @see WauzDebugger#getRune(Player, String)
-	 */
-	public static ItemStack getStarterRune() {
-		WauzRune rune = new RuneHardening();
-		return WauzDebugger.getRune(rune.getRuneId(), false);
 	}
 	
 	/**

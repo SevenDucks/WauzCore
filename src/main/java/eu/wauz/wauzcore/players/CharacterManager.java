@@ -20,13 +20,16 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.InventoryStringConverter;
-import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.WauzRewards;
+import eu.wauz.wauzcore.items.runes.RuneHardening;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.social.TabardMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
+import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
+import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
+import eu.wauz.wauzcore.players.classes.WauzPlayerClassStats;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
@@ -190,33 +193,10 @@ public class CharacterManager {
 			return;
 		}
 		
-		String characterSlot = null;
-		if(playerData.getSelectedCharacterSlot() != null) {
-			characterSlot = playerData.getSelectedCharacterSlot();
-		}
-		else {
-			return;
-		}
-		
-		String characterWorld = null;
-		if(playerData.getSelectedCharacterWorld() != null) {
-			characterWorld = playerData.getSelectedCharacterWorld();
-		}
-		else {
-			return;
-		}
-		
-		String characterClass = null;
-		boolean classNephilim;
-		boolean classCrusader;
-		boolean classAssassin;
-		if(playerData.getSelectedCharacterClass() != null) {
-			characterClass = playerData.getSelectedCharacterClass();
-			classNephilim = characterClass.contains("Nephilim");
-			classCrusader = characterClass.contains("Crusader");
-			classAssassin = characterClass.contains("Assassin");
-		}
-		else {
+		String characterSlot = playerData.getSelectedCharacterSlot();
+		String characterWorldString = playerData.getSelectedCharacterWorld();
+		String characterClassString = playerData.getSelectedCharacterClass();
+		if(characterSlot == null || characterWorldString == null || characterClassString == null) {
 			return;
 		}
 		
@@ -230,40 +210,22 @@ public class CharacterManager {
 			characterPosition = (oneBlockLocation.getX() + 0.5) + " " + (oneBlockLocation.getY() + 1) + " " + (oneBlockLocation.getZ() + 0.5);
 		}
 		else {
-			Location spawnLocation = core.getServer().getWorld(characterWorld).getSpawnLocation();
+			Location spawnLocation = core.getServer().getWorld(characterWorldString).getSpawnLocation();
 			characterPosition = (spawnLocation.getX() + 0.5) + " " + spawnLocation.getY() + " " + (spawnLocation.getZ() + 0.5);
 		}
 		
-		if(wauzMode.equals(WauzMode.MMORPG)) {
-			player.setGameMode(GameMode.ADVENTURE);
-			player.setExp(0);
-			player.setLevel(1);
-			
-			playerData.setMaxHealth(10);
-			playerData.setHealth(10);
-			playerData.setMaxMana(10);
-			playerData.setMana(10);
-			
-			player.setFoodLevel(20);
-			player.setSaturation(10);
-		}
-		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
-			player.setGameMode(GameMode.SURVIVAL);
-			player.setExp(0);
-			player.setLevel(0);
-			
-			player.setFoodLevel(20);
-			player.setSaturation(10);
-		}
-		
-// Create new Player-Config
+		player.getInventory().clear();
+		player.setFoodLevel(20);
+		player.setSaturation(10);
+		player.setExp(0);
 		
 		playerDataConfig.set("exists", true);
 		playerDataConfig.set("schemaversion", SCHEMA_VERSION);
 		playerDataConfig.set("lastplayed", System.currentTimeMillis());
-		playerDataConfig.set("class", characterClass);
+		playerDataConfig.set("class", characterClassString);
 		playerDataConfig.set("level", wauzMode.equals(WauzMode.MMORPG) ? 1 : 0);
-		playerDataConfig.set("pos.world", characterWorld);
+		playerDataConfig.set("exp", 0);
+		playerDataConfig.set("pos.world", characterWorldString);
 		playerDataConfig.set("pos.spawn", characterPosition);
 		playerDataConfig.set("pos.location", characterPosition);
 	
@@ -272,7 +234,16 @@ public class CharacterManager {
 		playerDataConfig.set("stats.current.saturation", 10);
 		
 		if(wauzMode.equals(WauzMode.MMORPG)) {
-			playerDataConfig.set("stats.current.mana", 10);
+			player.setGameMode(GameMode.ADVENTURE);
+			player.setLevel(1);
+			
+			playerData.setMaxHealth(10);
+			playerData.setHealth(10);
+			playerData.setMaxMana(10);
+			playerData.setMana(10);
+			
+			WauzPlayerClass characterClass = WauzPlayerClassPool.getClass(characterClassString);
+			WauzPlayerClassStats startingStats = characterClass.getStartingStats();
 			
 			playerDataConfig.set("tracker.coords", characterPosition);
 			playerDataConfig.set("tracker.name", "Spawn");
@@ -284,6 +255,7 @@ public class CharacterManager {
 			playerDataConfig.set("arrows.amount.shock", 0);
 			playerDataConfig.set("arrows.amount.bomb", 0);
 
+			playerDataConfig.set("stats.current.mana", 10);
 			playerDataConfig.set("stats.points.spent", 0);
 			playerDataConfig.set("stats.points.total", 0);
 			playerDataConfig.set("stats.health", 10);
@@ -300,19 +272,15 @@ public class CharacterManager {
 			playerDataConfig.set("stats.agilitypts", 0);
 			
 			playerDataConfig.set("skills.crafting", 1);
-			playerDataConfig.set("skills.sword", classAssassin ? 135000 : 100000);
-			playerDataConfig.set("skills.swordmax", classAssassin ? 250000 : 200000);
-			playerDataConfig.set("skills.axe", classCrusader ? 135000 : 100000);
-			playerDataConfig.set("skills.axemax", classCrusader ? 250000 : 200000);
-			playerDataConfig.set("skills.staff", classNephilim ? 135000 : 100000);
-			playerDataConfig.set("skills.staffmax", classNephilim ? 250000 : 200000);
+			playerDataConfig.set("skills.sword", startingStats.getSwordSkill());
+			playerDataConfig.set("skills.swordmax", startingStats.getSwordSkillMax());
+			playerDataConfig.set("skills.axe", startingStats.getAxeSkill());
+			playerDataConfig.set("skills.axemax", startingStats.getAxeSkillMax());
+			playerDataConfig.set("skills.staff", startingStats.getStaffSkill());
+			playerDataConfig.set("skills.staffmax", startingStats.getStaffSkillMax());
 				
-			playerDataConfig.set("reput.exp", 0);
-			playerDataConfig.set("reput.coins", 0);
-			playerDataConfig.set("reput.souls", 0);
-			playerDataConfig.set("reput.wauzland", 0);
-			playerDataConfig.set("reput.empire", 0);
-			playerDataConfig.set("reput.legion", 0);
+			playerDataConfig.set("curenncies", new ArrayList<>());
+			playerDataConfig.set("materials", new ArrayList<>());
 			
 			playerDataConfig.set("options.hideSpecialQuests", 0);
 			playerDataConfig.set("options.hideCompletedQuests", 0);
@@ -324,7 +292,6 @@ public class CharacterManager {
 			
 			playerDataConfig.set("pets.active.id", "none");
 			playerDataConfig.set("pets.active.slot", -1);
-			
 			playerDataConfig.set("pets.slot0.type", "none");
 			playerDataConfig.set("pets.slot1.type", "none");
 			playerDataConfig.set("pets.slot2.type", "none");
@@ -351,8 +318,20 @@ public class CharacterManager {
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.EARN_COINS.getKey(), 0);
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.PLAY_HOURS.getKey(), 0);
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.GAIN_LEVELS.getKey(), 1);
+			
+			player.getInventory().addItem(characterClass.getStartingWeapon());
+			player.getInventory().addItem(WauzDebugger.getRune(RuneHardening.RUNE_NAME, false));
+			equipCharacterItems(player);
+			WauzRewards.earnDailyReward(player);
+			
+			if(characterWorldString.equals("Wauzland")) {
+				QuestProcessor.processQuest(player, "CalamityBeneathWauzland");
+			}
 		}
 		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
+			player.setGameMode(GameMode.SURVIVAL);
+			player.setLevel(0);
+			
 			playerDataConfig.set("pvp.resticks", 720);
 			playerData.setResistancePvP((short) 720);
 		}
@@ -363,33 +342,8 @@ public class CharacterManager {
 		catch(IOException e) {
 			e.printStackTrace();
 		}
-		
-		player.getInventory().clear();
-		
-		if(wauzMode.equals(WauzMode.MMORPG)) {
-			ItemStack starterWeapon = null;
-			if(classNephilim) {
-				starterWeapon = WauzEquipment.getNephilimStarterWeapon();
-			}
-			else if(classCrusader) {
-				starterWeapon = WauzEquipment.getCrusaderStarterWeapon();
-			}
-			else if(classAssassin) {
-				starterWeapon = WauzEquipment.getAssassinStarterWeapon();
-			}
-			player.getInventory().addItem(starterWeapon);
-			player.getInventory().addItem(WauzEquipment.getStarterRune());
-			equipCharacterItems(player);
-			
-			WauzRewards.earnDailyReward(player);
-			
-			if(characterWorld.equals("Wauzland")) {
-				QuestProcessor.processQuest(player, "CalamityBeneathWauzland");
-			}
-		}
 				
 		Location spawn = PlayerConfigurator.getCharacterSpawn(player);
-		
 		player.setCompassTarget(spawn);
 		player.setBedSpawnLocation(spawn, true);
 		player.teleport(spawn);

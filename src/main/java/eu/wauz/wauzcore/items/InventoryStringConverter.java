@@ -51,7 +51,7 @@ public class InventoryStringConverter {
 		else {
 			playerDataConfig.set("stats.current.health", player.getHealth());
 			playerDataConfig.set("level", player.getLevel());
-			playerDataConfig.set("reput.exp", player.getExp() * 100F);
+			playerDataConfig.set("exp", player.getExp() * 100F);
 			playerDataConfig.set("pvp.resticks", playerData.getResistancePvP());
 		}
 		playerDataConfig.set("stats.current.hunger", player.getFoodLevel());

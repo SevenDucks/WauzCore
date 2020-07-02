@@ -370,7 +370,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @return The character experience.
 	 */
 	public static double getCharacterExperience(Player player) {
-		return playerConfigGetDouble(player, "reput.exp", true);
+		return playerConfigGetDouble(player, "exp", true);
 	}
 	
 	/**
@@ -379,7 +379,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @param experience The new character experience.
 	 */
 	public static void setCharacterExperience(Player player, double experience) {
-		playerConfigSet(player, "reput.exp", experience, true);
+		playerConfigSet(player, "exp", experience, true);
 	}
 	
 	/**
@@ -388,7 +388,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @return The amount of coins the character owns.
 	 */
 	public static long getCharacterCoins(Player player) {
-		return playerConfigGetLong(player, "reput.coins", true);
+		return playerConfigGetLong(player, "curenncies.coins", true);
 	}
 	
 	/**
@@ -396,7 +396,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @param amount The new amount of coins the character owns.
 	 */
 	public static void setCharacterCoins(Player player, long amount) {
-		playerConfigSet(player, "reput.coins", amount, true);
+		playerConfigSet(player, "curenncies.coins", amount, true);
 	}
 	
 	/**
@@ -405,7 +405,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @return The amount of soulstones the character owns.
 	 */
 	public static long getCharacterSoulstones(Player player) {
-		return playerConfigGetLong(player, "reput.souls", true);
+		return playerConfigGetLong(player, "curenncies.souls", true);
 	}
 	
 	/**
@@ -413,34 +413,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @param amount The new amount of soulstones the character owns.
 	 */
 	public static void setCharacterSoulstones(Player player, long amount) {
-		playerConfigSet(player, "reput.souls", amount, true);
-	}
-	
-	/**
-	 * @param player The player that owns the config file.
-	 * 
-	 * @return The amount of republic wauzland reputation the character owns.
-	 */
-	public static long getCharacterRepRepublicWauzland(Player player) {
-		return playerConfigGetLong(player, "reput.wauzland", true);
-	}
-	
-	/**
-	 * @param player The player that owns the config file.
-	 * 
-	 * @return The amount of eternal empire reputation the character owns.
-	 */
-	public static long getCharacterRepEternalEmpire(Player player) {
-		return playerConfigGetLong(player, "reput.empire", true);
-	}
-	
-	/**
-	 * @param player The player that owns the config file.
-	 * 
-	 * @return The amount of dark legion reputation the character owns.
-	 */
-	public static long getCharacterRepDarkLegion(Player player) {
-		return playerConfigGetLong(player, "reput.legion", true);
+		playerConfigSet(player, "curenncies.souls", amount, true);
 	}
 	
 	/**
@@ -454,7 +427,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 			return getTokens(player);
 		}
 		else {
-			return playerConfigGetLong(player, "reput." + currency, true);
+			return playerConfigGetLong(player, "curenncies." + currency, true);
 		}
 	}
 	
@@ -468,7 +441,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 			setTokens(player, amount);
 		}
 		else {
-			playerConfigSet(player, "reput." + currency, amount, true);
+			playerConfigSet(player, "curenncies." + currency, amount, true);
 		}
 	}
 	
