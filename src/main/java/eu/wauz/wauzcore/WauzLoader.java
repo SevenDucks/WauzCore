@@ -68,6 +68,13 @@ import eu.wauz.wauzcore.items.runes.RuneKnowledge;
 import eu.wauz.wauzcore.items.runes.RunePower;
 import eu.wauz.wauzcore.items.runes.RuneThorns;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
+import eu.wauz.wauzcore.items.scrolls.ScrollFortune;
+import eu.wauz.wauzcore.items.scrolls.ScrollGenericRune;
+import eu.wauz.wauzcore.items.scrolls.ScrollGenericSkillgem;
+import eu.wauz.wauzcore.items.scrolls.ScrollRegret;
+import eu.wauz.wauzcore.items.scrolls.ScrollToughness;
+import eu.wauz.wauzcore.items.scrolls.ScrollWisdom;
+import eu.wauz.wauzcore.items.scrolls.WauzScrolls;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.abilities.CraftingMenu;
 import eu.wauz.wauzcore.menu.abilities.SkillMenu;
@@ -165,6 +172,7 @@ public class WauzLoader {
 		registerCommandCompleters();
 		
 		registerClasses();
+		registerScrolls();
 		registerSkillgems();
 		registerRunes();
 		registerEnhancements();
@@ -281,6 +289,21 @@ public class WauzLoader {
 		WauzPlayerClassPool.registerClass(new ClassRogue());
 		WauzPlayerClassPool.registerClass(new ClassMage());
 		WauzPlayerClassPool.registerClass(new ClassCleric());
+	}
+	
+	/**
+	 * Initializes all predefined scrolls.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	private static void registerScrolls() {
+		WauzScrolls.registerScroll(new ScrollWisdom());
+		WauzScrolls.registerScroll(new ScrollFortune());
+		WauzScrolls.registerScroll(new ScrollToughness());
+		WauzScrolls.registerScroll(new ScrollRegret());
+		WauzScrolls.registerScroll(new ScrollGenericRune());
+		WauzScrolls.registerScroll(new ScrollGenericSkillgem());
 	}
 	
 	/**

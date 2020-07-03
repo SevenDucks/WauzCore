@@ -17,8 +17,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.items.WauzScrolls;
 import eu.wauz.wauzcore.items.WauzSigns;
+import eu.wauz.wauzcore.items.scrolls.WauzScrolls;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;

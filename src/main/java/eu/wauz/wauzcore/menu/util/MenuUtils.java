@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.items.WauzScrolls;
+import eu.wauz.wauzcore.items.scrolls.WauzScrolls;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.system.util.Formatters;
