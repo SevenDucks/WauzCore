@@ -48,7 +48,7 @@ public class CharacterManager {
 	/**
 	 * The current schema version of character files.
 	 */
-	public static final int SCHEMA_VERSION = 1;
+	public static final int SCHEMA_VERSION = 2;
 	
 	/**
 	 * A direct reference to the main class.
@@ -318,6 +318,7 @@ public class CharacterManager {
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.EARN_COINS.getKey(), 0);
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.PLAY_HOURS.getKey(), 0);
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.GAIN_LEVELS.getKey(), 1);
+			persistCharacterFile(playerDataFile, playerDataConfig);
 			
 			player.getInventory().addItem(characterClass.getStartingWeapon());
 			player.getInventory().addItem(WauzDebugger.getRune(RuneHardening.RUNE_NAME, false));
@@ -332,21 +333,30 @@ public class CharacterManager {
 			player.setGameMode(GameMode.SURVIVAL);
 			player.setLevel(0);
 			
-			playerDataConfig.set("pvp.resticks", 720);
 			playerData.setResistancePvP((short) 720);
+			playerDataConfig.set("pvp.resticks", 720);
+			persistCharacterFile(playerDataFile, playerDataConfig);
 		}
 		
+		Location spawn = PlayerConfigurator.getCharacterSpawn(player);
+		player.setCompassTarget(spawn);
+		player.setBedSpawnLocation(spawn, true);
+		player.teleport(spawn);
+	}
+
+	/**
+	 * Saves a newly created character config to a file.
+	 * 
+	 * @param playerDataFile The file the config should be saved in.
+	 * @param playerDataConfig The config to save.
+	 */
+	private static void persistCharacterFile(File playerDataFile, FileConfiguration playerDataConfig) {
 		try {
 			playerDataConfig.save(playerDataFile);
 		}
 		catch(IOException e) {
 			e.printStackTrace();
 		}
-				
-		Location spawn = PlayerConfigurator.getCharacterSpawn(player);
-		player.setCompassTarget(spawn);
-		player.setBedSpawnLocation(spawn, true);
-		player.teleport(spawn);
 	}
 	
 	/**
@@ -360,6 +370,7 @@ public class CharacterManager {
 		new File(basePath + ".yml").delete();
 		WauzFileUtils.removeFilesRecursive(new File(basePath + "-quests"));
 		WauzFileUtils.removeFilesRecursive(new File(basePath + "-relations"));
+		WauzDebugger.log(player, "Deleted Character: " + characterSlot);
 	}
 	
 	/**

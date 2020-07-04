@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.entity.Player;
+
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+
 /**
  * This class is used to register, find and select classes.
  * 
@@ -15,14 +19,17 @@ import java.util.Map;
 public class WauzPlayerClassPool {
 	
 	/**
-	 * A map of all registered classes.
+	 * A map of all registered classes, indexed by name.
 	 */
 	private static Map<String, WauzPlayerClass> playerClassMap = new HashMap<>();
 	
 	/**
-	 * Gets a class for the given name from the map.
-	 * 
-	 * @param className The name of the class.
+	 * An ordered list of all classes.
+	 */
+	private static List<WauzPlayerClass> playerClassList = new ArrayList<>();
+	
+	/**
+	 * @param className The name of a class.
 	 * 
 	 * @return The class or null, if not found.
 	 */
@@ -31,10 +38,19 @@ public class WauzPlayerClassPool {
 	}
 	
 	/**
+	 * @param player The player to get the class of.
+	 * 
+	 * @return The class of the player.
+	 */
+	public static WauzPlayerClass getClass(Player player) {
+		return getClass(PlayerConfigurator.getCharacterClass(player));
+	}
+	
+	/**
 	 * @return A list of all classes.
 	 */
 	public static List<WauzPlayerClass> getAllClasses() {
-		return new ArrayList<>(playerClassMap.values());
+		return new ArrayList<>(playerClassList);
 	}
 	
 	/**
@@ -58,6 +74,7 @@ public class WauzPlayerClassPool {
 	 */
 	public static void registerClass(WauzPlayerClass playerClass) {
 		playerClassMap.put(playerClass.getClassName(), playerClass);
+		playerClassList.add(playerClass);
 	}
 
 }

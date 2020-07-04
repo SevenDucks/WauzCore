@@ -10,22 +10,22 @@ public enum ArmorCategory {
 	/**
 	 * The category for light armor.
 	 */
-	LIGHT("Light"),
+	LIGHT("Light", 1),
 	
 	/**
 	 * The category for medium armor.
 	 */
-	MEDIUM("Medium"),
+	MEDIUM("Medium", 2),
 	
 	/**
 	 * The category for heavy armor.
 	 */
-	HEAVY("Heavy"),
+	HEAVY("Heavy", 3),
 	
 	/**
 	 * The category for unknown armor.
 	 */
-	UNKNOWN("???");
+	UNKNOWN("???", 0);
 	
 	/**
 	 * The name of the armor category.
@@ -33,12 +33,18 @@ public enum ArmorCategory {
 	private String name;
 	
 	/**
+	 * The relative weight of the armor category.
+	 */
+	private int weight;
+	
+	/**
 	 * Creates a new armor category with given name.
 	 * 
 	 * @param name The name of the armor category.
 	 */
-	ArmorCategory(String name) {
+	ArmorCategory(String name, int weight) {
 		this.name = name;
+		this.weight = weight;
 	}
 	
 	/**
@@ -50,27 +56,12 @@ public enum ArmorCategory {
 	public String toString() {
 		return name;
 	}
-	
+
 	/**
-	 * Determines the fitting armor category based on the class of a player.
-	 * 
-	 * @param characterClass The class of the player.
-	 * 
-	 * @return The fitting armor category.
+	 * @return The relative weight of the armor category.
 	 */
-	public static ArmorCategory fromClass(String characterClass) {
-		if(characterClass.contains("Crusader")) {
-			return HEAVY;
-		}
-		else if(characterClass.contains("Nephilim")) {
-			return MEDIUM;
-		}
-		else if(characterClass.contains("Assassin")) {
-			return LIGHT;
-		}
-		else {
-			return UNKNOWN;
-		}
+	public int getWeight() {
+		return weight;
 	}
 
 }

@@ -180,7 +180,7 @@ public class WauzDebugger {
 			return false;
 		}
 		
-		player.getInventory().addItem(getSkillgemWeapon(skill, true));
+		player.getInventory().addItem(getSkillgemWeapon(skill, Material.DIAMOND_HOE, true));
 		return true;
 	}
 	
@@ -188,12 +188,13 @@ public class WauzDebugger {
 	 * Creates a weapon with socketed skillgem.
 	 * 
 	 * @param skill The skill inside the weapon.
+	 * @param material The material of the weapon item stack.
 	 * @param debug If the weapon should have debug stats. Otherwise a starter weapon is created.
 	 * 
 	 * @return A weapon with socketed skillgem.
 	 */
-	public static ItemStack getSkillgemWeapon(WauzPlayerSkill skill, boolean debug) {
-		ItemStack itemStack = new ItemStack(Material.DIAMOND_HOE);
+	public static ItemStack getSkillgemWeapon(WauzPlayerSkill skill, Material material, boolean debug) {
+		ItemStack itemStack = new ItemStack(material);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.DARK_RED + "Noble Phantasm");
 		List<String> lores = new ArrayList<String>();

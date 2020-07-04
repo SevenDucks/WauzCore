@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.players.classes;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.enums.ArmorCategory;
@@ -9,6 +10,14 @@ import eu.wauz.wauzcore.skills.SkillTheMagician;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
+/**
+ * A class, that can be chosen by a player.
+ * Master of magic and staff fighting.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzPlayerClassPool
+ */
 public class ClassMage implements WauzPlayerClass {
 
 	/**
@@ -17,6 +26,14 @@ public class ClassMage implements WauzPlayerClass {
 	@Override
 	public String getClassName() {
 		return "Mage";
+	}
+	
+	/**
+	 * @return The description of the class.
+	 */
+	@Override
+	public String getClassDescription() {
+		return "Students gifted with a keen intellect and unwavering discipline may walk the path of the mage. The arcane magic of magi is both great and dangerous, and thus is revealed only to the most devoted practitioners.";
 	}
 
 	/**
@@ -58,7 +75,7 @@ public class ClassMage implements WauzPlayerClass {
 	@Override
 	public ItemStack getStartingWeapon() {
 		WauzPlayerSkill skill = new SkillTheMagician();
-		return WauzDebugger.getSkillgemWeapon(skill, false);
+		return WauzDebugger.getSkillgemWeapon(skill, Material.DIAMOND_HOE, false);
 	}
 
 }

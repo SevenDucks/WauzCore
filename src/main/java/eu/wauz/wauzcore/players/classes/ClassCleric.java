@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.players.classes;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.enums.ArmorCategory;
@@ -9,6 +10,14 @@ import eu.wauz.wauzcore.skills.SkillTheHighPriestess;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
+/**
+ * A class, that can be chosen by a player.
+ * Master of healing and staff fighting.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzPlayerClassPool
+ */
 public class ClassCleric implements WauzPlayerClass {
 
 	/**
@@ -17,6 +26,14 @@ public class ClassCleric implements WauzPlayerClass {
 	@Override
 	public String getClassName() {
 		return "Cleric";
+	}
+	
+	/**
+	 * @return The description of the class.
+	 */
+	@Override
+	public String getClassDescription() {
+		return "Clerics are devoted to the spiritual, and express their unwavering faith by serving the people. For millennia they have left behind the confines of their temples and shrines so they can support their allies.";
 	}
 
 	/**
@@ -58,7 +75,7 @@ public class ClassCleric implements WauzPlayerClass {
 	@Override
 	public ItemStack getStartingWeapon() {
 		WauzPlayerSkill skill = new SkillTheHighPriestess();
-		return WauzDebugger.getSkillgemWeapon(skill, false);
+		return WauzDebugger.getSkillgemWeapon(skill, Material.DIAMOND_HOE, false);
 	}
 
 }

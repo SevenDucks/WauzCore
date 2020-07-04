@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -105,7 +106,8 @@ public class CharacterSlotMenu implements WauzInventory {
 	private static ItemStack getCharacterSlot(Player player, String slotId, boolean deletable) {
 		boolean characterExists = PlayerConfigurator.doesCharacterExist(player, slotId);
 		if(characterExists && PlayerConfigurator.getCharecterSchemaVersion(player, slotId) < CharacterManager.SCHEMA_VERSION) {
-			CharacterManager.deleteCharacter(player, slotId);
+			WauzDebugger.log(player, "Outdated Character! Deleting: " + slotId);
+			CharacterManager.deleteCharacter(player, "char" + slotId);
 			characterExists = false;
 		}
 		

@@ -4,7 +4,7 @@ giver: Knuckles
 level: 5
 amount: 3
 coords: 219 21 378
-class: Nephilim
+class: Warrior
 prequest: ShiningSteel
 reward:
   exp: 5.0

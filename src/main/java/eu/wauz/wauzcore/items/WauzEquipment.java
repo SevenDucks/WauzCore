@@ -12,7 +12,6 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.EquipmentConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.ArmorType;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.EquipMethod;
@@ -23,6 +22,7 @@ import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneRemover;
 import eu.wauz.wauzcore.items.runes.insertion.WauzSkillgemInserter;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
 /**
@@ -153,11 +153,9 @@ public class WauzEquipment {
 	 * @return If the class matches.
 	 */
 	private static boolean doesClassMatch(Player player, ItemStack armorItemStack) {
-		String characterClass = PlayerConfigurator.getCharacterClass(player);
 		ArmorCategory armorCategory = EquipmentUtils.getArmorCategory(armorItemStack);
-		ArmorCategory classArmorCategory = ArmorCategory.fromClass(characterClass);
-		boolean unknownCategory = armorCategory.equals(ArmorCategory.UNKNOWN);
-		boolean classMatches = unknownCategory || armorCategory.equals(classArmorCategory); 
+		ArmorCategory classArmorCategory = WauzPlayerClassPool.getClass(player).getArmorCategory();
+		boolean classMatches = armorCategory.getWeight() <= classArmorCategory.getWeight();
 		if(!classMatches) {
 			player.sendMessage(ChatColor.RED + "Your class can't wear " + armorCategory.toString().toLowerCase() + " items!");
 		}

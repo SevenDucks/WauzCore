@@ -189,8 +189,9 @@ public class GroupMenu implements WauzInventory {
 		lores.add(ChatColor.DARK_PURPLE + "Players: " + ChatColor.YELLOW
 				+ playerGroup.getPlayerAmount() + " / 5");
 		lores.add("");
-		for(String lore : playerGroup.getWrappedGroupDescription())
+		for(String lore : playerGroup.getWrappedGroupDescription()) {
 			lores.add(ChatColor.GRAY + lore);
+		}
 		lores.add("");
 		if(insideGroup) {
 			lores.add(playerGroup.isPasswordProtected() ? ChatColor.RED + "Password: "

@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.players.classes;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.enums.ArmorCategory;
@@ -9,6 +10,14 @@ import eu.wauz.wauzcore.skills.SkillTheHierophant;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
+/**
+ * A class, that can be chosen by a player.
+ * Master of agility and sword art.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzPlayerClassPool
+ */
 public class ClassRogue implements WauzPlayerClass {
 
 	/**
@@ -17,6 +26,14 @@ public class ClassRogue implements WauzPlayerClass {
 	@Override
 	public String getClassName() {
 		return "Rogue";
+	}
+	
+	/**
+	 * @return The description of the class.
+	 */
+	@Override
+	public String getClassDescription() {
+		return "For rogues, the only code is the contract, and their honor is purchased in gold. Free from the constraints of a conscience, these mercenaries rely on brutal and efficient tactics.";
 	}
 
 	/**
@@ -58,7 +75,7 @@ public class ClassRogue implements WauzPlayerClass {
 	@Override
 	public ItemStack getStartingWeapon() {
 		WauzPlayerSkill skill = new SkillTheHierophant();
-		return WauzDebugger.getSkillgemWeapon(skill, false);
+		return WauzDebugger.getSkillgemWeapon(skill, Material.DIAMOND_SWORD, false);
 	}
 
 }

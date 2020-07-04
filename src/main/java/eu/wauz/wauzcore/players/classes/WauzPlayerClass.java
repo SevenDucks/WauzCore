@@ -20,6 +20,11 @@ public interface WauzPlayerClass {
 	public String getClassName();
 	
 	/**
+	 * @return The description of the class.
+	 */
+	public String getClassDescription();
+	
+	/**
 	 * @return The color associated with the class.
 	 */
 	public ChatColor getClassColor();

@@ -5,19 +5,25 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
+import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
+import eu.wauz.wauzcore.players.classes.WauzPlayerClassStats;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -51,54 +57,47 @@ public class CharacterClassMenu implements WauzInventory {
 	
 	/**
 	 * Opens the menu for the given player.
-	 * Shows three hardcoded classes to choose: "Nephilim", "Crusader", "Assassin".
+	 * Shows all the classes to choose from including descriptions and stats.
 	 * 
 	 * @param player The player that should view the inventory.
 	 * 
+	 * @see WauzPlayerClassPool#getAllClasses()
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterClassMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Class!");
 		
-		ItemStack class1 = HeadUtils.getMageItem();
-		ItemMeta im1 = class1.getItemMeta();
-		im1.setDisplayName(ChatColor.RED + "Nephilim");
-		List<String> lores1 = new ArrayList<String>();
-		lores1.add(ChatColor.WHITE + "Preferred Weapons (+35% Atk):" + ChatColor.LIGHT_PURPLE + " Staves");
-		lores1.add(ChatColor.WHITE + "Armor Category:" + ChatColor.AQUA + " Medium");
-		lores1.add("");
-		lores1.add(ChatColor.GRAY + "Children of fallen Angels,");
-		lores1.add(ChatColor.GRAY + "who fight to gain more power.");
-		im1.setLore(lores1);
-		class1.setItemMeta(im1);
-		menu.setItem(2, class1);
-		
-		ItemStack class2 = HeadUtils.getWarriorItem();
-		ItemMeta im2 = class2.getItemMeta();
-		im2.setDisplayName(ChatColor.GOLD + "Crusader");
-		List<String> lores2 = new ArrayList<String>();
-		lores2.add(ChatColor.WHITE + "Preferred Weapons (+35% Atk):" + ChatColor.LIGHT_PURPLE + " Axes");
-		lores2.add(ChatColor.WHITE + "Armor Category:" + ChatColor.AQUA + " Heavy");
-		lores2.add("");
-		lores2.add(ChatColor.GRAY + "Holy Warriors,");
-		lores2.add(ChatColor.GRAY + "who fight in the name of their god.");
-		im2.setLore(lores2);
-		class2.setItemMeta(im2);
-		menu.setItem(4, class2);
-		
-		ItemStack class3 = HeadUtils.getRogueItem();
-		ItemMeta im3 = class3.getItemMeta();
-		im3.setDisplayName(ChatColor.GREEN + "Assassin");
-		List<String> lores3 = new ArrayList<String>();
-		lores3.add(ChatColor.WHITE + "Preferred Weapons (+35% Atk):" + ChatColor.LIGHT_PURPLE + " Swords");
-		lores3.add(ChatColor.WHITE + "Armor Category:" + ChatColor.AQUA + " Light");
-		lores3.add("");
-		lores3.add(ChatColor.GRAY + "Ruthless Mercenaries,");
-		lores3.add(ChatColor.GRAY + "who fight to fill their wallets.");
-		im3.setLore(lores3);
-		class3.setItemMeta(im3);
-		menu.setItem(6, class3);
+		List<WauzPlayerClass> characterClasses = WauzPlayerClassPool.getAllClasses();
+		for(int index = 0; index < characterClasses.size(); index++) {
+			WauzPlayerClass characterClass = characterClasses.get(index);
+			WauzPlayerClassStats stats = characterClass.getStartingStats();
+			
+			ItemStack classItemStack = characterClass.getClassItemStack();
+			ItemMeta classItemMeta = classItemStack.getItemMeta();
+			classItemMeta.setDisplayName(characterClass.getClassColor() + "" + ChatColor.BOLD + characterClass.getClassName());
+			
+			List<String> classLores = new ArrayList<>();
+			String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
+			String wrappedDescription = WordUtils.wrap(characterClass.getClassDescription(), 42, doubleParagraph, true);
+			for(String lore : wrappedDescription.split(doubleParagraph)) {
+				classLores.add(ChatColor.GRAY + lore);
+			}
+			classLores.add("");
+			
+			String armorType = characterClass.getArmorCategory().toString();
+			classLores.add(ChatColor.BLUE + "" + armorType + ChatColor.GOLD + " Armor Type");
+			int staffSkill = (int) Math.ceil(stats.getStaffSkill() / 1000);
+			classLores.add(ChatColor.RED + "" + staffSkill + ChatColor.GOLD + " Staff Skill");
+			int axeSkill = (int) Math.ceil(stats.getAxeSkill() / 1000);
+			classLores.add(ChatColor.RED + "" + axeSkill + ChatColor.GOLD + " Axe Skill");
+			int swordSkill = (int) Math.ceil(stats.getSwordSkill() / 1000);
+			classLores.add(ChatColor.RED + "" + swordSkill + ChatColor.GOLD + " Sword Skill");
+			
+			classItemMeta.setLore(classLores);
+			classItemStack.setItemMeta(classItemMeta);
+			menu.setItem(index * 2 + 1, classItemStack);
+		}
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -122,21 +121,13 @@ public class CharacterClassMenu implements WauzInventory {
 		final Player player = (Player) event.getWhoClicked();
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(playerData == null || clicked == null) {
+		if(playerData == null || !ItemUtils.hasDisplayName(clicked) || !ItemUtils.isMaterial(clicked, Material.PLAYER_HEAD)) {
 			return;
 		}
-		else if(HeadUtils.isHeadMenuItem(clicked, "Nephilim")) {
-			playerData.setSelectedCharacterClass("Nephilim");
-			CharacterManager.createCharacter(player, WauzMode.MMORPG);
-			player.closeInventory();
-		}
-		else if(HeadUtils.isHeadMenuItem(clicked, "Crusader")) {
-			playerData.setSelectedCharacterClass("Crusader");
-			CharacterManager.createCharacter(player, WauzMode.MMORPG);
-			player.closeInventory();
-		}
-		else if(HeadUtils.isHeadMenuItem(clicked, "Assassin")) {
-			playerData.setSelectedCharacterClass("Assassin");
+		
+		String className = ChatColor.stripColor(clicked.getItemMeta().getDisplayName());
+		if(WauzPlayerClassPool.getClass(className) != null) {
+			playerData.setSelectedCharacterClass(className);
 			CharacterManager.createCharacter(player, WauzMode.MMORPG);
 			player.closeInventory();
 		}
