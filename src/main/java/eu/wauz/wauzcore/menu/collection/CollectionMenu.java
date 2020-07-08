@@ -14,7 +14,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -72,7 +73,7 @@ public class CollectionMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CollectionMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Collection Menu");
 		
-		ItemStack currencyItemStack = HeadUtils.getMoneyItem();
+		ItemStack currencyItemStack = MenuIconHeads.getMoneyItem();
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
 		currencyItemMeta.setDisplayName(ChatColor.GOLD + "Currencies");
 		List<String> currencyLores = new ArrayList<String>();
@@ -87,7 +88,7 @@ public class CollectionMenu implements WauzInventory {
 		
 		MenuUtils.setComingSoon(menu, "Tabards", 2);
 		
-		ItemStack questlogItemStack = HeadUtils.getQuestItem();
+		ItemStack questlogItemStack = MenuIconHeads.getQuestItem();
 		ItemMeta questlogItemMeta = questlogItemStack.getItemMeta();
 		questlogItemMeta.setDisplayName(ChatColor.GOLD + "Questlog");
 		List<String> questlogLores = new ArrayList<String>();
@@ -100,7 +101,7 @@ public class CollectionMenu implements WauzInventory {
 		questlogItemStack.setItemMeta(questlogItemMeta);
 		menu.setItem(3, questlogItemStack);
 		
-		ItemStack achievementsItemStack = HeadUtils.getAchievementsItem();
+		ItemStack achievementsItemStack = MenuIconHeads.getAchievementsItem();
 		ItemMeta achievementsItemMeta = achievementsItemStack.getItemMeta();
 		achievementsItemMeta.setDisplayName(ChatColor.GOLD + "Achievements");
 		List<String> achievementsLores = new ArrayList<String>();
@@ -115,7 +116,7 @@ public class CollectionMenu implements WauzInventory {
 		
 		MenuUtils.setComingSoon(menu, "Bestiary", 6);
 		
-		ItemStack petsItemStack = HeadUtils.getTamesItem();
+		ItemStack petsItemStack = MenuIconHeads.getTamesItem();
 		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
 		petsItemMeta.setDisplayName(ChatColor.GOLD + "Pets");
 		List<String> petsLores = new ArrayList<String>();

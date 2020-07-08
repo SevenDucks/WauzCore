@@ -14,7 +14,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -82,11 +84,11 @@ public class ShopMenu implements WauzInventory {
 		if(shop.isGlobal()) {
 			MenuUtils.setGlobalCurrencyDisplay(menu, player, 0);
 			
-			ItemStack repairItemStack = HeadUtils.getTitlesItem();
+			ItemStack repairItemStack = MenuIconHeads.getTitlesItem();
 			MenuUtils.setItemDisplayName(repairItemStack, ChatColor.GRAY + "Repairing not possible...");
 			menu.setItem(8, repairItemStack);
 			
-			ItemStack sellItemStack = HeadUtils.getTitlesItem();
+			ItemStack sellItemStack = MenuIconHeads.getTitlesItem();
 			MenuUtils.setItemDisplayName(sellItemStack, ChatColor.GRAY + "Selling not possible...");
 			menu.setItem(17, sellItemStack);
 		}
@@ -113,7 +115,7 @@ public class ShopMenu implements WauzInventory {
 		}
 		menu.setItem(9, shopDiscount.generateDiscountDisplay());
 		
-		ItemStack soldItemStack = HeadUtils.getDeclineItem();
+		ItemStack soldItemStack = GenericIconHeads.getDeclineItem();
 		MenuUtils.setItemDisplayName(soldItemStack, ChatColor.DARK_GRAY + "SOLD OUT");
 		
 		List<WauzShopItem> shopItems = shop.getShopItems();

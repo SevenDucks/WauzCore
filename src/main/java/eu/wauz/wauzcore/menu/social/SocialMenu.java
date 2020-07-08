@@ -14,7 +14,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -77,7 +78,7 @@ public class SocialMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new SocialMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Social Menu");
 		
-		ItemStack mailItemStack = HeadUtils.getMailItem();
+		ItemStack mailItemStack = MenuIconHeads.getMailItem();
 		ItemMeta mailItemMeta = mailItemStack.getItemMeta();
 		mailItemMeta.setDisplayName(ChatColor.GOLD + "Mailbox");
 		List<String> mailLores = new ArrayList<>();
@@ -90,7 +91,7 @@ public class SocialMenu implements WauzInventory {
 		mailItemStack.setItemMeta(mailItemMeta);
 		menu.setItem(1, mailItemStack);
 		
-		ItemStack titlesItemStack = HeadUtils.getTitlesItem();
+		ItemStack titlesItemStack = MenuIconHeads.getTitlesItem();
 		ItemMeta titlesItemMeta = titlesItemStack.getItemMeta();
 		titlesItemMeta.setDisplayName(ChatColor.GOLD + "Titles");
 		List<String> titlesLores = new ArrayList<>();
@@ -105,7 +106,7 @@ public class SocialMenu implements WauzInventory {
 		
 		MenuUtils.setComingSoon(menu, "Arena", 3);
 		
-		ItemStack groupItemStack = HeadUtils.getGroupItem();
+		ItemStack groupItemStack = MenuIconHeads.getGroupItem();
 		ItemMeta groupItemMeta = groupItemStack.getItemMeta();
 		groupItemMeta.setDisplayName(ChatColor.GOLD + "Group");
 		List<String> groupLores = new ArrayList<>();
@@ -118,7 +119,7 @@ public class SocialMenu implements WauzInventory {
 		groupItemStack.setItemMeta(groupItemMeta);
 		menu.setItem(5, groupItemStack);
 		
-		ItemStack guildItemStack = HeadUtils.getGuildItem();
+		ItemStack guildItemStack = MenuIconHeads.getGuildItem();
 		ItemMeta guildItemMeta = guildItemStack.getItemMeta();
 		guildItemMeta.setDisplayName(ChatColor.GOLD + "Guild");
 		List<String> guildLores = new ArrayList<>();
@@ -132,7 +133,7 @@ public class SocialMenu implements WauzInventory {
 		guildItemStack.setItemMeta(guildItemMeta);
 		menu.setItem(6, guildItemStack);
 		
-		ItemStack friendsItemStack = HeadUtils.getFriendsItem();
+		ItemStack friendsItemStack = MenuIconHeads.getFriendsItem();
 		ItemMeta friendsItemMeta = friendsItemStack.getItemMeta();
 		friendsItemMeta.setDisplayName(ChatColor.GOLD + "Friends");
 		List<String> friendsLores = new ArrayList<>();

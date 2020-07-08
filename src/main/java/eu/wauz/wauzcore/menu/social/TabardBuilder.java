@@ -21,7 +21,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.data.players.GuildConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -96,7 +97,7 @@ public class TabardBuilder implements WauzInventory {
 		
 		tabardBuilder.page = "overview";
 		
-		ItemStack saveItemStack = HeadUtils.getConfirmItem();
+		ItemStack saveItemStack = GenericIconHeads.getConfirmItem();
 		ItemMeta saveItemMeta = saveItemStack.getItemMeta();
 		saveItemMeta.setDisplayName(ChatColor.GREEN + "Save Guild Tabard");
 		saveItemStack.setItemMeta(saveItemMeta);
@@ -116,7 +117,7 @@ public class TabardBuilder implements WauzInventory {
 		colorItemStack.setItemMeta(colorItemMeta);
 		menu.setItem(5, colorItemStack);
 		
-		ItemStack closeItemStack = HeadUtils.getDeclineItem();
+		ItemStack closeItemStack = GenericIconHeads.getDeclineItem();
 		ItemMeta closeItemMeta = closeItemStack.getItemMeta();
 		closeItemMeta.setDisplayName(ChatColor.RED + "Close Tabard Builder");
 		closeItemStack.setItemMeta(closeItemMeta);

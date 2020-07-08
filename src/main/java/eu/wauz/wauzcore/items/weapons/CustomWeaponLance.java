@@ -1,15 +1,18 @@
 package eu.wauz.wauzcore.items.weapons;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
@@ -21,7 +24,7 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
  * 
  * @author Wauzmons
  */
-public class CustomWeaponLance {
+public class CustomWeaponLance implements CustomItem {
 	
 	/**
 	 * A particle, used to indicate the hit area of the lance.
@@ -38,7 +41,7 @@ public class CustomWeaponLance {
 	 * @see CustomWeaponLance#spin(Player)
 	 * @see CustomWeaponLance#thrust(Player)
 	 */
-	public static void use(PlayerInteractEvent event) {
+	public void use(PlayerInteractEvent event) {
 		event.setCancelled(true);
 		Player player = event.getPlayer();
 		if(player.isSneaking()) {
@@ -47,6 +50,15 @@ public class CustomWeaponLance {
 		else if(event.getAction().toString().contains("RIGHT")) {
 			thrust(player);
 		}
+	}
+	
+	/**
+	 * Returns the materials that trigger events with the item.
+	 * 
+	 * @return The list of materials.
+	 */
+	public List<Material> getCustomItemMaterials() {
+		return Arrays.asList(Material.TRIDENT);
 	}
 	
 	/**

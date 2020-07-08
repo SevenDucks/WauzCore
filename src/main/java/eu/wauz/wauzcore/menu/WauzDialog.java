@@ -9,7 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.events.WauzPlayerEvent;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -74,13 +75,13 @@ public class WauzDialog implements WauzInventory {
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Confirm: "
 				+ playerData.getWauzPlayerEventName());
 		
-		ItemStack confirmItemStack = HeadUtils.getConfirmItem();
+		ItemStack confirmItemStack = GenericIconHeads.getConfirmItem();
 		ItemMeta confirmItemMeta = confirmItemStack.getItemMeta();
 		confirmItemMeta.setDisplayName(ChatColor.GREEN + "CONFIRM");
 		confirmItemStack.setItemMeta(confirmItemMeta);
 		menu.setItem(0, confirmItemStack);
 		
-		ItemStack declineItemStack = HeadUtils.getDeclineItem();
+		ItemStack declineItemStack = GenericIconHeads.getDeclineItem();
 		ItemMeta declineItemMeta = declineItemStack.getItemMeta();
 		declineItemMeta.setDisplayName(ChatColor.RED + "DECLINE");
 		declineItemStack.setItemMeta(declineItemMeta);

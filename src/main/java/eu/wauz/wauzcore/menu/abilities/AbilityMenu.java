@@ -16,7 +16,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -79,7 +80,7 @@ public class AbilityMenu implements WauzInventory {
 			return;
 		}
 		
-		ItemStack travellingItemStack = HeadUtils.getPortsItem();
+		ItemStack travellingItemStack = MenuIconHeads.getPortsItem();
 		ItemMeta travellingItemMeta = travellingItemStack.getItemMeta();
 		travellingItemMeta.setDisplayName(ChatColor.GOLD + "Travelling");
 		List<String> travellingLores = new ArrayList<String>();
@@ -93,7 +94,7 @@ public class AbilityMenu implements WauzInventory {
 		travellingItemStack.setItemMeta(travellingItemMeta);
 		menu.setItem(1, travellingItemStack);
 		
-		ItemStack craftingItemStack = HeadUtils.getCraftItem();
+		ItemStack craftingItemStack = MenuIconHeads.getCraftItem();
 		ItemMeta craftingItemMeta = craftingItemStack.getItemMeta();
 		craftingItemMeta.setDisplayName(ChatColor.GOLD + "Crafting");
 		List<String> craftingLores = new ArrayList<String>();
@@ -109,7 +110,7 @@ public class AbilityMenu implements WauzInventory {
 		MenuUtils.setComingSoon(menu, "Disguises", 3);
 		MenuUtils.setComingSoon(menu, "Subclasses", 5);
 		
-		ItemStack skillsItemStack = HeadUtils.getSkillItem();
+		ItemStack skillsItemStack = MenuIconHeads.getSkillItem();
 		ItemMeta skillsItemMeta = skillsItemStack.getItemMeta();
 		skillsItemMeta.setDisplayName(ChatColor.GOLD + "Passive Skills");
 		List<String> skillsLores = new ArrayList<String>();

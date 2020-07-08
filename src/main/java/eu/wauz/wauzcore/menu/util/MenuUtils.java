@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.scrolls.WauzScrolls;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzMenu;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
@@ -32,8 +33,8 @@ public class MenuUtils {
 	/**
 	 * A list of items to block interactions for, in MMORPG mode.
 	 */
-	private static List<Material> staticItems = new ArrayList<>(Arrays.asList(
-			Material.FILLED_MAP, Material.COMPASS, Material.NETHER_STAR, Material.BARRIER, Material.PLAYER_HEAD));
+	private static List<Material> staticItems = Arrays.asList(
+			Material.FILLED_MAP, Material.COMPASS, Material.NETHER_STAR, Material.BARRIER, Material.PLAYER_HEAD);
 	
 	/*
 	 * Sets a main menu opener to an inventory slot.
@@ -57,7 +58,7 @@ public class MenuUtils {
 	 * @param index The slot to use in the inventory.
 	 */
 	public static void setCurrencyDisplay(Inventory menu, Player player, int index) {
-		ItemStack currencyItemStack = HeadUtils.getMoneyItem();
+		ItemStack currencyItemStack = MenuIconHeads.getMoneyItem();
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
 		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Common Currency");
 		List<String> lores = new ArrayList<String>();
@@ -78,7 +79,7 @@ public class MenuUtils {
 	 * @param index The slot to use in the inventory.
 	 */
 	public static void setGlobalCurrencyDisplay(Inventory menu, Player player, int index) {
-		ItemStack currencyItemStack = HeadUtils.getMoneyItem();
+		ItemStack currencyItemStack = MenuIconHeads.getMoneyItem();
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
 		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Global Currency");
 		List<String> lores = new ArrayList<String>();

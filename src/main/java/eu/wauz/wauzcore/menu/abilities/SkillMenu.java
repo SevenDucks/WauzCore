@@ -14,7 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.SkillIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -76,7 +77,7 @@ public class SkillMenu implements WauzInventory {
 		int spent;
 		
 		spent = PlayerPassiveSkillConfigurator.getHealthStatpoints(player);
-		ItemStack skillHealthItemStack = HeadUtils.getSkillHealthItem(spent);			
+		ItemStack skillHealthItemStack = SkillIconHeads.getSkillHealthItem(spent);			
 		ItemMeta skillHealthItemMeta = skillHealthItemStack.getItemMeta();
 		skillHealthItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Health");
 		List<String> skillHealthLores = new ArrayList<String>();
@@ -92,7 +93,7 @@ public class SkillMenu implements WauzInventory {
 		menu.setItem(0, skillHealthItemStack);
 		
 		spent = PlayerPassiveSkillConfigurator.getTradingStatpoints(player);
-		ItemStack skillTradingItemStack = HeadUtils.getSkillTradingItem(spent);	
+		ItemStack skillTradingItemStack = SkillIconHeads.getSkillTradingItem(spent);	
 		ItemMeta skillTradingItemMeta = skillTradingItemStack.getItemMeta();
 		skillTradingItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Trading");
 		List<String> skillTradingLores = new ArrayList<String>();
@@ -108,7 +109,7 @@ public class SkillMenu implements WauzInventory {
 		menu.setItem(1, skillTradingItemStack);
 		
 		spent = PlayerPassiveSkillConfigurator.getLuckStatpoints(player);
-		ItemStack skillLuckItemStack = HeadUtils.getSkillLuckItem(spent);	
+		ItemStack skillLuckItemStack = SkillIconHeads.getSkillLuckItem(spent);	
 		ItemMeta skillLuckItemMeta = skillLuckItemStack.getItemMeta();
 		skillLuckItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Luck");
 		List<String> skillLuckLores = new ArrayList<String>();
@@ -124,7 +125,7 @@ public class SkillMenu implements WauzInventory {
 		menu.setItem(2, skillLuckItemStack);
 		
 		spent = PlayerPassiveSkillConfigurator.getManaStatpoints(player);
-		ItemStack skillMagicItemStack = HeadUtils.getSkillMagicItem(spent);	
+		ItemStack skillMagicItemStack = SkillIconHeads.getSkillMagicItem(spent);	
 		ItemMeta skillMagicItemMeta = skillMagicItemStack.getItemMeta();
 		skillMagicItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Magic");
 		List<String> skillMagicLores = new ArrayList<String>();
@@ -141,7 +142,7 @@ public class SkillMenu implements WauzInventory {
 		menu.setItem(3, skillMagicItemStack);
 		
 		spent = PlayerPassiveSkillConfigurator.getStrengthStatpoints(player);
-		ItemStack skillStrengthItemStack = HeadUtils.getSkillStrengthItem(spent);	
+		ItemStack skillStrengthItemStack = SkillIconHeads.getSkillStrengthItem(spent);	
 		ItemMeta skillStrengthItemMeta = skillStrengthItemStack.getItemMeta();
 		skillStrengthItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Strength");
 		List<String> skillStrengthLores = new ArrayList<String>();
@@ -158,7 +159,7 @@ public class SkillMenu implements WauzInventory {
 		menu.setItem(4, skillStrengthItemStack);
 		
 		spent = PlayerPassiveSkillConfigurator.getAgilityStatpoints(player);
-		ItemStack skillAgilityItemStack = HeadUtils.getSkillAgilityItem(spent);	
+		ItemStack skillAgilityItemStack = SkillIconHeads.getSkillAgilityItem(spent);	
 		ItemMeta skillAgilityItemMeta = skillAgilityItemStack.getItemMeta();
 		skillAgilityItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Agility");
 		List<String> skillAgilityLores = new ArrayList<String>();

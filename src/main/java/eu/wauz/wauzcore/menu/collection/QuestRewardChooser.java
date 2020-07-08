@@ -16,7 +16,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestComplete;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -66,7 +67,7 @@ public class QuestRewardChooser implements WauzInventory {
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Complete Quest");
 		rewardChooser.setChoiceDialog(menu);
 		
-		ItemStack completeItemStack = HeadUtils.getConfirmItem();
+		ItemStack completeItemStack = GenericIconHeads.getConfirmItem();
 		ItemMeta completeItemMeta = completeItemStack.getItemMeta();
 		completeItemMeta.setDisplayName(ChatColor.GREEN + "COMPLETE");
 		completeItemStack.setItemMeta(completeItemMeta);
@@ -86,7 +87,7 @@ public class QuestRewardChooser implements WauzInventory {
 		}
 		rewardChooser.updateChoiceSelection();
 		
-		ItemStack cancelItemStack = HeadUtils.getDeclineItem();
+		ItemStack cancelItemStack = GenericIconHeads.getDeclineItem();
 		ItemMeta cancelItemMeta = cancelItemStack.getItemMeta();
 		cancelItemMeta.setDisplayName(ChatColor.RED + "CANCEL");
 		cancelItemStack.setItemMeta(cancelItemMeta);

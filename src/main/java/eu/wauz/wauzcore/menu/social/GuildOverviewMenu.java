@@ -26,7 +26,10 @@ import eu.wauz.wauzcore.events.WauzPlayerEventGuildPromoteLeader;
 import eu.wauz.wauzcore.events.WauzPlayerEventGuildPromoteOfficer;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzDialog;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
+import eu.wauz.wauzcore.menu.heads.SkillIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -94,7 +97,7 @@ public class GuildOverviewMenu implements WauzInventory {
 		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
 		
 		if(playerGuild != null) {
-			ItemStack guildItemStack = HeadUtils.getGuildItem();
+			ItemStack guildItemStack = MenuIconHeads.getGuildItem();
 			ItemMeta guildItemMeta = guildItemStack.getItemMeta();
 			guildItemMeta.setDisplayName(ChatColor.GREEN + playerGuild.getGuildName());
 			List<String> guildLores = new ArrayList<String>();
@@ -153,12 +156,12 @@ public class GuildOverviewMenu implements WauzInventory {
 					.filter(offlinePlayer -> offlinePlayer != null)
 					.collect(Collectors.toList());
 			
-			ItemStack freeSlotItemStack = HeadUtils.getConfirmItem();
+			ItemStack freeSlotItemStack = GenericIconHeads.getConfirmItem();
 			ItemMeta freeSlotItemMeta = freeSlotItemStack.getItemMeta();
 			freeSlotItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Free Slot");
 			freeSlotItemStack.setItemMeta(freeSlotItemMeta);
 			
-			ItemStack lockedSlotItemStack = HeadUtils.getDeclineItem();
+			ItemStack lockedSlotItemStack = GenericIconHeads.getDeclineItem();
 			ItemMeta lockedSlotItemMeta = lockedSlotItemStack.getItemMeta();
 			lockedSlotItemMeta.setDisplayName(ChatColor.DARK_RED + "Locked Slot");
 			lockedSlotItemStack.setItemMeta(lockedSlotItemMeta);
@@ -252,7 +255,7 @@ public class GuildOverviewMenu implements WauzInventory {
 	 * @param playerGuild The player guild.
 	 */
 	private static void loadGuildBuildings(Inventory menu, WauzPlayerGuild playerGuild) {
-		ItemStack buildingGuildhallItemStack = HeadUtils.getGuildHallItem();
+		ItemStack buildingGuildhallItemStack = SkillIconHeads.getGuildHallItem();
 		ItemMeta buildingGuildhallItemMeta = buildingGuildhallItemStack.getItemMeta();
 		buildingGuildhallItemMeta.setDisplayName(ChatColor.YELLOW + "Building: Guildhall");
 		List<String> buildingGuildhallLores = new ArrayList<String>();
@@ -287,7 +290,7 @@ public class GuildOverviewMenu implements WauzInventory {
 		int inventorySize = MenuUtils.roundInventorySize(playerGuilds.size() + 2);
 		Inventory menu = Bukkit.createInventory(holder, inventorySize, ChatColor.BLACK + "" + ChatColor.BOLD + "Guild List");
 		
-		ItemStack createItemStack = HeadUtils.getGuildItem();
+		ItemStack createItemStack = MenuIconHeads.getGuildItem();
 		ItemMeta createItemMeta = createItemStack.getItemMeta();
 		createItemMeta.setDisplayName(ChatColor.BLUE + "Create New Guild");
 		List<String> createLores = new ArrayList<String>();

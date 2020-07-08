@@ -75,6 +75,10 @@ import eu.wauz.wauzcore.items.scrolls.ScrollRegret;
 import eu.wauz.wauzcore.items.scrolls.ScrollToughness;
 import eu.wauz.wauzcore.items.scrolls.ScrollWisdom;
 import eu.wauz.wauzcore.items.scrolls.WauzScrolls;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponLance;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.abilities.CraftingMenu;
 import eu.wauz.wauzcore.menu.abilities.SkillMenu;
@@ -120,6 +124,7 @@ import eu.wauz.wauzcore.skills.SkillTheTower;
 import eu.wauz.wauzcore.skills.SkillTheWorld;
 import eu.wauz.wauzcore.skills.SkillWheelOfFortune;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzRegion;
@@ -172,6 +177,7 @@ public class WauzLoader {
 		registerCommandCompleters();
 		
 		registerClasses();
+		registerCustomItems();
 		registerScrolls();
 		registerSkillgems();
 		registerRunes();
@@ -289,6 +295,21 @@ public class WauzLoader {
 		WauzPlayerClassPool.registerClass(new ClassRogue());
 		WauzPlayerClassPool.registerClass(new ClassMage());
 		WauzPlayerClassPool.registerClass(new ClassCleric());
+	}
+	
+	/**
+	 * Initializes all predefined custom items.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	private static void registerCustomItems() {
+		EventMapper.registerCustomItem(new WauzMenu());
+		EventMapper.registerCustomItem(new WauzScrolls());
+		EventMapper.registerCustomItem(new CustomWeaponBow());
+		EventMapper.registerCustomItem(new CustomWeaponLance());
+		EventMapper.registerCustomItem(new CustomWeaponShield());
+		EventMapper.registerCustomItem(new CustomWeaponGlider());
 	}
 	
 	/**

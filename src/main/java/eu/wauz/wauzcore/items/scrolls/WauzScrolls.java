@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
+import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 
@@ -22,7 +23,7 @@ import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
  * 
  * @author Wauzmons
  */
-public class WauzScrolls {
+public class WauzScrolls implements CustomItem {
 	
 	/**
 	 * A map of all scrolls, indexed by scroll name.
@@ -66,10 +67,31 @@ public class WauzScrolls {
 	
 	/**
 	 * Handles the usage of right click scrolls.
+	 * 
+	 * @param event The interaction event.
+	 * 
+	 * @see WauzScrolls#onScrollItemInteract(PlayerInteractEvent)
+	 */
+	@Override
+	public void use(PlayerInteractEvent event) {
+		onScrollItemInteract(event);
+	}
+	
+	/**
+	 * Returns the materials that trigger events with the item.
+	 * 
+	 * @return The list of materials.
+	 */
+	public List<Material> getCustomItemMaterials() {
+		return Arrays.asList(Material.NAME_TAG);
+	}
+	
+	/**
+	 * Handles the usage of right click scrolls.
 	 * Includes following types: Summoning, Comfort.
 	 * Removes the scroll item, if successful.
 	 * 
-	 * @param event The interact event.
+	 * @param event The interaction event.
 	 * 
 	 * @see WauzScrolls#onScrollItemInteract(InventoryClickEvent, String) For item interactive scrolls...
 	 * @see PetOverviewMenu#addPet(PlayerInteractEvent)

@@ -18,7 +18,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -80,7 +80,7 @@ public class GroupMenu implements WauzInventory {
 		if(playerData.isInGroup()) {
 			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
 			
-			ItemStack groupItemStack = HeadUtils.getGroupItem();
+			ItemStack groupItemStack = MenuIconHeads.getGroupItem();
 			setGroupItemMeta(groupItemStack, playerGroup, true);
 			menu.setItem(0, groupItemStack);
 			

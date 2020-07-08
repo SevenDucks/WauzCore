@@ -8,7 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
@@ -56,63 +56,63 @@ public class AchievementsMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new AchievementsMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Achievements");
 		
-		ItemStack killsItemStack = HeadUtils.getAchievementKillsItem();
+		ItemStack killsItemStack = GenericIconHeads.getAchievementKillsItem();
 		ItemMeta killsItemMeta = killsItemStack.getItemMeta();
 		killsItemMeta.setDisplayName(ChatColor.YELLOW + "Kill Enemies");
 		killsItemMeta.setLore(AchievementTracker.generateProgressLores(player, WauzAchievementType.KILL_ENEMIES));
 		killsItemStack.setItemMeta(killsItemMeta);
 		menu.setItem(0, killsItemStack);
 				
-		ItemStack identifiesItemStack = HeadUtils.getAchievementIdentifiesItem();
+		ItemStack identifiesItemStack = GenericIconHeads.getAchievementIdentifiesItem();
 		ItemMeta identifiesItemMeta = identifiesItemStack.getItemMeta();
 		identifiesItemMeta.setDisplayName(ChatColor.YELLOW + "Identify Items");
 		identifiesItemMeta.setLore(AchievementTracker.generateProgressLores(player, WauzAchievementType.IDENTIFY_ITEMS));
 		identifiesItemStack.setItemMeta(identifiesItemMeta);
 		menu.setItem(1, identifiesItemStack);
 		
-		ItemStack manaItemStack = HeadUtils.getAchievementManaItem();
+		ItemStack manaItemStack = GenericIconHeads.getAchievementManaItem();
 		ItemMeta manaItemMeta = manaItemStack.getItemMeta();
 		manaItemMeta.setDisplayName(ChatColor.YELLOW + "Use Mana");
 		manaItemMeta.setLore(AchievementTracker.generateProgressLores(player, WauzAchievementType.USE_MANA));
 		manaItemStack.setItemMeta(manaItemMeta);
 		menu.setItem(2, manaItemStack);
 		
-		ItemStack questsItemStack = HeadUtils.getAchievementQuestsItem();
+		ItemStack questsItemStack = GenericIconHeads.getAchievementQuestsItem();
 		ItemMeta questsItemMeta = questsItemStack.getItemMeta();
 		questsItemMeta.setDisplayName(ChatColor.YELLOW + "Complete Quests");
 		questsItemMeta.setLore(AchievementTracker.generateProgressLores(player, WauzAchievementType.COMPLETE_QUESTS));
 		questsItemStack.setItemMeta(questsItemMeta);
 		menu.setItem(3, questsItemStack);
 		
-		ItemStack craftingItemStack = HeadUtils.getAchievementCraftingItem();
+		ItemStack craftingItemStack = GenericIconHeads.getAchievementCraftingItem();
 		ItemMeta craftingItemMeta = craftingItemStack.getItemMeta();
 		craftingItemMeta.setDisplayName(ChatColor.YELLOW + "Craft Items");
 		craftingItemMeta.setLore(AchievementTracker.generateProgressLores(player, WauzAchievementType.CRAFT_ITEMS));
 		craftingItemStack.setItemMeta(craftingItemMeta);
 		menu.setItem(4, craftingItemStack);
 		
-		ItemStack petsItemStack = HeadUtils.getAchievementPetsItem();
+		ItemStack petsItemStack = GenericIconHeads.getAchievementPetsItem();
 		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
 		petsItemMeta.setDisplayName(ChatColor.YELLOW + "Collect Pets");
 		petsItemMeta.setLore(AchievementTracker.generateProgressLores(player, WauzAchievementType.COLLECT_PETS));
 		petsItemStack.setItemMeta(petsItemMeta);
 		menu.setItem(5, petsItemStack);
 		
-		ItemStack coinsItemStack = HeadUtils.getAchievementCoinsItem();
+		ItemStack coinsItemStack = GenericIconHeads.getAchievementCoinsItem();
 		ItemMeta coinsItemMeta = coinsItemStack.getItemMeta();
 		coinsItemMeta.setDisplayName(ChatColor.YELLOW + "Earn Coins");
 		coinsItemMeta.setLore(AchievementTracker.generateProgressLores(player, WauzAchievementType.EARN_COINS));
 		coinsItemStack.setItemMeta(coinsItemMeta);
 		menu.setItem(6, coinsItemStack);
 		
-		ItemStack playtimeItemStack = HeadUtils.getAchievementPlaytimeItem();
+		ItemStack playtimeItemStack = GenericIconHeads.getAchievementPlaytimeItem();
 		ItemMeta playtimeItemMeta = playtimeItemStack.getItemMeta();
 		playtimeItemMeta.setDisplayName(ChatColor.YELLOW + "Play Hours");
 		playtimeItemMeta.setLore(AchievementTracker.generateProgressLores(player, WauzAchievementType.PLAY_HOURS));
 		playtimeItemStack.setItemMeta(playtimeItemMeta);
 		menu.setItem(7, playtimeItemStack);
 		
-		ItemStack levelsItemStack = HeadUtils.getAchievementLevelsItem();
+		ItemStack levelsItemStack = GenericIconHeads.getAchievementLevelsItem();
 		ItemMeta levelsItemMeta = levelsItemStack.getItemMeta();
 		levelsItemMeta.setDisplayName(ChatColor.YELLOW + "Gain Levels");
 		levelsItemMeta.setLore(AchievementTracker.generateProgressLores(player, WauzAchievementType.GAIN_LEVELS));

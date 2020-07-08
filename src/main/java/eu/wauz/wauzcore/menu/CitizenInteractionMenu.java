@@ -9,7 +9,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -74,14 +75,14 @@ public class CitizenInteractionMenu implements WauzInventory {
 		Inventory menu = citizen.getInteractions().createInteractionMenuBase(holder,
 				ChatColor.BLACK + "" + ChatColor.BOLD + displayName);
 		
-		ItemStack citizenItemStack = HeadUtils.getCitizenRelationItem();
+		ItemStack citizenItemStack = GenericIconHeads.getCitizenRelationItem();
 		ItemMeta citizenItemMeta = citizenItemStack.getItemMeta();
 		citizenItemMeta.setDisplayName(ChatColor.YELLOW + displayName);
 		citizenItemMeta.setLore(RelationTracker.generateProgressLore(player, displayName));
 		citizenItemStack.setItemMeta(citizenItemMeta);
 		menu.setItem(0, citizenItemStack);
 		
-		ItemStack goodbyeItemStack = HeadUtils.getDeclineItem();
+		ItemStack goodbyeItemStack = GenericIconHeads.getDeclineItem();
 		MenuUtils.setItemDisplayName(goodbyeItemStack, ChatColor.DARK_RED + "Goodbye");
 		menu.setItem(8, goodbyeItemStack);
 		

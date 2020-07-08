@@ -22,7 +22,8 @@ import eu.wauz.wauzcore.data.CraftingConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.InventoryItemRemover;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -116,13 +117,13 @@ public class CraftingMenu implements WauzInventory {
 			generateRecipe(menu, player, playerCraftingLevel, index + ((page - 1) * 6), index);
 		}
 		
-		ItemStack prevItemStack = HeadUtils.getPrevItem();
+		ItemStack prevItemStack = GenericIconHeads.getPrevItem();
 		ItemMeta prevItemMeta = prevItemStack.getItemMeta();
 		prevItemMeta.setDisplayName(ChatColor.YELLOW + "Page PREV");
 		prevItemStack.setItemMeta(prevItemMeta);
 		menu.setItem(6, prevItemStack);
 	
-		ItemStack nextItemStack = HeadUtils.getNextItem();
+		ItemStack nextItemStack = GenericIconHeads.getNextItem();
 		ItemMeta nextItemMeta = nextItemStack.getItemMeta();
 		nextItemMeta.setDisplayName(ChatColor.YELLOW + "Page NEXT");
 		nextItemStack.setItemMeta(nextItemMeta);

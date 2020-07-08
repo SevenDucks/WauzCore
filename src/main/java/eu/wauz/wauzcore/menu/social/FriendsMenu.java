@@ -19,7 +19,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventUnfriend;
 import eu.wauz.wauzcore.menu.WauzDialog;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -71,7 +71,7 @@ public class FriendsMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new FriendsMenu());
 		Inventory menu = Bukkit.createInventory(holder, 18, ChatColor.BLACK + "" + ChatColor.BOLD + "Friends List");
 		
-		ItemStack sendItemStack = HeadUtils.getFriendsItem();
+		ItemStack sendItemStack = MenuIconHeads.getFriendsItem();
 		ItemMeta sendItemMeta = sendItemStack.getItemMeta();
 		sendItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Your Friends");
 		List<String> sendLores = new ArrayList<>();
@@ -85,7 +85,7 @@ public class FriendsMenu implements WauzInventory {
 		sendItemStack.setItemMeta(sendItemMeta);
 		menu.setItem(1, sendItemStack);
 		
-		ItemStack freeSlotItemStack = HeadUtils.getSocialItem();
+		ItemStack freeSlotItemStack = MenuIconHeads.getSocialItem();
 		ItemMeta freeSlotItemMeta = freeSlotItemStack.getItemMeta();
 		freeSlotItemMeta.setDisplayName(ChatColor.YELLOW + "Free Slot");
 		freeSlotItemStack.setItemMeta(freeSlotItemMeta);

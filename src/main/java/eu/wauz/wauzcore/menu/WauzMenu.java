@@ -1,20 +1,25 @@
 package eu.wauz.wauzcore.menu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.menu.abilities.AbilityMenu;
 import eu.wauz.wauzcore.menu.collection.CollectionMenu;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.social.SocialMenu;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -28,7 +33,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * 
  * @see WauzModeMenu
  */
-public class WauzMenu implements WauzInventory {
+public class WauzMenu implements WauzInventory, CustomItem {
 	
 	/**
 	 * @return The id of the inventory.
@@ -46,6 +51,25 @@ public class WauzMenu implements WauzInventory {
 	@Override
 	public void openInstance(Player player) {
 		WauzMenu.open(player);
+	}
+	
+	/**
+	 * Handles the interaction with the menu opener item.
+	 * 
+	 * @param event The interaction event.
+	 */
+	@Override
+	public void use(PlayerInteractEvent event) {
+		WauzMenu.open(event.getPlayer());
+	}
+	
+	/**
+	 * Returns the materials that trigger events with the item.
+	 * 
+	 * @return The list of materials.
+	 */
+	public List<Material> getCustomItemMaterials() {
+		return Arrays.asList(Material.NETHER_STAR);
 	}
 	
 	/**
@@ -67,7 +91,7 @@ public class WauzMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Main Menu");
 		
-		ItemStack abilitesItemStack = HeadUtils.getAbilityItem();
+		ItemStack abilitesItemStack = MenuIconHeads.getAbilityItem();
 		ItemMeta abilitiesItemMeta = abilitesItemStack.getItemMeta();
 		abilitiesItemMeta.setDisplayName(ChatColor.GOLD + "Abilities");
 		List<String> abilitiesLores = new ArrayList<String>();
@@ -78,7 +102,7 @@ public class WauzMenu implements WauzInventory {
 		abilitesItemStack.setItemMeta(abilitiesItemMeta);
 		menu.setItem(2, abilitesItemStack);
 		
-		ItemStack collectionItemStack = HeadUtils.getCollectionItem();
+		ItemStack collectionItemStack = MenuIconHeads.getCollectionItem();
 		ItemMeta collectionItemMeta = collectionItemStack.getItemMeta();
 		collectionItemMeta.setDisplayName(ChatColor.GOLD + "Collection");
 		List<String> collectionLores = new ArrayList<String>();
@@ -89,7 +113,7 @@ public class WauzMenu implements WauzInventory {
 		collectionItemStack.setItemMeta(collectionItemMeta);
 		menu.setItem(4, collectionItemStack);
 		
-		ItemStack socialItemStack = HeadUtils.getSocialItem();
+		ItemStack socialItemStack = MenuIconHeads.getSocialItem();
 		ItemMeta socialItemMeta = socialItemStack.getItemMeta();
 		socialItemMeta.setDisplayName(ChatColor.GOLD + "Social");
 		List<String> socialLores = new ArrayList<String>();

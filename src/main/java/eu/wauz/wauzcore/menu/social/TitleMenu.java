@@ -18,7 +18,9 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventTitleBuy;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzDialog;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -112,7 +114,7 @@ public class TitleMenu implements WauzInventory {
 	 * @return The title item stack.
 	 */
 	private static ItemStack getTitleItemStack(String titleName, String displayName, int level, int cost, boolean unlocked, boolean selected) {
-		ItemStack titleItemStack = unlocked ? HeadUtils.getTitlesItem() : HeadUtils.getDeclineItem();
+		ItemStack titleItemStack = unlocked ? MenuIconHeads.getTitlesItem() : GenericIconHeads.getDeclineItem();
 		ItemMeta titleItemMeta = titleItemStack.getItemMeta();
 		titleItemMeta.setDisplayName(unlocked ? ChatColor.GREEN + "Unlocked" : ChatColor.RED + "Locked");
 		List<String> titleLores = new ArrayList<>();
@@ -188,7 +190,7 @@ public class TitleMenu implements WauzInventory {
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 			playerData.setWauzPlayerEventName("Buy Title");
 			playerData.setWauzPlayerEvent(new WauzPlayerEventTitleBuy(title));
-			ItemStack titleItemStack = HeadUtils.getTitlesItem();
+			ItemStack titleItemStack = MenuIconHeads.getTitlesItem();
 			MenuUtils.setItemDisplayName(titleItemStack, ChatColor.YELLOW + "Title: " + title.getTitleDisplayName());
 			MenuUtils.addItemLore(titleItemStack, ChatColor.GRAY + "Cost: " + title.getTitleCost() + " Soulstones", true);
 			WauzDialog.open(player, titleItemStack);

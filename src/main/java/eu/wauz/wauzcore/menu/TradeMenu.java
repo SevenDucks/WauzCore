@@ -18,7 +18,8 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -98,7 +99,7 @@ public class TradeMenu implements WauzInventory {
 		requestedPlayerHead.setItemMeta(requestedPlayerHeadMeta);
 		menu.setItem(7, requestedPlayerHead);
 		
-		ItemStack cancelButton = HeadUtils.getDeclineItem();
+		ItemStack cancelButton = GenericIconHeads.getDeclineItem();
 		ItemMeta cancelButtonName = cancelButton.getItemMeta();
 		cancelButtonName.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "CANCEL TRADE");
 		cancelButton.setItemMeta(cancelButtonName);
@@ -254,7 +255,7 @@ public class TradeMenu implements WauzInventory {
 	 * @see TradeMenu#handOutItems(boolean)
 	 */
 	public void setReadyStatus(boolean leftSide, boolean isReady) {
-		ItemStack readyButtonItemStack = isReady ? HeadUtils.getConfirmItem() : HeadUtils.getTitlesItem();
+		ItemStack readyButtonItemStack = isReady ? GenericIconHeads.getConfirmItem() : MenuIconHeads.getTitlesItem();
 		MenuUtils.setItemDisplayName(readyButtonItemStack, ChatColor.GOLD + "" + ChatColor.BOLD + "CHANGE READY STATUS");
 		
 		ItemStack readyStatusItemStack = new ItemStack(isReady ? Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE);

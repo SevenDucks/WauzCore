@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.items.weapons;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
@@ -36,7 +38,7 @@ import eu.wauz.wauzcore.system.util.Cooldown;
  * 
  * @author Wauzmons
  */
-public class CustomWeaponGlider {
+public class CustomWeaponGlider implements CustomItem {
 	
 	/**
 	 * A particle, used to represent chicken feathers.
@@ -53,7 +55,7 @@ public class CustomWeaponGlider {
 	 * @see CustomWeaponGlider#fly(Player)
 	 * @see CustomWeaponGlider#shoot(Player)
 	 */
-	public static void use(PlayerInteractEvent event) {
+	public void use(PlayerInteractEvent event) {
 		event.setCancelled(true);
 		final Player player = event.getPlayer();
 		if(player.isSneaking()) {
@@ -62,6 +64,15 @@ public class CustomWeaponGlider {
 		else if(event.getAction().toString().contains("RIGHT")) {
 			shoot(player);
 		}
+	}
+	
+	/**
+	 * Returns the materials that trigger events with the item.
+	 * 
+	 * @return The list of materials.
+	 */
+	public List<Material> getCustomItemMaterials() {
+		return Arrays.asList(Material.FEATHER);
 	}
 	
 	/**

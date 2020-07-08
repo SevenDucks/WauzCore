@@ -23,7 +23,7 @@ import eu.wauz.wauzcore.events.WauzPlayerEventCitizenQuest;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenShop;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTalk;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.economy.WauzShop;
@@ -144,31 +144,31 @@ public class WauzCitizenInteractions {
 		
 		switch (type) {
 		case "talk":
-			interactionItemStack = HeadUtils.getCitizenTalkItem();
+			interactionItemStack = GenericIconHeads.getCitizenTalkItem();
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.AQUA + "Talk: " + interactionName);
 			List<String> messages = CitizenConfigurator.getInteractionMessages(citizenName, interactionKey);
 			event = new WauzPlayerEventCitizenTalk(displayName, messages);
 			break;
 		case "shop":
-			interactionItemStack = HeadUtils.getCitizenShopItem();
+			interactionItemStack = GenericIconHeads.getCitizenShopItem();
 			WauzShop shop = WauzShop.getShop(interactionName);
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.GREEN + "Shop: " + shop.getShopDisplayName());
 			event = new WauzPlayerEventCitizenShop(displayName, interactionName);
 			break;
 		case "quest":
-			interactionItemStack = HeadUtils.getCitizenQuestItem();
+			interactionItemStack = GenericIconHeads.getCitizenQuestItem();
 			WauzQuest quest = WauzQuest.getQuest(interactionName);
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.GOLD + "Quest: " + quest.getDisplayName());
 			event = new WauzPlayerEventCitizenQuest(displayName, interactionName);
 			break;
 		case "inn":
-			interactionItemStack = HeadUtils.getCitizenInnItem();
+			interactionItemStack = GenericIconHeads.getCitizenInnItem();
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.RED + "Inn: Set as New Home");
 			Location location = CitizenConfigurator.getLocation(citizenName);
 			event = new WauzPlayerEventCitizenInn(displayName, location);
 			break;
 		case "command":
-			interactionItemStack = HeadUtils.getCitizenCommandItem();
+			interactionItemStack = GenericIconHeads.getCitizenCommandItem();
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.BLUE + "Action: " + interactionName);
 			String command = CitizenConfigurator.getInteractionCommand(citizenName, interactionKey);
 			event = new WauzPlayerEventCitizenCommand(displayName, command);

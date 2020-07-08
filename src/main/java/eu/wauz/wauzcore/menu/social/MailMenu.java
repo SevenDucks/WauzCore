@@ -17,7 +17,8 @@ import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventMailClaim;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzDialog;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -72,7 +73,7 @@ public class MailMenu implements WauzInventory {
 		int mailAmount = mailNames.size();
 		int visibleMailAmount = mailAmount > 16 ? 16 : mailAmount;
 		
-		ItemStack inboxItemStack = HeadUtils.getAchievementIdentifiesItem();
+		ItemStack inboxItemStack = GenericIconHeads.getAchievementIdentifiesItem();
 		ItemMeta inboxItemMeta = inboxItemStack.getItemMeta();
 		inboxItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Inbox");
 		List<String> inboxLores = new ArrayList<>();
@@ -87,7 +88,7 @@ public class MailMenu implements WauzInventory {
 		inboxItemStack.setItemMeta(inboxItemMeta);
 		menu.setItem(0, inboxItemStack);
 		
-		ItemStack sendItemStack = HeadUtils.getCitizenCommandItem();
+		ItemStack sendItemStack = GenericIconHeads.getCitizenCommandItem();
 		ItemMeta sendItemMeta = sendItemStack.getItemMeta();
 		sendItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Send Mails");
 		List<String> sendLores = new ArrayList<>();
@@ -110,7 +111,7 @@ public class MailMenu implements WauzInventory {
 			String sender = PlayerMailConfigurator.getMailSender(player, mailName);
 			long timestamp = Long.parseLong(StringUtils.substringBefore(mailName, "_"));
 			
-			ItemStack mailItemStack = HeadUtils.getMailItem();
+			ItemStack mailItemStack = MenuIconHeads.getMailItem();
 			ItemMeta mailItemMeta = mailItemStack.getItemMeta();
 			mailItemMeta.setDisplayName(ChatColor.YELLOW + "Mail from " + sender);
 			List<String> mailLores = new ArrayList<>();

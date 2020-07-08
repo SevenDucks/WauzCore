@@ -1,5 +1,10 @@
 package eu.wauz.wauzcore.system;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -17,15 +22,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.WauzSigns;
-import eu.wauz.wauzcore.items.scrolls.WauzScrolls;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
-import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
-import eu.wauz.wauzcore.items.weapons.CustomWeaponLance;
-import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
 import eu.wauz.wauzcore.menu.ShopMenu;
-import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -41,6 +41,31 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * @author Wauzmons
  */
 public class EventMapper {
+	
+	/**
+	 * A list of crafting stations to block interactions for, in MMORPG mode.
+	 */
+	private static List<Material> blockedCraftingStations = Arrays.asList(
+			Material.CRAFTING_TABLE, Material.FURNACE, Material.ENCHANTING_TABLE, Material.BREWING_STAND, Material.ANVIL,
+			Material.DISPENSER, Material.DROPPER, Material.CAKE, Material.BLAST_FURNACE, Material.CAMPFIRE,
+			Material.CARTOGRAPHY_TABLE, Material.COMPOSTER, Material.FLETCHING_TABLE, Material.GRINDSTONE, Material.LOOM,
+			Material.SMITHING_TABLE, Material.SMOKER, Material.STONECUTTER);
+	
+	/**
+	 * A map of all coustom items for the MMORPG mode, indexed by trigger materials.
+	 */
+	private static Map<Material, CustomItem> customItemMap = new HashMap<>();
+	
+	/**
+	 * Registers a custom item for the MMORPG mode.
+	 * 
+	 * @param customItem The custom item to register.
+	 */
+	public static void registerCustomItem(CustomItem customItem) {
+		for(Material material : customItem.getCustomItemMaterials()) {
+			customItemMap.put(material, customItem);
+		}
+	}
 	
 	/**
 	 * Called when a player interacts with an entity.
@@ -77,10 +102,7 @@ public class EventMapper {
 	 * @param event The received PlayerInteractEvent.
 	 * 
 	 * @see Cooldown#playerWeaponUse(Player)
-	 * @see WauzMenu#open(Player)
-	 * @see WauzScrolls#onScrollItemInteract(PlayerInteractEvent)
-	 * @see CustomWeaponBow#use(PlayerInteractEvent)
-	 * @see CustomWeaponGlider#use(PlayerInteractEvent)
+	 * @see CustomItem#use(PlayerInteractEvent)
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
 	 * @see WauzPlayerSkillExecutor#tryToUseSkill(Player, ItemStack)
 	 * @see FoodCalculator#tryToConsume(Player, ItemStack)
@@ -91,37 +113,22 @@ public class EventMapper {
 		if(player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
-		ItemStack itemStack = player.getEquipment().getItemInMainHand();
+		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND)) {
+			event.setCancelled(true);
+			return;
+		}
 		
+		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		if(event.getAction() == Action.LEFT_CLICK_AIR) {
 			Cooldown.playerWeaponUse(player);
 			event.setCancelled(true);
 		}
-		
-		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND)) {
-			event.setCancelled(true);
-		}
-		
 		else if(itemStack != null) {
 			Material type = itemStack.getType();
+			CustomItem customItem = customItemMap.get(type);
 			
-			if(type.equals(Material.NETHER_STAR)) {
-				WauzMenu.open(player);
-			}
-			else if(type.equals(Material.NAME_TAG)) {
-				WauzScrolls.onScrollItemInteract(event);
-			}
-			else if(type.equals(Material.BOW)) {
-				CustomWeaponBow.use(event);
-			}
-			else if(type.equals(Material.TRIDENT)) {
-				CustomWeaponLance.use(event);
-			}
-			else if(type.equals(Material.SHIELD)) {
-				CustomWeaponShield.use(event);
-			}
-			else if(type.equals(Material.FEATHER)) {
-				CustomWeaponGlider.use(event);
+			if(customItem != null) {
+				customItem.use(event);
 			}
 			else if(type.equals(Material.PAPER)) {
 				WauzTeleporter.enterInstanceTeleportManual(event);
@@ -136,28 +143,9 @@ public class EventMapper {
 			Material type = event.getClickedBlock().getType();
 			WauzDebugger.log(event.getPlayer(), "Clicked Block: " + type.toString());
 			
-			if(type.equals(Material.CRAFTING_TABLE)
-					|| type.equals(Material.FURNACE)
-					|| type.equals(Material.ENCHANTING_TABLE)
-					|| type.equals(Material.BREWING_STAND)
-					|| type.equals(Material.ANVIL)
-					|| type.equals(Material.DISPENSER)
-					|| type.equals(Material.DROPPER)
-					|| type.equals(Material.CAKE)
-					
-					|| type.equals(Material.BLAST_FURNACE)
-					|| type.equals(Material.CAMPFIRE)
-					|| type.equals(Material.CARTOGRAPHY_TABLE)
-					|| type.equals(Material.COMPOSTER)
-					|| type.equals(Material.FLETCHING_TABLE)
-					|| type.equals(Material.GRINDSTONE)
-					|| type.equals(Material.LOOM)
-					|| type.equals(Material.SMITHING_TABLE)
-					|| type.equals(Material.SMOKER)
-					|| type.equals(Material.STONECUTTER)) {
+			if(blockedCraftingStations.contains(type)) {
 				event.setCancelled(true);
 			}
-			
 			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN)) {
 				WauzSigns.interact(player, event.getClickedBlock());
 			}
@@ -182,13 +170,13 @@ public class EventMapper {
 		if(player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
-		ItemStack itemStack = player.getEquipment().getItemInMainHand();
-		
 		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND)) {
 			event.setCancelled(true);
+			return;
 		}
 		
-		else if(itemStack != null) {
+		ItemStack itemStack = player.getEquipment().getItemInMainHand();
+		if(itemStack != null) {
 			Material type = itemStack.getType();
 			
 			if(type.equals(Material.PAPER)) {
@@ -203,12 +191,10 @@ public class EventMapper {
 			Material type = event.getClickedBlock().getType();
 			WauzDebugger.log(event.getPlayer(), "Clicked Block: " + type.toString());
 			
-			
 			if(type.equals(Material.ENDER_CHEST)) {
 				event.setCancelled(true);
 				ShopMenu.open(player, "SurvivalShop", null);
 			}
-			
 			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN)) {
 				WauzSigns.interact(player, event.getClickedBlock());
 			}

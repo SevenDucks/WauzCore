@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.enums.ArmorCategory;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.CharacterIconHeads;
 import eu.wauz.wauzcore.skills.SkillTheChariot;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -49,7 +49,7 @@ public class ClassWarrior implements WauzPlayerClass {
 	 */
 	@Override
 	public ItemStack getClassItemStack() {
-		return HeadUtils.getWarriorItem();
+		return CharacterIconHeads.getWarriorItem();
 	}
 
 	/**

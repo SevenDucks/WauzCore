@@ -29,7 +29,8 @@ import eu.wauz.wauzcore.events.WauzPlayerEventPetBreed;
 import eu.wauz.wauzcore.events.WauzPlayerEventPetDelete;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzDialog;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
@@ -235,13 +236,13 @@ public class PetOptionsMenu implements WauzInventory {
 		absorptionSkillItemStack.setItemMeta(absorptionSkillItemMeta);
 		menu.setItem(5, absorptionSkillItemStack);
 		
-		ItemStack moveLeftItemStack = HeadUtils.getPrevItem();
+		ItemStack moveLeftItemStack = GenericIconHeads.getPrevItem();
 		ItemMeta moveLeftItemMeta = moveLeftItemStack.getItemMeta();
 		moveLeftItemMeta.setDisplayName(ChatColor.YELLOW + "Move LEFT");
 		moveLeftItemStack.setItemMeta(moveLeftItemMeta);
 		menu.setItem(6, moveLeftItemStack);
 		
-		ItemStack moveRightItemStack = HeadUtils.getNextItem();
+		ItemStack moveRightItemStack = GenericIconHeads.getNextItem();
 		ItemMeta moveRightItemMeta = moveRightItemStack.getItemMeta();
 		moveRightItemMeta.setDisplayName(ChatColor.YELLOW + "Move RIGHT");
 		moveRightItemStack.setItemMeta(moveRightItemMeta);

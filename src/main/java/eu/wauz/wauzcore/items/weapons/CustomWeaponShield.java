@@ -7,6 +7,7 @@ import java.util.Random;
 
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Banner;
@@ -18,6 +19,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
@@ -31,7 +33,7 @@ import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
  * 
  * @author Wauzmons
  */
-public class CustomWeaponShield {
+public class CustomWeaponShield implements CustomItem {
 	
 	/**
 	 * Access to the MythicMobs API.
@@ -76,12 +78,21 @@ public class CustomWeaponShield {
 	 * 
 	 * @see CustomWeaponShield#taunt(Player)
 	 */
-	public static void use(PlayerInteractEvent event) {
+	public void use(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		if(player.isSneaking()) {
 			event.setCancelled(true);
 			taunt(player);
 		}
+	}
+	
+	/**
+	 * Returns the materials that trigger events with the item.
+	 * 
+	 * @return The list of materials.
+	 */
+	public List<Material> getCustomItemMaterials() {
+		return Arrays.asList(Material.SHIELD);
 	}
 	
 	/**

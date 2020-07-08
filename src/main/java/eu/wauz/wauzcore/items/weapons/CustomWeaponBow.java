@@ -1,10 +1,12 @@
 package eu.wauz.wauzcore.items.weapons;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Arrow;
@@ -19,6 +21,7 @@ import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.menu.ArrowMenu;
@@ -35,7 +38,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * 
  * @author Wauzmons
  */
-public class CustomWeaponBow {
+public class CustomWeaponBow implements CustomItem {
 	
 	/**
 	 * Cancels the event of a bow interaction.
@@ -47,7 +50,7 @@ public class CustomWeaponBow {
 	 * @see ArrowMenu#open(Player)
 	 * @see CustomWeaponBow#tryToShoot(Player, ItemStack)
 	 */
-	public static void use(PlayerInteractEvent event) {
+	public void use(PlayerInteractEvent event) {
 		event.setCancelled(true);
 		Player player = event.getPlayer();
 		if(player.isSneaking()) {
@@ -58,6 +61,15 @@ public class CustomWeaponBow {
 				tryToShoot(player, player.getEquipment().getItemInMainHand());
 			}
 		}
+	}
+	
+	/**
+	 * Returns the materials that trigger events with the item.
+	 * 
+	 * @return The list of materials.
+	 */
+	public List<Material> getCustomItemMaterials() {
+		return Arrays.asList(Material.BOW);
 	}
 	
 	/**

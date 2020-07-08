@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerRelationConfigurator;
-import eu.wauz.wauzcore.menu.util.HeadUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.mobs.citizens.RelationLevel;
 import eu.wauz.wauzcore.system.WauzRank;
 
@@ -96,7 +96,7 @@ public class WauzShopDiscount {
 	 * @return The generated item stack.
 	 */
 	public ItemStack generateDiscountDisplay() {
-		ItemStack discountItemStack = HeadUtils.getCitizenShopItem();
+		ItemStack discountItemStack = GenericIconHeads.getCitizenShopItem();
 		ItemMeta discountItemMeta = discountItemStack.getItemMeta();
 		discountItemMeta.setDisplayName(ChatColor.GREEN + "Shop Discount");
 		List<String> discountLores = new ArrayList<String>();
