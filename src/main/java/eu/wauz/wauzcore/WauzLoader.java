@@ -52,6 +52,7 @@ import eu.wauz.wauzcore.commands.completion.TabCompleterMenus;
 import eu.wauz.wauzcore.commands.completion.TabCompleterRanks;
 import eu.wauz.wauzcore.commands.completion.TabCompleterRunes;
 import eu.wauz.wauzcore.commands.completion.TabCompleterSkills;
+import eu.wauz.wauzcore.commands.completion.TabCompleterWaypoints;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
@@ -129,6 +130,7 @@ import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.WauzTitle;
+import eu.wauz.wauzcore.system.WauzWaypoint;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzcore.system.economy.WauzCurrency;
@@ -157,6 +159,7 @@ public class WauzLoader {
 	 */
 	public static void init() {
 		WauzRegion.init();
+		WauzWaypoint.init();
 		WauzEquipment.init();
 		WauzCurrency.init();
 		WauzAchievement.init();
@@ -282,6 +285,7 @@ public class WauzLoader {
 		Bukkit.getPluginCommand("wzRank").setTabCompleter(new TabCompleterRanks());
 		Bukkit.getPluginCommand("wzSkill").setTabCompleter(new TabCompleterSkills());
 		Bukkit.getPluginCommand("wzSkill.weapon").setTabCompleter(new TabCompleterSkills());
+		Bukkit.getPluginCommand("wzTravel").setTabCompleter(new TabCompleterWaypoints());
 	}
 	
 	/**

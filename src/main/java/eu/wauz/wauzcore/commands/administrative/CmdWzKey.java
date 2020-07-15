@@ -1,5 +1,8 @@
 package eu.wauz.wauzcore.commands.administrative;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -25,11 +28,11 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 public class CmdWzKey implements WauzCommand {
 
 	/**
-	 * @return The id of the command.
+	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
-	public String getCommandId() {
-		return "wzKey";
+	public List<String> getCommandIds() {
+		return Arrays.asList("wzKey");
 	}
 
 	/**

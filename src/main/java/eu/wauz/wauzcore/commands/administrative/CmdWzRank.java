@@ -1,5 +1,7 @@
 package eu.wauz.wauzcore.commands.administrative;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -28,11 +30,11 @@ import eu.wauz.wauzcore.system.WauzRank;
 public class CmdWzRank implements WauzCommand {
 
 	/**
-	 * @return The id of the command.
+	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
-	public String getCommandId() {
-		return "wzRank";
+	public List<String> getCommandIds() {
+		return Arrays.asList("wzRank");
 	}
 	
 	/**

@@ -42,7 +42,9 @@ public class WauzCommandExecutor {
 	 * @param command The command to register.
 	 */
 	public static void registerCommand(WauzCommand command) {
-		commandMap.put(command.getCommandId().toLowerCase(), command);
+		for(String commandId : command.getCommandIds()) {
+			commandMap.put(commandId.toLowerCase(), command);
+		}
 	}
 	
 	/**
@@ -61,7 +63,7 @@ public class WauzCommandExecutor {
 		}
 		
 		if(sender instanceof Player) {
-			WauzDebugger.log((Player) sender, "Execute Command: " + command.getCommandId() + " " + Arrays.asList(args));
+			WauzDebugger.log((Player) sender, "Execute Command: " + command.getCommandIds().get(0) + " " + Arrays.asList(args));
 		}
 		else if(!command.allowConsoleExecution()) {
 			sender.sendMessage(ChatColor.RED + "Only players can execute this command!");

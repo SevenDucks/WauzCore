@@ -3,32 +3,21 @@ package eu.wauz.wauzcore.items;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.SignChangeEvent;
 
-import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
-import eu.wauz.wauzcore.data.RegionConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
-import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzTeleporter;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 
 /**
  * A class for handling the usage of event signs.
@@ -83,7 +72,7 @@ public class WauzSigns {
 	 * 
 	 * --------------------</br>
 	 * [Fast Travel]</br>
-	 * StationName</br>
+	 * WaypointName</br>
 	 * --------------------
 	 * 
 	 * @param event The sign event.
@@ -200,136 +189,19 @@ public class WauzSigns {
 	}
 	
 	/**
-	 * Tries to travel to a station, based on the station name on a sign.
+	 * Tries to travel to a waypoint, based on the waypoint name on a sign.
 	 * 
 	 * @param player The player who wants to travel.
 	 * @param sign The sign at the current travel station.
 	 * 
-	 * @see RegionConfigurator#getStationCoordinateString(String)
-	 * @see WauzSigns#startTravelling(Player, String, String, String)
+	 * @see WauzTeleporter#waypointTeleport(Player, String)
 	 */
 	private static void tryToTravel(Player player, Sign sign) {
 		WauzDebugger.log(player, "Try to Travel");
-		String stationId = StringUtils.substringAfterLast(sign.getLine(2), TRAVEL_LOCATION_TEXT);
-		WauzDebugger.log(player, "Station ID: " + stationId);
+		String waypointKey = StringUtils.substringAfterLast(sign.getLine(2), TRAVEL_LOCATION_TEXT);
+		WauzDebugger.log(player, "Waypoint ID: " + waypointKey);
 		
-		String coordinateString = RegionConfigurator.getStationCoordinateString(stationId);
-		if(StringUtils.isBlank(coordinateString)) {
-			player.sendMessage(ChatColor.RED + "This station is not available at the moment!");
-		}
-		else {
-			player.sendMessage(ChatColor.GREEN + "Travelling to: " + ChatColor.DARK_AQUA + stationId + ChatColor.GREEN + " (" + coordinateString + ")");
-			String[] coordinateStrings = coordinateString.split(" ");
-			startTravelling(player, coordinateStrings[0], coordinateStrings[1], coordinateStrings[2]);
-		}
-	}
-	
-	/**
-	 * Strats travelling to the destined location, on the MythicMob called "TravelPhantom".
-	 * Checks regularely afterwards, if the target is reached.
-	 * 
-	 * @param player The player that is travelling.
-	 * @param xString The x coordinate of the destined location.
-	 * @param yString The y coordinate of the destined location.
-	 * @param zString The z coordinate of the destined location.
-	 * 
-	 * @return If the travel was successffully started.
-	 * 
-	 * @see BukkitAPIHelper#spawnMythicMob(String, Location)
-	 * @see WauzSigns#atTravelDestination(Entity, Location)
-	 */
-	public static boolean startTravelling(Player player, String xString, String yString, String zString) {
-		try {
-			double x = Double.parseDouble(xString);
-			double y = Double.parseDouble(yString);
-			double z = Double.parseDouble(zString);
-			Location targetLocation = new Location(player.getWorld(), x, y, z);
-			Location offsetLocation = targetLocation.clone().add(0, 75, 0);
-			BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
-			
-			player.teleport(offsetLocation);
-			Entity dragon = mythicMobs.spawnMythicMob("TravelPhantom", offsetLocation);
-			WauzNmsClient.nmsEntityPersistence(dragon, false);
-			dragon.addPassenger(player);
-			
-			atTravelDestination(dragon, targetLocation);
-			return true;
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	/**
-	 * Checks if the entity reached the travel destination.
-	 * If the entity reached the destination or don't has any players on it, it unmounts all entities and despawns.
-	 * If not it spawns some particles and rechecks in 0,5 seconds.
-	 * 
-	 * @param entity The entity that is moving towards the destination.
-	 * @param targetLocation The destined location.
-	 * 
-	 * @see WauzSigns#atTravelCoordinate(double, double, double)
-	 * @see WauzSigns#hasPlayerMounted(Entity)
-	 * @see ParticleSpawner#spawnParticleHelix(Location, SkillParticle, double, double)
-	 */
-	private static void atTravelDestination(Entity entity, Location targetLocation) {
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
-	        public void run() {
-	        	try {
-	        		Location entityLocation = entity.getLocation();
-	        		
-	    			if(atTravelCoordinate(entityLocation.getY(), targetLocation.getY(), 1) || !hasPlayerMounted(entity)) {
-	    				for(Entity passenger : entity.getPassengers()) {
-	    					if(passenger instanceof Player) {
-	    						passenger.leaveVehicle();
-	    					}
-	    					else {
-	    						passenger.remove();
-	    					}
-	    				}
-	    				entity.remove();
-	    			}
-	    			else {
-	    				ParticleSpawner.spawnParticleHelix(entity.getLocation(), new SkillParticle(Particle.PORTAL), 1.5, 5);
-	    			}
-
-	        		atTravelDestination(entity, targetLocation);
-	        	}
-	        	catch (NullPointerException e) {
-	        		WauzDebugger.catchException(getClass(), e);
-	        	}
-	        }
-		}, 10);
-	}
-
-	/**
-	 * Checks if the given y coordinate has been reached.
-	 * 
-	 * @param coord1 The current y coordinate.
-	 * @param coord2 The target y coordinate.
-	 * @param maxDiff The maximum difference between coordinates.
-	 * 
-	 * @return If the coordinates has been reached.
-	 */
-	private static boolean atTravelCoordinate(double coord1, double coord2, double maxDiff) {
-		return Math.abs(coord1 - coord2) < maxDiff;
-	}
-	
-	/**
-	 * Checks if a player is in the given list of passengers.
-	 * 
-	 * @param entity The vehicle, that holds the passengers.
-	 * 
-	 * @return If a player is mounted.
-	 */
-	public static boolean hasPlayerMounted(Entity entity) {
-		for(Entity passenger : entity.getPassengers()) {
-			if(passenger instanceof Player) {
-				return true;
-			}
-		}
-		return false;
+		WauzTeleporter.waypointTeleport(player, waypointKey);
 	}
 
 }

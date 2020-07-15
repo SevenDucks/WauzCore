@@ -1,5 +1,8 @@
 package eu.wauz.wauzcore.commands;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -23,11 +26,11 @@ import eu.wauz.wauzcore.system.util.Chance;
 public class CmdRoll implements WauzCommand {
 
 	/**
-	 * @return The id of the command.
+	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
-	public String getCommandId() {
-		return "roll";
+	public List<String> getCommandIds() {
+		return Arrays.asList("roll");
 	}
 
 	/**

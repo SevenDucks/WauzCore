@@ -128,7 +128,7 @@ public class WauzTeleporter {
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
 	
-// Instances Development
+// Instances - Development
 	
 	/**
 	 * Teleports the player to a development instance (actually any world).
@@ -296,7 +296,39 @@ public class WauzTeleporter {
 		}
 		player.teleport(PlayerConfigurator.getCharacterHearthstone(player));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
-		return;
+	}
+	
+// Waypoint
+	
+	/**
+	 * Teleports the player to a waypoint.
+	 * The player can manually call this method.
+	 * Not usable when player is in a not MMORPG world.
+	 * Not usable when mounted.
+	 * Not usable with invalid waypoint key.
+	 * 
+	 * @param player The player to teleport.
+	 * @param waypointKey The key of the waypoint.
+	 */
+	public static void waypointTeleport(Player player, String waypointKey) {
+		if(!WauzMode.isMMORPG(player) || WauzMode.inHub(player)) {
+			player.sendMessage(ChatColor.RED + "You can't do that in this world!");
+			return;
+		}
+		if(player.isInsideVehicle()) {
+			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
+			return;
+		}
+		WauzWaypoint waypoint = WauzWaypoint.getWaypoint(waypointKey);
+		if(waypoint == null) {
+			player.sendMessage(ChatColor.RED + "This waypoint is unknown!");
+			return;
+		}
+		PetOverviewMenu.unsummon(player);
+		CharacterManager.saveCharacter(player);
+		player.teleport(waypoint.getWaypointLocation());
+		player.sendMessage(ChatColor.GREEN + "You were warped to '" + waypoint.getWaypointDisplayName() + "'!");
+		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
 	
 // Event

@@ -1,5 +1,8 @@
 package eu.wauz.wauzcore.commands.administrative;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
@@ -20,11 +23,11 @@ import eu.wauz.wauzcore.system.SystemAnalytics;
 public class CmdWzSystem implements WauzCommand {
 
 	/**
-	 * @return The id of the command.
+	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
-	public String getCommandId() {
-		return "wzSystem";
+	public List<String> getCommandIds() {
+		return Arrays.asList("wzSystem");
 	}
 	
 	/**
