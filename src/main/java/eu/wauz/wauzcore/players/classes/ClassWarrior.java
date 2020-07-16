@@ -1,11 +1,20 @@
 package eu.wauz.wauzcore.players.classes;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.enums.ArmorCategory;
 import eu.wauz.wauzcore.menu.heads.CharacterIconHeads;
+import eu.wauz.wauzcore.players.classes.warrior.SubclassBerserker;
+import eu.wauz.wauzcore.players.classes.warrior.SubclassBulwark;
+import eu.wauz.wauzcore.players.classes.warrior.SubclassPaladin;
+import eu.wauz.wauzcore.players.classes.warrior.SubclassTemplar;
 import eu.wauz.wauzcore.skills.SkillTheChariot;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -19,6 +28,21 @@ import eu.wauz.wauzcore.system.WauzDebugger;
  * @see WauzPlayerClassPool
  */
 public class ClassWarrior implements WauzPlayerClass {
+	
+	/**
+	 * A map of the classes' subclasses / masteries, indexed by name.
+	 */
+	private Map<String, WauzPlayerSubclass> subclassMap = new HashMap<>();
+	
+	/**
+	 * Constructs a new instance of the class and initializes its subclasses.
+	 */
+	public ClassWarrior() {
+		subclassMap.put(SubclassBerserker.CLASS_NAME, new SubclassBerserker());
+		subclassMap.put(SubclassBulwark.CLASS_NAME, new SubclassBulwark());
+		subclassMap.put(SubclassTemplar.CLASS_NAME, new SubclassTemplar());
+		subclassMap.put(SubclassPaladin.CLASS_NAME, new SubclassPaladin());
+	}
 
 	/**
 	 * @return The name of the class.
@@ -50,6 +74,24 @@ public class ClassWarrior implements WauzPlayerClass {
 	@Override
 	public ItemStack getClassItemStack() {
 		return CharacterIconHeads.getWarriorItem();
+	}
+	
+	/**
+	 * @return All subclasses of the class.
+	 */
+	@Override
+	public List<WauzPlayerSubclass> getSubclasses() {
+		return new ArrayList<>(subclassMap.values());
+	}
+
+	/**
+	 * @param subclass The name of a subclass.
+	 * 
+	 * @return The subclass with that name or null.
+	 */
+	@Override
+	public WauzPlayerSubclass getSubclass(String subclass) {
+		return subclassMap.get(subclass);
 	}
 
 	/**

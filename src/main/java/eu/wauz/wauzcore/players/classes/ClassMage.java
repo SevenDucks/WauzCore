@@ -1,11 +1,20 @@
 package eu.wauz.wauzcore.players.classes;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.enums.ArmorCategory;
 import eu.wauz.wauzcore.menu.heads.CharacterIconHeads;
+import eu.wauz.wauzcore.players.classes.mage.SubclassBeguiler;
+import eu.wauz.wauzcore.players.classes.mage.SubclassDestroyer;
+import eu.wauz.wauzcore.players.classes.mage.SubclassNecromancer;
+import eu.wauz.wauzcore.players.classes.mage.SubclassWarlock;
 import eu.wauz.wauzcore.skills.SkillTheMagician;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -19,6 +28,21 @@ import eu.wauz.wauzcore.system.WauzDebugger;
  * @see WauzPlayerClassPool
  */
 public class ClassMage implements WauzPlayerClass {
+	
+	/**
+	 * A map of the classes' subclasses / masteries, indexed by name.
+	 */
+	private Map<String, WauzPlayerSubclass> subclassMap = new HashMap<>();
+	
+	/**
+	 * Constructs a new instance of the class and initializes its subclasses.
+	 */
+	public ClassMage() {
+		subclassMap.put(SubclassDestroyer.CLASS_NAME, new SubclassDestroyer());
+		subclassMap.put(SubclassNecromancer.CLASS_NAME, new SubclassNecromancer());
+		subclassMap.put(SubclassWarlock.CLASS_NAME, new SubclassWarlock());
+		subclassMap.put(SubclassBeguiler.CLASS_NAME, new SubclassBeguiler());
+	}
 
 	/**
 	 * @return The name of the class.
@@ -50,6 +74,24 @@ public class ClassMage implements WauzPlayerClass {
 	@Override
 	public ItemStack getClassItemStack() {
 		return CharacterIconHeads.getMageItem();
+	}
+	
+	/**
+	 * @return All subclasses of the class.
+	 */
+	@Override
+	public List<WauzPlayerSubclass> getSubclasses() {
+		return new ArrayList<>(subclassMap.values());
+	}
+
+	/**
+	 * @param subclass The name of a subclass.
+	 * 
+	 * @return The subclass with that name or null.
+	 */
+	@Override
+	public WauzPlayerSubclass getSubclass(String subclass) {
+		return subclassMap.get(subclass);
 	}
 
 	/**
