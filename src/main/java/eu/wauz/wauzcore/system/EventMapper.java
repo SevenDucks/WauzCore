@@ -31,7 +31,6 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -57,7 +56,18 @@ public class EventMapper {
 	private static Map<Material, CustomItem> customItemMap = new HashMap<>();
 	
 	/**
-	 * Registers a custom item for the MMORPG mode.
+	 * Gets a generic custom item for the MMORPG mode.
+	 * 
+	 * @param customItemMaterial The material of the item to get.
+	 * 
+	 * @return The custom item with that material or null.
+	 */
+	public static CustomItem getCustomItem(Material customItemMaterial) {
+		return customItemMap.get(customItemMaterial);
+	}
+	
+	/**
+	 * Registers a generic custom item for the MMORPG mode.
 	 * 
 	 * @param customItem The custom item to register.
 	 */
@@ -104,7 +114,6 @@ public class EventMapper {
 	 * @see Cooldown#playerWeaponUse(Player)
 	 * @see CustomItem#use(PlayerInteractEvent)
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
-	 * @see WauzPlayerSkillExecutor#tryToUseSkill(Player, ItemStack)
 	 * @see FoodCalculator#tryToConsume(Player, ItemStack)
 	 * @see WauzSigns#interact(Player, org.bukkit.block.Block)
 	 */
@@ -130,11 +139,7 @@ public class EventMapper {
 			if(customItem != null) {
 				customItem.use(event);
 			}
-			else if(type.equals(Material.PAPER)) {
-				WauzTeleporter.enterInstanceTeleportManual(event);
-			}
 			else if(event.getAction().toString().contains("RIGHT")) {
-				WauzPlayerSkillExecutor.tryToUseSkill(event.getPlayer(), itemStack);
 				FoodCalculator.tryToConsume(event.getPlayer(), itemStack);
 			}
 		}

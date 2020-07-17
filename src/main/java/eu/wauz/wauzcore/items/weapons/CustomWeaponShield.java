@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,12 +20,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Cooldown;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 
@@ -33,7 +34,7 @@ import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
  * 
  * @author Wauzmons
  */
-public class CustomWeaponShield implements CustomItem {
+public class CustomWeaponShield implements CustomWeapon {
 	
 	/**
 	 * Access to the MythicMobs API.
@@ -78,6 +79,7 @@ public class CustomWeaponShield implements CustomItem {
 	 * 
 	 * @see CustomWeaponShield#taunt(Player)
 	 */
+	@Override
 	public void use(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		if(player.isSneaking()) {
@@ -91,8 +93,33 @@ public class CustomWeaponShield implements CustomItem {
 	 * 
 	 * @return The list of materials.
 	 */
+	@Override
 	public List<Material> getCustomItemMaterials() {
 		return Arrays.asList(Material.SHIELD);
+	}
+	
+	/**
+	 * Determines if the custom weapon can have a skillgem slot.
+	 * 
+	 * @return If the custom weapon can have a skillgem slot.
+	 */
+	@Override
+	public boolean canHaveSkillSlot() {
+		return false;
+	}
+
+	/**
+	 * Gets the lores to show on an instance of the custom weapon.
+	 * 
+	 * @param hasSkillSlot If the weapon has a skillgem slot.
+	 */
+	@Override
+	public List<String> getCustomWeaponLores(boolean hasSkillSlot) {
+		List<String> lores = new ArrayList<>();
+		lores.add("");
+		lores.add(ChatColor.GRAY + "Use while Sneaking to taunt nearby Enemies");
+		lores.add(ChatColor.GRAY + "Right Click to block Attacks");
+		return lores;
 	}
 	
 	/**
@@ -102,10 +129,14 @@ public class CustomWeaponShield implements CustomItem {
 	 * 
 	 * @param player The player that is taunting the entities.
 	 * 
+	 * @see Cooldown#playerWeaponSkillUse(Player, String)
 	 * @see ParticleSpawner#spawnParticleCircle(Location, SkillParticle, double, int)
 	 * @see DurabilityCalculator#damageItem(Player, org.bukkit.inventory.ItemStack, int, boolean)
 	 */
 	public static void taunt(Player player) {
+		if(!Cooldown.playerWeaponSkillUse(player, "SHIELD_TAUNT")) {
+			return;
+		}
 		Location origin = player.getLocation();
 		
 		player.getWorld().playSound(origin, Sound.ENTITY_CAT_HISS, 1, 0.75f);
