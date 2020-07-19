@@ -75,6 +75,10 @@ commands:
     description: Send Coins to a Player
     usage: /send.coins [player] [amount] [text]
     permission: wauz.normal
+  sit:
+    description: Simply sit.
+    usage: /sit
+    permission: wauz.normal
   roll:
     description: Roll a Random Number
     usage: /roll [maximum]

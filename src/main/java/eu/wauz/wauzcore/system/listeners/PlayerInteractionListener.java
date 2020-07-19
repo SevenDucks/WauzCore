@@ -10,6 +10,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,12 +23,14 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
-import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.server.ServerListPingEvent;
+import org.spigotmc.event.entity.EntityDismountEvent;
 import org.spigotmc.event.entity.EntityMountEvent;
 
+import eu.wauz.wauzcore.commands.CmdSit;
 import eu.wauz.wauzcore.data.ServerConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.items.WauzEquipment;
@@ -52,6 +55,8 @@ import net.jitse.npclib.api.events.NPCInteractEvent;
  * @author Wauzmons
  */
 public class PlayerInteractionListener implements Listener {
+	public static Location loc;
+	public static Player player;
 	
 	/**
 	 * Storage for player names, to greet them in the MotD.
@@ -278,6 +283,7 @@ public class PlayerInteractionListener implements Listener {
 	 * Prevents players to ride on mounts, that belong to someone else.
 	 * 
 	 * @param event
+	 * @return 
 	 */
 	@EventHandler
 	public void onMount(EntityMountEvent event) {
@@ -287,5 +293,18 @@ public class PlayerInteractionListener implements Listener {
 			event.setCancelled(true);
 		}
 	}
-
+	/**
+	 * On player dismount. (This event is made for "sit" feature).
+	 * Remove Entity(Arrow) on player dismounting from sitting.
+	 *
+	 * @param event
+	 */
+	@EventHandler
+	public void onDismount(EntityDismountEvent event) {
+		if(event.getDismounted() instanceof Arrow) {
+			player.teleport(loc.clone().add(0, 5, 0));
+			event.getDismounted().remove();
+			CmdSit.sittingPlayers.remove(player.getName());
+		}
+	}
 }

@@ -27,9 +27,9 @@ import eu.wauz.wauzcore.players.WauzPlayerTrade;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
- * Lets two players trade witch eachother.
+ * Lets two players trade witch each other.
  * 
- * @author eddshine
+ * @author Eddshine
  *
  * @see WauzPlayerTrade
  */
