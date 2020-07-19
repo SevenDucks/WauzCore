@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -29,6 +30,7 @@ import eu.wauz.wauzcore.menu.ShopMenu;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
 import eu.wauz.wauzcore.system.util.Cooldown;
@@ -89,7 +91,8 @@ public class EventMapper {
 		
 		if(player.equals(PetOverviewMenu.getOwner(entity)) && entity instanceof Wolf) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
-	            public void run() {
+	            
+				public void run() {
 	            	try {
 	            		((Wolf) entity).setSitting(false);
 	            	}
@@ -97,8 +100,8 @@ public class EventMapper {
 	            		WauzDebugger.catchException(getClass(), e);
 	            	}
 	            }
+				
 			}, 10);
-			return;
 		}
 	}
 	
@@ -108,6 +111,7 @@ public class EventMapper {
 	 * Handles opening the main menu, using scrolls, weapons, maps, skills and food.
 	 * Also cancels interactions with crafting stations.
 	 * Redirects oak sign clicks to the according handler.
+	 * Lets the player sit on stairs.
 	 * 
 	 * @param event The received PlayerInteractEvent.
 	 * 
@@ -115,7 +119,8 @@ public class EventMapper {
 	 * @see CustomItem#use(PlayerInteractEvent)
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
 	 * @see FoodCalculator#tryToConsume(Player, ItemStack)
-	 * @see WauzSigns#interact(Player, org.bukkit.block.Block)
+	 * @see WauzSigns#interact(Player, Block)
+	 * @see WauzPlayerSit#sit(Player, Block)
 	 */
 	public static void handleItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -145,14 +150,15 @@ public class EventMapper {
 		}
 		
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			Material type = event.getClickedBlock().getType();
+			Block block = event.getClickedBlock();
+			Material type = block.getType();
 			WauzDebugger.log(event.getPlayer(), "Clicked Block: " + type.toString());
 			
 			if(blockedCraftingStations.contains(type)) {
 				event.setCancelled(true);
 			}
 			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN)) {
-				WauzSigns.interact(player, event.getClickedBlock());
+				WauzSigns.interact(player, block);
 			}
 		}
 	}

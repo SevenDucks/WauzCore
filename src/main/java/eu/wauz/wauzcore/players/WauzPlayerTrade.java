@@ -18,7 +18,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 /**
  * A class to let two players trade with each other.
  * 
- * @author eddshine
+ * @author Eddshine
  */
 public class WauzPlayerTrade {
 	
@@ -45,7 +45,7 @@ public class WauzPlayerTrade {
     		requestingPlayer.sendMessage(ChatColor.RED + "You cannot send a trade request to yourself!");
     		return false;	
     	}
-    	if(WauzMode.inHub(requestingPlayer) == true) {
+    	if(WauzMode.inHub(requestingPlayer)) {
     		requestingPlayer.sendMessage(ChatColor.RED + "You cannot trade in this world!");
     		return false;
     	}

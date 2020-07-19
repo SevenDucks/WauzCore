@@ -86,6 +86,7 @@ public class SkillTheStar implements WauzPlayerSkill {
 			for(int iterator = 0; iterator != 12; iterator++) {
 				final int finalIterator = iterator;
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+					
 		            public void run() {
 		            	try {
 		            		if(target == null || !target.isValid())
@@ -105,6 +106,7 @@ public class SkillTheStar implements WauzPlayerSkill {
 		            		WauzDebugger.catchException(getClass(), e);
 		            	}
 		            }
+		            
 				}, iterator * 4);
 			}
 			return true;

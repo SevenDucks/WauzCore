@@ -77,7 +77,8 @@ public class WauzPlayerRegistrator {
 		player.setOp(rank.isGrantOp());
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
-            public void run() {
+            
+			public void run() {
         		player.setHealth(20);
         		player.setFoodLevel(20);
         		player.setSaturation(20);
@@ -93,6 +94,7 @@ public class WauzPlayerRegistrator {
         		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
         		CharacterManager.equipHubItems(player);
             }
+            
 		}, 10);
 	}
 	

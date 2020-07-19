@@ -219,6 +219,7 @@ public class WauzPlayerBossBar {
 	 */
 	private void doPlayerChecks() {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+			
 	        public void run() {
 	        	try {
 	        		if(damageable != null && damageable.isValid()) {
@@ -245,6 +246,7 @@ public class WauzPlayerBossBar {
 	        		destroy();
 	        	}
 	        }
+	        
 		}, 20);
 	}
 	

@@ -58,9 +58,11 @@ public class WauzNmsMinimap {
     	}
     	catch(Exception e) {
     		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+    			
                 public void run() {
                 	init(player);
                 }
+                
     		}, 5);
     		return;
     	}

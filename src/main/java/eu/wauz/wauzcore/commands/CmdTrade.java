@@ -15,7 +15,7 @@ import eu.wauz.wauzcore.players.WauzPlayerTrade;
  * - Usage: <b>/trade [player]</b></br>
  * - Permission: <b>wauz.normal</b>
  * 
- * @author eddshine
+ * @author Eddshine
  * 
  * @see WauzCommand
  * @see WauzCommandExecutor

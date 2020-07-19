@@ -76,7 +76,7 @@ commands:
     usage: /send.coins [player] [amount] [text]
     permission: wauz.normal
   sit:
-    description: Simply sit.
+    description: Sit Down
     usage: /sit
     permission: wauz.normal
   roll:

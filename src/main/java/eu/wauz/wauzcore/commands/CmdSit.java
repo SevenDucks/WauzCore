@@ -1,53 +1,47 @@
 package eu.wauz.wauzcore.commands;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.players.WauzPlayerSit;
-import net.md_5.bungee.api.ChatColor;
+
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Player sit</b></br>
+ * - Description: <b>Sit Down</b></br>
  * - Usage: <b>/sit</b></br>
  * - Permission: <b>wauz.normal</b>
  * 
- * @author eddshine
+ * @author Eddshine
  * 
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
 public class CmdSit implements WauzCommand {
-	public static ArrayList<String> sittingPlayers = new ArrayList<String>();
+	
+	/**
+	 * @return The id of the command, aswell as aliases.
+	 */
 	@Override
-	public String getCommandId() {
-		return "sit";
+	public List<String> getCommandIds() {
+		return Arrays.asList("sit");
 	}
 
+	/**
+	 * Executes the command for given sender with arguments.
+	 * 
+	 * @param sender The sender of the command.
+	 * @param args The arguments of the command.
+	 * 
+	 * @return If the command had correct syntax.
+	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		Player player = (Player) sender;
-		
-		if(sittingPlayers.contains(player.getName())) {
-			player.sendMessage(ChatColor.RED + "You are already sitting.");
-		}else if(player.getGameMode() == GameMode.SPECTATOR) {
-			player.sendMessage(ChatColor.RED + "Sorry, You can't sit while on Spectator Mode.");
-		}else if(player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR) {
-			player.sendMessage(ChatColor.RED + "Sorry, You can't sit while on Mid-air.");
-		}else if(player.getLocation().getBlock().getType() == Material.WATER) {
-			player.sendMessage(ChatColor.RED + "Sorry, You can't sit while on Water.");
-		}else if(player.getLocation().getBlock().getType() == Material.LAVA) {
-			player.sendMessage(ChatColor.RED + "Sorry, You can't sit on Lava.");
-		}else {
-			WauzPlayerSit.sit(player);
-			sittingPlayers.add(player.getName());
-		}
+		WauzPlayerSit.sit((Player) sender);
 		return true;
 	}
 

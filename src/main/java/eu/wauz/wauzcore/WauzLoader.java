@@ -238,8 +238,8 @@ public class WauzLoader {
 		WauzCommandExecutor.registerCommand(new CmdSendCoins());
 		WauzCommandExecutor.registerCommand(new CmdSendItem());
 		WauzCommandExecutor.registerCommand(new CmdSethome());
-		WauzCommandExecutor.registerCommand(new CmdSpawn());
 		WauzCommandExecutor.registerCommand(new CmdSit());
+		WauzCommandExecutor.registerCommand(new CmdSpawn());
 		WauzCommandExecutor.registerCommand(new CmdTip());
 		WauzCommandExecutor.registerCommand(new CmdTrade());
 	}

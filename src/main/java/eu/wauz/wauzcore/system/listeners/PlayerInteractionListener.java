@@ -30,7 +30,6 @@ import org.bukkit.event.server.ServerListPingEvent;
 import org.spigotmc.event.entity.EntityDismountEvent;
 import org.spigotmc.event.entity.EntityMountEvent;
 
-import eu.wauz.wauzcore.commands.CmdSit;
 import eu.wauz.wauzcore.data.ServerConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.items.WauzEquipment;
@@ -39,6 +38,7 @@ import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
+import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
@@ -55,8 +55,6 @@ import net.jitse.npclib.api.events.NPCInteractEvent;
  * @author Wauzmons
  */
 public class PlayerInteractionListener implements Listener {
-	public static Location loc;
-	public static Player player;
 	
 	/**
 	 * Storage for player names, to greet them in the MotD.
@@ -283,7 +281,6 @@ public class PlayerInteractionListener implements Listener {
 	 * Prevents players to ride on mounts, that belong to someone else.
 	 * 
 	 * @param event
-	 * @return 
 	 */
 	@EventHandler
 	public void onMount(EntityMountEvent event) {
@@ -293,18 +290,18 @@ public class PlayerInteractionListener implements Listener {
 			event.setCancelled(true);
 		}
 	}
+	
 	/**
-	 * On player dismount. (This event is made for "sit" feature).
-	 * Remove Entity(Arrow) on player dismounting from sitting.
+	 * Makes a player stand up, if they were sitting.
 	 *
 	 * @param event
 	 */
 	@EventHandler
 	public void onDismount(EntityDismountEvent event) {
-		if(event.getDismounted() instanceof Arrow) {
-			player.teleport(loc.clone().add(0, 5, 0));
-			event.getDismounted().remove();
-			CmdSit.sittingPlayers.remove(player.getName());
+		if(event.getEntity() instanceof Player && event.getDismounted() instanceof Arrow) {
+			WauzDebugger.log((Player) event.getEntity(), "Stood Up");
+			WauzPlayerSit.standUp(event);
 		}
 	}
+	
 }

@@ -110,10 +110,12 @@ public class InstanceManager {
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+			
 			public void run() {
 				List<String> commands = InstanceConfigurator.getAfterEnterCommands(instanceName);
 				execute(player, instance, commands);	
 			}
+			
 		}, 60);
 		return true;
 	}
