@@ -1,8 +1,10 @@
 package eu.wauz.wauzcore.items.weapons;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,19 +14,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.util.Cooldown;
 
 /**
  * A collection of methods for using the lance weapon.
  * 
  * @author Wauzmons
  */
-public class CustomWeaponLance implements CustomItem {
+public class CustomWeaponLance implements CustomWeapon {
 	
 	/**
 	 * A particle, used to indicate the hit area of the lance.
@@ -41,6 +43,7 @@ public class CustomWeaponLance implements CustomItem {
 	 * @see CustomWeaponLance#spin(Player)
 	 * @see CustomWeaponLance#thrust(Player)
 	 */
+	@Override
 	public void use(PlayerInteractEvent event) {
 		event.setCancelled(true);
 		Player player = event.getPlayer();
@@ -57,8 +60,33 @@ public class CustomWeaponLance implements CustomItem {
 	 * 
 	 * @return The list of materials.
 	 */
+	@Override
 	public List<Material> getCustomItemMaterials() {
 		return Arrays.asList(Material.TRIDENT);
+	}
+	
+	/**
+	 * Determines if the custom weapon can have a skillgem slot.
+	 * 
+	 * @return If the custom weapon can have a skillgem slot.
+	 */
+	@Override
+	public boolean canHaveSkillSlot() {
+		return false;
+	}
+
+	/**
+	 * Gets the lores to show on an instance of the custom weapon.
+	 * 
+	 * @param hasSkillSlot If the weapon has a skillgem slot.
+	 */
+	@Override
+	public List<String> getCustomWeaponLores(boolean hasSkillSlot) {
+		List<String> lores = new ArrayList<>();
+		lores.add("");
+		lores.add(ChatColor.GRAY + "Use while Sneaking to perform a Spin Attack");
+		lores.add(ChatColor.GRAY + "Right Click to Thrust (Throwing Disabled)");
+		return lores;
 	}
 	
 	/**
@@ -68,11 +96,15 @@ public class CustomWeaponLance implements CustomItem {
 	 * 
 	 * @param player The player who performs the attack.
 	 * 
+	 * @see Cooldown#playerWeaponSkillUse(Player, String)
 	 * @see SkillUtils#callPlayerFixedDamageEvent(Player, Entity, double)
 	 * @see ParticleSpawner#spawnParticleLine(Location, Location, SkillParticle, int, double)
 	 * @see DurabilityCalculator#damageItem(Player, org.bukkit.inventory.ItemStack, int, boolean)
 	 */
 	public static void thrust(Player player) {
+		if(!Cooldown.playerWeaponSkillUse(player, "LANCE_THRUST")) {
+			return;
+		}
 		Location origin = player.getLocation();
 		Location target = origin.clone().add(origin.getDirection().multiply(3.5)).add(0, 1, 0);
 		
@@ -95,6 +127,7 @@ public class CustomWeaponLance implements CustomItem {
 	 * 
 	 * @param player The player who performs the attack.
 	 * 
+	 * @see Cooldown#playerWeaponSkillUse(Player, String)
 	 * @see SkillUtils#callPlayerFixedDamageEvent(Player, Entity, double)
 	 * @see SkillUtils#throwBackEntity(Entity, Location, double)
 	 * @see SkillUtils#rotateEntity(Entity)
@@ -102,6 +135,9 @@ public class CustomWeaponLance implements CustomItem {
 	 * @see DurabilityCalculator#damageItem(Player, org.bukkit.inventory.ItemStack, int, boolean)
 	 */
 	public static void spin(Player player) {
+		if(!Cooldown.playerWeaponSkillUse(player, "LANCE_SPIN")) {
+			return;
+		}
 		Location origin = player.getLocation();
 		
 		player.getWorld().playSound(origin, Sound.ENTITY_DROWNED_SHOOT, 1, 0.75f);

@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.items.weapons;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +22,6 @@ import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.menu.ArrowMenu;
@@ -38,7 +38,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * 
  * @author Wauzmons
  */
-public class CustomWeaponBow implements CustomItem {
+public class CustomWeaponBow implements CustomWeapon {
 	
 	/**
 	 * Cancels the event of a bow interaction.
@@ -50,6 +50,7 @@ public class CustomWeaponBow implements CustomItem {
 	 * @see ArrowMenu#open(Player)
 	 * @see CustomWeaponBow#tryToShoot(Player, ItemStack)
 	 */
+	@Override
 	public void use(PlayerInteractEvent event) {
 		event.setCancelled(true);
 		Player player = event.getPlayer();
@@ -68,8 +69,33 @@ public class CustomWeaponBow implements CustomItem {
 	 * 
 	 * @return The list of materials.
 	 */
+	@Override
 	public List<Material> getCustomItemMaterials() {
 		return Arrays.asList(Material.BOW);
+	}
+	
+	/**
+	 * Determines if the custom weapon can have a skillgem slot.
+	 * 
+	 * @return If the custom weapon can have a skillgem slot.
+	 */
+	@Override
+	public boolean canHaveSkillSlot() {
+		return false;
+	}
+
+	/**
+	 * Gets the lores to show on an instance of the custom weapon.
+	 * 
+	 * @param hasSkillSlot If the weapon has a skillgem slot.
+	 */
+	@Override
+	public List<String> getCustomWeaponLores(boolean hasSkillSlot) {
+		List<String> lores = new ArrayList<>();
+		lores.add("");
+		lores.add(ChatColor.GRAY + "Use while Sneaking to switch Arrows");
+		lores.add(ChatColor.GRAY + "Right Click to shoot Arrows");
+		return lores;
 	}
 	
 	/**

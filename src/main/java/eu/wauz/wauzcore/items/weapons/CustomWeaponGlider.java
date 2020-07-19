@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.items.weapons;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +23,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
@@ -38,7 +38,7 @@ import eu.wauz.wauzcore.system.util.Cooldown;
  * 
  * @author Wauzmons
  */
-public class CustomWeaponGlider implements CustomItem {
+public class CustomWeaponGlider implements CustomWeapon {
 	
 	/**
 	 * A particle, used to represent chicken feathers.
@@ -55,6 +55,7 @@ public class CustomWeaponGlider implements CustomItem {
 	 * @see CustomWeaponGlider#fly(Player)
 	 * @see CustomWeaponGlider#shoot(Player)
 	 */
+	@Override
 	public void use(PlayerInteractEvent event) {
 		event.setCancelled(true);
 		final Player player = event.getPlayer();
@@ -71,8 +72,33 @@ public class CustomWeaponGlider implements CustomItem {
 	 * 
 	 * @return The list of materials.
 	 */
+	@Override
 	public List<Material> getCustomItemMaterials() {
 		return Arrays.asList(Material.FEATHER);
+	}
+	
+	/**
+	 * Determines if the custom weapon can have a skillgem slot.
+	 * 
+	 * @return If the custom weapon can have a skillgem slot.
+	 */
+	@Override
+	public boolean canHaveSkillSlot() {
+		return false;
+	}
+
+	/**
+	 * Gets the lores to show on an instance of the custom weapon.
+	 * 
+	 * @param hasSkillSlot If the weapon has a skillgem slot.
+	 */
+	@Override
+	public List<String> getCustomWeaponLores(boolean hasSkillSlot) {
+		List<String> lores = new ArrayList<>();
+		lores.add("");
+		lores.add(ChatColor.GRAY + "Use while Sneaking to fly into the Air");
+		lores.add(ChatColor.GRAY + "Right Click to throw Chickens");
+		return lores;
 	}
 	
 	/**

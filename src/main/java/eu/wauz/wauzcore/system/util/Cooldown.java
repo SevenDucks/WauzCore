@@ -48,6 +48,19 @@ public class Cooldown {
 	}
 	
 	/**
+	 * Returns the weapon skill usage cooldown from the player data.
+	 * Cooldown lasts 2.8 seconds for each weapon skill. Resets it, if it is ready.
+	 * 
+	 * @param player The player who owns the player data.
+	 * @param skillName
+	 * 
+	 * @return If the cooldown is ready.
+	 */
+	public static boolean playerWeaponSkillUse(Player player, String skillName) {
+		return getAndUpdateCooldownFromCache(player, "WEAPON_SKILL_USE :: " + skillName, 2800L);
+	}
+	
+	/**
 	 * Returns the skill usage cooldown from the player data.
 	 * Cooldown lasts 1 second. Resets it, if it is ready.
 	 * 

@@ -169,7 +169,7 @@ public class CharacterManager {
 	public static void saveCharacter(final Player player) {
 		if(WauzPlayerDataPool.isCharacterSelected(player)) {
 			InventoryStringConverter.saveInventory(player);
-			if(!StringUtils.startsWith(player.getWorld().getName(), "WzInstance")) {
+			if(StringUtils.equals(player.getWorld().getName(), PlayerConfigurator.getCharacterWorldString(player))) {
 				PlayerConfigurator.setCharacterLocation(player, player.getLocation());
 			}
 			WauzDebugger.log(player, ChatColor.GREEN + "Saving... Character-Data saved!");

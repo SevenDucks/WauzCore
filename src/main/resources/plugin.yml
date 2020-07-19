@@ -120,8 +120,9 @@ commands:
     usage: /wzKey [world (this)] [keyId] [status (0, 1, 2)]
     permission: wauz.system
   wzTravel:
-    description: Phantom-Travel to Location
-    usage: /wzTravel [x, y, z]
+    description: Travel to Location
+    aliases: [warp]
+    usage: /wzTravel [waypoint]
     permission: wauz.system
   wzTravelEvent:
     description: Event-Travel to Location per UUID
@@ -149,6 +150,7 @@ commands:
     permission: wauz.system
   wzDebug.flying:
     description: Toggle Flying Debug Mode
+    aliases: [fly]
     usage: /wzDebug.flying [player]
     permission: wauz.system
   wzDebug.attack:

@@ -1,16 +1,19 @@
 package eu.wauz.wauzcore.commands.administrative;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.items.WauzSigns;
+import eu.wauz.wauzcore.system.WauzTeleporter;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Phantom-Travel to Location</b></br>
- * - Usage: <b>/wzTravel [x, y, z]</b></br>
+ * - Description: <b>Travel to Location</b></br>
+ * - Usage: <b>/wzTravel [waypoint]</b></br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons
@@ -21,11 +24,11 @@ import eu.wauz.wauzcore.items.WauzSigns;
 public class CmdWzTravel implements WauzCommand {
 
 	/**
-	 * @return The id of the command.
+	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
-	public String getCommandId() {
-		return "wzTravel";
+	public List<String> getCommandIds() {
+		return Arrays.asList("wzTravel", "warp");
 	}
 
 	/**
@@ -38,12 +41,12 @@ public class CmdWzTravel implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		if(args.length < 3) {
+		if(args.length < 1) {
 			return false;
 		}
 		
 		Player player = (Player) sender;
-		WauzSigns.startTravelling(player, args[0],  args[1], args[2]);
+		WauzTeleporter.waypointTeleport(player, args[0]);
 		return true;
 	}
 

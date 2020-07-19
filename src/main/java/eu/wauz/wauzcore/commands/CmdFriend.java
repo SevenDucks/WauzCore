@@ -1,5 +1,8 @@
 package eu.wauz.wauzcore.commands;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -21,11 +24,11 @@ import eu.wauz.wauzcore.players.WauzPlayerFriends;
 public class CmdFriend implements WauzCommand {
 
 	/**
-	 * @return The id of the command.
+	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
-	public String getCommandId() {
-		return "friend";
+	public List<String> getCommandIds() {
+		return Arrays.asList("friend");
 	}
 
 	/**

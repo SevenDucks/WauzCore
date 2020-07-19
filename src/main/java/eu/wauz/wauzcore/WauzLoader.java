@@ -53,7 +53,9 @@ import eu.wauz.wauzcore.commands.completion.TabCompleterMenus;
 import eu.wauz.wauzcore.commands.completion.TabCompleterRanks;
 import eu.wauz.wauzcore.commands.completion.TabCompleterRunes;
 import eu.wauz.wauzcore.commands.completion.TabCompleterSkills;
+import eu.wauz.wauzcore.commands.completion.TabCompleterWaypoints;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.items.WauzDungeonMap;
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 import eu.wauz.wauzcore.items.enhancements.armor.EnhancementDurability;
@@ -76,10 +78,14 @@ import eu.wauz.wauzcore.items.scrolls.ScrollRegret;
 import eu.wauz.wauzcore.items.scrolls.ScrollToughness;
 import eu.wauz.wauzcore.items.scrolls.ScrollWisdom;
 import eu.wauz.wauzcore.items.scrolls.WauzScrolls;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponAxe;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponHook;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponLance;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponStaff;
+import eu.wauz.wauzcore.items.weapons.CustomWeaponSword;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.abilities.CraftingMenu;
 import eu.wauz.wauzcore.menu.abilities.SkillMenu;
@@ -130,6 +136,7 @@ import eu.wauz.wauzcore.system.InstanceManager;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.WauzTitle;
+import eu.wauz.wauzcore.system.WauzWaypoint;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzcore.system.economy.WauzCurrency;
@@ -158,6 +165,7 @@ public class WauzLoader {
 	 */
 	public static void init() {
 		WauzRegion.init();
+		WauzWaypoint.init();
 		WauzEquipment.init();
 		WauzCurrency.init();
 		WauzAchievement.init();
@@ -284,6 +292,7 @@ public class WauzLoader {
 		Bukkit.getPluginCommand("wzRank").setTabCompleter(new TabCompleterRanks());
 		Bukkit.getPluginCommand("wzSkill").setTabCompleter(new TabCompleterSkills());
 		Bukkit.getPluginCommand("wzSkill.weapon").setTabCompleter(new TabCompleterSkills());
+		Bukkit.getPluginCommand("wzTravel").setTabCompleter(new TabCompleterWaypoints());
 	}
 	
 	/**
@@ -308,10 +317,15 @@ public class WauzLoader {
 	private static void registerCustomItems() {
 		EventMapper.registerCustomItem(new WauzMenu());
 		EventMapper.registerCustomItem(new WauzScrolls());
-		EventMapper.registerCustomItem(new CustomWeaponBow());
+		EventMapper.registerCustomItem(new WauzDungeonMap());
+		EventMapper.registerCustomItem(new CustomWeaponSword());
+		EventMapper.registerCustomItem(new CustomWeaponAxe());
+		EventMapper.registerCustomItem(new CustomWeaponStaff());
 		EventMapper.registerCustomItem(new CustomWeaponLance());
 		EventMapper.registerCustomItem(new CustomWeaponShield());
 		EventMapper.registerCustomItem(new CustomWeaponGlider());
+		EventMapper.registerCustomItem(new CustomWeaponHook());
+		EventMapper.registerCustomItem(new CustomWeaponBow());
 	}
 	
 	/**

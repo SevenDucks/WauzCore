@@ -1,5 +1,7 @@
 package eu.wauz.wauzcore.players.classes;
 
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
@@ -33,6 +35,18 @@ public interface WauzPlayerClass {
 	 * @return The item stack representing the class.
 	 */
 	public ItemStack getClassItemStack();
+	
+	/**
+	 * @return All subclasses of the class.
+	 */
+	public List<WauzPlayerSubclass> getSubclasses();
+	
+	/**
+	 * @param subclass The name of a subclass.
+	 * 
+	 * @return The subclass with that name or null.
+	 */
+	public WauzPlayerSubclass getSubclass(String subclass);
 	
 	/**
 	 * @return The highest weight armor category the class can wear.

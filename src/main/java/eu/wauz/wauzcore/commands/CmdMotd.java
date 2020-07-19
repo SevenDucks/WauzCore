@@ -1,5 +1,8 @@
 package eu.wauz.wauzcore.commands;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
@@ -25,11 +28,11 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 public class CmdMotd implements WauzCommand {
 
 	/**
-	 * @return The id of the command.
+	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
-	public String getCommandId() {
-		return "motd";
+	public List<String> getCommandIds() {
+		return Arrays.asList("motd");
 	}
 
 	/**

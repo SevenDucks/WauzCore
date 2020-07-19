@@ -1,5 +1,8 @@
 package eu.wauz.wauzcore.commands;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
@@ -22,11 +25,11 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 public class CmdApply implements WauzCommand {
 
 	/**
-	 * @return The id of the command.
+	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
-	public String getCommandId() {
-		return "apply";
+	public List<String> getCommandIds() {
+		return Arrays.asList("apply");
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package eu.wauz.wauzcore.commands.execution;
 
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 
 /**
@@ -12,9 +14,9 @@ import org.bukkit.command.CommandSender;
 public interface WauzCommand {
 	
 	/**
-	 * @return The id of the command.
+	 * @return The id of the command, aswell as aliases.
 	 */
-	public String getCommandId();
+	public List<String> getCommandIds();
 	
 	/**
 	 * @return If the command can be executed from the console. Default is false.

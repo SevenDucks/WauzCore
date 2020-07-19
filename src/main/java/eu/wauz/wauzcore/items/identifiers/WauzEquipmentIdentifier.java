@@ -22,12 +22,15 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.WauzEquipment;
+import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.EquipmentParameters;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
+import eu.wauz.wauzcore.items.weapons.CustomWeapon;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
+import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Formatters;
@@ -384,42 +387,24 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	
 	/**
 	 * Adds slots to the equipment's lores.
-	 * If the equipment type is a lance, shield, hook or bow, it will receive the fitting lore.
-	 * All other types with magic or higher rarity have a 50% chance to receive a skilgem slot.
+	 * If the equipment is a custom weapon, it will receive the fitting lore.
+	 * Custom weapons with magic or higher rarity have a 50% chance to receive a skilgem slot.
 	 * Magic or higher items will get 1 rune slot, while epic or higher items will receive 2 slots.
 	 */
 	private void addSlotsToEquipment() {
 		Material material = equipmentType.getMaterial();
-		if(material.equals(Material.BOW)) {
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Use while Sneaking to switch Arrows");
-			lores.add(ChatColor.GRAY + "Right Click to shoot Arrows");
-		}
-		else if (material.equals(Material.TRIDENT)) {
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Use while Sneaking to perform a Spin Attack");
-			lores.add(ChatColor.GRAY + "Right Click to Thrust (Throwing Disabled)");
-		}
-		else if(material.equals(Material.SHIELD)) {
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Use while Sneaking to taunt nearby Enemies");
-			lores.add(ChatColor.GRAY + "Right Click to block Attacks");
-		}
-		else if(material.equals(Material.FISHING_ROD)) {
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Use while Sneaking to pull you to a Block");
-			lores.add(ChatColor.GRAY + "Right Click to grab Enemies");
-		}
-		else if(material.equals(Material.FEATHER)) {
-			lores.add("");
-			lores.add(ChatColor.GRAY + "Use while Sneaking to fly into the Air");
-			lores.add(ChatColor.GRAY + "Right Click to throw Chickens");
-		}
-		else if(rarity.getMultiplier() >= 1.5) {
-			if(equipmentType.getType().equals(EquipmentType.WEAPON) && Chance.oneIn(2)) {
+		CustomItem customItem = EventMapper.getCustomItem(material);
+		
+		if(customItem != null && customItem instanceof CustomWeapon) {
+			CustomWeapon customWeapon = ((CustomWeapon) customItem);
+			
+			boolean hasSkillSlot = false;
+			if(rarity.getMultiplier() >= 1.5 && customWeapon.canHaveSkillSlot() && Chance.oneIn(2)) {
 				lores.add("");
 				lores.add(EMPTY_SKILL_SLOT);
+				hasSkillSlot = true;
 			}
+			lores.addAll(customWeapon.getCustomWeaponLores(hasSkillSlot));
 		}
 		
 		if(rarity.getMultiplier() >= 1.5)	{

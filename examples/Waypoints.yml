@@ -1,0 +1,68 @@
+Maretas:
+  name: Maretas Village
+  world: Dalyreos
+  coords: -5274.5 70 6760.5
+DevilKnCamp:
+  name: The Devil Knight Camp
+  world: Dalyreos
+  coords: -4799.5 67 5750.5
+DemonShrine:
+  name: Demon Shrine
+  world: Dalyreos
+  coords: -5799.5 150 6300.5
+Wrayvell:
+  name: Wrayvell City
+  world: Dalyreos
+  coords: -5599.5 91 5600.5
+WrayCave:
+  name: Wrayvell Cave
+  world: Dalyreos
+  coords: -5439.5 82 5700.5
+TrollDen:
+  name: Troll Den
+  world: Dalyreos
+  coords: -6339.5 245 5335.5
+Aldrasin:
+  name: Golden City, Aldrasin
+  world: Dalyreos
+  coords: 2800.5 120 5000.5
+Falkgard:
+  name: Holy City, Falkgard
+  world: Dalyreos
+  coords: -2399.5 100 -4299.5
+Library:
+  name: The Shinigami Library
+  world: Wauzland
+  coords: 23.5 21 -624.5
+Portowauza:
+  name: Capital City, Portowauza
+  world: Wauzland
+  coords: -136.4 26 -77.5
+Spargelforge:
+  name: Spargelforge
+  world: Wauzland
+  coords: 650.5 33 -649.5
+Wesavier:
+  name: Wesavier City
+  world: Wauzland
+  coords: -649.5 61 -564.5
+Wesawest:
+  name: Wesvier West Station
+  world: Wauzland
+  coords: -894.5 12 -584.5
+Wesaeast:
+  name: Weavier East Station
+  world: Wauzland
+  coords: -529.5 16 -784.5
+Wesasouth:
+  name: Wesavier South Station
+  world: Wauzland
+  coords: -609.5 25 -534.5
+Kettle:
+  name: The Hellfire Kettle
+  world: Wauzland
+  coords: -824.5 96 -675.5
+Nagrommar:
+  name: Nagrommar
+  world: Wauzland
+  coords: -664.5 56 635.5

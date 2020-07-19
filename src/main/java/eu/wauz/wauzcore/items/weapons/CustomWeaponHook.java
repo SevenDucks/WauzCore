@@ -1,8 +1,12 @@
 package eu.wauz.wauzcore.items.weapons;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -10,6 +14,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
@@ -21,7 +26,52 @@ import eu.wauz.wauzcore.skills.execution.SkillUtils;
  * 
  * @author Wauzmons
  */
-public class CustomWeaponHook {
+public class CustomWeaponHook implements CustomWeapon {
+	
+	/**
+	 * Handles the interaction with the item.
+	 * Does nothing. Only triggered from projectile events.
+	 * 
+	 * @param event The interaction event.
+	 */
+	@Override
+	public void use(PlayerInteractEvent event) {
+		return;
+	}
+
+	/**
+	 * Returns the materials that trigger events with the item.
+	 * 
+	 * @return The list of materials.
+	 */
+	@Override
+	public List<Material> getCustomItemMaterials() {
+		return Arrays.asList(Material.FISHING_ROD);
+	}
+	
+	/**
+	 * Determines if the custom weapon can have a skillgem slot.
+	 * 
+	 * @return If the custom weapon can have a skillgem slot.
+	 */
+	@Override
+	public boolean canHaveSkillSlot() {
+		return false;
+	}
+
+	/**
+	 * Gets the lores to show on an instance of the custom weapon.
+	 * 
+	 * @param hasSkillSlot If the weapon has a skillgem slot.
+	 */
+	@Override
+	public List<String> getCustomWeaponLores(boolean hasSkillSlot) {
+		List<String> lores = new ArrayList<>();
+		lores.add("");
+		lores.add(ChatColor.GRAY + "Use while Sneaking to pull you to a Block");
+		lores.add(ChatColor.GRAY + "Right Click to grab Enemies");
+		return lores;
+	}
 
 	/**
 	 * Handles a hook launch and cancels it, when no target was found within 15 blocks.

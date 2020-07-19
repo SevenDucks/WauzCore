@@ -133,16 +133,5 @@ public class RegionConfigurator extends GlobalConfigurationUtils {
 	public static byte getTemperature(String regionKey) {
 		return (byte) mainConfigGetInt("Regions", regionKey + ".temperature");
 	}
-	
-// Stations
-	
-	/**
-	 * @param stationId The name of the travelling station.
-	 * 
-	 * @return The coordinates of the station as string.
-	 */
-	public static String getStationCoordinateString(String stationId) {
-		return mainConfigGetString("Stations", stationId);
-	}
 
 }
