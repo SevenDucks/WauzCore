@@ -17,6 +17,11 @@ public class WauzEnhancementParameters extends EquipmentParameters {
 	private String enhancementLore;
 	
 	/**
+	 * The level of the equipment's enhancement.
+	 */
+	protected int enhancementLevel = 0;
+	
+	/**
 	 * Initializes the parameters, for an enhancement of the given level.
 	 * 
 	 * @param enhancementLevel The level of the equipment's enhancement.
@@ -37,6 +42,13 @@ public class WauzEnhancementParameters extends EquipmentParameters {
 	 */
 	public void setEnhancementLore(String enhancementLore) {
 		this.enhancementLore = enhancementLore;
+	}
+	
+	/**
+	 * @return The level of the equipment's enhancement.
+	 */
+	public int getEnhancementLevel() {
+		return enhancementLevel;
 	}
 
 }

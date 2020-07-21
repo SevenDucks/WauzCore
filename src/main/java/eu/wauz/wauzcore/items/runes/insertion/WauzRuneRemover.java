@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
+import eu.wauz.wauzcore.items.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -64,12 +64,12 @@ public class WauzRuneRemover {
 			}
 			else if(lore.contains("Rune (")) {
 				WauzDebugger.log(player, "Cleared Rune Slot");
-				lore = WauzEquipmentIdentifier.EMPTY_RUNE_SLOT;
+				lore = WauzEquipmentBuilder.EMPTY_RUNE_SLOT;
 				valid = true;
 			}
 			else if(lore.contains("Skillgem (")) {
 				WauzDebugger.log(player, "Cleared Skill Slot");
-				lore = WauzEquipmentIdentifier.EMPTY_SKILL_SLOT;
+				lore = WauzEquipmentBuilder.EMPTY_SKILL_SLOT;
 				valid = true;
 				skipLines = 2;
 			}

@@ -11,11 +11,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.items.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancement;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancementParameters;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
-import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
+import eu.wauz.wauzcore.items.enums.Rarity;
+import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
@@ -194,6 +196,13 @@ public class WauzDebugger {
 	 * @return A weapon with socketed skillgem.
 	 */
 	public static ItemStack getSkillgemWeapon(WauzPlayerSkill skill, Material material, boolean debug) {
+		WauzEquipmentBuilder builder = new WauzEquipmentBuilder(material);
+		builder.addMainStats(debug ? 10 : 1, 0, 1, 1);
+		builder.addDurabilityStat(debug ? 2048 : 300);
+		builder.addSpeedStat(1.20);
+		return builder.generate(Tier.EQUIP_T1, Rarity.UNIQUE, EquipmentType.WEAPON, "Noble Phantasm");
+		// TODO: Implement addSkillgem() method.
+		
 		ItemStack itemStack = new ItemStack(material);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.DARK_RED + "Noble Phantasm");
@@ -211,8 +220,8 @@ public class WauzDebugger {
 		lores.add(ChatColor.WHITE + skill.getSkillDescription());
 		lores.add(ChatColor.WHITE + skill.getSkillStats());
 		lores.add("");
-		lores.add(WauzEquipmentIdentifier.EMPTY_RUNE_SLOT);
-		lores.add(WauzEquipmentIdentifier.EMPTY_RUNE_SLOT);
+		lores.add(WauzEquipmentBuilder.EMPTY_RUNE_SLOT);
+		lores.add(WauzEquipmentBuilder.EMPTY_RUNE_SLOT);
 		itemMeta.setLore(lores);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		itemStack.setItemMeta(itemMeta);
@@ -279,8 +288,8 @@ public class WauzDebugger {
 				+ " " + ChatColor.DARK_GRAY + "/ " + durabilityStat);
 		
 		lores.add("");
-		lores.add(WauzEquipmentIdentifier.EMPTY_RUNE_SLOT);
-		lores.add(WauzEquipmentIdentifier.EMPTY_RUNE_SLOT);
+		lores.add(WauzEquipmentBuilder.EMPTY_RUNE_SLOT);
+		lores.add(WauzEquipmentBuilder.EMPTY_RUNE_SLOT);
 		itemMeta.setLore(lores);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		itemStack.setItemMeta(itemMeta);

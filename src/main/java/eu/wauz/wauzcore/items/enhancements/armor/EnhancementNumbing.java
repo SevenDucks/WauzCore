@@ -50,11 +50,7 @@ public class EnhancementNumbing implements WauzEnhancement {
 		parameters.setEnhancementLore((enhancementLevel * 10) + " " + ChatColor.GRAY + "% Base Defense Boost");
 		int defenseStat = parameters.getDefenseStat();
 		double newDefense = 1 + defenseStat * (1 + enhancementLevel * 0.1);
-		String mainStatString = parameters.getMainStatString();
-		parameters.getLores().remove(mainStatString);
-		String oldDefenseString = ChatColor.BLUE + " " + defenseStat;
-		String newDefenseString = ChatColor.BLUE + " " + (int) newDefense;
-		parameters.getLores().add(mainStatString.replace(oldDefenseString, newDefenseString));
+		parameters.setDefenseStat((int) newDefense);
 		return parameters;
 	}
 	

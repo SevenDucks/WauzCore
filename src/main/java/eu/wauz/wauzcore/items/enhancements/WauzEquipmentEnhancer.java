@@ -8,6 +8,7 @@ import java.util.Random;
 
 import org.bukkit.ChatColor;
 
+import eu.wauz.wauzcore.items.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 
@@ -121,18 +122,16 @@ public class WauzEquipmentEnhancer {
 	 * After that, the altered paramters are inserted back into the identifier.
 	 * 
 	 * @param identifier The equipment identifier, receiving the enhancement.
+	 * @param enhancementLevel The level the enhancement should have.
 	 * 
 	 * @see WauzEquipmentEnhancer#enhanceEquipment(WauzEnhancement, WauzEnhancementParameters)
 	 */
-	public static void enhanceEquipment(WauzEquipmentIdentifier identifier) {
-		int enhancementLevel = identifier.getEnhancementLevel();
+	public static void enhanceEquipment(WauzEquipmentIdentifier identifier, int enhancementLevel) {
 		WauzEnhancementParameters parameters = new WauzEnhancementParameters(enhancementLevel);
-		parameters.setItemMeta(identifier.getItemMeta());
-		parameters.setLores(identifier.getLores());
-		parameters.setMainStatString(identifier.getMainStatString());
 		parameters.setAttackStat(identifier.getAttackStat());
 		parameters.setDefenseStat(identifier.getDefenseStat());
 		parameters.setDurabilityStat(identifier.getDurabilityStat());
+		parameters.setSpeedStat(identifier.getSpeedStat());
 		
 		WauzEnhancement enhancement = null;
 		EquipmentType equipmentType = identifier.getEquipmentType();
@@ -145,41 +144,39 @@ public class WauzEquipmentEnhancer {
 			enhancement = armorEnhancements.get(random.nextInt(armorEnhancements.size()));
 		}
 		
-		parameters = enhanceEquipment(enhancement, parameters);
-		identifier.setItemMeta(parameters.getItemMeta());
-		identifier.setLores(parameters.getLores());
-		identifier.setMainStatString(parameters.getMainStatString());
+		parameters = enhanceEquipment(identifier.getBuilder(), enhancement, parameters);
 		identifier.setAttackStat(parameters.getAttackStat());
 		identifier.setDefenseStat(parameters.getDefenseStat());
 		identifier.setDurabilityStat(parameters.getDurabilityStat());
+		identifier.setSpeedStat(parameters.getSpeedStat());
 	}
 	
 	/**
 	 * Applies an enhancement to a set of parameters, holding values of an equipment piece.
 	 * Automatically adds stuff like the altered equipment name or the enhancement description to the parameters.
 	 * 
+	 * @param builder The builder to generate the equipment item.
 	 * @param enhancement The enhancment that should be applied.
 	 * @param parameters The initial enhancement parameters.
 	 * 
 	 * @return The altered enhancement parameters.
 	 * 
-	 * @see WauzEquipmentEnhancer#enhanceEquipment(WauzEquipmentIdentifier)
+	 * @see WauzEquipmentEnhancer#enhanceEquipment(WauzEquipmentIdentifier, int)
 	 */
-	public static WauzEnhancementParameters enhanceEquipment(WauzEnhancement enhancement, WauzEnhancementParameters parameters) {
+	public static WauzEnhancementParameters enhanceEquipment(WauzEquipmentBuilder builder, WauzEnhancement enhancement, WauzEnhancementParameters parameters) {
 		parameters = enhancement.enhanceEquipment(parameters);
 		EquipmentType equipmentType = enhancement.getEquipmentType();
 		
-		String displayName = parameters.getItemMeta().getDisplayName();
-		String enhancementName = enhancement.getEnhancementId();
 		int enhancementLevel = parameters.getEnhancementLevel();
-		parameters.getItemMeta().setDisplayName(displayName + " of " + enhancementName + " + " + enhancementLevel);
+		String enhancementName = enhancement.getEnhancementId();
+		String enhancementString = " of " + enhancementName + " + " + enhancementLevel;
 		
 		String enhancementLore = parameters.getEnhancementLore();
 		if(equipmentType.equals(EquipmentType.WEAPON)) {
-			parameters.getLores().add("Enhancement:" + ChatColor.RED + " " + enhancementLore);
+			builder.addEnhancementString(enhancementString, "Enhancement:" + ChatColor.RED + " " + enhancementLore);
 		}
 		else if(equipmentType.equals(EquipmentType.ARMOR)) {
-			parameters.getLores().add("Enhancement:" + ChatColor.BLUE + " " + enhancementLore);
+			builder.addEnhancementString(enhancementString, "Enhancement:" + ChatColor.BLUE + " " + enhancementLore);
 		}
 		return parameters;
 	}

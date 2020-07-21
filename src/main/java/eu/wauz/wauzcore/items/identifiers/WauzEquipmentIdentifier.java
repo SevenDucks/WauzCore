@@ -10,30 +10,20 @@ import java.util.Random;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
-import eu.wauz.wauzcore.items.WauzEquipment;
-import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.EquipmentParameters;
+import eu.wauz.wauzcore.items.WauzEquipment;
+import eu.wauz.wauzcore.items.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
-import eu.wauz.wauzcore.items.weapons.CustomWeapon;
-import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
-import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
-import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
  * Typed identifier, used for identifying equipment items.
@@ -92,26 +82,19 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 			"Timeworn", "Warforged", "Weakened", "Weathered", "Worthless"));
 	
 	/**
-	 * An empty skillgem slot, to put in the equipment lore.
-	 */
-	public static final String EMPTY_SKILL_SLOT =
-			ChatColor.WHITE + "Skill Slot (" + ChatColor.DARK_RED + "Empty" + ChatColor.WHITE + ")";
-	
-	/**
-	 * An empty rune slot, to put in the equipment lore.
-	 */
-	public static final String EMPTY_RUNE_SLOT =
-			ChatColor.WHITE + "Rune Slot (" + ChatColor.GREEN + "Empty" + ChatColor.WHITE + ")";
-	
-	/**
 	 * A random instance, for rolling item stats.
 	 */
-	private Random random = new Random();
+	private static Random random = new Random();
 	
 	/**
 	 * The player who identifies the item.
 	 */
 	private Player player;
+	
+	/**
+	 * The builder to generate the equipment item.
+	 */
+	private WauzEquipmentBuilder builder;
 	
 	/**
 	 * The equipment item stack, that is getting identified.
@@ -122,11 +105,6 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	 * The initial display name of the equipment item stack.
 	 */
 	private String itemName;
-	
-	/**
-	 * The final display name of the equipment item stack.
-	 */
-	private String identifiedItemName;
 	
 	/**
 	 * The main stat of the equipment.
@@ -154,14 +132,14 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	private Tier tier;
 	
 	/**
-	 * The prefix of the name of the equipment's rarity.
+	 * The level requirement of the equipment.
 	 */
-	private String rarityNamePrefix;
+	private int requiredLevel;
 	
 	/**
-	 * The prefix of the star rating of the equipment's rarity.
+	 * The scaling of the equipment's main stats, where 1 = unscaled.
 	 */
-	private String rarityStarPrefix;
+	private float scalingLevel;
 	
 	/**
 	 * Identifies the item, based on the given event.
@@ -182,8 +160,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	public void identifyItem(Player player, ItemStack equipmentItemStack) {
 		this.player = player;
 		this.equipmentItemStack = equipmentItemStack;
-		itemMeta = equipmentItemStack.getItemMeta();
-		itemName = itemMeta.getDisplayName();
+		itemName = equipmentItemStack.getItemMeta().getDisplayName();
 		
 		if(itemName.contains(" : ")) {
 			equipmentType = equipTypes.get(StringUtils.substringAfter(itemName, " : "));
@@ -192,28 +169,21 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 			equipmentType = new ArrayList<>(equipTypes.values()).get(random.nextInt(equipTypes.size()));
 		}
 		
-		equipmentItemStack.setType(equipmentType.getMaterial());
+		builder = new WauzEquipmentBuilder(equipmentType.getMaterial());
 		typeMultiplicator = equipmentType.getMainStat();
 		speedStat = equipmentType.getSpeedStat();
 		durabilityStat = equipmentType.getDurabilityStat();
 		
 		if(equipmentType.getMaterial().equals(Material.SHIELD)) {
-			itemMeta = new ItemStack(Material.SHIELD).getItemMeta();
-			CustomWeaponShield.addPattern(itemMeta);
+			builder.addShieldPattern();
 		}
 		else if(equipmentType.getLeatherDye() != null) {
-			itemMeta = new ItemStack(Material.LEATHER_CHESTPLATE).getItemMeta();
-			LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) itemMeta;
-			leatherArmorMeta.setColor(equipmentType.getLeatherDye());
+			builder.addLeatherDye(equipmentType.getLeatherDye());
 		}
 		
 		determineBaseMultiplier();
 		rarity = Rarity.getRandomEquipmentRarity();
 		tier = Tier.getEquipmentTier(itemName);
-		
-		String verb = equipPrefixes.get(random.nextInt(equipPrefixes.size()));
-		identifiedItemName = rarity.getColor() + verb + " " + equipmentType.getName();
-		itemMeta.setDisplayName(identifiedItemName);
 		
 		generateIdentifiedEquipment();
 	}
@@ -224,20 +194,18 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	 * Plays an anvil sound to the player, when the identifying has been completed.
 	 */
 	private void generateIdentifiedEquipment() {
-		mainStat = (int) (baseMultiplier * typeMultiplicator * tier.getMultiplier() * rarity.getMultiplier());
-		
-		lores = new ArrayList<String>();
-		addMainStatToEquipment();
+		calculateMainStats();
 		addEnhancementsToEquipment();
-		addDurabilityToEquipment();
+		builder.addMainStats(attackStat, defenseStat, requiredLevel, scalingLevel);
+		builder.addDurabilityStat(durabilityStat);
 		addSpeedToEquipment();
 		addArmorCategoryToEquipment();
-		addSlotsToEquipment();
 		
-		itemMeta.setLore(lores);
-		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		equipmentItemStack.setItemMeta(itemMeta);
-		
+		String verb = equipPrefixes.get(random.nextInt(equipPrefixes.size()));
+		String name = verb + " " + equipmentType.getName();
+		ItemStack generatedItemStack = builder.generate(tier, rarity, equipmentType.getType(), name);
+		equipmentItemStack.setType(generatedItemStack.getType());
+		equipmentItemStack.setItemMeta(generatedItemStack.getItemMeta());
 		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
 	}
 	
@@ -251,67 +219,17 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	private void determineBaseMultiplier() {
 		if(Chance.oneIn(150)) {
 			if(Chance.oneIn(2)) {
-				rarityNamePrefix = "Primal ";
-				rarityStarPrefix = "" + ChatColor.RED;
+				builder.addRarityPrefixes("Primal ", "" + ChatColor.RED);
 				baseMultiplier = 3.5;
 			}
 			else {
-				rarityNamePrefix = "Stable ";
-				rarityStarPrefix = "" + ChatColor.DARK_AQUA;
+				builder.makeUnbreakable();
+				builder.addRarityPrefixes("Stable ", "" + ChatColor.DARK_AQUA);
 				baseMultiplier = 1.5;
-				
-				itemMeta.setUnbreakable(true);
-				itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 			}
 		}
 		else {
-			rarityNamePrefix = "";
-			rarityStarPrefix = "" + ChatColor.YELLOW;
 			baseMultiplier = 2 + random.nextDouble();
-		}
-	}
-	
-	/**
-	 * Adds the rarity/tier string, aswell as the scaled main stat to the lore.
-	 * The defense stat will always be divided by 4, for balancing reasons.
-	 * If the player is under the recommended level (T1 = 8~10, T2 = 18~20 etc.), the stat will be scaled down.
-	 * This makes it more efficient to use weapons of your level, than to use higher ones.
-	 * 
-	 * The scaling also affects the minimum level, required to use the equipment.
-	 * Normally it is the level of the player who identified it,
-	 * but it can't be more than the recommended item level (20 for T2)
-	 * or less than the recommended item level minus 15 (5 for T2),
-	 * to prevent the player from using items, out of their reach.
-	 */
-	private void addMainStatToEquipment() {
-		float scalingLevel = player.getLevel() - (tier.getLevel() * 10 - 10);
-		scalingLevel = (float) (scalingLevel < 1 ? 3 : (scalingLevel + 2 > 10 ? 10 : scalingLevel + 2)) / 10;	
-		WauzDebugger.log(player, "Level-Scaling Weapon: " + mainStat + " * " + scalingLevel);
-		int level = Math.max(Math.min((tier.getLevel() * 10), player.getLevel()), tier.getLevel() * 10 - 15);
-		String levelString = ChatColor.YELLOW + "lvl " + ChatColor.AQUA + level + ChatColor.DARK_GRAY + ")";
-		String scalingString = scalingLevel == 1
-				? " " + ChatColor.DARK_GRAY + "(" + levelString
-				: " " + ChatColor.DARK_GRAY + "(Scaled x" + scalingLevel + " " + levelString;
-		mainStat = (int) (mainStat * scalingLevel);
-		
-		attackStat = mainStat + 1;
-		defenseStat = (mainStat / 4) + 1;
-		
-		mainStatString = "";
-		String rarityName = rarityNamePrefix + rarity.getName() + " ";
-		String rarityStars = rarityStarPrefix + rarity.getStars();
-		
-		if(equipmentType.getType().equals(EquipmentType.WEAPON)) {	
-			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Weapon " + rarityStars);
-			lores.add("");
-			mainStatString = "Attack:" + ChatColor.RED + " " + attackStat + scalingString;
-			lores.add(mainStatString);
-		}
-		else if(equipmentType.getType().equals(EquipmentType.ARMOR)) {		
-			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Armor " + rarityStars);
-			lores.add("");
-			mainStatString = "Defense:" + ChatColor.BLUE + " " + defenseStat + scalingString;
-			lores.add(mainStatString);
 		}
 	}
 	
@@ -328,6 +246,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	 */
 	private void addEnhancementsToEquipment() {
 		if(Chance.oneIn(3)) {
+			int enhancementLevel = 0;
 			int luck = PlayerPassiveSkillConfigurator.getLuck(player);
 			WauzDebugger.log(player, "Rolling for Enhancement with: " + luck + "% Luck");
 			while(luck >= 100) {
@@ -339,7 +258,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 			}
 			
 			if(enhancementLevel > 0) {
-				WauzEquipmentEnhancer.enhanceEquipment(this);
+				WauzEquipmentEnhancer.enhanceEquipment(this, enhancementLevel);
 				WauzDebugger.log(player, "Rolled Enhancement Level: " + enhancementLevel);
 			}
 			else {
@@ -349,16 +268,26 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	}
 	
 	/**
-	 * Adds the durability stat from the equipment type to the lore.
-	 * Also sets the item to full durability.
+	 * Adds the rarity/tier string, aswell as the scaled main stat to the lore.
+	 * The defense stat will always be divided by 4, for balancing reasons.
+	 * If the player is under the recommended level (T1 = 8~10, T2 = 18~20 etc.), the stat will be scaled down.
+	 * This makes it more efficient to use weapons of your level, than to use higher ones.
+	 * 
+	 * The scaling also affects the minimum level, required to use the equipment.
+	 * Normally it is the level of the player who identified it,
+	 * but it can't be more than the recommended item level (20 for T2)
+	 * or less than the recommended item level minus 15 (5 for T2),
+	 * to prevent the player from using items, out of their reach.
 	 */
-	private void addDurabilityToEquipment() {
-		Damageable damageable = (Damageable) itemMeta;
-		damageable.setDamage(0);
-		
-		String durabilityString = "Durability:" + ChatColor.DARK_GREEN + " " + durabilityStat;
-		durabilityString += " " + ChatColor.DARK_GRAY + "/ " + durabilityStat;
-		lores.add(durabilityString);
+	private void calculateMainStats() {
+		mainStat = (int) (baseMultiplier * typeMultiplicator * tier.getMultiplier() * rarity.getMultiplier());
+		scalingLevel = player.getLevel() - (tier.getLevel() * 10 - 10);
+		scalingLevel = (float) (scalingLevel < 1 ? 3 : (scalingLevel + 2 > 10 ? 10 : scalingLevel + 2)) / 10;	
+		WauzDebugger.log(player, "Level-Scaling Weapon: " + mainStat + " * " + scalingLevel);
+		requiredLevel = Math.max(Math.min((tier.getLevel() * 10), player.getLevel()), tier.getLevel() * 10 - 15);
+		mainStat = (int) (mainStat * scalingLevel);
+		attackStat = mainStat + 1;
+		defenseStat = (mainStat / 4) + 1;
 	}
 	
 	/**
@@ -367,11 +296,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	 */
 	private void addSpeedToEquipment() {
 		if(equipmentType.getType().equals(EquipmentType.WEAPON)) {
-			double genericAttackSpeed = speedStat - 4.0;
-			WauzDebugger.log(player, "Generic Attack Speed: " + genericAttackSpeed);
-			AttributeModifier modifier = new AttributeModifier("generic.attackSpeed", genericAttackSpeed, Operation.ADD_NUMBER);
-			itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
-			lores.add("Speed:" + ChatColor.RED + " " + Formatters.DEC_SHORT.format(speedStat));
+			builder.addSpeedStat(speedStat);
 		}
 	}
 	
@@ -381,39 +306,15 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	 */
 	private void addArmorCategoryToEquipment() {
 		if(equipmentType.getType().equals(EquipmentType.ARMOR)) {
-			lores.add("Category:" + ChatColor.BLUE + " " + equipmentType.getCategory());
+			builder.addArmorCategory(equipmentType.getCategory());
 		}
 	}
-	
+
 	/**
-	 * Adds slots to the equipment's lores.
-	 * If the equipment is a custom weapon, it will receive the fitting lore.
-	 * Custom weapons with magic or higher rarity have a 50% chance to receive a skilgem slot.
-	 * Magic or higher items will get 1 rune slot, while epic or higher items will receive 2 slots.
+	 * @return The builder to generate the equipment item.
 	 */
-	private void addSlotsToEquipment() {
-		Material material = equipmentType.getMaterial();
-		CustomItem customItem = EventMapper.getCustomItem(material);
-		
-		if(customItem != null && customItem instanceof CustomWeapon) {
-			CustomWeapon customWeapon = ((CustomWeapon) customItem);
-			
-			boolean hasSkillSlot = false;
-			if(rarity.getMultiplier() >= 1.5 && customWeapon.canHaveSkillSlot() && Chance.oneIn(2)) {
-				lores.add("");
-				lores.add(EMPTY_SKILL_SLOT);
-				hasSkillSlot = true;
-			}
-			lores.addAll(customWeapon.getCustomWeaponLores(hasSkillSlot));
-		}
-		
-		if(rarity.getMultiplier() >= 1.5)	{
-			lores.add("");
-			lores.add(EMPTY_RUNE_SLOT);
-			if(rarity.getMultiplier() >= 2.5) {
-				lores.add(EMPTY_RUNE_SLOT);
-			}
-		}
+	public WauzEquipmentBuilder getBuilder() {
+		return builder;
 	}
 
 }
