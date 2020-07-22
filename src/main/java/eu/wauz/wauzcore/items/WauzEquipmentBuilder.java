@@ -20,8 +20,11 @@ import eu.wauz.wauzcore.items.enums.ArmorCategory;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
+import eu.wauz.wauzcore.items.identifiers.WauzSkillgemIdentifier;
+import eu.wauz.wauzcore.items.runes.insertion.WauzSkillgemInserter;
 import eu.wauz.wauzcore.items.weapons.CustomWeapon;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Formatters;
@@ -45,8 +48,14 @@ public class WauzEquipmentBuilder {
 	public static final String EMPTY_RUNE_SLOT =
 			ChatColor.WHITE + "Rune Slot (" + ChatColor.GREEN + "Empty" + ChatColor.WHITE + ")";
 	
+	/**
+	 * The equipment item stack.
+	 */
 	private ItemStack itemStack;
 	
+	/**
+	 * The item meta of the equipment item.
+	 */
 	private ItemMeta itemMeta;
 	
 	/**
@@ -62,12 +71,12 @@ public class WauzEquipmentBuilder {
 	/**
 	 * The attack stat of the equipment.
 	 */
-	protected int attackStat = 1;
+	private int attackStat = 1;
 	
 	/**
 	 * The defense stat of the equipment.
 	 */
-	protected int defenseStat = 1;
+	private int defenseStat = 1;
 	
 	/**
 	 * The display of the scaled level of the equipment.
@@ -100,9 +109,9 @@ public class WauzEquipmentBuilder {
 	private String enhancementSuffix;
 	
 	/**
-	 * If the equipment has a skill slot. Manually set to true to enforce one.
+	 * The skillgem to socket into the equipment.
 	 */
-	boolean hasSkillSlot = false;
+	private WauzPlayerSkill skillgem;
 	
 	/**
 	 * Constructs a builder for creating a new equipment item.
@@ -111,6 +120,7 @@ public class WauzEquipmentBuilder {
 	 */
 	public WauzEquipmentBuilder(Material material) {
 		itemStack = new ItemStack(material);
+		itemMeta = itemStack.getItemMeta();
 	}
 	
 	/**
@@ -133,18 +143,20 @@ public class WauzEquipmentBuilder {
 	}
 	
 	/**
+	 * Adds a skillgem to socket into the equipment item.
+	 * 
+	 * @param skill The skill to add.
+	 */
+	public void addSkillgem(WauzPlayerSkill skill) {
+		skillgem = skill;
+	}
+	
+	/**
 	 * Makes the equipment item unbreakable.
 	 */
 	public void makeUnbreakable() {
 		itemMeta.setUnbreakable(true);
 		itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-	}
-	
-	/**
-	 * Forces the equipment item to have a skill slot, when possible.
-	 */
-	public void forceSkillSlot() {
-		hasSkillSlot = true;
 	}
 	
 	/**
@@ -269,6 +281,12 @@ public class WauzEquipmentBuilder {
 		itemMeta.setLore(lores);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		itemStack.setItemMeta(itemMeta);
+		
+		if(skillgem != null) {
+			ItemStack skillgemItemStack = new ItemStack(Material.REDSTONE);
+			WauzSkillgemIdentifier.createSkillgem(skillgemItemStack, skillgem);
+			new WauzSkillgemInserter().insertSkillgem(itemStack, skillgemItemStack);
+		}
 		return itemStack;
 	}
 	
@@ -296,7 +314,8 @@ public class WauzEquipmentBuilder {
 	private void applyCustomItemProperties(List<String> lores, CustomItem customItem, Rarity rarity) {
 		if(customItem != null && customItem instanceof CustomWeapon) {
 			CustomWeapon customWeapon = ((CustomWeapon) customItem);
-			if(hasSkillSlot || (rarity.getMultiplier() >= 1.5 && customWeapon.canHaveSkillSlot() && Chance.oneIn(2))) {
+			boolean hasSkillSlot = false;
+			if(customWeapon.canHaveSkillSlot() && (skillgem != null || (rarity.getMultiplier() >= 1.5 && Chance.oneIn(2)))) {
 				lores.add("");
 				lores.add(EMPTY_SKILL_SLOT);
 				hasSkillSlot = true;

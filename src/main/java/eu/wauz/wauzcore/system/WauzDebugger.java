@@ -6,7 +6,6 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -15,6 +14,7 @@ import eu.wauz.wauzcore.items.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancement;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancementParameters;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
+import eu.wauz.wauzcore.items.enums.ArmorCategory;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
@@ -197,35 +197,11 @@ public class WauzDebugger {
 	 */
 	public static ItemStack getSkillgemWeapon(WauzPlayerSkill skill, Material material, boolean debug) {
 		WauzEquipmentBuilder builder = new WauzEquipmentBuilder(material);
+		builder.addSkillgem(skill);
 		builder.addMainStats(debug ? 10 : 1, 0, 1, 1);
 		builder.addDurabilityStat(debug ? 2048 : 300);
 		builder.addSpeedStat(1.20);
 		return builder.generate(Tier.EQUIP_T1, Rarity.UNIQUE, EquipmentType.WEAPON, "Noble Phantasm");
-		// TODO: Implement addSkillgem() method.
-		
-		ItemStack itemStack = new ItemStack(material);
-		ItemMeta itemMeta = itemStack.getItemMeta();
-		itemMeta.setDisplayName(ChatColor.DARK_RED + "Noble Phantasm");
-		List<String> lores = new ArrayList<String>();
-		String x = UnicodeUtils.ICON_DIAMOND;
-		String rareStars = ChatColor.YELLOW +x +x +x +x +x;
-		lores.add(ChatColor.WHITE + (debug ? "Debuggers" : "Starters") + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Unique Weapon " + rareStars);
-		lores.add("");
-		lores.add("Attack:" + ChatColor.RED + (debug ? " 10 " : " 1 ") + ChatColor.DARK_GRAY
-				+ "(" + ChatColor.YELLOW + "lvl " + ChatColor.AQUA + "1" + ChatColor.DARK_GRAY + ")");
-		lores.add("Durability:" + ChatColor.DARK_GREEN + " " + (debug ? 2048 : 300)
-				+ " " + ChatColor.DARK_GRAY + "/ " + (debug ? 2048 : 300));
-		lores.add("");
-		lores.add(ChatColor.WHITE + "Skillgem (" + ChatColor.LIGHT_PURPLE + skill.getSkillId() + ChatColor.WHITE + ")");
-		lores.add(ChatColor.WHITE + skill.getSkillDescription());
-		lores.add(ChatColor.WHITE + skill.getSkillStats());
-		lores.add("");
-		lores.add(WauzEquipmentBuilder.EMPTY_RUNE_SLOT);
-		lores.add(WauzEquipmentBuilder.EMPTY_RUNE_SLOT);
-		itemMeta.setLore(lores);
-		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		itemStack.setItemMeta(itemMeta);
-		return itemStack;
 	}
 	
 	/**
@@ -243,59 +219,37 @@ public class WauzDebugger {
 			return false;
 		}
 		
+		player.getInventory().addItem(getEnhancedEquipment(enhancement, enhancementLevel));
+		return true;
+	}
+	
+	/**
+	 * Creates an equipment piece with a specific enhancement.
+	 * 
+	 * @param enhancement The enhancement of the equipment.
+	 * @param enhancementLevel The level of the enhancement.
+	 * 
+	 * @return An enhanced equipment piece.
+	 */
+	public static ItemStack getEnhancedEquipment(WauzEnhancement enhancement, int enhancementLevel) {
 		boolean isWeapon = enhancement.getEquipmentType().equals(EquipmentType.WEAPON);
-		
-		ItemStack itemStack = new ItemStack(isWeapon ? Material.IRON_SWORD : Material.IRON_CHESTPLATE);
-		ItemMeta itemMeta = itemStack.getItemMeta();
-		itemMeta.setDisplayName(ChatColor.DARK_RED + "Enchanted Iron");
-		List<String> lores = new ArrayList<String>();
-		String x = UnicodeUtils.ICON_DIAMOND;
-		String rareStars = ChatColor.YELLOW +x +x +x +x +x;
-		lores.add(ChatColor.WHITE + "Debuggers" + ChatColor.GRAY + " TX " + ChatColor.WHITE + "Unique Weapon " + rareStars);
-		lores.add("");
-		
-		String mainStatString = null;
-		int attackStat = 10;
-		int defenseStat = 5;
-		int durabilityStat = 2048;
+		WauzEquipmentBuilder builder = new WauzEquipmentBuilder(isWeapon ? Material.IRON_SWORD : Material.IRON_CHESTPLATE);
+		WauzEnhancementParameters parameters = new WauzEnhancementParameters(enhancementLevel);
+		parameters.setAttackStat(10);
+		parameters.setDefenseStat(5);
+		parameters.setDurabilityStat(2048);
+		parameters.setSpeedStat(1.20);
+		parameters = WauzEquipmentEnhancer.enhanceEquipment(builder, enhancement, parameters);
+		builder.addMainStats(parameters.getAttackStat(), parameters.getDefenseStat(), 1, 1);
+		builder.addDurabilityStat(parameters.getDurabilityStat());
 		if(isWeapon) {
-			mainStatString = "Attack:" + ChatColor.RED + " " + attackStat + " " + ChatColor.DARK_GRAY
-					+ "(" + ChatColor.YELLOW + "lvl " + ChatColor.AQUA + "1" + ChatColor.DARK_GRAY + ")";
+			builder.addSpeedStat(parameters.getSpeedStat());
 		}
 		else {
-			mainStatString = "Defense:" + ChatColor.BLUE + " " + defenseStat + " " + ChatColor.DARK_GRAY
-					+ "(" + ChatColor.YELLOW + "lvl " + ChatColor.AQUA + "1" + ChatColor.DARK_GRAY + ")";
+			builder.addArmorCategory(ArmorCategory.LIGHT);
 		}
-		lores.add(mainStatString);
-		
-		WauzEnhancementParameters parameters = new WauzEnhancementParameters(enhancementLevel);
-		parameters.setItemMeta(itemMeta);
-		parameters.setLores(lores);
-		parameters.setMainStatString(mainStatString);
-		parameters.setAttackStat(attackStat);
-		parameters.setDefenseStat(defenseStat);
-		parameters.setDurabilityStat(durabilityStat);
-		
-		WauzEquipmentEnhancer.enhanceEquipment(enhancement, parameters);
-		itemMeta = parameters.getItemMeta();
-		lores = parameters.getLores();
-		mainStatString = parameters.getMainStatString();
-		attackStat = parameters.getAttackStat();
-		defenseStat = parameters.getDefenseStat();
-		durabilityStat = parameters.getDurabilityStat();
-		
-		lores.add("Durability:" + ChatColor.DARK_GREEN + " " + durabilityStat
-				+ " " + ChatColor.DARK_GRAY + "/ " + durabilityStat);
-		
-		lores.add("");
-		lores.add(WauzEquipmentBuilder.EMPTY_RUNE_SLOT);
-		lores.add(WauzEquipmentBuilder.EMPTY_RUNE_SLOT);
-		itemMeta.setLore(lores);
-		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		itemStack.setItemMeta(itemMeta);
-		
-		player.getInventory().addItem(itemStack);
-		return true;
+		EquipmentType equipmentType = isWeapon ? EquipmentType.WEAPON : EquipmentType.ARMOR;
+		return builder.generate(Tier.EQUIP_T1, Rarity.UNIQUE, equipmentType, "Enchanted Iron");
 	}
 	
 	/**

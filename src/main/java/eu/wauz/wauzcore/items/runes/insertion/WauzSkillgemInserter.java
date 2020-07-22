@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -27,13 +26,12 @@ public class WauzSkillgemInserter {
 	 * Tries to insert a skillgem into the given equipment item stack.
 	 * Returns false if the item has no skillgem slots or the skillgem is invalid.
 	 * 
-	 * @param player The player that is inserting the skillgem.
 	 * @param equipmentItemStack The equipment that the skillgem is inserted into.
 	 * @param skillgemItemStack The skillgem that is getting inserted.
 	 * 
 	 * @return If the action was successful.
 	 */
-	public boolean insertSkillgem(Player player, ItemStack equipmentItemStack, ItemStack skillgemItemStack) {
+	public boolean insertSkillgem(ItemStack equipmentItemStack, ItemStack skillgemItemStack) {
 		String skillName = skillgemItemStack.getItemMeta().getDisplayName();
 		skillName = StringUtils.substringAfter(skillName, ": " + ChatColor.LIGHT_PURPLE);
 		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillName);

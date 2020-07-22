@@ -169,14 +169,14 @@ public class WauzEquipmentEnhancer {
 		
 		int enhancementLevel = parameters.getEnhancementLevel();
 		String enhancementName = enhancement.getEnhancementId();
-		String enhancementString = " of " + enhancementName + " + " + enhancementLevel;
+		String enhancementSuffix = " of " + enhancementName + " + " + enhancementLevel;
 		
 		String enhancementLore = parameters.getEnhancementLore();
 		if(equipmentType.equals(EquipmentType.WEAPON)) {
-			builder.addEnhancementString(enhancementString, "Enhancement:" + ChatColor.RED + " " + enhancementLore);
+			builder.addEnhancementString("Enhancement:" + ChatColor.RED + " " + enhancementLore, enhancementSuffix);
 		}
 		else if(equipmentType.equals(EquipmentType.ARMOR)) {
-			builder.addEnhancementString(enhancementString, "Enhancement:" + ChatColor.BLUE + " " + enhancementLore);
+			builder.addEnhancementString("Enhancement:" + ChatColor.RED + " " + enhancementLore, enhancementSuffix);
 		}
 		return parameters;
 	}

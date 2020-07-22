@@ -22,6 +22,10 @@ TrollDen:
   name: Troll Den
   world: Dalyreos
   coords: -6339.5 245 5335.5
+Dunkelhaven:
+  name: Dunkelhaven
+  world: Dalyreos
+  coords: -4849.5 70 3900.5
 Aldrasin:
   name: Golden City, Aldrasin
   world: Dalyreos

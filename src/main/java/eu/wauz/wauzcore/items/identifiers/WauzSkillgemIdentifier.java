@@ -24,6 +24,11 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 public class WauzSkillgemIdentifier {
 	
 	/**
+	 * A random instance for determining random skills.
+	 */
+	private static Random random = new Random();
+	
+	/**
 	 * Identifies the item, based on the given event.
 	 * Takes a random skill and adds it to the skillgem name and lore.
 	 * Automatically changes the material of the item, to make it a valid skillgem.
@@ -33,14 +38,26 @@ public class WauzSkillgemIdentifier {
 	 * @param skillgemItemStack The skillgem item stack, that is getting identified.
 	 */
 	public void identifySkillgem(Player player, ItemStack skillgemItemStack) {
-		Random random = new Random();
 		List<String> skills = WauzPlayerSkillExecutor.getAllSkillIds();
 		String skillgemName = skills.get(random.nextInt(skills.size()));
 		
-		ItemMeta itemMeta = skillgemItemStack.getItemMeta();
-		itemMeta.setDisplayName(ChatColor.DARK_RED + "Skillgem: " + ChatColor.LIGHT_PURPLE + skillgemName);
-		
 		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillgemName);
+		createSkillgem(skillgemItemStack, skill);
+		
+		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
+	}
+	
+	/**
+	 * Creates a skillgem.
+	 * 
+	 * @param skillgemItemStack The item stack, that is made into a skillgem.
+	 * @param skill The skill, that should be contained in the skillgem.
+	 * 
+	 * @return The created skillgem item stack.
+	 */
+	public static ItemStack createSkillgem(ItemStack skillgemItemStack, WauzPlayerSkill skill) {
+		ItemMeta itemMeta = skillgemItemStack.getItemMeta();
+		itemMeta.setDisplayName(ChatColor.DARK_RED + "Skillgem: " + ChatColor.LIGHT_PURPLE + skill.getSkillId());
 		
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.GRAY + "Can be inserted into a Weapon,");
@@ -53,8 +70,7 @@ public class WauzSkillgemIdentifier {
 		itemMeta.setLore(lores);
 		skillgemItemStack.setItemMeta(itemMeta);
 		skillgemItemStack.setType(Material.REDSTONE);
-		
-		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
+		return skillgemItemStack;
 	}
 
 }

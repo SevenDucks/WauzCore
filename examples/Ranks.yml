@@ -29,10 +29,20 @@ Staff:
     soulstones: 1
     discount: 0.15
 Admin:
-  prefix: '§4ADMIN'
+  prefix: '§3ADMIN'
   color: GOLD
   permission: SYSTEM
   level: 4
+  op: true
+  rewards:
+    coins: 500
+    soulstones: 500
+    discount: 0.3
+Owner:
+  prefix: '§4OWNER'
+  color: GOLD
+  permission: SYSTEM
+  level: 1337
   op: true
   rewards:
     coins: 500

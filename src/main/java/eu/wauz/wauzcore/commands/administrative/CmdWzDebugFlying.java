@@ -30,7 +30,7 @@ public class CmdWzDebugFlying implements WauzCommand {
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzDebug.flying, fly");
+		return Arrays.asList("wzDebug.flying", "fly");
 	}
 
 	/**
