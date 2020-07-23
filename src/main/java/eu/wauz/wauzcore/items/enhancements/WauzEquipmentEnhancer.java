@@ -8,8 +8,8 @@ import java.util.Random;
 
 import org.bukkit.ChatColor;
 
-import eu.wauz.wauzcore.items.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
+import eu.wauz.wauzcore.items.identifiers.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 
 /**

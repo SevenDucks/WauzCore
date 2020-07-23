@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.items.identifiers.WauzEquipmentHelper;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -41,7 +41,7 @@ public class CmdWzSkillWeapon implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		return WauzDebugger.getSkillgemWeapon((Player) sender, args[0].replace("_", " "));
+		return WauzEquipmentHelper.getSkillgemWeapon((Player) sender, args[0].replace("_", " "));
 	}
 
 }

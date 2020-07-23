@@ -17,7 +17,6 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.EquipmentParameters;
 import eu.wauz.wauzcore.items.WauzEquipment;
-import eu.wauz.wauzcore.items.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.enums.Rarity;
@@ -234,6 +233,29 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	}
 	
 	/**
+	 * Adds the rarity/tier string, aswell as the scaled main stat to the lore.
+	 * The defense stat will always be divided by 4, for balancing reasons.
+	 * If the player is under the recommended level (T1 = 8~10, T2 = 18~20 etc.), the stat will be scaled down.
+	 * This makes it more efficient to use weapons of your level, than to use higher ones.
+	 * 
+	 * The scaling also affects the minimum level, required to use the equipment.
+	 * Normally it is the level of the player who identified it,
+	 * but it can't be more than the recommended item level (20 for T2)
+	 * or less than the recommended item level minus 15 (5 for T2),
+	 * to prevent the player from using items, out of their reach.
+	 */
+	private void calculateMainStats() {
+		mainStat = (int) (baseMultiplier * typeMultiplicator * tier.getMultiplier() * rarity.getMultiplier());
+		scalingLevel = player.getLevel() - (tier.getLevel() * 10 - 10);
+		scalingLevel = (float) (scalingLevel < 1 ? 3 : (scalingLevel + 2 > 10 ? 10 : scalingLevel + 2)) / 10;	
+		WauzDebugger.log(player, "Level-Scaling Weapon: " + mainStat + " * " + scalingLevel);
+		requiredLevel = Math.max(Math.min((tier.getLevel() * 10), player.getLevel()), tier.getLevel() * 10 - 15);
+		mainStat = (int) (mainStat * scalingLevel);
+		attackStat = mainStat + 1;
+		defenseStat = (mainStat / 4) + 1;
+	}
+	
+	/**
 	 * Adds an optional enhancement to the lore and equipment name.
 	 * The base chance is 1 in 3, with the enhancement level based on the luck stat.
 	 * Each 100% enhance-rate will be a guaranteed level.</br>
@@ -265,29 +287,6 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 				WauzDebugger.log(player, "Rolled Nothing...");
 			}
 		}
-	}
-	
-	/**
-	 * Adds the rarity/tier string, aswell as the scaled main stat to the lore.
-	 * The defense stat will always be divided by 4, for balancing reasons.
-	 * If the player is under the recommended level (T1 = 8~10, T2 = 18~20 etc.), the stat will be scaled down.
-	 * This makes it more efficient to use weapons of your level, than to use higher ones.
-	 * 
-	 * The scaling also affects the minimum level, required to use the equipment.
-	 * Normally it is the level of the player who identified it,
-	 * but it can't be more than the recommended item level (20 for T2)
-	 * or less than the recommended item level minus 15 (5 for T2),
-	 * to prevent the player from using items, out of their reach.
-	 */
-	private void calculateMainStats() {
-		mainStat = (int) (baseMultiplier * typeMultiplicator * tier.getMultiplier() * rarity.getMultiplier());
-		scalingLevel = player.getLevel() - (tier.getLevel() * 10 - 10);
-		scalingLevel = (float) (scalingLevel < 1 ? 3 : (scalingLevel + 2 > 10 ? 10 : scalingLevel + 2)) / 10;	
-		WauzDebugger.log(player, "Level-Scaling Weapon: " + mainStat + " * " + scalingLevel);
-		requiredLevel = Math.max(Math.min((tier.getLevel() * 10), player.getLevel()), tier.getLevel() * 10 - 15);
-		mainStat = (int) (mainStat * scalingLevel);
-		attackStat = mainStat + 1;
-		defenseStat = (mainStat / 4) + 1;
 	}
 	
 	/**

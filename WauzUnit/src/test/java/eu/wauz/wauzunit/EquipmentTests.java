@@ -8,10 +8,10 @@ import org.bukkit.inventory.ItemStack;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import eu.wauz.wauzcore.items.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
+import eu.wauz.wauzcore.items.identifiers.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 
 /**

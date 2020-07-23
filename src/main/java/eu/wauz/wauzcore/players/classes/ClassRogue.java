@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.enums.ArmorCategory;
+import eu.wauz.wauzcore.items.identifiers.WauzEquipmentHelper;
 import eu.wauz.wauzcore.menu.heads.CharacterIconHeads;
 import eu.wauz.wauzcore.players.classes.rogue.SubclassBard;
 import eu.wauz.wauzcore.players.classes.rogue.SubclassJuggernaut;
@@ -17,7 +18,6 @@ import eu.wauz.wauzcore.players.classes.rogue.SubclassMarksman;
 import eu.wauz.wauzcore.players.classes.rogue.SubclassUmbralist;
 import eu.wauz.wauzcore.skills.SkillTheHierophant;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.system.WauzDebugger;
 
 /**
  * A class, that can be chosen by a player.
@@ -117,7 +117,7 @@ public class ClassRogue implements WauzPlayerClass {
 	@Override
 	public ItemStack getStartingWeapon() {
 		WauzPlayerSkill skill = new SkillTheHierophant();
-		return WauzDebugger.getSkillgemWeapon(skill, Material.DIAMOND_SWORD, false);
+		return WauzEquipmentHelper.getSkillgemWeapon(skill, Material.DIAMOND_SWORD, false);
 	}
 
 }

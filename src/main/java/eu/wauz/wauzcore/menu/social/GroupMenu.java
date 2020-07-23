@@ -288,10 +288,7 @@ public class GroupMenu implements WauzInventory {
 	 * On yellow, a group is joined, after successful password input.
 	 * On lime, a group is joined directly.
 	 * On gray, a password character is added or validated, if 5 characters are already reached.
-	 * On a player head, the player is depending on context, promoted, kicked or teleported to.
-	 * On a golden helmet, a player selection is shown, to selected a player to promote to the new leader.
-	 * On an iron boot, a player selection is shown, to select a player to kick.
-	 * On a barrier, the player will leave the group.
+	 * On a player head or option interaction, the corresponding handler is called.
 	 * 
 	 * @param event The inventory click event.
 	 * 
@@ -299,8 +296,7 @@ public class GroupMenu implements WauzInventory {
 	 * @see WauzPlayerData#setGroupUuidString(String)
 	 * @see WauzPlayerGroupPool#regGroup(WauzPlayerGroup)
 	 * @see GroupMenu#passwordInput(Player, String, String)
-	 * @see GroupMenu#playerSelection(Player, boolean)
-	 * @see WauzTeleporter#playerTeleportManual(Player, Player)
+	 * @see GroupMenu#handlePlayerInteractions(Player, ItemStack)
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
@@ -383,19 +379,34 @@ public class GroupMenu implements WauzInventory {
 				}
 			}
 		}
-		
-		// Player Teleport / Promote / Kick
-		else if(clicked.getType().equals(Material.PLAYER_HEAD)) {
+		else {
+			handlePlayerInteractions(player, clicked);
+		}
+	}
+	
+	/**
+	 * Handles a player head or option interaction.
+	 * On a player head, the player is, depending on context, promoted, kicked or teleported to.
+	 * On a golden helmet, a player selection is shown, to selected a player to promote to the new leader.
+	 * On an iron boot, a player selection is shown, to select a player to kick.
+	 * On a barrier, the player will leave the group.
+	 * 
+	 * @param player The player who started the interaction.
+	 * @param clicked The option to interact with.
+	 * 
+	 * @see GroupMenu#playerSelection(Player, boolean)
+	 * @see WauzTeleporter#playerTeleportManual(Player, Player)
+	 */
+	public void handlePlayerInteractions(Player player, ItemStack clicked) {
+		if(clicked.getType().equals(Material.PLAYER_HEAD)) {
 			SkullMeta sm = (SkullMeta) clicked.getItemMeta();
 			if(sm.getOwningPlayer() == null) {
 				return;
 			}
-			
 			Player target = WauzCore.getOnlinePlayer((sm.getOwningPlayer().getName()));
 			if(target == null || player.equals(target) || WauzPlayerDataPool.getPlayer(target) == null) {
 				return;
 			}
-			
 			String playerGroupUuid = WauzPlayerDataPool.getPlayer(player).getGroupUuidString();
 			String targetGroupUuid = WauzPlayerDataPool.getPlayer(target).getGroupUuidString();
 			if(!StringUtils.equals(playerGroupUuid, targetGroupUuid)) {
@@ -403,7 +414,6 @@ public class GroupMenu implements WauzInventory {
 			}
 			
 			String inventoryName = player.getOpenInventory().getTitle();
-			
 			if(inventoryName.contains("Promote")) {
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(target);
 				WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
@@ -419,7 +429,6 @@ public class GroupMenu implements WauzInventory {
 					player.closeInventory();
 				}
 			}
-			
 			else if(inventoryName.contains("Kick")) {
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(target);
 				WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
@@ -437,21 +446,16 @@ public class GroupMenu implements WauzInventory {
 					player.closeInventory();
 				}
 			}
-			
 			else {
 				WauzTeleporter.playerTeleportManual(player, target);
 			}
 		}
-		
-		// Group Options
 		else if(clicked.getType().equals(Material.GOLDEN_HELMET)) {
 			playerSelection(player, true);
 		}
-		
 		else if(clicked.getType().equals(Material.IRON_BOOTS)) {
 			playerSelection(player, false);
 		}
-		
 		else if(clicked.getType().equals(Material.BARRIER)) {
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());

@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.items;
+package eu.wauz.wauzcore.items.identifiers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +16,11 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
+import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.enums.ArmorCategory;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
-import eu.wauz.wauzcore.items.identifiers.WauzSkillgemIdentifier;
 import eu.wauz.wauzcore.items.runes.insertion.WauzSkillgemInserter;
 import eu.wauz.wauzcore.items.weapons.CustomWeapon;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
@@ -258,24 +258,28 @@ public class WauzEquipmentBuilder {
 		String rarityName = rarityNamePrefix + rarity.getName() + " ";
 		String rarityStars = rarityStarPrefix + rarity.getStars();
 		String mainStatString = "";
+		int sellValue = 0;
 		if(type.equals(EquipmentType.WEAPON)) {	
 			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Weapon " + rarityStars);
 			lores.add("");
 			mainStatString = "Attack:" + ChatColor.RED + " " + attackStat + scalingString;
 			lores.add(mainStatString);
+			sellValue = (int) (attackStat * (Math.random() + 0.5) + 1);
 		}
 		else if(type.equals(EquipmentType.ARMOR)) {		
 			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Armor " + rarityStars);
 			lores.add("");
 			mainStatString = "Defense:" + ChatColor.BLUE + " " + defenseStat + scalingString;
 			lores.add(mainStatString);
+			sellValue = (int) (attackStat * (Math.random() + 0.5) * 3 + 1);
 		}
 		for(String enhancementString : enhancementStrings) {
 			lores.add(enhancementString);
 		}
-		addLoreIfNotBlank(lores, durabilityString);
 		addLoreIfNotBlank(lores, speedString);
 		addLoreIfNotBlank(lores, armorCategoryString);
+		addLoreIfNotBlank(lores, durabilityString);
+		lores.add("Sell Value:" + ChatColor.DARK_GREEN + " " + sellValue);
 		applyCustomItemProperties(lores, EventMapper.getCustomItem(itemStack.getType()), rarity);
 		
 		itemMeta.setLore(lores);

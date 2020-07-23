@@ -1,7 +1,5 @@
 package eu.wauz.wauzcore.system.economy;
 
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -21,6 +19,7 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * A collection of actions, executable from a shop.
@@ -93,9 +92,8 @@ public class WauzShopActions {
 	
 	/**
 	 * Tries to sell the given item for the player.
-	 * The item stack will either be sold for a random value per item or with bonus on attack / defense.
+	 * The item stack will be sold for a random value per item.
 	 * Some items have a fixed sell value in lore, while bought items are worth nothing.
-	 * TODO: Also refactor this, when implementing equipment builder.
 	 * 
 	 * @param player The player who wants to sell the item.
 	 * @param itemToSell The item that should be sold.
@@ -104,6 +102,8 @@ public class WauzShopActions {
 	 * @return If the selling was successful.
 	 * 
 	 * @see PlayerConfigurator#setCharacterCoins(Player, long)
+	 * @see ItemUtils#isBoughtItem(ItemStack)
+	 * @see ItemUtils#getSellValue(ItemStack)
 	 * @see PlayerPassiveSkillConfigurator#getTradingFloat(Player)
 	 * @see AchievementTracker#addProgress(Player, WauzAchievementType, double)
 	 */
@@ -112,32 +112,16 @@ public class WauzShopActions {
 			return false;
 		}
 		
-		int price = (int) (Math.random() * 3 + 1) * itemToSell.getAmount();
+		int price;
 		long money = PlayerConfigurator.getCharacterCoins(player);
 		
-		if(itemToSell.hasItemMeta() && itemToSell.getItemMeta().hasLore()) {
-			List<String> lores = itemToSell.getItemMeta().getLore();
-			
-			for(String s : lores) {
-				if(s.contains("Bought")) {
-					price = 0;
-					break;
-				}
-				if(s.contains("Sell Value")) {
-					String[] parts = s.split(" ");
-					price = Integer.parseInt(parts[2]) * itemToSell.getAmount();
-					break;
-				}
-				if(s.contains("Attack")) {
-					String[] parts = s.split(" ");
-					price = (int) (((Integer.parseInt(parts[1]) / 1.5) * (Math.random() + 2)) * itemToSell.getAmount());
-					break;
-				}
-				if(s.contains("Defense")) {
-					String[] parts = s.split(" ");
-					price = (int) (((Integer.parseInt(parts[1]) * 3.0) * (Math.random() + 2)) * itemToSell.getAmount());
-					break;
-				}
+		if(ItemUtils.isBoughtItem(itemToSell)) {
+			price = 0;
+		}
+		else {
+			price = ItemUtils.getSellValue(itemToSell);
+			if(price == 0) {
+				price = Chance.minMax(1, 3) * itemToSell.getAmount();
 			}
 		}
 		

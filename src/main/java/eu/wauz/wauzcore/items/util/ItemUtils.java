@@ -171,17 +171,31 @@ public class ItemUtils {
 	}
 	
 	/**
-	 * Checks if an item stack is a ammo item, based on lore.
+	 * Checks if an item stack is an ammo item, based on lore.
 	 * Includes null check.
 	 * 
 	 * @param itemStack The item stack to check.
 	 * 
-	 * @return If the item is a ammo item.
+	 * @return If the item is an ammo item.
 	 * 
 	 * @see ItemUtils#getArrowCount(ItemStack)
 	 */
 	public static boolean isAmmoItem(ItemStack itemStack) {
 		return hasLore(itemStack) && doesLoreContain(itemStack, "Ammo Item");
+	}
+	
+	/**
+	 * Checks if an item stack is a bought item, based on lore.
+	 * Includes null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return If the item is a bought item.
+	 * 
+	 * @see ItemUtils#getSellValue(ItemStack)
+	 */
+	public static boolean isBoughtItem(ItemStack itemStack) {
+		return hasLore(itemStack) && doesLoreContain(itemStack, "Bought");
 	}
 	
 	/**
@@ -196,6 +210,20 @@ public class ItemUtils {
 	 */
 	public static int getArrowCount(ItemStack itemStack) {
 		return hasLore(itemStack) ? getIntegerSumBetweenFromLore(itemStack, ChatColor.GRAY + "Amount Left: ", " Arrows") : 0;
+	}
+	
+	/**
+	 * Gets the sell value of an item stack, based on lore.
+	 * Includes null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return The sell value.
+	 * 
+	 * @see ItemUtils#isBoughtItem(ItemStack)
+	 */
+	public static int getSellValue(ItemStack itemStack) {
+		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Sell Value", 2) * itemStack.getAmount() : 0;
 	}
 	
 	/**

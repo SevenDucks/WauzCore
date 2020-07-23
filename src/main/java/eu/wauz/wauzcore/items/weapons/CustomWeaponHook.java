@@ -38,41 +38,7 @@ public class CustomWeaponHook implements CustomWeapon {
 	public void use(PlayerInteractEvent event) {
 		return;
 	}
-
-	/**
-	 * Returns the materials that trigger events with the item.
-	 * 
-	 * @return The list of materials.
-	 */
-	@Override
-	public List<Material> getCustomItemMaterials() {
-		return Arrays.asList(Material.FISHING_ROD);
-	}
 	
-	/**
-	 * Determines if the custom weapon can have a skillgem slot.
-	 * 
-	 * @return If the custom weapon can have a skillgem slot.
-	 */
-	@Override
-	public boolean canHaveSkillSlot() {
-		return false;
-	}
-
-	/**
-	 * Gets the lores to show on an instance of the custom weapon.
-	 * 
-	 * @param hasSkillSlot If the weapon has a skillgem slot.
-	 */
-	@Override
-	public List<String> getCustomWeaponLores(boolean hasSkillSlot) {
-		List<String> lores = new ArrayList<>();
-		lores.add("");
-		lores.add(ChatColor.GRAY + "Use while Sneaking to pull you to a Block");
-		lores.add(ChatColor.GRAY + "Right Click to grab Enemies");
-		return lores;
-	}
-
 	/**
 	 * Handles a hook launch and cancels it, when no target was found within 15 blocks.
 	 * Pulls the player to the targeted block and makes the hook loose 12 durability, if they are sneaking.
@@ -116,7 +82,41 @@ public class CustomWeaponHook implements CustomWeapon {
             }
 		}, 10);
 	}
+
+	/**
+	 * Returns the materials that trigger events with the item.
+	 * 
+	 * @return The list of materials.
+	 */
+	@Override
+	public List<Material> getCustomItemMaterials() {
+		return Arrays.asList(Material.FISHING_ROD);
+	}
 	
+	/**
+	 * Determines if the custom weapon can have a skillgem slot.
+	 * 
+	 * @return If the custom weapon can have a skillgem slot.
+	 */
+	@Override
+	public boolean canHaveSkillSlot() {
+		return false;
+	}
+
+	/**
+	 * Gets the lores to show on an instance of the custom weapon.
+	 * 
+	 * @param hasSkillSlot If the weapon has a skillgem slot.
+	 */
+	@Override
+	public List<String> getCustomWeaponLores(boolean hasSkillSlot) {
+		List<String> lores = new ArrayList<>();
+		lores.add("");
+		lores.add(ChatColor.GRAY + "Use while Sneaking to pull you to a Block");
+		lores.add(ChatColor.GRAY + "Right Click to grab Enemies");
+		return lores;
+	}
+
 	/**
 	 * Searches the block for valid attack targets.
 	 * If a target was found, the target will be pulled to the player.

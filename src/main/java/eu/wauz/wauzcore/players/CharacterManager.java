@@ -21,6 +21,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
 import eu.wauz.wauzcore.items.InventoryStringConverter;
 import eu.wauz.wauzcore.items.WauzRewards;
+import eu.wauz.wauzcore.items.identifiers.WauzEquipmentHelper;
 import eu.wauz.wauzcore.items.runes.RuneHardening;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.social.TabardMenu;
@@ -321,7 +322,7 @@ public class CharacterManager {
 			persistCharacterFile(playerDataFile, playerDataConfig);
 			
 			player.getInventory().addItem(characterClass.getStartingWeapon());
-			player.getInventory().addItem(WauzDebugger.getRune(RuneHardening.RUNE_NAME, false));
+			player.getInventory().addItem(WauzEquipmentHelper.getRune(new RuneHardening(), false));
 			equipCharacterItems(player);
 			WauzRewards.earnDailyReward(player);
 			

@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.items.identifiers.WauzEquipmentHelper;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -55,7 +55,7 @@ public class CmdWzGetEquipEnhanced implements WauzCommand {
 			return false;
 		}
 
-		return WauzDebugger.getEnhancedEquipment(player, type, level);
+		return WauzEquipmentHelper.getEnhancedEquipment(player, type, level);
 	}
 
 }

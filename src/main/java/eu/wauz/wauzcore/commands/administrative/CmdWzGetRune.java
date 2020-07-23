@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.items.identifiers.WauzEquipmentHelper;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -54,7 +54,7 @@ public class CmdWzGetRune implements WauzCommand {
 			return false;
 		}
 
-		return WauzDebugger.getRune(player, type);
+		return WauzEquipmentHelper.getRune(player, type);
 	}
 
 }
