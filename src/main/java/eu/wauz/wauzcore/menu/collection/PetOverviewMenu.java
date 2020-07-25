@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Chance;
@@ -237,7 +238,7 @@ public class PetOverviewMenu implements WauzInventory {
 	 */
 	public static void removeOwner(String petId, Player player) {
 		petOwnerMap.remove(petId);
-		player.setWalkSpeed(0.2f);
+		SpeedCalculator.resetWalkSpeed(player);
 	}
 	
 // Unsummoning

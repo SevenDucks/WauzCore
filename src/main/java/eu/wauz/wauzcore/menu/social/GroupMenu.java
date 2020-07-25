@@ -395,6 +395,8 @@ public class GroupMenu implements WauzInventory {
 	 * @param clicked The option to interact with.
 	 * 
 	 * @see GroupMenu#playerSelection(Player, boolean)
+	 * @see GroupMenu#promotePlayer(Player, Player)
+	 * @see GroupMenu#kickPlayer(Player, Player)
 	 * @see WauzTeleporter#playerTeleportManual(Player, Player)
 	 */
 	public void handlePlayerInteractions(Player player, ItemStack clicked) {
@@ -415,36 +417,10 @@ public class GroupMenu implements WauzInventory {
 			
 			String inventoryName = player.getOpenInventory().getTitle();
 			if(inventoryName.contains("Promote")) {
-				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(target);
-				WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
-				if(playerGroup != null) {
-					playerGroup.setAdminUuidString(target.getUniqueId().toString());
-					for(Player member : playerGroup.getPlayers()) {
-						member.sendMessage(ChatColor.GREEN + player.getName() + " promoted "
-								+ target.getName() + " to the group-leader!");
-					}
-					open(player);
-				}
-				else {
-					player.closeInventory();
-				}
+				promotePlayer(player, target);
 			}
 			else if(inventoryName.contains("Kick")) {
-				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(target);
-				WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
-				if(playerGroup != null) {
-					playerGroup.removePlayer(target);
-					playerData.setGroupUuidString(null);
-					target.sendMessage(ChatColor.RED + player.getName() + " kicked you out of the group!");
-					for(Player member : playerGroup.getPlayers()) {
-						member.sendMessage(ChatColor.RED + player.getName() + " kicked "
-								+ target.getName() + " out of the group!");
-					}
-					open(player);
-				}
-				else {
-					player.closeInventory();
-				}
+				kickPlayer(player, target);
 			}
 			else {
 				WauzTeleporter.playerTeleportManual(player, target);
@@ -467,6 +443,52 @@ public class GroupMenu implements WauzInventory {
 			else {
 				player.closeInventory();
 			}
+		}
+	}
+
+	/**
+	 * Promotes a player to the new group leader.
+	 * 
+	 * @param player The player performing the action.
+	 * @param target The player to get promoted.
+	 */
+	private void promotePlayer(Player player, Player target) {
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(target);
+		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+		if(playerGroup != null) {
+			playerGroup.setAdminUuidString(target.getUniqueId().toString());
+			for(Player member : playerGroup.getPlayers()) {
+				member.sendMessage(ChatColor.GREEN + player.getName() + " promoted "
+						+ target.getName() + " to the group-leader!");
+			}
+			open(player);
+		}
+		else {
+			player.closeInventory();
+		}
+	}
+	
+	/**
+	 * Kicks a player out of the group.
+	 * 
+	 * @param player The player performing the action.
+	 * @param target The player to get kicked.
+	 */
+	private void kickPlayer(Player player, Player target) {
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(target);
+		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+		if(playerGroup != null) {
+			playerGroup.removePlayer(target);
+			playerData.setGroupUuidString(null);
+			target.sendMessage(ChatColor.RED + player.getName() + " kicked you out of the group!");
+			for(Player member : playerGroup.getPlayers()) {
+				member.sendMessage(ChatColor.RED + player.getName() + " kicked "
+						+ target.getName() + " out of the group!");
+			}
+			open(player);
+		}
+		else {
+			player.closeInventory();
 		}
 	}
 

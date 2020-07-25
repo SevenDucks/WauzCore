@@ -35,6 +35,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
@@ -370,7 +371,7 @@ public class PetOptionsMenu implements WauzInventory {
 			PlayerPetsConfigurator.setCharacterActivePetSlot(player, petSlot);
 			
 			PetOverviewMenu.setOwner(petId, player);
-			player.setWalkSpeed(0.2f + PlayerPetsConfigurator.getCharacterPetDexterity(player, petSlot) * 0.02f);
+			SpeedCalculator.resetWalkSpeed(player);
 			
 			WauzDebugger.log(player, player.getName() + " summoned Pet " + petId);
 			player.sendMessage(ChatColor.GREEN + petType + " was summoned!");

@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.items;
 import java.io.File;
 import java.io.IOException;
 
+import org.bukkit.GameMode;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -29,7 +30,7 @@ public class InventoryStringConverter {
     
 	/**
 	 * Serializes the player inventory and current stats to the selected character config.
-	 * Includes last played time, health, mana, level, pvp resistance and saturation.
+	 * Includes gamemode, last played time, health, mana, level, pvp resistance and saturation.
 	 * 
 	 * @param player The player whose inventory should be serialized.
 	 * 
@@ -41,7 +42,7 @@ public class InventoryStringConverter {
 		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		
+		playerDataConfig.set("gamemode", player.getGameMode().toString());
 		playerDataConfig.set("lastplayed", System.currentTimeMillis());
 		
 		if(WauzMode.isMMORPG(player)) {
@@ -70,7 +71,7 @@ public class InventoryStringConverter {
     
     /**
 	 * Deserializes the player inventory and current stats to the selected character config.
-	 * Includes health, mana, level, pvp resistance and saturation.
+	 * Includes gamemode, health, mana, level, pvp resistance and saturation.
 	 * 
 	 * @param player The player whose inventory should be deserialized.
 	 * 
@@ -82,6 +83,7 @@ public class InventoryStringConverter {
 		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
     	
     	WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+    	player.setGameMode(GameMode.valueOf(playerDataConfig.getString("gamemode")));
     	
     	if(WauzMode.isMMORPG(player)) {
     		DamageCalculator.setHealth(player, playerDataConfig.getInt("stats.current.health"));

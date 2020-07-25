@@ -28,6 +28,7 @@ import eu.wauz.wauzcore.menu.social.TabardMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
+import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassStats;
@@ -49,7 +50,7 @@ public class CharacterManager {
 	/**
 	 * The current schema version of character files.
 	 */
-	public static final int SCHEMA_VERSION = 2;
+	public static final int SCHEMA_VERSION = 3;
 	
 	/**
 	 * A direct reference to the main class.
@@ -74,8 +75,6 @@ public class CharacterManager {
 			return;
 		}
 
-		player.setGameMode(wauzMode.equals(WauzMode.SURVIVAL) ? GameMode.SURVIVAL : GameMode.ADVENTURE);
-		
 		playerData.setMaxHealth(PlayerPassiveSkillConfigurator.getHealth(player));
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			playerData.setMaxMana(PlayerPassiveSkillConfigurator.getMana(player));
@@ -93,6 +92,8 @@ public class CharacterManager {
 
 		player.getInventory().clear();
 		InventoryStringConverter.loadInventory(player);
+		SpeedCalculator.resetWalkSpeed(player);
+		SpeedCalculator.resetFlySpeed(player);
 		
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			equipCharacterItems(player);
@@ -118,7 +119,6 @@ public class CharacterManager {
 	 * @see CharacterManager#equipHubItems(Player)
 	 */
 	public static void logoutCharacter(final Player player) {
-		player.setGameMode(GameMode.ADVENTURE);
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
 		if(WauzMode.isMMORPG(player)) {
@@ -140,6 +140,7 @@ public class CharacterManager {
 		playerData.setSelectedCharacterWorld(null);
 		playerData.setSelectedCharacterClass(null);
 		
+		player.setGameMode(GameMode.ADVENTURE);
 	    player.setExp(0);
 		player.setLevel(0);
 
@@ -157,6 +158,8 @@ public class CharacterManager {
 		player.setCompassTarget(WauzCore.getHubLocation());
 		player.setBedSpawnLocation(WauzCore.getHubLocation(), true);
 		player.teleport(WauzCore.getHubLocation());
+		SpeedCalculator.resetWalkSpeed(player);
+		SpeedCalculator.resetFlySpeed(player);
 	}
 	
 	/**
@@ -235,6 +238,7 @@ public class CharacterManager {
 		playerDataConfig.set("stats.current.saturation", 10);
 		
 		if(wauzMode.equals(WauzMode.MMORPG)) {
+			playerDataConfig.set("gamemode", GameMode.ADVENTURE.toString());
 			player.setGameMode(GameMode.ADVENTURE);
 			player.setLevel(1);
 			
@@ -331,6 +335,7 @@ public class CharacterManager {
 			}
 		}
 		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
+			playerDataConfig.set("gamemode", GameMode.SURVIVAL.toString());
 			player.setGameMode(GameMode.SURVIVAL);
 			player.setLevel(0);
 			
@@ -343,6 +348,8 @@ public class CharacterManager {
 		player.setCompassTarget(spawn);
 		player.setBedSpawnLocation(spawn, true);
 		player.teleport(spawn);
+		SpeedCalculator.resetWalkSpeed(player);
+		SpeedCalculator.resetFlySpeed(player);
 	}
 
 	/**

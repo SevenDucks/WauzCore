@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 
 /**
  * Used for debug logging and administrative command mechanics.
@@ -115,8 +116,7 @@ public class WauzDebugger {
 		String permission = WauzPermission.DEBUG_FLYING.toString();
 		player.addAttachment(WauzCore.getInstance(), permission, !player.hasPermission(permission));
 		log(player, "Flying debug mode toggled!");
-		
-		player.setFlySpeed(player.hasPermission(permission) ? 0.3f : 0.1f);
+		SpeedCalculator.resetFlySpeed(player);
 		return true;
 	}
 	
