@@ -12,9 +12,11 @@ import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
+import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * A listener to catch events, related to damaging or modifying blocks.
@@ -22,6 +24,19 @@ import eu.wauz.wauzcore.system.WauzRegion;
  * @author Wauzmons
  */
 public class BlockProtectionListener implements Listener {
+	
+	/**
+	 * Prevents leaf decay in MMORPG worlds.
+	 * 
+	 * @param event
+	 * 
+	 * @see WauzMode#isMMORPG(org.bukkit.World)
+	 */
+	public void onLeafDecay(LeavesDecayEvent event) {
+		if(WauzMode.isMMORPG(event.getBlock().getWorld())) {
+			event.setCancelled(true);
+		}
+	}
 	
 	/**
 	 * Prevents changes to protected regions.
