@@ -8,13 +8,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -27,6 +30,7 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.event.server.ServerListPingEvent;
+import org.bukkit.inventory.ItemStack;
 import org.spigotmc.event.entity.EntityDismountEvent;
 import org.spigotmc.event.entity.EntityMountEvent;
 
@@ -55,11 +59,13 @@ import net.jitse.npclib.api.events.NPCInteractEvent;
  * @author Wauzmons
  */
 public class PlayerInteractionListener implements Listener {
-	
+	Player player;
+	ItemStack tool = player.getInventory().getItemInMainHand();
 	/**
 	 * Storage for player names, to greet them in the MotD.
 	 */
 	private Map<InetAddress, String> addressNameMap = new HashMap<>();
+
 	
 	/**
 	 * Gets the player's name, to greet them in the MotD.
@@ -190,11 +196,19 @@ public class PlayerInteractionListener implements Listener {
 	 */
 	@EventHandler
 	public void onInteraction(PlayerInteractEvent event) {
+		Player p = event.getPlayer();
 		if(WauzMode.isMMORPG(event.getPlayer())) {
 			EventMapper.handleItemInteraction(event);
 		}
 		else if(WauzMode.isSurvival(event.getPlayer())) {
 			EventMapper.handleSurvivalItemInteraction(event);
+		}else if(tool.getType() == Material.AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+			  if(event.getClickedBlock().getType().toString().contains("STAIRS")) {
+					Location arrowLocation = p.getLocation().clone().add(0.5D, 0.2D, 0.5D);
+					Entity arrow = arrowLocation.getWorld().spawnEntity(arrowLocation, EntityType.ARROW);
+					arrow.addPassenger(p);
+					p.sendMessage(ChatColor.YELLOW + "You are now sitting.");
+			}
 		}
 	}
 
