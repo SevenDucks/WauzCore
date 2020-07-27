@@ -32,7 +32,7 @@ public class CmdWzHeal implements WauzCommand {
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzHeal");
+		return Arrays.asList("wzHeal", "heal", "feed");
 	}
 
 	/**

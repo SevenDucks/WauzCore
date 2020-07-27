@@ -28,7 +28,7 @@ public class CmdSendCoins implements WauzCommand {
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("send.coins");
+		return Arrays.asList("send.coins", "pay");
 	}
 
 	/**

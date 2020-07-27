@@ -4,19 +4,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.items.DurabilityCalculator;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Repair Equipment of Player</b></br>
- * - Usage: <b>/wzRepair [player]</b></br>
+ * - Description: <b>Toggle Creative Mode</b></br>
+ * - Usage: <b>/wzGamemode [player]</b></br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons
@@ -24,14 +24,14 @@ import eu.wauz.wauzcore.items.DurabilityCalculator;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
-public class CmdWzRepair implements WauzCommand {
+public class CmdWzGamemode implements WauzCommand {
 
 	/**
 	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzRepair", "repair");
+		return Arrays.asList("wzGamemode", "gm");
 	}
 
 	/**
@@ -50,25 +50,14 @@ public class CmdWzRepair implements WauzCommand {
 			return false;
 		}
 		
-		tryToRepair(player, player.getEquipment().getItemInMainHand());
-		tryToRepair(player, player.getEquipment().getItemInOffHand());
-		tryToRepair(player, player.getEquipment().getHelmet());
-		tryToRepair(player, player.getEquipment().getChestplate());
-		tryToRepair(player, player.getEquipment().getLeggings());
-		tryToRepair(player, player.getEquipment().getBoots());
-		return true;
-	}
-	
-	/**
-	 * Tries to repair the given item.
-	 * 
-	 * @param player The player, that owns the item.
-	 * @param itemToRepair The item to repair.
-	 */
-	private void tryToRepair(Player player, ItemStack itemToRepair) {
-		if(itemToRepair != null) {
-			DurabilityCalculator.repairItem(player, itemToRepair);
+		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+			player.setGameMode(GameMode.CREATIVE);
 		}
+		else {
+			GameMode mode = WauzMode.isSurvival(player) ? GameMode.SURVIVAL : GameMode.ADVENTURE;
+			player.setGameMode(mode);
+		}
+		return true;
 	}
 
 }

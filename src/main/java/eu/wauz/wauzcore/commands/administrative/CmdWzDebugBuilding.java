@@ -30,7 +30,7 @@ public class CmdWzDebugBuilding implements WauzCommand {
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzDebug.building");
+		return Arrays.asList("wzDebug.building", "build");
 	}
 
 	/**

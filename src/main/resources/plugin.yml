@@ -73,6 +73,7 @@ commands:
     permission: wauz.normal
   send.coins:
     description: Send Coins to a Player
+    aliases: [pay]
     usage: /send.coins [player] [amount] [text]
     permission: wauz.normal
   sit:
@@ -93,15 +94,22 @@ commands:
     permission: wauz.system
   wzHeal:
     description: Heal and Feed Player
+    aliases: [heal, feed]
     usage: /wzHeal [player]
     permission: wauz.system
   wzRepair:
     description: Repair Equipment of Player
+    aliases: [repair]
     usage: /wzRepair [player]
     permission: wauz.system
   wzExp:
     description: Gain Experience Points
     usage: /wzExp [player] [tier] [amount]
+    permission: wauz.system
+  wzGamemode:
+    description: Toggle Creative Mode
+    aliases: [gm]
+    usage: /wzGamemode [player]
     permission: wauz.system
   wzEnter.dev:
     description: Enter Dev Instance
@@ -128,6 +136,16 @@ commands:
     description: Event-Travel to Location per UUID
     usage: /wzTravelEvent [uuid]
     permission: wauz.normal
+  wzSpeed.walking:
+    description: Change Walking Speed
+    aliases: [wspeed]
+    usage: /wzSpeed.walking [speed (1-10)] [player]
+    permission: wauz.system
+  wzSpeed.flying:
+    description: Change Flying Speed
+    aliases: [fspeed]
+    usage: /wzSpeed.flying [speed (1-10)] [player]
+    permission: wauz.system
   wzRank:
     description: Change Rank of a Player
     usage: /wzRank [rank] [player]
@@ -146,6 +164,7 @@ commands:
     permission: wauz.system
   wzDebug.building:
     description: Toggle Building Debug Mode
+    aliases: [build]
     usage: /wzDebug.building [player]
     permission: wauz.system
   wzDebug.flying:
@@ -168,6 +187,7 @@ commands:
   wzGetEquip:
     description: Get Equip from String
     usage: /wzGetEquip [equipname] [tier] [player]
+    permission: wauz.system
   wzGetEquip.enhanced:
     description: Get Enhanced Equip from String
     usage: /wzGetEquip.enhanced [enname] [enlvl] [player]

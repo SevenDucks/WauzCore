@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.players.calc;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
@@ -31,8 +32,19 @@ public class SpeedCalculator {
 				bonusSpeed += PlayerPetsConfigurator.getCharacterPetDexterity(player, petSlot) * 0.02f;
 			}
 		}
-		
 		player.setWalkSpeed(0.2f + bonusSpeed);
+	}
+	
+	/**
+	 * Temporarily sets the player's walk speed.
+	 * 
+	 * @param player The player to change the speed of.
+	 * @param speed The speed value form 1-10, where 2 is default.
+	 */
+	public static void setWalkSpeed(Player player, int speed) {
+		speed = Math.min(10, Math.max(1, speed));
+		player.setWalkSpeed(0.1f * speed);
+		player.sendMessage(ChatColor.GREEN + "Set walk speed to " + speed + "!");
 	}
 	
 	/**
@@ -46,6 +58,18 @@ public class SpeedCalculator {
 	public static void resetFlySpeed(Player player) {
 		boolean debugSpeed = player.hasPermission(WauzPermission.DEBUG_FLYING.toString());
 		player.setFlySpeed(debugSpeed ? 0.3f : 0.1f);
+	}
+	
+	/**
+	 * Temporarily sets the player's fly speed.
+	 * 
+	 * @param player The player to change the speed of.
+	 * @param speed The speed value form 1-10, where 2 is default.
+	 */
+	public static void setFlySpeed(Player player, int speed) {
+		speed = Math.min(10, Math.max(1, speed));
+		player.setFlySpeed(0.05f * speed);
+		player.sendMessage(ChatColor.GREEN + "Set fly speed to " + speed + "!");
 	}
 
 }

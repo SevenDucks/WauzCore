@@ -6,17 +6,16 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.items.DurabilityCalculator;
+import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Repair Equipment of Player</b></br>
- * - Usage: <b>/wzRepair [player]</b></br>
+ * - Description: <b>Change Walking Speed</b></br>
+ * - Usage: <b>/wzSpeed.walking [speed (1-10)] [player]</b></br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons
@@ -24,14 +23,14 @@ import eu.wauz.wauzcore.items.DurabilityCalculator;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
-public class CmdWzRepair implements WauzCommand {
+public class CmdWzSpeedWalking implements WauzCommand {
 
 	/**
 	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzRepair", "repair");
+		return Arrays.asList("wzSpeed.walking", "wspeed");
 	}
 
 	/**
@@ -44,31 +43,15 @@ public class CmdWzRepair implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		Player player = args.length == 0 ? (Player) sender : WauzCore.getOnlinePlayer(args[0]);
+		int speed = Integer.parseInt(args[0]);
+		Player player = args.length <= 1 ? (Player) sender : WauzCore.getOnlinePlayer(args[1]);
 		if(player == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;
 		}
 		
-		tryToRepair(player, player.getEquipment().getItemInMainHand());
-		tryToRepair(player, player.getEquipment().getItemInOffHand());
-		tryToRepair(player, player.getEquipment().getHelmet());
-		tryToRepair(player, player.getEquipment().getChestplate());
-		tryToRepair(player, player.getEquipment().getLeggings());
-		tryToRepair(player, player.getEquipment().getBoots());
+		SpeedCalculator.setWalkSpeed(player, speed);
 		return true;
-	}
-	
-	/**
-	 * Tries to repair the given item.
-	 * 
-	 * @param player The player, that owns the item.
-	 * @param itemToRepair The item to repair.
-	 */
-	private void tryToRepair(Player player, ItemStack itemToRepair) {
-		if(itemToRepair != null) {
-			DurabilityCalculator.repairItem(player, itemToRepair);
-		}
 	}
 
 }
