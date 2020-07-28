@@ -50,7 +50,7 @@ public class CmdWzGamemode implements WauzCommand {
 			return false;
 		}
 		
-		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+		if(!player.getGameMode().equals(GameMode.CREATIVE)) {
 			player.setGameMode(GameMode.CREATIVE);
 		}
 		else {

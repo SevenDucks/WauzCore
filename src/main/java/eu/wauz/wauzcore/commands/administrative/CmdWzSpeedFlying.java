@@ -43,6 +43,10 @@ public class CmdWzSpeedFlying implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
+		if(args.length < 1) {
+			return false;
+		}
+		
 		int speed = Integer.parseInt(args[0]);
 		Player player = args.length <= 1 ? (Player) sender : WauzCore.getOnlinePlayer(args[1]);
 		if(player == null) {

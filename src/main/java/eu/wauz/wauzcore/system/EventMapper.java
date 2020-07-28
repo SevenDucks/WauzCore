@@ -124,11 +124,11 @@ public class EventMapper {
 	 */
 	public static void handleItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		if(player.getGameMode().equals(GameMode.CREATIVE)) {
-			return;
-		}
 		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND)) {
 			event.setCancelled(true);
+			return;
+		}
+		if(player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
 		
@@ -137,28 +137,29 @@ public class EventMapper {
 			Cooldown.playerWeaponUse(player);
 			event.setCancelled(true);
 		}
-		else if(itemStack != null) {
-			Material type = itemStack.getType();
-			CustomItem customItem = customItemMap.get(type);
-			
-			if(customItem != null) {
-				customItem.use(event);
-			}
-			else if(event.getAction().toString().contains("RIGHT")) {
-				FoodCalculator.tryToConsume(event.getPlayer(), itemStack);
-			}
+		
+		Material itemType = itemStack.getType();
+		CustomItem customItem = customItemMap.get(itemType);
+		if(customItem != null) {
+			customItem.use(event);
+		}
+		else if(event.getAction().toString().contains("RIGHT")) {
+			FoodCalculator.tryToConsume(event.getPlayer(), itemStack);
 		}
 		
-		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+		if(event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			Block block = event.getClickedBlock();
-			Material type = block.getType();
-			WauzDebugger.log(event.getPlayer(), "Clicked Block: " + type.toString());
+			Material blockType = block.getType();
+			WauzDebugger.log(event.getPlayer(), "Clicked Block: " + blockType.toString());
 			
-			if(blockedCraftingStations.contains(type)) {
+			if(blockedCraftingStations.contains(blockType)) {
 				event.setCancelled(true);
 			}
-			else if(type.equals(Material.OAK_SIGN) || type.equals(Material.OAK_WALL_SIGN)) {
+			else if(blockType.equals(Material.OAK_SIGN) || blockType.equals(Material.OAK_WALL_SIGN)) {
 				WauzSigns.interact(player, block);
+			}
+			else if(blockType.toString().contains("STAIRS") && itemType.equals(Material.AIR))  {
+				WauzPlayerSit.sit(player, block);
 			}
 		}
 	}
