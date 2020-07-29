@@ -35,13 +35,30 @@ public class ClassWarrior implements WauzPlayerClass {
 	private Map<String, WauzPlayerSubclass> subclassMap = new HashMap<>();
 	
 	/**
+	 * An ordered list of all the classes' subclasses.
+	 */
+	private List<WauzPlayerSubclass> subclasses = new ArrayList<>();
+	
+	/**
 	 * Constructs a new instance of the class and initializes its subclasses.
+	 * 
+	 * @see ClassWarrior#registerSubclass(WauzPlayerSubclass)
 	 */
 	public ClassWarrior() {
-		subclassMap.put(SubclassBerserker.CLASS_NAME, new SubclassBerserker());
-		subclassMap.put(SubclassBulwark.CLASS_NAME, new SubclassBulwark());
-		subclassMap.put(SubclassTemplar.CLASS_NAME, new SubclassTemplar());
-		subclassMap.put(SubclassPaladin.CLASS_NAME, new SubclassPaladin());
+		registerSubclass(new SubclassBerserker());
+		registerSubclass(new SubclassBulwark());
+		registerSubclass(new SubclassTemplar());
+		registerSubclass(new SubclassPaladin());
+	}
+	
+	/**
+	 * Registers a subclass of the class.
+	 * 
+	 * @param subclass The subclass to register.
+	 */
+	private void registerSubclass(WauzPlayerSubclass subclass) {
+		subclasses.add(subclass);
+		subclassMap.put(subclass.getSubclassName(), subclass);
 	}
 
 	/**
@@ -81,7 +98,7 @@ public class ClassWarrior implements WauzPlayerClass {
 	 */
 	@Override
 	public List<WauzPlayerSubclass> getSubclasses() {
-		return new ArrayList<>(subclassMap.values());
+		return new ArrayList<>(subclasses);
 	}
 
 	/**

@@ -35,13 +35,30 @@ public class ClassCleric implements WauzPlayerClass {
 	private Map<String, WauzPlayerSubclass> subclassMap = new HashMap<>();
 	
 	/**
+	 * An ordered list of all the classes' subclasses.
+	 */
+	private List<WauzPlayerSubclass> subclasses = new ArrayList<>();
+	
+	/**
 	 * Constructs a new instance of the class and initializes its subclasses.
+	 * 
+	 * @see ClassCleric#registerSubclass(WauzPlayerSubclass)
 	 */
 	public ClassCleric() {
-		subclassMap.put(SubclassDruid.CLASS_NAME, new SubclassDruid());
-		subclassMap.put(SubclassSentinel.CLASS_NAME, new SubclassSentinel());
-		subclassMap.put(SubclassPriest.CLASS_NAME, new SubclassPriest());
-		subclassMap.put(SubclassShaman.CLASS_NAME, new SubclassShaman());
+		registerSubclass(new SubclassDruid());
+		registerSubclass(new SubclassSentinel());
+		registerSubclass(new SubclassPriest());
+		registerSubclass(new SubclassShaman());
+	}
+	
+	/**
+	 * Registers a subclass of the class.
+	 * 
+	 * @param subclass The subclass to register.
+	 */
+	private void registerSubclass(WauzPlayerSubclass subclass) {
+		subclasses.add(subclass);
+		subclassMap.put(subclass.getSubclassName(), subclass);
 	}
 
 	/**
@@ -81,7 +98,7 @@ public class ClassCleric implements WauzPlayerClass {
 	 */
 	@Override
 	public List<WauzPlayerSubclass> getSubclasses() {
-		return new ArrayList<>(subclassMap.values());
+		return new ArrayList<>(subclasses);
 	}
 
 	/**

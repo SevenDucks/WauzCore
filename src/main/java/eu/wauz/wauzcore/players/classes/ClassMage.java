@@ -35,13 +35,30 @@ public class ClassMage implements WauzPlayerClass {
 	private Map<String, WauzPlayerSubclass> subclassMap = new HashMap<>();
 	
 	/**
+	 * An ordered list of all the classes' subclasses.
+	 */
+	private List<WauzPlayerSubclass> subclasses = new ArrayList<>();
+	
+	/**
 	 * Constructs a new instance of the class and initializes its subclasses.
+	 * 
+	 * @see ClassMage#registerSubclass(WauzPlayerSubclass)
 	 */
 	public ClassMage() {
-		subclassMap.put(SubclassDestroyer.CLASS_NAME, new SubclassDestroyer());
-		subclassMap.put(SubclassNecromancer.CLASS_NAME, new SubclassNecromancer());
-		subclassMap.put(SubclassWarlock.CLASS_NAME, new SubclassWarlock());
-		subclassMap.put(SubclassBeguiler.CLASS_NAME, new SubclassBeguiler());
+		registerSubclass(new SubclassDestroyer());
+		registerSubclass(new SubclassNecromancer());
+		registerSubclass(new SubclassWarlock());
+		registerSubclass(new SubclassBeguiler());
+	}
+	
+	/**
+	 * Registers a subclass of the class.
+	 * 
+	 * @param subclass The subclass to register.
+	 */
+	private void registerSubclass(WauzPlayerSubclass subclass) {
+		subclasses.add(subclass);
+		subclassMap.put(subclass.getSubclassName(), subclass);
 	}
 
 	/**
@@ -81,7 +98,7 @@ public class ClassMage implements WauzPlayerClass {
 	 */
 	@Override
 	public List<WauzPlayerSubclass> getSubclasses() {
-		return new ArrayList<>(subclassMap.values());
+		return new ArrayList<>(subclasses);
 	}
 
 	/**

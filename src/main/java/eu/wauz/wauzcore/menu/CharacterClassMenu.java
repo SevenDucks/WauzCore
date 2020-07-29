@@ -23,6 +23,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassStats;
+import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -85,6 +86,14 @@ public class CharacterClassMenu implements WauzInventory {
 			}
 			classLores.add("");
 			
+			classLores.add(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Learnable Masteries");
+			for(WauzPlayerSubclass subclass : characterClass.getSubclasses()) {
+				String subclassDescription = subclass.getSublassColor() + subclass.getSublassDescription();
+				classLores.add(ChatColor.GOLD + subclass.getSubclassName() + ": " + subclassDescription);
+			}
+			classLores.add("");
+			
+			classLores.add(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Equipment Proficiency");
 			String armorType = characterClass.getArmorCategory().toString();
 			classLores.add(ChatColor.BLUE + "" + armorType + ChatColor.GOLD + " Armor Type");
 			int staffSkill = (int) Math.ceil(stats.getStaffSkill() / 1000);

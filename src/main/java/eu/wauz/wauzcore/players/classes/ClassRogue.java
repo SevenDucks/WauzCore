@@ -35,13 +35,30 @@ public class ClassRogue implements WauzPlayerClass {
 	private Map<String, WauzPlayerSubclass> subclassMap = new HashMap<>();
 	
 	/**
+	 * An ordered list of all the classes' subclasses.
+	 */
+	private List<WauzPlayerSubclass> subclasses = new ArrayList<>();
+	
+	/**
 	 * Constructs a new instance of the class and initializes its subclasses.
+	 * 
+	 * @see ClassRogue#registerSubclass(WauzPlayerSubclass)
 	 */
 	public ClassRogue() {
-		subclassMap.put(SubclassUmbralist.CLASS_NAME, new SubclassUmbralist());
-		subclassMap.put(SubclassMarksman.CLASS_NAME, new SubclassMarksman());
-		subclassMap.put(SubclassJuggernaut.CLASS_NAME, new SubclassJuggernaut());
-		subclassMap.put(SubclassBard.CLASS_NAME, new SubclassBard());
+		registerSubclass(new SubclassUmbralist());
+		registerSubclass(new SubclassMarksman());
+		registerSubclass(new SubclassJuggernaut());
+		registerSubclass(new SubclassBard());
+	}
+	
+	/**
+	 * Registers a subclass of the class.
+	 * 
+	 * @param subclass The subclass to register.
+	 */
+	private void registerSubclass(WauzPlayerSubclass subclass) {
+		subclasses.add(subclass);
+		subclassMap.put(subclass.getSubclassName(), subclass);
 	}
 
 	/**
@@ -81,7 +98,7 @@ public class ClassRogue implements WauzPlayerClass {
 	 */
 	@Override
 	public List<WauzPlayerSubclass> getSubclasses() {
-		return new ArrayList<>(subclassMap.values());
+		return new ArrayList<>(subclasses);
 	}
 
 	/**

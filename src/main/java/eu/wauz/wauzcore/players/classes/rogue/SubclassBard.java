@@ -1,5 +1,9 @@
 package eu.wauz.wauzcore.players.classes.rogue;
 
+import org.bukkit.ChatColor;
+import org.bukkit.inventory.ItemStack;
+
+import eu.wauz.wauzcore.menu.heads.CharacterIconHeads;
 import eu.wauz.wauzcore.players.classes.ClassRogue;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
 import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
@@ -27,5 +31,29 @@ public class SubclassBard implements WauzPlayerSubclass {
 	public String getSubclassName() {
 		return CLASS_NAME;
 	}
-
+	
+	/**
+	 * @return The description of the subclass.
+	 */
+	@Override
+	public String getSublassDescription() {
+		return "Support, Buffing and Debuffing";
+	}
+	
+	/**
+	 * @return The color associated with the subclass.
+	 */
+	@Override
+	public ChatColor getSublassColor() {
+		return ChatColor.GREEN;
+	}
+	
+	/**
+	 * @return The item stack representing the subclass.
+	 */
+	@Override
+	public ItemStack getSubclassItemStack() {
+		return CharacterIconHeads.getBardItem();
+	}
+	
 }
