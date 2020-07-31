@@ -26,7 +26,7 @@ public class SkillTemperance implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "Temperance XIV";
+	public static final String SKILL_NAME = "Temperance XIV";
 
 	/**
 	 * @return The id of the skill.

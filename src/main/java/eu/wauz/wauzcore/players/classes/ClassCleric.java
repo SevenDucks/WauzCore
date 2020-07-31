@@ -1,10 +1,5 @@
 package eu.wauz.wauzcore.players.classes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -27,22 +22,12 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
  *
  * @see WauzPlayerClassPool
  */
-public class ClassCleric implements WauzPlayerClass {
-	
-	/**
-	 * A map of the classes' subclasses / masteries, indexed by name.
-	 */
-	private Map<String, WauzPlayerSubclass> subclassMap = new HashMap<>();
-	
-	/**
-	 * An ordered list of all the classes' subclasses.
-	 */
-	private List<WauzPlayerSubclass> subclasses = new ArrayList<>();
+public class ClassCleric extends BaseClass {
 	
 	/**
 	 * Constructs a new instance of the class and initializes its subclasses.
 	 * 
-	 * @see ClassCleric#registerSubclass(WauzPlayerSubclass)
+	 * @see BaseClass#registerSubclass(WauzPlayerSubclass)
 	 */
 	public ClassCleric() {
 		registerSubclass(new SubclassDruid());
@@ -51,16 +36,6 @@ public class ClassCleric implements WauzPlayerClass {
 		registerSubclass(new SubclassShaman());
 	}
 	
-	/**
-	 * Registers a subclass of the class.
-	 * 
-	 * @param subclass The subclass to register.
-	 */
-	private void registerSubclass(WauzPlayerSubclass subclass) {
-		subclasses.add(subclass);
-		subclassMap.put(subclass.getSubclassName(), subclass);
-	}
-
 	/**
 	 * @return The name of the class.
 	 */
@@ -93,24 +68,6 @@ public class ClassCleric implements WauzPlayerClass {
 		return CharacterIconHeads.getClericItem();
 	}
 	
-	/**
-	 * @return All subclasses of the class.
-	 */
-	@Override
-	public List<WauzPlayerSubclass> getSubclasses() {
-		return new ArrayList<>(subclasses);
-	}
-
-	/**
-	 * @param subclass The name of a subclass.
-	 * 
-	 * @return The subclass with that name or null.
-	 */
-	@Override
-	public WauzPlayerSubclass getSubclass(String subclass) {
-		return subclassMap.get(subclass);
-	}
-
 	/**
 	 * @return The highest weight armor category the class can wear.
 	 */

@@ -27,7 +27,7 @@ public class SkillDeath implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "Death XIII";
+	public static final String SKILL_NAME = "Death XIII";
 
 	/**
 	 * @return The id of the skill.

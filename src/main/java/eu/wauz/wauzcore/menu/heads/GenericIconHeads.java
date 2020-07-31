@@ -46,6 +46,71 @@ public class GenericIconHeads {
 		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmM4ZWExZjUxZjI1M2ZmNTE0MmNhMTFhZTQ1MTkzYTRhZDhjM2FiNWU5YzZlZWM4YmE3YTRmY2I3YmFjNDAifX19");
 	}
 	
+	/**
+	 * @return An item stack representing a multi-colored cube.
+	 */
+	public static ItemStack getColorCubeItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWI4ODFkOWRlNjMyNjQxZmU3Mjc1OGFiYTJkNjIyOGFkZDhjYmMzYjJjMmI1NzQxOWM4MGUwMjY2MmQ2NGMifX19");
+	}
+	
+// Number Icons
+	
+	/**
+	 * @return An item stack representing the number 1 (red).
+	 */
+	public static ItemStack getNumber1Item() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTM5OGU3ZDEzYzA4Mjc1YjI2YzljNDIwMTUwZjAwOWVmMzk5NjYxNjFjYTQ4ZGIxYTJhYzY5MzI2ZjJmMjQzYSJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing the number 2 (orange).
+	 */
+	public static ItemStack getNumber2Item() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmZlZDliZDU1ZTA3YTc1ODA2ODU4M2NiZDczMGI0MjZjZDBjZmM2MTUwZDdkZDUwODkzNDJmMGMyY2YzOGEwNSJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing the number 3 (yellow).
+	 */
+	public static ItemStack getNumber3Item() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmYyMGQyMjYzNGY5NDI1ODEzYTJlYzkzMDZmZjgyYTkxOTc5ZTA5NDk4N2M3ZTBjMTdmYjI1NWY2MWQ5OGNiIn19fQ==");
+	}
+	
+	/**
+	 * @return An item stack representing the number 4 (green).
+	 */
+	public static ItemStack getNumber4Item() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWQ3YmJjZGQwN2ZkZmEzNDBjNzUxMzRhZGIzMTJmNDM1MjA3ZmY4NWQ3NDI4MTg1MzVkOGIyODI1ZjMwY2U2MCJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing the number 5 (cyan).
+	 */
+	public static ItemStack getNumber5Item() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzhjNzYzNDZkNjM0ZGRiMGZjZTEzNDk4ZDQ1YzY3ZmFjN2FlMjRjOGMyZDMwM2YwYzVjZTdhNjc5NmEwZWJhZSJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing the number 6 (blue).
+	 */
+	public static ItemStack getNumber6Item() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTc5ZmIwNzY1ZGQxOTJlM2FmYjU4YjllOGMzMTM5Nzc2ZjNkMzg4ODk0YmQxZTZhMThkMzFhMzU2Mzc4MjhkZSJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing the number 7 (purple).
+	 */
+	public static ItemStack getNumber7Item() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjM0MWZjYTNhNmQwODUyN2JkNTIxMWU4NzZiYTgyNTliYWQzMGY0ZGM0YmE5M2JhZjVjODliZDA1MmViNDZmYyJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing the number 8 (black).
+	 */
+	public static ItemStack getNumber8Item() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDlhYmVmNWQ1ZjhlOTg0ZTYzOTlkYjc2NGY1ZGJmOTQ1NzgyZmFiOTM5MmE0ZTQ2M2I1OWM4NGY0NDJhMmQwNCJ9fX0=");
+	}
+	
 // Achievement Icons
 
 	/**

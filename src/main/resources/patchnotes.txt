@@ -8,11 +8,30 @@ Patch 6XX: Survival Ascended
 
 Patch 6XX: Powerful Professions
 
-Patch 6XX: Class Specializations
+Patch 606: Bloody Bestiary
 
-Patch 605: Bloody Bestiary
+Patch 605: Crucible of Classes II
 
-Patch 604: Crucible of Classes
+Patch 604: Crucible of Classes I
+	Class System Rework
+	  - Base Classes: Warrior, Rogue, Mage, Cleric
+	  - Classes decide Equipment Proficiency
+	  - Each Class has 4 Subclasses / Masteries
+	  - Masteries focus on Atk, Def or Support
+	  - Unlock Skills by leveling Masteries
+	  - Invest Skill Points to raise Mastery Level
+	  
+	Added Weapon Skills
+	  - Sword -> Deadly Cut (Bleeding)
+	  - Axe -> Stun Slam
+	  - Staff -> Energy Beam (Ranged Attack)
+	
+	Added Commands
+	  - /sit Sit Down
+	  - /gm Toggle Creative Mode
+	  - /wspeed Change Walking Speed
+	  - /fspeed Change Flying Speed
+	  - And a lot of Aliases
 
 Patch 603: Social Standards II
 	New Feature: Ranks and Titles

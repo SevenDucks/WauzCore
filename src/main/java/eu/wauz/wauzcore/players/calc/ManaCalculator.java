@@ -8,6 +8,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * Used to calculate the amount of mana a player has.
@@ -20,25 +21,15 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 public class ManaCalculator {
 	
 	/**
-	 * Adds one mana point to the given player.
+	 * Adds 1-2 mana points to the given player.
 	 * Capped at their current maximum.
 	 * 
 	 * @param player The player who should receive mana.
 	 * 
-	 * @see WauzPlayerData#setMana(Integer)
-	 * @see WauzPlayerData#getMaxMana()
-	 * @see WauzPlayerActionBar#update(Player)
+	 * @see ManaCalculator#regenerateMana(Player, int)
 	 */
 	public static void regenerateMana(Player player) {
-		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null) {
-			return;
-		}
-		
-		if(playerData.getMaxMana() > playerData.getMana()) {
-			playerData.setMana(playerData.getMana() + 1);
-		}
-		WauzPlayerActionBar.update(player);
+		regenerateMana(player, Chance.minMax(1, 2));
 	}
 	
 	/**

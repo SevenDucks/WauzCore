@@ -28,7 +28,7 @@ public class SkillJudgement implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "Judgement XX";
+	public static final String SKILL_NAME = "Judgement XX";
 
 	/**
 	 * @return The id of the skill.

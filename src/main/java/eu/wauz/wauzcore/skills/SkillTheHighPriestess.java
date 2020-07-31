@@ -31,7 +31,7 @@ public class SkillTheHighPriestess implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "The High Priestess II";
+	public static final String SKILL_NAME = "The High Priestess II";
 
 	/**
 	 * @return The id of the skill.

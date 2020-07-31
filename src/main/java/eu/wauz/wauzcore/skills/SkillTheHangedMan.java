@@ -34,7 +34,7 @@ public class SkillTheHangedMan implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "The Hanged Man XII";
+	public static final String SKILL_NAME = "The Hanged Man XII";
 
 	/**
 	 * @return The id of the skill.

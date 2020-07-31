@@ -283,6 +283,16 @@ public class CharacterManager {
 			playerDataConfig.set("skills.axemax", startingStats.getAxeSkillMax());
 			playerDataConfig.set("skills.staff", startingStats.getStaffSkill());
 			playerDataConfig.set("skills.staffmax", startingStats.getStaffSkillMax());
+			
+			playerDataConfig.set("skills.active.1", "none");
+			playerDataConfig.set("skills.active.2", "none");
+			playerDataConfig.set("skills.active.3", "none");
+			playerDataConfig.set("skills.active.4", "none");
+			
+			playerDataConfig.set("masteries.1", 0);
+			playerDataConfig.set("masteries.2", 0);
+			playerDataConfig.set("masteries.3", 0);
+			playerDataConfig.set("masteries.4", 0);
 				
 			playerDataConfig.set("curenncies", new ArrayList<>());
 			playerDataConfig.set("materials", new ArrayList<>());

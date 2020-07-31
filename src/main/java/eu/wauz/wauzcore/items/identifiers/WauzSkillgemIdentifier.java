@@ -38,7 +38,7 @@ public class WauzSkillgemIdentifier {
 	 * @param skillgemItemStack The skillgem item stack, that is getting identified.
 	 */
 	public void identifySkillgem(Player player, ItemStack skillgemItemStack) {
-		List<String> skills = WauzPlayerSkillExecutor.getAllSkillIds();
+		List<String> skills = WauzPlayerSkillExecutor.getAllSkillgemIds();
 		String skillgemName = skills.get(random.nextInt(skills.size()));
 		
 		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillgemName);

@@ -1,31 +1,22 @@
-package eu.wauz.wauzcore.skills;
+package eu.wauz.wauzcore.skills.execution;
 
-import org.bukkit.Particle;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffectType;
-
-import eu.wauz.wauzcore.skills.execution.SkillUtils;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
-import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
-import eu.wauz.wauzcore.skills.particles.SkillParticle;
 
 /**
  * A skill, that can be executed by a player.
- * "Damage Boost" makes the player deal 150% damage with all attacks for 15 seconds.
+ * Used as a placeholder for real skills.
  * 
  * @author Wauzmons
  *
  * @see WauzPlayerSkill
  */
-public class SkillStrength implements WauzPlayerSkill {
+public class SkillPlaceholder implements WauzPlayerSkill {
 	
 	/**
 	 * The static name of the skill.
 	 */
-	public static final String SKILL_NAME = "Strength VIII";
+	public static final String SKILL_NAME = "Placeholder Skill";
 
 	/**
 	 * @return The id of the skill.
@@ -40,7 +31,7 @@ public class SkillStrength implements WauzPlayerSkill {
 	 */
 	@Override
 	public WauzPlayerSkillType getSkillDescriptionType() {
-		return WauzPlayerSkillType.SELF;
+		return WauzPlayerSkillType.OTHER;
 	}
 
 	/**
@@ -48,7 +39,7 @@ public class SkillStrength implements WauzPlayerSkill {
 	 */
 	@Override
 	public String getSkillDescriptionEffect() {
-		return "Damage Boost";
+		return "Does Nothing";
 	}
 
 	/**
@@ -56,7 +47,7 @@ public class SkillStrength implements WauzPlayerSkill {
 	 */
 	@Override
 	public int getCooldownSeconds() {
-		return 32;
+		return 3;
 	}
 
 	/**
@@ -64,7 +55,7 @@ public class SkillStrength implements WauzPlayerSkill {
 	 */
 	@Override
 	public int getManaCost() {
-		return 7;
+		return 1;
 	}
 
 	/**
@@ -77,11 +68,6 @@ public class SkillStrength implements WauzPlayerSkill {
 	 */
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
-		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1, 2f);
-		SkillParticle particle = new SkillParticle(Particle.VILLAGER_ANGRY);
-		ParticleSpawner.spawnParticleSphere(player.getLocation(), particle, 1.5);
-		SkillUtils.addPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 15, 0);
-		
 		return true;
 	}
 

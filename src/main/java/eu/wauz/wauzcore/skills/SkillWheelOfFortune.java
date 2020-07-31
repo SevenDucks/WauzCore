@@ -24,7 +24,7 @@ public class SkillWheelOfFortune implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "Wheel Of Fortune X";
+	public static final String SKILL_NAME = "Wheel Of Fortune X";
 
 	/**
 	 * @return The id of the skill.

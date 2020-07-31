@@ -30,7 +30,7 @@ public class SkillTheTower implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "The Tower XVI";
+	public static final String SKILL_NAME = "The Tower XVI";
 
 	/**
 	 * @return The id of the skill.

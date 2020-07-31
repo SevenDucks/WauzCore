@@ -28,7 +28,7 @@ public class SkillTheMoon implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "The Moon XVIII";
+	public static final String SKILL_NAME = "The Moon XVIII";
 
 	/**
 	 * @return The id of the skill.

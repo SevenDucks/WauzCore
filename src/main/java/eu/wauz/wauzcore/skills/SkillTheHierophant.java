@@ -27,7 +27,7 @@ public class SkillTheHierophant implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "The Hierophant V";
+	public static final String SKILL_NAME = "The Hierophant V";
 
 	/**
 	 * @return The id of the skill.

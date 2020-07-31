@@ -1,10 +1,5 @@
 package eu.wauz.wauzcore.players.classes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -27,38 +22,18 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
  *
  * @see WauzPlayerClassPool
  */
-public class ClassMage implements WauzPlayerClass {
-	
-	/**
-	 * A map of the classes' subclasses / masteries, indexed by name.
-	 */
-	private Map<String, WauzPlayerSubclass> subclassMap = new HashMap<>();
-	
-	/**
-	 * An ordered list of all the classes' subclasses.
-	 */
-	private List<WauzPlayerSubclass> subclasses = new ArrayList<>();
+public class ClassMage extends BaseClass {
 	
 	/**
 	 * Constructs a new instance of the class and initializes its subclasses.
 	 * 
-	 * @see ClassMage#registerSubclass(WauzPlayerSubclass)
+	 * @see BaseClass#registerSubclass(WauzPlayerSubclass)
 	 */
 	public ClassMage() {
 		registerSubclass(new SubclassDestroyer());
 		registerSubclass(new SubclassNecromancer());
 		registerSubclass(new SubclassWarlock());
 		registerSubclass(new SubclassBeguiler());
-	}
-	
-	/**
-	 * Registers a subclass of the class.
-	 * 
-	 * @param subclass The subclass to register.
-	 */
-	private void registerSubclass(WauzPlayerSubclass subclass) {
-		subclasses.add(subclass);
-		subclassMap.put(subclass.getSubclassName(), subclass);
 	}
 
 	/**
@@ -91,24 +66,6 @@ public class ClassMage implements WauzPlayerClass {
 	@Override
 	public ItemStack getClassItemStack() {
 		return CharacterIconHeads.getMageItem();
-	}
-	
-	/**
-	 * @return All subclasses of the class.
-	 */
-	@Override
-	public List<WauzPlayerSubclass> getSubclasses() {
-		return new ArrayList<>(subclasses);
-	}
-
-	/**
-	 * @param subclass The name of a subclass.
-	 * 
-	 * @return The subclass with that name or null.
-	 */
-	@Override
-	public WauzPlayerSubclass getSubclass(String subclass) {
-		return subclassMap.get(subclass);
 	}
 
 	/**

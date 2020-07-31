@@ -14,12 +14,18 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.SkillIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.players.classes.Learnable;
+import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
+import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
 import eu.wauz.wauzcore.system.util.Formatters;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -61,20 +67,20 @@ public class SkillMenu implements WauzInventory {
 	 * @see PlayerPassiveSkillConfigurator#getMana(Player)
 	 * @see PlayerPassiveSkillConfigurator#getStrength(Player)
 	 * @see PlayerPassiveSkillConfigurator#getAgility(Player)
+	 * @see SkillMenu#getMasteryItemStack(int)
 	 * 
 	 * @see PlayerPassiveSkillConfigurator#getStaffSkill(Player)
 	 * @see PlayerPassiveSkillConfigurator#getAxeSkill(Player)
 	 * @see PlayerPassiveSkillConfigurator#getSwordSkill(Player)
-	 * 
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new SkillMenu());
+		SkillMenu skillMenu = new SkillMenu(player);
+		WauzInventoryHolder holder = new WauzInventoryHolder(skillMenu);
 		int pts = PlayerPassiveSkillConfigurator.getUnusedStatpoints(player);
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Passive Skills "
-				+ ChatColor.DARK_RED + ChatColor.BOLD + pts + " Points");
-		
 		int spent;
+		Inventory menu = Bukkit.createInventory(holder, 18, ChatColor.BLACK + "" + ChatColor.BOLD + "Passive Skills "
+				+ ChatColor.DARK_RED + ChatColor.BOLD + pts + " Points");
 		
 		spent = PlayerPassiveSkillConfigurator.getHealthStatpoints(player);
 		ItemStack skillHealthItemStack = SkillIconHeads.getSkillHealthItem(spent);			
@@ -175,6 +181,15 @@ public class SkillMenu implements WauzInventory {
 		skillAgilityItemStack.setItemMeta(skillAgilityItemMeta);
 		menu.setItem(5, skillAgilityItemStack);
 		
+		for(int index = 1; index <= skillMenu.getSubclassCount(); index++) {
+			menu.setItem(index + 8, skillMenu.getMasteryItemStack(index));
+		}
+		
+		ItemStack skillAssignmentItemStack = GenericIconHeads.getColorCubeItem();
+		MenuUtils.setItemDisplayName(skillAssignmentItemStack, ChatColor.DARK_AQUA + "Assign Skills");
+		MenuUtils.addItemLore(skillAssignmentItemStack, ChatColor.GRAY + "Select Skills to use in Combat", true);
+		menu.setItem(14, skillAssignmentItemStack);
+		
 		ItemStack skillWeaponStaffItemStack = new ItemStack(Material.IRON_HOE, 1);
 		ItemMeta skillWeaponStaffItemMeta = skillWeaponStaffItemStack.getItemMeta();
 		skillWeaponStaffItemMeta.setDisplayName(ChatColor.DARK_RED + "Staff Fighting");
@@ -232,8 +247,87 @@ public class SkillMenu implements WauzInventory {
 		skillWeaponSwordItemStack.setItemMeta(skillWeaponSwordItemMeta);
 		menu.setItem(8, skillWeaponSwordItemStack);
 		
+		MenuUtils.setComingSoon(menu, "Breath", 15);
+		MenuUtils.setComingSoon(menu, "Nutrition", 16);
+		MenuUtils.setComingSoon(menu, "Weight", 17);
+		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
+	}
+	
+	/**
+	 * The player whose skills should be shown.
+	 */
+	private Player player;
+	
+	/**
+	 * The subclasses of the player.
+	 */
+	private List<WauzPlayerSubclass> subclasses;
+	
+	/**
+	 * Creates a new skill menu for the given player.
+	 * 
+	 * @param player The player whose skills should be shown.
+	 */
+	public SkillMenu(Player player) {
+		this.player = player;
+		this.subclasses = WauzPlayerClassPool.getClass(player).getSubclasses();
+	}
+	
+	/**
+	 * Creates an empty skill menu.
+	 */
+	public SkillMenu() {
+		
+	}
+
+	/**
+	 * @return The number of subclasses, of the player's class.
+	 */
+	public int getSubclassCount() {
+		return subclasses.size();
+	}
+	
+	/**
+	 * Creates an item stack, showing information about the given mastery.
+	 * 
+	 * @param mastery The number of the mastery.
+	 * 
+	 * @return The created item stack.
+	 */
+	public ItemStack getMasteryItemStack(int mastery) {
+		WauzPlayerSubclass subclass = subclasses.get(mastery - 1);
+		int spent = PlayerPassiveSkillConfigurator.getMasteryStatpoints(player, mastery);
+		ItemStack masteryItemStack;
+		if(spent > 0) {
+			masteryItemStack = subclass.getSubclassItemStack();
+			masteryItemStack.setAmount(spent);
+		}
+		else {
+			masteryItemStack = GenericIconHeads.getUnknownItem();
+		}
+		
+		ItemMeta masteryItemMeta = masteryItemStack.getItemMeta();
+		masteryItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Mastery: " + subclass.getSubclassName());
+		List<String> masteryLores = new ArrayList<String>();
+		masteryLores.add(ChatColor.DARK_PURPLE + "Spent Points: " + ChatColor.GREEN + spent);
+		masteryLores.add("");
+		masteryLores.add(ChatColor.GRAY + "Unlocks new Skills every few Points.");
+		masteryLores.add(subclass.getSublassColor() + subclass.getSublassDescription());
+		masteryLores.add("");
+		Learnable learnable = subclass.getNextLearnable(spent);
+		if(learnable != null) {
+			masteryLores.add(ChatColor.YELLOW + "Needed Points: " + learnable.getLevel());
+			masteryLores.add(UnicodeUtils.createProgressBar(spent, learnable.getLevel(), 50, ChatColor.DARK_AQUA));
+			masteryLores.add(ChatColor.YELLOW + "Unlocks Skill: " + learnable.getSkill().getSkillId());
+		}
+		else {
+			masteryLores.add(ChatColor.DARK_AQUA + "ALL SKILLS UNLOCKED");
+		}
+		masteryItemMeta.setLore(masteryLores);
+		masteryItemStack.setItemMeta(masteryItemMeta);
+		return masteryItemStack;
 	}
 	
 	/**
@@ -244,6 +338,7 @@ public class SkillMenu implements WauzInventory {
 	 * 
 	 * @see PlayerPassiveSkillConfigurator#getTotalStatpoints(Player)
 	 * @see PlayerPassiveSkillConfigurator#getSpentStatpoints(Player)
+	 * @see SkillAssignMenu#open(Player)
 	 * 
 	 * @see PlayerPassiveSkillConfigurator#increaseHealth(Player)
 	 * @see PlayerPassiveSkillConfigurator#increaseTrading(Player)
@@ -251,65 +346,81 @@ public class SkillMenu implements WauzInventory {
 	 * @see PlayerPassiveSkillConfigurator#increaseMana(Player)
 	 * @see PlayerPassiveSkillConfigurator#increaseStrength(Player)
 	 * @see PlayerPassiveSkillConfigurator#increaseAgility(Player)
+	 * @see SkillMenu#tryToIncreaseMastery(ItemStack, int)
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
 		ItemStack clicked = event.getCurrentItem();
-		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null || !clicked.getType().equals(Material.PLAYER_HEAD))
+		if(clicked == null || !clicked.getType().equals(Material.PLAYER_HEAD)) {
 			return;
-		
+		}
 		Integer total = PlayerPassiveSkillConfigurator.getTotalStatpoints(player);
 		Integer spent = PlayerPassiveSkillConfigurator.getSpentStatpoints(player);
 		Integer pts = total - spent;
 
 		try {
-			if(pts < 1) {
+			if(HeadUtils.isHeadMenuItem(clicked, "Assign Skills")) {
+				SkillAssignMenu.open(player);
+			}
+			else if(pts < 1) {
 				player.sendMessage(ChatColor.RED + "You don't have Skillpoints left!");
 				player.closeInventory();
-				return;
 			}
-			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Health")) {
 				PlayerPassiveSkillConfigurator.increaseHealth(player);
 				SkillMenu.open(player);
-				return;
 			}
-			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Trading")) {
 				PlayerPassiveSkillConfigurator.increaseTrading(player);
 				SkillMenu.open(player);
-				return;
 			}
-			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Luck")) {
 				PlayerPassiveSkillConfigurator.increaseLuck(player);
 				SkillMenu.open(player);
-				return;
 			}
-			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Magic")) {
 				PlayerPassiveSkillConfigurator.increaseMana(player);
 				SkillMenu.open(player);
-				return;
 			}	
-			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Strength")) {
 				PlayerPassiveSkillConfigurator.increaseStrength(player);
 				SkillMenu.open(player);
-				return;
 			}
-			
 			else if(HeadUtils.isHeadMenuItem(clicked, "Agility")) {
 				PlayerPassiveSkillConfigurator.increaseAgility(player);
 				SkillMenu.open(player);
-				return;
-			}	
+			}
+			else {
+				tryToIncreaseMastery(clicked, event.getRawSlot());
+			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Increases the level of a valid mastery, if not maxed already.
+	 * 
+	 * @param clicked The clicked mastery item stack.
+	 * @param slot The inventory slot of the mastery item stack.
+	 * 
+	 * @see PlayerPassiveSkillConfigurator#increaseMastery(Player, int)
+	 */
+	private void tryToIncreaseMastery(ItemStack clicked, int slot) {
+		if(slot < 9 || slot > 13) {
+			return;
+		}
+		
+		if(ItemUtils.doesLoreContain(clicked, "ALL SKILLS UNLOCKED")) {
+			player.sendMessage(ChatColor.RED + "This Mastery has already reached max level!");
+			player.closeInventory();
+		}
+		else {
+			PlayerPassiveSkillConfigurator.increaseMastery(player, slot - 8);
+			SkillMenu.open(player);
 		}
 	}
 	

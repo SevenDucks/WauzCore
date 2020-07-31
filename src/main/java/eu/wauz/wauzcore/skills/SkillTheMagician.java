@@ -26,7 +26,7 @@ public class SkillTheMagician implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "The Magician I";
+	public static final String SKILL_NAME = "The Magician I";
 
 	/**
 	 * @return The id of the skill.

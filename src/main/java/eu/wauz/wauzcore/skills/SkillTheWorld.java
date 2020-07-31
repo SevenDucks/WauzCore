@@ -27,7 +27,7 @@ public class SkillTheWorld implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "The World XXI";
+	public static final String SKILL_NAME = "The World XXI";
 
 	/**
 	 * @return The id of the skill.

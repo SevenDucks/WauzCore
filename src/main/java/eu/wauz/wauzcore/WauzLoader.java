@@ -91,6 +91,7 @@ import eu.wauz.wauzcore.items.weapons.CustomWeaponStaff;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponSword;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.abilities.CraftingMenu;
+import eu.wauz.wauzcore.menu.abilities.SkillAssignMenu;
 import eu.wauz.wauzcore.menu.abilities.SkillMenu;
 import eu.wauz.wauzcore.menu.abilities.TravellingMenu;
 import eu.wauz.wauzcore.menu.collection.AchievementsMenu;
@@ -133,6 +134,7 @@ import eu.wauz.wauzcore.skills.SkillTheSun;
 import eu.wauz.wauzcore.skills.SkillTheTower;
 import eu.wauz.wauzcore.skills.SkillTheWorld;
 import eu.wauz.wauzcore.skills.SkillWheelOfFortune;
+import eu.wauz.wauzcore.skills.execution.SkillPlaceholder;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.InstanceManager;
@@ -212,6 +214,7 @@ public class WauzLoader {
 		MenuRegister.registerInventory(new MailMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new PetOverviewMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new QuestMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new SkillAssignMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new SkillMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new TitleMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new TravellingMenu(), WauzMode.MMORPG);
@@ -356,6 +359,8 @@ public class WauzLoader {
 	 * @see WauzLoader#init()
 	 */
 	private static void registerSkillgems() {
+		WauzPlayerSkillExecutor.registerSkill(new SkillPlaceholder(), false);
+		
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheFool());			/** Tarot (00) 0 */
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheMagician());		/** Tarot (01) I */
 		WauzPlayerSkillExecutor.registerSkill(new SkillTheHighPriestess());	/** Tarot (02) II */

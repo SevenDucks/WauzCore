@@ -30,7 +30,7 @@ public class SkillTheChariot implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "The Chariot VII";
+	public static final String SKILL_NAME = "The Chariot VII";
 
 	/**
 	 * @return The id of the skill.

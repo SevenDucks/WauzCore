@@ -30,7 +30,7 @@ public class SkillTheEmpress implements WauzPlayerSkill {
 	/**
 	 * The static name of the skill.
 	 */
-	public static String SKILL_NAME = "The Empress III";
+	public static final String SKILL_NAME = "The Empress III";
 
 	/**
 	 * @return The id of the skill.

@@ -4,9 +4,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.menu.heads.CharacterIconHeads;
+import eu.wauz.wauzcore.players.classes.BaseSubclass;
 import eu.wauz.wauzcore.players.classes.ClassMage;
+import eu.wauz.wauzcore.players.classes.Learnable;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
-import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
+import eu.wauz.wauzcore.skills.SkillTheMagician;
+import eu.wauz.wauzcore.skills.execution.SkillPlaceholder;
 
 /**
  * A subclass / mastery, that belongs to a player class.
@@ -17,12 +20,22 @@ import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
  * @see WauzPlayerClass
  * @see ClassMage
  */
-public class SubclassDestroyer implements WauzPlayerSubclass {
+public class SubclassDestroyer extends BaseSubclass {
 	
 	/**
 	 * The static name of the subclass.
 	 */
-	public static String CLASS_NAME = "Destroyer";
+	public static final String CLASS_NAME = "Destroyer";
+	
+	/**
+	 * Constructs a new instance of the subclass and initializes its learnables
+	 * 
+	 * @see BaseSubclass#registerLearnable(Learnable)
+	 */
+	public SubclassDestroyer() {
+		registerLearnable(new Learnable(new SkillPlaceholder(), 1));
+		registerLearnable(new Learnable(new SkillTheMagician(), 5));
+	}
 	
 	/**
 	 * @return The name of the subclass.

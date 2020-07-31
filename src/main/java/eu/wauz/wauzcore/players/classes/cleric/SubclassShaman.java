@@ -4,9 +4,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.menu.heads.CharacterIconHeads;
+import eu.wauz.wauzcore.players.classes.BaseSubclass;
 import eu.wauz.wauzcore.players.classes.ClassCleric;
+import eu.wauz.wauzcore.players.classes.Learnable;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
-import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
+import eu.wauz.wauzcore.skills.execution.SkillPlaceholder;
 
 /**
  * A subclass / mastery, that belongs to a player class.
@@ -17,12 +19,21 @@ import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
  * @see WauzPlayerClass
  * @see ClassCleric
  */
-public class SubclassShaman implements WauzPlayerSubclass {
+public class SubclassShaman extends BaseSubclass {
 	
 	/**
 	 * The static name of the subclass.
 	 */
-	public static String CLASS_NAME = "Shaman";
+	public static final String CLASS_NAME = "Shaman";
+	
+	/**
+	 * Constructs a new instance of the subclass and initializes its learnables
+	 * 
+	 * @see BaseSubclass#registerLearnable(Learnable)
+	 */
+	public SubclassShaman() {
+		registerLearnable(new Learnable(new SkillPlaceholder(), 1));
+	}
 	
 	/**
 	 * @return The name of the subclass.

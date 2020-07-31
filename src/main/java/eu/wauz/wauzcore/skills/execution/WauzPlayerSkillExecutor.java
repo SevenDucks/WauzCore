@@ -29,11 +29,15 @@ import eu.wauz.wauzcore.system.util.Cooldown;
  */
 public class WauzPlayerSkillExecutor {
 	
-	
 	/**
 	 * A map of all registered skills.
 	 */
 	private static Map<String, WauzPlayerSkill> playerSkillMap = new HashMap<>();
+	
+	/**
+	 * A list of all skill ids, that can be obtained as skillgem.
+	 */
+	private static List<String> skillgemIds = new ArrayList<>();
 	
 	/**
 	 * Gets a skill for the given id from the map.
@@ -61,6 +65,13 @@ public class WauzPlayerSkillExecutor {
 	}
 	
 	/**
+	 * @return A list of all skill ids, that can be obtained as skillgem.
+	 */
+	public static List<String> getAllSkillgemIds() {
+		return new ArrayList<>(skillgemIds);
+	}
+	
+	/**
 	 * @return The count of different skills.
 	 */
 	public static int getSkillTypesCount() {
@@ -68,12 +79,25 @@ public class WauzPlayerSkillExecutor {
 	}
 	
 	/**
-	 * Registers a skill.
+	 * Registers a skill, that can be obtained as skillgem.
 	 * 
 	 * @param skill The skill to register.
 	 */
 	public static void registerSkill(WauzPlayerSkill skill) {
+		registerSkill(skill, true);
+	}
+	
+	/**
+	 * Registers a skill.
+	 * 
+	 * @param skill The skill to register.
+	 * @param skillgem If the skill can be obtained as skillgem.
+	 */
+	public static void registerSkill(WauzPlayerSkill skill, boolean skillgem) {
 		playerSkillMap.put(skill.getSkillId(), skill);
+		if(skillgem) {
+			skillgemIds.add(skill.getSkillId());
+		}
 	}
 	
 	/**

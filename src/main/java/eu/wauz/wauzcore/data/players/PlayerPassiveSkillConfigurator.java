@@ -275,6 +275,30 @@ public class PlayerPassiveSkillConfigurator extends PlayerConfigurationUtils {
 		}
 	}
 	
+// Passive Skill - Mastery
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param mastery The number of the mastery.
+	 * 
+	 * @return The amount of statpoints spent in that mastery.
+	 */
+	public static int getMasteryStatpoints(Player player, int mastery) {
+		return playerConfigGetInt(player, "masteries." + mastery, true);
+	}
+	
+	/**
+	 * Spents 1 statpoint and increases the given mastery by 1.
+	 * 
+	 * @param player The player that owns the config file.
+	 * @param mastery The number of the mastery.
+	 */
+	public static void increaseMastery(Player player, int mastery) {
+		increaseSpentStatpoints(player);
+		int statpoints = getMasteryStatpoints(player, mastery) + 1;
+		playerConfigSet(player, "masteries." + mastery, statpoints, true);
+	}
+	
 // Crafting Skill
 	
 	/**
