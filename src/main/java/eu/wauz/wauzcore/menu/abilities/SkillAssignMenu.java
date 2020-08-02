@@ -55,9 +55,18 @@ public class SkillAssignMenu implements WauzInventory {
 		player.openInventory(menu);
 	}
 
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and lets the player select a skill for the selected slot.
+	 * Also handles the event, to open the skill menu, to learn new skills.
+	 * 
+	 * @param event The inventory click event.
+	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
-		
+		event.setCancelled(true);
+//		ItemStack clicked = event.getCurrentItem();
+//		final Player player = (Player) event.getWhoClicked();
 	}
 
 }

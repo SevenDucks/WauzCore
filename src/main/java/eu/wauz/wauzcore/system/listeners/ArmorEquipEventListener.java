@@ -116,20 +116,25 @@ public class ArmorEquipEventListener implements Listener {
 		boolean equipping = event.getRawSlot() != newArmorType.getSlot();
 		Player player = (Player) event.getWhoClicked();
 		
-		boolean isHelmet = newArmorType.equals(ArmorType.HELMET) && (equipping
-				? isAirOrNull(event.getWhoClicked().getInventory().getHelmet())
-				: !isAirOrNull(event.getWhoClicked().getInventory().getHelmet()));
-		boolean isChestplate = newArmorType.equals(ArmorType.CHESTPLATE) && (equipping
-				? isAirOrNull(event.getWhoClicked().getInventory().getChestplate())
-				: !isAirOrNull(event.getWhoClicked().getInventory().getChestplate()));
-		boolean isLeggings = newArmorType.equals(ArmorType.LEGGINGS) && (equipping
-				? isAirOrNull(event.getWhoClicked().getInventory().getLeggings())
-				: !isAirOrNull(event.getWhoClicked().getInventory().getLeggings()));
-		boolean isBoots = newArmorType.equals(ArmorType.BOOTS) && (equipping
-				? isAirOrNull(event.getWhoClicked().getInventory().getBoots())
-				: !isAirOrNull(event.getWhoClicked().getInventory().getBoots()));
-
-		if(isHelmet || isChestplate || isLeggings || isBoots) {
+		ItemStack armorItem;
+		switch (newArmorType) {
+		case HELMET:
+			armorItem = player.getEquipment().getHelmet();
+			break;
+		case CHESTPLATE:
+			armorItem = player.getEquipment().getChestplate();
+			break;
+		case LEGGINGS:
+			armorItem = player.getEquipment().getLeggings();
+			break;
+		case BOOTS:
+			armorItem = player.getEquipment().getBoots();
+			break;
+		default:
+			return;
+		}
+		
+		if(equipping ? isAirOrNull(armorItem) : !isAirOrNull(armorItem)) {
 			ArmorEquipEvent armorEquipEvent = new ArmorEquipEvent(player, EquipMethod.SHIFT_CLICK,
 					newArmorType, equipping ? null : event.getCurrentItem(), equipping ? event.getCurrentItem() : null);
 			Bukkit.getServer().getPluginManager().callEvent(armorEquipEvent);

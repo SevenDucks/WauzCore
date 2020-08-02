@@ -246,6 +246,7 @@ public class CraftingMenu implements WauzInventory {
 	 * @see CraftingConfigurator
 	 * @see CraftingMenu#open(Player)
 	 * @see CraftingMenu#listRecipes(Player, int)
+	 * @see CraftingMenu#tryToCraftItem(ItemStack, Player)
 	 * @see PlayerPassiveSkillConfigurator#increaseCraftingSkill(Player)
 	 * @see WauzDebugger#toggleCraftingDebugMode(Player)
 	 */
@@ -281,14 +282,21 @@ public class CraftingMenu implements WauzInventory {
 			listRecipes(player, index);
 			return;
 		}
-		else if(clicked.getType().equals(Material.OAK_SIGN)) {
+		else if(clicked.getType().equals(Material.OAK_SIGN) || !clicked.getItemMeta().hasLore()) {
 			return;
 		}
-		
-		if(!clicked.getItemMeta().hasLore()) {
-			return;
-		}
-		
+		tryToCraftItem(clicked, player);
+	}
+
+	/**
+	 * Tries to craft the given item.
+	 * 
+	 * @param clicked The item that should be crafted.
+	 * @param player The player crafting the item.
+	 * 
+	 * @see CraftingMenu#selectMenuPoint(InventoryClickEvent)
+	 */
+	private void tryToCraftItem(ItemStack clicked, final Player player) {
 		int itemIndex = 0;
 		boolean valid = false;
 		boolean increasesLevel = false;
@@ -312,13 +320,11 @@ public class CraftingMenu implements WauzInventory {
 		if(!valid) {
 			return;
 		}
-		
 		if(clicked.getItemMeta().getDisplayName().contains(ChatColor.RED + "Recipe Locked")) {
 			player.sendMessage(ChatColor.RED + "You haven't unlocked this recipe yet!");
 			player.closeInventory();
 			return;
 		}
-		
 		if(missingMaterial) {
 			player.sendMessage(ChatColor.RED + "You don't have the materials to craft this!");
 			player.closeInventory();
@@ -326,7 +332,6 @@ public class CraftingMenu implements WauzInventory {
 		}
 		
 		ItemStack itemStack = new ItemStack(clicked.getType(), clicked.getAmount());
-		
 		ItemMeta itemMeta = clicked.getItemMeta();
 		itemMeta.setDisplayName(clicked.getItemMeta().getDisplayName());
 		itemMeta.setLore(CraftingConfigurator.getItemLores(itemIndex));
@@ -337,7 +342,6 @@ public class CraftingMenu implements WauzInventory {
 			player.closeInventory();
 			return;
 		}
-		
 		if(!player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString())) {
 			InventoryItemRemover itemRemover = new InventoryItemRemover(player.getInventory());
 			int requirements = CraftingConfigurator.getItemCraftingCostsAmount(itemIndex);
@@ -348,13 +352,11 @@ public class CraftingMenu implements WauzInventory {
 			}
 			itemRemover.execute();
 		}
-		
 		if(increasesLevel) {
 			PlayerPassiveSkillConfigurator.increaseCraftingSkill(player);
 		}
 		player.getInventory().addItem(itemStack);
 		AchievementTracker.addProgress(player, WauzAchievementType.CRAFT_ITEMS, 1);
-		
 		listRecipes(player, getIndex(player.getOpenInventory()));
 	}
 	

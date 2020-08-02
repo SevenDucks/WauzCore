@@ -474,12 +474,9 @@ public class PetOptionsMenu implements WauzInventory {
 	 * 
 	 * @see ItemUtils#isFoodItem(ItemStack)
 	 * @see ItemUtils#getSaturation(ItemStack)
-	 * @see PetOverviewMenu#unsummon(Player)
-	 * @see PlayerConfigurator#getCharacterPetIntelligence(Player, int)
-	 * @see PlayerConfigurator#setCharacterPetIntelligence(Player, int, int)
-	 * @see PlayerConfigurator#getCharacterPetIntelligenceExpNeeded(Player, int)
-	 * @see PlayerConfigurator#setCharacterPetIntelligenceExpNeeded(Player, int, int)
-	 * @see PetOverviewMenu#getBaseExpToFeedingLevel(int)
+	 * @see PetOptionsMenu#feedPetIntelligence(Player, int, int)
+	 * @see PetOptionsMenu#feedPetDexterity(Player, int, int)
+	 * @see PetOptionsMenu#feedPetAbsorption(Player, int, int)
 	 */
 	private static void feed(Player player, int petSlot, ItemStack statItem) {
 		int foodStatId = 0;
@@ -503,60 +500,115 @@ public class PetOptionsMenu implements WauzInventory {
 		if(!ItemUtils.isFoodItem(foodItem) || !ItemUtils.containsSaturationModifier(foodItem)) {
 			return;
 		}
-		
 		int feedingValue = ItemUtils.getSaturation(foodItem) * foodItem.getAmount();
 		foodItem.setAmount(0);
 		
 		if(foodStatId == 1) {
-			int remainingExp = PlayerPetsConfigurator.getCharacterPetIntelligenceExpNeeded(player, petSlot) - feedingValue;
-			if(remainingExp > 0) {
-				PlayerPetsConfigurator.setCharacterPetIntelligenceExpNeeded(player, petSlot, remainingExp);
-			}
-			else {
-				Integer activePetSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
-				if(activePetSlot != -1 && activePetSlot == petSlot) {
-					PetOverviewMenu.unsummon(player);
-				}
-				
-				int level = PlayerPetsConfigurator.getCharacterPetIntelligence(player, petSlot) + 1;
-				PlayerPetsConfigurator.setCharacterPetIntelligence(player, petSlot, level);
-				PlayerPetsConfigurator.setCharacterPetIntelligenceExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
-			}
+			feedPetIntelligence(player, petSlot, feedingValue);
 		}
 		else if(foodStatId == 2) {
-			int remainingExp = PlayerPetsConfigurator.getCharacterPetDexterityExpNeeded(player, petSlot) - feedingValue;
-			if(remainingExp > 0) {
-				PlayerPetsConfigurator.setCharacterPetDexterityExpNeeded(player, petSlot, remainingExp);
-			}
-			else {
-				Integer activePetSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
-				if(activePetSlot != -1 && activePetSlot == petSlot) {
-					PetOverviewMenu.unsummon(player);
-				}
-				
-				int level = PlayerPetsConfigurator.getCharacterPetDexterity(player, petSlot) + 1;
-				PlayerPetsConfigurator.setCharacterPetDexterity(player, petSlot, level);
-				PlayerPetsConfigurator.setCharacterPetDexterityExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
-			}
+			feedPetDexterity(player, petSlot, feedingValue);
 		}
 		else if(foodStatId == 3) {
-			int remainingExp = PlayerPetsConfigurator.getCharacterPetAbsorptionExpNeeded(player, petSlot) - feedingValue;
-			if(remainingExp > 0) {
-				PlayerPetsConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, remainingExp);
-			}
-			else {
-				Integer activePetSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
-				if(activePetSlot != -1 && activePetSlot == petSlot) {
-					PetOverviewMenu.unsummon(player);
-				}
-				
-				int level = PlayerPetsConfigurator.getCharacterPetAbsorption(player, petSlot) + 1;
-				PlayerPetsConfigurator.setCharacterPetAbsorption(player, petSlot, level);
-				PlayerPetsConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
-			}
+			feedPetAbsorption(player, petSlot, feedingValue);
 		}
-		
 		open(player, petSlot);
+	}
+
+	/**
+	 * Feeds the given pet to increase its intelligence.
+	 * 
+	 * @param player The player who feeds the pet.
+	 * @param petSlot The slot of the pet, that is getting fed.
+	 * @param feedingValue The feeding value of the fed item.
+	 * 
+	 * @see PlayerPetsConfigurator#getCharacterPetIntelligence(Player, int)
+	 * @see PlayerPetsConfigurator#setCharacterPetIntelligence(Player, int, int)
+	 * @see PlayerPetsConfigurator#getCharacterPetIntelligenceExpNeeded(Player, int)
+	 * @see PlayerPetsConfigurator#setCharacterPetIntelligenceExpNeeded(Player, int, int)
+	 * @see PetOverviewMenu#unsummon(Player)
+	 * @see PetOverviewMenu#getBaseExpToFeedingLevel(int)
+	 * @see PetOptionsMenu#feed(Player, int, ItemStack)
+	 */
+	private static void feedPetIntelligence(Player player, int petSlot, int feedingValue) {
+		int remainingExp = PlayerPetsConfigurator.getCharacterPetIntelligenceExpNeeded(player, petSlot) - feedingValue;
+		if(remainingExp > 0) {
+			PlayerPetsConfigurator.setCharacterPetIntelligenceExpNeeded(player, petSlot, remainingExp);
+		}
+		else {
+			Integer activePetSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
+			if(activePetSlot != -1 && activePetSlot == petSlot) {
+				PetOverviewMenu.unsummon(player);
+			}
+			
+			int level = PlayerPetsConfigurator.getCharacterPetIntelligence(player, petSlot) + 1;
+			PlayerPetsConfigurator.setCharacterPetIntelligence(player, petSlot, level);
+			PlayerPetsConfigurator.setCharacterPetIntelligenceExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
+		}
+	}
+
+	/**
+	 * Feeds the given pet to increase its dexterity.
+	 * 
+	 * @param player The player who feeds the pet.
+	 * @param petSlot The slot of the pet, that is getting fed.
+	 * @param feedingValue The feeding value of the fed item.
+	 * 
+	 * @see PlayerPetsConfigurator#getCharacterPetDexterity(Player, int)
+	 * @see PlayerPetsConfigurator#setCharacterPetDexterity(Player, int, int)
+	 * @see PlayerPetsConfigurator#getCharacterPetDexterityExpNeeded(Player, int)
+	 * @see PlayerPetsConfigurator#setCharacterPetDexterityExpNeeded(Player, int, int)
+	 * @see PetOverviewMenu#unsummon(Player)
+	 * @see PetOverviewMenu#getBaseExpToFeedingLevel(int)
+	 * @see PetOptionsMenu#feed(Player, int, ItemStack)
+	 */
+	private static void feedPetDexterity(Player player, int petSlot, int feedingValue) {
+		int remainingExp = PlayerPetsConfigurator.getCharacterPetDexterityExpNeeded(player, petSlot) - feedingValue;
+		if(remainingExp > 0) {
+			PlayerPetsConfigurator.setCharacterPetDexterityExpNeeded(player, petSlot, remainingExp);
+		}
+		else {
+			Integer activePetSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
+			if(activePetSlot != -1 && activePetSlot == petSlot) {
+				PetOverviewMenu.unsummon(player);
+			}
+			
+			int level = PlayerPetsConfigurator.getCharacterPetDexterity(player, petSlot) + 1;
+			PlayerPetsConfigurator.setCharacterPetDexterity(player, petSlot, level);
+			PlayerPetsConfigurator.setCharacterPetDexterityExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
+		}
+	}
+
+	/**
+	 * Feeds the given pet to increase its absorption.
+	 * 
+	 * @param player The player who feeds the pet.
+	 * @param petSlot The slot of the pet, that is getting fed.
+	 * @param feedingValue The feeding value of the fed item.
+	 * 
+	 * @see PlayerPetsConfigurator#getCharacterPetAbsorption(Player, int)
+	 * @see PlayerPetsConfigurator#setCharacterPetAbsorption(Player, int, int)
+	 * @see PlayerPetsConfigurator#getCharacterPetAbsorptionExpNeeded(Player, int)
+	 * @see PlayerPetsConfigurator#setCharacterPetAbsorptionExpNeeded(Player, int, int)
+	 * @see PetOverviewMenu#unsummon(Player)
+	 * @see PetOverviewMenu#getBaseExpToFeedingLevel(int)
+	 * @see PetOptionsMenu#feed(Player, int, ItemStack)
+	 */
+	private static void feedPetAbsorption(Player player, int petSlot, int feedingValue) {
+		int remainingExp = PlayerPetsConfigurator.getCharacterPetAbsorptionExpNeeded(player, petSlot) - feedingValue;
+		if(remainingExp > 0) {
+			PlayerPetsConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, remainingExp);
+		}
+		else {
+			Integer activePetSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
+			if(activePetSlot != -1 && activePetSlot == petSlot) {
+				PetOverviewMenu.unsummon(player);
+			}
+			
+			int level = PlayerPetsConfigurator.getCharacterPetAbsorption(player, petSlot) + 1;
+			PlayerPetsConfigurator.setCharacterPetAbsorption(player, petSlot, level);
+			PlayerPetsConfigurator.setCharacterPetAbsorptionExpNeeded(player, petSlot, PetOverviewMenu.getBaseExpToFeedingLevel(level + 1));
+		}
 	}
 	
 // Breeding

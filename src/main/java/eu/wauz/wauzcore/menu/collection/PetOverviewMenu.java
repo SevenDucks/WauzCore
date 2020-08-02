@@ -431,12 +431,13 @@ public class PetOverviewMenu implements WauzInventory {
 	 * @param player The player who tries to hatch the pet egg.
 	 * @param eggStack The pet egg item stack.
 	 * 
-	 * @see PlayerConfigurator#getCharacterPetType(Player, int)
-	 * @see PlayerConfigurator#setCharacterPetType(Player, int, String)
-	 * @see PlayerConfigurator#getCharacterPetIntelligence(Player, int)
-	 * @see PlayerConfigurator#getCharacterPetDexterity(Player, int)
-	 * @see PlayerConfigurator#getCharacterPetAbsorption(Player, int)
-	 * @see PlayerConfigurator#setCharacterPetBreedingHatchTime(Player, long)
+	 * @see PlayerPetsConfigurator#getCharacterPetType(Player, int)
+	 * @see PlayerPetsConfigurator#setCharacterPetType(Player, int, String)
+	 * @see PlayerPetsConfigurator#getCharacterPetIntelligence(Player, int)
+	 * @see PlayerPetsConfigurator#getCharacterPetDexterity(Player, int)
+	 * @see PlayerPetsConfigurator#getCharacterPetAbsorption(Player, int)
+	 * @see PlayerPetsConfigurator#setCharacterPetBreedingHatchTime(Player, long)
+	 * @see PetOverviewMenu#getNewStatAfterHatch(int, int, int, int)
 	 * @see PetOverviewMenu#addPet(Player, ItemStack, String, int, int, int)
 	 */
 	public static void hatch(Player player, ItemStack eggStack) {
@@ -479,16 +480,30 @@ public class PetOverviewMenu implements WauzInventory {
 		int absMaxB = PlayerPetsConfigurator.getCharacterPetAbsorptionMax(player, 8);
 		
 		String petType = Chance.percent(50) ? typeA : typeB;
-		
-		int maxInt = Math.max(intMaxA, intMaxB) + (intA >= intMaxA ? 1 : 0) + (intB >= intMaxB ? 1 : 0);
-		int maxDex = Math.max(dexMaxA, dexMaxB) + (dexA >= dexMaxA ? 1 : 0) + (dexB >= dexMaxB ? 1 : 0);
-		int maxAbs = Math.max(absMaxA, absMaxB) + (absA >= absMaxA ? 1 : 0) + (absB >= absMaxB ? 1 : 0);
-		
+		int newInt = getNewStatAfterHatch(intA, intB, intMaxA, intMaxB);
+		int newDex = getNewStatAfterHatch(dexA, dexB, dexMaxA, dexMaxB);
+		int newAbs = getNewStatAfterHatch(absA, absB, absMaxA, absMaxB);
 		PlayerPetsConfigurator.setCharacterPetType(player, 6, "none");
 		PlayerPetsConfigurator.setCharacterPetType(player, 8, "none");
 		PlayerPetsConfigurator.setCharacterPetBreedingHatchTime(player, 0);
-		
-		addPet(player, null, petType, maxInt > 10 ? 10 : maxInt, maxDex > 10 ? 10 : maxDex, maxAbs > 10 ? 10 : maxAbs);
+		addPet(player, null, petType, newInt, newDex, newAbs);
+	}
+	
+	/**
+	 * Gets the new stat of a freshly hatched pet, based off the parent's stats.
+	 * 
+	 * @param valA The current stat of parent A.
+	 * @param valB The current stat of parent B.
+	 * @param maxA The maximum stat of parent A.
+	 * @param maxB The maximum stat of parent B.
+	 * 
+	 * @return The new stat.
+	 * 
+	 * @see PetOverviewMenu#hatch(Player, ItemStack)
+	 */
+	public static int getNewStatAfterHatch(int valA, int valB, int maxA, int maxB) {
+		int stat = Math.max(maxA, maxB) + (valA >= maxA ? 1 : 0) + (valB >= maxB ? 1 : 0);
+		return stat > 10 ? 10 : stat;
 	}
 
 }

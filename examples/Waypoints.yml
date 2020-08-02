@@ -2,6 +2,10 @@ Maretas:
   name: Maretas Village
   world: Dalyreos
   coords: -5274.5 70 6760.5
+Kurataki:
+  name: Kurataki Isles
+  world: Dalyreos
+  coords: -4799.5 71 6250.5
 DevilKnCamp:
   name: The Devil Knight Camp
   world: Dalyreos
@@ -10,6 +14,10 @@ DemonShrine:
   name: Demon Shrine
   world: Dalyreos
   coords: -5799.5 150 6300.5
+Rabenfels:
+  name: Fort Rabenfels
+  world: Dalyreos
+  coords: -5049.5 74 5200.5
 Wrayvell:
   name: Wrayvell City
   world: Dalyreos
