@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerRelationConfigurator;
 import eu.wauz.wauzcore.mobs.citizens.RelationLevel;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
@@ -190,7 +190,7 @@ public class QuestMenuItems {
 		List<String> lores = new ArrayList<>();
 		int relationProgress = PlayerRelationConfigurator.getRelationProgress(player, quest.getQuestGiver());
 		double rewardMultiplier = RelationLevel.getRelationLevel(relationProgress).getRewardMultiplier();
-		int rewardCoins = (int) (quest.getRewardCoins() * PlayerPassiveSkillConfigurator.getTradingFloat(player) * rewardMultiplier);
+		int rewardCoins = (int) (quest.getRewardCoins() * PlayerSkillConfigurator.getTradingFloat(player) * rewardMultiplier);
 		int rewardExp = (int) (ExperienceCalculator.applyExperienceBonus(player, quest.getRewardExp() * rewardMultiplier) * 100);
 		
 		String hyphen = ChatColor.GRAY + "- ";

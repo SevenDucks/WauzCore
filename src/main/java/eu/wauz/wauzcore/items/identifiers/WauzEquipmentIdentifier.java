@@ -14,7 +14,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.EquipmentParameters;
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
@@ -263,13 +263,13 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	 * Example 3: 200% = 100% chance for a lvl 2 enhancement</br>
 	 * Example 2: 350% = 100% chance for a lvl 3 enhancement + additional 50% chance for lvl 4.
 	 * 
-	 * @see PlayerPassiveSkillConfigurator#getLuck(Player)
+	 * @see PlayerSkillConfigurator#getLuck(Player)
 	 * @see WauzEquipmentEnhancer#enhanceEquipment(WauzEquipmentIdentifier)
 	 */
 	private void addEnhancementsToEquipment() {
 		if(Chance.oneIn(3)) {
 			int enhancementLevel = 0;
-			int luck = PlayerPassiveSkillConfigurator.getLuck(player);
+			int luck = PlayerSkillConfigurator.getLuck(player);
 			WauzDebugger.log(player, "Rolling for Enhancement with: " + luck + "% Luck");
 			while(luck >= 100) {
 				enhancementLevel++;

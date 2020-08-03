@@ -11,7 +11,28 @@ import eu.wauz.wauzcore.players.calc.DamageCalculator;
  * 
  * @author Wauzmons
  */
-public class PlayerPassiveSkillConfigurator extends PlayerConfigurationUtils {
+public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
+	
+// Quick Slot Skills
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param slot The id of the quick slot.
+	 * 
+	 * @return The name of the skill in the quick slot.
+	 */
+	public static String getQuickSlotSkill(Player player, int slot) {
+		return playerConfigGetString(player, "skills.active." + slot, true);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param slot The id of the quick slot.
+	 * @param skill The name of the new skill in the quick slot.
+	 */
+	public static void setQuickSlotSkill(Player player, int slot, String skill) {
+		playerConfigSet(player, "skills.active." + slot, skill, true);
+	}
 	
 // Passive Skills
 
@@ -297,6 +318,7 @@ public class PlayerPassiveSkillConfigurator extends PlayerConfigurationUtils {
 		increaseSpentStatpoints(player);
 		int statpoints = getMasteryStatpoints(player, mastery) + 1;
 		playerConfigSet(player, "masteries." + mastery, statpoints, true);
+		WauzPlayerDataPool.getPlayer(player).refreshUnlockedSkills(player);
 	}
 	
 // Crafting Skill

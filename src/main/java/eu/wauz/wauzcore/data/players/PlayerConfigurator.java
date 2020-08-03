@@ -359,7 +359,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @param player The player that owns the config file.
 	 */
 	public static void levelUpCharacter(Player player) {
-		playerConfigSet(player, "stats.points.total", PlayerPassiveSkillConfigurator.getTotalStatpoints(player) + 2, true);
+		playerConfigSet(player, "stats.points.total", PlayerSkillConfigurator.getTotalStatpoints(player) + 2, true);
 		playerConfigSet(player, "level", player.getLevel(), true);
 		AchievementTracker.addProgress(player, WauzAchievementType.GAIN_LEVELS, 1);
 	}

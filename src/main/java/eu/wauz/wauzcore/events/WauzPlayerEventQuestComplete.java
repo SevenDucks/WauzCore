@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerRelationConfigurator;
 import eu.wauz.wauzcore.items.WauzRewards;
@@ -90,7 +90,7 @@ public class WauzPlayerEventQuestComplete implements WauzPlayerEvent {
 			
 			int relationProgress = PlayerRelationConfigurator.getRelationProgress(player, questGiver);
 			double rewardMultiplier = RelationLevel.getRelationLevel(relationProgress).getRewardMultiplier();
-			int rewardCoins = (int) (quest.getRewardCoins() * PlayerPassiveSkillConfigurator.getTradingFloat(player) * rewardMultiplier);
+			int rewardCoins = (int) (quest.getRewardCoins() * PlayerSkillConfigurator.getTradingFloat(player) * rewardMultiplier);
 			double rewardExp = quest.getRewardExp() * rewardMultiplier;
 			
 			RelationTracker.addProgress(player, questGiver, quest.getRewardRelationExp());

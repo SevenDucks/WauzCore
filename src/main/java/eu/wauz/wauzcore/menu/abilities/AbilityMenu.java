@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
@@ -66,8 +66,8 @@ public class AbilityMenu implements WauzInventory {
 	 * @param player The player that should view the inventory.
 	 * 
 	 * @see WauzPlayerData#getRegion()
-	 * @see PlayerPassiveSkillConfigurator#getCraftingSkill(Player)
-	 * @see PlayerPassiveSkillConfigurator#getSpentStatpoints(Player)
+	 * @see PlayerSkillConfigurator#getCraftingSkill(Player)
+	 * @see PlayerSkillConfigurator#getSpentStatpoints(Player)
 	 * @see MenuUtils#setMainMenuOpener(Inventory, int)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
@@ -99,7 +99,7 @@ public class AbilityMenu implements WauzInventory {
 		craftingItemMeta.setDisplayName(ChatColor.GOLD + "Crafting");
 		List<String> craftingLores = new ArrayList<String>();
 		craftingLores.add(ChatColor.DARK_PURPLE + "Crafting Level: " + ChatColor.YELLOW
-			+ PlayerPassiveSkillConfigurator.getCraftingSkill(player) + " / " + WauzCore.MAX_CRAFTING_SKILL);
+			+ PlayerSkillConfigurator.getCraftingSkill(player) + " / " + WauzCore.MAX_CRAFTING_SKILL);
 		craftingLores.add("");
 		craftingLores.add(ChatColor.GRAY + "Make new Items out of Materials.");
 		craftingLores.add(ChatColor.GRAY + "Craft Items to learn new Recipes.");
@@ -115,13 +115,13 @@ public class AbilityMenu implements WauzInventory {
 		skillsItemMeta.setDisplayName(ChatColor.GOLD + "Passive Skills");
 		List<String> skillsLores = new ArrayList<String>();
 		skillsLores.add(ChatColor.DARK_PURPLE + "Spent Skillpoints: " + ChatColor.YELLOW
-				+ PlayerPassiveSkillConfigurator.getSpentStatpoints(player) + " / "
-				+ PlayerPassiveSkillConfigurator.getTotalStatpoints(player));
+				+ PlayerSkillConfigurator.getSpentStatpoints(player) + " / "
+				+ PlayerSkillConfigurator.getTotalStatpoints(player));
 		skillsLores.add("");
 		skillsLores.add(ChatColor.GRAY + "Spend Points to improve your Stats.");
 		skillsLores.add(ChatColor.GRAY + "You gain 2 Points per Level-Up!");
 		skillsItemMeta.setLore(skillsLores);
-		if(PlayerPassiveSkillConfigurator.getUnusedStatpoints(player) > 0) {
+		if(PlayerSkillConfigurator.getUnusedStatpoints(player) > 0) {
 			WauzDebugger.log(player, "Detected Unused Skillpoints");
 			skillsItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
 			skillsItemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);

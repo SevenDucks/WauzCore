@@ -9,7 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
@@ -104,7 +104,7 @@ public class WauzShopActions {
 	 * @see PlayerConfigurator#setCharacterCoins(Player, long)
 	 * @see ItemUtils#isBoughtItem(ItemStack)
 	 * @see ItemUtils#getSellValue(ItemStack)
-	 * @see PlayerPassiveSkillConfigurator#getTradingFloat(Player)
+	 * @see PlayerSkillConfigurator#getTradingFloat(Player)
 	 * @see AchievementTracker#addProgress(Player, WauzAchievementType, double)
 	 */
 	public static boolean sell(Player player, ItemStack itemToSell, boolean fromShop) {
@@ -126,7 +126,7 @@ public class WauzShopActions {
 		}
 		
 		long priceOld = price;
-		price = (int) ((float) price * (float) PlayerPassiveSkillConfigurator.getTradingFloat(player));
+		price = (int) ((float) price * (float) PlayerSkillConfigurator.getTradingFloat(player));
 		WauzDebugger.log(player, "Item-Price: " + price + " (" + priceOld + ")");
 		
 		PlayerConfigurator.setCharacterCoins(player, money + price);
