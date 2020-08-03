@@ -18,7 +18,7 @@ import org.bukkit.potion.PotionEffect;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.InventoryStringConverter;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentHelper;
@@ -28,6 +28,8 @@ import eu.wauz.wauzcore.menu.social.TabardMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
+import eu.wauz.wauzcore.players.calc.ManaCalculator;
+import eu.wauz.wauzcore.players.calc.RageCalculator;
 import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
@@ -75,17 +77,15 @@ public class CharacterManager {
 			return;
 		}
 
-		playerData.setMaxHealth(PlayerPassiveSkillConfigurator.getHealth(player));
-		if(wauzMode.equals(WauzMode.MMORPG)) {
-			playerData.setMaxMana(PlayerPassiveSkillConfigurator.getMana(player));
-		}
-		
 		Location spawn = PlayerConfigurator.getCharacterSpawn(player);
 		Location destination = PlayerConfigurator.getCharacterLocation(player);
+		playerData.setMaxHealth(PlayerSkillConfigurator.getHealth(player));
 		if(wauzMode.equals(WauzMode.MMORPG)) {
+			playerData.setMaxMana(PlayerSkillConfigurator.getMana(player));
+			playerData.setMaxRage(RageCalculator.MAX_RAGE);
+			playerData.refreshUnlockedSkills(player);
 			PlayerConfigurator.setTrackerDestination(player, spawn, "Spawn");
 		}
-		
 		player.setCompassTarget(spawn);
 		player.setBedSpawnLocation(spawn, true);
 		player.teleport(destination);
@@ -148,6 +148,8 @@ public class CharacterManager {
 		DamageCalculator.setHealth(player, 20);
 		playerData.setMaxMana(0);
 		playerData.setMana(0);
+		playerData.setMaxRage(0);
+		playerData.setRage(0);
 		
 		player.setFoodLevel(20);
 		player.setSaturation(20);
@@ -244,8 +246,10 @@ public class CharacterManager {
 			
 			playerData.setMaxHealth(10);
 			playerData.setHealth(10);
-			playerData.setMaxMana(10);
-			playerData.setMana(10);
+			playerData.setMaxMana(ManaCalculator.MAX_MANA);
+			playerData.setMana(ManaCalculator.MAX_MANA);
+			playerData.setMaxRage(RageCalculator.MAX_RAGE);
+			playerData.setRage(0);
 			
 			WauzPlayerClass characterClass = WauzPlayerClassPool.getClass(characterClassString);
 			WauzPlayerClassStats startingStats = characterClass.getStartingStats();

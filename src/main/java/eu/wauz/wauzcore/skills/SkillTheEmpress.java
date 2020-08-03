@@ -71,6 +71,14 @@ public class SkillTheEmpress implements WauzPlayerSkill {
 	public int getManaCost() {
 		return 8;
 	}
+	
+	/**
+	 * @return If rage should be used for this skill instead of mana.
+	 */
+	@Override
+	public boolean isPhysical() {
+		return false;
+	}
 
 	/**
 	 * Executes the skill for the given player.

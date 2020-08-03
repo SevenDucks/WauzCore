@@ -14,7 +14,7 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 
 /**
  * A skill, that can be executed by a player.
- * "Evasion Shield" gives the player a 100% evasion chance and invisibility for 15 seconds.
+ * "Evasion Shield" gives the player a 100% evasion chance and invisibility for 10 seconds.
  * 
  * @author Wauzmons
  *
@@ -64,7 +64,15 @@ public class SkillTheHermit implements WauzPlayerSkill {
 	 */
 	@Override
 	public int getManaCost() {
-		return 7;
+		return 14;
+	}
+	
+	/**
+	 * @return If rage should be used for this skill instead of mana.
+	 */
+	@Override
+	public boolean isPhysical() {
+		return true;
 	}
 
 	/**
@@ -80,7 +88,7 @@ public class SkillTheHermit implements WauzPlayerSkill {
 		player.getWorld().playSound(player.getLocation(), Sound.BLOCK_CONDUIT_ATTACK_TARGET, 1, 1.5f);
 		SkillParticle particle = new SkillParticle(Particle.VILLAGER_HAPPY);
 		ParticleSpawner.spawnParticleSphere(player.getLocation(), particle, 1.5);
-		SkillUtils.addPotionEffect(player, PotionEffectType.INVISIBILITY, 15, 0);
+		SkillUtils.addPotionEffect(player, PotionEffectType.INVISIBILITY, 10, 0);
 		
 		return true;
 	}

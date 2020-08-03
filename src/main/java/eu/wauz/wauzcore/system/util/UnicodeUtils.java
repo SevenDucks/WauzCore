@@ -40,6 +40,12 @@ public class UnicodeUtils {
 	public static final String ICON_BULLET = "\u2022";
 	
 	/**
+	 * A sun icon in unicode.
+	 * <a href="https://www.fileformat.info/info/unicode/char/2600/index.htm">fileformat.info</a>
+	 */
+	public static final String ICON_SUN = "\u2600";
+	
+	/**
 	 * A diamond icon in unicode.
 	 * <a href="https://www.fileformat.info/info/unicode/char/2666/index.htm">fileformat.info</a>
 	 */

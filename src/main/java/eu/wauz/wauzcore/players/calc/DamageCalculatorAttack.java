@@ -10,7 +10,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
@@ -163,6 +163,7 @@ public class DamageCalculatorAttack {
 	 * @see EquipmentUtils#getLevelRequirement(ItemStack)
 	 * @see DeprecatedUtils#removeDamageModifiers(EntityDamageEvent)
 	 * @see DurabilityCalculator#damageItem(Player, ItemStack, boolean)
+	 * @see RageCalculator#generateRage(Player)
 	 * @see ValueIndicator#spawnDamageIndicator(Entity, Integer)
 	 */
 	private boolean checkWeaponRequirements() {
@@ -170,6 +171,7 @@ public class DamageCalculatorAttack {
 			event.setDamage(isAttackDebugMode ? 100: 1);
 			DeprecatedUtils.removeDamageModifiers(event);
 			DurabilityCalculator.damageItem(player, weaponItemStack, false);
+			RageCalculator.generateRage(player);
 			ValueIndicator.spawnDamageIndicator(event.getEntity(), 1);
 			return false;
 		}
@@ -222,12 +224,12 @@ public class DamageCalculatorAttack {
 	 * Also has a chance to increse the weapon skill.
 	 * Increases the damge to 150%, if the player has a strength status effect.
 	 * 
-	 * @see PlayerPassiveSkillConfigurator#getSwordSkill(Player)
-	 * @see PlayerPassiveSkillConfigurator#getAxeSkill(Player)
-	 * @see PlayerPassiveSkillConfigurator#getStaffSkill(Player)
-	 * @see PlayerPassiveSkillConfigurator#getAgility(Player)
-	 * @see PlayerPassiveSkillConfigurator#getStrength(Player)
-	 * @see PlayerPassiveSkillConfigurator#getManaStatpoints(Player)
+	 * @see PlayerSkillConfigurator#getSwordSkill(Player)
+	 * @see PlayerSkillConfigurator#getAxeSkill(Player)
+	 * @see PlayerSkillConfigurator#getStaffSkill(Player)
+	 * @see PlayerSkillConfigurator#getAgility(Player)
+	 * @see PlayerSkillConfigurator#getStrength(Player)
+	 * @see PlayerSkillConfigurator#getManaStatpoints(Player)
 	 */
 	private void applyWeaponMultiplier() {
 		String weaponType = weaponItemStack.getType().name();
@@ -235,27 +237,27 @@ public class DamageCalculatorAttack {
 		
 		float multiplier = 1;
 		if(weaponType.contains("SWORD")) {
-			multiplier = ((float) PlayerPassiveSkillConfigurator.getSwordSkill(player) / 100000)
-					* ((float) PlayerPassiveSkillConfigurator.getAgilityStatpoints(player) * 5 / 100 + 1);
+			multiplier = ((float) PlayerSkillConfigurator.getSwordSkill(player) / 100000)
+					* ((float) PlayerSkillConfigurator.getAgilityStatpoints(player) * 5 / 100 + 1);
 			
 			if(Chance.oneIn(INCREASE_SKILL_CHANCE)) {
-				PlayerPassiveSkillConfigurator.increaseSwordSkill(player);
+				PlayerSkillConfigurator.increaseSwordSkill(player);
 			}
 		}
 		else if(weaponType.contains("AXE")) {
-			multiplier = ((float) PlayerPassiveSkillConfigurator.getAxeSkill(player) / 100000)
-					* ((float) PlayerPassiveSkillConfigurator.getStrengthStatpoints(player) * 5 / 100 + 1);
+			multiplier = ((float) PlayerSkillConfigurator.getAxeSkill(player) / 100000)
+					* ((float) PlayerSkillConfigurator.getStrengthStatpoints(player) * 5 / 100 + 1);
 			
 			if(Chance.oneIn(INCREASE_SKILL_CHANCE)) {
-				PlayerPassiveSkillConfigurator.increaseAxeSkill(player);
+				PlayerSkillConfigurator.increaseAxeSkill(player);
 			}
 		}
 		else if(weaponType.contains("HOE")) {
-			multiplier = ((float) PlayerPassiveSkillConfigurator.getStaffSkill(player) / 100000)
-					* ((float) PlayerPassiveSkillConfigurator.getManaStatpoints(player) * 5 / 100 + 1);
+			multiplier = ((float) PlayerSkillConfigurator.getStaffSkill(player) / 100000)
+					* ((float) PlayerSkillConfigurator.getManaStatpoints(player) * 5 / 100 + 1);
 			
 			if(Chance.oneIn(INCREASE_SKILL_CHANCE)) {
-				PlayerPassiveSkillConfigurator.increaseStaffSkill(player);
+				PlayerSkillConfigurator.increaseStaffSkill(player);
 			}
 		}
 		
@@ -275,7 +277,7 @@ public class DamageCalculatorAttack {
 	 * @see MobMetadataUtils#hasMenacingModifier(Entity, MenacingModifier)
 	 */
 	private void applyRandomizedMultiplier() {
-		isCritical = Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player));
+		isCritical = Chance.percent(PlayerSkillConfigurator.getAgility(player));
 		
 		float multiplier = 1;
 		if(isCritical) {
@@ -306,6 +308,7 @@ public class DamageCalculatorAttack {
 	 * 
 	 * @see DeprecatedUtils#removeDamageModifiers(EntityDamageEvent)
 	 * @see DurabilityCalculator#damageItem(Player, ItemStack, boolean)
+	 * @see RageCalculator#generateRage(Player)
 	 * @see ValueIndicator#spawnDamageIndicator(Entity, Integer)
 	 */
 	private void inflictDamage() {
@@ -316,6 +319,7 @@ public class DamageCalculatorAttack {
 		if(!isMagic && !isFixedDamage && !event.getCause().equals(DamageCause.ENTITY_SWEEP_ATTACK)) {
 			DurabilityCalculator.damageItem(player, weaponItemStack, false);
 		}
+		RageCalculator.generateRage(player);
 		ValueIndicator.spawnDamageIndicator(event.getEntity(), damage, isCritical);
 		
 		WauzDebugger.log(player, "You inflicted " + damage + " (" + unmodifiedDamage + ") damage!");

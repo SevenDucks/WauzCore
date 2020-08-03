@@ -22,6 +22,7 @@ import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.players.calc.ClimateCalculator;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
+import eu.wauz.wauzcore.players.calc.RageCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerNotifier;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
@@ -154,6 +155,9 @@ public class WauzCore extends JavaPlugin {
 					WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 					WauzRegion.regionCheck(player);
 					WauzCitizenSpawner.showNpcsNearPlayer(player);
+					if(WauzMode.isMMORPG(player)) {
+						RageCalculator.degenerateRage(player);
+					}
 				}
 			}
 			

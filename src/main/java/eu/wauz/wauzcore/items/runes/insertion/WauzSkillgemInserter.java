@@ -41,7 +41,7 @@ public class WauzSkillgemInserter {
 			List<String> newLores = new ArrayList<>();
 			for(String lore : itemMeta.getLore()) {
 				if(lore.contains(ChatColor.DARK_RED + "Empty")) {
-					newLores.add(ChatColor.WHITE + "Skillgem (" + ChatColor.LIGHT_PURPLE + skill.getSkillId() + ChatColor.WHITE + ")");
+					newLores.add(ChatColor.WHITE + "Skillgem (" + ChatColor.RED + skill.getSkillId() + ChatColor.WHITE + ")");
 					newLores.add(ChatColor.WHITE + skill.getSkillDescription());
 					lore = ChatColor.WHITE + skill.getSkillStats();
 				}

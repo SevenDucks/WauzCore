@@ -88,6 +88,7 @@ public class InventoryStringConverter {
     	if(WauzMode.isMMORPG(player)) {
     		DamageCalculator.setHealth(player, playerDataConfig.getInt("stats.current.health"));
     		playerData.setMana(playerDataConfig.getInt("stats.current.mana"));
+    		playerData.setRage(0);
     	}
     	else {
     		player.setHealth(playerDataConfig.getInt("stats.current.health"));

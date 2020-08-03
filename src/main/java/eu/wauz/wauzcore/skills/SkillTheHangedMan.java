@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
@@ -73,7 +73,15 @@ public class SkillTheHangedMan implements WauzPlayerSkill {
 	 */
 	@Override
 	public int getManaCost() {
-		return 5;
+		return 10;
+	}
+	
+	/**
+	 * @return If rage should be used for this skill instead of mana.
+	 */
+	@Override
+	public boolean isPhysical() {
+		return true;
 	}
 
 	/**
@@ -97,7 +105,7 @@ public class SkillTheHangedMan implements WauzPlayerSkill {
 			switch (random.nextInt(3) + 1) {
 			case 1:
 				long money = PlayerConfigurator.getCharacterCoins(player);
-				long added = (int) ((random.nextInt(21) + 10) * PlayerPassiveSkillConfigurator.getTradingFloat(player));
+				long added = (int) ((random.nextInt(21) + 10) * PlayerSkillConfigurator.getTradingFloat(player));
 				PlayerConfigurator.setCharacterCoins(player, money + added);
 				AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, added);
 				player.sendMessage(ChatColor.LIGHT_PURPLE + "You stole " + added + " COINS from the enemy!");

@@ -66,7 +66,15 @@ public class SkillDeath implements WauzPlayerSkill {
 	 */
 	@Override
 	public int getManaCost() {
-		return 5;
+		return 10;
+	}
+	
+	/**
+	 * @return If rage should be used for this skill instead of mana.
+	 */
+	@Override
+	public boolean isPhysical() {
+		return true;
 	}
 
 	/**

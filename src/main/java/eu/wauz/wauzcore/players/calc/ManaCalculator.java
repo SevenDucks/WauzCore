@@ -21,6 +21,11 @@ import eu.wauz.wauzcore.system.util.Chance;
 public class ManaCalculator {
 	
 	/**
+	 * The default maximum amount of rage for a player.
+	 */
+	public static final int MAX_MANA = 10;
+	
+	/**
 	 * Adds 1-2 mana points to the given player.
 	 * Capped at their current maximum.
 	 * 
@@ -39,7 +44,7 @@ public class ManaCalculator {
 	 * @param player The player who should receive mana.
 	 * @param amount The amount of mana to give.
 	 * 
-	 * @see WauzPlayerData#setMana(Integer)
+	 * @see WauzPlayerData#setMana(int)
 	 * @see WauzPlayerData#getMaxMana()
 	 * @see WauzPlayerActionBar#update(Player)
 	 */
@@ -63,7 +68,7 @@ public class ManaCalculator {
 	 * If true, the mana is used up.
 	 * If false, a message is shown to the player.
 	 * 
-	 * @param player The player that tries to spedn mana.
+	 * @param player The player that tries to spend mana.
 	 * @param amount The needed amount of mana.
 	 * 
 	 * @return If the player had enough mana.

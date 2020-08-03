@@ -1,6 +1,8 @@
 package eu.wauz.wauzcore.players;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
@@ -9,7 +11,11 @@ import org.bukkit.entity.Player;
 
 import com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer;
 
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEvent;
+import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
+import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
@@ -30,12 +36,12 @@ public class WauzPlayerData {
 	/**
 	 * The temperature of the player.
 	 */
-	private Byte heat = 5;
+	private byte heat = 5;
 	
 	/**
 	 * The temperature display randomizer of the player.
 	 */
-	private Byte heatRandomizer = 0;
+	private byte heatRandomizer = 0;
 	
 	/**
 	 * The heat resistance duration of the player.
@@ -55,22 +61,37 @@ public class WauzPlayerData {
 	/**
 	 * The current health of the player.
 	 */
-	private Integer health = 20;
+	private int health = 20;
 	
 	/**
 	 * The maximum health of the player.
 	 */
-	private Integer maxHealth = 20;
+	private int maxHealth = 20;
 	
 	/**
 	 * The current mana of the player.
 	 */
-	private Integer mana = 0;
+	private int mana = 0;
 	
 	/**
 	 * The maximum mana of the player.
 	 */
-	private Integer maxMana = 0;
+	private int maxMana = 0;
+	
+	/**
+	 * The current rage of the player.
+	 */
+	private int rage = 0;
+	
+	/**
+	 * The maximum rage of the player.
+	 */
+	private int maxRage = 0;
+	
+	/**
+	 * The list of unlocked player skills.
+	 */
+	private List<WauzPlayerSkill> unlockedSkills = new ArrayList<>();
 	
 	/**
 	 * The skill coodlown times by id.
@@ -85,7 +106,7 @@ public class WauzPlayerData {
 	/**
 	 * The current pet id.
 	 */
-	private String pet;
+	private String selectedPetId;
 	
 	/**
 	 * The currently selected pet slot.
@@ -151,28 +172,28 @@ public class WauzPlayerData {
 	/**
 	 * @return The temperature of the player.
 	 */
-	public Byte getHeat() {
+	public byte getHeat() {
 		return heat;
 	}
 
 	/**
 	 * @param heat The new temperature of the player.
 	 */
-	public void setHeat(Byte heat) {
+	public void setHeat(byte heat) {
 		this.heat = heat;
 	}
 
 	/**
 	 * @return The temperature display randomizer of the player.
 	 */
-	public Byte getHeatRandomizer() {
+	public byte getHeatRandomizer() {
 		return heatRandomizer;
 	}
 
 	/**
 	 * @param heatRandomizer The new temperature display randomizer of the player.
 	 */
-	public void setHeatRandomizer(Byte heatRandomizer) {
+	public void setHeatRandomizer(byte heatRandomizer) {
 		this.heatRandomizer = heatRandomizer;
 	}
 
@@ -242,59 +263,111 @@ public class WauzPlayerData {
 	/**
 	 * @return The current health of the player.
 	 */
-	public Integer getHealth() {
+	public int getHealth() {
 		return health;
 	}
 
 	/**
 	 * @param health The new current health of the player.
 	 */
-	public void setHealth(Integer health) {
+	public void setHealth(int health) {
 		this.health = health;
 	}
 
 	/**
 	 * @return The maximum health of the player.
 	 */
-	public Integer getMaxHealth() {
+	public int getMaxHealth() {
 		return maxHealth;
 	}
 
 	/**
 	 * @param maxHealth The new maximum health of the player.
 	 */
-	public void setMaxHealth(Integer maxHealth) {
+	public void setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;
 	}
 
 	/**
 	 * @return The current mana of the player.
 	 */
-	public Integer getMana() {
+	public int getMana() {
 		return mana;
 	}
 
 	/**
 	 * @param mana The new current mana of the player.
 	 */
-	public void setMana(Integer mana) {
+	public void setMana(int mana) {
 		this.mana = mana;
 	}
 
 	/**
 	 * @return The maximum mana of the player.
 	 */
-	public Integer getMaxMana() {
+	public int getMaxMana() {
 		return maxMana;
 	}
 
 	/**
 	 * @param maxMana The new maximum mana of the player.
 	 */
-	public void setMaxMana(Integer maxMana) {
+	public void setMaxMana(int maxMana) {
 		this.maxMana = maxMana;
 	}
 	
+	/**
+	 * @return The current rage of the player.
+	 */
+	public int getRage() {
+		return rage;
+	}
+
+	/**
+	 * @param rage The new current rage of the player.
+	 */
+	public void setRage(int rage) {
+		this.rage = rage;
+	}
+
+	/**
+	 * @return The maximum rage of the player.
+	 */
+	public int getMaxRage() {
+		return maxRage;
+	}
+
+	/**
+	 * @param maxRage The new maximum rage of the player.
+	 */
+	public void setMaxRage(int maxRage) {
+		this.maxRage = maxRage;
+	}
+	
+	/**
+	 * @return The list of unlocked player skills.
+	 */
+	public List<WauzPlayerSkill> getUnlockedSkills() {
+		return unlockedSkills;
+	}
+
+	/**
+	 * Refreshes the list of unlocked player skills.
+	 * 
+	 * @param player The player to get the skill list from.
+	 */
+	public void refreshUnlockedSkills(Player player) {
+		unlockedSkills.clear();
+		List<WauzPlayerSubclass> subclasses = WauzPlayerClassPool.getClass(player).getSubclasses();
+		for(int index = 0; index < subclasses.size(); index++) {
+			WauzPlayerSubclass subclass = subclasses.get(index);
+			int masteryLevel = PlayerSkillConfigurator.getMasteryStatpoints(player, index + 1);
+			subclass.getLearned(masteryLevel).stream()
+				.map(learnable -> learnable.getSkill())
+				.forEach(skill -> unlockedSkills.add(skill));
+		}
+	}
+
 	/**
 	 * Checks if the cooldown timestamp for the given skill is smaller than the current time.
 	 * 
@@ -353,15 +426,15 @@ public class WauzPlayerData {
 	/**
 	 * @return The current pet id.
 	 */
-	public String getPet() {
-		return pet;
+	public String getSelectedPetId() {
+		return selectedPetId;
 	}
 
 	/**
-	 * @param pet The new current pet id.
+	 * @param selectedPetId The new current pet id.
 	 */
-	public void setPet(String pet) {
-		this.pet = pet;
+	public void setSelectedPetId(String selectedPetId) {
+		this.selectedPetId = selectedPetId;
 	}
 
 	/**

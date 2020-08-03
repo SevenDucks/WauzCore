@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerPassiveSkillConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
@@ -80,6 +80,7 @@ public class DamageCalculatorDefense {
 	 * @see DamageCalculatorDefense#calculateBlockedDamage()
 	 * @see DamageCalculatorDefense#calculateDefense()
 	 * @see DamageCalculator#setHealth(Player, int)
+	 * @see RageCalculator#generateRage(Player)
 	 * @see ValueIndicator#spawnDamageIndicator(Entity, Integer)
 	 */
 	public void run() {
@@ -101,6 +102,7 @@ public class DamageCalculatorDefense {
 		}
 		DamageCalculator.setHealth(player, hp);
 		
+		RageCalculator.generateRage(player);
 		ValueIndicator.spawnDamageIndicator(player, damage);
 		player.setNoDamageTicks(10);
 		
@@ -120,7 +122,7 @@ public class DamageCalculatorDefense {
 	private boolean tryToEvade() {
 		if(player.hasPotionEffect(PotionEffectType.INVISIBILITY)
 				|| player.hasPermission(WauzPermission.DEBUG_DEFENSE.toString())
-				|| Chance.percent(PlayerPassiveSkillConfigurator.getAgility(player))) {
+				|| Chance.percent(PlayerSkillConfigurator.getAgility(player))) {
 			
 			event.setDamage(0);
 			
@@ -157,7 +159,7 @@ public class DamageCalculatorDefense {
 	 * 
 	 * @see EquipmentUtils#getBaseDef(ItemStack)
 	 * @see DurabilityCalculator#damageItem(Player, ItemStack, boolean)
-	 * @see PlayerPassiveSkillConfigurator#getStrengthFloat(Player)
+	 * @see PlayerSkillConfigurator#getStrengthFloat(Player)
 	 * @see PlayerConfigurator#getCharacterPetAbsorption(Player, int)
 	 */
 	private void calculateDefense() {
@@ -168,7 +170,7 @@ public class DamageCalculatorDefense {
 		}
 		DurabilityCalculator.damageItem(player, armorItemStack, true);
 		
-		float multiplier = PlayerPassiveSkillConfigurator.getStrengthFloat(player);
+		float multiplier = PlayerSkillConfigurator.getStrengthFloat(player);
 		int petSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
 		if(petSlot >= 0) {
 			multiplier += ((float) PlayerPetsConfigurator.getCharacterPetAbsorption(player, petSlot) / 10f);

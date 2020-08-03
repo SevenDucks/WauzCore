@@ -51,7 +51,7 @@ public class EquipmentUtils {
 	 * @return The name of the socketed skillgem.
 	 */
 	public static String getSocketedSkill(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getStringBetweenFromLore(itemStack, "Skillgem (" + ChatColor.LIGHT_PURPLE, ChatColor.WHITE + ")") : null;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getStringBetweenFromLore(itemStack, "Skillgem (" + ChatColor.RED, ChatColor.WHITE + ")") : null;
 	}
 	
 	/**

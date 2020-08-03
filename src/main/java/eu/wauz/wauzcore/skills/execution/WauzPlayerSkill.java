@@ -43,7 +43,7 @@ public interface WauzPlayerSkill {
 	default public String getSkillStats() {
 		return
 			"[" + ChatColor.GRAY + "CD: " + ChatColor.YELLOW + getCooldownSeconds() + ChatColor.GRAY + "s" + ChatColor.WHITE + "] " +
-			"[" + ChatColor.GRAY + "MP: " + ChatColor.BLUE + getManaCost() + ChatColor.WHITE + "]";
+			"[" + ChatColor.GRAY + (isPhysical() ? "RP: " + ChatColor.GOLD : "MP: " + ChatColor.LIGHT_PURPLE) + getManaCost() + ChatColor.WHITE + "]";
 	}
 	
 	/**
@@ -55,6 +55,11 @@ public interface WauzPlayerSkill {
 	 * @return The mana cost of the skill.
 	 */
 	public int getManaCost();
+	
+	/**
+	 * @return If rage should be used for this skill instead of mana.
+	 */
+	public boolean isPhysical();
 	
 	/**
 	 * Executes the skill for the given player.

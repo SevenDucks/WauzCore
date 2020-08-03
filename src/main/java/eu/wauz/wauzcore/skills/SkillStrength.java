@@ -14,7 +14,7 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 
 /**
  * A skill, that can be executed by a player.
- * "Damage Boost" makes the player deal 150% damage with all attacks for 15 seconds.
+ * "Damage Boost" makes the player deal 150% damage with all attacks for 10 seconds.
  * 
  * @author Wauzmons
  *
@@ -64,7 +64,15 @@ public class SkillStrength implements WauzPlayerSkill {
 	 */
 	@Override
 	public int getManaCost() {
-		return 7;
+		return 14;
+	}
+	
+	/**
+	 * @return If rage should be used for this skill instead of mana.
+	 */
+	@Override
+	public boolean isPhysical() {
+		return true;
 	}
 
 	/**
@@ -80,7 +88,7 @@ public class SkillStrength implements WauzPlayerSkill {
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1, 2f);
 		SkillParticle particle = new SkillParticle(Particle.VILLAGER_ANGRY);
 		ParticleSpawner.spawnParticleSphere(player.getLocation(), particle, 1.5);
-		SkillUtils.addPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 15, 0);
+		SkillUtils.addPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 10, 0);
 		
 		return true;
 	}

@@ -67,7 +67,15 @@ public class SkillJudgement implements WauzPlayerSkill {
 	 */
 	@Override
 	public int getManaCost() {
-		return 6;
+		return 12;
+	}
+	
+	/**
+	 * @return If rage should be used for this skill instead of mana.
+	 */
+	@Override
+	public boolean isPhysical() {
+		return true;
 	}
 
 	/**

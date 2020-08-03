@@ -19,9 +19,9 @@ public class WauzPlayerActionBar {
 	
 	/**
 	 * Updates the player's action bar, depending on the gamemode.</br>
-	 * Hub: TIME | DOUBLE-JUMP-MESSAGE</br>
-	 * Survival: TIME | PVP-RES | LOCATION</br>
-	 * MMORPG: HEALTH | MANA | TIME | HEAT-AND-RES | LOCATION
+	 * Hub: DOUBLE-JUMP-MESSAGE</br>
+	 * Survival: PVP-RES | LOCATION</br>
+	 * MMORPG: HEALTH | MANA | RAGE | HEAT-AND-COLD-RES | LOCATION
 	 * 
 	 * @param player The player whose action bar should be updated.
 	 * 
@@ -58,10 +58,11 @@ public class WauzPlayerActionBar {
 		if(WauzMode.isMMORPG(player)) {
 			String healthString = ChatColor.RED + "" + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + UnicodeUtils.ICON_HEART + seperatorString;
 			String manaString = ChatColor.LIGHT_PURPLE + "" + playerData.getMana() + " / " + playerData.getMaxMana() + " " + UnicodeUtils.ICON_STAR + seperatorString;
+			String rageString = ChatColor.GOLD + "" + playerData.getRage() + " / " + playerData.getMaxRage() + " " + UnicodeUtils.ICON_SUN + seperatorString;
 			String heatString = ChatColor.GREEN + "" + ((playerData.getHeat()* 5 - 10) + playerData.getHeatRandomizer()) + " " + UnicodeUtils.ICON_DEGREES + "C" + seperatorString;
 			String heatResString = playerData.getResistanceHeat() != 0 ? ChatColor.GREEN + "HtRes " + (playerData.getResistanceHeat() * 5) + seperatorString : "";
 			String coldResString = playerData.getResistanceCold() != 0 ? ChatColor.GREEN + "CdRes " + (playerData.getResistanceCold() * 5) + seperatorString : "";
-			String actionBarMessage = healthString + manaString + heatString + heatResString + coldResString + locationString;
+			String actionBarMessage = healthString + manaString + rageString + heatString + heatResString + coldResString + locationString;
 			WauzNmsClient.nmsActionBar(player, actionBarMessage);
 			return;
 		}

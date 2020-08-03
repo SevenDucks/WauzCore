@@ -67,7 +67,15 @@ public class SkillTheStar implements WauzPlayerSkill {
 	 */
 	@Override
 	public int getManaCost() {
-		return 4;
+		return 8;
+	}
+	
+	/**
+	 * @return If rage should be used for this skill instead of mana.
+	 */
+	@Override
+	public boolean isPhysical() {
+		return true;
 	}
 
 	/**
