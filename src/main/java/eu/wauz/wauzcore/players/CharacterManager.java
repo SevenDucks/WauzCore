@@ -83,7 +83,7 @@ public class CharacterManager {
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			playerData.setMaxMana(PlayerSkillConfigurator.getMana(player));
 			playerData.setMaxRage(RageCalculator.MAX_RAGE);
-			playerData.refreshUnlockedSkills(player);
+			playerData.refreshUnlockedCastables(player);
 			PlayerConfigurator.setTrackerDestination(player, spawn, "Spawn");
 		}
 		player.setCompassTarget(spawn);
@@ -150,6 +150,7 @@ public class CharacterManager {
 		playerData.setMana(0);
 		playerData.setMaxRage(0);
 		playerData.setRage(0);
+		playerData.setActionBar(0);
 		
 		player.setFoodLevel(20);
 		player.setSaturation(20);
@@ -292,6 +293,10 @@ public class CharacterManager {
 			playerDataConfig.set("skills.active.2", "none");
 			playerDataConfig.set("skills.active.3", "none");
 			playerDataConfig.set("skills.active.4", "none");
+			playerDataConfig.set("skills.active.5", "none");
+			playerDataConfig.set("skills.active.6", "none");
+			playerDataConfig.set("skills.active.7", "none");
+			playerDataConfig.set("skills.active.8", "none");
 			
 			playerDataConfig.set("masteries.1", 0);
 			playerDataConfig.set("masteries.2", 0);

@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 
 /**
  * A class to interact with the quick slot skills of players.
@@ -18,21 +19,24 @@ import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 public class SkillQuickSlots {
 	
 	/**
-	 * Gets the display information of a skill from a player's quick slot.
+	 * Gets the display information of a castable from a player's quick slot.
 	 * 
-	 * @param player The player to get the skill info from.
-	 * @param slot The quick slot the skill is placed in.
+	 * @param player The player to get the castable info from.
+	 * @param slot The quick slot the castable is placed in.
 	 * 
-	 * @return The display information of the skill in the quick slot.
+	 * @return The display information of the castable in the quick slot.
+	 * 
+	 * @see PlayerSkillConfigurator#getQuickSlotSkill(Player, int)
+	 * @see Castable#getCastableInfo()
 	 */
-	public static List<String> getSkillInfo(Player player, int slot) {
+	public static List<String> getCastableInfo(Player player, int slot) {
 		List<String> skillLores = new ArrayList<String>();
 		skillLores.add(ChatColor.WHITE + "" + ChatColor.BOLD + "Assigned Ability:");
 		
-		String skillName = PlayerSkillConfigurator.getQuickSlotSkill(player, slot);
-		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillName);
-		if(skill != null) {
-			skillLores.addAll(getSkillInfo(skill));
+		String castableKey = PlayerSkillConfigurator.getQuickSlotSkill(player, slot);
+		Castable castable = WauzPlayerDataPool.getPlayer(player).getCastable(castableKey);
+		if(castable != null) {
+			skillLores.addAll(castable.getCastableInfo());
 		}
 		else {
 			skillLores.add(ChatColor.GRAY + "None");

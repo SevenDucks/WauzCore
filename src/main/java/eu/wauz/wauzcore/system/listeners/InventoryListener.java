@@ -8,12 +8,14 @@ import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.CombatMapper;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -67,16 +69,32 @@ public class InventoryListener implements Listener {
 	}
 	
 	/**
-	 * Prevents swapping of static items (e.g. mana points) in MMORPG mode.
+	 * Handles swapping action bars, instead of items in MMORPG mode.
+	 * A combat mapper is used for mapping casting bar events to WauzCore functionalities.
 	 * 
 	 * @param event
 	 * 
-	 * @see MenuUtils#checkForStaticItemSwap(PlayerSwapHandItemsEvent)
+	 * @see CombatMapper#handleSwapEvent(PlayerSwapHandItemsEvent)
 	 */
 	@EventHandler
 	public void onSwapItem(PlayerSwapHandItemsEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
-			MenuUtils.checkForStaticItemSwap(event);
+			CombatMapper.handleSwapEvent(event);
+		}
+	}
+	
+	/**
+	 * Handles using casting bar slots, instead of changing items in MMORPG mode.
+	 * A combat mapper is used for mapping casting bar events to WauzCore functionalities.
+	 * 
+	 * @param event
+	 * 
+	 * @see CombatMapper#handleHoldEvent(PlayerItemHeldEvent)
+	 */
+	@EventHandler
+	public void onHoldItem(PlayerItemHeldEvent event) {
+		if(WauzMode.isMMORPG(event.getPlayer())) {
+			CombatMapper.handleHoldEvent(event);
 		}
 	}
 	

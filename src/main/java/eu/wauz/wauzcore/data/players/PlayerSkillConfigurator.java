@@ -32,6 +32,7 @@ public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 	 */
 	public static void setQuickSlotSkill(Player player, int slot, String skill) {
 		playerConfigSet(player, "skills.active." + slot, skill, true);
+		WauzPlayerDataPool.getPlayer(player).refreshSelectedCastables(player);
 	}
 	
 // Passive Skills
@@ -318,7 +319,7 @@ public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 		increaseSpentStatpoints(player);
 		int statpoints = getMasteryStatpoints(player, mastery) + 1;
 		playerConfigSet(player, "masteries." + mastery, statpoints, true);
-		WauzPlayerDataPool.getPlayer(player).refreshUnlockedSkills(player);
+		WauzPlayerDataPool.getPlayer(player).refreshUnlockedCastables(player);
 	}
 	
 // Crafting Skill

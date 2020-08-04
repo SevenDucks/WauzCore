@@ -1,6 +1,8 @@
 package eu.wauz.wauzcore.menu.abilities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -10,19 +12,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
-import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.skills.execution.Castable;
 import eu.wauz.wauzcore.skills.execution.SkillQuickSlots;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -58,40 +58,22 @@ public class SkillAssignMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 * 
-	 * @see SkillQuickSlots#getSkillInfo(Player, int)
+	 * @see SkillQuickSlots#getCastableInfo(Player, int)
+	 * @see MenuUtils#setMenuItem(Inventory, int, ItemStack, String, List)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new SkillAssignMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Active Skills");
+		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Abilities");
 		
-		ItemStack skillSlot1ItemStack = GenericIconHeads.getNumber1Item();
-		ItemMeta skillSlot1ItemMeta = skillSlot1ItemStack.getItemMeta();
-		skillSlot1ItemMeta.setDisplayName(ChatColor.RED + "Quick Slot 1");
-		skillSlot1ItemMeta.setLore(SkillQuickSlots.getSkillInfo(player, 1));
-		skillSlot1ItemStack.setItemMeta(skillSlot1ItemMeta);
-		menu.setItem(1, skillSlot1ItemStack);
-		
-		ItemStack skillSlot2ItemStack = GenericIconHeads.getNumber2Item();
-		ItemMeta skillSlot2ItemMeta = skillSlot2ItemStack.getItemMeta();
-		skillSlot2ItemMeta.setDisplayName(ChatColor.GOLD + "Quick Slot 2");
-		skillSlot2ItemMeta.setLore(SkillQuickSlots.getSkillInfo(player, 2));
-		skillSlot2ItemStack.setItemMeta(skillSlot2ItemMeta);
-		menu.setItem(3, skillSlot2ItemStack);
-		
-		ItemStack skillSlot3ItemStack = GenericIconHeads.getNumber3Item();
-		ItemMeta skillSlot3ItemMeta = skillSlot3ItemStack.getItemMeta();
-		skillSlot3ItemMeta.setDisplayName(ChatColor.YELLOW + "Quick Slot 3");
-		skillSlot3ItemMeta.setLore(SkillQuickSlots.getSkillInfo(player, 3));
-		skillSlot3ItemStack.setItemMeta(skillSlot3ItemMeta);
-		menu.setItem(5, skillSlot3ItemStack);
-		
-		ItemStack skillSlot4ItemStack = GenericIconHeads.getNumber4Item();
-		ItemMeta skillSlot4ItemMeta = skillSlot4ItemStack.getItemMeta();
-		skillSlot4ItemMeta.setDisplayName(ChatColor.GREEN + "Quick Slot 4");
-		skillSlot4ItemMeta.setLore(SkillQuickSlots.getSkillInfo(player, 4));
-		skillSlot4ItemStack.setItemMeta(skillSlot4ItemMeta);
-		menu.setItem(7, skillSlot4ItemStack);
+		MenuUtils.setMenuItem(menu, 1, GenericIconHeads.getNumber1Item(), ChatColor.RED + "Quick Slot 1", SkillQuickSlots.getCastableInfo(player, 1));
+		MenuUtils.setMenuItem(menu, 2, GenericIconHeads.getNumber2Item(), ChatColor.GOLD + "Quick Slot 2", SkillQuickSlots.getCastableInfo(player, 2));
+		MenuUtils.setMenuItem(menu, 3, GenericIconHeads.getNumber3Item(), ChatColor.YELLOW + "Quick Slot 3", SkillQuickSlots.getCastableInfo(player, 3));
+		MenuUtils.setMenuItem(menu, 4, GenericIconHeads.getNumber4Item(), ChatColor.GREEN + "Quick Slot 4", SkillQuickSlots.getCastableInfo(player, 4));
+		MenuUtils.setMenuItem(menu, 5, GenericIconHeads.getNumber5Item(), ChatColor.AQUA + "Quick Slot 5", SkillQuickSlots.getCastableInfo(player, 5));
+		MenuUtils.setMenuItem(menu, 6, GenericIconHeads.getNumber6Item(), ChatColor.BLUE + "Quick Slot 6", SkillQuickSlots.getCastableInfo(player, 6));
+		MenuUtils.setMenuItem(menu, 7, GenericIconHeads.getNumber7Item(), ChatColor.LIGHT_PURPLE + "Quick Slot 7", SkillQuickSlots.getCastableInfo(player, 7));
+		MenuUtils.setMenuItem(menu, 8, GenericIconHeads.getNumber8Item(), ChatColor.DARK_PURPLE + "Quick Slot 8", SkillQuickSlots.getCastableInfo(player, 8));
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -103,27 +85,39 @@ public class SkillAssignMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 * 
-	 * @see WauzPlayerData#getUnlockedSkills()
-	 * @see SkillQuickSlots#getSkillInfo(WauzPlayerSkill)
+	 * @see WauzPlayerData#getUnlockedCastables()
+	 * @see Castable#getAssignmentItem()
+	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public void showSkillSelection(Player player) {
-		if(!Arrays.asList(1, 2, 3, 4).contains(slot)) {
+		if(!Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8).contains(slot)) {
 			return;
 		}
 		WauzInventoryHolder holder = new WauzInventoryHolder(this);
-		List<WauzPlayerSkill> unlockedSkills = WauzPlayerDataPool.getPlayer(player).getUnlockedSkills();
-		int size = MenuUtils.roundInventorySize(unlockedSkills.size());
-		Inventory menu = Bukkit.createInventory(holder, size, ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Skill to Slot " + slot);
+		List<Castable> unlockedCastables = WauzPlayerDataPool.getPlayer(player).getUnlockedCastables();
+		int size = MenuUtils.roundInventorySize(unlockedCastables.size() + 2);
+		Inventory menu = Bukkit.createInventory(holder, size, ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Ability to Slot " + slot);
 		page = "choose-skill";
 		
-		int slot = 0;
-		for(WauzPlayerSkill skill : unlockedSkills) {
-			ItemStack skillItemStack = MenuIconHeads.getSkillItem();
-			ItemMeta skillItemMeta = skillItemStack.getItemMeta();
-			skillItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Assign Skill");
-			skillItemMeta.setLore(SkillQuickSlots.getSkillInfo(skill));
-			skillItemStack.setItemMeta(skillItemMeta);
-			menu.setItem(slot, skillItemStack);
+		List<String> infoLores = new ArrayList<String>();
+		infoLores.add(ChatColor.YELLOW + "How to learn Abilities?");
+		infoLores.add(ChatColor.GRAY + "You can unlock new combat skills,");
+		infoLores.add(ChatColor.GRAY + "by leveling and assigning skill points to");
+		infoLores.add(ChatColor.GRAY + "\"Masteries\" in the skill menu. (CLICK)");
+		infoLores.add(ChatColor.GRAY + "Some are also unlocked through items.");
+		infoLores.add(ChatColor.YELLOW + "How to use Abilities?");
+		infoLores.add(ChatColor.GRAY + "To use the abilities, you have assigned here,");
+		infoLores.add(ChatColor.GRAY + "you have to press the F (Swap Items) key,");
+		infoLores.add(ChatColor.GRAY + "which will open the casting bar.");
+		infoLores.add(ChatColor.GRAY + "Then just press the number of the slot.");
+		MenuUtils.setMenuItem(menu, 0, GenericIconHeads.getUnknownItem(), ChatColor.GOLD + "About Quick Slots", infoLores);
+		
+		List<String> clearLores = Collections.singletonList(ChatColor.GRAY + "Clear Quick Slot Assignment");
+		MenuUtils.setMenuItem(menu, 1, GenericIconHeads.getColorCubeItem(), ChatColor.DARK_AQUA + "Assign Nothing", clearLores);
+		
+		int slot = 2;
+		for(Castable castable : unlockedCastables) {
+			menu.setItem(slot, castable.getAssignmentItem());
 			slot++;
 		}
 		
@@ -149,6 +143,7 @@ public class SkillAssignMenu implements WauzInventory {
 	 * @param event The inventory click event.
 	 * 
 	 * @see SkillAssignMenu#showSkillSelection(Player)
+	 * @see SkillMenu#open(Player)
 	 * @see PlayerSkillConfigurator#setQuickSlotSkill(Player, int, String)
 	 */
 	@Override
@@ -161,12 +156,19 @@ public class SkillAssignMenu implements WauzInventory {
 			return;
 		}
 		else if(page.equals("choose-slot")) {
-			slot = (event.getRawSlot() + 1) / 2;
+			slot = event.getRawSlot();
 			showSkillSelection(player);
 		}
-		else if(page.equals("choose-skill") && ItemUtils.isSpecificItem(clicked, "Assign Skill")) {
+		else if(ItemUtils.isSpecificItem(clicked, "About Quick Slots")) {
+			SkillMenu.open(player);
+		}
+		else if(ItemUtils.isSpecificItem(clicked, "Assign Nothing")) {
+			PlayerSkillConfigurator.setQuickSlotSkill(player, slot, "none");
+			open(player);
+		}
+		else if(ItemUtils.isSpecificItem(clicked, "Assign Skill")) {
 			String skillName = ItemUtils.getStringBetweenFromLore(clicked, "Skill (", ")");
-			PlayerSkillConfigurator.setQuickSlotSkill(player, slot, ChatColor.stripColor(skillName));
+			PlayerSkillConfigurator.setQuickSlotSkill(player, slot, "Skill :: " + ChatColor.stripColor(skillName));
 			open(player);
 		}
 	}

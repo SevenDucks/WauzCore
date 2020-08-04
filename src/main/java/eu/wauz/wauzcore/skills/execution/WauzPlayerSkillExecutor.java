@@ -103,27 +103,47 @@ public class WauzPlayerSkillExecutor {
 	
 	/**
 	 * Tries to use a skill for a player.
-	 * Only possible if a skillgem is socketed and the level matches.
-	 * The global player skill cooldown must also be ready.
+	 * Only possible if a valid skillgem is socketed in the given item.
 	 * 
 	 * @param player The player that should use the skill.
 	 * @param itemStack The item that skill is bound to.
 	 * 
-	 * @see Cooldown#playerSkillUse(Player)
-	 * @see WauzPlayerSkillExecutor#execute(Player, ItemStack, String)
+	 * @see EquipmentUtils#getSocketedSkill(ItemStack)
+	 * @see WauzPlayerSkillExecutor#tryToUseSkill(Player, ItemStack, WauzPlayerSkill)
 	 */
 	public static void tryToUseSkill(Player player, ItemStack itemStack) {
 		String skillId = EquipmentUtils.getSocketedSkill(itemStack);
-		if(StringUtils.isNotBlank(skillId)) {
-			int requiredLevel = EquipmentUtils.getLevelRequirement(itemStack);
-			WauzDebugger.log(player, "Required Level: " + requiredLevel);
-			if(player.getLevel() < requiredLevel) {
-				player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
-				return;
-			}
-			else if(Cooldown.playerSkillUse(player)) {
-				execute(player, itemStack, skillId);
-			}
+		if(StringUtils.isBlank(skillId)) {
+			return;
+		}
+		WauzPlayerSkill skill = playerSkillMap.get(skillId);
+		if(skill == null) {
+			return;
+		}
+		tryToUseSkill(player, itemStack, skill);
+	}
+	
+	/**
+	 * Tries to use a skill for a player.
+	 * Checks if the global skill cooldown is ready and if the level requirement matches.
+	 * 
+	 * @param player The player that should use the skill.
+	 * @param itemStack The item that is used to cast the skill.
+	 * @param skill The skill to use.
+	 * 
+	 * @see EquipmentUtils#getLevelRequirement(ItemStack)
+	 * @see Cooldown#playerSkillUse(Player)
+	 * @see WauzPlayerSkillExecutor#execute(Player, ItemStack, WauzPlayerSkill)
+	 */
+	public static void tryToUseSkill(Player player, ItemStack itemStack, WauzPlayerSkill skill) {
+		int requiredLevel = EquipmentUtils.getLevelRequirement(itemStack);
+		WauzDebugger.log(player, "Required Level: " + requiredLevel);
+		if(player.getLevel() < requiredLevel) {
+			player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
+			return;
+		}
+		else if(Cooldown.playerSkillUse(player)) {
+			execute(player, itemStack, skill);
 		}
 	}
 	
@@ -134,28 +154,28 @@ public class WauzPlayerSkillExecutor {
 	 * All players in a radius of 24 blocks will receive a message on skill use.
 	 * 
 	 * @param player The player that should use the skill.
-	 * @param itemStack The item that skill is bound to.
-	 * @param skillId The id of the skill to use.
+	 * @param itemStack The item that is used to cast the skill.
+	 * @param skill The skill to use.
 	 * 
 	 * @return If the execution was successful.
 	 * 
 	 * @see WauzPlayerData#isSkillReady(Player, String)
 	 * @see ManaCalculator#useMana(Player, int)
+	 * @see RageCalculator#useRage(Player, int)
 	 * @see WauzPlayerSkill#executeSkill(Player, ItemStack)
 	 * @see WauzDebugger#toggleMagicDebugMode(Player)
 	 */
-	public static boolean execute(Player player, ItemStack itemStack, String skillId) {
+	public static boolean execute(Player player, ItemStack itemStack, WauzPlayerSkill skill) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		WauzPlayerSkill skill = playerSkillMap.get(skillId);
-		if(playerData == null || skill == null) {
+		if(playerData == null) {
 			return false;
 		}
 		
-		boolean skillReady = playerData.isSkillReady(player, skillId);
+		boolean skillReady = playerData.isSkillReady(player, skill.getSkillId());
 		int manaCost = player.hasPermission(WauzPermission.DEBUG_MAGIC.toString()) ? 0 : skill.getManaCost();
 		
 		if(skillReady && (skill.isPhysical() ? RageCalculator.useRage(player, manaCost) : ManaCalculator.useMana(player, manaCost))) {
-			playerData.updateSkillCooldown(player, skillId);
+			playerData.updateSkillCooldown(player, skill.getSkillId());
 			player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
 			
 			boolean success = skill.executeSkill(player, itemStack);
@@ -173,5 +193,5 @@ public class WauzPlayerSkillExecutor {
 		}
 		return true;
 	}
-
+	
 }

@@ -13,9 +13,10 @@ import com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer;
 
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEvent;
+import eu.wauz.wauzcore.players.classes.Learnable;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.execution.Castable;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
@@ -89,9 +90,24 @@ public class WauzPlayerData {
 	private int maxRage = 0;
 	
 	/**
-	 * The list of unlocked player skills.
+	 * The number of the currently shown action bar.
 	 */
-	private List<WauzPlayerSkill> unlockedSkills = new ArrayList<>();
+	private int actionBar = 0;
+	
+	/**
+	 * The list of selected castables.
+	 */
+	private List<Castable> selectedCastables = new ArrayList<>();
+	
+	/**
+	 * The list of unlocked castables.
+	 */
+	private List<Castable> unlockedCastables = new ArrayList<>();
+	
+	/**
+	 * A map of the unlocked castables, indexed by castable key.
+	 */
+	private Map<String, Castable> castableMap = new HashMap<>();
 	
 	/**
 	 * The skill coodlown times by id.
@@ -345,29 +361,90 @@ public class WauzPlayerData {
 	}
 	
 	/**
-	 * @return The list of unlocked player skills.
+	 * @return The number of the currently shown action bar.
 	 */
-	public List<WauzPlayerSkill> getUnlockedSkills() {
-		return unlockedSkills;
+	public int getActionBar() {
+		return actionBar;
 	}
 
 	/**
-	 * Refreshes the list of unlocked player skills.
-	 * 
-	 * @param player The player to get the skill list from.
+	 * @param actionBar The new number of the currently shown action bar.
 	 */
-	public void refreshUnlockedSkills(Player player) {
-		unlockedSkills.clear();
+	public void setActionBar(int actionBar) {
+		this.actionBar = actionBar;
+	}
+	
+	/**
+	 * @return The list of selected castables.
+	 */
+	public List<Castable> getSelectedCastables() {
+		return selectedCastables;
+	}
+
+	/**
+	 * @return The list of unlocked castables.
+	 */
+	public List<Castable> getUnlockedCastables() {
+		return unlockedCastables;
+	}
+	
+	/**
+	 * Gets an unlocked castable of the player.
+	 * 
+	 * @param castableKey The key of the castable.
+	 * 
+	 * @return The requested castable or null.
+	 */
+	public Castable getCastable(String castableKey) {
+		return castableMap.get(castableKey);
+	}
+
+	/**
+	 * Refreshes the list of unlocked castables. Also refreshes selected castables.
+	 * 
+	 * @param player The player to get the castable list from.
+	 */
+	public void refreshUnlockedCastables(Player player) {
+		unlockedCastables.clear();
+		castableMap.clear();
 		List<WauzPlayerSubclass> subclasses = WauzPlayerClassPool.getClass(player).getSubclasses();
 		for(int index = 0; index < subclasses.size(); index++) {
 			WauzPlayerSubclass subclass = subclasses.get(index);
 			int masteryLevel = PlayerSkillConfigurator.getMasteryStatpoints(player, index + 1);
-			subclass.getLearned(masteryLevel).stream()
-				.map(learnable -> learnable.getSkill())
-				.forEach(skill -> unlockedSkills.add(skill));
+			for(Learnable learnable : subclass.getLearned(masteryLevel)) {
+				Castable castable = new Castable(subclass.getSubclassItemStack(), learnable.getSkill());
+				unlockedCastables.add(castable);
+				castableMap.put("Skill :: " + learnable.getSkill().getSkillId(), castable);
+			}
+		}
+		refreshSelectedCastables(player);
+	}
+	
+	/**
+	 * Refreshes the list of selected castables.
+	 * 
+	 * @param player The player to get the castable list from.
+	 */
+	public void refreshSelectedCastables(Player player) {
+		selectedCastables.clear();
+		for(int slot = 1; slot <= 8; slot++) {
+			String castableKey = PlayerSkillConfigurator.getQuickSlotSkill(player, slot);
+			selectedCastables.add(castableMap.get(castableKey));
 		}
 	}
-
+	
+	/**
+	 * Gets the remaining cooldown milliseconds for the given skill.
+	 * 
+	 * @param skillId The id of the skill.
+	 * 
+	 * @return The remaining millis.
+	 */
+	public long getRemainingSkillCooldown(String skillId) {
+		Long cooldown = skillCooldownMap.get(skillId);
+		return cooldown == null ? 0 : cooldown - System.currentTimeMillis();
+	}
+	
 	/**
 	 * Checks if the cooldown timestamp for the given skill is smaller than the current time.
 	 * 

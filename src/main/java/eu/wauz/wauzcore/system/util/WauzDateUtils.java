@@ -25,6 +25,13 @@ public class WauzDateUtils {
 	}
 	
 	/**
+	 * @return The seconds of the current minute.
+	 */
+	public static int getSeconds() {
+		return getCalendar().get(Calendar.SECOND);
+	}
+	
+	/**
 	 * @return The current date as number in yyyyMMdd format.
 	 */
 	public static long getDateLong() {

@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 
 /**
@@ -41,7 +42,15 @@ public class CmdWzSkill implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		return WauzPlayerSkillExecutor.execute((Player) sender, null, args[0].replace("_", " "));
+		if(args.length < 1) {
+			return false;
+		}
+		
+		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(args[0].replace("_", " "));
+		if(skill == null) {
+			return false;
+		}
+		return WauzPlayerSkillExecutor.execute((Player) sender, null, skill);
 	}
 
 }

@@ -1,16 +1,26 @@
 package eu.wauz.wauzcore.system;
 
+import java.util.List;
+
+import org.bukkit.GameMode;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
+import eu.wauz.wauzcore.menu.abilities.SkillAssignMenu;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
+import eu.wauz.wauzcore.players.WauzPlayerData;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
+import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
+import eu.wauz.wauzcore.skills.execution.Castable;
 import eu.wauz.wauzcore.system.util.DeprecatedUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -20,6 +30,84 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * @author Wauzmons
  */
 public class CombatMapper {
+	
+	/**
+	 * Handles swapping action bars.
+	 * 
+	 * @param event The swap event.
+	 * 
+	 * @see WauzPlayerData#setActionBar(int)
+	 */
+	public static void handleSwapEvent(PlayerSwapHandItemsEvent event) {
+		Player player = event.getPlayer();
+		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+			return;
+		}
+		
+		event.setCancelled(true);
+		if(WauzMode.inHub(player)) {
+			return;
+		}
+		
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null) {
+			return;
+		}
+		
+		int actionBar = playerData.getActionBar();
+		actionBar = actionBar == 2 ? 0 : actionBar + 1;
+		playerData.setActionBar(actionBar);
+		WauzDebugger.log(player, "Action Bar: " + actionBar);
+		WauzPlayerActionBar.update(player);
+	}
+	
+	/**
+	 * Handles using casting bar slots.
+	 * 
+	 * @param event
+	 * 
+	 * @see WauzPlayerData#getActionBar()
+	 * @see WauzPlayerData#setSelectedCastables()
+	 * @see SkillAssignMenu#open(Player)
+	 * @see Castable#cast(Player)
+	 */
+	public static void handleHoldEvent(PlayerItemHeldEvent event) {
+		Player player = event.getPlayer();
+		if(WauzMode.inHub(player) || player.getGameMode().equals(GameMode.CREATIVE)) {
+			return;
+		}
+		
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null) {
+			return;
+		}
+		
+		int actionBar = playerData.getActionBar();
+		if(actionBar > 0) {
+			int slot = event.getNewSlot() + 1;
+			WauzDebugger.log(player, "Hotbat Slot: " + slot);
+			List<Castable> selectedCastables = playerData.getSelectedCastables();
+			event.setCancelled(true);
+			
+			if(slot == 9) {
+				playerData.setActionBar(0);
+				SkillAssignMenu.open(player);
+				return;
+			}
+			if(actionBar == 2) {
+				slot += 4;
+			}
+			if(slot < 1 || slot > 8) {
+				return;
+			}
+			
+			Castable castable = selectedCastables.get(slot - 1);
+			if(castable != null) {
+				playerData.setActionBar(0);
+				castable.cast(player);
+			}
+		}
+	}
 	
 	/**
 	 * Handles general damage calculation.

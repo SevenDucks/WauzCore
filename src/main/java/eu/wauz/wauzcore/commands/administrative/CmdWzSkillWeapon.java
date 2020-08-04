@@ -41,6 +41,10 @@ public class CmdWzSkillWeapon implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
+		if(args.length < 1) {
+			return false;
+		}
+		
 		return WauzEquipmentHelper.getSkillgemWeapon((Player) sender, args[0].replace("_", " "));
 	}
 

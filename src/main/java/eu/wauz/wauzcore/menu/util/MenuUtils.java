@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -147,6 +146,23 @@ public class MenuUtils {
 	}
 	
 	/**
+	 * Creates and sets a new menu item in an inventory.
+	 * 
+	 * @param menu The menu inventory. 
+	 * @param slot The slot to place the menu item stack in.
+	 * @param itemStack The base item stack.
+	 * @param displayName The display name of the menu item stack.
+	 * @param lores The lores of the menu item stack.
+	 */
+	public static void setMenuItem(Inventory menu, int slot, ItemStack itemStack, String displayName, List<String> lores) {
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		itemMeta.setDisplayName(displayName);
+		itemMeta.setLore(lores);
+		itemStack.setItemMeta(itemMeta);
+		menu.setItem(slot, itemStack);
+	}
+	
+	/**
 	 * Sets the display name of an item stack.
 	 * 
 	 * @param itemStack The item to set the display name for.
@@ -268,19 +284,6 @@ public class MenuUtils {
 	 */
 	public static void checkForStaticItemDrop(PlayerDropItemEvent event) {
 		if(staticItems.contains(event.getItemDrop().getItemStack().getType())) {
-			event.setCancelled(true);
-		}
-	}
-	
-	/**
-	 * Prevents the swapping of static and cosmetic items.
-	 * 
-	 * @param event The swap event.
-	 */
-	public static void checkForStaticItemSwap(PlayerSwapHandItemsEvent event) {
-		Material mainHandType = event.getMainHandItem().getType();
-		Material offHandType = event.getOffHandItem().getType();
-		if(staticItems.contains(mainHandType) || staticItems.contains(offHandType)) {
 			event.setCancelled(true);
 		}
 	}

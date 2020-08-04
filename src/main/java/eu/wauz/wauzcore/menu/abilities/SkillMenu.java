@@ -186,7 +186,7 @@ public class SkillMenu implements WauzInventory {
 		}
 		
 		ItemStack skillAssignmentItemStack = GenericIconHeads.getColorCubeItem();
-		MenuUtils.setItemDisplayName(skillAssignmentItemStack, ChatColor.DARK_AQUA + "Assign Skills");
+		MenuUtils.setItemDisplayName(skillAssignmentItemStack, ChatColor.DARK_AQUA + "Assign Abilities");
 		MenuUtils.addItemLore(skillAssignmentItemStack, ChatColor.GRAY + "Select Skills to use in Combat", true);
 		menu.setItem(14, skillAssignmentItemStack);
 		
@@ -361,7 +361,7 @@ public class SkillMenu implements WauzInventory {
 		Integer pts = total - spent;
 
 		try {
-			if(HeadUtils.isHeadMenuItem(clicked, "Assign Skills")) {
+			if(HeadUtils.isHeadMenuItem(clicked, "Assign Abilities")) {
 				SkillAssignMenu.open(player);
 			}
 			else if(pts < 1) {
