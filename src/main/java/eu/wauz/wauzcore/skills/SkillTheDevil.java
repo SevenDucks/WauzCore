@@ -55,6 +55,14 @@ public class SkillTheDevil implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Demonic Grasp";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "DGrasp";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

@@ -56,6 +56,14 @@ public class SkillTheHighPriestess implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Area Heal";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "ArHeal";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

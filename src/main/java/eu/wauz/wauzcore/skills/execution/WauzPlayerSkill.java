@@ -38,6 +38,11 @@ public interface WauzPlayerSkill {
 	public String getSkillDescriptionEffect();
 	
 	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	public String getSkillQuickSlotEffect();
+	
+	/**
 	 * @return The condition stats (mana, cooldown etc.) of the skill.
 	 */
 	default public String getSkillStats() {

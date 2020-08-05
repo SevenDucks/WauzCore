@@ -55,6 +55,14 @@ public class SkillTheLovers implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Binding Vacuum";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "BndVac";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

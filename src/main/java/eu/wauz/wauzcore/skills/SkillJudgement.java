@@ -53,6 +53,14 @@ public class SkillJudgement implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Shockwave";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "ShckWv";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

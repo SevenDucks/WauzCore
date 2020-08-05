@@ -52,6 +52,14 @@ public class SkillTheHierophant implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Poison Touch";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "PsnTch";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

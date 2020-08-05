@@ -53,6 +53,14 @@ public class SkillTheMoon implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Lunaris Beam";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "LuBeam";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

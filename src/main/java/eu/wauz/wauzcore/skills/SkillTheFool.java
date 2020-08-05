@@ -58,6 +58,14 @@ public class SkillTheFool implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Decoy Totem";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "DecoyT";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

@@ -55,7 +55,7 @@ public class RageCalculator {
 			playerData.setRage(playerData.getRage() + amount);
 		}
 		else {
-			playerData.setRage(playerData.getMaxMana());
+			playerData.setRage(playerData.getMaxRage());
 		}
 		WauzPlayerActionBar.update(player);
 	}

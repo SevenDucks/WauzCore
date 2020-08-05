@@ -116,7 +116,7 @@ public class Castable {
 				}
 			}
 			
-			return message + color + skillName;
+			return message + color + skill.getSkillQuickSlotEffect();
 		}
 		return ChatColor.GRAY + "Empty";
 	}

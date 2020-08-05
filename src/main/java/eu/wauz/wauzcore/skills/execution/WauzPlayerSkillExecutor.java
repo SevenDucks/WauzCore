@@ -17,6 +17,7 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.players.calc.RageCalculator;
+import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.util.Cooldown;
@@ -164,6 +165,7 @@ public class WauzPlayerSkillExecutor {
 	 * @see RageCalculator#useRage(Player, int)
 	 * @see WauzPlayerSkill#executeSkill(Player, ItemStack)
 	 * @see WauzDebugger#toggleMagicDebugMode(Player)
+	 * @see WauzPlayerActionBar#update(Player)
 	 */
 	public static boolean execute(Player player, ItemStack itemStack, WauzPlayerSkill skill) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
@@ -190,6 +192,9 @@ public class WauzPlayerSkillExecutor {
 			if(itemStack != null) {
 				DurabilityCalculator.damageItem(player, itemStack, false);
 			}
+		}
+		else {
+			WauzPlayerActionBar.update(player);
 		}
 		return true;
 	}

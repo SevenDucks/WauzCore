@@ -53,6 +53,14 @@ public class SkillTheStar implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Multipunch";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "OraOra";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

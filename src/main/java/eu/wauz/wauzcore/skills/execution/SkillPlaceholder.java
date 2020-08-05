@@ -41,6 +41,14 @@ public class SkillPlaceholder implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Does Nothing";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "TestSk";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

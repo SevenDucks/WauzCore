@@ -59,6 +59,14 @@ public class SkillJustice implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Equivalent Exchange";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "EqExch";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

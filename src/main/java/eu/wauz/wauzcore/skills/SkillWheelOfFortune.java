@@ -49,6 +49,14 @@ public class SkillWheelOfFortune implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Random";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "Random";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

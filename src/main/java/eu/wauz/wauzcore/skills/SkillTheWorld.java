@@ -52,6 +52,14 @@ public class SkillTheWorld implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Time Freeze";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "Freeze";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

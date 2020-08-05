@@ -73,6 +73,18 @@ public class Cooldown {
 	}
 	
 	/**
+	 * Returns the quick slot usage cooldown from the player data.
+	 * Cooldown lasts 0.1 seconds. Resets it, if it is ready.
+	 * 
+	 * @param player The player who owns the player data.
+	 * 
+	 * @return If the cooldown is ready.
+	 */
+	public static boolean playerQuickSlotUse(Player player) {
+		return getAndUpdateCooldownFromCache(player, "QUICK_SLOT_USE", 100L, true);
+	}
+	
+	/**
 	 * Returns the food consumtion cooldown from the player data.
 	 * Cooldown lasts 1 second. Resets it, if it is ready.
 	 * 

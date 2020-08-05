@@ -51,6 +51,14 @@ public class SkillTemperance implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Mana Restore";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "ManaRs";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

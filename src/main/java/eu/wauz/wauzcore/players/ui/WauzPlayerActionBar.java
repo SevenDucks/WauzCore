@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.players.ui;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -64,7 +65,7 @@ public class WauzPlayerActionBar {
 		}
 		
 		if(WauzMode.isMMORPG(player)) {
-			if(playerData.getActionBar() > 0) {
+			if(playerData.getActionBar() > 0 && !player.getGameMode().equals(GameMode.CREATIVE)) {
 				showCastingBar(player, playerData);
 				return;
 			}

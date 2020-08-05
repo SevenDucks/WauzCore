@@ -21,6 +21,7 @@ import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.skills.execution.Castable;
+import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.DeprecatedUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -39,13 +40,9 @@ public class CombatMapper {
 	 * @see WauzPlayerData#setActionBar(int)
 	 */
 	public static void handleSwapEvent(PlayerSwapHandItemsEvent event) {
-		Player player = event.getPlayer();
-		if(player.getGameMode().equals(GameMode.CREATIVE)) {
-			return;
-		}
-		
 		event.setCancelled(true);
-		if(WauzMode.inHub(player)) {
+		Player player = event.getPlayer();
+		if(WauzMode.inHub(player) || player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
 		
@@ -86,9 +83,11 @@ public class CombatMapper {
 		if(actionBar > 0) {
 			int slot = event.getNewSlot() + 1;
 			WauzDebugger.log(player, "Hotbat Slot: " + slot);
-			List<Castable> selectedCastables = playerData.getSelectedCastables();
 			event.setCancelled(true);
 			
+			if(!Cooldown.playerQuickSlotUse(player)) {
+				return;
+			}
 			if(slot == 9) {
 				playerData.setActionBar(0);
 				SkillAssignMenu.open(player);
@@ -101,6 +100,7 @@ public class CombatMapper {
 				return;
 			}
 			
+			List<Castable> selectedCastables = playerData.getSelectedCastables();
 			Castable castable = selectedCastables.get(slot - 1);
 			if(castable != null) {
 				playerData.setActionBar(0);

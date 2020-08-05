@@ -55,6 +55,14 @@ public class SkillTheEmpress implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Lightning Chain";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "LChain";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

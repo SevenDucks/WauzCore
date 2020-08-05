@@ -55,6 +55,14 @@ public class SkillTheTower implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Projectile Totem";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "ProjcT";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

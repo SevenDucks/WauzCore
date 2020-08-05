@@ -50,6 +50,14 @@ public class SkillStrength implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Damage Boost";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "DmgeUp";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

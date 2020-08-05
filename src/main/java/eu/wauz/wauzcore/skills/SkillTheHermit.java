@@ -50,6 +50,14 @@ public class SkillTheHermit implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Evasion Shield";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "EvShld";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

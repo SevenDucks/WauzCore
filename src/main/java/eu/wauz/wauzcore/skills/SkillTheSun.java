@@ -51,6 +51,14 @@ public class SkillTheSun implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Solaris Beam";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "SoBeam";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

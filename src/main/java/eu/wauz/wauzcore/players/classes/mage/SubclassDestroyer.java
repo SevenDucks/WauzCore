@@ -9,6 +9,7 @@ import eu.wauz.wauzcore.players.classes.ClassMage;
 import eu.wauz.wauzcore.players.classes.Learnable;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
 import eu.wauz.wauzcore.skills.SkillTheMagician;
+import eu.wauz.wauzcore.skills.SkillTheStar;
 import eu.wauz.wauzcore.skills.execution.SkillPlaceholder;
 
 /**
@@ -34,6 +35,7 @@ public class SubclassDestroyer extends BaseSubclass {
 	 */
 	public SubclassDestroyer() {
 		registerLearnable(new Learnable(new SkillPlaceholder(), 1));
+		registerLearnable(new Learnable(new SkillTheStar(), 3));
 		registerLearnable(new Learnable(new SkillTheMagician(), 5));
 	}
 	

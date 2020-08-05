@@ -152,7 +152,7 @@ public class EventMapper {
 			Material blockType = block.getType();
 			WauzDebugger.log(event.getPlayer(), "Clicked Block: " + blockType.toString());
 			
-			if(blockedCraftingStations.contains(blockType)) {
+			if(blockedCraftingStations.contains(blockType) || blockType.toString().contains("TRAPDOOR")) {
 				event.setCancelled(true);
 			}
 			else if(blockType.equals(Material.OAK_SIGN) || blockType.equals(Material.OAK_WALL_SIGN)) {

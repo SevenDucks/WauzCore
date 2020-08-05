@@ -51,6 +51,14 @@ public class SkillTheMagician implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Explosion Circle";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "Explsn";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.

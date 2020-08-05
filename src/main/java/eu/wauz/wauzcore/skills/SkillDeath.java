@@ -52,6 +52,14 @@ public class SkillDeath implements WauzPlayerSkill {
 	public String getSkillDescriptionEffect() {
 		return "Blood Sacrifice";
 	}
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	@Override
+	public String getSkillQuickSlotEffect() {
+		return "BlSacr";
+	}
 
 	/**
 	 * @return The cooldown of the skill in seconds.
