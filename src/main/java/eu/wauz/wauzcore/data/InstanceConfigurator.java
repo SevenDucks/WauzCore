@@ -3,7 +3,6 @@ package eu.wauz.wauzcore.data;
 import java.util.List;
 import java.util.Set;
 
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
@@ -16,8 +15,26 @@ import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
  * @author Wauzmons
  */
 public class InstanceConfigurator extends GlobalConfigurationUtils {
+	
+// Instance Files
+
+	/**
+	 * @return The list of instance shop names.
+	 */
+	public static List<String> getInstanceNameList() {
+		return GlobalConfigurationUtils.getInstanceNameList();
+	}
 
 // General Parameters
+	
+	/**
+	 * @param instanceName The name of the instance.
+	 * 
+	 * @return The name of the world template of the instance.
+	 */
+	public static String getWorldTemplateName(String instanceName) {
+		return instanceConfigGetString(instanceName, "world");
+	}
 	
 	/**
 	 * @param instanceName The name of the instance.
@@ -37,26 +54,6 @@ public class InstanceConfigurator extends GlobalConfigurationUtils {
 	public static int getMaximumDeaths(String instanceName) {
 		int maxDeaths = instanceConfigGetInt(instanceName, "maxdeaths");
 		return maxDeaths > 0 ? maxDeaths : 3;
-	}
-	
-// Command Strings
-	
-	/**
-	 * @param instanceName The name of the instance.
-	 * 
-	 * @return The commands to execute before entering the instance.
-	 */
-	public static List<String> getBeforeEnterCommands(String instanceName) {
-		return instanceConfigGetStringList(instanceName, "before");
-	}
-	
-	/**
-	 * @param instanceName The name of the instance.
-	 * 
-	 * @return The commands to execute agter entering the instance.
-	 */
-	public static List<String> getAfterEnterCommands(String instanceName) {
-		return instanceConfigGetStringList(instanceName, "after");
 	}
 	
 // Type Specific
@@ -79,21 +76,6 @@ public class InstanceConfigurator extends GlobalConfigurationUtils {
 	public static List<String> getKeyNameList(String instanceName) {
 		return instanceConfigGetStringList(instanceName, "keys");
 	}
-	
-	/**
-	 * The status name of an ubobtained key.
-	 */
-	public static final String KEY_STATUS_UNOBTAINED = ChatColor.RED + "Unobtained";
-	
-	/**
-	 * The status name of an obtained key.
-	 */
-	public static final String KEY_STATUS_OBTAINED = ChatColor.YELLOW + "Obtained";
-	
-	/**
-	 * The status name of an used key.
-	 */
-	public static final String KEY_STATUS_USED = ChatColor.GREEN + "Used";
 	
 // World Specific
 	

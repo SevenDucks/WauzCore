@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.system;
+package eu.wauz.wauzcore.system.instances;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -33,6 +32,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.WauzFileUtils;
 
 /**
@@ -97,43 +97,13 @@ public class InstanceManager {
 		
 		if(instanceType.equals("Keys")) {
 			for(String keyId : InstanceConfigurator.getKeyNameList(instanceName)) {
-				InstanceConfigurator.setInstanceWorldKeyStatus(instance, keyId, InstanceConfigurator.KEY_STATUS_UNOBTAINED);
+				InstanceConfigurator.setInstanceWorldKeyStatus(instance, keyId, WauzInstance.KEY_STATUS_UNOBTAINED);
 			}
 		}
-		
-// Commands and Entering
 
-		List<String> commands = InstanceConfigurator.getBeforeEnterCommands(instanceName);
-		execute(player, instance, commands);
-		
 		player.teleport(new Location(instance, 0.5, 5, 0.5));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
-		
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
-			
-			public void run() {
-				List<String> commands = InstanceConfigurator.getAfterEnterCommands(instanceName);
-				execute(player, instance, commands);	
-			}
-			
-		}, 60);
 		return true;
-	}
-	
-	/**
-	 * Executes setup commands for an instance.
-	 * Replaces "world" and "player" placeholders.
-	 * 
-	 * @param player The player who opened the instance.
-	 * @param instance The instance world.
-	 * @param commands The list of commands to execute.
-	 */
-	public static void execute(Player player, World instance, List<String> commands) {
-		for(String cmd : commands) {
-			cmd = cmd.replaceAll("world", instance.getName());
-			cmd = cmd.replaceAll("player", player.getName());
-			core.getServer().dispatchCommand(core.getServer().getConsoleSender(), cmd);
-		}
 	}
 	
 // Create Guild Instance

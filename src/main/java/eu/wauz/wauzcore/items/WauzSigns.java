@@ -16,6 +16,7 @@ import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzTeleporter;
+import eu.wauz.wauzcore.system.instances.WauzInstance;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -150,8 +151,8 @@ public class WauzSigns {
 		else {
 			String keyStatus = InstanceConfigurator.getInstanceKeyStatus(player.getWorld(), keyId);
 			hasAccess =
-				keyStatus.equals(InstanceConfigurator.KEY_STATUS_OBTAINED) ||
-				keyStatus.equals(InstanceConfigurator.KEY_STATUS_USED);
+				keyStatus.equals(WauzInstance.KEY_STATUS_OBTAINED) ||
+				keyStatus.equals(WauzInstance.KEY_STATUS_USED);
 		}
 		
 		if(!hasAccess) {
@@ -181,7 +182,7 @@ public class WauzSigns {
 			block.setType(Material.AIR);
 		}
 		
-		InstanceConfigurator.setInstanceWorldKeyStatus(player.getWorld(), keyId, InstanceConfigurator.KEY_STATUS_USED);
+		InstanceConfigurator.setInstanceWorldKeyStatus(player.getWorld(), keyId, WauzInstance.KEY_STATUS_USED);
 		for(Player member : player.getWorld().getPlayers()) {
 			WauzPlayerScoreboard.scheduleScoreboardRefresh(member);
 			member.sendMessage(ChatColor.GREEN + "The door \"" + ChatColor.DARK_AQUA + keyId + ChatColor.GREEN + "\" was unlocked!");

@@ -401,6 +401,22 @@ public class GlobalConfigurationUtils {
 // Interact with Instance-Config
 	
 	/**
+	 * Finds all instance names by iterating through all instance configs.
+	 * 
+	 * @return A list of all instance names.
+	 */
+	protected static List<String> getInstanceNameList() {
+		List<String> instanceNameList = new ArrayList<>();
+		File instanceDataFolder = new File(core.getDataFolder(), "InstanceData/");
+		if(instanceDataFolder.exists()) {
+			for(File file : instanceDataFolder.listFiles()) {
+				instanceNameList.add(file.getName().replace(".yml", ""));
+			}
+		}
+		return instanceNameList;
+	}
+	
+	/**
 	 * Gets a string from an instance config.
 	 * 
 	 * @param instance The name of the instance config file.

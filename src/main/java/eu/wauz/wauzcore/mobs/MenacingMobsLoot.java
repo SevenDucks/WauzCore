@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.instances.WauzInstance;
 
 /**
  * This is the place, where exp and key drops are generated
@@ -47,7 +48,7 @@ public class MenacingMobsLoot {
 		String keyId = MobMetadataUtils.getKeyDrop(entity);
 		if(StringUtils.isNotBlank(keyId)) {
 			World world = entity.getWorld();
-			InstanceConfigurator.setInstanceWorldKeyStatus(world, keyId, InstanceConfigurator.KEY_STATUS_OBTAINED);
+			InstanceConfigurator.setInstanceWorldKeyStatus(world, keyId, WauzInstance.KEY_STATUS_OBTAINED);
 			
 			for(Player player : world.getPlayers()) {
 				WauzPlayerScoreboard.scheduleScoreboardRefresh(player);

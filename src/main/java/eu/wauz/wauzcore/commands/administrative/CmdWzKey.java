@@ -13,6 +13,7 @@ import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.instances.WauzInstance;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -60,13 +61,13 @@ public class CmdWzKey implements WauzCommand {
 		
 		switch (args[2]) {
 		case "1":
-			keyStatus = InstanceConfigurator.KEY_STATUS_OBTAINED;
+			keyStatus = WauzInstance.KEY_STATUS_OBTAINED;
 			break;
 		case "2":
-			keyStatus = InstanceConfigurator.KEY_STATUS_USED;
+			keyStatus = WauzInstance.KEY_STATUS_USED;
 			break;
 		default:
-			keyStatus = InstanceConfigurator.KEY_STATUS_UNOBTAINED;
+			keyStatus = WauzInstance.KEY_STATUS_UNOBTAINED;
 			break;
 		}
 		

@@ -1,3 +1,5 @@
+world: Night
+type: DEFAULT
 before:
 - 'tell player Loaded Test-Instance Night'
 after:
