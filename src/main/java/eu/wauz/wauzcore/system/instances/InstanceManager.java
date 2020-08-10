@@ -301,9 +301,13 @@ public class InstanceManager {
 	 * Only works if given world is an instance.
 	 * 
 	 * @param world The instance world.
+	 * 
+	 * @see WauzActiveInstancePool#unregisterInstance(String)
+	 * @see WauzFileUtils#removeFilesRecursive(File)
 	 */
 	public static void closeInstance(World world) {
-	    if(world.getWorldFolder().toString().contains("Instance")) {
+	    if(world.getName().contains("WzInstance")) {
+	    	WauzActiveInstancePool.unregisterInstance(world.getName());
 			Bukkit.getServer().unloadWorld(world, true);
 			WauzFileUtils.removeFilesRecursive(world.getWorldFolder());
 	    }
@@ -312,11 +316,15 @@ public class InstanceManager {
 	/**
 	 * Removes all instance folders.
 	 * WARNING: There is no check if the instance is loaded!
+	 * 
+	 * @see WauzActiveInstancePool#unregisterInstance(String)
+	 * @see WauzFileUtils#removeFilesRecursive(File)
 	 */
 	public static void removeInactiveInstances() {
 		File rootDirectory = new File(Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", ""));
 		for(File file : rootDirectory.listFiles()) {
 			if(file.getName().startsWith("WzInstance")) {
+				WauzActiveInstancePool.unregisterInstance(file.getName());
 				WauzFileUtils.removeFilesRecursive(file);
 			}
 		}

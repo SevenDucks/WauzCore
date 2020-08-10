@@ -19,7 +19,7 @@ public class WauzPlayerDataPool {
 	/**
 	 * A map of cached player datas by player.
 	 */
-	private static HashMap<Player, WauzPlayerData> storage = new HashMap<Player, WauzPlayerData>();
+	private static HashMap<Player, WauzPlayerData> storage = new HashMap<>();
 
 	/**
 	 * Fetches a cached player data.
