@@ -27,7 +27,6 @@ import org.bukkit.util.BlockVector;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
@@ -68,10 +67,8 @@ public class InstanceManager {
 			return true;
 		}
 		
-// Opening Instance
-		
-		File sourceFolder = new File(core.getDataFolder(), "Worlds/" + instanceName);
-		if(!sourceFolder.exists()) {
+		WauzInstance instanceTemplate = WauzInstance.getInstance(instanceName);
+		if(instanceTemplate == null) {
 			player.sendMessage(ChatColor.RED + "This Instance does not exist!");
 			return false;
 		}
@@ -79,29 +76,19 @@ public class InstanceManager {
 		PlayerConfigurator.setCharacterLocation(player, player.getLocation());
 		PetOverviewMenu.unsummon(player);
 		
-		String instanceId = "WzInstance_MMORPG_" + UUID.randomUUID();
-		String path = Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", instanceId);
+		String instanceUuid = "WzInstance_MMORPG_" + UUID.randomUUID();
+		String path = Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", instanceUuid);
 		File targetFolder = new File(path);
 		targetFolder.mkdir();
 		
+		File sourceFolder = new File(core.getDataFolder(), "Worlds/" + instanceTemplate.getInstanceWorldTemplateName());
 		openInstance(sourceFolder, targetFolder);
-		final World instance = core.getServer().createWorld(new WorldCreator(instanceId));
+		final World instanceWorld = core.getServer().createWorld(new WorldCreator(instanceUuid));
 		
-// World Configuration
+		WauzActiveInstance activeInstance = new WauzActiveInstance(instanceWorld, instanceTemplate);
+		WauzActiveInstancePool.registerInstance(activeInstance);
 		
-		InstanceConfigurator.setInstanceWorldName(instance, instanceName);
-		String instanceType = InstanceConfigurator.getInstanceType(instanceName);
-		InstanceConfigurator.setInstanceWorldType(instance, instanceType);
-		InstanceConfigurator.setInstanceWorldMaximumPlayers(instance, InstanceConfigurator.getMaximumPlayers(instanceName));
-		InstanceConfigurator.setInstanceWorldMaximumDeaths(instance, InstanceConfigurator.getMaximumDeaths(instanceName));
-		
-		if(instanceType.equals("Keys")) {
-			for(String keyId : InstanceConfigurator.getKeyNameList(instanceName)) {
-				InstanceConfigurator.setInstanceWorldKeyStatus(instance, keyId, WauzInstance.KEY_STATUS_UNOBTAINED);
-			}
-		}
-
-		player.teleport(new Location(instance, 0.5, 5, 0.5));
+		player.teleport(new Location(instanceWorld, 0.5, 5, 0.5));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 		return true;
 	}
@@ -127,22 +114,23 @@ public class InstanceManager {
 		PlayerConfigurator.setCharacterLocation(player, player.getLocation());
 		PetOverviewMenu.unsummon(player);
 		
-		String instanceId = "WzInstance_MMORPG_" + guild.getGuildUuidString();
-		World instance = Bukkit.getWorld(instanceId);
-		if(instance == null) {
+		String instanceUuid = "WzInstance_MMORPG_" + guild.getGuildUuidString();
+		World instanceWorld = Bukkit.getWorld(instanceUuid);
+		if(instanceWorld == null) {
 			File sourceFolder = new File(core.getDataFolder(), "Worlds/Guildhall");
-			String path = Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", instanceId);
+			String path = Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", instanceUuid);
 			File targetFolder = new File(path);
 			targetFolder.mkdir();
 			openInstance(sourceFolder, targetFolder);
-			instance = core.getServer().createWorld(new WorldCreator(instanceId));
-			InstanceConfigurator.setInstanceWorldName(instance, guild.getGuildName() + " Guildhall");
-			InstanceConfigurator.setInstanceWorldType(instance, "Guild");
-			InstanceConfigurator.setInstanceWorldMaximumPlayers(instance, 0);
-			InstanceConfigurator.setInstanceWorldMaximumDeaths(instance, 0);
+			instanceWorld = core.getServer().createWorld(new WorldCreator(instanceUuid));
+			
+			WauzActiveInstance activeInstance = new WauzActiveInstance(instanceWorld, guild.getGuildName() + " Guildhall");
+			activeInstance.setDisplayTitle(guild.getGuildName());
+			activeInstance.setDisplaySubtitle("Grand Guildhall");
+			WauzActiveInstancePool.registerInstance(activeInstance);
 		}
 		
-		player.teleport(new Location(instance, 0.5, 26, 0.5));
+		player.teleport(new Location(instanceWorld, 0.5, 26, 0.5));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
 	
@@ -163,25 +151,29 @@ public class InstanceManager {
 	 * @see InstanceManager#createSpawnCircle(World, Location)
 	 */
 	public static void enterSurvival(Player player, String instanceName) {
-		String instanceId = "WzInstance_Survival_" + UUID.randomUUID();
-		
-		WorldCreator worldCreator = new WorldCreator(instanceId);
-		
+		String instanceUuid = "WzInstance_Survival_" + UUID.randomUUID();
+		WorldCreator worldCreator = new WorldCreator(instanceUuid);
+		String worldType;
 		if(instanceName.equals("Survival Nether")) {
 			worldCreator = worldCreator.environment(Environment.NETHER);
+			worldType = "The Nether";
 		}
 		else if(instanceName.equals("Survival End")) {
 			worldCreator = worldCreator.environment(Environment.THE_END);
+			worldType = "The End";
+		}
+		else {
+			worldType = "The Overworld";
 		}
 		
-		World instance = core.getServer().createWorld(worldCreator);
-		Location spawnLocation = instance.getSpawnLocation().clone().add(0.5, 0, 0.5);
-		createSpawnCircle(instance, spawnLocation.clone().add(0, -1, 0));
+		World instanceWorld = core.getServer().createWorld(worldCreator);
+		Location spawnLocation = instanceWorld.getSpawnLocation().clone().add(0.5, 0, 0.5);
+		createSpawnCircle(instanceWorld, spawnLocation.clone().add(0, -1, 0));
 		
-		InstanceConfigurator.setInstanceWorldName(instance, "Survival");
-		InstanceConfigurator.setInstanceWorldType(instance, "Survival");
-		InstanceConfigurator.setInstanceWorldMaximumPlayers(instance, 0);
-		InstanceConfigurator.setInstanceWorldMaximumDeaths(instance, 0);
+		WauzActiveInstance activeInstance = new WauzActiveInstance(instanceWorld, "Survival");
+		activeInstance.setDisplayTitle(worldType);
+		activeInstance.setDisplaySubtitle("Survival Pocket Realm");
+		WauzActiveInstancePool.registerInstance(activeInstance);
 		
 		WauzDebugger.log(player, "Spawn Location: "
 				+ spawnLocation.getX() + " "

@@ -18,7 +18,7 @@ public abstract class WauzBaseInstance {
 	/**
 	 * The type of the instance.
 	 */
-	private WauzInstanceType type;
+	private WauzInstanceType type = WauzInstanceType.DEFAULT;
 	
 	/**
 	 * The maximum players of the instance.
@@ -29,6 +29,21 @@ public abstract class WauzBaseInstance {
 	 * The maximum deaths per player of the instance.
 	 */
 	private int maxDeaths;
+	
+	/**
+	 * The display title of the instance.
+	 */
+	private String displayTitle;
+	
+	/**
+	 * The display subtitle of the instance.
+	 */
+	private String displaySubtitle;
+	
+	/**
+	 * The soundtrack file name of the instance.
+	 */
+	private String soundtrackName = "None";
 	
 	/**
 	 * The list of all key ids of the instance.
@@ -89,6 +104,48 @@ public abstract class WauzBaseInstance {
 	 */
 	public void setMaxDeaths(int maxDeaths) {
 		this.maxDeaths = maxDeaths;
+	}
+
+	/**
+	 * @return The display title of the instance.
+	 */
+	public String getDisplayTitle() {
+		return displayTitle;
+	}
+
+	/**
+	 * @param displayTitle The new display title of the instance.
+	 */
+	public void setDisplayTitle(String displayTitle) {
+		this.displayTitle = displayTitle;
+	}
+
+	/**
+	 * @return The display subtitle of the instance.
+	 */
+	public String getDisplaySubtitle() {
+		return displaySubtitle;
+	}
+
+	/**
+	 * @param displaySubtitle The new display subtitle of the instance.
+	 */
+	public void setDisplaySubtitle(String displaySubtitle) {
+		this.displaySubtitle = displaySubtitle;
+	}
+
+	/**
+	 * @return The soundtrack file name of the instance.
+	 */
+	public String getSoundtrackName() {
+		return soundtrackName;
+	}
+
+	/**
+	 * @param soundtrackName The new soundtrack file name of the instance.
+	 */
+	public void setSoundtrackName(String soundtrackName) {
+		this.soundtrackName = soundtrackName;
 	}
 
 	/**

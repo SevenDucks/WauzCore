@@ -83,13 +83,13 @@ public class ClimateCalculator {
 				DamageCalculator.setHealth(player, playerData.getHealth() - 2);
 				PotionEffect effect = new PotionEffect(PotionEffectType.HUNGER, 100, 2);
 				player.addPotionEffect(effect);
-				player.sendTitle(ChatColor.RED + "Critical Heat!", "Find a colder place asap!", 10, 70, 20);
+				player.sendTitle(ChatColor.DARK_RED + "Critical Heat!", "Find a colder place asap!", 10, 70, 20);
 			}
 			else if(playerTemperature < 2 && playerData.getResistanceCold() < 1) {
 				DamageCalculator.setHealth(player, playerData.getHealth() - 2);
 				PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 100, 2);
 				player.addPotionEffect(effect);
-				player.sendTitle(ChatColor.BLUE + "Critical Cold!", "Find a warmer place asap!", 10, 70, 20);
+				player.sendTitle(ChatColor.DARK_BLUE + "Critical Cold!", "Find a warmer place asap!", 10, 70, 20);
 			}
 		}
 		

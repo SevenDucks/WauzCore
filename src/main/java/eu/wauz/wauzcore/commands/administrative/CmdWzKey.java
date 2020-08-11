@@ -3,17 +3,16 @@ package eu.wauz.wauzcore.commands.administrative;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.instances.WauzInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.system.instances.WauzInstanceKeyStatus;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -50,29 +49,31 @@ public class CmdWzKey implements WauzCommand {
 			return false;
 		}
 		
-		World world = args[0].equals("this") ? ((Player) sender).getWorld() : Bukkit.getWorld(args[0]);
-		if(world == null) {
+		WauzActiveInstance instance = args[0].equals("this")
+				? WauzActiveInstancePool.getInstance((Player) sender)
+				: WauzActiveInstancePool.getInstance(args[0]);
+		if(instance == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown world specified!");
 			return false;
 		}
 		
 		String keyId = args[1];
-		String keyStatus;
+		WauzInstanceKeyStatus keyStatus;
 		
 		switch (args[2]) {
 		case "1":
-			keyStatus = WauzInstance.KEY_STATUS_OBTAINED;
+			keyStatus = WauzInstanceKeyStatus.OBTAINED;
 			break;
 		case "2":
-			keyStatus = WauzInstance.KEY_STATUS_USED;
+			keyStatus = WauzInstanceKeyStatus.USED;
 			break;
 		default:
-			keyStatus = WauzInstance.KEY_STATUS_UNOBTAINED;
+			keyStatus = WauzInstanceKeyStatus.UNOBTAINED;
 			break;
 		}
 		
-		InstanceConfigurator.setInstanceWorldKeyStatus(world, keyId, keyStatus);
-		for(Player player : world.getPlayers()) {
+		instance.setKeyStatus(keyId, keyStatus);
+		for(Player player : instance.getWorld().getPlayers()) {
 			WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 			player.sendMessage(ChatColor.GREEN + "You obtained the Key \"" + ChatColor.DARK_AQUA + keyId + ChatColor.GREEN + "\"!");
 		}

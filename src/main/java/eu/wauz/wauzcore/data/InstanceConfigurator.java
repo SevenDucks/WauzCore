@@ -2,9 +2,8 @@ package eu.wauz.wauzcore.data;
 
 import java.util.List;
 
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
-
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
+import eu.wauz.wauzcore.system.instances.WauzInstanceType;
 
 /**
  * Configurator to fetch or modify data from the Instance.yml files.
@@ -53,6 +52,33 @@ public class InstanceConfigurator extends GlobalConfigurationUtils {
 		return maxDeaths > 0 ? maxDeaths : 3;
 	}
 	
+	/**
+	 * @param instanceName The name of the instance.
+	 * 
+	 * @return The display title of the instance.
+	 */
+	public static String getDisplayTitle(String instanceName) {
+		return instanceConfigGetString(instanceName, "title");
+	}
+	
+	/**
+	 * @param instanceName The name of the instance.
+	 * 
+	 * @return The display subtitle of the instance.
+	 */
+	public static String getDisplaySubtitle(String instanceName) {
+		return instanceConfigGetString(instanceName, "subtitle");
+	}
+	
+	/**
+	 * @param instanceName The name of the instance.
+	 * 
+	 * @return The soundtrack file name of the instance.
+	 */
+	public static String getSoundtrack(String instanceName) {
+		return instanceConfigGetString(instanceName, "music");
+	}
+	
 // Type Specific
 	
 	/**
@@ -60,9 +86,9 @@ public class InstanceConfigurator extends GlobalConfigurationUtils {
 	 * 
 	 * @return The type of the instance.
 	 */
-	public static String getInstanceType(String instanceName) {
-		String instanceType = instanceConfigGetString(instanceName, "type");
-		return StringUtils.isNotBlank(instanceType) ? instanceType : "Unknown";
+	public static WauzInstanceType getInstanceType(String instanceName) {
+		String typeName = instanceConfigGetString(instanceName, "type");
+		return WauzInstanceType.valueOf(typeName);
 	}
 	
 	/**

@@ -19,9 +19,10 @@ import org.bukkit.map.MapView.Scale;
 import org.bukkit.map.MinecraftFont;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.minecraft.server.v1_15_R1.ItemWorldMap;
 import net.minecraft.server.v1_15_R1.WorldMap;
@@ -131,7 +132,8 @@ public class WauzNmsMinimap {
 	    					mapCanvas.drawText(1, 1, MinecraftFont.Font, playerData.getRegion().getTitle());
 	    				}
 	    				else if(WauzMode.isInstance(mapView.getWorld().getName())) {
-	    					mapCanvas.drawText(1, 1, MinecraftFont.Font, InstanceConfigurator.getInstanceWorldName(mapView.getWorld()));
+	    					WauzActiveInstance instance = WauzActiveInstancePool.getInstance(mapView.getWorld());
+	    					mapCanvas.drawText(1, 1, MinecraftFont.Font, instance.getInstanceName());
 	    				}
 	    				else {
 	    					mapCanvas.drawText(1, 1, MinecraftFont.Font, "Unknown Region");

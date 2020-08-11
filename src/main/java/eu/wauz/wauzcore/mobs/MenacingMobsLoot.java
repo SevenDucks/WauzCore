@@ -1,15 +1,15 @@
 package eu.wauz.wauzcore.mobs;
 
 import org.bukkit.ChatColor;
-import org.bukkit.World;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.instances.WauzInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.system.instances.WauzInstanceKeyStatus;
 
 /**
  * This is the place, where exp and key drops are generated
@@ -47,10 +47,10 @@ public class MenacingMobsLoot {
 	public static void dropKey(Entity entity) {
 		String keyId = MobMetadataUtils.getKeyDrop(entity);
 		if(StringUtils.isNotBlank(keyId)) {
-			World world = entity.getWorld();
-			InstanceConfigurator.setInstanceWorldKeyStatus(world, keyId, WauzInstance.KEY_STATUS_OBTAINED);
+			WauzActiveInstance instance = WauzActiveInstancePool.getInstance(entity.getWorld());
+			instance.setKeyStatus(keyId, WauzInstanceKeyStatus.OBTAINED);
 			
-			for(Player player : world.getPlayers()) {
+			for(Player player : instance.getWorld().getPlayers()) {
 				WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 				player.sendMessage(ChatColor.GREEN + "You obtained the Key \"" + ChatColor.DARK_AQUA + keyId + ChatColor.GREEN + "\"!");
 			}

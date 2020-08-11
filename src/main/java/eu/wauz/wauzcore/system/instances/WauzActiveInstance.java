@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
  * 
  * @author Wauzmons
  */
-public class WauzActiveInstance {
+public class WauzActiveInstance extends WauzBaseInstance {
 	
 	/**
 	 * The world of the instance.
@@ -27,6 +27,29 @@ public class WauzActiveInstance {
 	 * A map of the statuses of the instance's keys, indexed by key id.
 	 */
 	private Map<String, WauzInstanceKeyStatus> keyStatusMap = new HashMap<>();
+
+	public WauzActiveInstance(World world, String name) {
+		this.world = world;
+		setInstanceName(name);
+	}
+	
+	/**
+	 * Constructs an active instance data, based on an instance template.
+	 * 
+	 * @param world The world of the instance.
+	 * @param template The template, the instance was created from.
+	 */
+	public WauzActiveInstance(World world, WauzInstance template) {
+		this.world = world;
+		setInstanceName(template.getInstanceName());
+		setType(template.getType());
+		setMaxPlayers(template.getMaxPlayers());
+		setMaxDeaths(template.getMaxDeaths());
+		setDisplayTitle(template.getDisplayTitle());
+		setDisplaySubtitle(template.getDisplaySubtitle());
+		setSoundtrackName(template.getSoundtrackName());
+		setKeyIds(template.getKeyIds());
+	}
 	
 	/**
 	 * @return The world of the instance.

@@ -12,11 +12,12 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.SignChangeEvent;
 
-import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzTeleporter;
-import eu.wauz.wauzcore.system.instances.WauzInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.system.instances.WauzInstanceKeyStatus;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -135,8 +136,8 @@ public class WauzSigns {
 	 * @param player The player who is opening the door.
 	 * @param sign The sign that is placed on the door.
 	 * 
-	 * @see InstanceConfigurator#getInstanceKeyStatus(org.bukkit.World, String)
-	 * @see InstanceConfigurator#setInstanceWorldKeyStatus(org.bukkit.World, String, String)
+	 * @see WauzActiveInstance#getKeyStatus(String)
+	 * @see WauzActiveInstance#setKeyStatus(String, WauzInstanceKeyStatus)
 	 */
 	private static void tryToOpenDoor(Player player, Sign sign) {
 		WauzDebugger.log(player, "Try to Open Door");
@@ -145,14 +146,15 @@ public class WauzSigns {
 		
 		boolean hasAccess = false;
 		
+		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(player);
 		if(keyId.equals("None")) {
 			hasAccess = true;
 		}
 		else {
-			String keyStatus = InstanceConfigurator.getInstanceKeyStatus(player.getWorld(), keyId);
+			WauzInstanceKeyStatus keyStatus = instance.getKeyStatus(keyId);
 			hasAccess =
-				keyStatus.equals(WauzInstance.KEY_STATUS_OBTAINED) ||
-				keyStatus.equals(WauzInstance.KEY_STATUS_USED);
+				keyStatus.equals(WauzInstanceKeyStatus.OBTAINED) ||
+				keyStatus.equals(WauzInstanceKeyStatus.USED);
 		}
 		
 		if(!hasAccess) {
@@ -182,8 +184,8 @@ public class WauzSigns {
 			block.setType(Material.AIR);
 		}
 		
-		InstanceConfigurator.setInstanceWorldKeyStatus(player.getWorld(), keyId, WauzInstance.KEY_STATUS_USED);
-		for(Player member : player.getWorld().getPlayers()) {
+		instance.setKeyStatus(keyId, WauzInstanceKeyStatus.USED);
+		for(Player member : instance.getWorld().getPlayers()) {
 			WauzPlayerScoreboard.scheduleScoreboardRefresh(member);
 			member.sendMessage(ChatColor.GREEN + "The door \"" + ChatColor.DARK_AQUA + keyId + ChatColor.GREEN + "\" was unlocked!");
 		}

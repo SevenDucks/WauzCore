@@ -1,5 +1,8 @@
 world: Palace of Sei Sei Dai
 type: KEYS
+title: Palace of Sei Sei Dai
+subtitle: Ancient Throne of Ducksmoria
+music: Palace of Sei Sei Dai
 keys:
 - 'K1'
 - 'K2'
@@ -14,7 +17,3 @@ before:
 - 'mm mobs spawn -s SeiSeiDaiA 1 world,167.5,36,81.5'
 - 'mm mobs spawn -s Pediwax 1 world,66.5,19,-5.5'
 - 'mm mobs spawn -s Quackstack4 1 world,5.5,8,18.5'
-after:
-- 'title player times 20 100 20'
-- 'title player subtitle {"text":"Ancient Throne of Ducksmoria","color":"gold"}'
-- 'title player title {"text":"Palace of Sei Sei Dai","color":"red"}'

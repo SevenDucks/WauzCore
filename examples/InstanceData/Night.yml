@@ -1,8 +1,5 @@
 world: Night
 type: DEFAULT
-before:
-- 'tell player Loaded Test-Instance Night'
-after:
-- 'title player times 20 100 20'
-- 'title player subtitle {"text":"Realm of the drunk Penguin","color":"gold"}'
-- 'title player title {"text":"Test-Instance","color":"red"}'
+title: Test-Instance
+subtitle: Realm of Eternal Night
+music: None

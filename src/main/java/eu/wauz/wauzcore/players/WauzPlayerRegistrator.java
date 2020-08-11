@@ -13,12 +13,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzRank;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
@@ -126,12 +127,13 @@ public class WauzPlayerRegistrator {
 	public static void respawn(final Player player) {
 		boolean allowRespawn = false;
 		World world = player.getWorld();
-		int maxDeaths = InstanceConfigurator.getInstanceWorldMaximumDeaths(world);
-		if(maxDeaths > 0) {
-			int deathCount = InstanceConfigurator.getInstanceWorldPlayerDeathCount(world, player) + 1;
-			InstanceConfigurator.setInstanceWorldPlayerDeathCount(world, player, deathCount);
-			if(deathCount <= maxDeaths) {
-				player.sendMessage(ChatColor.RED + "Youd respawned " + deathCount + " / " + maxDeaths + " times in this instance!");
+		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(world);
+		if(instance != null && instance.getMaxDeaths() > 0) {
+			instance.addPlayerDeath(player);
+			int maxDeaths = instance.getMaxDeaths();
+			int playerDeaths = instance.getPlayerDeaths(player);
+			if(playerDeaths <= maxDeaths) {
+				player.sendMessage(ChatColor.RED + "Youd respawned " + playerDeaths + " / " + maxDeaths + " times in this instance!");
 				allowRespawn = true;
 			}
 		}

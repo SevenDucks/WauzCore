@@ -24,6 +24,8 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -48,16 +50,22 @@ public class PlayerAmbientListener implements Listener {
 	/**
 	 * Reloads most custom UI if the player changes their current world.
 	 * This assures that the correct scoreboard, minimap etc. are shown.
-	 * Also checks for a new music track.
+	 * Also checks for a new music track and instance title.
 	 * 
 	 * @param event
 	 */
 	@EventHandler
 	public void onWorldEnter(PlayerChangedWorldEvent event) {
-		WauzNoteBlockPlayer.play(event.getPlayer());
-		WauzPlayerBossBar.clearBar(event.getPlayer());
-		WauzPlayerScoreboard.scheduleScoreboardRefresh(event.getPlayer());
-		WauzNmsMinimap.init(event.getPlayer());
+		Player player = event.getPlayer();
+		WauzNoteBlockPlayer.play(player);
+		WauzPlayerBossBar.clearBar(player);
+		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
+		WauzNmsMinimap.init(player);
+		
+		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(player);
+		if(instance != null) {
+			player.sendTitle(ChatColor.RED + instance.getDisplayTitle(), instance.getDisplaySubtitle(), 10, 70, 20);
+		}
 	}
 	
 	/**

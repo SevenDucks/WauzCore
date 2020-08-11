@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.World;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -15,10 +14,12 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.system.WauzRank;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.system.instances.WauzInstanceType;
 import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 import eu.wauz.wauzcore.system.util.Formatters;
@@ -162,16 +163,16 @@ public class WauzPlayerScoreboard {
 		objective.setDisplayName("-*-*-*-" + ChatColor.DARK_PURPLE + ChatColor.BOLD + ChatColor.UNDERLINE + "DUNGEON" + ChatColor.RESET + "-*-*-*-");
 		List<String> rowStrings = new ArrayList<>();
 		
-		World world = player.getWorld();
+		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(player);
 		rowStrings.add("");
-		rowStrings.add(ChatColor.WHITE + InstanceConfigurator.getInstanceWorldName(world));
+		rowStrings.add(ChatColor.WHITE + instance.getInstanceName());
 		
-		String instanceType = InstanceConfigurator.getInstanceWorldType(world);
-		if(instanceType.equals("Keys")) {
+		WauzInstanceType instanceType = instance.getType();
+		if(instanceType.equals(WauzInstanceType.KEYS)) {
 			rowStrings.add(" ");
 			rowStrings.add(ChatColor.DARK_AQUA + UnicodeUtils.ICON_BULLET + " Dungeon Keys");
-			for(String keyId : InstanceConfigurator.getInstanceWorldKeyIds(world))
-				rowStrings.add(ChatColor.WHITE + "  > " + keyId + ": " + InstanceConfigurator.getInstanceKeyStatus(world, keyId));
+			for(String keyId : instance.getKeyIds())
+				rowStrings.add(ChatColor.WHITE + "  > " + keyId + ": " + instance.getKeyStatus(keyId).toString().toUpperCase());
 		}
 		
 		for(int index =  0; index != rowStrings.size(); index++) {

@@ -7,13 +7,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
@@ -21,6 +19,8 @@ import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -242,15 +242,15 @@ public class WauzTeleporter {
 				
 		}
 		if(targetWorldName.contains("Instance")) {
-			World world = target.getWorld();
-			int maxPlayers = InstanceConfigurator.getInstanceWorldMaximumPlayers(world);
-			if(maxPlayers > 0 && world.getPlayers().size() >= maxPlayers) {
+			WauzActiveInstance instance = WauzActiveInstancePool.getInstance(target);
+			int maxPlayers = instance.getMaxPlayers();
+			if(maxPlayers > 0 && instance.getWorld().getPlayers().size() >= maxPlayers) {
 				player.sendMessage(ChatColor.RED + "This instance is already full!");
 				player.closeInventory();
 				return;
 			}
-			int maxDeaths = InstanceConfigurator.getInstanceWorldMaximumDeaths(world);
-			if(maxDeaths > 0 && InstanceConfigurator.getInstanceWorldPlayerDeathCount(world, player) >= maxDeaths) {
+			int maxDeaths = instance.getMaxDeaths();
+			if(maxDeaths > 0 && instance.getPlayerDeaths(player) >= maxDeaths) {
 				player.sendMessage(ChatColor.RED + "You already died too much in this instance!");
 				player.closeInventory();
 				return;

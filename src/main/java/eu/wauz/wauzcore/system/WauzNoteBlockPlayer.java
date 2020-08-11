@@ -13,6 +13,8 @@ import com.xxmicloxx.NoteBlockAPI.utils.NBSDecoder;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 
 /**
  * Used for playing note block studio background songs to players.
@@ -33,7 +35,8 @@ public class WauzNoteBlockPlayer {
 	 * @param player The player that should hear the music.
 	 */
 	public static void play(Player player) {
-		play(player, new File(player.getWorld().getWorldFolder().getAbsolutePath() + "/soundtrack.nbs"));
+		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(player);
+		play(player, instance != null ? instance.getSoundtrackName() : "None");
 	}
 	
 	/**

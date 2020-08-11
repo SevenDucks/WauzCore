@@ -54,8 +54,17 @@ public class WauzInstance extends WauzBaseInstance {
 	public WauzInstance(String instanceName) {
 		setInstanceName(instanceName);
 		this.instanceWorldTemplateName = InstanceConfigurator.getWorldTemplateName(instanceName);
+		WauzInstanceType type = InstanceConfigurator.getInstanceType(instanceName);
+		setType(type);
 		setMaxPlayers(InstanceConfigurator.getMaximumPlayers(instanceName));
 		setMaxDeaths(InstanceConfigurator.getMaximumDeaths(instanceName));
+		setDisplayTitle(InstanceConfigurator.getDisplayTitle(instanceName));
+		setDisplaySubtitle(InstanceConfigurator.getDisplaySubtitle(instanceName));
+		setSoundtrackName(InstanceConfigurator.getSoundtrack(instanceName));
+		
+		if(type.equals(WauzInstanceType.KEYS)) {
+			setKeyIds(InstanceConfigurator.getKeyNameList(instanceName));
+		}
 	}
 	
 	/**
