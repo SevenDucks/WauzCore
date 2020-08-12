@@ -79,6 +79,24 @@ public class InstanceConfigurator extends GlobalConfigurationUtils {
 		return instanceConfigGetString(instanceName, "music");
 	}
 	
+	/**
+	 * @param instanceName The name of the instance.
+	 * 
+	 * @return A list of mythic mobs with coordinates, to spawn in the instance.
+	 */
+	public static List<String> getMobSpawns(String instanceName) {
+		return instanceConfigGetStringList(instanceName, "mobs");
+	}
+	
+	/**
+	 * @param instanceName The name of the instance.
+	 * 
+	 * @return A list of citizen nps with coordinates, to spawn in the instance.
+	 */
+	public static List<String> getCitizenSpawns(String instanceName) {
+		return instanceConfigGetStringList(instanceName, "citizens");
+	}
+	
 // Type Specific
 	
 	/**

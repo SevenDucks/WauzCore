@@ -1,11 +1,14 @@
 package eu.wauz.wauzcore.system.instances;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.RankConfigurator;
+import eu.wauz.wauzcore.mobs.MobSpawn;
 
 /**
  * An instance template, generated from an insctance config file.
@@ -47,6 +50,11 @@ public class WauzInstance extends WauzBaseInstance {
 	private String instanceWorldTemplateName;
 	
 	/**
+	 * The list of mythic mobs to spawn in the instance.
+	 */
+	private List<MobSpawn> mobs = new ArrayList<>();
+	
+	/**
 	 * Constructs an instance template, based on the instance file in the /WauzCore/InstanceData folder.
 	 * 
 	 * @param instanceName The name of the instance.
@@ -62,6 +70,20 @@ public class WauzInstance extends WauzBaseInstance {
 		setDisplaySubtitle(InstanceConfigurator.getDisplaySubtitle(instanceName));
 		setSoundtrackName(InstanceConfigurator.getSoundtrack(instanceName));
 		
+		for(String mobSpawnString : InstanceConfigurator.getMobSpawns(instanceName)) {
+			String[] mobSpawnParams = mobSpawnString.split(" ");
+			MobSpawn mobSpawn = new MobSpawn(mobSpawnParams[0]);
+			float x = Float.parseFloat(mobSpawnParams[1]);
+			float y = Float.parseFloat(mobSpawnParams[2]);
+			float z = Float.parseFloat(mobSpawnParams[3]);
+			mobSpawn.setCoordinates(x, y, z);
+			mobs.add(mobSpawn);
+		}
+		
+		for(String citizenNpcString : InstanceConfigurator.getCitizenSpawns(instanceName)) {
+			
+		}
+		
 		if(type.equals(WauzInstanceType.KEYS)) {
 			setKeyIds(InstanceConfigurator.getKeyNameList(instanceName));
 		}
@@ -72,6 +94,13 @@ public class WauzInstance extends WauzBaseInstance {
 	 */
 	public String getInstanceWorldTemplateName() {
 		return instanceWorldTemplateName;
+	}
+	
+	/**
+	 * @return The list of mythic mobs to spawn in the instance.
+	 */
+	public List<MobSpawn> getMobs() {
+		return mobs;
 	}
 
 }

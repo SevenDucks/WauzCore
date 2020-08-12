@@ -55,6 +55,9 @@ public class CitizenConfigurator extends GlobalConfigurationUtils {
 	 */
 	public static Location getLocation(String citizen) {
 		String worldName = citizenConfigGetString(citizen, "world");
+		if(StringUtils.isBlank(worldName)) {
+			return null;
+		}
 				
 		List<Double> coords = new ArrayList<>();
 		for(String coord : citizenConfigGetString(citizen, "location").split(" ")) {

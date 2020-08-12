@@ -6,6 +6,8 @@ import java.util.Map;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.mobs.MobSpawn;
+
 /**
  * An instance data to save session scoped instance information.
  * 
@@ -48,7 +50,12 @@ public class WauzActiveInstance extends WauzBaseInstance {
 		setDisplayTitle(template.getDisplayTitle());
 		setDisplaySubtitle(template.getDisplaySubtitle());
 		setSoundtrackName(template.getSoundtrackName());
+		setCitizens(template.getCitizens());
 		setKeyIds(template.getKeyIds());
+		
+		for(MobSpawn mob : template.getMobs()) {
+			mob.spawn(world);
+		}
 	}
 	
 	/**

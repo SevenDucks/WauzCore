@@ -47,12 +47,15 @@ public class WauzCitizen {
 		for(String citizenName : CitizenConfigurator.getCitizenNameList()) {
 			WauzCitizen citizen = new WauzCitizen(citizenName);
 			
-			Chunk chunk = citizen.getLocation().getChunk();
-			if(chunkCitizensMap.get(chunk) == null) {
-				chunkCitizensMap.put(chunk, new ArrayList<>());
+			Location location = citizen.getLocation();
+			if(location != null) {
+				Chunk chunk = location.getChunk();
+				if(chunkCitizensMap.get(chunk) == null) {
+					chunkCitizensMap.put(chunk, new ArrayList<>());
+				}
+				chunkCitizensMap.get(chunk).add(citizen);
+				WauzCitizenSpawner.createNpc(citizen);
 			}
-			chunkCitizensMap.get(chunk).add(citizen);
-			WauzCitizenSpawner.createNpc(citizen);
 			citizenCount++;
 		}
 		

@@ -57,7 +57,6 @@ public class PlayerAmbientListener implements Listener {
 	@EventHandler
 	public void onWorldEnter(PlayerChangedWorldEvent event) {
 		Player player = event.getPlayer();
-		WauzNoteBlockPlayer.play(player);
 		WauzPlayerBossBar.clearBar(player);
 		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 		WauzNmsMinimap.init(player);
@@ -65,6 +64,10 @@ public class PlayerAmbientListener implements Listener {
 		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(player);
 		if(instance != null) {
 			player.sendTitle(ChatColor.RED + instance.getDisplayTitle(), instance.getDisplaySubtitle(), 10, 70, 20);
+			WauzNoteBlockPlayer.play(player);
+		}
+		else {
+			WauzRegion.regionCheck(player);
 		}
 	}
 	

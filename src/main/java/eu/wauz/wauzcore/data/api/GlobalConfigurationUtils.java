@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -456,71 +455,6 @@ public class GlobalConfigurationUtils {
 		File instanceDataFile = new File(core.getDataFolder(), "InstanceData/" + instance + ".yml");
 		FileConfiguration instanceDataConfig = YamlConfiguration.loadConfiguration(instanceDataFile);	
 		return instanceDataConfig.getInt(path);
-	}
-	
-	/**
-	 * Sets the given value in an instance world config.
-	 * 
-	 * @param world The world of the instance.
-	 * @param path The key path of the value to set.
-	 * @param value The value to set.
-	 */
-	protected static void instanceWorldConfigSet(World world, String path, Object value) {
-		try {
-			File instanceDataFile = new File(world.getWorldFolder(), "InstanceWorldData.yml");
-			FileConfiguration instanceDataConfig = YamlConfiguration.loadConfiguration(instanceDataFile);				
-			instanceDataConfig.set(path, value);
-			instanceDataConfig.save(instanceDataFile);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Gets a string from an instance world config.
-	 * 
-	 * @param world The world of the instance.
-	 * @param path The key path of the value to get.
-	 * 
-	 * @return The requested string.
-	 */
-	protected static String instanceWorldConfigGetString(World world, String path) {
-		File instanceDataFile = new File(world.getWorldFolder(), "InstanceWorldData.yml");
-		FileConfiguration instanceDataConfig = YamlConfiguration.loadConfiguration(instanceDataFile);	
-		return instanceDataConfig.getString(path);
-	}
-	
-	/**
-	 * Gets an int from an instance world config.
-	 * 
-	 * @param world The world of the instance.
-	 * @param path The key path of the value to get.
-	 * 
-	 * @return The requested int.
-	 */
-	protected static int instanceWorldConfigGetInt(World world, String path) {
-		File instanceDataFile = new File(world.getWorldFolder(), "InstanceWorldData.yml");
-		FileConfiguration instanceDataConfig = YamlConfiguration.loadConfiguration(instanceDataFile);	
-		return instanceDataConfig.getInt(path);
-	}
-	
-	/**
-	 * Gets a key set from an instance world config.
-	 * 
-	 * @param world The world of the instance.
-	 * @param path The key path of the value to get.
-	 * 
-	 * @return The requested key set.
-	 */
-	protected static Set<String> instanceWorldConfigGetKeys(World world, String path) {
-		File instanceDataFile = new File(world.getWorldFolder(), "InstanceWorldData.yml");
-		FileConfiguration instanceDataConfig = YamlConfiguration.loadConfiguration(instanceDataFile);	
-		if(path == null) {
-			return instanceDataConfig.getKeys(false);
-		}
-		ConfigurationSection section = instanceDataConfig.getConfigurationSection(path);
-		return section != null ? section.getKeys(false) : Collections.emptySet();
 	}
 
 }

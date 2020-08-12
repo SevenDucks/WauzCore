@@ -1,0 +1,23 @@
+display: Bolvic
+name:
+  - Highlord Bolvic
+  - §eTraveller of Balance§r
+  - ''
+skinid: 177263
+invisible: false
+burning: false
+items:
+  mainhand:
+  offhand:
+  helmet:
+  chestplate: GOLDEN_CHESTPLATE
+  leggings:
+  boots:
+interactions:
+  1:
+    type: talk
+    name: What are you doing here?
+    level: 0
+    messages:
+      - 'The death gods chose me as their representative, to bring order to this place.'
+      - 'I travelled far to fulfill their wills.'
