@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.commands.administrative;
+package eu.wauz.wauzcore.commands;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,22 +13,22 @@ import eu.wauz.wauzcore.system.WauzTeleporter;
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
  * - Description: <b>Leave Instance</b></br>
- * - Usage: <b>/wzLeave</b></br>
- * - Permission: <b>wauz.system</b>
+ * - Usage: <b>/leave</b></br>
+ * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons
  * 
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
-public class CmdWzLeave implements WauzCommand {
+public class CmdLeave implements WauzCommand {
 
 	/**
 	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzLeave");
+		return Arrays.asList("leave");
 	}
 
 	/**
@@ -41,7 +41,8 @@ public class CmdWzLeave implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		return WauzTeleporter.exitInstanceTeleportSystem((Player) sender);
+		WauzTeleporter.exitInstanceTeleportManual((Player) sender);
+		return true;
 	}
 
 }

@@ -24,9 +24,14 @@ import eu.wauz.wauzcore.data.CitizenConfigurator;
 public class WauzCitizen {
 	
 	/**
-	 * A map with lists of citizens, indexed by chunks.
+	 * A map with lists of citizens, indexed by chunk keys.
 	 */
-	private static Map<Chunk, List<WauzCitizen>> chunkCitizensMap = new HashMap<>();
+	private static Map<String, List<WauzCitizen>> chunkCitizensMap = new HashMap<>();
+	
+	/**
+	 * A map of citizens that aren't assigned to a world, indexed by name.
+	 */
+	private static Map<String, WauzCitizen> unassignedCitizenMap = new HashMap<>();
 	
 	/**
 	 * The number of all registred citizens.
@@ -42,6 +47,7 @@ public class WauzCitizen {
 	 * Initializes all citizen configs and fills the internal citizen maps.
 	 * 
 	 * @see CitizenConfigurator#getCitizenNameList()
+	 * @see WauzCitizen#addToChunkMap(WauzCitizen, Chunk)
 	 */
 	public static void init() {
 		for(String citizenName : CitizenConfigurator.getCitizenNameList()) {
@@ -50,16 +56,61 @@ public class WauzCitizen {
 			Location location = citizen.getLocation();
 			if(location != null) {
 				Chunk chunk = location.getChunk();
-				if(chunkCitizensMap.get(chunk) == null) {
-					chunkCitizensMap.put(chunk, new ArrayList<>());
-				}
-				chunkCitizensMap.get(chunk).add(citizen);
-				WauzCitizenSpawner.createNpc(citizen);
+				addToChunkMap(citizen, chunk);
+			}
+			else {
+				unassignedCitizenMap.put(citizenName, citizen);
 			}
 			citizenCount++;
 		}
 		
 		WauzCore.getInstance().getLogger().info("Loaded " + citizenCount + " Citizens!");
+	}
+	
+	/**
+	 * Adds a citizen to the chunk map, so they can spawn in that chunk.
+	 * 
+	 * @param citizen The citizen to add.
+	 * @param chunk The chunk of the citizen.
+	 * 
+	 * @see WauzCitizenSpawner#createNpc(WauzCitizen)
+	 */
+	public static void addToChunkMap(WauzCitizen citizen, Chunk chunk) {
+		String chunkKey = getChunkKey(chunk);
+		if(chunkCitizensMap.get(chunkKey) == null) {
+			chunkCitizensMap.put(chunkKey, new ArrayList<>());
+		}
+		chunkCitizensMap.get(chunkKey).add(citizen);
+		WauzCitizenSpawner.createNpc(citizen);
+	}
+	
+	/**
+	 * Removes a citizen from the chunk map, so they can no longer spawn in that chunk.
+	 * 
+	 * @param citizen The citizen to remove.
+	 * @param chunk The chunk of the citizen.
+	 * 
+	 * @see WauzCitizenSpawner#unregisterNpc(WauzCitizen)
+	 */
+	public static void removeFromChunkMap(WauzCitizen citizen, Chunk chunk) {
+		String chunkKey = getChunkKey(chunk);
+		List<WauzCitizen> chunkCitizens = chunkCitizensMap.get(chunkKey);
+		chunkCitizens.remove(citizen);
+		if(chunkCitizens.isEmpty()) {
+			chunkCitizensMap.remove(chunkKey);
+		}
+		WauzCitizenSpawner.unregisterNpc(citizen);
+	}
+	
+	/**
+	 * Gets a citizen that isn't assigned to a world, with the given name.
+	 * 
+	 * @param citizenName The name of the citizen.
+	 * 
+	 * @return The found citizen or null.
+	 */
+	public static WauzCitizen getUnassignedCitizen(String citizenName) {
+		return unassignedCitizenMap.get(citizenName);
 	}
 	
 	/**
@@ -77,13 +128,24 @@ public class WauzCitizen {
 		for(int x = chunkX - RENDER_RADIUS; x <= chunkX + RENDER_RADIUS; x++) {
 			for(int z = chunkZ - RENDER_RADIUS; z <= chunkZ + RENDER_RADIUS; z++) {
 				Chunk chunk = world.getChunkAt(x, z);
-				List<WauzCitizen> chunkCitizens = chunkCitizensMap.get(chunk);
+				List<WauzCitizen> chunkCitizens = chunkCitizensMap.get(getChunkKey(chunk));
 				if(chunkCitizens != null) {
 					citizens.addAll(chunkCitizens);
 				}
 			}
 		}
 		return citizens;
+	}
+	
+	/**
+	 * Converts the chunks data into an unique key.
+	 * 
+	 * @param chunk The chunk to get a key to.
+	 * 
+	 * @return The key of the chunk.
+	 */
+	public static String getChunkKey(Chunk chunk) {
+		return chunk.getWorld().getName() + "::" + chunk.getX() + "::" + chunk.getZ();
 	}
 	
 	/**
@@ -180,6 +242,31 @@ public class WauzCitizen {
 		
 		interactions = new WauzCitizenInteractions(citizenName, displayName);
 	}
+	
+	/**
+	 * Constructs a citizen, that is an exact copy of another citizen.
+	 * 
+	 * @param citizen The citizen to clone.
+	 */
+	public WauzCitizen(WauzCitizen citizen) {
+		citizenName = citizen.getCitizenName();
+		
+		displayName = citizen.getDisplayName();
+		nameLines = citizen.getNameLines();
+		location = citizen.getLocation();
+		skinId = citizen.getSkinId();
+		invisible = citizen.isInvisible();
+		burning = citizen.isBurning();
+		
+		mainhandItemStack = citizen.getMainhandItemStack();
+		offhandItemStack = citizen.getOffhandItemStack();
+		helmetItemStack = citizen.getHelmetItemStack();
+		chestplateItemStack = citizen.getChestplateItemStack();
+		leggingsItemStack = citizen.getLeggingsItemStack();
+		bootsItemStack = citizen.getBootsItemStack();
+		
+		interactions = citizen.getInteractions();
+	}
 
 	/**
 	 * @return The canonical name of the citizen.
@@ -207,6 +294,13 @@ public class WauzCitizen {
 	 */
 	public Location getLocation() {
 		return location;
+	}
+	
+	/**
+	 * @param location The new location where the npc should be spawned.
+	 */
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	/**

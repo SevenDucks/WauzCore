@@ -124,6 +124,10 @@ public class WauzTeleporter {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
 			return;
 		}
+		if(!player.getWorld().getWorldFolder().toString().contains("Instance")) {
+			player.sendMessage(ChatColor.RED + "You can't leave when not inside an instance!");
+			return;
+		}	
 		PetOverviewMenu.unsummon(player);
 		player.teleport(destination);
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
@@ -177,24 +181,6 @@ public class WauzTeleporter {
 		}
 		// Handles TamingMenu.unsummon()
 		return InstanceManager.enter(player, instanceName);
-	}
-	
-	/**
-	 * Teleports the player to out of an instance.
-	 * Only callable with system permissions.
-	 * Not usable when mounted.
-	 * 
-	 * @param player The player to teleport.
-	 * 
-	 * @return True if successful.
-	 */
-	public static boolean exitInstanceTeleportSystem(Player player) {
-		if(player.isInsideVehicle()) {
-			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
-			return false;
-		}
-		PetOverviewMenu.unsummon(player);
-		return player.teleport(PlayerConfigurator.getCharacterLocation(player));
 	}
 	
 // Player Groups

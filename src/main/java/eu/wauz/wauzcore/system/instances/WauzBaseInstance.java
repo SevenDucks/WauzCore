@@ -3,8 +3,6 @@ package eu.wauz.wauzcore.system.instances;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.wauz.wauzcore.mobs.citizens.WauzInstanceCitizen;
-
 /**
  * Abstract class for instance data.
  * 
@@ -46,11 +44,6 @@ public abstract class WauzBaseInstance {
 	 * The soundtrack file name of the instance.
 	 */
 	private String soundtrackName = "None";
-	
-	/**
-	 * The list of citizen npcs to spawn in the instance.
-	 */
-	private List<WauzInstanceCitizen> citizens = new ArrayList<>();
 	
 	/**
 	 * The list of all key ids of the instance.
@@ -153,20 +146,6 @@ public abstract class WauzBaseInstance {
 	 */
 	public void setSoundtrackName(String soundtrackName) {
 		this.soundtrackName = soundtrackName;
-	}
-
-	/**
-	 * @return The list of citizen npcs to spawn in the instance.
-	 */
-	public List<WauzInstanceCitizen> getCitizens() {
-		return citizens;
-	}
-
-	/**
-	 * @param citizens The new list of citizen npcs to spawn in the instance.
-	 */
-	public void setCitizens(List<WauzInstanceCitizen> citizens) {
-		this.citizens = citizens;
 	}
 
 	/**

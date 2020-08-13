@@ -65,9 +65,15 @@ public class WauzActiveInstancePool {
 	 * Unregisters a deleted instance.
 	 * 
 	 * @param worldName The world name of the instance to remove.
+	 * 
+	 * @see WauzActiveInstance#clearActiveCitizens()
 	 */
 	public static void unregisterInstance(String worldName) {
-		storage.remove(worldName);
+		WauzActiveInstance instance = getInstance(worldName);
+		if(instance != null) {
+			instance.clearActiveCitizens();
+			storage.remove(worldName);
+		}
 	}
 
 }

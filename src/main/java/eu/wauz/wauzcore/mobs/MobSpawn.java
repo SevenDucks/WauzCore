@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.mobs;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import eu.wauz.wauzcore.system.util.Chance;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 import io.lumine.xikage.mythicmobs.api.exceptions.InvalidMobTypeException;
@@ -83,6 +84,7 @@ public class MobSpawn {
 	 */
 	public void spawn(World world) {
 		Location location = new Location(world, x, y, z);
+		location.setYaw(Chance.negativePositive(180));
 		spawn(location);
 	}
 	

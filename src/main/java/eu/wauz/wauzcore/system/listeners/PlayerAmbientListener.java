@@ -60,11 +60,11 @@ public class PlayerAmbientListener implements Listener {
 		WauzPlayerBossBar.clearBar(player);
 		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 		WauzNmsMinimap.init(player);
+		WauzNoteBlockPlayer.play(player);
 		
 		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(player);
 		if(instance != null) {
 			player.sendTitle(ChatColor.RED + instance.getDisplayTitle(), instance.getDisplaySubtitle(), 10, 70, 20);
-			WauzNoteBlockPlayer.play(player);
 		}
 		else {
 			WauzRegion.regionCheck(player);

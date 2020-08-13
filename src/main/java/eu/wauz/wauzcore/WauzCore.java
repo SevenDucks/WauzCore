@@ -207,7 +207,9 @@ public class WauzCore extends JavaPlugin {
 			@Override
 			public void run() {
 				for(World world : Bukkit.getWorlds()) {
-					if(world.getPlayers().size() == 0) InstanceManager.closeInstance(world);
+					if(world.getPlayerCount() == 0) {
+						InstanceManager.closeInstance(world);
+					}
 				}
 				for(Player player : getRegisteredActivePlayers()) {
 					CharacterManager.saveCharacter(player);

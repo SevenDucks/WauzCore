@@ -76,6 +76,10 @@ commands:
     aliases: [pay]
     usage: /send.coins [player] [amount] [text]
     permission: wauz.normal
+  leave:
+    description: Leave Instance
+    usage: /leave
+    permission: wauz.normal
   sit:
     description: Sit Down
     usage: /sit
@@ -118,10 +122,6 @@ commands:
   wzEnter:
     description: Enter Instance
     usage: /wzEnter [instance]
-    permission: wauz.system
-  wzLeave:
-    description: Leave Instance
-    usage: /wzLeave
     permission: wauz.system
   wzKey:
     description: Change Dungeon Key Status

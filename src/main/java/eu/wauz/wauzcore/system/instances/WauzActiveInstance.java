@@ -1,12 +1,16 @@
 package eu.wauz.wauzcore.system.instances;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.mobs.MobSpawn;
+import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
+import eu.wauz.wauzcore.mobs.citizens.WauzInstanceCitizen;
 
 /**
  * An instance data to save session scoped instance information.
@@ -19,6 +23,11 @@ public class WauzActiveInstance extends WauzBaseInstance {
 	 * The world of the instance.
 	 */
 	private World world;
+	
+	/**
+	 * The citizens that have been spawned in the instance.
+	 */
+	private List<WauzCitizen> activeCitizens = new ArrayList<>();
 	
 	/**
 	 * A map of the amount of times a player has died in the instance so far, indexed by player.
@@ -40,6 +49,9 @@ public class WauzActiveInstance extends WauzBaseInstance {
 	 * 
 	 * @param world The world of the instance.
 	 * @param template The template, the instance was created from.
+	 * 
+	 * @see MobSpawn#spawn(World)
+	 * @see WauzInstanceCitizen#spawn(World)
 	 */
 	public WauzActiveInstance(World world, WauzInstance template) {
 		this.world = world;
@@ -50,11 +62,13 @@ public class WauzActiveInstance extends WauzBaseInstance {
 		setDisplayTitle(template.getDisplayTitle());
 		setDisplaySubtitle(template.getDisplaySubtitle());
 		setSoundtrackName(template.getSoundtrackName());
-		setCitizens(template.getCitizens());
 		setKeyIds(template.getKeyIds());
 		
 		for(MobSpawn mob : template.getMobs()) {
 			mob.spawn(world);
+		}
+		for(WauzInstanceCitizen citizen : template.getCitizens()) {
+			activeCitizens.add(citizen.spawn(world));
 		}
 	}
 	
@@ -63,6 +77,17 @@ public class WauzActiveInstance extends WauzBaseInstance {
 	 */
 	public World getWorld() {
 		return world;
+	}
+	
+	/**
+	 * Removes all citizens that have been spawned in the instance.
+	 * 
+	 * @see WauzCitizen#removeFromChunkMap(WauzCitizen, org.bukkit.Chunk)
+	 */
+	public void clearActiveCitizens() {
+		for(WauzCitizen citizen : activeCitizens) {
+			WauzCitizen.removeFromChunkMap(citizen, citizen.getLocation().getChunk());
+		}
 	}
 
 	/**

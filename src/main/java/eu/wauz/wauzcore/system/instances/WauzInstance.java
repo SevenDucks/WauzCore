@@ -9,6 +9,8 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.RankConfigurator;
 import eu.wauz.wauzcore.mobs.MobSpawn;
+import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
+import eu.wauz.wauzcore.mobs.citizens.WauzInstanceCitizen;
 
 /**
  * An instance template, generated from an insctance config file.
@@ -45,6 +47,15 @@ public class WauzInstance extends WauzBaseInstance {
 	}
 	
 	/**
+	 * Gets the list of all instance names.
+	 * 
+	 * @return The list of all instance names.
+	 */
+	public static List<String> getAllInstanceNames() {
+		return new ArrayList<>(instanceMap.keySet());
+	}
+	
+	/**
 	 * The name of the world template of the instance.
 	 */
 	private String instanceWorldTemplateName;
@@ -53,6 +64,11 @@ public class WauzInstance extends WauzBaseInstance {
 	 * The list of mythic mobs to spawn in the instance.
 	 */
 	private List<MobSpawn> mobs = new ArrayList<>();
+	
+	/**
+	 * The list of citizen npcs to spawn in the instance.
+	 */
+	private List<WauzInstanceCitizen> citizens = new ArrayList<>();
 	
 	/**
 	 * Constructs an instance template, based on the instance file in the /WauzCore/InstanceData folder.
@@ -80,8 +96,17 @@ public class WauzInstance extends WauzBaseInstance {
 			mobs.add(mobSpawn);
 		}
 		
-		for(String citizenNpcString : InstanceConfigurator.getCitizenSpawns(instanceName)) {
-			
+		for(String citizenSpawnString : InstanceConfigurator.getCitizenSpawns(instanceName)) {
+			String[] citizenSpawnParams = citizenSpawnString.split(" ");
+			WauzCitizen citizen = WauzCitizen.getUnassignedCitizen(citizenSpawnParams[0]);
+			WauzInstanceCitizen citizenSpawn = new WauzInstanceCitizen(citizen);
+			float x = Float.parseFloat(citizenSpawnParams[1]);
+			float y = Float.parseFloat(citizenSpawnParams[2]);
+			float z = Float.parseFloat(citizenSpawnParams[3]);
+			float yaw = Float.parseFloat(citizenSpawnParams[4]);
+			float pitch = Float.parseFloat(citizenSpawnParams[5]);
+			citizenSpawn.setCoordinates(x, y, z, yaw, pitch);
+			citizens.add(citizenSpawn);
 		}
 		
 		if(type.equals(WauzInstanceType.KEYS)) {
@@ -101,6 +126,13 @@ public class WauzInstance extends WauzBaseInstance {
 	 */
 	public List<MobSpawn> getMobs() {
 		return mobs;
+	}
+	
+	/**
+	 * @return The list of citizen npcs to spawn in the instance.
+	 */
+	public List<WauzInstanceCitizen> getCitizens() {
+		return citizens;
 	}
 
 }

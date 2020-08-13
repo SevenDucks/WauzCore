@@ -41,7 +41,15 @@ public class CmdWzEnterDev implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		return WauzTeleporter.enterInstanceTeleportSystemDev((Player) sender, args[0].replace("_", " "));
+		if(args.length < 1) {
+			return false;
+		}
+		
+		String instanceName = args[0];
+		if(!instanceName.startsWith("WzInstance_")) {
+			instanceName = instanceName.replace("_", " ");
+		}
+		return WauzTeleporter.enterInstanceTeleportSystemDev((Player) sender, instanceName);
 	}
 
 }

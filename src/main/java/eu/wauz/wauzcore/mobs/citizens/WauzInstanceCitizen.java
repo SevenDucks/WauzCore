@@ -1,5 +1,8 @@
 package eu.wauz.wauzcore.mobs.citizens;
 
+import org.bukkit.Location;
+import org.bukkit.World;
+
 /**
  * A citizen that can be instanced, to be encountered in instanced worlds.
  * 
@@ -30,6 +33,16 @@ public class WauzInstanceCitizen {
 	private float z = 0;
 	
 	/**
+	 * The yaw of the citizen.
+	 */
+	private float yaw = 0;
+	
+	/**
+	 * The pitch of the citizen.
+	 */
+	private float pitch = 0;
+	
+	/**
 	 * Creates a new citizen that can be instanced.
 	 * 
 	 * @param baseCitizen The base citizen, to create instances from.
@@ -43,6 +56,53 @@ public class WauzInstanceCitizen {
 	 */
 	public WauzCitizen getBaseCitizen() {
 		return baseCitizen;
+	}
+	
+	/**
+	 * Sets the coordinates for the citizen to spawn.
+	 * 
+	 * @param x The x position to spawn the citizen.
+	 * @param y The y position to spawn the citizen.
+	 * @param z The z position to spawn the citizen.
+	 * @param yaw The yaw of the citizen.
+	 * @param pitch The pitch of the citizen.
+	 */
+	public void setCoordinates(float x, float y, float z, float yaw, float pitch) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.yaw = yaw;
+		this.pitch = pitch;
+	}
+	
+	/**
+	 * Spawns the citizen in the given world at the predefined coordinates.
+	 * 
+	 * @param world The world to spawn the citizen in.
+	 * 
+	 * @return The spawned citizen.
+	 * 
+	 * @see WauzInstanceCitizen#spawn(Location)
+	 */
+	public WauzCitizen spawn(World world) {
+		Location location = new Location(world, x, y, z, yaw, pitch);
+		return spawn(location);
+	}
+	
+	/**
+	 * Spawns the citizen exactly at the given location.
+	 * 
+	 * @param location The location to spawn the citizen at.
+	 * 
+	 * @return The spawned citizen.
+	 * 
+	 * @see WauzCitizen#addToChunkMap(WauzCitizen, org.bukkit.Chunk)
+	 */
+	public WauzCitizen spawn(Location location) {
+		WauzCitizen citizen = new WauzCitizen(baseCitizen);
+		citizen.setLocation(location);
+		WauzCitizen.addToChunkMap(citizen, location.getChunk());
+		return citizen;
 	}
 
 }

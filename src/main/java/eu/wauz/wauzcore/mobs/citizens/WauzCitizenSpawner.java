@@ -83,6 +83,18 @@ public class WauzCitizenSpawner {
 	}
 	
 	/**
+	 * Unregisters the given citizen and destroy its npc object.
+	 * 
+	 * @param citizen The citizen to unregister.
+	 */
+	public static void unregisterNpc(WauzCitizen citizen) {
+		NPC npc = citizenNpcMap.get(citizen);
+		citizenNpcMap.remove(citizen);
+		npcCitizenMap.remove(npc);
+		npc.destroy();
+	}
+	
+	/**
 	 * Retrieves a registered citizen from the npc map.
 	 * 
 	 * @param npc The npc object bound to the citzen.

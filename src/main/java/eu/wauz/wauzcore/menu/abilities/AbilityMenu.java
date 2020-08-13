@@ -25,6 +25,8 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -84,9 +86,15 @@ public class AbilityMenu implements WauzInventory {
 		ItemMeta travellingItemMeta = travellingItemStack.getItemMeta();
 		travellingItemMeta.setDisplayName(ChatColor.GOLD + "Travelling");
 		List<String> travellingLores = new ArrayList<String>();
-		WauzRegion region = playerData.getRegion();
-		travellingLores.add(ChatColor.DARK_PURPLE + "Region: " + ChatColor.YELLOW
-				+ (region != null ?  region.getTitle() : "(None)"));
+		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(player);
+		if(instance != null) {
+			travellingLores.add(ChatColor.DARK_PURPLE + "Region: " + ChatColor.YELLOW + instance.getInstanceName());
+		}
+		else {
+			WauzRegion region = playerData.getRegion();
+			travellingLores.add(ChatColor.DARK_PURPLE + "Region: " + ChatColor.YELLOW
+					+ (region != null ?  region.getTitle() : "(None)"));
+		}
 		travellingLores.add("");
 		travellingLores.add(ChatColor.GRAY + "Teleport yourself to other Locations");
 		travellingLores.add(ChatColor.GRAY + "or view the Lore of visited Regions.");

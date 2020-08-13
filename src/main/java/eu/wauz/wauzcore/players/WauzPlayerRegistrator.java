@@ -133,7 +133,7 @@ public class WauzPlayerRegistrator {
 			int maxDeaths = instance.getMaxDeaths();
 			int playerDeaths = instance.getPlayerDeaths(player);
 			if(playerDeaths <= maxDeaths) {
-				player.sendMessage(ChatColor.RED + "Youd respawned " + playerDeaths + " / " + maxDeaths + " times in this instance!");
+				player.sendMessage(ChatColor.RED + "You've respawned " + playerDeaths + " / " + maxDeaths + " times in this instance!");
 				allowRespawn = true;
 			}
 		}

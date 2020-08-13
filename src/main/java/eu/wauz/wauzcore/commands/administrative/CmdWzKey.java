@@ -45,7 +45,7 @@ public class CmdWzKey implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		if(args.length != 3) {
+		if(args.length < 3) {
 			return false;
 		}
 		
