@@ -33,6 +33,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
+import eu.wauz.wauzcore.skills.execution.SkillQuickSlots;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -108,13 +109,14 @@ public class EventMapper {
 	/**
 	 * Called when a player interacts with specific items.
 	 * Prevents destruction of farmland and hitting air with a weapon.
-	 * Handles opening the main menu, using scrolls, weapons, maps, skills and food.
+	 * Handles opening the main menu, using scrolls, weapons, maps, skills etc.
 	 * Also cancels interactions with crafting stations.
 	 * Redirects oak sign clicks to the according handler.
 	 * Lets the player sit on stairs.
 	 * 
 	 * @param event The received PlayerInteractEvent.
 	 * 
+	 * @see SkillQuickSlots#tryToUse(Player)
 	 * @see Cooldown#playerWeaponUse(Player)
 	 * @see CustomItem#use(PlayerInteractEvent)
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
@@ -129,6 +131,10 @@ public class EventMapper {
 			return;
 		}
 		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+			return;
+		}
+		if(event.getAction().toString().contains("CLICK") && !WauzMode.inHub(player) && SkillQuickSlots.tryToUse(player)) {
+			event.setCancelled(true);
 			return;
 		}
 		

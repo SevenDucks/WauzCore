@@ -1,5 +1,7 @@
 package eu.wauz.wauzcore.system.instances;
 
+import org.bukkit.ChatColor;
+
 /**
  * The status of a key of an instance.
  * 
@@ -10,30 +12,37 @@ public enum WauzInstanceKeyStatus {
 	/**
 	 * The status of an ubobtained key.
 	 */
-	UNOBTAINED("unobtained"),
+	UNOBTAINED("UNOBTAINED", ChatColor.RED),
 	
 	/**
 	 * The status of an obtained key.
 	 */
-	OBTAINED("obtained"),
+	OBTAINED("OBTAINED", ChatColor.YELLOW),
 	
 	/**
 	 * The status of an used key.
 	 */
-	USED("used");
+	USED("USED", ChatColor.GREEN);
 	
 	/**
-	 * The name of the instance type.
+	 * The name of the instance key status.
 	 */
 	private String name;
+	
+	/**
+	 * The color of the instance key status.
+	 */
+	private ChatColor color;
 	
 	/**
 	 * Creates a new instance key status with given name.
 	 * 
 	 * @param name The name of the instance key status.
+	 * @param color The color of the instance key status.
 	 */
-	WauzInstanceKeyStatus(String name) {
+	WauzInstanceKeyStatus(String name, ChatColor color) {
 		this.name = name;
+		this.color = color;
 	}
 	
 	/**
@@ -43,7 +52,7 @@ public enum WauzInstanceKeyStatus {
 	 */
 	@Override
 	public String toString() {
-		return name;
+		return color + name;
 	}
 
 }

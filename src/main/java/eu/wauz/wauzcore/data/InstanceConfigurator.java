@@ -117,5 +117,24 @@ public class InstanceConfigurator extends GlobalConfigurationUtils {
 	public static List<String> getKeyNameList(String instanceName) {
 		return instanceConfigGetStringList(instanceName, "keys");
 	}
+	
+	/**
+	 * @param instanceName The name of the instance.
+	 * 
+	 * @return The number of arena mob waves of the instance.
+	 */
+	public static int getWaveCount(String instanceName) {
+		return instanceConfigGetInt(instanceName, "wavecount");
+	}
+	
+	/**
+	 * @param instanceName The name of the instance.
+	 * @param waveNumber The number of the arena mob wave.
+	 * 
+	 * @return The list of mythic mobs with coordinates, to spawn in the wave.
+	 */
+	public static List<String> getWaveMobSpawns(String instanceName, int waveNumber) {
+		return instanceConfigGetStringList(instanceName, "waves." + waveNumber);
+	}
 
 }

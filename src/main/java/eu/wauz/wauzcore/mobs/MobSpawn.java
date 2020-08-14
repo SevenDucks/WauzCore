@@ -47,12 +47,25 @@ public class MobSpawn {
 	private MythicMob mob;
 	
 	/**
-	 * Creates a new spawn trigger.
+	 * Creates a new mythic mob spawn trigger.
 	 * 
-	 * @param mobName The mythic mob to spawn when triggered.
+	 * @param citizenString The string to parse the mob from: "name x y z".
 	 */
-	public MobSpawn(String mobName) {
-		mob = mythicMobs.getMythicMob(mobName);
+	public MobSpawn(String mobString) {
+		String[] mobSpawnParams = mobString.split(" ");
+		mob = mythicMobs.getMythicMob(mobSpawnParams[0]);
+		x = Float.parseFloat(mobSpawnParams[1]);
+		y = Float.parseFloat(mobSpawnParams[2]);
+		z = Float.parseFloat(mobSpawnParams[3]);
+	}
+	
+	/**
+	 * Creates a new mythic mob spawn trigger.
+	 * 
+	 * @param mob The mythic mob to spawn when triggered.
+	 */
+	public MobSpawn(MythicMob mob) {
+		this.mob = mob;
 	}
 	
 	/**

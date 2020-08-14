@@ -95,13 +95,15 @@ public class SkillAssignMenu implements WauzInventory {
 		infoLores.add(ChatColor.YELLOW + "How to learn Abilities?");
 		infoLores.add(ChatColor.GRAY + "You can unlock new combat skills,");
 		infoLores.add(ChatColor.GRAY + "by leveling and assigning skill points to");
-		infoLores.add(ChatColor.GRAY + "\"Masteries\" in the skill menu. (CLICK)");
-		infoLores.add(ChatColor.GRAY + "Some are also unlocked through items.");
+		infoLores.add(ChatColor.GRAY + "\"Masteries\" in the skill menu. (Click)");
 		infoLores.add(ChatColor.YELLOW + "How to use Abilities?");
 		infoLores.add(ChatColor.GRAY + "To use the abilities, you have assigned here,");
 		infoLores.add(ChatColor.GRAY + "you have to press the F (Swap Items) key,");
 		infoLores.add(ChatColor.GRAY + "which will open the casting bar.");
-		infoLores.add(ChatColor.GRAY + "Then just press the number of the slot.");
+		infoLores.add(ChatColor.GRAY + "Then click the item with the slot number ");
+		infoLores.add(ChatColor.GRAY + "of the ability you want to use.");
+		infoLores.add(ChatColor.GRAY + "Tip: Most combat skills' damage output");
+		infoLores.add(ChatColor.GRAY + "is determined by the item you hold in the slot.");
 		infoItemMeta.setLore(infoLores);
 		infoItemStack.setItemMeta(infoItemMeta);
 		return infoItemStack;

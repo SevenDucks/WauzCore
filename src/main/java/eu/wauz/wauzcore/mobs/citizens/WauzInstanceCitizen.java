@@ -45,6 +45,21 @@ public class WauzInstanceCitizen {
 	/**
 	 * Creates a new citizen that can be instanced.
 	 * 
+	 * @param citizenString The string to parse the citizen from: "name x y z yaw pitch".
+	 */
+	public WauzInstanceCitizen(String citizenString) {
+		String[] citizenSpawnParams = citizenString.split(" ");
+		baseCitizen = WauzCitizen.getUnassignedCitizen(citizenSpawnParams[0]);
+		x = Float.parseFloat(citizenSpawnParams[1]);
+		y = Float.parseFloat(citizenSpawnParams[2]);
+		z = Float.parseFloat(citizenSpawnParams[3]);
+		yaw = Float.parseFloat(citizenSpawnParams[4]);
+		pitch = Float.parseFloat(citizenSpawnParams[5]);
+	}
+	
+	/**
+	 * Creates a new citizen that can be instanced.
+	 * 
 	 * @param baseCitizen The base citizen, to create instances from.
 	 */
 	public WauzInstanceCitizen(WauzCitizen baseCitizen) {

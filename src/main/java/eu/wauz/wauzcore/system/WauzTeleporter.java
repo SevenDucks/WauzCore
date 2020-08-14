@@ -124,7 +124,7 @@ public class WauzTeleporter {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
 			return;
 		}
-		if(!player.getWorld().getWorldFolder().toString().contains("Instance")) {
+		if(!WauzPlayerDataPool.isCharacterSelected(player) || !PlayerConfigurator.getCharacterWorldString(player).equals(player.getWorld().getName())) {
 			player.sendMessage(ChatColor.RED + "You can't leave when not inside an instance!");
 			return;
 		}	
@@ -159,7 +159,6 @@ public class WauzTeleporter {
 			return false;
 		}
 		CharacterManager.saveCharacter(player);
-		
 		PetOverviewMenu.unsummon(player);
 		return player.teleport(new Location(Bukkit.getServer().createWorld(new WorldCreator(instanceName)), 0.5, 5, 0.5));
 	}

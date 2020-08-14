@@ -8,7 +8,6 @@ import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -80,21 +79,6 @@ public class InventoryListener implements Listener {
 	public void onSwapItem(PlayerSwapHandItemsEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
 			CombatMapper.handleSwapEvent(event);
-		}
-	}
-	
-	/**
-	 * Handles using casting bar slots, instead of changing items in MMORPG mode.
-	 * A combat mapper is used for mapping casting bar events to WauzCore functionalities.
-	 * 
-	 * @param event
-	 * 
-	 * @see CombatMapper#handleHoldEvent(PlayerItemHeldEvent)
-	 */
-	@EventHandler
-	public void onHoldItem(PlayerItemHeldEvent event) {
-		if(WauzMode.isMMORPG(event.getPlayer())) {
-			CombatMapper.handleHoldEvent(event);
 		}
 	}
 	

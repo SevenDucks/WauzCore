@@ -49,7 +49,12 @@ public abstract class WauzBaseInstance {
 	 * The list of all key ids of the instance.
 	 */
 	private List<String> keyIds = new ArrayList<>();
-
+	
+	/**
+	 * The mob arena of the instance.
+	 */
+	private InstanceMobArena mobArena;
+	
 	/**
 	 * @return The name of the instance.
 	 */
@@ -161,5 +166,19 @@ public abstract class WauzBaseInstance {
 	public void setKeyIds(List<String> keyIds) {
 		this.keyIds = keyIds;
 	}
-	
+
+	/**
+	 * @return The mob arena of the instance.
+	 */
+	public InstanceMobArena getMobArena() {
+		return mobArena;
+	}
+
+	/**
+	 * @param mobArena The new mob arena of the instance.
+	 */
+	public void setMobArena(InstanceMobArena mobArena) {
+		this.mobArena = mobArena;
+	}
+
 }

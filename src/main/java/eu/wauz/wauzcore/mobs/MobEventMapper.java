@@ -17,16 +17,19 @@ import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.instances.InstanceMobArena;
 import eu.wauz.wauzcore.system.util.Chance;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
+import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDespawnEvent;
+import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobSpawnEvent;
 import io.lumine.xikage.mythicmobs.api.exceptions.InvalidMobTypeException;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 
 /**
- * A mapper class, that decides what to do, when a (mythic) mob dies.
- * This goes from dropping exp to frickin' exploding.
+ * A mapper class, that decides what to do, when a (mythic) mob spawns or dies.
+ * This goes from loading healthbars and dropping exp to frickin' exploding.
  * 
  * @author Wauzmons
  */
@@ -38,8 +41,51 @@ public class MobEventMapper {
 	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
 	
 	/**
+	 * When a mob spawns, modifiers, loot and boss bars are initialized.
+	 * Also following cases are possible:
+	 * If it is part of a mob arena, it gets added to the wave.
+	 * 
+	 * @param event The spawn event.
+	 * 
+	 * @see MenacingMobsSpawner#addMenacingMob(Entity, MythicMob)
+	 * @see InstanceMobArena#increaseMobCount()
+	 */
+	public static void spawn(MythicMobSpawnEvent event) {
+		Entity entity = event.getEntity();
+		MenacingMobsSpawner.addMenacingMob(event.getEntity(), event.getMobType());
+		
+		if(PetOverviewMenu.getOwner(entity) == null) {
+			InstanceMobArena.tryToIncreaseMobCount(entity);
+		}
+	}
+	
+	/**
+	 * When a mob despawns, following cases are possible:
+	 * It gets unregistered from its owner, if it was a pet.
+	 * If it is part of a mob arena, it gets removed from the wave.
+	 * 
+	 * @param event The despawn event.
+	 * 
+	 * @see PetOverviewMenu#removeOwner(String, Player)
+	 * @see InstanceMobArena#tryToDecreaseMobCount(Entity)
+	 */
+	public static void despawn(MythicMobDespawnEvent event) {
+		Entity entity = event.getEntity();
+		String mobId = entity.getUniqueId().toString();
+		Player mobOwner = PetOverviewMenu.getOwner(entity);
+		
+		if(mobOwner != null) {
+			PetOverviewMenu.removeOwner(mobId, mobOwner);
+		}
+		else {
+			InstanceMobArena.tryToDecreaseMobCount(entity);
+		}
+	}
+	
+	/**
 	 * When a mob dies, following cases are possible:
 	 * It gets unregistered from its owner, if it was a pet.
+	 * If it is part of a mob arena, it gets removed from the wave.
 	 * The killer, gets achievement progress, if it was a player, killing a valid target.
 	 * It spawns guards or loot, if it was a strongbox.
 	 * It gets removed from the travel map, if it was a worldboss.
@@ -49,6 +95,7 @@ public class MobEventMapper {
 	 * @param event The death event.
 	 * 
 	 * @see PetOverviewMenu#removeOwner(String, Player)
+	 * @see InstanceMobArena#tryToDecreaseMobCount(Entity)
 	 * @see AchievementTracker#addProgress(Player, WauzAchievementType, double)
 	 * @see Strongbox#destroy(MythicMobDeathEvent)
 	 * @see CmdWzTravelEvent#getEventTravelMap()
@@ -64,6 +111,9 @@ public class MobEventMapper {
 		
 		if(mobOwner != null) {
 			PetOverviewMenu.removeOwner(mobId, mobOwner);
+		}
+		else {
+			InstanceMobArena.tryToDecreaseMobCount(entity);
 		}
 		if(SkillUtils.isValidAttackTarget(entity) && event.getKiller() instanceof Player) {
 			AchievementTracker.addProgress((Player) event.getKiller(), WauzAchievementType.KILL_ENEMIES, 1);
@@ -92,9 +142,9 @@ public class MobEventMapper {
 	 * Creates an explosion and deals 500% damage to everyone within a radius of 4 blocks.
 	 * Caused by the "Explosive" meanacing modifier on death.
 	 * 
-	 * @param mythicMob
-	 * @param entity
-	 * @param location
+	 * @param mythicMob The type of the mob.
+	 * @param entity The entity that is exploding.
+	 * @param location The location the explosion takes place.
 	 */
 	private static void explodeMob(MythicMob mythicMob, Entity entity, Location location) {
 		List<Player> players = SkillUtils.getPlayersInRadius(location, 4);
@@ -111,8 +161,8 @@ public class MobEventMapper {
 	 * Spawns 4 mobs of the same type and knocks them away from their spawn.
 	 * Caused by the "Splitting" meanacing modifier on death.
 	 * 
-	 * @param mythicMob
-	 * @param location
+	 * @param mythicMob The type of the mob.
+	 * @param location The location the splitting takes place.
 	 */
 	private static void splitMob(MythicMob mythicMob, Location location) {
 		try {

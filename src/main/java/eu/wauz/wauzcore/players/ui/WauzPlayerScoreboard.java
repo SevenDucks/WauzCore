@@ -172,7 +172,7 @@ public class WauzPlayerScoreboard {
 			rowStrings.add(" ");
 			rowStrings.add(ChatColor.DARK_AQUA + UnicodeUtils.ICON_BULLET + " Dungeon Keys");
 			for(String keyId : instance.getKeyIds())
-				rowStrings.add(ChatColor.WHITE + "  > " + keyId + ": " + instance.getKeyStatus(keyId).toString().toUpperCase());
+				rowStrings.add(ChatColor.WHITE + "  > " + keyId + ": " + instance.getKeyStatus(keyId).toString());
 		}
 		
 		for(int index =  0; index != rowStrings.size(); index++) {

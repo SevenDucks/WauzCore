@@ -9,7 +9,6 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.RankConfigurator;
 import eu.wauz.wauzcore.mobs.MobSpawn;
-import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.citizens.WauzInstanceCitizen;
 
 /**
@@ -86,31 +85,18 @@ public class WauzInstance extends WauzBaseInstance {
 		setDisplaySubtitle(InstanceConfigurator.getDisplaySubtitle(instanceName));
 		setSoundtrackName(InstanceConfigurator.getSoundtrack(instanceName));
 		
-		for(String mobSpawnString : InstanceConfigurator.getMobSpawns(instanceName)) {
-			String[] mobSpawnParams = mobSpawnString.split(" ");
-			MobSpawn mobSpawn = new MobSpawn(mobSpawnParams[0]);
-			float x = Float.parseFloat(mobSpawnParams[1]);
-			float y = Float.parseFloat(mobSpawnParams[2]);
-			float z = Float.parseFloat(mobSpawnParams[3]);
-			mobSpawn.setCoordinates(x, y, z);
-			mobs.add(mobSpawn);
+		for(String mobString : InstanceConfigurator.getMobSpawns(instanceName)) {
+			mobs.add(new MobSpawn(mobString));
 		}
-		
-		for(String citizenSpawnString : InstanceConfigurator.getCitizenSpawns(instanceName)) {
-			String[] citizenSpawnParams = citizenSpawnString.split(" ");
-			WauzCitizen citizen = WauzCitizen.getUnassignedCitizen(citizenSpawnParams[0]);
-			WauzInstanceCitizen citizenSpawn = new WauzInstanceCitizen(citizen);
-			float x = Float.parseFloat(citizenSpawnParams[1]);
-			float y = Float.parseFloat(citizenSpawnParams[2]);
-			float z = Float.parseFloat(citizenSpawnParams[3]);
-			float yaw = Float.parseFloat(citizenSpawnParams[4]);
-			float pitch = Float.parseFloat(citizenSpawnParams[5]);
-			citizenSpawn.setCoordinates(x, y, z, yaw, pitch);
-			citizens.add(citizenSpawn);
+		for(String citizenString : InstanceConfigurator.getCitizenSpawns(instanceName)) {
+			citizens.add(new WauzInstanceCitizen(citizenString));
 		}
 		
 		if(type.equals(WauzInstanceType.KEYS)) {
 			setKeyIds(InstanceConfigurator.getKeyNameList(instanceName));
+		}
+		else if(type.equals(WauzInstanceType.ARENA)) {
+			setMobArena(new InstanceMobArena(instanceName));
 		}
 	}
 	
