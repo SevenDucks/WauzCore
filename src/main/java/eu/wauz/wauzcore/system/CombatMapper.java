@@ -75,6 +75,9 @@ public class CombatMapper {
 		if(event instanceof EntityDamageByEntityEvent) {
 			handleDamageByEntityEvent((EntityDamageByEntityEvent) event, playerBossBar);
 		}
+		if(event.isCancelled()) {
+			return;
+		}
 		if(event.getEntity() instanceof Player && WauzMode.isMMORPG(event.getEntity())) {
 			event.setCancelled(true);
 			CustomWeaponGlider.cancelFallDamage(event);

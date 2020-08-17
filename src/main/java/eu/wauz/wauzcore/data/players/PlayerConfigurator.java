@@ -410,6 +410,23 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	
 	/**
 	 * @param player The player that owns the config file.
+	 * @param amount The new amount of medals the character owns.
+	 */
+	public static void setCharacterMedals(Player player, long amount) {
+		playerConfigSet(player, "curenncies.medals", amount, true);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * 
+	 * @return The amount of medals the character owns.
+	 */
+	public static long getCharacterMedals(Player player) {
+		return playerConfigGetLong(player, "curenncies.medals", true);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
 	 * @param amount The new amount of soulstones the character owns.
 	 */
 	public static void setCharacterSoulstones(Player player, long amount) {

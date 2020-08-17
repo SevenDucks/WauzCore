@@ -10,7 +10,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.InstanceConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.mobs.MobSpawn;
+import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 
 /**
  * An arena that spawns waves of mobs in an instance world.
@@ -75,6 +77,27 @@ public class InstanceMobArena {
 	}
 	
 	/**
+	 * Lets a player try to start a new wave manually.
+	 * Only works when a set of 5 waves is completed and there are still waves left.
+	 * 
+	 * @param player The player who tries to start the wave.
+	 * 
+	 * @see InstanceMobArena#startNewWave()
+	 */
+	public void tryToManuallyStartNewWave(Player player) {
+		if(mobsLeft > 0 || currentWave % 5 != 0) {
+			player.sendMessage(ChatColor.RED + "There are still waves ongoing!");
+			return;
+		}
+		if(currentWave >= maximumWave) {
+			player.sendMessage(ChatColor.RED + "The arena has already been completed!");
+		}
+		else {
+			startNewWave();
+		}
+	}
+	
+	/**
 	 * Starts a new wave, if requirements are met.
 	 * Broadcasts a message when all waves have been completed.
 	 * 
@@ -82,7 +105,11 @@ public class InstanceMobArena {
 	 * @see InstanceMobArena#broadcastMessage(String, Sound)
 	 */
 	public void checkIfNewWaveShouldStart() {
-		if(mobsLeft > 0 || currentWave <= 0 || currentWave % 5 != 0) {
+		if(mobsLeft > 0 || currentWave <= 0) {
+			return;
+		}
+		if(currentWave % 5 == 0) {
+			handOutMedals();
 			return;
 		}
 		if(currentWave >= maximumWave) {
@@ -99,6 +126,7 @@ public class InstanceMobArena {
 	 * 
 	 * @see MobSpawn#spawn(World)
 	 * @see InstanceMobArena#broadcastMessage(String, Sound)
+	 * @see WauzPlayerScoreboard#scheduleScoreboardRefresh(Player)
 	 */
 	public void startNewWave() {
 		currentWave++;
@@ -106,6 +134,9 @@ public class InstanceMobArena {
 		broadcastMessage(ChatColor.RED + "Wave " + currentWave, Sound.ENTITY_WITHER_SPAWN);
 		for(MobSpawn mob : waves.get(currentWave - 1)) {
 			mob.spawn(world);
+		}
+		for(Player player : world.getPlayers()) {
+			WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 		}
 	}
 	
@@ -119,6 +150,19 @@ public class InstanceMobArena {
 		for(Player player : world.getPlayers()) {
 			player.sendTitle(message, "", 10, 70, 20);
 			player.getWorld().playSound(player.getLocation(), sound, 1, 1);
+		}
+	}
+	
+	/**
+	 * Give every player in the arena a medal for completing the current wave.
+	 * 
+	 * @see PlayerConfigurator#setCharacterMedals(Player, long)
+	 */
+	public void handOutMedals() {
+		for(Player player : world.getPlayers()) {
+			long medals = PlayerConfigurator.getCharacterMedals(player) + 1;
+			PlayerConfigurator.setCharacterMedals(player, medals);
+			player.sendMessage(ChatColor.YELLOW + "You earned a medal for completing " + currentWave + " waves!");
 		}
 	}
 	
@@ -205,6 +249,13 @@ public class InstanceMobArena {
 	 */
 	public void setWaves(List<List<MobSpawn>> waves) {
 		this.waves = waves;
+	}
+
+	/**
+	 * @return How many mobs of the current wave are left.
+	 */
+	public int getMobsLeft() {
+		return mobsLeft;
 	}
 
 }

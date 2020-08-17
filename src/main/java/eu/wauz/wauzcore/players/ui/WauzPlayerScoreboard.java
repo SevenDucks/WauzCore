@@ -17,6 +17,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.system.WauzRank;
+import eu.wauz.wauzcore.system.instances.InstanceMobArena;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.instances.WauzInstanceType;
@@ -148,7 +149,7 @@ public class WauzPlayerScoreboard {
 	}
 	
 	/**
-	 * Creates a dungeon sidebar with the name and keys of the instance to a player.
+	 * Creates a dungeon sidebar with the name and status of the instance to a player.
 	 * 
 	 * @param player The player who should receive the scoreboard.
 	 * 
@@ -171,8 +172,20 @@ public class WauzPlayerScoreboard {
 		if(instanceType.equals(WauzInstanceType.KEYS)) {
 			rowStrings.add(" ");
 			rowStrings.add(ChatColor.DARK_AQUA + UnicodeUtils.ICON_BULLET + " Dungeon Keys");
-			for(String keyId : instance.getKeyIds())
+			for(String keyId : instance.getKeyIds()) {
 				rowStrings.add(ChatColor.WHITE + "  > " + keyId + ": " + instance.getKeyStatus(keyId).toString());
+			}
+		}
+		else if(instanceType.equals(WauzInstanceType.ARENA)) {
+			rowStrings.add(" ");
+			rowStrings.add(ChatColor.DARK_AQUA + UnicodeUtils.ICON_BULLET + " Arena Progress");
+			InstanceMobArena arena = instance.getMobArena();
+			String currentWave = ChatColor.GOLD + "" + arena.getCurrentWave();
+			String maximumWave = ChatColor.GOLD + "" + arena.getMaximumWave();
+			rowStrings.add(ChatColor.WHITE + "  > Wave: " + currentWave + ChatColor.WHITE + " / " + maximumWave);
+			rowStrings.add(ChatColor.WHITE + "  > Remaining Enemies: " + ChatColor.RED + arena.getMobsLeft());
+			long medals = PlayerConfigurator.getCharacterMedals(player);
+			rowStrings.add(ChatColor.WHITE + "  > Earned Medals: " + ChatColor.AQUA + medals);
 		}
 		
 		for(int index =  0; index != rowStrings.size(); index++) {

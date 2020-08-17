@@ -92,6 +92,10 @@ commands:
     description: Print a Tip in Chat
     usage: /tip
     permission: wauz.normal
+  nextwave:
+    description: Start Next 5 Arena Waves
+    usage: /nextwave
+    permission: wauz.normal
   wzSystem:
     description: Print System Analytics
     usage: /wzSystem

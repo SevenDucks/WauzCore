@@ -1,0 +1,30 @@
+world: Crucible of Sei Sei Dai
+type: ARENA
+title: Crucible of Sei Sei Dai
+subtitle: Ancient Arena of Ducksmoria
+music: Palace of Sei Sei Dai
+mobs:
+citizens:
+- 'Ducksmore 0.5 5 -29.5 0 15'
+wavecount: 10
+waves:
+  1:
+  - 'Quackstack2 0.5 5 0.5'
+  2:
+  - 'Quackstack2 0.5 5 0.5'
+  3:
+  - 'Quackstack2 0.5 5 0.5'
+  4:
+  - 'Quackstack2 0.5 5 0.5'
+  5:
+  - 'Quackstack2 0.5 5 0.5'
+  6:
+  - 'Quackstack2 0.5 5 0.5'
+  7:
+  - 'Quackstack2 0.5 5 0.5'
+  8:
+  - 'Quackstack2 0.5 5 0.5'
+  9:
+  - 'Quackstack2 0.5 5 0.5'
+  10:
+  - 'Quackstack2 0.5 5 0.5'
