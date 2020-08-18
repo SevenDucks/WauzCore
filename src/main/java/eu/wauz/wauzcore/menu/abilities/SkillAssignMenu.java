@@ -102,8 +102,9 @@ public class SkillAssignMenu implements WauzInventory {
 		infoLores.add(ChatColor.GRAY + "which will open the casting bar.");
 		infoLores.add(ChatColor.GRAY + "Then click the item with the slot number ");
 		infoLores.add(ChatColor.GRAY + "of the ability you want to use.");
+		infoLores.add("");
 		infoLores.add(ChatColor.GRAY + "Tip: Most combat skills' damage output");
-		infoLores.add(ChatColor.GRAY + "is determined by the item you hold in the slot.");
+		infoLores.add(ChatColor.GRAY + "is determined by the item in the slot.");
 		infoItemMeta.setLore(infoLores);
 		infoItemStack.setItemMeta(infoItemMeta);
 		return infoItemStack;

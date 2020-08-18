@@ -117,19 +117,16 @@ public class WauzTeleporter {
 	 * @param player The player to teleport.
 	 */
 	public static void exitInstanceTeleportManual(Player player) {
-		Location destination = PlayerConfigurator.getCharacterLocation(player);		
-		player.closeInventory();
-		
 		if(player.isInsideVehicle()) {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
 			return;
 		}
-		if(!WauzPlayerDataPool.isCharacterSelected(player) || !PlayerConfigurator.getCharacterWorldString(player).equals(player.getWorld().getName())) {
+		if(!WauzPlayerDataPool.isCharacterSelected(player) || PlayerConfigurator.getCharacterWorldString(player).equals(player.getWorld().getName())) {
 			player.sendMessage(ChatColor.RED + "You can't leave when not inside an instance!");
 			return;
 		}	
 		PetOverviewMenu.unsummon(player);
-		player.teleport(destination);
+		player.teleport(PlayerConfigurator.getCharacterLocation(player));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
 	

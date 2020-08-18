@@ -281,6 +281,21 @@ public class SkillUtils {
 	}
 	
 	/**
+	 * Spawns a tower (big totem) to execute a runnable based on a specified interval.
+	 * 
+	 * @param owner The player who summoned the tower.
+	 * @param headItemStack The head of thr tower.
+	 * @param bodyItemStack The body of the tower.
+	 * @param runnable The runnable that should be executed.
+	 * @param ticks How often the runnable should be executed.
+	 * @param interval The server ticks between each execution.
+	 */
+	public static void spawnTower(Player owner, ItemStack headItemStack, ItemStack bodyItemStack, TotemRunnable runnable, int ticks, int interval) {
+		Entity tower = NmsEntityTotem.create(owner, headItemStack, bodyItemStack);
+		callTotemEvent(tower, runnable, ticks, interval);
+	}
+	
+	/**
 	 * Calls a the totem runnable for an existing totem.
 	 * 
 	 * @param totem The summoned totem.
@@ -295,10 +310,12 @@ public class SkillUtils {
 	        	try {
 	        		if(totem != null && totem.isValid()) {
 	        			runnable.run(totem);
-	        			if(ticks - 1 > 0)
+	        			if(ticks - 1 > 0) {
 	        				callTotemEvent(totem, runnable, ticks - 1, interval);
-	        			else
+	        			}
+	        			else {
 	        				totem.remove();
+	        			}
 	        		}
 	        	}
 	        	catch (NullPointerException e) {

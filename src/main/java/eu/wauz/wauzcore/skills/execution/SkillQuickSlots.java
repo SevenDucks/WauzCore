@@ -31,19 +31,24 @@ public class SkillQuickSlots {
 	 * 
 	 * @return If the usage was successful.
 	 * 
+	 * @see Cooldown#playerQuickSlotUse(Player)
 	 * @see WauzPlayerData#getActionBar()
 	 * @see WauzPlayerData#getSelectedCastables()
 	 * @see Castable#cast(Player)
 	 * @see SkillAssignMenu#open(Player)
 	 */
 	public static boolean tryToUse(Player player) {
+		if(!Cooldown.playerQuickSlotUse(player)) {
+			return true;
+		}
+		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		if(playerData == null || playerData.getActionBar() == 0) {
 			return false;
 		}
 		
 		int slot = player.getInventory().getHeldItemSlot();
-		if(slot < 0 || slot > 3 || !Cooldown.playerQuickSlotUse(player)) {
+		if(slot < 0 || slot > 3) {
 			return false;
 		}
 		if(playerData.getActionBar() == 2) {

@@ -63,7 +63,9 @@ public class WauzActiveInstance extends WauzBaseInstance {
 		setDisplaySubtitle(template.getDisplaySubtitle());
 		setSoundtrackName(template.getSoundtrackName());
 		setKeyIds(template.getKeyIds());
-		setMobArena(new InstanceMobArena(template.getMobArena(), world));
+		if(template.getMobArena() != null) {
+			setMobArena(new InstanceMobArena(template.getMobArena(), world));
+		}
 		
 		for(MobSpawn mob : template.getMobs()) {
 			mob.spawn(world);

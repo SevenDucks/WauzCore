@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -17,6 +18,7 @@ import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
+import eu.wauz.wauzcore.mobs.towers.WauzTowers;
 
 /**
  * A class for handling the usage of scrolls and socketable items.
@@ -88,7 +90,7 @@ public class WauzScrolls implements CustomItem {
 	
 	/**
 	 * Handles the usage of right click scrolls.
-	 * Includes following types: Summoning, Comfort.
+	 * Includes following types: Summoning, Comfort, Blueprint.
 	 * Removes the scroll item, if successful.
 	 * 
 	 * @param event The interaction event.
@@ -96,6 +98,7 @@ public class WauzScrolls implements CustomItem {
 	 * @see WauzScrolls#onScrollItemInteract(InventoryClickEvent, String) For item interactive scrolls...
 	 * @see PetOverviewMenu#addPet(PlayerInteractEvent)
 	 * @see WauzPlayerEventHomeChange
+	 * @see WauzTowers#tryToConstruct(Player, String)
 	 */
 	public static void onScrollItemInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -110,6 +113,9 @@ public class WauzScrolls implements CustomItem {
 		}
 		else if(scrollName.contains("Scroll of Comfort")) {
 			new WauzPlayerEventHomeChange(player.getLocation(), scroll).execute(player);
+		}
+		else if(scrollName.contains("Blueprint: ") && WauzTowers.tryToConstruct(player, StringUtils.substringAfter(scrollName, ": "))) {
+			scroll.setAmount(scroll.getAmount() - 1);
 		}
 	}
 	

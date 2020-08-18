@@ -34,7 +34,27 @@ public class NmsEntityTotem extends EntityArmorStand {
 		double z = location.getZ();
 		String display = ChatColor.GREEN + player.getDisplayName() + "'s Totem";
 		
-		return new NmsEntityTotem(worldServer, x, y, z, display, headItemStack).getBukkitEntity();
+		return new NmsEntityTotem(worldServer, x, y, z, display, headItemStack, null).getBukkitEntity();
+	}
+	
+	/**
+	 * Creates a tower (big totem) entity.
+	 * 
+	 * @param player The owner of the tower.
+	 * @param headItemStack The head of the tower.
+	 * @param bodyItemStack The body of the tower.
+	 * 
+	 * @return The created entity.
+	 */
+	public static org.bukkit.entity.Entity create(Player player, ItemStack headItemStack, ItemStack bodyItemStack) {
+		Location location = player.getLocation();
+		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
+		double x = location.getX();
+		double y = location.getY();
+		double z = location.getZ();
+		String display = ChatColor.GREEN + player.getDisplayName() + "'s Tower";
+		
+		return new NmsEntityTotem(worldServer, x, y, z, display, headItemStack, bodyItemStack).getBukkitEntity();
 	}
 	
 	/**
@@ -46,8 +66,9 @@ public class NmsEntityTotem extends EntityArmorStand {
 	 * @param z The z coordinate of the spawn location.
 	 * @param display The text of the totem.
 	 * @param headItemStack The head of the totem.
+	 * @param bodyItemStack The body of the totem.
 	 */
-	private NmsEntityTotem(WorldServer worldServer, double x, double y, double z, String display, ItemStack headItemStack) {
+	private NmsEntityTotem(WorldServer worldServer, double x, double y, double z, String display, ItemStack headItemStack, ItemStack bodyItemStack) {
 		super(worldServer, x, y, z);
 		
 		this.collides = false;
@@ -56,7 +77,7 @@ public class NmsEntityTotem extends EntityArmorStand {
 		
 		this.setInvisible(false);
 		this.setInvulnerable(true);
-		this.setSmall(true);
+		this.setSmall(bodyItemStack == null);
 		this.setCustomName(new ChatMessage(display));
 		this.setCustomNameVisible(true);
 		
@@ -65,6 +86,7 @@ public class NmsEntityTotem extends EntityArmorStand {
 		
 		ArmorStand armorStand = (ArmorStand) this.getBukkitEntity();
 		armorStand.getEquipment().setHelmet(headItemStack);
+		armorStand.getEquipment().setChestplate(bodyItemStack);
 
 		worldServer.addEntity(this);
 	}

@@ -81,7 +81,7 @@ public class Cooldown {
 	 * @return If the cooldown is ready.
 	 */
 	public static boolean playerQuickSlotUse(Player player) {
-		return getAndUpdateCooldownFromCache(player, "QUICK_SLOT_USE", 100L, true);
+		return getAndUpdateCooldownFromCache(player, "QUICK_SLOT_USE", 100L, false);
 	}
 	
 	/**

@@ -108,6 +108,11 @@ import eu.wauz.wauzcore.menu.social.MailMenu;
 import eu.wauz.wauzcore.menu.social.TitleMenu;
 import eu.wauz.wauzcore.menu.util.MenuRegister;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
+import eu.wauz.wauzcore.mobs.towers.TowerDamageBooster;
+import eu.wauz.wauzcore.mobs.towers.TowerFreezingPulse;
+import eu.wauz.wauzcore.mobs.towers.TowerHealthRestorer;
+import eu.wauz.wauzcore.mobs.towers.TowerKnockbackCannon;
+import eu.wauz.wauzcore.mobs.towers.WauzTowers;
 import eu.wauz.wauzcore.oneblock.OnePhase;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.players.classes.ClassCleric;
@@ -198,6 +203,7 @@ public class WauzLoader {
 		registerClasses();
 		registerCustomItems();
 		registerScrolls();
+		registerTowers();
 		registerSkillgems();
 		registerRunes();
 		registerEnhancements();
@@ -358,6 +364,19 @@ public class WauzLoader {
 		WauzScrolls.registerScroll(new ScrollRegret());
 		WauzScrolls.registerScroll(new ScrollGenericRune());
 		WauzScrolls.registerScroll(new ScrollGenericSkillgem());
+	}
+	
+	/**
+	 * Initializes all predefined towers.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	public static void registerTowers() {
+		WauzTowers.registerTower(new TowerKnockbackCannon());
+		WauzTowers.registerTower(new TowerFreezingPulse());
+		WauzTowers.registerTower(new TowerDamageBooster());
+		WauzTowers.registerTower(new TowerHealthRestorer());
 	}
 	
 	/**

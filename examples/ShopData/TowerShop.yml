@@ -1,0 +1,28 @@
+name: Defense Tower Shop
+type: Normal
+amount: 4
+items:
+  1:
+    type: TowerKnockbackCannon
+    amount: 1
+    price: 8
+    currency: medals
+    relation: 5
+  2:
+    type: TowerFreezingPulse
+    amount: 1
+    price: 8
+    currency: medals
+    relation: 5
+  3:
+    type: TowerDamageBooster
+    amount: 1
+    price: 8
+    currency: medals
+    relation: 5
+  4:
+    type: TowerHealthRestorer
+    amount: 1
+    price: 8
+    currency: medals
+    relation: 5

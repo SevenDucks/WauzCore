@@ -108,12 +108,13 @@ public class InstanceMobArena {
 		if(mobsLeft > 0 || currentWave <= 0) {
 			return;
 		}
-		if(currentWave % 5 == 0) {
-			handOutMedals();
-			return;
-		}
+		
 		if(currentWave >= maximumWave) {
 			broadcastMessage(ChatColor.GOLD + "Arena Completed!", Sound.ENTITY_ENDER_DRAGON_DEATH);
+			handOutMedals();
+		}
+		else if(currentWave % 5 == 0) {
+			handOutMedals();
 		}
 		else {
 			startNewWave();

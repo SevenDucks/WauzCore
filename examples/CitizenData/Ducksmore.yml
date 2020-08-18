@@ -38,7 +38,7 @@ interactions:
     command: leave
   4:
     type: shop
-    name: ShinigamiShop
+    name: TowerShop
     level: 0
   5:
     type: shop

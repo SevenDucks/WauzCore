@@ -98,8 +98,7 @@ public class WauzPlayerActionBar {
 		for(int slot = startSlot; slot <= startSlot + 3; slot++) {
 			actionBarMessage += getQuickSlot(playerData, selectedCastables, slot) + SEPERATOR;
 		}
-		actionBarMessage += "(F) " + ChatColor.AQUA + "Next" + SEPERATOR;
-		WauzNmsClient.nmsActionBar(player, actionBarMessage);
+		WauzNmsClient.nmsActionBar(player, actionBarMessage + "(F) " + ChatColor.AQUA + "Next");
 	}
 	
 	/**

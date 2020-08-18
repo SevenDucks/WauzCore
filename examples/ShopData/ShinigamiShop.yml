@@ -1,6 +1,6 @@
 name: Shinigami Shop
 type: Normal
-amount: 5
+amount: 7
 items:
   1:
     type: FoodSoulsteak
@@ -9,24 +9,36 @@ items:
     currency: coins
     relation: 1
   2:
+    type: FoodSoulsteak
+    amount: 16
+    price: 50
+    currency: coins
+    relation: 5
+  3:
     type: FoodBlessedChickoon
     amount: 3
     price: 10
     currency: wauzland
     relation: 6
-  3:
+  4:
     type: DungeonPoS
     amount: 1
     price: 50
     currency: coins
     relation: 5
-  4:
+  5:
+    type: DungeonCoS
+    amount: 1
+    price: 50
+    currency: coins
+    relation: 5
+  6:
     type: PetCharlie
     amount: 1
     price: 120
     currency: coins
     relation: 10
-  5:
+  7:
     type: PetAsuna
     amount: 1
     price: 240
