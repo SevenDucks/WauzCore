@@ -39,15 +39,15 @@ import net.minecraft.server.v1_15_R1.WorldServer;
 public class WauzNmsMinimap {
 	
 	/**
-	 * Initializes the world map in the players offhand and adds a custom renderer.
-	 * Renders the map every ~20 ticks if it is the first time or if the player has moved more than 12 blocks.
+	 * Initializes the world map in the players inventory and adds a custom renderer.
+	 * Renders the map every ~20 ticks if it is the first time or if the player has moved more than 8 blocks.
 	 * Also draws the region name at the top and an x marker in the middle of the map.
 	 * 
 	 * @param player The player who holds the map.
 	 */
     public static void init(Player player) {
     	MapView mapView = null;
-    	ItemStack mapItem = player.getEquipment().getItemInOffHand();
+    	ItemStack mapItem = player.getInventory().getItem(6);
 		if(mapItem == null || !mapItem.getType().equals(Material.FILLED_MAP)) {
 			return;
 		}
@@ -75,7 +75,7 @@ public class WauzNmsMinimap {
         mapView.setWorld(player.getWorld());
         mapView.setCenterX(player.getLocation().getBlockX());
 		mapView.setCenterZ(player.getLocation().getBlockZ());
-        mapView.setScale(Scale.CLOSEST);
+        mapView.setScale(Scale.CLOSE);
         
         net.minecraft.server.v1_15_R1.ItemStack craftItemStack = CraftItemStack.asNMSCopy(mapItem);
 		ItemWorldMap itemWorldMap = (ItemWorldMap) craftItemStack.getItem();
@@ -96,12 +96,12 @@ public class WauzNmsMinimap {
 			private int iterator = 0;
 			
 			/**
-			 * Renders the map every ~20 ticks if it is the first time or if the player has moved more than 12 blocks.
+			 * Renders the map every ~10 ticks if it is the first time or if the player has moved more than 12 blocks.
 			 * Also draws the region name at the top and an x marker in the middle of the map.
 			 */
 			@Override
 			public void render(MapView mapView, MapCanvas mapCanvas, Player player) {
-				if (iterator > 20) {
+				if (iterator > 10) {
 	                iterator = 0;
 	                
 	    			for (int i = 0; i < worldMap.colors.length; i ++) {
@@ -110,7 +110,8 @@ public class WauzNmsMinimap {
 	                
 	    			Location playerLocation = player.getLocation();
 	    			Location mapLocation = new Location(player.getWorld(), mapView.getCenterX(), playerLocation.getY(), mapView.getCenterZ());
-	    			if(firstRender || playerLocation.distance(mapLocation) > 12) {
+	    			Material heldMaterial = player.getEquipment().getItemInMainHand().getType();
+	    			if(firstRender || (playerLocation.distance(mapLocation) > 8 && heldMaterial.equals(Material.FILLED_MAP))) {
 	    				firstRender = false;
 	    				
 	    				mapView.setWorld(player.getWorld());

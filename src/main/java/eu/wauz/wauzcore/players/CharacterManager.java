@@ -52,7 +52,7 @@ public class CharacterManager {
 	/**
 	 * The current schema version of character files.
 	 */
-	public static final int SCHEMA_VERSION = 3;
+	public static final int SCHEMA_VERSION = 4;
 	
 	/**
 	 * A direct reference to the main class.
@@ -415,7 +415,7 @@ public class CharacterManager {
 	
 	/**
 	 * Equips a player with default mmorpg character items.
-	 * Contains quest tracker, main menu, minimap, trashcan and selected tabard.
+	 * Contains minimap, quest tracker, main menu, trashcan and selected tabard.
 	 * 
 	 * @param player The player that should receive the items.
 	 * 
@@ -424,19 +424,19 @@ public class CharacterManager {
 	 * @see TabardMenu#equipSelectedTabard(Player)
 	 */
 	public static void equipCharacterItems(Player player) {
+		ItemStack mapItemStack = new ItemStack(Material.FILLED_MAP);
+		ItemMeta mapItemMeta = mapItemStack.getItemMeta();
+		mapItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Map of the Grand Explorer");
+		mapItemStack.setItemMeta(mapItemMeta);
+		player.getInventory().setItem(6, mapItemStack);
+		WauzNmsMinimap.init(player);
+		
 		ItemStack trackerItemStack = new ItemStack(Material.COMPASS);
 		ItemMeta trackerItemMeta = trackerItemStack.getItemMeta();
 		trackerItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getTrackerDestinationName(player));
 		trackerItemStack.setItemMeta(trackerItemMeta);
 		player.getInventory().setItem(7, trackerItemStack);
 		MenuUtils.setMainMenuOpener(player.getInventory(), 8);
-		
-		ItemStack mapItemStack = new ItemStack(Material.FILLED_MAP);
-		ItemMeta mapItemMeta = mapItemStack.getItemMeta();
-		mapItemMeta.setDisplayName(ChatColor.GOLD + "Explorer Map");
-		mapItemStack.setItemMeta(mapItemMeta);
-		player.getEquipment().setItemInOffHand(mapItemStack);
-		WauzNmsMinimap.init(player);
 		
 		MenuUtils.setTrashcan(player.getInventory(), 35);
 		

@@ -11,6 +11,28 @@ Patch 6XX: Powerful Professions
 Patch 606: Bloody Bestiary
 
 Patch 605: Crucible of Classes II
+	Class Casting System
+	  - Assign Mastery Skills to Casting Bar
+	  - Press F to open Casting Bar
+	  - Click with Slot to Cast Skill
+	  - Some Skills require Rage
+	  - Rage is generated through Combat
+	  
+	New Feature: Mob Arenas
+	  - Test Arena: Crucible of Sei Sei Dai
+	  - Mobs spawn in Waves
+	  - Defeat 5 Waves to earn a Medal
+	  - Medals can be exchanged for Rewards
+	  - Reworked Main Menu and Map
+	  
+	New Feature: Defense Towers
+	  - Can be constructed with Blueprints
+	  - Last 7.5 Minutes
+	  - Different Types
+	    > Knockback Cannon
+	    > Freezing Pulse
+	    > Damage Booster
+	    > Health Restorer
 
 Patch 604: Crucible of Classes I
 	Class System Rework

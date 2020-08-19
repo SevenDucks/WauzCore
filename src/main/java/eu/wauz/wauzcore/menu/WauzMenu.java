@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.menu;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,14 +11,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.items.CustomItem;
-import eu.wauz.wauzcore.menu.abilities.AbilityMenu;
-import eu.wauz.wauzcore.menu.collection.CollectionMenu;
-import eu.wauz.wauzcore.menu.heads.HeadUtils;
-import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
-import eu.wauz.wauzcore.menu.social.SocialMenu;
+import eu.wauz.wauzcore.menu.abilities.AbilityMenuParts;
+import eu.wauz.wauzcore.menu.collection.CollectionMenuParts;
+import eu.wauz.wauzcore.menu.social.SocialMenuParts;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -81,6 +77,9 @@ public class WauzMenu implements WauzInventory, CustomItem {
 	 * @param player The player that should view the inventory.
 	 * 
 	 * @see WauzModeMenu#open(Player)
+	 * @see SocialMenuParts#addMenuParts(Player, Inventory, int)
+	 * @see CollectionMenuParts#addMenuParts(Player, Inventory, int)
+	 * @see AbilityMenuParts#addMenuParts(Player, Inventory, int)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
@@ -89,40 +88,11 @@ public class WauzMenu implements WauzInventory, CustomItem {
 			return;
 		}
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Main Menu");
+		Inventory menu = Bukkit.createInventory(holder, 18, ChatColor.BLACK + "" + ChatColor.BOLD + "Main Menu");
 		
-		ItemStack abilitesItemStack = MenuIconHeads.getAbilityItem();
-		ItemMeta abilitiesItemMeta = abilitesItemStack.getItemMeta();
-		abilitiesItemMeta.setDisplayName(ChatColor.GOLD + "Abilities");
-		List<String> abilitiesLores = new ArrayList<String>();
-		abilitiesLores.add(ChatColor.YELLOW + "Sub Menu Contents:");
-		abilitiesLores.add(ChatColor.GRAY + "Travelling, Crafting, Disguises");
-		abilitiesLores.add(ChatColor.GRAY + "Subclasses, Passive Skills, Perk Tree");
-		abilitiesItemMeta.setLore(abilitiesLores);
-		abilitesItemStack.setItemMeta(abilitiesItemMeta);
-		menu.setItem(2, abilitesItemStack);
-		
-		ItemStack collectionItemStack = MenuIconHeads.getCollectionItem();
-		ItemMeta collectionItemMeta = collectionItemStack.getItemMeta();
-		collectionItemMeta.setDisplayName(ChatColor.GOLD + "Collection");
-		List<String> collectionLores = new ArrayList<String>();
-		collectionLores.add(ChatColor.YELLOW + "Sub Menu Contents:");
-		collectionLores.add(ChatColor.GRAY + "Currency, Tabards, Questlog");
-		collectionLores.add(ChatColor.GRAY + "Achievements, Bestiary, Pets");
-		collectionItemMeta.setLore(collectionLores);
-		collectionItemStack.setItemMeta(collectionItemMeta);
-		menu.setItem(4, collectionItemStack);
-		
-		ItemStack socialItemStack = MenuIconHeads.getSocialItem();
-		ItemMeta socialItemMeta = socialItemStack.getItemMeta();
-		socialItemMeta.setDisplayName(ChatColor.GOLD + "Social");
-		List<String> socialLores = new ArrayList<String>();
-		socialLores.add(ChatColor.YELLOW + "Sub Menu Contents:");
-		socialLores.add(ChatColor.GRAY + "Mailbox, Titles, Player vs Player");
-		socialLores.add(ChatColor.GRAY + "Group, Guild, Friends");
-		socialItemMeta.setLore(socialLores);
-		socialItemStack.setItemMeta(socialItemMeta);
-		menu.setItem(6, socialItemStack);
+		SocialMenuParts.addMenuParts(player, menu, 0);
+		CollectionMenuParts.addMenuParts(player, menu, 3);
+		AbilityMenuParts.addMenuParts(player, menu, 7);
 
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -135,9 +105,9 @@ public class WauzMenu implements WauzInventory, CustomItem {
 	 * 
 	 * @param event The inventory click event.
 	 * 
-	 * @see AbilityMenu#open(Player)
-	 * @see CollectionMenu#open(Player)
-	 * @see SocialMenu#open(Player)
+	 * @see SocialMenuParts#check(Player, ItemStack)
+	 * @see CollectionMenuParts#check(Player, ItemStack)
+	 * @see AbilityMenuParts#check(Player, ItemStack)
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
@@ -145,17 +115,11 @@ public class WauzMenu implements WauzInventory, CustomItem {
 		ItemStack clicked = event.getCurrentItem();
 		final Player player = (Player) event.getWhoClicked();
 		
-		if(clicked == null) {
+		if(clicked == null
+				|| SocialMenuParts.check(player, clicked)
+				|| CollectionMenuParts.check(player, clicked)
+				|| AbilityMenuParts.check(player, clicked)) {
 			return;
-		}
-		else if(HeadUtils.isHeadMenuItem(clicked, "Abilities")) {
-			AbilityMenu.open(player);
-		}
-		else if(HeadUtils.isHeadMenuItem(clicked, "Collection")) {
-			CollectionMenu.open(player);
-		}
-		else if(HeadUtils.isHeadMenuItem(clicked, "Social")) {
-			SocialMenu.open(player);
 		}
 	}
 

@@ -82,7 +82,11 @@ public class CurrencyMenu implements WauzInventory {
 	 * @see WauzCurrencyCategory#getCurrencies()
 	 */
 	public static void setCurrencyCategoryDisplay(Inventory menu, Player player, WauzCurrencyCategory category, int index) {
-		ItemStack currencyItemStack = new ItemStack(index == 0 ? Material.DIAMOND : Material.EMERALD);
+		if(index == 0) {
+			MenuUtils.setCurrencyDisplay(menu, player, index);
+			return;
+		}
+		ItemStack currencyItemStack = new ItemStack(Material.EMERALD);
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
 		currencyItemMeta.setDisplayName(ChatColor.GREEN + category.getCurrencyCategoryDisplayName());
 		List<String> lores = new ArrayList<String>();
@@ -92,7 +96,7 @@ public class CurrencyMenu implements WauzInventory {
 		}
 		currencyItemMeta.setLore(lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
-		currencyItemStack.setAmount(index == 0 ? 1 : index);
+		currencyItemStack.setAmount(index);
 		menu.setItem(index, currencyItemStack);
 	}
 

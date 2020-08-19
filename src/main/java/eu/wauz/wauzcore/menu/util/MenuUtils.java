@@ -65,6 +65,10 @@ public class MenuUtils {
 			+ ChatColor.YELLOW + " Coins");
 		lores.add(ChatColor.RED + Formatters.INT.format(PlayerConfigurator.getCharacterSoulstones(player))
 			+ ChatColor.YELLOW + " Soulstones");
+		lores.add(ChatColor.RED + Formatters.INT.format(PlayerConfigurator.getCharacterMedals(player))
+			+ ChatColor.YELLOW + " Medals");
+		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getTokens(player))
+			+ ChatColor.YELLOW + " Tokens");
 		currencyItemMeta.setLore(lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
 		menu.setItem(index, currencyItemStack);
