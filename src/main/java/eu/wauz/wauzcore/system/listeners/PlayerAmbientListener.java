@@ -40,7 +40,7 @@ public class PlayerAmbientListener implements Listener {
 	 * Prevents that the spawn is loaded if a new world is initialized.
 	 * This prevents lag on entering instances.
 	 * 
-	 * @param event
+	 * @param event The world init event.
 	 */
 	@EventHandler
 	public void onWorldInit(WorldInitEvent event) {
@@ -52,7 +52,7 @@ public class PlayerAmbientListener implements Listener {
 	 * This assures that the correct scoreboard, minimap etc. are shown.
 	 * Also checks for a new music track and instance title.
 	 * 
-	 * @param event
+	 * @param event The change world event.
 	 */
 	@EventHandler
 	public void onWorldEnter(PlayerChangedWorldEvent event) {
@@ -74,7 +74,7 @@ public class PlayerAmbientListener implements Listener {
 	/**
 	 * Prevents players to break blocks in certain regions.
 	 * 
-	 * @param event
+	 * @param event The break event.
 	 * 
 	 * @see WauzRegion#disallowBuild(Block)
 	 */
@@ -90,7 +90,7 @@ public class PlayerAmbientListener implements Listener {
 	/**
 	 * Prevents players to place blocks in certain regions.
 	 * 
-	 * @param event
+	 * @param event The place event.
 	 * 
 	 * @see WauzRegion#disallowBuild(Block)
 	 */
@@ -106,7 +106,7 @@ public class PlayerAmbientListener implements Listener {
 	/**
 	 * Checks if an OP player just created a sign that is bound to an event.
 	 * 
-	 * @param event
+	 * @param event The sign change event.
 	 * 
 	 * @see WauzSigns#create(SignChangeEvent)
 	 */
@@ -120,7 +120,7 @@ public class PlayerAmbientListener implements Listener {
 	/**
 	 * Rewards tokens if a Survival player exceeded the maximum level.
 	 * 
-	 * @param event
+	 * @param event The level change event.
 	 * 
 	 * @see WauzRewards#earnSurvivalToken(Player)
 	 */
@@ -134,7 +134,7 @@ public class PlayerAmbientListener implements Listener {
 	/**
 	 * Prevents MMORPG players from learning normal Minecraft recipes.
 	 * 
-	 * @param event
+	 * @param event The recipe discover event.
 	 */
 	@EventHandler
 	public void onRecipeDiscover(PlayerRecipeDiscoverEvent event) {
@@ -146,7 +146,7 @@ public class PlayerAmbientListener implements Listener {
 	/**
 	 * Prevents MMORPG players from receiving normal Minecraft advancements.
 	 * 
-	 * @param event
+	 * @param event The advancement event.
 	 */
 	public void onAdvancement(PlayerAdvancementCriterionGrantEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
@@ -157,7 +157,7 @@ public class PlayerAmbientListener implements Listener {
 	/**
 	 * Prevents players from loosing saturation in the hub.
 	 * 
-	 * @param event
+	 * @param event The food level change event.
 	 */
 	@EventHandler
 	public void onHunger(FoodLevelChangeEvent event) {

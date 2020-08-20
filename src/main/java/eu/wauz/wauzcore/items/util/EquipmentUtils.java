@@ -187,6 +187,18 @@ public class EquipmentUtils {
 	}
 	
 	/**
+	 * Gets the success chance of a rune item stack, based on lore.
+	 * Includes null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return The rune success chance of the item.
+	 */
+	public static int getRuneSuccessChance(ItemStack itemStack) {
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Success Chance:" + ChatColor.YELLOW, 2) : 0;
+	}
+	
+	/**
 	 * Gets the current durability of an equipment item stack, based on lore.
 	 * Includes null check.
 	 * 

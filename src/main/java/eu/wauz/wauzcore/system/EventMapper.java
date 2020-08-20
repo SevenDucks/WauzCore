@@ -84,7 +84,7 @@ public class EventMapper {
 	 * Called when a player interacts with an entity.
 	 * Cancels the sit command for pets.
 	 * 
-	 * @param event The received PlayerInteractEvent.
+	 * @param event The interact event.
 	 */
 	public static void handleEntityInteraction(PlayerInteractEntityEvent event) {
 		Player player = event.getPlayer();
@@ -110,19 +110,16 @@ public class EventMapper {
 	 * Called when a player interacts with specific items.
 	 * Prevents destruction of farmland and hitting air with a weapon.
 	 * Handles opening the main menu, using scrolls, weapons, maps, skills etc.
-	 * Also cancels interactions with crafting stations.
-	 * Redirects oak sign clicks to the according handler.
-	 * Lets the player sit on stairs.
+	 * Redirects block interactions to the corresponding handler.
 	 * 
-	 * @param event The received PlayerInteractEvent.
+	 * @param event The interact event.
 	 * 
 	 * @see SkillQuickSlots#tryToUse(Player)
 	 * @see Cooldown#playerWeaponUse(Player)
 	 * @see CustomItem#use(PlayerInteractEvent)
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
 	 * @see FoodCalculator#tryToConsume(Player, ItemStack)
-	 * @see WauzSigns#interact(Player, Block)
-	 * @see WauzPlayerSit#sit(Player, Block)
+	 * @see EventMapper#handleBlockInteraction(PlayerInteractEvent)
 	 */
 	public static void handleItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -154,19 +151,36 @@ public class EventMapper {
 		}
 		
 		if(event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			Block block = event.getClickedBlock();
-			Material blockType = block.getType();
-			WauzDebugger.log(event.getPlayer(), "Clicked Block: " + blockType.toString());
-			
-			if(blockedCraftingStations.contains(blockType) || blockType.toString().contains("TRAPDOOR")) {
-				event.setCancelled(true);
-			}
-			else if(blockType.equals(Material.OAK_SIGN) || blockType.equals(Material.OAK_WALL_SIGN)) {
-				WauzSigns.interact(player, block);
-			}
-			else if(blockType.toString().contains("STAIRS") && itemType.equals(Material.AIR))  {
-				WauzPlayerSit.sit(player, block);
-			}
+			handleBlockInteraction(event);
+		}
+	}
+	
+	/**
+	 * Called when a player interacts with specific blocks.
+	 * Cancels interactions with crafting stations.
+	 * Redirects oak sign clicks to the according handler.
+	 * Lets the player sit on stairs.
+	 * 
+	 * @param event The interact event.
+	 * 
+	 * @see WauzSigns#interact(Player, Block)
+	 * @see WauzPlayerSit#sit(Player, Block)
+	 */
+	public static void handleBlockInteraction(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+		Block block = event.getClickedBlock();
+		Material blockType = block.getType();
+		Material itemType = player.getEquipment().getItemInMainHand().getType();
+		WauzDebugger.log(player, "Clicked Block: " + blockType.toString());
+		
+		if(blockedCraftingStations.contains(blockType) || blockType.toString().contains("TRAPDOOR")) {
+			event.setCancelled(true);
+		}
+		else if(blockType.equals(Material.OAK_SIGN) || blockType.equals(Material.OAK_WALL_SIGN)) {
+			WauzSigns.interact(player, block);
+		}
+		else if(blockType.toString().contains("STAIRS") && itemType.equals(Material.AIR))  {
+			WauzPlayerSit.sit(player, block);
 		}
 	}
 	
@@ -176,7 +190,7 @@ public class EventMapper {
 	 * Handles opening the ender chest shop, using maps and pvp protection potions.
 	 * Redirects oak sign clicks to the according handler.
 	 * 
-	 * @param event The received PlayerInteractEvent.
+	 * @param event The interact event.
 	 * 
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
 	 * @see DamageCalculator#increasePvPProtection(PlayerInteractEvent)
@@ -224,7 +238,7 @@ public class EventMapper {
 	 * If the inventory has a fitting inventory holder, it tries to select a menu point.
 	 * The trashcan and other special MMORPG items are handled here.
 	 * 
-	 * @param event The received InventoryClickEvent.
+	 * @param event The inventory click event.
 	 * 
 	 * @see WauzInventoryHolder#selectMenuPoint(InventoryClickEvent)
 	 * @see MenuUtils#onSpecialItemInventoryClick(InventoryClickEvent)
@@ -258,7 +272,7 @@ public class EventMapper {
 	 * Called when a player closes an inventory menu.
 	 * If the inventory has a fitting inventory holder, it tries properly destroy the menu contents.
 	 * 
-	 * @param event The received InventoryCloseEvent.
+	 * @param event The inventory close event.
 	 * 
 	 * @see WauzInventoryHolder#destroyInventory(InventoryCloseEvent)
 	 */

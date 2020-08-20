@@ -99,7 +99,7 @@ public class TravellingMenu implements WauzInventory {
 		portHomeItemStack.setItemMeta(portHomeItemMeta);
 		menu.setItem(3, portHomeItemStack);
 		
-		boolean inInstance = player.getWorld().getName().contains("Instance");
+		boolean inInstance = WauzPlayerDataPool.isCharacterSelected(player) && StringUtils.equals(player.getWorld().getName(), PlayerConfigurator.getCharacterWorldString(player));
 		ItemStack portInstanceExitItemStack = new ItemStack(inInstance ? Material.OAK_DOOR : Material.IRON_DOOR);
 		ItemMeta portInstanceExitItemMeta = portInstanceExitItemStack.getItemMeta();
 		portInstanceExitItemMeta.setDisplayName(ChatColor.YELLOW + "Leave Instance" + (inInstance ? "" : ChatColor.RED + " (Disabled)"));

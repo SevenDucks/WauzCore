@@ -136,6 +136,7 @@ public class WauzEquipmentHelper {
 	public static ItemStack getRune(WauzRune rune, boolean debug) {
 		WauzRuneBuilder builder = new WauzRuneBuilder(rune);
 		builder.addMightStat(debug ? 50 : 10);
+		builder.addSuccessStat(100);
 		return builder.generate(Tier.EQUIP_T1, Rarity.DEAFENING);
 	}
 

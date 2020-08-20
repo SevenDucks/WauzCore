@@ -20,6 +20,7 @@ import org.bukkit.util.Vector;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * A collection of methods for using the hook weapon.
@@ -65,6 +66,11 @@ public class CustomWeaponHook implements CustomWeapon {
 		}
 
 		if(target == null) {
+			event.setCancelled(true);
+			return;
+		}
+		if(WauzMode.isInstance(player.getWorld().getName())) {
+			player.sendMessage(ChatColor.RED + "This skill does not work in instances!");
 			event.setCancelled(true);
 			return;
 		}

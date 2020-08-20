@@ -30,6 +30,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
+import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.WauzFileUtils;
@@ -73,7 +74,7 @@ public class InstanceManager {
 			return false;
 		}
 		
-		PlayerConfigurator.setCharacterLocation(player, player.getLocation());
+		CharacterManager.saveCharacter(player);
 		PetOverviewMenu.unsummon(player);
 		
 		String instanceUuid = "WzInstance_MMORPG_" + UUID.randomUUID();
@@ -111,7 +112,7 @@ public class InstanceManager {
 			return;
 		}
 		
-		PlayerConfigurator.setCharacterLocation(player, player.getLocation());
+		CharacterManager.saveCharacter(player);
 		PetOverviewMenu.unsummon(player);
 		
 		String instanceUuid = "WzInstance_MMORPG_" + guild.getGuildUuidString();
@@ -151,6 +152,7 @@ public class InstanceManager {
 	 * @see InstanceManager#createSpawnCircle(World, Location)
 	 */
 	public static void enterSurvival(Player player, String instanceName) {
+		CharacterManager.saveCharacter(player);
 		String instanceUuid = "WzInstance_Survival_" + UUID.randomUUID();
 		WorldCreator worldCreator = new WorldCreator(instanceUuid);
 		String worldType;

@@ -28,7 +28,7 @@ public class InventoryListener implements Listener {
 	/**
 	 * Lets the mapper decide how to handle the interaction with an inventory menu.
 	 * 
-	 * @param event
+	 * @param event The click event.
 	 * 
 	 * @see EventMapper#handleMenuInteraction(InventoryClickEvent)
 	 */
@@ -40,7 +40,7 @@ public class InventoryListener implements Listener {
 	/**
 	 * Lets the mapper decide how to handle the closing of an inventory menu.
 	 * 
-	 * @param event
+	 * @param event The close event.
 	 * 
 	 * @see EventMapper#handleMenuClose(InventoryCloseEvent)
 	 */
@@ -54,7 +54,7 @@ public class InventoryListener implements Listener {
 	 * in case they dropped an item that is relevant to a quest.
 	 * Also prevents dropping of static items (e.g. mana points).
 	 * 
-	 * @param event
+	 * @param event The drop event.
 	 * 
 	 * @see WauzPlayerScoreboard#scheduleScoreboardRefresh(Player)
 	 * @see MenuUtils#checkForStaticItemDrop(PlayerDropItemEvent)
@@ -71,7 +71,7 @@ public class InventoryListener implements Listener {
 	 * Handles swapping action bars, instead of items in MMORPG mode.
 	 * A combat mapper is used for mapping casting bar events to WauzCore functionalities.
 	 * 
-	 * @param event
+	 * @param event The swap event.
 	 * 
 	 * @see CombatMapper#handleSwapEvent(PlayerSwapHandItemsEvent)
 	 */
@@ -85,7 +85,7 @@ public class InventoryListener implements Listener {
 	/**
 	 * Adds a name label to every item that was dropped on the ground.
 	 * 
-	 * @param event
+	 * @param event The spawn event.
 	 * 
 	 * @see ItemUtils#hasDisplayName(ItemStack)
 	 */

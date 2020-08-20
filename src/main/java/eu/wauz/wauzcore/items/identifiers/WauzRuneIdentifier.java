@@ -11,6 +11,7 @@ import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * Typed identifier, used for identifying rune items.
@@ -50,6 +51,7 @@ public class WauzRuneIdentifier {
 		
 		WauzRuneBuilder builder = new WauzRuneBuilder(rune);
 		builder.addMightStat(mightStat);
+		builder.addSuccessStat(Chance.minMax(25 * rarity.getStarCount(), 10 * rarity.getStarCount() + 60));
 		ItemStack generatedItemStack = builder.generate(tier, rarity);
 		runeItemStack.setType(generatedItemStack.getType());
 		runeItemStack.setItemMeta(generatedItemStack.getItemMeta());

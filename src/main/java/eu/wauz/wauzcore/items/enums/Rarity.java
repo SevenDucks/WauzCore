@@ -120,6 +120,11 @@ public enum Rarity {
 	private final String rarityName;
 	
 	/**
+	 * The star count of the rarity.
+	 */
+	private final int rarityStarCount;
+	
+	/**
 	 * The stars of the rarity.
 	 */
 	private final String rarityStars;
@@ -155,6 +160,7 @@ public enum Rarity {
 				rarityStars += ChatColor.GRAY;
 			}
 		}
+		this.rarityStarCount = stars;
 		this.rarityStars = rarityStars;
 	}
 
@@ -163,6 +169,13 @@ public enum Rarity {
 	 */
 	public String getName() {
 		return rarityName;
+	}
+	
+	/**
+	 * @return The star count of the rarity.
+	 */
+	public int getStarCount() {
+		return rarityStarCount;
 	}
 
 	/**

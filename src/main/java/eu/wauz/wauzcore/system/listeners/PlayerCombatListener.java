@@ -25,7 +25,7 @@ public class PlayerCombatListener implements Listener {
 	 * Handles general damage calculation.
 	 * A combat mapper is used for mapping combat events to WauzCore functionalities.
 	 * 
-	 * @param event
+	 * @param event The damage event.
 	 * 
 	 * @see CombatMapper#handleDamageEvent(EntityDamageEvent)
 	 */
@@ -38,7 +38,7 @@ public class PlayerCombatListener implements Listener {
 	 * Handles healing calculation in MMORPG mode.
 	 * Also updates the boss bar if one exists.
 	 * 
-	 * @param event
+	 * @param event The heal event.
 	 * 
 	 * @see DamageCalculator#heal(EntityRegainHealthEvent)
 	 * @see WauzPlayerBossBar#updateBossBar(double)
@@ -59,7 +59,7 @@ public class PlayerCombatListener implements Listener {
 	 * This handler focuses on effects like life leech caused by the player,
 	 * not on the actual death or loot drops of the entity.
 	 * 
-	 * @param event
+	 * @param event The death event.
 	 * 
 	 * @see DamageCalculator#kill(EntityDeathEvent)
 	 * @see MythicMobsListener#onMythicDeath(MythicMobDeathEvent) "Real" death event handler
@@ -75,7 +75,7 @@ public class PlayerCombatListener implements Listener {
 	 * Prevents item damage in MMORPG mode.
 	 * The equipment there has its own durability system.
 	 * 
-	 * @param event
+	 * @param event The item damage event.
 	 * 
 	 * @see DurabilityCalculator
 	 */

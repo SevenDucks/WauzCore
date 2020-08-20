@@ -75,7 +75,7 @@ public class PlayerInteractionListener implements Listener {
 	/**
 	 * Responds to the players ping with a custom MotD.
 	 * 
-	 * @param event
+	 * @param event The ping event.
 	 */
 	@EventHandler
 	public void onPing(ServerListPingEvent event) {
@@ -88,7 +88,7 @@ public class PlayerInteractionListener implements Listener {
 	 * Denies access if the player is banned, not whitelisted
 	 * or simply when the server is already full.
 	 * 
-	 * @param event
+	 * @param event The login event.
 	 * 
 	 * @see WauzPlayerRegistrator#login(Player)
 	 */
@@ -118,7 +118,7 @@ public class PlayerInteractionListener implements Listener {
 	/**
 	 * Logs the player out of the game.
 	 * 
-	 * @param event
+	 * @param event The logout event.
 	 * 
 	 * @see WauzPlayerRegistrator#logout(Player)
 	 */
@@ -131,7 +131,7 @@ public class PlayerInteractionListener implements Listener {
 	/**
 	 * Lets the player automatically respawn on death.
 	 * 
-	 * @param event
+	 * @param event The death event.
 	 * 
 	 * @see WauzPlayerRegistrator#respawn(Player)
 	 */
@@ -144,7 +144,7 @@ public class PlayerInteractionListener implements Listener {
 	/**
 	 * Formats the chat messages of the player.
 	 * 
-	 * @param event
+	 * @param event The chat event.
 	 * 
 	 * @see ChatFormatter#global(AsyncPlayerChatEvent)
 	 */
@@ -156,7 +156,7 @@ public class PlayerInteractionListener implements Listener {
 	/**
 	 * Lets the mapper decide how to handle the interaction with an entity.
 	 * 
-	 * @param event
+	 * @param event The interact event.
 	 * 
 	 * @see EventMapper#handleEntityInteraction(PlayerInteractEntityEvent)
 	 */
@@ -170,7 +170,7 @@ public class PlayerInteractionListener implements Listener {
 	/**
 	 * Opens the citzen interaction menu for the player who clicked the npc.
 	 * 
-	 * @param event
+	 * @param event The interact event.
 	 * 
 	 * @see CitizenInteractionMenu#open(Player, WauzCitizen)
 	 */
@@ -185,7 +185,7 @@ public class PlayerInteractionListener implements Listener {
 	/**
 	 * Lets the mapper decide how to handle the interaction with an object.
 	 * 
-	 * @param event
+	 * @param event The interact event.
 	 * 
 	 * @see EventMapper
 	 */
@@ -203,7 +203,7 @@ public class PlayerInteractionListener implements Listener {
 	 * Updates the scoreboard of an MMORPG player,
 	 * in case they picked up an item that is relevant to a quest.
 	 * 
-	 * @param event
+	 * @param event The pickup event.
 	 * 
 	 * @see WauzPlayerScoreboard#scheduleScoreboardRefresh(Player)
 	 */
@@ -218,7 +218,7 @@ public class PlayerInteractionListener implements Listener {
 	 * Reads food stats from the consumed item,
 	 * to apply all relevant effects to the player.
 	 * 
-	 * @param event
+	 * @param event The consume event.
 	 * 
 	 * @see FoodCalculator#applyItemEffects(PlayerItemConsumeEvent)
 	 */
@@ -233,7 +233,7 @@ public class PlayerInteractionListener implements Listener {
 	 * Changes the armor set of a player,
 	 * but only if they meet the equip requirements.
 	 * 
-	 * @param event
+	 * @param event The equip event.
 	 * 
 	 * @see WauzEquipment#equipArmor(ArmorEquipEvent)
 	 * @see ArmorEquipEventListener Custom Event Listener
@@ -249,7 +249,7 @@ public class PlayerInteractionListener implements Listener {
 	 * Prevents MMORPG players to modify armor stands,
 	 * because they are used as displays for damage numbers and more.
 	 * 
-	 * @param event
+	 * @param event The equip event.
 	 */
 	@EventHandler
 	public void onArmorStandEquip(PlayerArmorStandManipulateEvent event) {
@@ -262,7 +262,7 @@ public class PlayerInteractionListener implements Listener {
 	 * Starts a double jump if a player tries to fly in the hub.
 	 * This is used for faster travelling and exploration.
 	 * 
-	 * @param event
+	 * @param event The flight toggle event.
 	 */
 	@EventHandler
 	public void onDoubleJump(PlayerToggleFlightEvent event) {
@@ -281,7 +281,7 @@ public class PlayerInteractionListener implements Listener {
 	/**
 	 * Prevents players to ride on mounts, that belong to someone else.
 	 * 
-	 * @param event
+	 * @param event The mount event.
 	 */
 	@EventHandler
 	public void onMount(EntityMountEvent event) {
@@ -295,7 +295,7 @@ public class PlayerInteractionListener implements Listener {
 	/**
 	 * Makes a player stand up, if they were sitting.
 	 *
-	 * @param event
+	 * @param event The dismount event.
 	 */
 	@EventHandler
 	public void onDismount(EntityDismountEvent event) {

@@ -18,7 +18,7 @@ public class MythicMobsListener implements Listener {
 	/**
 	 * Lets the mapper decide how to handle the spawn of a (mythic) mob.
 	 * 
-	 * @param event
+	 * @param event The spawn event.
 	 * 
 	 * @see MobEventMapper#spawn(MythicMobSpawnEvent)
 	 */
@@ -30,7 +30,7 @@ public class MythicMobsListener implements Listener {
 	 /**
 	 * Lets the mapper decide how to handle the despawn of a (mythic) mob.
 	 * 
-	 * @param event
+	 * @param event The despawn event.
 	 * 
 	 * @see MobEventMapper#despawn(MythicMobDespawnEvent)
 	 */
@@ -42,7 +42,7 @@ public class MythicMobsListener implements Listener {
 	/**
 	 * Lets the mapper decide how to handle the death of a (mythic) mob.
 	 * 
-	 * @param event
+	 * @param event The death event.
 	 * 
 	 * @see MobEventMapper#death(MythicMobDeathEvent)
 	 */

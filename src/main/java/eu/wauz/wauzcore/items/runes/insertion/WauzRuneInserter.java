@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -12,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * A helper class for registering runes and inserting them into items.
@@ -94,12 +96,15 @@ public class WauzRuneInserter {
 	/**
 	 * Tries to insert a rune into the given equipment item stack.
 	 * Returns false if the item has no rune slots or the rune is invalid.
+	 * The item can get destroyed, if the rune's success chance is below 100%.
 	 * 
 	 * @param player The player that is inserting the rune.
 	 * @param equipmentItemStack The equipment item stack that the rune is inserted into.
 	 * @param runeItemStack The rune item stack that is getting inserted.
 	 * 
-	 * @return If the action was successful.
+	 * @return If the action was successful (also true when the item got destroyed).
+	 * 
+	 * @see EquipmentUtils#getRuneSuccessChance(ItemStack)
 	 */
 	public boolean insertRune(Player player, ItemStack equipmentItemStack, ItemStack runeItemStack) {
 		this.player = player;
@@ -108,6 +113,15 @@ public class WauzRuneInserter {
 		
 		if(!EquipmentUtils.hasRuneSocket(equipmentItemStack) || !TryToDetermineEquipmentType() || !TryToDetermineRuneType()) {
 			return false;
+		}
+		
+		int successChance = EquipmentUtils.getRuneSuccessChance(runeItemStack);
+		if(!Chance.percent(successChance != 0 ? successChance : 50)) {
+			String displayName = equipmentItemStack.getItemMeta().getDisplayName();
+			equipmentItemStack.setAmount(0);
+			player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_BREAK, 0);
+			player.sendMessage(ChatColor.RED + "Your " + displayName + ChatColor.RED + " just broke due to an unstable rune!");
+			return true;
 		}
 		
 		boolean success = getRune(runeType).insertInto(equipmentItemStack, equipmentType, runeMightDecimal);

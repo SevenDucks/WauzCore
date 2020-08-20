@@ -28,7 +28,7 @@ public class BlockProtectionListener implements Listener {
 	/**
 	 * Prevents leaf decay in MMORPG worlds.
 	 * 
-	 * @param event
+	 * @param event The decay event.
 	 * 
 	 * @see WauzMode#isMMORPG(org.bukkit.World)
 	 */
@@ -41,7 +41,7 @@ public class BlockProtectionListener implements Listener {
 	/**
 	 * Prevents changes to protected regions.
 	 * 
-	 * @param event
+	 * @param event The explode event.
 	 * 
 	 * @see WauzRegion#disallowBlockChange(Block)
 	 */
@@ -57,7 +57,7 @@ public class BlockProtectionListener implements Listener {
 	/**
 	 * Prevents changes to protected regions.
 	 * 
-	 * @param event
+	 * @param event The explode event.
 	 * 
 	 * @see WauzRegion#disallowBlockChange(Block)
 	 */
@@ -71,7 +71,7 @@ public class BlockProtectionListener implements Listener {
 	/**
 	 * Prevents changes to protected regions.
 	 * 
-	 * @param event
+	 * @param event The fade event.
 	 * 
 	 * @see WauzRegion#disallowBlockChange(Block)
 	 */
@@ -85,7 +85,7 @@ public class BlockProtectionListener implements Listener {
 	/**
 	 * Prevents changes to protected regions.
 	 * 
-	 * @param event
+	 * @param event The fertilize event.
 	 * 
 	 * @see WauzRegion#disallowBlockChange(Block)
 	 */
@@ -99,7 +99,7 @@ public class BlockProtectionListener implements Listener {
 	/**
 	 * Prevents changes to protected regions.
 	 * 
-	 * @param event
+	 * @param event The grow event.
 	 * 
 	 * @see WauzRegion#disallowBlockChange(Block)
 	 */
@@ -113,7 +113,7 @@ public class BlockProtectionListener implements Listener {
 	/**
 	 * Prevents changes to protected regions.
 	 * 
-	 * @param event
+	 * @param event The ignite event.
 	 * 
 	 * @see WauzRegion#disallowBlockChange(Block)
 	 */
@@ -127,7 +127,7 @@ public class BlockProtectionListener implements Listener {
 	/**
 	 * Prevents changes to protected regions.
 	 * 
-	 * @param event
+	 * @param event The piston extend event.
 	 * 
 	 * @see WauzRegion#disallowBlockChange(Block)
 	 */
@@ -141,7 +141,7 @@ public class BlockProtectionListener implements Listener {
 	/**
 	 * Prevents changes to protected regions.
 	 * 
-	 * @param event
+	 * @param event The piston retract event.
 	 * 
 	 * @see WauzRegion#disallowBlockChange(Block)
 	 */

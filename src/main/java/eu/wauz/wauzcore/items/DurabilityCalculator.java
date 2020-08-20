@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.items;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -57,6 +58,7 @@ public class DurabilityCalculator {
 				player.getEquipment().setLeggings(null);
 				player.getEquipment().setBoots(null);
 			}
+			player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_BREAK, 0);
 			player.sendMessage(ChatColor.RED + "Your " + displayName + ChatColor.RED + " just broke!");
 			return;
 		}

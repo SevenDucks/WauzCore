@@ -121,7 +121,7 @@ public class CustomWeaponStaff implements CustomWeapon {
 			targetLocation = blocksInSight.get(blocksInSight.size() - 1).getLocation();
 		}
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1, 1.25f);
-		SkillParticle particle = new SkillParticle(Particle.DRIPPING_HONEY);
+		SkillParticle particle = new SkillParticle(Particle.NAUTILUS);
 		ParticleSpawner.spawnParticleLine(originLocation, targetLocation, particle, 1, 0.25);
 		
 		ItemStack staffItemStack = player.getEquipment().getItemInMainHand();

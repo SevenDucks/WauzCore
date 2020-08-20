@@ -7,6 +7,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -32,6 +33,7 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.nms.NmsEntityChickoon;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Cooldown;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * A collection of methods for using the glider weapon.
@@ -167,9 +169,14 @@ public class CustomWeaponGlider implements CustomWeapon {
 		if(!Cooldown.playerProjectileShoot(player)) {
 			return;
 		}
+		if(WauzMode.isInstance(player.getWorld().getName())) {
+			player.sendMessage(ChatColor.RED + "This skill does not work in instances!");
+			return;
+		}
 		ItemStack gliderItemStack = player.getEquipment().getItemInMainHand();
 		if(EquipmentUtils.getCurrentDurability(gliderItemStack) <= 12) {
 			player.sendMessage(ChatColor.RED + "Glider durability too low!");
+			return;
 		}
 		
 		playChickenSounds(origin);
@@ -206,6 +213,10 @@ public class CustomWeaponGlider implements CustomWeapon {
 	 */
 	public static void glide(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
+		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+			return;
+		}
+		
 		boolean hasChicken = false;
 		for(Entity passanger : player.getPassengers()) {
 			if(passanger instanceof Chicken) {

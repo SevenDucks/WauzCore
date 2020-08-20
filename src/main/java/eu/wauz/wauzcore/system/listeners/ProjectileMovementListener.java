@@ -27,7 +27,7 @@ public class ProjectileMovementListener implements Listener {
 	/**
 	 * Handles the mechanics of hooks in MMORPG mode.
 	 * 
-	 * @param event
+	 * @param event The launch event.
 	 * 
 	 * @see CustomWeaponHook#use(ProjectileLaunchEvent)
 	 */
@@ -41,7 +41,7 @@ public class ProjectileMovementListener implements Listener {
 	/**
 	 * Handles the instant despawn of arrows in MMORPG mode.
 	 * 
-	 * @param event
+	 * @param event The hit event.
 	 * 
 	 * @see CustomWeaponBow
 	 */
@@ -56,7 +56,7 @@ public class ProjectileMovementListener implements Listener {
 	 * Handles glider mechanics in MMORPG mode, aswell as flying-permissions.
 	 * Flying in every region, besides the hub, will be allowed in flying debug mode.
 	 * 
-	 * @param event
+	 * @param event The move event.
 	 * 
 	 * @see CustomWeaponGlider#glide(PlayerMoveEvent)
 	 * @see WauzDebugger#toggleFlyingDebugMode(Player)
