@@ -111,6 +111,36 @@ public class GenericIconHeads {
 		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDlhYmVmNWQ1ZjhlOTg0ZTYzOTlkYjc2NGY1ZGJmOTQ1NzgyZmFiOTM5MmE0ZTQ2M2I1OWM4NGY0NDJhMmQwNCJ9fX0=");
 	}
 	
+// Rank Icons
+	
+	/**
+	 * @return An item stack representing a lime C.
+	 */
+	public static ItemStack getRankCIcon() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWZlNmE0ZjdmYzMxOTU0YWM3ZDE3ZjcwMmYyMjgzNWUzMjVmOGJiNTMyNmNmZjYyNzNjN2I5Y2MxOTIxY2ExIn19fQ==");
+	}
+	
+	/**
+	 * @return An item stack representing a yellow B.
+	 */
+	public static ItemStack getRankBIcon() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTI2OTRlZGU5NmIyMTg1MTE2MDIxNTNmNjY1Mzk4YmU3Yzk2NjljYWY2NzJjNGJjOGYzNWJjZDUxN2UyOGMzIn19fQ==");
+	}
+	
+	/**
+	 * @return An item stack representing an orange A.
+	 */
+	public static ItemStack getRankAIcon() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzhmZTcwYjc3MzFhYzJmNWIzZDAyNmViMWFiNmE5MjNhOGM1OGI0YmY2ZDNhY2JlMTQ1YjEwYzM2ZTZjZjg5OCJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a red S.
+	 */
+	public static ItemStack getRankSIcon() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmRkMmNjZTA0Njc0YzJjM2Q1YTNhOTRmZjIxOTc4N2EyYjQ1OWRlNzkwYTBjMDFmZjI5Yjk2NzI5MDcyY2QifX19");
+	}
+	
 // Achievement Icons
 
 	/**

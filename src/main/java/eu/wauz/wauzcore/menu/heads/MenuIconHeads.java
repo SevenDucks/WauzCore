@@ -35,13 +35,6 @@ public class MenuIconHeads {
 // Ability Menu
 	
 	/**
-	 * @return An item stack representing a portal.
-	 */
-	public static ItemStack getPortsItem() {
-		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGUzZjlkYjdiNDU3MzE3MWEyYjU4MzZlNjliYzZhNjMxNDUxNGZmZjViYzc5NzQzMzE5ZmQxOTFmNTM0NDQifX19");
-	}
-	
-	/**
 	 * @return An item stack representing a workbench.
 	 */
 	public static ItemStack getCraftItem() {
@@ -54,15 +47,15 @@ public class MenuIconHeads {
 	public static ItemStack getSkillItem() {
 		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTQ5ZDIxMmJmYzBhMzRhNzA3NjNlMmE2OGRlNGZhOTI3MGNjZjJkODA3MWIxY2M4MzgxM2U0MTA2YjlkMWRmZSJ9fX0=");
 	}
-
-// Collection Menu
 	
 	/**
-	 * @return An item stack representing a money bag.
+	 * @return An item stack representing a portal.
 	 */
-	public static ItemStack getMoneyItem() {
-		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTliOTA2YjIxNTVmMTkzNzg3MDQyMzM4ZDA1Zjg0MDM5MWMwNWE2ZDNlODE2MjM5MDFiMjk2YmVlM2ZmZGQyIn19fQ==");
+	public static ItemStack getPortsItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGUzZjlkYjdiNDU3MzE3MWEyYjU4MzZlNjliYzZhNjMxNDUxNGZmZjViYzc5NzQzMzE5ZmQxOTFmNTM0NDQifX19");
 	}
+
+// Collection Menu
 	
 	/**
 	 * @return An item stack representing a questlog book.
@@ -85,13 +78,11 @@ public class MenuIconHeads {
 		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWVhNzU5Zjk3OWI5YjhlYTgzMWNhN2UyZDY2ZGYxNDgyOTNmMWE1MTQ3OTgzYjUyYzQ4ZWZlMmMzMTVlIn19fQ==");
 	}
 	
-// Social Menu
-	
 	/**
-	 * @return An item stack representing a letter.
+	 * @return An item stack representing a money bag.
 	 */
-	public static ItemStack getMailItem() {
-		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmJmM2ZjZGNjZmZkOTYzZTQzMzQ4MTgxMDhlMWU5YWUzYTgwNTY2ZDBkM2QyZDRhYjMwNTFhMmNkODExMzQ4YyJ9fX0=");
+	public static ItemStack getMoneyItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTliOTA2YjIxNTVmMTkzNzg3MDQyMzM4ZDA1Zjg0MDM5MWMwNWE2ZDNlODE2MjM5MDFiMjk2YmVlM2ZmZGQyIn19fQ==");
 	}
 	
 	/**
@@ -102,6 +93,22 @@ public class MenuIconHeads {
 	}
 	
 	/**
+	 * @return An item stack representing a red dragon.
+	 */
+	public static ItemStack getBeastsItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTJmOWU5N2Y0YmU1MzM2MzRiZDFiM2UzNjc5ZWRlYmZmZmI5ODQwMTNhMWQ1OTAyZmEzYzM1ZDM0MzViYzEwIn19fQ==");
+	}
+	
+// Social Menu
+	
+	/**
+	 * @return An item stack representing a letter.
+	 */
+	public static ItemStack getMailItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmJmM2ZjZGNjZmZkOTYzZTQzMzQ4MTgxMDhlMWU5YWUzYTgwNTY2ZDBkM2QyZDRhYjMwNTFhMmNkODExMzQ4YyJ9fX0=");
+	}
+	
+	/**
 	 * @return An item stack representing a blue group icon.
 	 */
 	public static ItemStack getGroupItem() {
@@ -109,17 +116,17 @@ public class MenuIconHeads {
 	}
 	
 	/**
-	 * @return An item stack representing a green guild icon.
-	 */
-	public static ItemStack getGuildItem() {
-		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWYwYThhMGJlNWQzZjNmOTRiZDMyYTNlZDkyNjJlNjYyYTVkYTkxMTkxOWZlZTkxZWJjY2YzYjc5YmY2NTgifX19");
-	}
-	
-	/**
 	 * @return An item stack representing a yellow friends icon.
 	 */
 	public static ItemStack getFriendsItem() {
 		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTIzN2QwOTkyYzYzZjNhNDlmZDIzNmE1ZDY4NjgwYmRhNWQxN2MzOGJkZDhjYWQ0MTdjYzkxZDUxMDY4ZDIifX19");
+	}
+	
+	/**
+	 * @return An item stack representing a green guild icon.
+	 */
+	public static ItemStack getGuildItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWYwYThhMGJlNWQzZjNmOTRiZDMyYTNlZDkyNjJlNjYyYTVkYTkxMTkxOWZlZTkxZWJjY2YzYjc5YmY2NTgifX19");
 	}
 
 }

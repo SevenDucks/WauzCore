@@ -41,6 +41,7 @@ public enum ArmorCategory {
 	 * Creates a new armor category with given name.
 	 * 
 	 * @param name The name of the armor category.
+	 * @param weight The relative weight of the armor category.
 	 */
 	ArmorCategory(String name, int weight) {
 		this.name = name;
