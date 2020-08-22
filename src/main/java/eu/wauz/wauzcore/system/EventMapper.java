@@ -24,6 +24,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.CustomItem;
+import eu.wauz.wauzcore.items.WauzResources;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.ShopMenu;
@@ -159,11 +160,13 @@ public class EventMapper {
 	 * Called when a player interacts with specific blocks.
 	 * Cancels interactions with crafting stations.
 	 * Redirects oak sign clicks to the according handler.
+	 * Lets the player mine resource blocks.
 	 * Lets the player sit on stairs.
 	 * 
 	 * @param event The interact event.
 	 * 
 	 * @see WauzSigns#interact(Player, Block)
+	 * @see WauzResources#tryToMine(Player, Block)
 	 * @see WauzPlayerSit#sit(Player, Block)
 	 */
 	public static void handleBlockInteraction(PlayerInteractEvent event) {
@@ -179,7 +182,10 @@ public class EventMapper {
 		else if(blockType.equals(Material.OAK_SIGN) || blockType.equals(Material.OAK_WALL_SIGN)) {
 			WauzSigns.interact(player, block);
 		}
-		else if(blockType.toString().contains("STAIRS") && itemType.equals(Material.AIR))  {
+		else if(blockType.toString().endsWith("ORE") && itemType.toString().endsWith("PICKAXE")) {
+			WauzResources.tryToMine(player, block);
+		}
+		else if(blockType.toString().endsWith("STAIRS") && itemType.equals(Material.AIR))  {
 			WauzPlayerSit.sit(player, block);
 		}
 	}
