@@ -5,7 +5,7 @@ package eu.wauz.wauzcore.mobs.bestiary;
  * 
  * @author Wauzmons
  */
-public enum BestiaryCategory {
+public enum WauzBestiaryCategory {
 	
 	/**
 	 * The critter category for entries like farm animals or birds.
@@ -52,7 +52,7 @@ public enum BestiaryCategory {
 	 * 
 	 * @param name The name of the bestiary category.
 	 */
-	BestiaryCategory(String name) {
+	WauzBestiaryCategory(String name) {
 		this.name = name;
 	}
 	
