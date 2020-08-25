@@ -1,0 +1,189 @@
+package eu.wauz.wauzcore.menu.collection;
+
+import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+
+import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.util.MenuUtils;
+import eu.wauz.wauzcore.menu.util.WauzInventory;
+import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryCategory;
+import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryEntry;
+import eu.wauz.wauzcore.mobs.bestiary.WauzBestiarySpecies;
+
+/**
+ * An inventory that can be used as menu or for other custom interaction mechanics.
+ * Sub menu of the collection menu, that displays info about defeated mobs.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzBestiaryEntry
+ */
+public class BestiaryMenu implements WauzInventory {
+
+	/**
+	 * @return The id of the inventory.
+	 */
+	@Override
+	public String getInventoryId() {
+		return "bestiary";
+	}
+
+	/**
+	 * Opens a new inventory of this type for the given player.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	@Override
+	public void openInstance(Player player) {
+		BestiaryMenu.open(player);
+	}
+	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows a selection of all categories in the bestiary.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see WauzBestiaryCategory
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
+	public static void open(Player player) {
+		WauzInventoryHolder holder = new WauzInventoryHolder(new BestiaryMenu());
+		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - Categories");
+		
+		int slot = 1;
+		for(WauzBestiaryCategory category : WauzBestiaryCategory.values()) {
+			ItemStack categoryItemStack = new ItemStack(Material.BOOKSHELF);
+			MenuUtils.setItemDisplayName(categoryItemStack, ChatColor.YELLOW + "Category: " + category.toString());
+			menu.setItem(slot, categoryItemStack);
+			slot++;
+		}
+		
+		MenuUtils.setBorders(menu);
+		player.openInventory(menu);
+	}
+	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows a selection of all species in the bestiary category.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see WauzBestiarySpecies
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
+	public void showCategorySpecies(Player player) {
+		WauzInventoryHolder holder = new WauzInventoryHolder(this);
+		List<WauzBestiarySpecies> categorySpecies = WauzBestiarySpecies.getSpecies(category);
+		int size = MenuUtils.roundInventorySize(categorySpecies.size() + 1);
+		Inventory menu = Bukkit.createInventory(holder, size, ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - " + category.toString());
+		page = "species";
+		
+		ItemStack categoriesItemStack = new ItemStack(Material.BOOKSHELF);
+		MenuUtils.setItemDisplayName(categoriesItemStack, ChatColor.GOLD + "Back to Category Selection");
+		menu.setItem(0, categoriesItemStack);
+		
+		int slot = 1;
+		for(WauzBestiarySpecies species : categorySpecies) {
+			ItemStack speciesItemStack = new ItemStack(Material.BOOK);
+			MenuUtils.setItemDisplayName(speciesItemStack, ChatColor.YELLOW + "Species: " + species.getSpeciesName());
+			menu.setItem(slot, speciesItemStack);
+			slot++;
+		}
+		
+		MenuUtils.setBorders(menu);
+		player.openInventory(menu);
+	}
+	
+	/**
+	 * Opens the menu for the given player.
+	 * Shows a selection of all entries in the bestiary species.
+	 * 
+	 * @param player The player that should view the inventory.
+	 * 
+	 * @see WauzBestiaryEntry
+	 * @see MenuUtils#setBorders(Inventory)
+	 */
+	public void showSpeciesEntries(Player player) {
+		WauzInventoryHolder holder = new WauzInventoryHolder(this);
+		List<WauzBestiaryEntry> speciesEntries = species.getEntries();
+		int size = MenuUtils.roundInventorySize(speciesEntries.size() + 2);
+		Inventory menu = Bukkit.createInventory(holder, size, ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - " + species.getSpeciesName());
+		page = "entries";
+		
+		ItemStack categoriesItemStack = new ItemStack(Material.BOOKSHELF);
+		MenuUtils.setItemDisplayName(categoriesItemStack, ChatColor.GOLD + "Back to Category Selection");
+		menu.setItem(0, categoriesItemStack);
+		
+		ItemStack speciesItemStack = new ItemStack(Material.BOOK);
+		MenuUtils.setItemDisplayName(speciesItemStack, ChatColor.GOLD + "Back to Species Selection");
+		menu.setItem(1, speciesItemStack);
+		
+		int slot = 2;
+		for(WauzBestiaryEntry entry : species.getEntries()) {
+			
+		}
+		
+		MenuUtils.setBorders(menu);
+		player.openInventory(menu);
+	}
+	
+	/**
+	 * The name of the current bestiary page view.
+	 */
+	private String page = "categories";
+	
+	/**
+	 * The currently selected category.
+	 */
+	private WauzBestiaryCategory category;
+	
+	/**
+	 * The currently selected species.
+	 */
+	private WauzBestiarySpecies species;
+	
+	/**
+	 * Checks if an event in this inventory was triggered by a player click.
+	 * 
+	 * @param event The inventory click event.
+	 */
+	@Override
+	public void selectMenuPoint(InventoryClickEvent event) {
+		event.setCancelled(true);
+		ItemStack clicked = event.getCurrentItem();
+		final Player player = (Player) event.getWhoClicked();
+		int slot = event.getRawSlot();
+		
+		if(page.equals("categories") && slot > 0 && slot < 8) {
+			String categoryName = ItemUtils.getStringFromLore(clicked, "Category: ", 1);
+			category = WauzBestiaryCategory.valueOf(categoryName);
+			showCategorySpecies(player);
+		}
+		else if(page.equals("species") && slot < WauzBestiarySpecies.getSpecies(category).size() + 1) {
+			if(slot == 0) {
+				open(player);
+			}
+			List<WauzBestiarySpecies> categorySpecies = WauzBestiarySpecies.getSpecies(category);
+			species = categorySpecies.get(slot - 2);
+			showSpeciesEntries(player);
+		}
+		else if(page.equals("entries")) {
+			if(slot == 0) {
+				open(player);
+			}
+			else if(slot == 1) {
+				showCategorySpecies(player);
+			}
+		}
+	}
+
+}

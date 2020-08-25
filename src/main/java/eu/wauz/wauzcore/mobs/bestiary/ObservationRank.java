@@ -1,5 +1,9 @@
 package eu.wauz.wauzcore.mobs.bestiary;
 
+import org.bukkit.inventory.ItemStack;
+
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+
 /**
  * The rank representing the detail level of a bestiary entry.
  * 
@@ -10,27 +14,27 @@ public enum ObservationRank {
 	/**
 	 * Default rank, showing the mob name, if at least one kill was achieved.
 	 */
-	D("D", 0, 0, 0),
+	D("D", 0, 0, GenericIconHeads.getUnknownItem(), 0),
 	
 	/**
 	 * First tier rank, showing a detailed description or backstory.
 	 */
-	C("C", 20, 1, 0),
+	C("C", 20, 1, GenericIconHeads.getRankCItem(), 0),
 	
 	/**
 	 * Second tier rank, showing all base stats.
 	 */
-	B("B", 100, 3, 1),
+	B("B", 100, 3, GenericIconHeads.getRankBItem(), 1),
 	
 	/**
 	 * Third tier rank, showing a list of all drops from the loot table.
 	 */
-	A("C", 500, 6, 2),
+	A("C", 500, 6, GenericIconHeads.getRankAItem(), 2),
 	
 	/**
 	 * Highest tier rank, showing exact amounts and drop rates of the loot.
 	 */
-	S("S", 2500, 10, 3);
+	S("S", 2500, 10, GenericIconHeads.getRankSItem(), 3);
 	
 	/**
 	 * The name of the observation rank.
@@ -46,6 +50,11 @@ public enum ObservationRank {
 	 * The amount of kills needed to rach the rank for boss mobs.
 	 */
 	private int bossKills;
+	
+	/**
+	 * The icon item stack representing the rank in menus.
+	 */
+	private ItemStack iconItemStack;
 	
 	/**
 	 * The amount of soulstones rewarded for reaching the rank.
@@ -77,12 +86,14 @@ public enum ObservationRank {
 	 * @param rankName The name of the observation rank.
 	 * @param normalKills The amount of kills needed to rach the rank for normal mobs.
 	 * @param bossKills The amount of kills needed to rach the rank for boss mobs.
+	 * @param iconItemStack The icon item stack representing the rank in menus.
 	 * @param souls The amount of soulstones rewarded for reaching the rank.
 	 */
-	ObservationRank(String rankName, int normalKills, int bossKills, int souls) {
+	ObservationRank(String rankName, int normalKills, int bossKills, ItemStack iconItemStack, int souls) {
 		this.rankName = rankName;
 		this.normalKills = normalKills;
 		this.bossKills = bossKills;
+		this.iconItemStack = iconItemStack;
 		this.souls = souls;
 	}
 
@@ -105,6 +116,13 @@ public enum ObservationRank {
 	 */
 	public int getBossKills() {
 		return bossKills;
+	}
+
+	/**
+	 * @return The icon item stack representing the rank in menus.
+	 */
+	public ItemStack getIconItemStack() {
+		return iconItemStack.clone();
 	}
 
 	/**

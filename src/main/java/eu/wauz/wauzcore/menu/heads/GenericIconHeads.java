@@ -116,28 +116,28 @@ public class GenericIconHeads {
 	/**
 	 * @return An item stack representing a lime C.
 	 */
-	public static ItemStack getRankCIcon() {
+	public static ItemStack getRankCItem() {
 		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWZlNmE0ZjdmYzMxOTU0YWM3ZDE3ZjcwMmYyMjgzNWUzMjVmOGJiNTMyNmNmZjYyNzNjN2I5Y2MxOTIxY2ExIn19fQ==");
 	}
 	
 	/**
 	 * @return An item stack representing a yellow B.
 	 */
-	public static ItemStack getRankBIcon() {
+	public static ItemStack getRankBItem() {
 		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTI2OTRlZGU5NmIyMTg1MTE2MDIxNTNmNjY1Mzk4YmU3Yzk2NjljYWY2NzJjNGJjOGYzNWJjZDUxN2UyOGMzIn19fQ==");
 	}
 	
 	/**
 	 * @return An item stack representing an orange A.
 	 */
-	public static ItemStack getRankAIcon() {
+	public static ItemStack getRankAItem() {
 		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzhmZTcwYjc3MzFhYzJmNWIzZDAyNmViMWFiNmE5MjNhOGM1OGI0YmY2ZDNhY2JlMTQ1YjEwYzM2ZTZjZjg5OCJ9fX0=");
 	}
 	
 	/**
 	 * @return An item stack representing a red S.
 	 */
-	public static ItemStack getRankSIcon() {
+	public static ItemStack getRankSItem() {
 		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmRkMmNjZTA0Njc0YzJjM2Q1YTNhOTRmZjIxOTc4N2EyYjQ1OWRlNzkwYTBjMDFmZjI5Yjk2NzI5MDcyY2QifX19");
 	}
 	
