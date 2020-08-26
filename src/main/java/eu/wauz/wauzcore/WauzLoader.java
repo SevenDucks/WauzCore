@@ -98,6 +98,7 @@ import eu.wauz.wauzcore.menu.abilities.SkillAssignMenu;
 import eu.wauz.wauzcore.menu.abilities.SkillMenu;
 import eu.wauz.wauzcore.menu.abilities.TravellingMenu;
 import eu.wauz.wauzcore.menu.collection.AchievementsMenu;
+import eu.wauz.wauzcore.menu.collection.BestiaryMenu;
 import eu.wauz.wauzcore.menu.collection.CurrencyMenu;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.collection.QuestMenu;
@@ -107,6 +108,7 @@ import eu.wauz.wauzcore.menu.social.GuildOverviewMenu;
 import eu.wauz.wauzcore.menu.social.MailMenu;
 import eu.wauz.wauzcore.menu.social.TitleMenu;
 import eu.wauz.wauzcore.menu.util.MenuRegister;
+import eu.wauz.wauzcore.mobs.bestiary.WauzBestiarySpecies;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.towers.TowerDamageBooster;
 import eu.wauz.wauzcore.mobs.towers.TowerFreezingPulse;
@@ -185,6 +187,7 @@ public class WauzLoader {
 		WauzAchievement.init();
 		WauzShop.init();
 		WauzQuest.init();
+		WauzBestiarySpecies.init();
 		WauzCitizen.init();
 		WauzInstance.init();
 		WauzRank.init();
@@ -217,6 +220,7 @@ public class WauzLoader {
 	 */
 	private static void registerPublicMenus() {
 		MenuRegister.registerInventory(new AchievementsMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new BestiaryMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new CraftingMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new CurrencyMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new FriendsMenu(), WauzMode.MMORPG, WauzMode.SURVIVAL);

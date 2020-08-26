@@ -27,8 +27,10 @@ public class MenacingMobsSpawner {
 	 * @param mythicMob
 	 * 
 	 * @see MenacingMobsConfig
+	 * @see MobMetadataUtils#setBestiaryEntry(Entity, String)
 	 * @see MenacingMobsSpawner#possibleModifiers
 	 * @see MobMetadataUtils#setMenacingModifier(Entity, String)
+	 * @see MobMetadataUtils#setRaidBoss(Entity, boolean)
 	 * @see MobMetadataUtils#setExpDrop(Entity, int, double)
 	 * @see MobMetadataUtils#setKeyDrop(Entity, String)
 	 */
@@ -36,6 +38,9 @@ public class MenacingMobsSpawner {
 		MenacingMobsConfig config = new MenacingMobsConfig(mythicMob.getConfig());
 		List<MenacingModifier> modifiers = new ArrayList<>();
 		
+		if(StringUtils.isNotBlank(config.getBestiaryEntryName())) {
+			MobMetadataUtils.setBestiaryEntry(entity, config.getBestiaryEntryName());
+		}
 		if(config.isEnableModifiers()) {
 			modifiers = getRandomModifiers(config.isEnableSecondModifier() ? 2 : 1);
 			for(MenacingModifier modifier : modifiers) {
@@ -44,10 +49,10 @@ public class MenacingMobsSpawner {
 		}
 		if(config.isEnableHealthBar()) {
 			new WauzPlayerBossBar(entity, modifiers, mythicMob.getHealth().get(), config.isEnableRaidHealthBar());
+			MobMetadataUtils.setRaidBoss(entity, config.isEnableRaidHealthBar());
 		}
 		if(StringUtils.isNotBlank(config.getExpDropString())) {
-			String[] expStrings = config.getExpDropString().split(" ");
-			MobMetadataUtils.setExpDrop(entity, Integer.parseInt(expStrings[0]), Double.parseDouble(expStrings[1]));
+			MobMetadataUtils.setExpDrop(entity, config.getExpTier(), config.getExpAmount());
 		}
 		if(StringUtils.isNotBlank(config.getKeyDropString())) {
 			MobMetadataUtils.setKeyDrop(entity, config.getKeyDropString());

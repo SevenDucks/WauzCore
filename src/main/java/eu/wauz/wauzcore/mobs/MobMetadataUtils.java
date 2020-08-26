@@ -36,9 +36,19 @@ public class MobMetadataUtils {
 	private static final String ARROW_DAMAGE = "wzArrowDmg";
 	
 	/**
+	 * Metadata that holds the bestiary entry name of a mob.
+	 */
+	private static final String BESTIARY_ENTRY = "wzEntry";
+	
+	/**
 	 * Metadata that implies that a generic menacing modifier exists on a mob.
 	 */
 	private static final String MENACING_MODIFIER = "wzMod";
+	
+	/**
+	 * Metadata that implies that a mob is a raid boss.
+	 */
+	private static final String RAID_BOSS = "wzBoss";
 	
 	/**
 	 * Metadata that holds the tier of a strongbox, used to determine loot contents.
@@ -153,6 +163,38 @@ public class MobMetadataUtils {
 	}
 	
 	/**
+	 * Sets the bestiary entry name of the given mob mob.
+	 * 
+	 * @param mob The mob that receives the metadata.
+	 * @param entry The full name of the bestiary entry.
+	 */
+	public static void setBestiaryEntry(Entity mob, String entry) {
+		addMetadata(mob, BESTIARY_ENTRY, entry);
+	}
+	
+	/**
+	 * Checks if the given mob has a bestiary entry.
+	 * 
+	 * @param mob The mob that gets its metadata checked.
+	 * 
+	 * @return If the mob has a bestiary entry.
+	 */
+	public static boolean hasBestiaryEntry(Entity mob) {
+		return mob.hasMetadata(BESTIARY_ENTRY);
+	}
+	
+	/**
+	 * Gets the bestiary entry name of the given mob mob.
+	 * 
+	 * @param mob The mob that gets its metadata checked.
+	 * 
+	 * @return The full name of the bestiary entry.
+	 */
+	public static String getBestiaryEntry(Entity mob) {
+		return getMetadata(mob, BESTIARY_ENTRY).asString();
+	}
+	
+	/**
 	 * Sets the given menacing modifier on a mob to enabled.
 	 * 
 	 * @param mob The mob that receives the metadata.
@@ -172,6 +214,27 @@ public class MobMetadataUtils {
 	 */
 	public static boolean hasMenacingModifier(Entity mob, MenacingModifier modifier) {
 		return mob.hasMetadata(MENACING_MODIFIER + modifier);
+	}
+	
+	/**
+	 * Sets the raid boss flag on a mob.
+	 * 
+	 * @param mob The mob that receives the metadata.
+	 * @param value If the mob is a raid boss.
+	 */
+	public static void setRaidBoss(Entity mob, boolean value) {
+		addMetadata(mob, RAID_BOSS, value);
+	}
+	
+	/**
+	 * Checks if the raid boss flag on a mob is enabled.
+	 * 
+	 * @param mob The mob that gets its metadata checked.
+	 * 
+	 * @return If the mob is a raid boss.
+	 */
+	public static boolean isRaidBoss(Entity mob) {
+		return mob.hasMetadata(RAID_BOSS);
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.menu.collection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -9,11 +10,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.data.players.PlayerBestiaryConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.mobs.bestiary.ObservationRank;
+import eu.wauz.wauzcore.mobs.bestiary.ObservationTracker;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryCategory;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryEntry;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiarySpecies;
@@ -129,11 +135,50 @@ public class BestiaryMenu implements WauzInventory {
 		
 		int slot = 2;
 		for(WauzBestiaryEntry entry : species.getEntries()) {
-			
+			menu.setItem(slot, getEntryItemStack(player, entry));
+			slot++;
 		}
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
+	}
+	
+	/**
+	 * Generates an item stack for displaying information about a bestiary entry.
+	 * 
+	 * @param player The player looking at the information.
+	 * @param entry The entry that will be shown.
+	 * 
+	 * @return The generated item stack.
+	 */
+	public ItemStack getEntryItemStack(Player player, WauzBestiaryEntry entry) {
+		int mobKills = PlayerBestiaryConfigurator.getBestiaryKills(player, entry.getEntryFullName());
+		if(mobKills < 1) {
+			ItemStack entryItemStack = GenericIconHeads.getUnknownItem();
+			MenuUtils.setItemDisplayName(entryItemStack, ChatColor.GRAY + "???");
+			return entryItemStack;
+		}
+		ObservationRank rank = ObservationRank.getObservationRank(mobKills, entry.isBoss());
+		ItemStack entryItemStack = rank.getIconItemStack();
+		ItemMeta entryItemMeta = entryItemStack.getItemMeta();
+		entryItemMeta.setDisplayName(entry.getEntryMobDisplayName());
+		List<String> entryLores = new ArrayList<>();
+		
+		if(rank.getRankTier() >= ObservationRank.C.getRankTier()) {
+			entryLores.addAll(entry.getRankLores(ObservationRank.C.getRankTier()));
+		}
+		if(rank.getRankTier() >= ObservationRank.B.getRankTier()) {
+			entryLores.add("");
+			entryLores.addAll(entry.getRankLores(ObservationRank.B.getRankTier()));
+		}
+		
+		if(!entryLores.isEmpty()) {
+			entryLores.add("");
+		}
+		entryLores.addAll(ObservationTracker.generateProgressLore(player, entry));
+		entryItemMeta.setLore(entryLores);
+		entryItemStack.setItemMeta(entryItemMeta);
+		return entryItemStack;
 	}
 	
 	/**

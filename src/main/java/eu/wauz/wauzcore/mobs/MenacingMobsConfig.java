@@ -19,6 +19,11 @@ import io.lumine.xikage.mythicmobs.io.MythicConfig;
 public class MenacingMobsConfig {
 	
 	/**
+	 * The full name of the mob's bestiary entry.
+	 */
+	private String bestiaryEntryName;
+	
+	/**
 	 * If the mob will receive a menacing modifier.
 	 * One in 20 chance, if enabled.
 	 */
@@ -54,6 +59,7 @@ public class MenacingMobsConfig {
 	 * Reads the values from the MythicConfig into the new MenacingMobsConfig
 	 * Possible config values are:
 	 * 
+	 * BestiaryEntry (name) = The full name of the mob's bestiary entry.
 	 * MenacingChance = The mob can have menacing modifiers.
 	 * CustomBossBar --Raid = Has a boss bar, raid attribute colors it purple.
 	 * GrantExp (level) (percent) = It will drop exp up to a specific level.
@@ -63,11 +69,15 @@ public class MenacingMobsConfig {
 	 */
 	public MenacingMobsConfig(MythicConfig mythicConfig) {
 		List<String> modifiers = mythicConfig.getStringList("WauzMods");
-		if(modifiers == null || modifiers.isEmpty())
+		if(modifiers == null || modifiers.isEmpty()) {
 			return;
+		}
 		
 		for(String modifier : modifiers) {
-			if(StringUtils.equalsIgnoreCase(modifier, "MenacingChance")) {
+			if(StringUtils.startsWith(modifier, "BestiaryEntry")) {
+				bestiaryEntryName = StringUtils.substringAfter(modifier, "BestiaryEntry ");
+			}
+			else if(StringUtils.equalsIgnoreCase(modifier, "MenacingChance")) {
 				enableModifiers = Chance.oneIn(20);
 				enableSecondModifier = enableModifiers && Chance.oneIn(4);
 			}
@@ -84,6 +94,13 @@ public class MenacingMobsConfig {
 		}
 	}
 	
+	/**
+	 * @return The full name of the mob's bestiary entry.
+	 */
+	public String getBestiaryEntryName() {
+		return bestiaryEntryName;
+	}
+
 	/**
 	 * @return If the mob will receive a menacing modifier.
 	 * One in 20 chance, if enabled.
@@ -119,6 +136,22 @@ public class MenacingMobsConfig {
 	 */
 	public String getExpDropString() {
 		return expDropString;
+	}
+	
+	/**
+	 * @return The tier (max level) of the exp to drop.
+	 */
+	public int getExpTier() {
+		String[] expStrings = expDropString.split(" ");
+		return Integer.parseInt(expStrings[0]);
+	}
+	
+	/**
+	 * @return The amount of exp to drop.
+	 */
+	public double getExpAmount() {
+		String[] expStrings = expDropString.split(" ");
+		return Double.parseDouble(expStrings[1]);
 	}
 
 	/**

@@ -77,7 +77,7 @@ public class RelationTracker {
 		}
 		else {
 			lores.add(ChatColor.YELLOW + "Next: " + ChatColor.GREEN + "COMPLETED");
-			lores.add(ChatColor.YELLOW + "Progress: " + progressString + " Relation Experience");
+			lores.add(ChatColor.YELLOW + "Progress: " + progressString + " Relation Exp");
 		}
 		return lores;
 	}

@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.mobs.bestiary;
 
+import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
@@ -14,32 +15,37 @@ public enum ObservationRank {
 	/**
 	 * Default rank, showing the mob name, if at least one kill was achieved.
 	 */
-	D("D", 0, 0, GenericIconHeads.getUnknownItem(), 0),
+	D(ChatColor.GRAY + "D", 0, 0, 0, GenericIconHeads.getUnknownItem(), 0),
 	
 	/**
 	 * First tier rank, showing a detailed description or backstory.
 	 */
-	C("C", 20, 1, GenericIconHeads.getRankCItem(), 0),
+	C(ChatColor.GREEN + "C", 1, 20, 1, GenericIconHeads.getRankCItem(), 0),
 	
 	/**
 	 * Second tier rank, showing all base stats.
 	 */
-	B("B", 100, 3, GenericIconHeads.getRankBItem(), 1),
+	B(ChatColor.YELLOW + "B", 2, 100, 3, GenericIconHeads.getRankBItem(), 1),
 	
 	/**
 	 * Third tier rank, showing a list of all drops from the loot table.
 	 */
-	A("C", 500, 6, GenericIconHeads.getRankAItem(), 2),
+	A(ChatColor.GOLD + "A", 3, 500, 6, GenericIconHeads.getRankAItem(), 2),
 	
 	/**
 	 * Highest tier rank, showing exact amounts and drop rates of the loot.
 	 */
-	S("S", 2500, 10, GenericIconHeads.getRankSItem(), 3);
+	S(ChatColor.RED + "S", 4, 2500, 10, GenericIconHeads.getRankSItem(), 3);
 	
 	/**
 	 * The name of the observation rank.
 	 */
 	private String rankName;
+	
+	/**
+	 * The tier of the observation rank.
+	 */
+	private int rankTier;
 	
 	/**
 	 * The amount of kills needed to rach the rank for normal mobs.
@@ -84,13 +90,15 @@ public enum ObservationRank {
 	 * Creates a new observation rank with given values.
 	 * 
 	 * @param rankName The name of the observation rank.
+	 * @param rankTier The tier of the observation rank.
 	 * @param normalKills The amount of kills needed to rach the rank for normal mobs.
 	 * @param bossKills The amount of kills needed to rach the rank for boss mobs.
 	 * @param iconItemStack The icon item stack representing the rank in menus.
 	 * @param souls The amount of soulstones rewarded for reaching the rank.
 	 */
-	ObservationRank(String rankName, int normalKills, int bossKills, ItemStack iconItemStack, int souls) {
+	ObservationRank(String rankName, int rankTier, int normalKills, int bossKills, ItemStack iconItemStack, int souls) {
 		this.rankName = rankName;
+		this.rankTier = rankTier;
 		this.normalKills = normalKills;
 		this.bossKills = bossKills;
 		this.iconItemStack = iconItemStack;
@@ -102,6 +110,13 @@ public enum ObservationRank {
 	 */
 	public String getRankName() {
 		return rankName;
+	}
+
+	/**
+	 * @return The tier of the observation rank.
+	 */
+	public int getRankTier() {
+		return rankTier;
 	}
 
 	/**
@@ -130,6 +145,13 @@ public enum ObservationRank {
 	 */
 	public int getSouls() {
 		return souls;
+	}
+	
+	/**
+	 * @return The following observation rank.
+	 */
+	public ObservationRank getNextRank() {
+		return rankTier >= values().length ? null : values()[rankTier + 1];
 	}
 	
 }

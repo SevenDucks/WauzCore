@@ -15,7 +15,6 @@ import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.social.TitleMenu;
-import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Formatters;
@@ -36,7 +35,7 @@ public class CollectionMenuParts {
 	 * Row 1, Slot 3: The pet menu + used pet slots display.</br>
 	 * Row 2, Slot 1: The currency menu + coin amount display.</br>
 	 * Row 2, Slot 2: The titles menu + unlocked title count display.</br>
-	 * Row 2, Slot 3: CS - Bestiary
+	 * Row 2, Slot 3: The bestiary menu + killed enemy count display.
 	 * 
 	 * @param player The player that should view the inventory.
 	 * @param menu The main menu inventory.
@@ -59,7 +58,7 @@ public class CollectionMenuParts {
 		ItemStack achievementsItemStack = MenuIconHeads.getAchievementsItem();
 		ItemMeta achievementsItemMeta = achievementsItemStack.getItemMeta();
 		achievementsItemMeta.setDisplayName(ChatColor.GOLD + "Achievements");
-		List<String> achievementsLores = new ArrayList<String>();
+		List<String> achievementsLores = new ArrayList<>();
 		achievementsLores.add(ChatColor.DARK_PURPLE + "Collected Achievements: " + ChatColor.YELLOW
 				+ Formatters.INT.format(PlayerConfigurator.getCharacterCompletedAchievements(player)));
 		achievementsLores.add("");
@@ -72,7 +71,7 @@ public class CollectionMenuParts {
 		ItemStack petsItemStack = MenuIconHeads.getTamesItem();
 		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
 		petsItemMeta.setDisplayName(ChatColor.GOLD + "Pets");
-		List<String> petsLores = new ArrayList<String>();
+		List<String> petsLores = new ArrayList<>();
 		petsLores.add(ChatColor.DARK_PURPLE + "Used Pet Slots: " + ChatColor.YELLOW
 				+ PlayerPetsConfigurator.getCharacterUsedPetSlots(player) + " / 5");
 			petsLores.add("");
@@ -85,12 +84,12 @@ public class CollectionMenuParts {
 		ItemStack currencyItemStack = MenuIconHeads.getMoneyItem();
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
 		currencyItemMeta.setDisplayName(ChatColor.GOLD + "Currencies");
-		List<String> currencyLores = new ArrayList<String>();
+		List<String> currencyLores = new ArrayList<>();
 		currencyLores.add(ChatColor.DARK_PURPLE + "Total Coins: " + ChatColor.YELLOW
 			+ Formatters.formatCoins(PlayerConfigurator.getCharacterCoins(player)));
 		currencyLores.add("");
-		currencyLores.add(ChatColor.GRAY + "View all of your collected currencies");
-		currencyLores.add(ChatColor.GRAY + "and faction reputation (favor points).");
+		currencyLores.add(ChatColor.GRAY + "View all of your collected Currencies");
+		currencyLores.add(ChatColor.GRAY + "and Faction Reputation (Favor Points).");
 		currencyItemMeta.setLore(currencyLores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
 		menu.setItem(startIndex + 9, currencyItemStack);
@@ -108,7 +107,18 @@ public class CollectionMenuParts {
 		titlesItemStack.setItemMeta(titlesItemMeta);
 		menu.setItem(startIndex + 10, titlesItemStack);
 		
-		MenuUtils.setComingSoon(menu, "Bestiary", startIndex + 11);
+		ItemStack bestiaryItemStack = MenuIconHeads.getBeastsItem();
+		ItemMeta bestiaryItemMeta = bestiaryItemStack.getItemMeta();
+		bestiaryItemMeta.setDisplayName(ChatColor.GOLD + "Bestiary");
+		List<String> bestiaryLores = new ArrayList<>();
+		bestiaryLores.add(ChatColor.DARK_PURPLE + "Killed Enemies: " + ChatColor.YELLOW
+			+ Formatters.INT.format(PlayerConfigurator.getCharacterAchievementProgress(player, WauzAchievementType.KILL_ENEMIES)));
+		bestiaryLores.add("");
+		bestiaryLores.add(ChatColor.GRAY + "View your Collection of Defeated Enemies.");
+		bestiaryLores.add(ChatColor.GRAY + "Unlock Information based on Kill Count.");
+		bestiaryItemMeta.setLore(bestiaryLores);
+		bestiaryItemStack.setItemMeta(bestiaryItemMeta);
+		menu.setItem(startIndex + 11, bestiaryItemStack);
 	}
 	
 	/**
@@ -124,6 +134,7 @@ public class CollectionMenuParts {
 	 * @see PetOverviewMenu#open(Player, int)
 	 * @see CurrencyMenu#open(Player)
 	 * @see TitleMenu#open(Player)
+	 * @see BestiaryMenu#open(Player)
 	 */
 	public static boolean check(Player player, ItemStack clicked) {
 		if(HeadUtils.isHeadMenuItem(clicked, "Questlog")) {
@@ -144,6 +155,10 @@ public class CollectionMenuParts {
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Titles")) {
 			TitleMenu.open(player);
+			return true;
+		}
+		else if(HeadUtils.isHeadMenuItem(clicked, "Bestiary")) {
+			BestiaryMenu.open(player);
 			return true;
 		}
 		return false;

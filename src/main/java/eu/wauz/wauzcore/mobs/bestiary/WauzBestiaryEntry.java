@@ -1,6 +1,16 @@
 package eu.wauz.wauzcore.mobs.bestiary;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
+
 import eu.wauz.wauzcore.data.BestiaryConfigurator;
+import eu.wauz.wauzcore.mobs.MenacingMobsConfig;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
@@ -35,9 +45,29 @@ public class WauzBestiaryEntry {
 	private String entryMobName;
 	
 	/**
+	 * The mythic mob bound to the entry.
+	 */
+	private MythicMob entryMob;
+	
+	/**
+	 * The mythic mob display name of the entry.
+	 */
+	private String entryMobDisplayName;
+	
+	/**
 	 * The mob description of the entry.
 	 */
 	private String entryMobDescription;
+	
+	/**
+	 * If the mob is a raid boss.
+	 */
+	private boolean isBoss;
+	
+	/**
+	 * A map of lore lists for each observation rank, indexed by rank tier.
+	 */
+	private Map<Integer, List<String>> rankLoreMap = new HashMap<>();
 	
 	/**
 	 * Constructs an entry of a bestiary species, based on the bestiary file in the /WauzCore/BestiaryData/Category folder.
@@ -51,14 +81,66 @@ public class WauzBestiaryEntry {
 		WauzBestiaryCategory category = entrySpecies.getSpeciesCategory();
 		String species = entrySpecies.getSpeciesName();
 		entryMobName = BestiaryConfigurator.getEntryMobName(category, species, entryName);
+		entryMob = mythicMobs.getMythicMob(entryMobName);
+		entryMobDisplayName = entryMob.getDisplayName().get();
 		entryMobDescription = BestiaryConfigurator.getEntryMobDescription(category, species, entryName);
-		
-		MythicMob mythicMob = mythicMobs.getMythicMob(entryMobName);
-		mythicMob.getDisplayName();
-		mythicMob.getHealth().get();
-		mythicMob.getDamage().get();
-		
-		mythicMob.getDropTable();
+		addRankCLores();
+		addRankBLores();
+		addRankALores();
+		addRankSLores();
+	}
+	
+	/**
+	 * Adds the lores, unlocked at observation rank C.
+	 * 
+	 * @see ObservationRank#C
+	 */
+	private void addRankCLores() {
+		List<String> lores = new ArrayList<>();
+		String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
+		String[] textParts = WordUtils.wrap(entryMobDescription, 42, doubleParagraph, true).split(doubleParagraph);
+		for(String textPart : textParts) {
+			lores.add(ChatColor.WHITE + textPart);
+		}
+		rankLoreMap.put(ObservationRank.C.getRankTier(), lores);
+	}
+	
+	/**
+	 * Adds the lores, unlocked at observation rank B.
+	 * 
+	 * @see ObservationRank#B
+	 */
+	private void addRankBLores() {
+		List<String> lores = new ArrayList<>();
+		MenacingMobsConfig menacingMob = new MenacingMobsConfig(entryMob.getConfig());
+		isBoss = menacingMob.isEnableRaidHealthBar();
+		int roundedBaseExp = (int) (menacingMob.getExpAmount() * 100);
+		lores.add(ChatColor.WHITE + "Health: " + ChatColor.LIGHT_PURPLE + entryMob.getHealth().get());
+		lores.add(ChatColor.WHITE + "Attack: " + ChatColor.RED + entryMob.getDamage().get());
+		lores.add(ChatColor.WHITE + "Base Exp: " + ChatColor.AQUA + roundedBaseExp);
+		rankLoreMap.put(ObservationRank.B.getRankTier(), lores);
+	}
+	
+	/**
+	 * Adds the lores, unlocked at observation rank A.
+	 * 
+	 * @see ObservationRank#A
+	 */
+	private void addRankALores() {
+		List<String> lores = new ArrayList<>();
+		lores.add("Loot Table");
+		rankLoreMap.put(ObservationRank.A.getRankTier(), lores);
+	}
+	
+	/**
+	 * Adds the lores, unlocked at observation rank S.
+	 * 
+	 * @see ObservationRank#S
+	 */
+	private void addRankSLores() {
+		List<String> lores = new ArrayList<>();
+		lores.add("Loot Table");
+		rankLoreMap.put(ObservationRank.S.getRankTier(), lores);
 	}
 
 	/**
@@ -74,6 +156,13 @@ public class WauzBestiaryEntry {
 	public String getEntryName() {
 		return entryName;
 	}
+	
+	/**
+	 * @return The full config name of the entry.
+	 */
+	public String getEntryFullName() {
+		return entrySpecies.getSpeciesCategory().toString() + "." + entrySpecies.getSpeciesName() + "." + entryName;
+	}
 
 	/**
 	 * @return The mythic mob name of the entry.
@@ -83,10 +172,33 @@ public class WauzBestiaryEntry {
 	}
 
 	/**
+	 * @return The mythic mob display name of the entry.
+	 */
+	public String getEntryMobDisplayName() {
+		return entryMobDisplayName;
+	}
+
+	/**
 	 * @return The mob description of the entry.
 	 */
 	public String getEntryMobDescription() {
 		return entryMobDescription;
+	}
+
+	/**
+	 * @return If the mob is a raid boss.
+	 */
+	public boolean isBoss() {
+		return isBoss;
+	}
+	
+	/**
+	 * @param rankTier The tier of the rank to get the lores for.
+	 * 
+	 * @return The lores unlocked with the rank.
+	 */
+	public List<String> getRankLores(int rankTier) {
+		return rankLoreMap.get(rankTier);
 	}
 
 }
