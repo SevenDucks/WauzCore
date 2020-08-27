@@ -415,12 +415,12 @@ public class CharacterManager {
 	
 	/**
 	 * Equips a player with default mmorpg character items.
-	 * Contains minimap, quest tracker, main menu, trashcan and selected tabard.
+	 * Contains minimap, quest tracker, main menu and selected tabard.
+	 * Additionally trashcan, materials and backpack are placed inside the inventory.
 	 * 
 	 * @param player The player that should receive the items.
 	 * 
 	 * @see MenuUtils#setMainMenuOpener(org.bukkit.inventory.Inventory, int)
-	 * @see MenuUtils#setTrashcan(org.bukkit.inventory.Inventory, int...)
 	 * @see TabardMenu#equipSelectedTabard(Player)
 	 */
 	public static void equipCharacterItems(Player player) {
@@ -439,6 +439,8 @@ public class CharacterManager {
 		MenuUtils.setMainMenuOpener(player.getInventory(), 8);
 		
 		MenuUtils.setTrashcan(player.getInventory(), 35);
+		MenuUtils.setMaterials(player.getInventory(), 26);
+		MenuUtils.setBackpack(player.getInventory(), 17);
 		
 		TabardMenu.equipSelectedTabard(player);
 	}

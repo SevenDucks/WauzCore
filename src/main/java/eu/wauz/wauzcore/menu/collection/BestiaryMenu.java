@@ -158,20 +158,19 @@ public class BestiaryMenu implements WauzInventory {
 			MenuUtils.setItemDisplayName(entryItemStack, ChatColor.GRAY + "???");
 			return entryItemStack;
 		}
-		ObservationRank rank = ObservationRank.getObservationRank(mobKills, entry.isBoss());
-		ItemStack entryItemStack = rank.getIconItemStack();
+		ObservationRank currentRank = ObservationRank.getObservationRank(mobKills, entry.isBoss());
+		ItemStack entryItemStack = currentRank.getIconItemStack();
 		ItemMeta entryItemMeta = entryItemStack.getItemMeta();
 		entryItemMeta.setDisplayName(entry.getEntryMobDisplayName());
 		List<String> entryLores = new ArrayList<>();
 		
-		if(rank.getRankTier() >= ObservationRank.C.getRankTier()) {
-			entryLores.addAll(entry.getRankLores(ObservationRank.C.getRankTier()));
+		for(int index = 1; index < ObservationRank.values().length; index++) {
+			ObservationRank rank = ObservationRank.values()[index];
+			if(currentRank.getRankTier() < rank.getRankTier()) {
+				break;
+			}
+			entryLores.addAll(entry.getRankLores(rank.getRankTier()));
 		}
-		if(rank.getRankTier() >= ObservationRank.B.getRankTier()) {
-			entryLores.add("");
-			entryLores.addAll(entry.getRankLores(ObservationRank.B.getRankTier()));
-		}
-		
 		if(!entryLores.isEmpty()) {
 			entryLores.add("");
 		}

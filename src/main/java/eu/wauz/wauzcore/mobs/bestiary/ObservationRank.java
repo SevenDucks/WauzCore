@@ -28,12 +28,12 @@ public enum ObservationRank {
 	B(ChatColor.YELLOW + "B", 2, 100, 3, GenericIconHeads.getRankBItem(), 1),
 	
 	/**
-	 * Third tier rank, showing a list of all drops from the loot table.
+	 * Third tier rank, increasing damage against the mob by 25%.
 	 */
 	A(ChatColor.GOLD + "A", 3, 500, 6, GenericIconHeads.getRankAItem(), 2),
 	
 	/**
-	 * Highest tier rank, showing exact amounts and drop rates of the loot.
+	 * Highest tier rank, doubles the loot dropped by the mob.
 	 */
 	S(ChatColor.RED + "S", 4, 2500, 10, GenericIconHeads.getRankSItem(), 3);
 	

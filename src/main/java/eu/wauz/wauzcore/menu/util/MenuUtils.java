@@ -94,22 +94,54 @@ public class MenuUtils {
 	}
 	
 	/**
-	 * Sets a trashcan to one or more inventory slots.
+	 * Sets a trashcan to an inventory slot.
 	 * 
 	 * @param menu The menu inventory.
-	 * @param indexes The slots to use in the inventory.
+	 * @param indexes The slot to use in the inventory.
 	 */
-	public static void setTrashcan(Inventory menu, int... indexes) {
-		ItemStack trashcanItemStack = new ItemStack(Material.BARRIER);
+	public static void setTrashcan(Inventory menu, int index) {
+		ItemStack trashcanItemStack = MenuIconHeads.getTrashItem();
 		ItemMeta trashcanItemMeta = trashcanItemStack.getItemMeta();
 		trashcanItemMeta.setDisplayName(ChatColor.RED + "Trashcan");
-		List<String> lores = new ArrayList<String>();
-		lores.add(ChatColor.GRAY + "Drag Items here to destroy them.");
-		trashcanItemMeta.setLore(lores);
+		List<String> trashcanLores = new ArrayList<String>();
+		trashcanLores.add(ChatColor.GRAY + "Drag Items here to destroy them...");
+		trashcanItemMeta.setLore(trashcanLores);
 		trashcanItemStack.setItemMeta(trashcanItemMeta);
-		for(int index : indexes) {
-			menu.setItem(index, trashcanItemStack);
-		}
+		menu.setItem(index, trashcanItemStack);
+	}
+	
+	/**
+	 * Sets a material bag to an inventory slot.
+	 * 
+	 * @param menu The menu inventory.
+	 * @param indexes The slot to use in the inventory.
+	 */
+	public static void setMaterials(Inventory menu, int index) {
+		ItemStack trashcanItemStack = MenuIconHeads.getBagItem();
+		ItemMeta trashcanItemMeta = trashcanItemStack.getItemMeta();
+		trashcanItemMeta.setDisplayName(ChatColor.YELLOW + "Materials");
+		List<String> trashcanLores = new ArrayList<String>();
+		trashcanLores.add(ChatColor.GRAY + "Click to view / sell Materials...");
+		trashcanItemMeta.setLore(trashcanLores);
+		trashcanItemStack.setItemMeta(trashcanItemMeta);
+		menu.setItem(index, trashcanItemStack);
+	}
+	
+	/**
+	 * Sets a backpack to an inventory slot.
+	 * 
+	 * @param menu The menu inventory.
+	 * @param indexes The slot to use in the inventory.
+	 */
+	public static void setBackpack(Inventory menu, int index) {
+		ItemStack trashcanItemStack = MenuIconHeads.getBackpackItem();
+		ItemMeta trashcanItemMeta = trashcanItemStack.getItemMeta();
+		trashcanItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Backpack");
+		List<String> trashcanLores = new ArrayList<String>();
+		trashcanLores.add(ChatColor.GRAY + "Click to manage backpack contents...");
+		trashcanItemMeta.setLore(trashcanLores);
+		trashcanItemStack.setItemMeta(trashcanItemMeta);
+		menu.setItem(index, trashcanItemStack);
 	}
 	
 	/**

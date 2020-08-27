@@ -9,6 +9,29 @@ import org.bukkit.inventory.ItemStack;
  */
 public class MenuIconHeads {
 	
+// Inventory Items
+	
+	/**
+	 * @return An item stack representing a trashcan.
+	 */
+	public static ItemStack getTrashItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWI5YzYwMzc5NDc5N2U4M2U4NmRkNGFkMzY0NmU3MjEyODY3ZWQ1ZWJmOGQ5MmNmMjBiYzk5OTgzNjUwY2JiZCJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a small bag.
+	 */
+	public static ItemStack getBagItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODc1ZTc5NDg4ODQ3YmEwMmQ1ZTEyZTcwNDJkNzYyZTg3Y2UwOGZhODRmYjg5YzM1ZDZiNWNjY2I4YjlmNGJlZCJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a backpack.
+	 */
+	public static ItemStack getBackpackItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2E2YWQ4YWQ5MTNkZWYxM2JkNTc0MTY1NWU3N2QxMzRlYjFiNTdmMDI5NzBkYWE2YjMzMDgyNzU0ZDFhZmZjNCJ9fX0=");
+	}
+	
 // Main Menu Categories
 
 	/**

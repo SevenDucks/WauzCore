@@ -29,6 +29,7 @@ import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.ShopMenu;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
+import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerSit;
@@ -266,9 +267,15 @@ public class EventMapper {
 		}
 		if(WauzMode.isMMORPG(player)) {
 			ItemStack clicked = event.getCurrentItem();
-			if(ItemUtils.isSpecificItem(clicked, "Trashcan") && ItemUtils.isNotAir(player.getItemOnCursor())) {
+			if(HeadUtils.isHeadMenuItem(clicked, "Trashcan") && ItemUtils.isNotAir(player.getItemOnCursor())) {
 				player.getWorld().playEffect(player.getLocation(), Effect.BLAZE_SHOOT, 0);
 				player.setItemOnCursor(null);
+			}
+			else if(HeadUtils.isHeadMenuItem(clicked, "Materials")) {
+				
+			}
+			else if(HeadUtils.isHeadMenuItem(clicked, "Backpack")) {
+				
 			}
 			MenuUtils.onSpecialItemInventoryClick(event);
 		}

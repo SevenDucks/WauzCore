@@ -115,6 +115,7 @@ public class WauzBestiaryEntry {
 		MenacingMobsConfig menacingMob = new MenacingMobsConfig(entryMob.getConfig());
 		isBoss = menacingMob.isEnableRaidHealthBar();
 		int roundedBaseExp = (int) (menacingMob.getExpAmount() * 100);
+		lores.add("");
 		lores.add(ChatColor.WHITE + "Health: " + ChatColor.LIGHT_PURPLE + entryMob.getHealth().get());
 		lores.add(ChatColor.WHITE + "Attack: " + ChatColor.RED + entryMob.getDamage().get());
 		lores.add(ChatColor.WHITE + "Base Exp: " + ChatColor.AQUA + roundedBaseExp);
@@ -128,7 +129,8 @@ public class WauzBestiaryEntry {
 	 */
 	private void addRankALores() {
 		List<String> lores = new ArrayList<>();
-		lores.add("Loot Table");
+		lores.add("");
+		lores.add(ChatColor.YELLOW + "+25% Damage Dealt to Mob");
 		rankLoreMap.put(ObservationRank.A.getRankTier(), lores);
 	}
 	
@@ -139,7 +141,7 @@ public class WauzBestiaryEntry {
 	 */
 	private void addRankSLores() {
 		List<String> lores = new ArrayList<>();
-		lores.add("Loot Table");
+		lores.add(ChatColor.YELLOW + "Doubled Loot Dropped by Mob");
 		rankLoreMap.put(ObservationRank.S.getRankTier(), lores);
 	}
 

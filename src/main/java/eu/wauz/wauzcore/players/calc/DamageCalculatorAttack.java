@@ -10,12 +10,14 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
+import eu.wauz.wauzcore.data.players.PlayerBestiaryConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.mobs.MenacingModifier;
 import eu.wauz.wauzcore.mobs.MobMetadataUtils;
+import eu.wauz.wauzcore.mobs.bestiary.ObservationRank;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
@@ -274,6 +276,7 @@ public class DamageCalculatorAttack {
 	 * Even applied to fixed damage events.
 	 * 
 	 * @see EquipmentUtils#getEnhancementCriticalDamageMultiplier(ItemStack)
+	 * @see MobMetadataUtils#hasBestiaryEntry(Entity)
 	 * @see MobMetadataUtils#hasMenacingModifier(Entity, MenacingModifier)
 	 */
 	private void applyRandomizedMultiplier() {
@@ -289,6 +292,13 @@ public class DamageCalculatorAttack {
 		
 		if(isAttackDebugMode) {
 			multiplier += 100;
+		}
+		if(MobMetadataUtils.hasBestiaryEntry(entity)) {
+			String entry = MobMetadataUtils.getBestiaryEntry(entity);
+			boolean isBoss = MobMetadataUtils.isRaidBoss(entity);
+			int killCount = PlayerBestiaryConfigurator.getBestiaryKills(player, entry);
+			int neededKills = isBoss ? ObservationRank.A.getBossKills() : ObservationRank.A.getNormalKills();
+			multiplier *= killCount >= neededKills ? 1.25f : 1;
 		}
 		if(MobMetadataUtils.hasMenacingModifier(entity, MenacingModifier.MASSIVE)) {
 			multiplier = 0.2f * multiplier;
