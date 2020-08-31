@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventTitleBuy;
 import eu.wauz.wauzcore.items.util.ItemUtils;
@@ -161,7 +162,7 @@ public class TitleMenu implements WauzInventory {
 			return;
 		}
 		
-		int level = PlayerConfigurator.getCharacterLevel(player);
+		int level = PlayerCollectionConfigurator.getCharacterLevel(player);
 		int requiredLevel = ItemUtils.getIntegerFromLore(clicked, "Required Level", 2);
 		String titleName = ItemUtils.getStringFromLore(clicked, "Title-ID", 1);
 		if(level < requiredLevel) {
@@ -181,7 +182,7 @@ public class TitleMenu implements WauzInventory {
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Locked")) {
 			WauzTitle title = WauzTitle.getTitle(titleName);
-			long souls = PlayerConfigurator.getCharacterSoulstones(player);
+			long souls = PlayerCollectionConfigurator.getCharacterSoulstones(player);
 			if(souls < title.getTitleCost()) {
 				player.sendMessage(ChatColor.RED + "You don't have enough soulstones to unlock this title!");
 				player.closeInventory();

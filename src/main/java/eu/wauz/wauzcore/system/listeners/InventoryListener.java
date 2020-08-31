@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.system.listeners;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -7,8 +8,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.util.ItemUtils;
@@ -96,6 +99,18 @@ public class InventoryListener implements Listener {
 		if(ItemUtils.hasDisplayName(itemStack)) {
 			item.setCustomName(itemStack.getItemMeta().getDisplayName());
 			item.setCustomNameVisible(true);
+		}
+	}
+	
+	/**
+	 * Prevents MMORPG players from crafting with normal Minecraft recipes.
+	 * 
+	 * @param event The craft event.
+	 */
+	public void onItemCraft(PrepareItemCraftEvent event) {
+		CraftingInventory inventory = event.getInventory();
+		if(inventory.getLocation() != null && WauzMode.isMMORPG(inventory.getLocation().getWorld())) {
+			inventory.setResult(new ItemStack(Material.AIR));
 		}
 	}
 

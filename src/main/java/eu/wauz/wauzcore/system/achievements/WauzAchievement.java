@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.AchievementConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Formatters;
 
@@ -73,7 +73,7 @@ public class WauzAchievement {
 	 */
 	public static WauzAchievement getCurrentAchievementStage(Player player, WauzAchievementType type) {
 		WauzAchievement currentAchievementStage = null;
-		double progress = PlayerConfigurator.getCharacterAchievementProgress(player, type);
+		double progress = PlayerCollectionConfigurator.getCharacterAchievementProgress(player, type);
 		
 		for(WauzAchievement achievement : achievementMap.get(type)) {
 			if(progress >= achievement.getGoal()) {
@@ -141,9 +141,9 @@ public class WauzAchievement {
 	 * @param player The player that should earn the achievement.
 	 */
 	public void award(Player player) {
-		PlayerConfigurator.addCharacterCompletedAchievements(player);
-		long soulstones = PlayerConfigurator.getCharacterSoulstones(player);
-		PlayerConfigurator.setCharacterSoulstones(player, soulstones + reward);
+		PlayerCollectionConfigurator.addCharacterCompletedAchievements(player);
+		long soulstones = PlayerCollectionConfigurator.getCharacterSoulstones(player);
+		PlayerCollectionConfigurator.setCharacterSoulstones(player, soulstones + reward);
 		
 		player.sendTitle(ChatColor.GOLD + "Achievement Earned", name, 10, 70, 20);
 		player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");

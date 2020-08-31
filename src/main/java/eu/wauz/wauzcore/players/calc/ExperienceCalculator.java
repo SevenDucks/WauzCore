@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
@@ -32,7 +33,7 @@ public class ExperienceCalculator {
 	public static void updateExperienceBar(Player player) {
 		boolean isSurvival = WauzMode.isSurvival(player);
 		int goalExp = isSurvival ? 100 : getExpToLevel(player.getLevel() + 1);
-		double currentExp = PlayerConfigurator.getCharacterExperience(player);
+		double currentExp = PlayerCollectionConfigurator.getCharacterExperience(player);
 		player.setExp((float) (currentExp / goalExp));
 	}
 	
@@ -84,8 +85,8 @@ public class ExperienceCalculator {
 	 * @see WauzCore#MAX_PLAYER_LEVEL
 	 * @see ExperienceCalculator#applyExperienceBonus(Player, double)
 	 * @see ValueIndicator#spawnExpIndicator(Location, int)
-	 * @see PlayerConfigurator#levelUpCharacter(Player)
-	 * @see PlayerConfigurator#setCharacterExperience(Player, double)
+	 * @see PlayerCollectionConfigurator#levelUpCharacter(Player)
+	 * @see PlayerCollectionConfigurator#setCharacterExperience(Player, double)
 	 */
 	public static int grantExperience(Player player, int tier, double earnedxp, Location location, boolean shared) {
 		try {
@@ -107,7 +108,7 @@ public class ExperienceCalculator {
 				ValueIndicator.spawnExpIndicator(location, displayexp);
 			}
 			
-			double currentxp = PlayerConfigurator.getCharacterExperience(player);
+			double currentxp = PlayerCollectionConfigurator.getCharacterExperience(player);
 			currentxp = currentxp + amplifiedxp;
 			WauzDebugger.log(player, "You earned " + amplifiedxp + " (" + earnedxp + ") experience!");
 			
@@ -115,10 +116,10 @@ public class ExperienceCalculator {
 			if(currentxp >= getExpToLevel(nextLevel)) {
 				player.setLevel(nextLevel);
 				player.sendTitle(ChatColor.GOLD + "Level Up!", "You reached level " + nextLevel + "!", 10, 70, 20);
-				PlayerConfigurator.levelUpCharacter(player);
+				PlayerCollectionConfigurator.levelUpCharacter(player);
 				currentxp = 0;
 			}
-			PlayerConfigurator.setCharacterExperience(player, currentxp);
+			PlayerCollectionConfigurator.setCharacterExperience(player, currentxp);
 			updateExperienceBar(player);
 			return displayexp;
 		}

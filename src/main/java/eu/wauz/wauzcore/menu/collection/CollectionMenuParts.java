@@ -9,6 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
@@ -47,7 +48,7 @@ public class CollectionMenuParts {
 		questlogItemMeta.setDisplayName(ChatColor.GOLD + "Questlog");
 		List<String> questlogLores = new ArrayList<String>();
 		questlogLores.add(ChatColor.DARK_PURPLE + "Completed Quests: " + ChatColor.YELLOW
-			+ Formatters.INT.format(PlayerConfigurator.getCharacterAchievementProgress(player, WauzAchievementType.COMPLETE_QUESTS)));
+			+ Formatters.INT.format(PlayerCollectionConfigurator.getCharacterAchievementProgress(player, WauzAchievementType.COMPLETE_QUESTS)));
 		questlogLores.add("");
 		questlogLores.add(ChatColor.GRAY + "View or Cancel your running Quests.");
 		questlogLores.add(ChatColor.GRAY + "Use the Questfinder to locate Questgivers.");
@@ -60,7 +61,7 @@ public class CollectionMenuParts {
 		achievementsItemMeta.setDisplayName(ChatColor.GOLD + "Achievements");
 		List<String> achievementsLores = new ArrayList<>();
 		achievementsLores.add(ChatColor.DARK_PURPLE + "Collected Achievements: " + ChatColor.YELLOW
-				+ Formatters.INT.format(PlayerConfigurator.getCharacterCompletedAchievements(player)));
+				+ Formatters.INT.format(PlayerCollectionConfigurator.getCharacterCompletedAchievements(player)));
 		achievementsLores.add("");
 		achievementsLores.add(ChatColor.GRAY + "Collect Achievements in many Categories,");
 		achievementsLores.add(ChatColor.GRAY + "to earn a lot of precious Tokens.");
@@ -86,7 +87,7 @@ public class CollectionMenuParts {
 		currencyItemMeta.setDisplayName(ChatColor.GOLD + "Currencies");
 		List<String> currencyLores = new ArrayList<>();
 		currencyLores.add(ChatColor.DARK_PURPLE + "Total Coins: " + ChatColor.YELLOW
-			+ Formatters.formatCoins(PlayerConfigurator.getCharacterCoins(player)));
+			+ Formatters.formatCoins(PlayerCollectionConfigurator.getCharacterCoins(player)));
 		currencyLores.add("");
 		currencyLores.add(ChatColor.GRAY + "View all of your collected Currencies");
 		currencyLores.add(ChatColor.GRAY + "and Faction Reputation (Favor Points).");
@@ -112,7 +113,7 @@ public class CollectionMenuParts {
 		bestiaryItemMeta.setDisplayName(ChatColor.GOLD + "Bestiary");
 		List<String> bestiaryLores = new ArrayList<>();
 		bestiaryLores.add(ChatColor.DARK_PURPLE + "Killed Enemies: " + ChatColor.YELLOW
-			+ Formatters.INT.format(PlayerConfigurator.getCharacterAchievementProgress(player, WauzAchievementType.KILL_ENEMIES)));
+			+ Formatters.INT.format(PlayerCollectionConfigurator.getCharacterAchievementProgress(player, WauzAchievementType.KILL_ENEMIES)));
 		bestiaryLores.add("");
 		bestiaryLores.add(ChatColor.GRAY + "View your Collection of Defeated Enemies.");
 		bestiaryLores.add(ChatColor.GRAY + "Unlock Information based on Kill Count.");

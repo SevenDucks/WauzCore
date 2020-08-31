@@ -7,6 +7,7 @@ import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
@@ -94,7 +95,7 @@ public class WauzPlayerEventQuestComplete implements WauzPlayerEvent {
 			double rewardExp = quest.getRewardExp() * rewardMultiplier;
 			
 			RelationTracker.addProgress(player, questGiver, quest.getRewardRelationExp());
-			PlayerConfigurator.setCharacterCoins(player, PlayerConfigurator.getCharacterCoins(player) + rewardCoins);
+			PlayerCollectionConfigurator.setCharacterCoins(player, PlayerCollectionConfigurator.getCharacterCoins(player) + rewardCoins);
 			AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, rewardCoins);
 			ExperienceCalculator.grantExperience(player, quest.getLevel(), rewardExp, player.getLocation());
 			WauzRewards.earnMmoRpgToken(player);

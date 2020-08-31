@@ -2,7 +2,7 @@ package eu.wauz.wauzcore.data;
 
 import java.util.List;
 
-import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
+import eu.wauz.wauzcore.data.api.ShopConfigurationUtils;
 import eu.wauz.wauzcore.system.economy.WauzCurrency;
 
 /**
@@ -10,7 +10,7 @@ import eu.wauz.wauzcore.system.economy.WauzCurrency;
  * 
  * @author Wauzmons
  */
-public class ShopConfigurator extends GlobalConfigurationUtils {
+public class ShopConfigurator extends ShopConfigurationUtils {
 	
 // Shop Files
 
@@ -18,7 +18,7 @@ public class ShopConfigurator extends GlobalConfigurationUtils {
 	 * @return The list of all shop names.
 	 */
 	public static List<String> getShopNameList() {
-		return GlobalConfigurationUtils.getShopNameList();
+		return ShopConfigurationUtils.getShopNameList();
 	}
 	
 // General Parameters

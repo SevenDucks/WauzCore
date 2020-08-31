@@ -28,8 +28,6 @@ public class PlayerConfigurationUtils {
 	 * A direct reference to the main class.
 	 */
 	private static WauzCore core = WauzCore.getInstance();
-	
-// Interact with Player-Config
 
 	/**
 	 * Gets either the global or a character specific config file for a player.

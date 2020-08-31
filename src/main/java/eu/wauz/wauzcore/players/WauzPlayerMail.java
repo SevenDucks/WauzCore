@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
@@ -82,13 +82,13 @@ public class WauzPlayerMail {
 	 * @return The amount of mails sent today.
 	 * 
 	 * @see WauzDateUtils#getDateLong()
-	 * @see PlayerConfigurator#getTokenLimitDate(Player, String)
-	 * @see PlayerConfigurator#getTokenLimitAmount(Player, String)
+	 * @see PlayerCollectionConfigurator#getTokenLimitDate(Player, String)
+	 * @see PlayerCollectionConfigurator#getTokenLimitAmount(Player, String)
 	 */
 	public static int getMailsSentToday(Player player) {
-		long dateLong = PlayerConfigurator.getTokenLimitDate(player, MAIL_TOKEN_KEY);
+		long dateLong = PlayerCollectionConfigurator.getTokenLimitDate(player, MAIL_TOKEN_KEY);
 		long currentDateLong = WauzDateUtils.getDateLong();
-		return dateLong < currentDateLong ? 0 : PlayerConfigurator.getTokenLimitAmount(player, MAIL_TOKEN_KEY);
+		return dateLong < currentDateLong ? 0 : PlayerCollectionConfigurator.getTokenLimitAmount(player, MAIL_TOKEN_KEY);
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public class WauzPlayerMail {
 	public boolean tryToSetCoins(Player player, String coinAmount) {
 		try {
 			long coinAttachment = Long.parseLong(coinAmount);
-			if(PlayerConfigurator.getCharacterCoins(player) >= coinAttachment) {
+			if(PlayerCollectionConfigurator.getCharacterCoins(player) >= coinAttachment) {
 				this.coinAttachment = coinAttachment;
 				return true;
 			}
@@ -176,8 +176,8 @@ public class WauzPlayerMail {
 	 * @param player The player who is sending the mail.
 	 * 
 	 * @see PlayerMailConfigurator
-	 * @see PlayerConfigurator#setTokenLimitDate(Player, String, long)
-	 * @see PlayerConfigurator#setTokenLimitAmount(Player, String, int)
+	 * @see PlayerCollectionConfigurator#setTokenLimitDate(Player, String, long)
+	 * @see PlayerCollectionConfigurator#setTokenLimitAmount(Player, String, int)
 	 */
 	public void send(Player player) {
 		long timestamp = System.currentTimeMillis();
@@ -188,14 +188,14 @@ public class WauzPlayerMail {
 		PlayerMailConfigurator.setMailText(receiver, mailName, textContent);
 		if(coinAttachment > 0) {
 			PlayerMailConfigurator.setMailCoins(receiver, mailName, coinAttachment);
-			PlayerConfigurator.setCharacterCoins(player, PlayerConfigurator.getCharacterCoins(player) - coinAttachment);
+			PlayerCollectionConfigurator.setCharacterCoins(player, PlayerCollectionConfigurator.getCharacterCoins(player) - coinAttachment);
 		}
 		if(itemAttachment != null) {
 			PlayerMailConfigurator.setMailItem(receiver, mailName, itemAttachment);
 			itemAttachment.setAmount(0);
 		}
-		PlayerConfigurator.setTokenLimitDate(player, MAIL_TOKEN_KEY, WauzDateUtils.getDateLong());
-		PlayerConfigurator.setTokenLimitAmount(player, MAIL_TOKEN_KEY, getMailsSentToday(player) + 1);
+		PlayerCollectionConfigurator.setTokenLimitDate(player, MAIL_TOKEN_KEY, WauzDateUtils.getDateLong());
+		PlayerCollectionConfigurator.setTokenLimitAmount(player, MAIL_TOKEN_KEY, getMailsSentToday(player) + 1);
 		player.sendMessage(ChatColor.GREEN + "Your mail was successfully sent to " + receiver.getName() + "!");
 		if(receiver.getPlayer() != null) {
 			String newMailMessage = ChatColor.YELLOW + "You received a mail! To read it:";

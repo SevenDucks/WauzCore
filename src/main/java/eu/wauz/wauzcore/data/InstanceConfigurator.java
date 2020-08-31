@@ -2,7 +2,7 @@ package eu.wauz.wauzcore.data;
 
 import java.util.List;
 
-import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
+import eu.wauz.wauzcore.data.api.InstanceConfigurationUtils;
 import eu.wauz.wauzcore.system.instances.WauzInstanceType;
 
 /**
@@ -10,7 +10,7 @@ import eu.wauz.wauzcore.system.instances.WauzInstanceType;
  * 
  * @author Wauzmons
  */
-public class InstanceConfigurator extends GlobalConfigurationUtils {
+public class InstanceConfigurator extends InstanceConfigurationUtils {
 	
 // Instance Files
 
@@ -18,7 +18,7 @@ public class InstanceConfigurator extends GlobalConfigurationUtils {
 	 * @return The list of instance shop names.
 	 */
 	public static List<String> getInstanceNameList() {
-		return GlobalConfigurationUtils.getInstanceNameList();
+		return InstanceConfigurationUtils.getInstanceNameList();
 	}
 
 // General Parameters

@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzRank;
@@ -37,14 +38,14 @@ public class WauzRewards {
     	int coins = rank.getDailyCoins();
     	int souls = rank.getDailySoulstones();
 
-    	long currentCoins = PlayerConfigurator.getCharacterCoins(player);
-    	PlayerConfigurator.setCharacterCoins(player, currentCoins + coins);
+    	long currentCoins = PlayerCollectionConfigurator.getCharacterCoins(player);
+    	PlayerCollectionConfigurator.setCharacterCoins(player, currentCoins + coins);
     	AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, coins);
     	player.sendMessage(ChatColor.GOLD + rank.getRankName() + " Reward: " + "You claimed your daily " + coins + " coins!");
     	
     	if(souls > 0) {
-    		long currentSouls = PlayerConfigurator.getCharacterSoulstones(player);
-    		PlayerConfigurator.setCharacterSoulstones(player, currentSouls + souls);
+    		long currentSouls = PlayerCollectionConfigurator.getCharacterSoulstones(player);
+    		PlayerCollectionConfigurator.setCharacterSoulstones(player, currentSouls + souls);
     		player.sendMessage(ChatColor.GOLD + "You also received " + souls + " additional soulstones!");
     	}
 	}
@@ -103,13 +104,13 @@ public class WauzRewards {
 	 * @return The amount of tokens earned today.
 	 * 
 	 * @see WauzDateUtils#getDateLong()
-	 * @see PlayerConfigurator#getTokenLimitDate(Player, String)
-	 * @see PlayerConfigurator#getTokenLimitAmount(Player, String)
+	 * @see PlayerCollectionConfigurator#getTokenLimitDate(Player, String)
+	 * @see PlayerCollectionConfigurator#getTokenLimitAmount(Player, String)
 	 */
 	private static int getTokensEarnedToday(Player player, String mode) {
-		long dateLong = PlayerConfigurator.getTokenLimitDate(player, mode);
+		long dateLong = PlayerCollectionConfigurator.getTokenLimitDate(player, mode);
 		long currentDateLong = WauzDateUtils.getDateLong();
-		return dateLong < currentDateLong ? 0 : PlayerConfigurator.getTokenLimitAmount(player, mode);
+		return dateLong < currentDateLong ? 0 : PlayerCollectionConfigurator.getTokenLimitAmount(player, mode);
 	}
 	
 	/**
@@ -121,14 +122,14 @@ public class WauzRewards {
 	 * @param earnedToday The amount of tokens earned today.
 	 * @param maxToday The maximum amount of tokens earnable per day.
 	 * 
-	 * @see PlayerConfigurator#setTokenLimitDate(Player, String, long)
-	 * @see PlayerConfigurator#setTokenLimitAmount(Player, String, int)
-	 * @see PlayerConfigurator#setTokens(Player, long)
+	 * @see PlayerCollectionConfigurator#setTokenLimitDate(Player, String, long)
+	 * @see PlayerCollectionConfigurator#setTokenLimitAmount(Player, String, int)
+	 * @see PlayerCollectionConfigurator#setTokens(Player, long)
 	 */
 	private static void earnToken(Player player, String modeDisplay, int earnedToday, int maxToday) {
-		PlayerConfigurator.setTokenLimitDate(player, modeDisplay.toLowerCase(), WauzDateUtils.getDateLong());
-		PlayerConfigurator.setTokenLimitAmount(player, modeDisplay.toLowerCase(), earnedToday);
-		PlayerConfigurator.setTokens(player, PlayerConfigurator.getTokens(player) + 1);
+		PlayerCollectionConfigurator.setTokenLimitDate(player, modeDisplay.toLowerCase(), WauzDateUtils.getDateLong());
+		PlayerCollectionConfigurator.setTokenLimitAmount(player, modeDisplay.toLowerCase(), earnedToday);
+		PlayerCollectionConfigurator.setTokens(player, PlayerCollectionConfigurator.getTokens(player) + 1);
 		int leftToday = maxToday - earnedToday;
 		String leftString = leftToday == 0
 				? "You reached the daily limit in " + modeDisplay + "!"

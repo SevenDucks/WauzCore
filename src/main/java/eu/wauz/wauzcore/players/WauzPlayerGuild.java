@@ -18,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.GuildConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.social.GuildOverviewMenu;
 import eu.wauz.wauzcore.system.WauzTeleporter;
@@ -137,10 +138,10 @@ public class WauzPlayerGuild {
 				leader.sendMessage(ChatColor.RED + "You are already in a guild!");
 				return true;
 			}
-			long tokens = PlayerConfigurator.getTokens(leader);
+			long tokens = PlayerCollectionConfigurator.getTokens(leader);
 			if(tokens < 300) {
 				leader.sendMessage(ChatColor.RED + "This requires 300 Tokens! You have: "
-						+ Formatters.INT.format(PlayerConfigurator.getTokens(leader)) + " Tokens.");
+						+ Formatters.INT.format(PlayerCollectionConfigurator.getTokens(leader)) + " Tokens.");
 				return true;
 			}
 			if(StringUtils.isBlank(guildName)) {
@@ -163,7 +164,7 @@ public class WauzPlayerGuild {
 			guildMap.put(guildUuidString, guild);
 			guildNameMap.put(guild.getGuildName(), guild);
 			
-			PlayerConfigurator.setTokens(leader, tokens - 300);
+			PlayerCollectionConfigurator.setTokens(leader, tokens - 300);
 			PlayerConfigurator.setGuild(leader, guildUuidString);
 			GuildOverviewMenu.open(leader);
 			return true;

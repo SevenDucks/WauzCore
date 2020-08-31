@@ -2,14 +2,14 @@ package eu.wauz.wauzcore.data;
 
 import java.util.List;
 
-import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
+import eu.wauz.wauzcore.data.api.QuestConfigurationUtils;
 
 /**
  * Configurator to fetch or modify data from the Shop.yml files.
  * 
  * @author Wauzmons
  */
-public class QuestConfigurator extends GlobalConfigurationUtils {
+public class QuestConfigurator extends QuestConfigurationUtils {
 	
 // Quest Files
 	
@@ -17,7 +17,7 @@ public class QuestConfigurator extends GlobalConfigurationUtils {
 	 * @return The list of all quest names.
 	 */
 	public static List<String> getQuestNameList() {
-		return GlobalConfigurationUtils.getQuestNameList();
+		return QuestConfigurationUtils.getQuestNameList();
 	}
 
 // General Parameters

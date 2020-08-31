@@ -3,7 +3,7 @@ package eu.wauz.wauzcore.data;
 import java.util.Collection;
 import java.util.List;
 
-import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
+import eu.wauz.wauzcore.data.api.BestiaryConfigurationUtils;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryCategory;
 
 /**
@@ -11,7 +11,7 @@ import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryCategory;
  * 
  * @author Wauzmons
  */
-public class BestiaryConfigurator extends GlobalConfigurationUtils {
+public class BestiaryConfigurator extends BestiaryConfigurationUtils {
 	
 // Bestiary Files
 	
@@ -21,7 +21,7 @@ public class BestiaryConfigurator extends GlobalConfigurationUtils {
 	 * @return The list of all species names of a given category.
 	 */
 	public static List<String> getSpeciesNameList(WauzBestiaryCategory category) {
-		return GlobalConfigurationUtils.getSpeciesNameList(category.toString());
+		return BestiaryConfigurationUtils.getSpeciesNameList(category.toString());
 	}
 	
 // Bestiary Entries

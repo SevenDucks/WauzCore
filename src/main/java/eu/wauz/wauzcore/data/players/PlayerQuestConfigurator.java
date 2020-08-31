@@ -2,7 +2,7 @@ package eu.wauz.wauzcore.data.players;
 
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.api.PlayerMetaConfigurationUtils;
+import eu.wauz.wauzcore.data.api.PlayerQuestConfigurationUtils;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 
@@ -11,7 +11,7 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
  * 
  * @author Wauzmons
  */
-public class PlayerQuestConfigurator extends PlayerMetaConfigurationUtils {
+public class PlayerQuestConfigurator extends PlayerQuestConfigurationUtils {
 	
 // General Parameters
 	

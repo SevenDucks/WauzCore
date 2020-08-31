@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.social.TitleMenu;
 import eu.wauz.wauzcore.system.WauzTitle;
@@ -52,8 +53,8 @@ public class WauzPlayerEventTitleBuy implements WauzPlayerEvent {
 			PlayerConfigurator.setCharacterTitleList(player, titleList);
 			PlayerConfigurator.setCharacterTitle(player, titleName);
 			
-			long currentSouls = PlayerConfigurator.getCharacterSoulstones(player);
-    		PlayerConfigurator.setCharacterSoulstones(player, currentSouls - title.getTitleCost());
+			long currentSouls = PlayerCollectionConfigurator.getCharacterSoulstones(player);
+			PlayerCollectionConfigurator.setCharacterSoulstones(player, currentSouls - title.getTitleCost());
 			
 			player.sendMessage(ChatColor.GREEN + "Your chat title was changed to \"" + title.getTitleDisplayName() + "\"!");
 			TitleMenu.open(player);

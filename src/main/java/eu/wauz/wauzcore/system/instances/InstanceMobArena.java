@@ -10,6 +10,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.InstanceConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.mobs.MobSpawn;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
@@ -161,8 +162,8 @@ public class InstanceMobArena {
 	 */
 	public void handOutMedals() {
 		for(Player player : world.getPlayers()) {
-			long medals = PlayerConfigurator.getCharacterMedals(player) + 1;
-			PlayerConfigurator.setCharacterMedals(player, medals);
+			long medals = PlayerCollectionConfigurator.getCharacterMedals(player) + 1;
+			PlayerCollectionConfigurator.setCharacterMedals(player, medals);
 			player.sendMessage(ChatColor.YELLOW + "You earned a medal for completing " + currentWave + " waves!");
 		}
 	}

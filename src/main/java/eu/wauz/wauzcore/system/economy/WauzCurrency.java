@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.CurrencyConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 
 /**
  * A currency or reputation type, generated from a currency config file.
@@ -151,7 +151,7 @@ public class WauzCurrency {
 	 * @return The owned currency amount.
 	 */
 	public long getCurrencyAmount(Player player) {
-		return PlayerConfigurator.getCharacterCurrency(player, currencyConfigName);
+		return PlayerCollectionConfigurator.getCharacterCurrency(player, currencyConfigName);
 	}
 	
 	/**
@@ -161,7 +161,7 @@ public class WauzCurrency {
 	 * @param amount The new owned currency amount.
 	 */
 	public void setCurrencyAmount(Player player, long amount) {
-		PlayerConfigurator.setCharacterCurrency(player, currencyConfigName, amount);
+		PlayerCollectionConfigurator.setCharacterCurrency(player, currencyConfigName, amount);
 	}
 
 }

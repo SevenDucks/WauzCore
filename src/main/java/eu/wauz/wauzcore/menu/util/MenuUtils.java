@@ -15,7 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.items.scrolls.WauzScrolls;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzMenu;
@@ -61,13 +61,13 @@ public class MenuUtils {
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
 		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Common Currency");
 		List<String> lores = new ArrayList<String>();
-		lores.add(Formatters.formatCoins(PlayerConfigurator.getCharacterCoins(player))
+		lores.add(Formatters.formatCoins(PlayerCollectionConfigurator.getCharacterCoins(player))
 			+ ChatColor.YELLOW + " Coins");
-		lores.add(ChatColor.RED + Formatters.INT.format(PlayerConfigurator.getCharacterSoulstones(player))
+		lores.add(ChatColor.RED + Formatters.INT.format(PlayerCollectionConfigurator.getCharacterSoulstones(player))
 			+ ChatColor.YELLOW + " Soulstones");
-		lores.add(ChatColor.RED + Formatters.INT.format(PlayerConfigurator.getCharacterMedals(player))
+		lores.add(ChatColor.RED + Formatters.INT.format(PlayerCollectionConfigurator.getCharacterMedals(player))
 			+ ChatColor.YELLOW + " Medals");
-		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getTokens(player))
+		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player))
 			+ ChatColor.YELLOW + " Tokens");
 		currencyItemMeta.setLore(lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
@@ -86,7 +86,7 @@ public class MenuUtils {
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
 		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Global Currency");
 		List<String> lores = new ArrayList<String>();
-		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getTokens(player))
+		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player))
 			+ ChatColor.YELLOW + " Tokens");
 		currencyItemMeta.setLore(lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);

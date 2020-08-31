@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.data.api.PlayerMetaConfigurationUtils;
+import eu.wauz.wauzcore.data.api.GuildConfigurationUtils;
 
 /**
  * Configurator to fetch or modify data from the Guild.yml files.
  * 
  * @author Wauzmons
  */
-public class GuildConfigurator extends PlayerMetaConfigurationUtils {
+public class GuildConfigurator extends GuildConfigurationUtils {
 
 // Guild Files
 	
@@ -19,14 +19,14 @@ public class GuildConfigurator extends PlayerMetaConfigurationUtils {
 	 * @return All guild uuids.
 	 */
 	public static List<String> getGuildUuidList() {
-		return PlayerMetaConfigurationUtils.getGuildUuidList();
+		return GuildConfigurationUtils.getGuildUuidList();
 	}
 	
 	/**
 	 * @param guild The uuid of the guild to delete.
 	 */
 	public static void deleteGuild(String guild) {
-		PlayerMetaConfigurationUtils.deleteGuild(guild);
+		GuildConfigurationUtils.deleteGuild(guild);
 	}
 	
 // General Parameters

@@ -7,14 +7,14 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.data.api.PlayerMetaConfigurationUtils;
+import eu.wauz.wauzcore.data.api.PlayerMailConfigurationUtils;
 
 /**
  * Configurator to fetch or modify data from the PlayerMail.yml files.
  * 
  * @author Wauzmons
  */
-public class PlayerMailConfigurator extends PlayerMetaConfigurationUtils {
+public class PlayerMailConfigurator extends PlayerMailConfigurationUtils {
 
 // Mail Files
 
@@ -22,7 +22,7 @@ public class PlayerMailConfigurator extends PlayerMetaConfigurationUtils {
 	 * @return The list of all player mail names.
 	 */
 	public static List<String> getPlayerMailNameList(Player player) {
-		List<String> playerMailNames = PlayerMetaConfigurationUtils.getPlayerMailNameList(player);
+		List<String> playerMailNames = PlayerMailConfigurationUtils.getPlayerMailNameList(player);
 		playerMailNames.sort(Comparator.naturalOrder());
 		return playerMailNames;
 	}
@@ -32,7 +32,7 @@ public class PlayerMailConfigurator extends PlayerMetaConfigurationUtils {
 	 * @param mail The name of the mail to delete.
 	 */
 	public static void deletePlayerMail(Player player, String mail) {
-		PlayerMetaConfigurationUtils.deletePlayerMail(player, mail);
+		PlayerMailConfigurationUtils.deletePlayerMail(player, mail);
 	}
 	
 // General Parameters

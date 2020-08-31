@@ -395,6 +395,7 @@ public class CharacterManager {
 	public static void deleteCharacter(Player player, String characterSlot) {
 		String basePath = core.getDataFolder().getAbsolutePath() + "/PlayerData/" + player.getUniqueId() + "/" + characterSlot;
 		new File(basePath + ".yml").delete();
+		new File(basePath + "-bestiary.yml").delete();
 		WauzFileUtils.removeFilesRecursive(new File(basePath + "-quests"));
 		WauzFileUtils.removeFilesRecursive(new File(basePath + "-relations"));
 		WauzDebugger.log(player, "Deleted Character: " + characterSlot);

@@ -2,14 +2,14 @@ package eu.wauz.wauzcore.data.players;
 
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.api.PlayerMetaConfigurationUtils;
+import eu.wauz.wauzcore.data.api.PlayerBestiaryConfigurationUtils;
 
 /**
  * Configurator to fetch or modify data from the PlayerBestiary.yml file.
  * 
  * @author Wauzmons
  */
-public class PlayerBestiaryConfigurator extends PlayerMetaConfigurationUtils {
+public class PlayerBestiaryConfigurator extends PlayerBestiaryConfigurationUtils {
 	
 // Kill Counts
 	

@@ -43,7 +43,7 @@ public class WauzPlayerSit {
 		else if(player.getGameMode().equals(GameMode.SPECTATOR)) {
 			message = ChatColor.RED + "You cannot sit while in spectator mode!";
 		}
-		else if(!WauzMode.getMode(player).equals(WauzMode.MMORPG)) {
+		else if(!WauzMode.getMode(player).equals(WauzMode.MMORPG) || WauzMode.isInstance(player.getWorld().getName())) {
 			message = ChatColor.RED + "You cannot sit in this world!";
 		}
 		else if(blockType.equals(Material.AIR)) {

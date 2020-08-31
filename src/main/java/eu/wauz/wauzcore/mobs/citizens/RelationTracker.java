@@ -7,7 +7,7 @@ import java.util.Objects;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerRelationConfigurator;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
@@ -36,8 +36,8 @@ public class RelationTracker {
 		
 		if(!Objects.equals(oldRelationLevel, newRelationLevel)) {
 			int reward = newRelationLevel.getRelationTier();
-			long soulstones = PlayerConfigurator.getCharacterSoulstones(player);
-			PlayerConfigurator.setCharacterSoulstones(player, soulstones + reward);
+			long soulstones = PlayerCollectionConfigurator.getCharacterSoulstones(player);
+			PlayerCollectionConfigurator.setCharacterSoulstones(player, soulstones + reward);
 			
 			String relationName = newRelationLevel.getRelationName();
 			player.sendMessage(ChatColor.YELLOW + "Your relation with " + citizen + " improved to \"" + relationName + "\"!");

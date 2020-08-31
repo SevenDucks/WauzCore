@@ -10,14 +10,14 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
+import eu.wauz.wauzcore.data.api.CitizenConfigurationUtils;
 
 /**
  * Configurator to fetch or modify data from the Citizen.yml files.
  * 
  * @author Wauzmons
  */
-public class CitizenConfigurator extends GlobalConfigurationUtils {
+public class CitizenConfigurator extends CitizenConfigurationUtils {
 	
 // Citizen Files
 
@@ -25,7 +25,7 @@ public class CitizenConfigurator extends GlobalConfigurationUtils {
 	 * @return The list of all citizen names.
 	 */
 	public static List<String> getCitizenNameList() {
-		return GlobalConfigurationUtils.getCitizenNameList();
+		return CitizenConfigurationUtils.getCitizenNameList();
 	}
 
 // General Parameters

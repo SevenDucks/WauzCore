@@ -14,8 +14,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
  */
 public class SeasonConfigurationUtils {
 
-// Interact with Season-Config
-
 	/**
 	 * Sets the given value in a season config.
 	 * 

@@ -7,7 +7,7 @@ import java.util.Objects;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
@@ -27,9 +27,9 @@ public class AchievementTracker {
 	 */
 	public static void addProgress(Player player, WauzAchievementType type, double increment) {
 		WauzAchievement oldAchievementStage = WauzAchievement.getCurrentAchievementStage(player, type);
-		double oldProgress = PlayerConfigurator.getCharacterAchievementProgress(player, type);
+		double oldProgress = PlayerCollectionConfigurator.getCharacterAchievementProgress(player, type);
 		double newProgress = oldProgress + increment;
-		PlayerConfigurator.setCharacterAchievementProgress(player, type, newProgress);
+		PlayerCollectionConfigurator.setCharacterAchievementProgress(player, type, newProgress);
 		WauzAchievement newAchievementStage = WauzAchievement.getCurrentAchievementStage(player, type);
 		
 		if(!Objects.equals(oldAchievementStage, newAchievementStage)) {
@@ -48,7 +48,7 @@ public class AchievementTracker {
 	public static List<String> generateProgressLores(Player player, WauzAchievementType type) {
 		WauzAchievement currentAchievementStage = WauzAchievement.getCurrentAchievementStage(player, type);
 		WauzAchievement nextAchievementStage = WauzAchievement.getNextAchievementStage(player, type);
-		double progress = PlayerConfigurator.getCharacterAchievementProgress(player, type);
+		double progress = PlayerCollectionConfigurator.getCharacterAchievementProgress(player, type);
 		String progressString = Formatters.INT.format(Math.floor(progress));
 		
 		List<String> lores = new ArrayList<>();

@@ -18,6 +18,7 @@ import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventGuildDemoteMember;
 import eu.wauz.wauzcore.events.WauzPlayerEventGuildKick;
@@ -296,7 +297,7 @@ public class GuildOverviewMenu implements WauzInventory {
 		List<String> createLores = new ArrayList<String>();
 		createLores.add(ChatColor.GRAY + "Type this Command in Chat to create a Guild!");
 		createLores.add(ChatColor.GRAY + "This will cost 300 Tokens! You have: "
-				+ Formatters.INT.format(PlayerConfigurator.getTokens(player)) + " Tokens.");
+				+ Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)) + " Tokens.");
 		createLores.add("");
 		createLores.add(ChatColor.BLUE + "/" + ChatColor.WHITE + "guild [guildName]");
 		createLores.add("");

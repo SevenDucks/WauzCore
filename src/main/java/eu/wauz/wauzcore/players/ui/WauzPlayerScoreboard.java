@@ -14,6 +14,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.system.WauzRank;
@@ -101,7 +102,7 @@ public class WauzPlayerScoreboard {
 		String rankTitle = rank.getRankPrefix();
 		rankTitle = StringUtils.isNotBlank(rankTitle) ? rankTitle : (rank.getRankColor() + rank.getRankName());
 		rowStrings.add("Rank: " + rankTitle);
-		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getTokens(player)));
+		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)));
 		
 		for(int index =  0; index != rowStrings.size(); index++) {
 			Score score = objective.getScore(rowStrings.get(index));
@@ -134,7 +135,7 @@ public class WauzPlayerScoreboard {
 		rowStrings.add("One point and a free Token");
 		rowStrings.add("for each Level beyond 30");
 		rowStrings.add("  ");
-		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerConfigurator.getTokens(player)));
+		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)));
 		rowStrings.add("Use an Ender Chest to spend");
 		rowStrings.add("   ");
 		rowStrings.add(ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "hub " + ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "spawn");
@@ -184,7 +185,7 @@ public class WauzPlayerScoreboard {
 			String maximumWave = ChatColor.GOLD + "" + arena.getMaximumWave();
 			rowStrings.add(ChatColor.WHITE + "  > Wave: " + currentWave + ChatColor.WHITE + " / " + maximumWave);
 			rowStrings.add(ChatColor.WHITE + "  > Remaining Enemies: " + ChatColor.RED + arena.getMobsLeft());
-			long medals = PlayerConfigurator.getCharacterMedals(player);
+			long medals = PlayerCollectionConfigurator.getCharacterMedals(player);
 			rowStrings.add(ChatColor.WHITE + "  > Earned Medals: " + ChatColor.AQUA + medals);
 		}
 		

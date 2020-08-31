@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
@@ -101,7 +102,7 @@ public class WauzShopActions {
 	 * 
 	 * @return If the selling was successful.
 	 * 
-	 * @see PlayerConfigurator#setCharacterCoins(Player, long)
+	 * @see PlayerCollectionConfigurator#setCharacterCoins(Player, long)
 	 * @see ItemUtils#isBoughtItem(ItemStack)
 	 * @see ItemUtils#getSellValue(ItemStack)
 	 * @see PlayerSkillConfigurator#getTradingFloat(Player)
@@ -113,7 +114,7 @@ public class WauzShopActions {
 		}
 		
 		int price;
-		long money = PlayerConfigurator.getCharacterCoins(player);
+		long money = PlayerCollectionConfigurator.getCharacterCoins(player);
 		
 		if(ItemUtils.isBoughtItem(itemToSell)) {
 			price = 0;
@@ -129,7 +130,7 @@ public class WauzShopActions {
 		price = (int) ((float) price * (float) PlayerSkillConfigurator.getTradingFloat(player));
 		WauzDebugger.log(player, "Item-Price: " + price + " (" + priceOld + ")");
 		
-		PlayerConfigurator.setCharacterCoins(player, money + price);
+		PlayerCollectionConfigurator.setCharacterCoins(player, money + price);
 		AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, price);
 		itemToSell.setAmount(0);
 		
@@ -152,7 +153,7 @@ public class WauzShopActions {
 	 * 
 	 * @see EquipmentUtils#getCurrentDurability(ItemStack)
 	 * @see EquipmentUtils#getMaximumDurability(ItemStack)
-	 * @see PlayerConfigurator#setCharacterCoins(Player, long)
+	 * @see PlayerCollectionConfigurator#setCharacterCoins(Player, long)
 	 * @see DurabilityCalculator#repairItem(Player, ItemStack)
 	 */
 	public static boolean repair(Player player, ItemStack itemToRepair, boolean fromShop) {
@@ -178,12 +179,12 @@ public class WauzShopActions {
 		
 		if(fromShop) {
 			int price = maxDurability - durability;
-			long money = PlayerConfigurator.getCharacterCoins(player);
+			long money = PlayerCollectionConfigurator.getCharacterCoins(player);
 			if(money < price) {
 				player.sendMessage(ChatColor.RED + "You don't have enough money to rapair this item!");
 				return false;
 			}
-			PlayerConfigurator.setCharacterCoins(player, money - price);
+			PlayerCollectionConfigurator.setCharacterCoins(player, money - price);
 			DurabilityCalculator.repairItem(player, itemToRepair);
 			player.sendMessage(ChatColor.GREEN + "Your item was repaired for " + price + " Coins!");
 			player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 1, 1);

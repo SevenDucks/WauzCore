@@ -9,7 +9,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerBestiaryConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.mobs.MobMetadataUtils;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Formatters;
@@ -51,8 +51,8 @@ public class ObservationTracker {
 			
 			int reward = newObservationRank.getSouls();
 			if(reward > 0) {
-				long soulstones = PlayerConfigurator.getCharacterSoulstones(player);
-				PlayerConfigurator.setCharacterSoulstones(player, soulstones + reward);
+				long soulstones = PlayerCollectionConfigurator.getCharacterSoulstones(player);
+				PlayerCollectionConfigurator.setCharacterSoulstones(player, soulstones + reward);
 				player.sendMessage(ChatColor.YELLOW + "You received " + reward + " soulstones as reward!");
 			}
 			WauzNmsClient.nmsChatCommand(player, "menu bestiary", ChatColor.YELLOW + "To view your bestiary:", false);

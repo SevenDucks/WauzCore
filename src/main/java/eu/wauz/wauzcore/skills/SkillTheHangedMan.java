@@ -9,7 +9,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
@@ -112,9 +112,9 @@ public class SkillTheHangedMan implements WauzPlayerSkill {
 			Random random = new Random();
 			switch (random.nextInt(3) + 1) {
 			case 1:
-				long money = PlayerConfigurator.getCharacterCoins(player);
+				long money = PlayerCollectionConfigurator.getCharacterCoins(player);
 				long added = (int) ((random.nextInt(21) + 10) * PlayerSkillConfigurator.getTradingFloat(player));
-				PlayerConfigurator.setCharacterCoins(player, money + added);
+				PlayerCollectionConfigurator.setCharacterCoins(player, money + added);
 				AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, added);
 				player.sendMessage(ChatColor.LIGHT_PURPLE + "You stole " + added + " COINS from the enemy!");
 				break;

@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.LootContainer;
@@ -99,8 +99,8 @@ public class WauzPlayerEventMailClaim implements WauzPlayerEvent {
 			List<ItemStack> lootItemStacks = new ArrayList<>();
 			lootItemStacks.add(mailItemStack);
 			if(coinAttachment > 0) {
-				long coins = PlayerConfigurator.getCharacterCoins(player);
-				PlayerConfigurator.setCharacterCoins(player, coins + coinAttachment);
+				long coins = PlayerCollectionConfigurator.getCharacterCoins(player);
+				PlayerCollectionConfigurator.setCharacterCoins(player, coins + coinAttachment);
 			}
 			if(itemAttachment != null) {
 				lootItemStacks.add(itemAttachment);
