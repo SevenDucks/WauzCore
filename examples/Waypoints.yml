@@ -6,6 +6,10 @@ Kurataki:
   name: Kurataki Isles
   world: Dalyreos
   coords: -4799.5 71 6250.5
+SpiderCave:
+  name: Kurataki Isles
+  world: Dalyreos
+  coords: -5184.5 154 6020.5
 DevilKnCamp:
   name: The Devil Knight Camp
   world: Dalyreos
@@ -26,6 +30,10 @@ WrayCave:
   name: Wrayvell Cave
   world: Dalyreos
   coords: -5439.5 82 5700.5
+Teranos:
+  name: Wrayvell Cave
+  world: Dalyreos
+  coords: -6384.5 68 5950.5
 TrollDen:
   name: Troll Den
   world: Dalyreos

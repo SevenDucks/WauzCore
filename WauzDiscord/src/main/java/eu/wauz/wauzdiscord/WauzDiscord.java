@@ -51,9 +51,6 @@ public class WauzDiscord extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		
-		shiroDiscordBot = new ShiroDiscordBot();
-		getLogger().info("Shiro's body is ready!");
-		
 		/**
 		 * Print the version
 		 */
@@ -66,6 +63,9 @@ public class WauzDiscord extends JavaPlugin {
 		getLogger().info(" \\/  \\/ \\__,_|\\__,_/___|_| |_| |_|\\___/|_| |_|___/");
 		getLogger().info("");
 		getLogger().info("O-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~O");
+		
+		shiroDiscordBot = new ShiroDiscordBot();
+		getLogger().info("Shiro's body is ready!");
 		
 		getServer().getPluginManager().registerEvents(new WauzDiscordListener(), this);
 		getLogger().info("Registered EventListeners!");

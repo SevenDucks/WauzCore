@@ -1,5 +1,7 @@
 package eu.wauz.wauzdiscord.data;
 
+import java.util.List;
+
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 
 /**
@@ -104,6 +106,13 @@ public class DiscordConfigurator extends GlobalConfigurationUtils {
 	 */
 	public static boolean showDeathNotification() {
 		return mainConfigGetBoolean("Discord", "notifications.death");
+	}
+	
+	/**
+	 * @return The list of log entries, that shouldn't be forwarded to Discord.
+	 */
+	public static List<String> getIgnoredLogMessages() {
+		return mainConfigGetStringList("Discord", "ignorelog");
 	}
 
 }

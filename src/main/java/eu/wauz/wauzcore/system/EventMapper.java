@@ -267,15 +267,17 @@ public class EventMapper {
 		}
 		if(WauzMode.isMMORPG(player)) {
 			ItemStack clicked = event.getCurrentItem();
-			if(HeadUtils.isHeadMenuItem(clicked, "Trashcan") && ItemUtils.isNotAir(player.getItemOnCursor())) {
-				player.getWorld().playEffect(player.getLocation(), Effect.BLAZE_SHOOT, 0);
-				player.setItemOnCursor(null);
-			}
-			else if(HeadUtils.isHeadMenuItem(clicked, "Materials")) {
-				
-			}
-			else if(HeadUtils.isHeadMenuItem(clicked, "Backpack")) {
-				
+			if(ItemUtils.isNotAir(clicked)) {
+				if(HeadUtils.isHeadMenuItem(clicked, "Trashcan") && ItemUtils.isNotAir(player.getItemOnCursor())) {
+					player.getWorld().playEffect(player.getLocation(), Effect.BLAZE_SHOOT, 0);
+					player.setItemOnCursor(null);
+				}
+				else if(HeadUtils.isHeadMenuItem(clicked, "Materials")) {
+					
+				}
+				else if(HeadUtils.isHeadMenuItem(clicked, "Backpack")) {
+					
+				}
 			}
 			MenuUtils.onSpecialItemInventoryClick(event);
 		}

@@ -116,8 +116,8 @@ public class WauzBestiaryEntry {
 		isBoss = menacingMob.isEnableRaidHealthBar();
 		int roundedBaseExp = (int) (menacingMob.getExpAmount() * 100);
 		lores.add("");
-		lores.add(ChatColor.WHITE + "Health: " + ChatColor.LIGHT_PURPLE + entryMob.getHealth().get());
-		lores.add(ChatColor.WHITE + "Attack: " + ChatColor.RED + entryMob.getDamage().get());
+		lores.add(ChatColor.WHITE + "Health: " + ChatColor.LIGHT_PURPLE + ((int) entryMob.getHealth().get()));
+		lores.add(ChatColor.WHITE + "Attack: " + ChatColor.RED + ((int) entryMob.getDamage().get()));
 		lores.add(ChatColor.WHITE + "Base Exp: " + ChatColor.AQUA + roundedBaseExp);
 		rankLoreMap.put(ObservationRank.B.getRankTier(), lores);
 	}

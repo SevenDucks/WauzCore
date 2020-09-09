@@ -43,7 +43,7 @@ public class ObservationTracker {
 		PlayerBestiaryConfigurator.setBestiaryKills(player, entry, newProgress);
 		
 		if(newProgress == 1) {
-			player.sendMessage(ChatColor.YELLOW + "Your defeated " + mobName + " for the first time!");
+			player.sendMessage(ChatColor.YELLOW + "You defeated " + mobName + " for the first time!");
 		}
 		if(!Objects.equals(oldObservationRank, newObservationRank)) {
 			String rankName = newObservationRank.getRankName() + ChatColor.YELLOW;

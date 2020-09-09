@@ -2,6 +2,8 @@ package eu.wauz.wauzdiscord;
 
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
@@ -12,6 +14,7 @@ import org.apache.logging.log4j.message.Message;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzdiscord.data.DiscordConfigurator;
 
 /**
  * Listens to log records from Bukkit, to forward them to Discord.
@@ -26,6 +29,11 @@ public class WauzLogFilter implements Filter {
 	private boolean isOpen = true;
 	
 	/**
+	 * The list of log entries, that shouldn't be forwarded to Discord.
+	 */
+	private List<String> ignoredMessages = new ArrayList<>();
+	
+	/**
 	 * A date format for displaying log timestamps.
 	 */
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -35,6 +43,8 @@ public class WauzLogFilter implements Filter {
 	 * Sends a notification to the log channel.
 	 */
 	public WauzLogFilter() {
+		ignoredMessages = DiscordConfigurator.getIgnoredLogMessages();
+		
 		String coreVersion = "Running WauzCore v" + WauzCore.getInstance().getDescription().getVersion();
 		String coreVersionDisplay = System.lineSeparator() + ":nazar_amulet: " + coreVersion;
 		String embeddedMessage = ":speaker: Activated logging for " + WauzCore.getServerKey() + " " + coreVersionDisplay;
@@ -55,12 +65,19 @@ public class WauzLogFilter implements Filter {
 	 */
 	@Override
 	public Result filter(LogEvent logEvent) {
-		String message = logEvent.getMessage().getFormattedMessage();
-		if(isOpen && !StringUtils.contains(message, "players online:")) {
-			String date = dateFormat.format(logEvent.getTimeMillis());
-			String level = " [" + logEvent.getLevel().name() + "] ";
-			WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft(date + level + message, true);
+		if(!isOpen) {
+			return null;
 		}
+		String message = logEvent.getMessage().getFormattedMessage();
+		for(String ignored : ignoredMessages) {
+			if(StringUtils.contains(message, ignored)) {
+				return null;
+			}
+		}
+		
+		String date = dateFormat.format(logEvent.getTimeMillis());
+		String level = " [" + logEvent.getLevel().name() + "] ";
+		WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft(date + level + message, true);
 		return null;
 	}
 

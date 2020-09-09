@@ -223,7 +223,9 @@ public class MobMetadataUtils {
 	 * @param value If the mob is a raid boss.
 	 */
 	public static void setRaidBoss(Entity mob, boolean value) {
-		addMetadata(mob, RAID_BOSS, value);
+		if(value) {
+			addMetadata(mob, RAID_BOSS, value);
+		}
 	}
 	
 	/**

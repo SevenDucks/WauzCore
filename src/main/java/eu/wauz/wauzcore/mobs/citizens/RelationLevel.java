@@ -114,7 +114,7 @@ public enum RelationLevel {
 	 * @return The following relation level.
 	 */
 	public RelationLevel getNextLevel() {
-		return relationTier >= values().length ? null : values()[relationTier + 1];
+		return relationTier + 1 >= values().length ? null : values()[relationTier + 1];
 	}
 
 	/**

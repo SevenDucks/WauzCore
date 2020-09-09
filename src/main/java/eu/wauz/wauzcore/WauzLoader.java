@@ -41,6 +41,7 @@ import eu.wauz.wauzcore.commands.administrative.CmdWzGetPet;
 import eu.wauz.wauzcore.commands.administrative.CmdWzGetRune;
 import eu.wauz.wauzcore.commands.administrative.CmdWzHeal;
 import eu.wauz.wauzcore.commands.administrative.CmdWzKey;
+import eu.wauz.wauzcore.commands.administrative.CmdWzNightvision;
 import eu.wauz.wauzcore.commands.administrative.CmdWzRank;
 import eu.wauz.wauzcore.commands.administrative.CmdWzRepair;
 import eu.wauz.wauzcore.commands.administrative.CmdWzSkill;
@@ -291,6 +292,7 @@ public class WauzLoader {
 		WauzCommandExecutor.registerCommand(new CmdWzGetRune());
 		WauzCommandExecutor.registerCommand(new CmdWzHeal());
 		WauzCommandExecutor.registerCommand(new CmdWzKey());
+		WauzCommandExecutor.registerCommand(new CmdWzNightvision());
 		WauzCommandExecutor.registerCommand(new CmdWzRank());
 		WauzCommandExecutor.registerCommand(new CmdWzRepair());
 		WauzCommandExecutor.registerCommand(new CmdWzSkill());

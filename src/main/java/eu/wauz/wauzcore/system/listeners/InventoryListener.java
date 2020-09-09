@@ -109,7 +109,7 @@ public class InventoryListener implements Listener {
 	 */
 	public void onItemCraft(PrepareItemCraftEvent event) {
 		CraftingInventory inventory = event.getInventory();
-		if(inventory.getLocation() != null && WauzMode.isMMORPG(inventory.getLocation().getWorld())) {
+		if(!event.getViewers().isEmpty() && WauzMode.isMMORPG(event.getViewers().get(0))) {
 			inventory.setResult(new ItemStack(Material.AIR));
 		}
 	}

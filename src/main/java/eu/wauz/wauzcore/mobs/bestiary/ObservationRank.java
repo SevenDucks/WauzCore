@@ -151,7 +151,7 @@ public enum ObservationRank {
 	 * @return The following observation rank.
 	 */
 	public ObservationRank getNextRank() {
-		return rankTier >= values().length ? null : values()[rankTier + 1];
+		return rankTier + 1 >= values().length ? null : values()[rankTier + 1];
 	}
 	
 }

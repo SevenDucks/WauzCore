@@ -13,3 +13,8 @@ notifications:
   startstop: true
   joinleave: true
   death: true
+ignorelog:
+- 'players online:'
+- 'Got disconnected from WebSocket. Attempting to resume session'
+- 'Successfully resumed Session!'
+- '[LibsDisguises] There is a update ready to be downloaded!'

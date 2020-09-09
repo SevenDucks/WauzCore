@@ -119,6 +119,11 @@ commands:
     aliases: [gm]
     usage: /wzGamemode [player]
     permission: wauz.system
+  wzNightvision:
+    description: Toggle Night Vision
+    aliases: [nightvision]
+    usage: /wzNightvision [player]
+    permission: wauz.system
   wzEnter.dev:
     description: Enter Dev Instance
     usage: /wzEnter.dev [instance]

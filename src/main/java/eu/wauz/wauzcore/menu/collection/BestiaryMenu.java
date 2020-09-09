@@ -3,9 +3,11 @@ package eu.wauz.wauzcore.menu.collection;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -13,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerBestiaryConfigurator;
-import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
@@ -23,6 +24,7 @@ import eu.wauz.wauzcore.mobs.bestiary.ObservationTracker;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryCategory;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryEntry;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiarySpecies;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -101,6 +103,13 @@ public class BestiaryMenu implements WauzInventory {
 		for(WauzBestiarySpecies species : categorySpecies) {
 			ItemStack speciesItemStack = new ItemStack(Material.BOOK);
 			MenuUtils.setItemDisplayName(speciesItemStack, ChatColor.YELLOW + "Species: " + species.getSpeciesName());
+			List<String> speciesLores = new ArrayList<>();
+			String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
+			String[] textParts = WordUtils.wrap(species.getSpeciesDescription(), 42, doubleParagraph, true).split(doubleParagraph);
+			for(String textPart : textParts) {
+				speciesLores.add(ChatColor.WHITE + textPart);
+			}
+			speciesItemStack.setLore(speciesLores);
 			menu.setItem(slot, speciesItemStack);
 			slot++;
 		}
@@ -207,17 +216,22 @@ public class BestiaryMenu implements WauzInventory {
 		final Player player = (Player) event.getWhoClicked();
 		int slot = event.getRawSlot();
 		
-		if(page.equals("categories") && slot > 0 && slot < 8) {
-			String categoryName = ItemUtils.getStringFromLore(clicked, "Category: ", 1);
-			category = WauzBestiaryCategory.valueOf(categoryName);
+		if(slot < 0) {
+			return;
+		}
+		else if(page.equals("categories") && slot > 0 && slot < 8) {
+			String clickedName = clicked.getItemMeta().getDisplayName();
+			String categoryName = StringUtils.substringAfter(clickedName, "Category: ");
+			category = WauzBestiaryCategory.valueOf(categoryName.toUpperCase());
 			showCategorySpecies(player);
 		}
 		else if(page.equals("species") && slot < WauzBestiarySpecies.getSpecies(category).size() + 1) {
 			if(slot == 0) {
 				open(player);
+				return;
 			}
 			List<WauzBestiarySpecies> categorySpecies = WauzBestiarySpecies.getSpecies(category);
-			species = categorySpecies.get(slot - 2);
+			species = categorySpecies.get(slot - 1);
 			showSpeciesEntries(player);
 		}
 		else if(page.equals("entries")) {
