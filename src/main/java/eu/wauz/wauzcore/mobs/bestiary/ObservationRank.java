@@ -15,7 +15,7 @@ public enum ObservationRank {
 	/**
 	 * Default rank, showing the mob name, if at least one kill was achieved.
 	 */
-	D(ChatColor.GRAY + "D", 0, 0, 0, GenericIconHeads.getUnknownItem(), 0),
+	D(ChatColor.GRAY + "D", 0, 0, 0, GenericIconHeads.getRankDItem(), 0),
 	
 	/**
 	 * First tier rank, showing a detailed description or backstory.
@@ -33,7 +33,7 @@ public enum ObservationRank {
 	A(ChatColor.GOLD + "A", 3, 500, 6, GenericIconHeads.getRankAItem(), 2),
 	
 	/**
-	 * Highest tier rank, doubles the loot dropped by the mob.
+	 * Highest tier rank, increases experience gained from the mob by 40%.
 	 */
 	S(ChatColor.RED + "S", 4, 2500, 10, GenericIconHeads.getRankSItem(), 3);
 	

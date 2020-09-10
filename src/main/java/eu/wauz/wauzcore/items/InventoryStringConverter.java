@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
@@ -60,6 +61,9 @@ public class InventoryStringConverter {
 		
 		playerDataConfig.set("inventory.items", player.getInventory().getContents());
 		playerDataConfig.set("inventory.armor", player.getInventory().getArmorContents());
+		
+		playerDataConfig.set("inventory.materials", MaterialPouch.getInventory(player, "materials").getContents());
+		playerDataConfig.set("inventory.questitems", MaterialPouch.getInventory(player, "questitems").getContents());
 		
 		try {
 			playerDataConfig.save(playerDataFile);

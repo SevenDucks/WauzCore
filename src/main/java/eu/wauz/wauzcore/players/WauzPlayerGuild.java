@@ -12,7 +12,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -689,9 +688,8 @@ public class WauzPlayerGuild {
 	/**
 	 * @return The wrapped description of the guild.
 	 */
-	public String[] getWrappedGuildDescription() {
-		String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
-		return WordUtils.wrap(guildDescription, 42, doubleParagraph, true).split(doubleParagraph);
+	public List<String> getWrappedGuildDescription() {
+		return UnicodeUtils.wrapText(guildDescription);
 	}
 
 	/**

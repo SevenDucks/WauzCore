@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.data.players;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
@@ -116,7 +117,7 @@ public class PlayerCollectionConfigurator extends PlayerConfigurationUtils {
 	 * @return The amount of coins the character owns.
 	 */
 	public static long getCharacterCoins(Player player) {
-		return playerConfigGetLong(player, "curenncies.coins", true);
+		return playerConfigGetLong(player, "currencies.coins", true);
 	}
 	
 	/**
@@ -124,7 +125,7 @@ public class PlayerCollectionConfigurator extends PlayerConfigurationUtils {
 	 * @param amount The new amount of coins the character owns.
 	 */
 	public static void setCharacterCoins(Player player, long amount) {
-		playerConfigSet(player, "curenncies.coins", amount, true);
+		playerConfigSet(player, "currencies.coins", amount, true);
 	}
 	
 	/**
@@ -133,7 +134,7 @@ public class PlayerCollectionConfigurator extends PlayerConfigurationUtils {
 	 * @return The amount of soulstones the character owns.
 	 */
 	public static long getCharacterSoulstones(Player player) {
-		return playerConfigGetLong(player, "curenncies.souls", true);
+		return playerConfigGetLong(player, "currencies.souls", true);
 	}
 	
 	/**
@@ -141,7 +142,7 @@ public class PlayerCollectionConfigurator extends PlayerConfigurationUtils {
 	 * @param amount The new amount of medals the character owns.
 	 */
 	public static void setCharacterMedals(Player player, long amount) {
-		playerConfigSet(player, "curenncies.medals", amount, true);
+		playerConfigSet(player, "currencies.medals", amount, true);
 	}
 	
 	/**
@@ -150,7 +151,7 @@ public class PlayerCollectionConfigurator extends PlayerConfigurationUtils {
 	 * @return The amount of medals the character owns.
 	 */
 	public static long getCharacterMedals(Player player) {
-		return playerConfigGetLong(player, "curenncies.medals", true);
+		return playerConfigGetLong(player, "currencies.medals", true);
 	}
 	
 	/**
@@ -158,7 +159,7 @@ public class PlayerCollectionConfigurator extends PlayerConfigurationUtils {
 	 * @param amount The new amount of soulstones the character owns.
 	 */
 	public static void setCharacterSoulstones(Player player, long amount) {
-		playerConfigSet(player, "curenncies.souls", amount, true);
+		playerConfigSet(player, "currencies.souls", amount, true);
 	}
 	
 	/**
@@ -172,7 +173,7 @@ public class PlayerCollectionConfigurator extends PlayerConfigurationUtils {
 			return getTokens(player);
 		}
 		else {
-			return playerConfigGetLong(player, "curenncies." + currency, true);
+			return playerConfigGetLong(player, "currencies." + currency, true);
 		}
 	}
 	
@@ -186,8 +187,29 @@ public class PlayerCollectionConfigurator extends PlayerConfigurationUtils {
 			setTokens(player, amount);
 		}
 		else {
-			playerConfigSet(player, "curenncies." + currency, amount, true);
+			playerConfigSet(player, "currencies." + currency, amount, true);
 		}
+	}
+	
+// Inventories
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param inventory The name of the inventory.
+	 * 
+	 * @return The contents of the inventory.
+	 */
+	public static ItemStack[] getCharacterInventoryContents(Player player, String inventory) {
+		return playerConfigGetItemStacks(player, "inventory." + inventory, true);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param inventory The name of the inventory.
+	 * @param contents The new contents of the inventory.
+	 */
+	public static void setCharacterInventoryContents(Player player, String inventory, ItemStack[] contents) {
+		playerConfigSet(player, "inventory." + inventory, contents, true);
 	}
 	
 // Achievements

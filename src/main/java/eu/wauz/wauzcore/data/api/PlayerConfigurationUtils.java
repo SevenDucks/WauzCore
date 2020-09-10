@@ -12,6 +12,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.players.WauzPlayerData;
@@ -311,6 +312,22 @@ public class PlayerConfigurationUtils {
 		}
 		return new Location(Bukkit.getWorld(playerConfigGetString(player, "pos.world", true))
 				, coords.get(0), coords.get(1), coords.get(2));
+	}
+	
+	/**
+	 * Gets an item stack array from a player config.
+	 * 
+	 * @param player The player that owns the config file.
+	 * @param path The key path of the value to get.
+	 * @param characterSpecific If the character specific file should be used.
+	 * 
+	 * @return The requested item stack array.
+	 */
+	protected static ItemStack[] playerConfigGetItemStacks(Player player, String path, Boolean characterSpecific) {
+		File playerDataFile = getPlayerDataFile(player, path, characterSpecific);
+		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
+		List<?> itemStackList = playerDataConfig.getList(trimPlayerDataPath(path));
+		return itemStackList != null ? itemStackList.toArray(new ItemStack[0]) : new ItemStack[0];
 	}
 
 }

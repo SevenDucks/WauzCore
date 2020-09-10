@@ -6,7 +6,6 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -79,10 +78,8 @@ public class CharacterClassMenu implements WauzInventory {
 			classItemMeta.setDisplayName(characterClass.getClassColor() + "" + ChatColor.BOLD + characterClass.getClassName());
 			
 			List<String> classLores = new ArrayList<>();
-			String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
-			String wrappedDescription = WordUtils.wrap(characterClass.getClassDescription(), 42, doubleParagraph, true);
-			for(String lore : wrappedDescription.split(doubleParagraph)) {
-				classLores.add(ChatColor.GRAY + lore);
+			for(String textPart : UnicodeUtils.wrapText(characterClass.getClassDescription())) {
+				classLores.add(ChatColor.GRAY + textPart);
 			}
 			classLores.add("");
 			

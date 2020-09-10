@@ -77,12 +77,11 @@ public class TradeMenu implements WauzInventory {
 	 * @see TradeMenu#setReadyStatus(boolean, boolean)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
-	public static void onTrade(Player requestingPlayer, Player requestedPlayer) {
+	public static void open(Player requestingPlayer, Player requestedPlayer) {
 		TradeMenu tradeMenu = new TradeMenu(requestingPlayer, requestedPlayer);
 		WauzInventoryHolder holder = new WauzInventoryHolder(tradeMenu);
 		Inventory menu = Bukkit.createInventory(holder, 36, ChatColor.BLACK + "" + ChatColor.BOLD + "Player Trading");
 		tradeMenu.setMenuInventory(menu);
-		tradeMenu.setReadyStatus(true, false);
 		tradeMenu.setReadyStatus(false, false);
 		
 		ItemStack requestingPlayerHead = new ItemStack(Material.PLAYER_HEAD);

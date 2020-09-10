@@ -93,6 +93,7 @@ import eu.wauz.wauzcore.items.weapons.CustomWeaponLance;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponStaff;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponSword;
+import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.abilities.CraftingMenu;
 import eu.wauz.wauzcore.menu.abilities.SkillAssignMenu;
@@ -228,6 +229,7 @@ public class WauzLoader {
 		MenuRegister.registerInventory(new GroupMenu(), WauzMode.MMORPG, WauzMode.SURVIVAL);
 		MenuRegister.registerInventory(new GuildOverviewMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new MailMenu(), WauzMode.MMORPG);
+		MenuRegister.registerInventory(new MaterialPouch("materials"), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new PetOverviewMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new QuestMenu(), WauzMode.MMORPG);
 		MenuRegister.registerInventory(new SkillAssignMenu(), WauzMode.MMORPG);

@@ -1,6 +1,10 @@
 package eu.wauz.wauzcore.system.util;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 
 /**
  * An util class for stuff like unicode icons.
@@ -62,6 +66,19 @@ public class UnicodeUtils {
 	 * <a href="https://www.fileformat.info/info/unicode/char/2764/index.htm">fileformat.info</a>
 	 */
 	public static final String ICON_HEART = "\u2764";
+	
+	/**
+	 * Wraps the given text, to be better displayable in lore.
+	 * 
+	 * @param text The text to wrap.
+	 * 
+	 * @return The wrapped text.
+	 */
+	public static List<String> wrapText(String text) {
+		String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
+		String[] textParts = WordUtils.wrap(text, 42, doubleParagraph, true).split(doubleParagraph);
+		return Arrays.asList(textParts);
+	}
 	
 	/**
 	 * Creates a progress bar, with a percentage display.

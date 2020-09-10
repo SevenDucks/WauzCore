@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -104,9 +103,7 @@ public class BestiaryMenu implements WauzInventory {
 			ItemStack speciesItemStack = new ItemStack(Material.BOOK);
 			MenuUtils.setItemDisplayName(speciesItemStack, ChatColor.YELLOW + "Species: " + species.getSpeciesName());
 			List<String> speciesLores = new ArrayList<>();
-			String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
-			String[] textParts = WordUtils.wrap(species.getSpeciesDescription(), 42, doubleParagraph, true).split(doubleParagraph);
-			for(String textPart : textParts) {
+			for(String textPart : UnicodeUtils.wrapText(species.getSpeciesDescription())) {
 				speciesLores.add(ChatColor.WHITE + textPart);
 			}
 			speciesItemStack.setLore(speciesLores);
@@ -206,6 +203,7 @@ public class BestiaryMenu implements WauzInventory {
 	
 	/**
 	 * Checks if an event in this inventory was triggered by a player click.
+	 * Cancels the event and lets the player navigate through the bestiary.
 	 * 
 	 * @param event The inventory click event.
 	 */

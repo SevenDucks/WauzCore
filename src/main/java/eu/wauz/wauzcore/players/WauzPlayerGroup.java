@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
@@ -216,9 +215,8 @@ public class WauzPlayerGroup {
 	/**
 	 * @return The wrapped description of the group.
 	 */
-	public String[] getWrappedGroupDescription() {
-		String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
-		return WordUtils.wrap(groupDescription, 42, doubleParagraph, true).split(doubleParagraph);
+	public List<String> getWrappedGroupDescription() {
+		return UnicodeUtils.wrapText(groupDescription);
 	}
 
 	/**

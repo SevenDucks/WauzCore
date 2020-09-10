@@ -34,7 +34,7 @@ public class ScrollFortune implements InventoryScroll {
 	 */
 	@Override
 	public boolean use(InventoryClickEvent event, String itemName) {
-		return !itemName.contains("Scroll") && WauzShopActions.sell((Player) event.getWhoClicked(), event.getCurrentItem(), false);
+		return !itemName.contains("Scroll") && WauzShopActions.sell((Player) event.getWhoClicked(), event.getCurrentItem(), true);
 	}
 
 }

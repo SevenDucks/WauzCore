@@ -121,7 +121,7 @@ public class MenuUtils {
 		ItemMeta trashcanItemMeta = trashcanItemStack.getItemMeta();
 		trashcanItemMeta.setDisplayName(ChatColor.YELLOW + "Materials");
 		List<String> trashcanLores = new ArrayList<String>();
-		trashcanLores.add(ChatColor.GRAY + "Click to view / sell Materials...");
+		trashcanLores.add(ChatColor.GRAY + "Click to view Materials and Quest Items...");
 		trashcanItemMeta.setLore(trashcanLores);
 		trashcanItemStack.setItemMeta(trashcanItemMeta);
 		menu.setItem(index, trashcanItemStack);

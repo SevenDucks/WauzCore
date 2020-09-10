@@ -52,7 +52,7 @@ public class CharacterManager {
 	/**
 	 * The current schema version of character files.
 	 */
-	public static final int SCHEMA_VERSION = 4;
+	public static final int SCHEMA_VERSION = 5;
 	
 	/**
 	 * A direct reference to the main class.
@@ -302,10 +302,9 @@ public class CharacterManager {
 			playerDataConfig.set("masteries.2", 0);
 			playerDataConfig.set("masteries.3", 0);
 			playerDataConfig.set("masteries.4", 0);
-				
-			playerDataConfig.set("curenncies", new ArrayList<>());
-			playerDataConfig.set("materials", new ArrayList<>());
 			
+			playerDataConfig.set("currencies", new ArrayList<>());
+				
 			playerDataConfig.set("options.hideSpecialQuests", 0);
 			playerDataConfig.set("options.hideCompletedQuests", 0);
 			playerDataConfig.set("options.tabard", "No Tabard");
@@ -342,6 +341,8 @@ public class CharacterManager {
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.EARN_COINS.getKey(), 0);
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.PLAY_HOURS.getKey(), 0);
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.GAIN_LEVELS.getKey(), 1);
+			
+			playerDataConfig.set("inventory", new ArrayList<>());
 			persistCharacterFile(playerDataFile, playerDataConfig);
 			
 			player.getInventory().addItem(characterClass.getStartingWeapon());

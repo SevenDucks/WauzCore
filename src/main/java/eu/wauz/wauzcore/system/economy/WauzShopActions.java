@@ -98,7 +98,7 @@ public class WauzShopActions {
 	 * 
 	 * @param player The player who wants to sell the item.
 	 * @param itemToSell The item that should be sold.
-	 * @param fromShop If the selling was triggered from a shop menu.
+	 * @param sellSound If a sell sound should be played.
 	 * 
 	 * @return If the selling was successful.
 	 * 
@@ -108,7 +108,7 @@ public class WauzShopActions {
 	 * @see PlayerSkillConfigurator#getTradingFloat(Player)
 	 * @see AchievementTracker#addProgress(Player, WauzAchievementType, double)
 	 */
-	public static boolean sell(Player player, ItemStack itemToSell, boolean fromShop) {
+	public static boolean sell(Player player, ItemStack itemToSell, boolean sellSound) {
 		if(itemToSell.equals(null) || itemToSell.getType().equals(Material.AIR)) {
 			return false;
 		}
@@ -129,14 +129,16 @@ public class WauzShopActions {
 		long priceOld = price;
 		price = (int) ((float) price * (float) PlayerSkillConfigurator.getTradingFloat(player));
 		WauzDebugger.log(player, "Item-Price: " + price + " (" + priceOld + ")");
+		String displayName = ItemUtils.hasDisplayName(itemToSell) ? itemToSell.getItemMeta().getDisplayName() : "Item";
 		
 		PlayerCollectionConfigurator.setCharacterCoins(player, money + price);
 		AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, price);
 		itemToSell.setAmount(0);
 		
-		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
-		player.sendMessage(ChatColor.GREEN + "Your item was sold for " + price + " Coins!");
-		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
+		if(sellSound) {
+			player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
+		}
+		player.sendMessage(displayName + ChatColor.GREEN + " was sold for " + price + " Coins!");
 		return true;
 	}
 	

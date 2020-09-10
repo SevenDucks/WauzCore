@@ -27,6 +27,7 @@ import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.WauzResources;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.menu.ShopMenu;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
@@ -273,7 +274,7 @@ public class EventMapper {
 					player.setItemOnCursor(null);
 				}
 				else if(HeadUtils.isHeadMenuItem(clicked, "Materials")) {
-					
+					MaterialPouch.open(player);
 				}
 				else if(HeadUtils.isHeadMenuItem(clicked, "Backpack")) {
 					

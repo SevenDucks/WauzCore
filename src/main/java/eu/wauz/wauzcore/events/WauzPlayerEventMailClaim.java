@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -75,9 +74,7 @@ public class WauzPlayerEventMailClaim implements WauzPlayerEvent {
 			mailLores.add(ChatColor.GRAY + "Item: " + attachmentName);
 		}
 		mailLores.add("");
-		String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
-		String[] textParts = WordUtils.wrap(text, 42, doubleParagraph, true).split(doubleParagraph);
-		for(String textPart : textParts) {
+		for(String textPart : UnicodeUtils.wrapText(text)) {
 			mailLores.add(ChatColor.GRAY + textPart);
 		}
 		mailItemMeta.setLore(mailLores);

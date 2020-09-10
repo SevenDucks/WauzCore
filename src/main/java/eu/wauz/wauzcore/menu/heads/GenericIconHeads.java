@@ -114,6 +114,13 @@ public class GenericIconHeads {
 // Rank Icons
 	
 	/**
+	 * @return An item stack representing a gray D.
+	 */
+	public static ItemStack getRankDItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTg2NmI0NjJiNzc2Mzc0MzI4ZDhkYWYyY2U5ZTVhYmMzZWNjNjQ0ODFkNTRhNjljZDRjMmIyNWU3NjMwYzZhZiJ9fX0=");
+	}
+	
+	/**
 	 * @return An item stack representing a lime C.
 	 */
 	public static ItemStack getRankCItem() {

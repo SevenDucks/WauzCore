@@ -27,13 +27,16 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.event.server.ServerListPingEvent;
+import org.bukkit.inventory.ItemStack;
 import org.spigotmc.event.entity.EntityDismountEvent;
 import org.spigotmc.event.entity.EntityMountEvent;
 
 import eu.wauz.wauzcore.data.ServerConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.items.WauzEquipment;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.CitizenInteractionMenu;
+import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
@@ -200,17 +203,30 @@ public class PlayerInteractionListener implements Listener {
 	}
 
 	/**
-	 * Updates the scoreboard of an MMORPG player,
-	 * in case they picked up an item that is relevant to a quest.
+	 * Stores the item in the fitting invntory for MMORPG players
+	 * and updates there scoreboard, if it was relevant for a quest.
 	 * 
 	 * @param event The pickup event.
 	 * 
+	 * @see MaterialPouch#addItem(Player, ItemStack, String)
 	 * @see WauzPlayerScoreboard#scheduleScoreboardRefresh(Player)
 	 */
 	@EventHandler
 	public void onPickup(EntityPickupItemEvent event) {
 		if (event.getEntity() instanceof Player && WauzMode.isMMORPG(event.getEntity())) {
-			WauzPlayerScoreboard.scheduleScoreboardRefresh((Player) event.getEntity());
+			Player player = (Player) event.getEntity();
+			ItemStack itemStack = event.getItem().getItemStack();
+			if(ItemUtils.isMaterialItem(itemStack)) {
+				event.setCancelled(true);
+				event.getItem().remove();
+				MaterialPouch.addItem(player, itemStack, "materials");
+			}
+			else if(ItemUtils.isQuestItem(itemStack)) {
+				event.setCancelled(true);
+				event.getItem().remove();
+				MaterialPouch.addItem(player, itemStack, "questitems");
+				WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
+			}
 		}
 	}
 

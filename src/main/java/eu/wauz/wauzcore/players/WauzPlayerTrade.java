@@ -71,7 +71,7 @@ public class WauzPlayerTrade {
      * 
      * @see WauzPlayerTrade#canTrade(Player, Player)
      * @see WauzNmsClient#nmsChatCommand(Player, String, String, boolean)
-     * @see TradeMenu#onTrade(Player, Player)
+     * @see TradeMenu#open(Player, Player)
      */
     public static boolean tryToTrade(Player requestingPlayer, String requestedPlayerName) {
     	OfflinePlayer requestedPlayer = WauzCore.getOfflinePlayer(requestedPlayerName);
@@ -101,7 +101,7 @@ public class WauzPlayerTrade {
 			requestingPlayer.sendMessage(ChatColor.YELLOW + "A trade request was sent to " + requestedPlayer.getName() + "!");
 		}
 		else {
-			TradeMenu.onTrade(requestingPlayer, requestedOnlinePlayer);
+			TradeMenu.open(requestingPlayer, requestedOnlinePlayer);
 			requestMap.remove(requestedPlayer.getUniqueId().toString());
 		}
 		return true;

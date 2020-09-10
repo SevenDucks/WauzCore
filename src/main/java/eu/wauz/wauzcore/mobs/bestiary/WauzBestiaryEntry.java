@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 
 import eu.wauz.wauzcore.data.BestiaryConfigurator;
 import eu.wauz.wauzcore.mobs.MenacingMobsConfig;
@@ -97,9 +96,7 @@ public class WauzBestiaryEntry {
 	 */
 	private void addRankCLores() {
 		List<String> lores = new ArrayList<>();
-		String doubleParagraph = UnicodeUtils.ICON_PARAGRAPH + UnicodeUtils.ICON_PARAGRAPH;
-		String[] textParts = WordUtils.wrap(entryMobDescription, 42, doubleParagraph, true).split(doubleParagraph);
-		for(String textPart : textParts) {
+		for(String textPart : UnicodeUtils.wrapText(entryMobDescription)) {
 			lores.add(ChatColor.WHITE + textPart);
 		}
 		rankLoreMap.put(ObservationRank.C.getRankTier(), lores);
@@ -141,7 +138,7 @@ public class WauzBestiaryEntry {
 	 */
 	private void addRankSLores() {
 		List<String> lores = new ArrayList<>();
-		lores.add(ChatColor.YELLOW + "Doubled Loot Dropped by Mob");
+		lores.add(ChatColor.YELLOW + "+40% Experience Gained from Mob");
 		rankLoreMap.put(ObservationRank.S.getRankTier(), lores);
 	}
 

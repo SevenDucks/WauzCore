@@ -5,6 +5,8 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.data.players.PlayerBestiaryConfigurator;
+import eu.wauz.wauzcore.mobs.bestiary.ObservationRank;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
@@ -31,11 +33,19 @@ public class MenacingMobsLoot {
 		if(killer == null || !(killer instanceof Player)) {
 			return;
 		}
+		Player player = (Player) killer;
 		
 		int tier = MobMetadataUtils.getExpDropTier(entity);
 		double amount = MobMetadataUtils.getExpDropAmount(entity);
 		if(tier > 0 && amount > 0) {
-			ExperienceCalculator.grantExperience((Player) killer, tier, amount, entity.getLocation());
+			if(MobMetadataUtils.hasBestiaryEntry(entity)) {
+				String entry = MobMetadataUtils.getBestiaryEntry(entity);
+				boolean isBoss = MobMetadataUtils.isRaidBoss(entity);
+				int killCount = PlayerBestiaryConfigurator.getBestiaryKills(player, entry);
+				int neededKills = isBoss ? ObservationRank.S.getBossKills() : ObservationRank.S.getNormalKills();
+				amount *= killCount >= neededKills ? 1.4f : 1;
+			}
+			ExperienceCalculator.grantExperience(player, tier, amount, entity.getLocation());
 		}
 	}
 	
