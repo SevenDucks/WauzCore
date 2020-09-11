@@ -11,8 +11,8 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.AchievementConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Formatters;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
  * An achievement, generated from the achievement config file.
@@ -150,7 +150,7 @@ public class WauzAchievement {
 		String goalDisplay = ChatColor.YELLOW + " (" + Formatters.INT.format(goal) + " " + type.getMessage() + ")";
 		player.sendMessage(ChatColor.YELLOW + "You earned " + ChatColor.GOLD + name + goalDisplay);
 		player.sendMessage(ChatColor.YELLOW + "You received " + reward + " soulstones as reward!");
-		WauzNmsClient.nmsChatCommand(player, "menu achievements", ChatColor.YELLOW + "To view your achievements:", false);
+		UnicodeUtils.sendChatCommand(player, "menu achievements", ChatColor.YELLOW + "To view your achievements:", false);
 		player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 	}
 

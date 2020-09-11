@@ -54,7 +54,7 @@ public class EventMapper {
 			Material.CRAFTING_TABLE, Material.FURNACE, Material.ENCHANTING_TABLE, Material.BREWING_STAND, Material.ANVIL,
 			Material.DISPENSER, Material.DROPPER, Material.CAKE, Material.BLAST_FURNACE, Material.CAMPFIRE,
 			Material.CARTOGRAPHY_TABLE, Material.COMPOSTER, Material.FLETCHING_TABLE, Material.GRINDSTONE, Material.LOOM,
-			Material.SMITHING_TABLE, Material.SMOKER, Material.STONECUTTER);
+			Material.SMITHING_TABLE, Material.SMOKER, Material.STONECUTTER, Material.LODESTONE, Material.RESPAWN_ANCHOR);
 	
 	/**
 	 * A map of all coustom items for the MMORPG mode, indexed by trigger materials.

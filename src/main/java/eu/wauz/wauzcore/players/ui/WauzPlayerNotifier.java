@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -39,7 +39,7 @@ public class WauzPlayerNotifier {
 	 * 
 	 * @return If the messages were shown successfully.
 	 * 
-	 * @see WauzNmsClient#nmsChatCommand(Player, String, String, boolean)
+	 * @see UnicodeUtils#sendChatCommand(Player, String, String, boolean)
 	 * @see PlayerSkillConfigurator#getUnusedStatpoints(Player)
 	 * @see PlayerMailConfigurator#getPlayerMailNameList(Player)
 	 */
@@ -51,13 +51,13 @@ public class WauzPlayerNotifier {
 			if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
 				int unusedPoints = PlayerSkillConfigurator.getUnusedStatpoints(player);
 				if(unusedPoints > 0) {
-					WauzNmsClient.nmsChatCommand(player, "menu skills",
+					UnicodeUtils.sendChatCommand(player, "menu skills",
 							ChatColor.YELLOW + "You have " + unusedPoints +
 							" unused Skillpoints! To allocate them:", false);
 				}
 				int unreadMails = PlayerMailConfigurator.getPlayerMailNameList(player).size();
 				if(unreadMails > 0) {
-					WauzNmsClient.nmsChatCommand(player, "menu mails",
+					UnicodeUtils.sendChatCommand(player, "menu mails",
 							ChatColor.YELLOW + "You have " + unreadMails +
 							" unread Mails! To read them:", false);
 				}

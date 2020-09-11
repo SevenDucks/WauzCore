@@ -20,7 +20,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzTeleporter;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -134,7 +134,7 @@ public class TravellingMenu implements WauzInventory {
 	 * @see WauzTeleporter#spawnTeleportManual(Player)
 	 * @see WauzTeleporter#hearthstoneTeleport(Player)
 	 * @see WauzTeleporter#exitInstanceTeleportManual(Player)
-	 * @see WauzNmsClient#nmsChatHyperlink(Player, String, String, boolean)
+	 * @see UnicodeUtils#sendChatHyperlink(Player, String, String, boolean)
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
@@ -158,7 +158,7 @@ public class TravellingMenu implements WauzInventory {
 			WauzTeleporter.exitInstanceTeleportManual(player);
 		}
 		else if(clicked.getType().equals(Material.MAP)) {
-			WauzNmsClient.nmsChatHyperlink(player, "http://wauz.eu/map.html",
+			UnicodeUtils.sendChatHyperlink(player, "http://wauz.eu/map.html",
 					ChatColor.YELLOW + "Open the Overview Map:", true);
 			player.closeInventory();
 		}

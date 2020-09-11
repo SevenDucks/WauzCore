@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.data.players.PlayerBestiaryConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.mobs.MobMetadataUtils;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
@@ -55,7 +54,7 @@ public class ObservationTracker {
 				PlayerCollectionConfigurator.setCharacterSoulstones(player, soulstones + reward);
 				player.sendMessage(ChatColor.YELLOW + "You received " + reward + " soulstones as reward!");
 			}
-			WauzNmsClient.nmsChatCommand(player, "menu bestiary", ChatColor.YELLOW + "To view your bestiary:", false);
+			UnicodeUtils.sendChatCommand(player, "menu bestiary", ChatColor.YELLOW + "To view your bestiary:", false);
 		}
 	}
 	

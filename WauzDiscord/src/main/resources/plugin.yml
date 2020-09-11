@@ -3,7 +3,7 @@ description: Advanced Minecraft MMORPG Engine - Discord Addon
 main: eu.wauz.wauzdiscord.WauzDiscord
 website: http://wauz.eu/
 version: 1.0
-api-version: 1.15
+api-version: 1.16
 author: Nikolas Keller
 depend: [WauzCore]
 commands:

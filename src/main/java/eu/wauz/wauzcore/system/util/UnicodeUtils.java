@@ -5,6 +5,10 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
+import org.bukkit.entity.Player;
+
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.chat.ComponentSerializer;
 
 /**
  * An util class for stuff like unicode icons.
@@ -103,6 +107,54 @@ public class UnicodeUtils {
 			progressBar += "|";
 		}
 		return progressBar + " " + ChatColor.WHITE + ((int) precisePercantage) + "%";
+	}
+
+	/**
+	 * Sends a clickable message to execute a command to a player.
+	 * 
+	 * @param player The player that should receive the message.
+	 * @param command The command that should be executed on click.
+	 * @param message The message that should be shown.
+	 * @param border If the message has borders like this: ----------
+	 */
+	public static void sendChatCommand(Player player, String command, String message, boolean border) {
+		if(border) {
+			player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
+		}
+		
+		BaseComponent[] comp = ComponentSerializer
+				.parse("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"" + ICON_PARAGRAPH + "bClick Here\","
+						+ "\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"Run Command\"},"
+						+ "\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/" + command + "\"}}]}");
+	    player.spigot().sendMessage(comp);
+	    
+	    if(border) {
+	    	player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
+	    }
+	}
+
+	/**
+	 * Sends a clickable message to open an url to a player.
+	 * 
+	 * @param player The player that should receive the message.
+	 * @param url The url that should be opened on click.
+	 * @param message The message that should be shown.
+	 * @param border If the message has borders like this: ----------
+	 */
+	public static void sendChatHyperlink(Player player, String url, String message, boolean border) {
+		if(border) {
+			player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
+		}
+		
+		BaseComponent[] comp = ComponentSerializer
+				.parse("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"" + ICON_PARAGRAPH + "bClick Here\","
+						+ "\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"Open URL\"},"
+						+ "\"clickEvent\":{\"action\":\"open_url\",\"value\":\"" + url + "\"}}]}");
+		player.spigot().sendMessage(comp);
+	    
+	    if(border) {
+	    	player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
+	    }
 	}
 
 }

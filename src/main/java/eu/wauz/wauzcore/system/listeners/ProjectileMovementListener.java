@@ -2,6 +2,7 @@ package eu.wauz.wauzcore.system.listeners;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -65,7 +66,7 @@ public class ProjectileMovementListener implements Listener {
 	public void onMove(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
 		if(WauzMode.inHub(player)) {
-			if(player.isOnGround()) {
+			if(((Entity) player).isOnGround()) {
 				event.getPlayer().setAllowFlight(true);
 			}
 		}

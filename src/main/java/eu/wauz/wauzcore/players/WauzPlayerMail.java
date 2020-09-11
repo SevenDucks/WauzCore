@@ -14,7 +14,7 @@ import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -199,7 +199,7 @@ public class WauzPlayerMail {
 		player.sendMessage(ChatColor.GREEN + "Your mail was successfully sent to " + receiver.getName() + "!");
 		if(receiver.getPlayer() != null) {
 			String newMailMessage = ChatColor.YELLOW + "You received a mail! To read it:";
-			WauzNmsClient.nmsChatCommand(receiver.getPlayer(), "menu mails", newMailMessage, false);
+			UnicodeUtils.sendChatCommand(receiver.getPlayer(), "menu mails", newMailMessage, false);
 		}
 	}
 

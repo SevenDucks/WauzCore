@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
  * A class to interact with the friend list of a player.
@@ -78,7 +78,7 @@ public class WauzPlayerFriends {
 	 * 
 	 * @see WauzPlayerFriends#canAddFriend(Player, OfflinePlayer)
 	 * @see WauzPlayerFriends#getFriendsList(OfflinePlayer)
-	 * @see WauzNmsClient#nmsChatCommand(Player, String, String, boolean)
+	 * @see UnicodeUtils#sendChatCommand(Player, String, String, boolean)
 	 * @see PlayerConfigurator#setFriendsList(OfflinePlayer, List)
 	 */
 	public static boolean addFriend(Player requestingPlayer, String requestedPlayerName) {
@@ -103,7 +103,7 @@ public class WauzPlayerFriends {
 			}
 			else {
 				requestMap.put(requestingPlayerUuid, requestedPlayerUuid);
-				WauzNmsClient.nmsChatCommand(requestedOnlinePlayer, "friend " + requestingPlayer.getName(),
+				UnicodeUtils.sendChatCommand(requestedOnlinePlayer, "friend " + requestingPlayer.getName(),
 						ChatColor.YELLOW + requestingPlayer.getName() + " wants to be friends! " +
 						"To accept:", false);
 				requestedOnlinePlayer.playSound(requestedOnlinePlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1); 

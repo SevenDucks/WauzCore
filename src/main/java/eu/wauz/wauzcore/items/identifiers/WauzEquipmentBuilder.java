@@ -207,7 +207,7 @@ public class WauzEquipmentBuilder {
 	 */
 	public void addSpeedStat(double speedStat) {
 		double genericAttackSpeed = speedStat - 4.0;
-		AttributeModifier modifier = new AttributeModifier("generic.attackSpeed", genericAttackSpeed, Operation.ADD_NUMBER);
+		AttributeModifier modifier = new AttributeModifier("generic.attack_speed", genericAttackSpeed, Operation.ADD_NUMBER);
 		itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
 		speedString = "Speed:" + ChatColor.RED + " " + Formatters.DEC_SHORT.format(speedStat);
 	}

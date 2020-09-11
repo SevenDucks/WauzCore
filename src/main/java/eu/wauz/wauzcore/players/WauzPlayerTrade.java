@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.menu.TradeMenu;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -70,7 +70,7 @@ public class WauzPlayerTrade {
      * @return If the trade window was opened or a request was sent.
      * 
      * @see WauzPlayerTrade#canTrade(Player, Player)
-     * @see WauzNmsClient#nmsChatCommand(Player, String, String, boolean)
+     * @see UnicodeUtils#sendChatCommand(Player, String, String, boolean)
      * @see TradeMenu#open(Player, Player)
      */
     public static boolean tryToTrade(Player requestingPlayer, String requestedPlayerName) {
@@ -94,7 +94,7 @@ public class WauzPlayerTrade {
 		boolean isRequestAnswer = StringUtils.equals(requestMap.get(requestedPlayerUuid), requestingPlayerUuid);
 		if(!isRequestAnswer) {
 			requestMap.put(requestingPlayerUuid, requestedPlayerUuid);
-			WauzNmsClient.nmsChatCommand(requestedOnlinePlayer, "trade " + requestingPlayer.getName(),
+			UnicodeUtils.sendChatCommand(requestedOnlinePlayer, "trade " + requestingPlayer.getName(),
 					ChatColor.YELLOW + requestingPlayer.getName() + " wants to trade! " +
 					"To accept:", false);
 			requestedOnlinePlayer.playSound(requestedOnlinePlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1); 

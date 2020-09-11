@@ -4,10 +4,11 @@ import java.util.UUID;
 
 import com.mojang.authlib.GameProfile;
 
-import net.minecraft.server.v1_15_R1.EntityHuman;
-import net.minecraft.server.v1_15_R1.ItemWorldMap;
-import net.minecraft.server.v1_15_R1.WorldMap;
-import net.minecraft.server.v1_15_R1.WorldServer;
+import net.minecraft.server.v1_16_R2.BlockPosition;
+import net.minecraft.server.v1_16_R2.EntityHuman;
+import net.minecraft.server.v1_16_R2.ItemWorldMap;
+import net.minecraft.server.v1_16_R2.WorldMap;
+import net.minecraft.server.v1_16_R2.WorldServer;
 
 /**
  * A human entity used to trigger map rendering.
@@ -27,7 +28,7 @@ public class NmsEntityMockPlayer extends EntityHuman {
 	 * @param worldServer The world server the entity is located in.
 	 */
 	public NmsEntityMockPlayer(WorldServer worldServer) {
-		super(worldServer.getMinecraftWorld(), new GameProfile(UUID.randomUUID(), ""));
+		super(worldServer.getMinecraftWorld(), new BlockPosition(0, 64, 0), 64, new GameProfile(UUID.randomUUID(), ""));
 		this.worldServer = worldServer;
 	}
 	
