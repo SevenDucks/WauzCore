@@ -1,6 +1,6 @@
 language: java
 os: linux
-dist: xenial
+dist: centos
 
 cache:
   directories:
@@ -13,7 +13,10 @@ script:
 - java -jar BuildTools.jar --rev 1.16.3 > /dev/null 2>&1
 - ls
 
-- cd CraftBukkit
+- cd Bukkit
+- mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+
+- cd ../CraftBukkit
 - mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 
 - cd ../WauzStarter

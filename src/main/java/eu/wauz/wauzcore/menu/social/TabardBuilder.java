@@ -103,19 +103,23 @@ public class TabardBuilder implements WauzInventory {
 		saveItemStack.setItemMeta(saveItemMeta);
 		menu.setItem(0, saveItemStack);
 		
-		ItemStack layerItemStack = new ItemStack(Material.DRIED_KELP);
-		ItemMeta layerItemMeta = layerItemStack.getItemMeta();
-		layerItemMeta.setDisplayName(ChatColor.GOLD + "Add New Layer");
-		layerItemStack.setItemMeta(layerItemMeta);
-		menu.setItem(3, layerItemStack);
+		if(tabardBuilder.getLayers() < 10) {
+			ItemStack layerItemStack = new ItemStack(Material.DRIED_KELP);
+			ItemMeta layerItemMeta = layerItemStack.getItemMeta();
+			layerItemMeta.setDisplayName(ChatColor.GOLD + "Add New Layer");
+			layerItemStack.setItemMeta(layerItemMeta);
+			menu.setItem(3, layerItemStack);
+		}
 		
 		menu.setItem(4, tabardBuilder.getTabard());
 		
-		ItemStack colorItemStack = new ItemStack(Material.CYAN_DYE);
-		ItemMeta colorItemMeta = colorItemStack.getItemMeta();
-		colorItemMeta.setDisplayName(ChatColor.AQUA + "Change Base Color");
-		colorItemStack.setItemMeta(colorItemMeta);
-		menu.setItem(5, colorItemStack);
+		if(tabardBuilder.getLayers() < 10) {
+			ItemStack colorItemStack = new ItemStack(Material.CYAN_DYE);
+			ItemMeta colorItemMeta = colorItemStack.getItemMeta();
+			colorItemMeta.setDisplayName(ChatColor.AQUA + "Change Base Color");
+			colorItemStack.setItemMeta(colorItemMeta);
+			menu.setItem(5, colorItemStack);
+		}
 		
 		ItemStack closeItemStack = GenericIconHeads.getDeclineItem();
 		ItemMeta closeItemMeta = closeItemStack.getItemMeta();
@@ -141,6 +145,11 @@ public class TabardBuilder implements WauzInventory {
 	 * The name of the current editing page view.
 	 */
 	private String page;
+	
+	/**
+	 * The amount of layers the tabard / banner has.
+	 */
+	private int layers = 0;
 	
 	/**
 	 * Creates a new tabard builder for the given guild.
@@ -179,6 +188,13 @@ public class TabardBuilder implements WauzInventory {
 	 */
 	public void setGuildUuidString(String guildUuidString) {
 		this.guildUuidString = guildUuidString;
+	}
+
+	/**
+	 * @return The amount of layers the tabard / banner has.
+	 */
+	public int getLayers() {
+		return layers;
 	}
 
 	/**
@@ -260,6 +276,7 @@ public class TabardBuilder implements WauzInventory {
 				patterns.addAll(((BannerMeta) clicked.getItemMeta()).getPatterns());
 				bm.setPatterns(patterns);
 				tabard.setItemMeta(bm);
+				layers++;
 				open(player, this);
 				return;
 			}

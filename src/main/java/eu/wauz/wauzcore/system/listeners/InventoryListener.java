@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -38,6 +39,16 @@ public class InventoryListener implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
 		EventMapper.handleMenuInteraction(event);
+	}
+	
+	/**
+	 * Closes the current inventory when opening a new inventory.
+	 * 
+	 * @param event The open event.
+	 */
+	@EventHandler
+	public void onInventoryOpen(InventoryOpenEvent event) {
+		event.getPlayer().closeInventory();
 	}
 	
 	/**
@@ -107,6 +118,7 @@ public class InventoryListener implements Listener {
 	 * 
 	 * @param event The craft event.
 	 */
+	@EventHandler
 	public void onItemCraft(PrepareItemCraftEvent event) {
 		CraftingInventory inventory = event.getInventory();
 		if(!event.getViewers().isEmpty() && WauzMode.isMMORPG(event.getViewers().get(0))) {

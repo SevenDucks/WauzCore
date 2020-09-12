@@ -32,6 +32,7 @@ public class BlockProtectionListener implements Listener {
 	 * 
 	 * @see WauzMode#isMMORPG(org.bukkit.World)
 	 */
+	@EventHandler
 	public void onLeafDecay(LeavesDecayEvent event) {
 		if(WauzMode.isMMORPG(event.getBlock().getWorld())) {
 			event.setCancelled(true);

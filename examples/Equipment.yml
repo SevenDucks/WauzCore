@@ -33,6 +33,13 @@ Excalibur:
   mainstat: 1.70
   speedstat: 1.40
   durabilitystat: 512
+Dragonslayer:
+  type: WEAPON
+  material: NETHERITE_SWORD
+  name: Dragonslayer
+  mainstat: 1.75
+  speedstat: 1.40
+  durabilitystat: 768
 Hatchet:
   type: WEAPON
   material: WOODEN_AXE
@@ -61,13 +68,20 @@ Greataxe:
   mainstat: 1.85
   speedstat: 0.90
   durabilitystat: 256
-Worldbreaker:
+Mjölnir:
   type: WEAPON
   material: DIAMOND_AXE
   name: Mjölnir
   mainstat: 1.90
   speedstat: 1.10
   durabilitystat: 512
+Worldbreaker:
+  type: WEAPON
+  material: NETHERITE_AXE
+  name: Worldbreaker
+  mainstat: 1.95
+  speedstat: 1.10
+  durabilitystat: 768
 Staff:
   type: WEAPON
   material: WOODEN_HOE
@@ -103,6 +117,13 @@ Soulreaver:
   mainstat: 1.50
   speedstat: 1.70
   durabilitystat: 512
+Soulreaver:
+  type: WEAPON
+  material: NETHERITE_HOE
+  name: Soulreaver
+  mainstat: 1.55
+  speedstat: 1.70
+  durabilitystat: 768
 Crude_Bow:
   type: WEAPON
   material: BOW

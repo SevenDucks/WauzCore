@@ -148,6 +148,7 @@ public class PlayerAmbientListener implements Listener {
 	 * 
 	 * @param event The advancement event.
 	 */
+	@EventHandler
 	public void onAdvancement(PlayerAdvancementCriterionGrantEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
 			event.setCancelled(true);

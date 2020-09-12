@@ -92,7 +92,13 @@ public class ValueIndicator {
 			return;
 		}
 		
-		spawnIndicator(location, ChatColor.LIGHT_PURPLE + "" + exp + " EXP");
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+			
+            public void run() {
+            	spawnIndicator(location, ChatColor.LIGHT_PURPLE + "" + exp + " EXP");
+            }
+            
+		}, 5);
 	}
 	
 	/**
@@ -128,9 +134,11 @@ public class ValueIndicator {
 	 */
 	private static void queueIndicatorDespawn(final Entity dmgIndicator) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
-            public void run() {
+            
+			public void run() {
             	dmgIndicator.remove();
             }
+            
 		}, 10);
 	}
 	
