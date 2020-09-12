@@ -1,6 +1,6 @@
 language: java
 os: linux
-dist: centos
+dist: xenial
 
 cache:
   directories:
