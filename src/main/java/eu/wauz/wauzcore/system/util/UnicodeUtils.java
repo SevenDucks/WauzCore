@@ -99,11 +99,11 @@ public class UnicodeUtils {
 		int barPercentage = (int) (progress * lines / goal);
 		
 		String progressBar = String.valueOf(color);
-		for(int bar = 1; barPercentage > bar; bar++) {
+		for(int bar = 1; barPercentage >= bar; bar++) {
 			progressBar += "|";
 		}
 		progressBar += String.valueOf(ChatColor.GRAY);
-		for(int bar = barPercentage; bar <= lines; bar++) {
+		for(int bar = barPercentage; bar < lines; bar++) {
 			progressBar += "|";
 		}
 		return progressBar + " " + ChatColor.WHITE + ((int) precisePercantage) + "%";

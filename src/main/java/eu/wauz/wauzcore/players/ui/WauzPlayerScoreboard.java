@@ -278,7 +278,7 @@ public class WauzPlayerScoreboard {
 	 */
 	private static List<String> generateQuestObjectiveList(Player player, String questMargin, String questName, int questPhase, ChatColor questColor) {
 		WauzQuest quest = WauzQuest.getQuest(questName);
-		return new QuestRequirementChecker(player, quest, questPhase).getObjectiveLores(questMargin, questColor);
+		return QuestRequirementChecker.create(player, quest, questPhase).getObjectiveLores(questMargin, questColor);
 	}
 	
 }

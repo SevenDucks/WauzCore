@@ -23,23 +23,29 @@ public class WauzBestiarySpecies {
 	private static Map<WauzBestiaryCategory, List<WauzBestiarySpecies>> speciesMap = new HashMap<>();
 	
 	/**
+	 * A map of bestiary entries, indexed by their full name.
+	 */
+	private static Map<String, WauzBestiaryEntry> entryMap = new HashMap<>();
+	
+	/**
 	 * Initializes all species and their entries from the config and fills the internal species map.
 	 * 
 	 * @see BestiaryConfigurator#getSpeciesNameList(WauzBestiaryCategory)
 	 */
 	public static void init() {
-		int entryCount = 0;
 		for(WauzBestiaryCategory category : WauzBestiaryCategory.values()) {
 			List<WauzBestiarySpecies> categorySpecies = new ArrayList<>();
 			for(String speciesName : BestiaryConfigurator.getSpeciesNameList(category)) {
 				WauzBestiarySpecies species = new WauzBestiarySpecies(category, speciesName);
-				entryCount += species.getEntries().size();
+				for(WauzBestiaryEntry entry : species.getEntries()) {
+					entryMap.put(entry.getEntryFullName(), entry);
+				}
 				categorySpecies.add(species);
 			}
 			speciesMap.put(category, categorySpecies);
 		}
 		
-		WauzCore.getInstance().getLogger().info("Loaded " + entryCount + " Bestiary Entries!");
+		WauzCore.getInstance().getLogger().info("Loaded " + entryMap.size() + " Bestiary Entries!");
 	}
 	
 	/**
@@ -50,6 +56,15 @@ public class WauzBestiarySpecies {
 	public static List<WauzBestiarySpecies> getSpecies(WauzBestiaryCategory category) {
 		List<WauzBestiarySpecies> categorySpecies = speciesMap.get(category);
 		return categorySpecies != null ? categorySpecies : new ArrayList<>();
+	}
+	
+	/**
+	 * @param entryName A full name of a bestiary entry.
+	 * 
+	 * @return The entry with that name.
+	 */
+	public static WauzBestiaryEntry getEntry(String entryName) {
+		return entryMap.get(entryName);
 	}
 	
 	/**

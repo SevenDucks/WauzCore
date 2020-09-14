@@ -1,0 +1,43 @@
+type: daily
+name: Objectives Test Quest
+giver: Bolvic
+level: 10
+amount: 2
+coords: -23 21 -625
+class: Mage
+prequest: TestRewards
+reward:
+  exp: 0
+  relation: 0
+  coins: 0
+phases:
+  1:
+    lores:
+    - 'First we are going to test the KILL Objective.'
+    - 'Defeat some Chickoons for me!'
+    uncomplete: 'Defeat some Chickoons for me!'
+    requirements:
+      type: kill
+      amount: 2
+      1:
+        item: Critter.Bird.Chickoon
+        amount: 3
+        coords: -23 21 -625
+      2:
+        item: Critter.Bird.Chickoon
+        amount: 6
+        coords: -23 21 -625
+  2:
+    lores:
+    - 'Next we are going to test the COLLECT Objective.'
+    - 'Bring me some Chickoon Feathers!'
+    uncomplete: 'Bring me some Chickoon Feathers!'
+    requirements:
+      type: collect
+      amount: 1
+      1:
+        item: Chickoon Feather
+        amount: 5
+        coords: -23 21 -625
+completed:
+- 'Well done!'

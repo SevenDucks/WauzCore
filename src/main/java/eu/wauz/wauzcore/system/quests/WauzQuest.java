@@ -143,7 +143,7 @@ public class WauzQuest {
 	/**
 	 * The list of questphases.
 	 */
-	private List<Phase> phases = new ArrayList<>();
+	private List<WauzQuestPhase> phases = new ArrayList<>();
 	
 	/**
 	 * Constructs a quest, based on the quest file name in the /WauzCore/QuestData folder.
@@ -168,7 +168,7 @@ public class WauzQuest {
 		completedDialog = QuestConfigurator.getCompletedDialog(questName);
 		
 		for(int phase = 1; phase <= phaseAmount; phase++) {
-			phases.add(new Phase(questName, phase));
+			phases.add(new WauzQuestPhase(questName, phase));
 		}
 	}
 
@@ -285,7 +285,7 @@ public class WauzQuest {
 	 * 
 	 * @return The requested phase.
 	 */
-	private Phase getPhase(int phase) {
+	private WauzQuestPhase getPhase(int phase) {
 		return phases.get(phase - 1);
 	}
 	
@@ -305,6 +305,15 @@ public class WauzQuest {
 	 */
 	public String getUncompletedMessage(int phase) {
 		return getPhase(phase).getUncompleteMessage();
+	}
+	
+	/**
+	 * @param phase The number of the phase.
+	 * 
+	 * @return The type of the completion requirements of the phase.
+	 */
+	public String getRequirementType(int phase) {
+		return getPhase(phase).getRequirementType();
 	}
 	
 	/**
@@ -344,139 +353,6 @@ public class WauzQuest {
 	 */
 	public String getRequirementNeededItemCoordinates(int phase, int requirement) {
 		return getPhase(phase).getRequirement(requirement).getNeededItemCoordinates();
-	}
-	
-	/**
-	 * A phase of a quest.
-	 * 
-	 * @author Wauzmons
-	 */
-	private static class Phase {
-		
-		/**
-		 * The list of messages in the phase dialog.
-		 */
-		private List<String> phaseDialog;
-		
-		/**
-		 * The list of messages in the uncompleted phase dialog.
-		 */
-		private String uncompleteMessage;
-		
-		/**
-		 * The amount of requirements to complete the phase.
-		 */
-		private int requirementAmount;
-		
-		/**
-		 * The list of questphase completion requirements.
-		 */
-		private List<Requirement> requirements = new ArrayList<>();
-		
-		/**
-		 * Constructs a quest phase, based on the quest file name in the /WauzCore/QuestData folder.
-		 * 
-		 * @param questName The canonical name of the quest.
-		 * @param phase The number of the phase.
-		 */
-		public Phase(String questName, int phase) {
-			phaseDialog = QuestConfigurator.getPhaseDialog(questName, phase);
-			uncompleteMessage = QuestConfigurator.getUncompletedMessage(questName, phase);
-			requirementAmount = QuestConfigurator.getRequirementAmount(questName, phase);
-			
-			for(int requirement = 1; requirement <= requirementAmount; requirement++) {
-				requirements.add(new Requirement(questName, phase, requirement));
-			}
-		}
-
-		/**
-		 * @return The list of messages in the phase dialog.
-		 */
-		public List<String> getPhaseDialog() {
-			return phaseDialog;
-		}
-
-		/**
-		 * @return The list of messages in the uncompleted phase dialog.
-		 */
-		public String getUncompleteMessage() {
-			return uncompleteMessage;
-		}
-
-		/**
-		 * @return The amount of requirements to complete the phase.
-		 */
-		public int getRequirementAmount() {
-			return requirementAmount;
-		}
-		
-		/**
-		 * @param requirement The number of the requirement.
-		 * 
-		 * @return The requested requirement.
-		 */
-		public Requirement getRequirement(int requirement) {
-			return requirements.get(requirement - 1);
-		}
-		
-	}
-	
-	/**
-	 * A completion requirement of a phase of a quest.
-	 * 
-	 * @author Wauzmons
-	 */
-	private static class Requirement {
-		
-		/**
-		 * The amount of the needed items, to fulfill the requirement.
-		 */
-		int neededItemAmount;
-		
-		/**
-		 * The name of the needed items, to fulfill the requirement.
-		 */
-		String neededItemName;
-		
-		/**
-		 * The coordinates of the needed items, to fulfill the requirement.
-		 */
-		String neededItemCoordinates;
-		
-		/**
-		 * Constructs a quest phase completion requirement, based on the quest file name in the /WauzCore/QuestData folder.
-		 * 
-		 * @param questName The canonical name of the quest.
-		 * @param phase The number of the phase.
-		 * @param requirement The number of the requirement.
-		 */
-		public Requirement(String questName, int phase, int requirement) {
-			neededItemAmount = QuestConfigurator.getRequirementNeededItemAmount(questName, phase, requirement);
-			neededItemName = QuestConfigurator.getRequirementNeededItemName(questName, phase, requirement);
-			neededItemCoordinates = QuestConfigurator.getRequirementNeededItemCoordinates(questName, phase, requirement);
-		}
-
-		/**
-		 * @return The amount of the needed items, to fulfill the requirement.
-		 */
-		public int getNeededItemAmount() {
-			return neededItemAmount;
-		}
-
-		/**
-		 * @return The name of the needed items, to fulfill the requirement.
-		 */
-		public String getNeededItemName() {
-			return neededItemName;
-		}
-
-		/**
-		 * @return The coordinates of the needed items, to fulfill the requirement.
-		 */
-		public String getNeededItemCoordinates() {
-			return neededItemCoordinates;
-		}
-		
 	}
 
 }

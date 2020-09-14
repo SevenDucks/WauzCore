@@ -37,6 +37,29 @@ public class PlayerQuestConfigurator extends PlayerQuestConfigurationUtils {
 	/**
 	 * @param player The player that owns the config file.
 	 * @param quest The quest that the config belongs to.
+	 * @param phase The phase of the quest.
+	 * @param requirement The requirement of the phase of the quest.
+	 * 
+	 * @return The stored value for the requirement.
+	 */
+	public static long getQuestPhaseRequirementValue(Player player, String quest, int phase, int requirement) {
+		return playerQuestConfigGetLong(player, quest, "requirement." + phase + "-" + requirement);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param quest The quest that the config belongs to.
+	 * @param phase The phase of the quest.
+	 * @param requirement The requirement of the phase of the quest.
+	 * @param value The new stored value for the requirement.
+	 */
+	public static void setQuestPhaseRequirementValue(Player player, String quest, int phase, int requirement, long value) {
+		playerQuestConfigSet(player, quest, "requirement." + phase + "-" + requirement, value);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param quest The quest that the config belongs to.
 	 * 
 	 * @return The amount the quest was completed.
 	 */

@@ -13,55 +13,54 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.InventoryItemRemover;
-import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
- * A helper class for checking the completion of quest phase requirements.
+ * An abstract helper class for checking the completion of quest phase requirements.
  * 
  * @author Wauzmons
  */
-public class QuestRequirementChecker {
+public abstract class QuestRequirementChecker {
 	
 	/**
 	 * The player that is doing the quest.
 	 */
-	private Player player;
+	protected Player player;
 	
 	/**
 	 * The quest to check requirements for.
 	 */
-	private WauzQuest quest;
+	protected WauzQuest quest;
 	
 	/**
 	 * The quest phase to check requirements for.
 	 */
-	private int phase = 1;
+	protected int phase = 1;
 	
 	/**
 	 * The requirements, how they would appear on an item.
 	 */
-	private List<String> itemStackLores;
+	protected List<String> itemStackLores;
 	
 	/**
 	 * The requirements, how they would appear in the sidebar.
 	 */
-	private List<String> objectiveLores;
+	protected List<String> objectiveLores;
 	
 	/**
 	 * The location of the next objective for the quest tracker.
 	 */
-	private String trackerLocationString;
+	protected String trackerLocationString;
 	
 	/**
 	 * The name of the next objective for the quest tracker.
 	 */
-	private String trackerName;
+	protected String trackerName;
 	
 	/**
 	 * The item remover to collect quest items.
 	 */
-	private InventoryItemRemover itemRemover;
+	protected InventoryItemRemover itemRemover;
 	
 	/**
 	 * Initializes a new quest requirement checker.
@@ -74,6 +73,25 @@ public class QuestRequirementChecker {
 		this.player = player;
 		this.quest = quest;
 		this.phase = phase;
+	}
+	
+	/**
+	 * Creates a quest requirement checker, based on the type of the phase.
+	 * 
+	 * @param player The player that is doing the quest.
+	 * @param quest The quest to check requirements for.
+	 * @param phase The quest phase to check requirements for.
+	 * 
+	 * @return The created requirement checker.
+	 */
+	public static QuestRequirementChecker create(Player player, WauzQuest quest, int phase) {
+		String type = quest.getRequirementType(phase).toLowerCase();
+		switch (type) {
+		case "kill":
+			return new QuestRequirementCheckerKills(player, quest, phase);
+		default:
+			return new QuestRequirementCheckerItems(player, quest, phase);
+		}
 	}
 	
 	/**
@@ -156,80 +174,24 @@ public class QuestRequirementChecker {
 	}
 	
 	/**
+	 * Initializes configuration values for the requirements, if any are needed.
+	 */
+	public abstract void initRequirements();
+	
+	/**
 	 * Checks the requirements and hands in the quest items, if all requirements were met.
 	 * 
 	 * @return If the quest phase is completed.
 	 */
-	public boolean tryToHandInQuest() {
-		boolean success = execute(false);
-		if(success) {
-			itemRemover.execute();
-		}
-		return success;
-	}
+	public abstract boolean tryToHandInQuest();
 	
 	/**
 	 * Checks the requirements of the quest and creates corresponding tracker locations and lore.
 	 * 
-	 * @param onlyObjectives If only objectives and no progrss should appear in the lore.
+	 * @param onlyObjectives If only objectives and no progress should appear in the lore.
 	 * 
 	 * @return If the quest phase is completed.
 	 */
-	private boolean execute(boolean onlyObjectives) {
-		int requirementAmount = quest.getRequirementAmount(phase);
-		int fulfilledAmount = 0;
-		
-		itemStackLores = new ArrayList<>();
-		objectiveLores = new ArrayList<>();
-		trackerLocationString = null;
-		trackerName = null;
-		
-		itemRemover = new InventoryItemRemover(player.getInventory());
-		
-		for(int requirement = requirementAmount; requirement > 0; requirement--) {		
-			String itemName = quest.getRequirementNeededItemName(phase, requirement);
-			String itemCoordinates = quest.getRequirementNeededItemCoordinates(phase, requirement);
-			itemStackLores.add(ChatColor.GRAY + "Collect " + itemName + " around " + itemCoordinates);
-			
-			if(onlyObjectives) {
-				continue;
-			}
-				
-			int requiredAmount = quest.getRequirementNeededItemAmount(phase, requirement);
-			int collectedAmount = 0;
-			ChatColor finished = ChatColor.RED;
-			
-			itemRemover.addItemNameToRemove(itemName, requiredAmount);
-			for(ItemStack itemStack : player.getInventory().getContents()) {
-				if((itemStack != null) && ItemUtils.isQuestItem(itemStack) && ItemUtils.isSpecificItem(itemStack, itemName)) {
-					collectedAmount += itemStack.getAmount();
-				}
-			}
-			
-			if(collectedAmount >= requiredAmount) {
-				fulfilledAmount++;
-				finished = ChatColor.GREEN;
-				collectedAmount = requiredAmount;
-			}
-			else if(trackerLocationString == null) {
-				trackerLocationString = itemCoordinates;
-				trackerName = itemName;
-			}
-			
-			itemStackLores.add(finished + "Amount: " + collectedAmount + " / " + requiredAmount);
-			objectiveLores.add(finished + "  > " + ChatColor.WHITE + collectedAmount + " / " + requiredAmount + " " + itemName);
-			if(requirement > 1) {
-				itemStackLores.add("");
-			}
-		}
-		
-		boolean success = fulfilledAmount == requirementAmount;
-		if(success) {
-			trackerLocationString = quest.getCoordinates();
-			trackerName = quest.getDisplayName();
-		}
-		
-		return success;
-	}
+	protected abstract boolean execute(boolean onlyObjectives);
 
 }

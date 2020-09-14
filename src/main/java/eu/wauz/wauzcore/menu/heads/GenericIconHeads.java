@@ -213,6 +213,34 @@ public class GenericIconHeads {
 		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGIyMjFjYjk2MDdjOGE5YmYwMmZlZjVkNzYxNGUzZWIxNjljYzIxOWJmNDI1MGZkNTcxNWQ1ZDJkNjA0NWY3In19fQ==");
 	}
 	
+	/**
+	 * @return An item stack representing a baron of hell.
+	 */
+	public static ItemStack getAchievementBossesItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODExZWRjNTY5ZGQwNGI1NzUzMTRhMDgzOWI2M2I1YTMxNGJlMjc1ODQ2YjU3NDU0OWNhZWQ2YWJmNGU1ZWMzNSJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a golden chest.
+	 */
+	public static ItemStack getAchievementArtifactsItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjA4NmE5NTBkMGEzMDNmNDhhYWIzYTVmMmY2YTQwMzNlODBiYWZjYWY3Y2I1YmRhMTM5N2I4M2U1MjlmNjNiNSJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a light blue book.
+	 */
+	public static ItemStack getAchievementCampaignsItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGJlMmJhZjQwZmQ4NWViNTczZmU1YjJlNWI2Yzg4MTdjZjUwZjg4M2Q5NTc2OTQxNTgwN2FiMDcyODhhNDdjZCJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a globe.
+	 */
+	public static ItemStack getAchievementRegionsItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOThkYWExZTNlZDk0ZmYzZTMzZTFkNGM2ZTQzZjAyNGM0N2Q3OGE1N2JhNGQzOGU3NWU3YzkyNjQxMDYifX19");
+	}
+	
 // Citizen Icons
 	
 	/**

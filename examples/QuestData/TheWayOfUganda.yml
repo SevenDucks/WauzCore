@@ -4,8 +4,6 @@ giver: Knuckles
 level: 5
 amount: 3
 coords: 219 21 378
-class: Warrior
-prequest: ShiningSteel
 reward:
   exp: 5.0
   relation: 30
@@ -17,6 +15,7 @@ phases:
     - 'U must have Ebola to know da wey!'
     uncomplete: 'Bring me da Ebola!'
     requirements:
+      type: collect
       amount: 2
       1:
         item: Ugandan Spit
@@ -32,6 +31,7 @@ phases:
     - 'Led us free da slaves togeddah!'
     uncomplete:
     requirements:
+      type: collect
       amount: 0
   3:
     lores:
@@ -40,6 +40,7 @@ phases:
     - 'U must find her! *clucking noises*'
     uncomplete:
     requirements:
+      type: collect
       amount: 0
 completed:
 - 'Yes my Bruddah!'

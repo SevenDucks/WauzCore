@@ -2,6 +2,8 @@ package eu.wauz.wauzcore.data;
 
 import java.util.List;
 
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
+
 import eu.wauz.wauzcore.data.api.QuestConfigurationUtils;
 
 /**
@@ -76,7 +78,7 @@ public class QuestConfigurator extends QuestConfigurationUtils {
 		return questConfigGetInt(questName, "amount");
 	}
 	
-// Requirements
+// Start Requirements
 	
 	/**
 	 * @param questName The name of the quest.
@@ -174,7 +176,18 @@ public class QuestConfigurator extends QuestConfigurationUtils {
 		return questConfigGetString(questName, "phases." + phase + ".uncomplete");
 	}
 	
-// Requirements
+// Phase Requirements
+	
+	/**
+	 * @param questName The name of the quest.
+	 * @param phase The number of the quest phase.
+	 * 
+	 * @return The type of the completion requirements of the phase.
+	 */
+	public static String getRequirementType(String questName, int phase) {
+		String type = questConfigGetString(questName, "phases." + phase + ".requirements.type");
+		return StringUtils.isNotBlank(type) ? type : "collect";
+	}
 	
 	/**
 	 * @param questName The name of the quest.

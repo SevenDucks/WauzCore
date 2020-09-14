@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 
 /**
@@ -50,6 +51,7 @@ public class WauzPlayerEventQuestAccept implements WauzPlayerEvent {
 	public boolean execute(Player player) {
 		try {
 			String questName = quest.getQuestName();
+			QuestRequirementChecker.create(player, quest, 1).initRequirements();
 			PlayerQuestConfigurator.setQuestPhase(player, questName, 1);
 			PlayerConfigurator.setCharacterQuestSlot(player, questSlot, questName);
 			

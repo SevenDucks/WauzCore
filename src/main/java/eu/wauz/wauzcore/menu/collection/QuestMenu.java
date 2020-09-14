@@ -301,7 +301,7 @@ public class QuestMenu implements WauzInventory {
 				WauzDialog.open(player, QuestMenuItems.generateUnacceptedQuest(player, quest, phase, false));
 			}
 			else {
-				new QuestRequirementChecker(player, quest, phase).trackQuestObjective();
+				QuestRequirementChecker.create(player, quest, phase).trackQuestObjective();
 			}
 		}
 	}

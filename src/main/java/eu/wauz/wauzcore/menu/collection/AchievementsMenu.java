@@ -1,5 +1,8 @@
 package eu.wauz.wauzcore.menu.collection;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -9,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
@@ -51,10 +55,11 @@ public class AchievementsMenu implements WauzInventory {
 	 * 
 	 * @see WauzAchievementType
 	 * @see AchievementTracker#generateProgressLores(Player, WauzAchievementType)
+	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new AchievementsMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Achievements");
+		Inventory menu = Bukkit.createInventory(holder, 18, ChatColor.BLACK + "" + ChatColor.BOLD + "Achievements");
 		
 		ItemStack killsItemStack = GenericIconHeads.getAchievementKillsItem();
 		ItemMeta killsItemMeta = killsItemStack.getItemMeta();
@@ -119,6 +124,38 @@ public class AchievementsMenu implements WauzInventory {
 		levelsItemStack.setItemMeta(levelsItemMeta);
 		menu.setItem(8, levelsItemStack);
 		
+		List<String> subMenuLores = new ArrayList<>();
+		subMenuLores.add(ChatColor.GREEN + "Click to View");
+		
+		ItemStack bossesItemStack = GenericIconHeads.getAchievementBossesItem();
+		ItemMeta bossesItemMeta = bossesItemStack.getItemMeta();
+		bossesItemMeta.setDisplayName(ChatColor.GOLD + "Defeated Bosses");
+		bossesItemMeta.setLore(subMenuLores);
+		bossesItemStack.setItemMeta(bossesItemMeta);
+		menu.setItem(10, bossesItemStack);
+		
+		ItemStack artifactsItemStack = GenericIconHeads.getAchievementArtifactsItem();
+		ItemMeta artifactsItemMeta = artifactsItemStack.getItemMeta();
+		artifactsItemMeta.setDisplayName(ChatColor.GOLD + "Collected Artifacts");
+		artifactsItemMeta.setLore(subMenuLores);
+		artifactsItemStack.setItemMeta(artifactsItemMeta);
+		menu.setItem(12, artifactsItemStack);
+		
+		ItemStack campaignsItemStack = GenericIconHeads.getAchievementCampaignsItem();
+		ItemMeta campaignsItemMeta = campaignsItemStack.getItemMeta();
+		campaignsItemMeta.setDisplayName(ChatColor.GOLD + "Completed Campaigns");
+		campaignsItemMeta.setLore(subMenuLores);
+		campaignsItemStack.setItemMeta(campaignsItemMeta);
+		menu.setItem(14, campaignsItemStack);
+		
+		ItemStack regionsItemStack = GenericIconHeads.getAchievementRegionsItem();
+		ItemMeta regionsItemMeta = regionsItemStack.getItemMeta();
+		regionsItemMeta.setDisplayName(ChatColor.GOLD + "Explored Regions");
+		regionsItemMeta.setLore(subMenuLores);
+		regionsItemStack.setItemMeta(regionsItemMeta);
+		menu.setItem(16, regionsItemStack);
+		
+		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
 	}
 

@@ -1,12 +1,12 @@
 type: daily
-name: Shining Steel
+name: Rewards Test Quest
 giver: Bolvic
 level: 10
 amount: 1
 coords: -23 21 -625
 reward:
-  exp: 0
-  relation: 0
+  exp: 5.0
+  relation: 30
   coins: 50
   items:
   - 'SoW'
@@ -26,6 +26,7 @@ phases:
     - 'Talk to me again, when you are ready to choose.'
     uncomplete:
     requirements:
+      type: collect
       amount: 0
 completed:
 - 'Handle your weapon with care!'

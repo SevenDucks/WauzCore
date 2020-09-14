@@ -213,7 +213,7 @@ public class QuestProcessor {
 	 * @see WauzQuest#getUncompletedMessage(int)
 	 */
 	private boolean checkQuestObjectives() {
-		if(!new QuestRequirementChecker(player, quest, questPhase).tryToHandInQuest()) {
+		if(!QuestRequirementChecker.create(player, quest, questPhase).tryToHandInQuest()) {
 			List<String> message = Collections.singletonList(quest.getUncompletedMessage(questPhase));
 			new WauzPlayerEventCitizenTalk(quest.getQuestGiver(), message).execute(player);
 			return false;
@@ -264,6 +264,7 @@ public class QuestProcessor {
 	private void completeQuestStep() {
 		if(questPhase < questPhaseAmount) {
 			questPhase++;
+			QuestRequirementChecker.create(player, quest, questPhase).initRequirements();
 			PlayerQuestConfigurator.setQuestPhase(player, questName, questPhase);
 			new WauzPlayerEventCitizenTalk(quest.getQuestGiver(), quest.getPhaseDialog(questPhase)).execute(player);
 		}

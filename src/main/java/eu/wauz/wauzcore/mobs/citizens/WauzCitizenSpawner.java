@@ -119,7 +119,6 @@ public class WauzCitizenSpawner {
 			NPC npc = citizenNpcMap.get(citizen);
 			showNpc(npc, player);
 		}
-			
 	}
 	
 	/**

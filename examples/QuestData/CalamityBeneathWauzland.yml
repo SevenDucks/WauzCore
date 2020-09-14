@@ -16,12 +16,14 @@ phases:
     - 'Under the great tower... Come to me!'
     uncomplete: 'Under the great tower... Come to me!'
     requirements:
+      type: collect
       amount: 0
   2:
     lores:
     - 'Wait for the next update...'
     uncomplete: 'Wait for the next update...'
     requirements:
+      type: collect
       amount: 1
       1:
         item: [ Coming Soon ]

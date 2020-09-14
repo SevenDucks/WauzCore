@@ -55,7 +55,7 @@ public class QuestMenuItems {
 		questLores.addAll(getRewardSection(player, quest));
 		questLores.add("");
 		
-		QuestRequirementChecker questRequirementChecker = new QuestRequirementChecker(player, quest, phase);
+		QuestRequirementChecker questRequirementChecker = QuestRequirementChecker.create(player, quest, phase);
 		questLores.addAll(questRequirementChecker.getItemStackLores());
 		
 		boolean isMainQuest = colorMaterial.equals(Material.MAGENTA_CONCRETE);
@@ -119,7 +119,7 @@ public class QuestMenuItems {
 			unacceptedQuestLores.add("");
 		}
 		
-		QuestRequirementChecker questRequirementChecker = new QuestRequirementChecker(player, quest, phase);
+		QuestRequirementChecker questRequirementChecker = QuestRequirementChecker.create(player, quest, phase);
 		unacceptedQuestLores.addAll(questRequirementChecker.getItemStackLoresUnaccepted());
 		
 		if(trackable) {
