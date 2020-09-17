@@ -19,6 +19,28 @@ import eu.wauz.wauzcore.system.util.UnicodeUtils;
 public class AchievementTracker {
 	
 	/**
+	 * Checks if the player just completed a non generic achievement and awards it to them.
+	 * 
+	 * @param player The player who probably just completed an achievement.
+	 * @param type The non generic achievement type.
+	 * @param goal The goal to check for.
+	 */
+	public static void checkForAchievement(Player player, WauzAchievementType type, String goal) {
+		WauzAchievement achievement = WauzAchievement.getAchievementForGoal(type, goal);
+		if(achievement == null) {
+			return;
+		}
+		
+		String key = achievement.getKey();
+		List<String> achievements = PlayerCollectionConfigurator.getCharacterAchievementList(player, type);
+		if(!achievements.contains(key)) {
+			achievements.add(key);
+			PlayerCollectionConfigurator.setCharacterAchievementList(player, type, achievements);
+			achievement.award(player);
+		}
+	}
+	
+	/**
 	 * Adds progress to an achievement type and grants the fitting achievement when completed.
 	 * 
 	 * @param player The player that owns the config file.

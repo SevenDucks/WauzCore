@@ -48,6 +48,8 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.jitse.npclib.api.events.NPCInteractEvent;
@@ -226,6 +228,11 @@ public class PlayerInteractionListener implements Listener {
 				event.getItem().remove();
 				MaterialPouch.addItem(player, itemStack, "questitems");
 				WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
+			}
+			
+			if(ItemUtils.hasDisplayName(itemStack)) {
+				String displayName = itemStack.getItemMeta().getDisplayName();
+				AchievementTracker.checkForAchievement(player, WauzAchievementType.COLLECT_ARTIFACTS, displayName);
 			}
 		}
 	}

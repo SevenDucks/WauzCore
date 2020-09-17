@@ -38,14 +38,21 @@ public class QuestRequirementCheckerKills extends QuestRequirementChecker {
 			PlayerQuestConfigurator.setQuestPhaseRequirementValue(player, quest.getQuestName(), phase, requirement, kills);
 		}
 	}
-
+	
 	/**
-	 * Checks the requirements and hands in the quest items, if all requirements were met.
+	 * Checks if the requirements have been fulfilled.
 	 * 
-	 * @return If the quest phase is completed.
+	 * @return If the requirements were fulfilled.
 	 */
-	public boolean tryToHandInQuest() {
+	public boolean checkRequirements() {
 		return execute(false);
+	}
+	
+	/**
+	 * Hands in quest related items, if any were needed.
+	 */
+	public void handInItems() {
+		// Nothing to do here...
 	}
 	
 	/**

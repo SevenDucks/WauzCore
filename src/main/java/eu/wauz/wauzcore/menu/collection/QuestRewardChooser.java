@@ -85,7 +85,9 @@ public class QuestRewardChooser implements WauzInventory {
 				menu.setItem(offsetIndex, generateUnavailableChoiceItem(index + 1));
 			}
 		}
-		rewardChooser.updateChoiceSelection();
+		if(!rewardChoices.isEmpty()) {
+			rewardChooser.updateChoiceSelection();
+		}
 		
 		ItemStack cancelItemStack = GenericIconHeads.getDeclineItem();
 		ItemMeta cancelItemMeta = cancelItemStack.getItemMeta();

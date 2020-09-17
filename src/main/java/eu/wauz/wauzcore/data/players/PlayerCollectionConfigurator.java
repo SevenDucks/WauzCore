@@ -1,5 +1,7 @@
 package eu.wauz.wauzcore.data.players;
 
+import java.util.List;
+
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -249,6 +251,25 @@ public class PlayerCollectionConfigurator extends PlayerConfigurationUtils {
 	 */
 	public static void setCharacterAchievementProgress(Player player, WauzAchievementType type, double progress) {
 		playerConfigSet(player, "achievements.generic." + type.getKey(), progress, true);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param type The type of non generic achievement.
+	 * 
+	 * @return The awarded achevements of that type.
+	 */
+	public static List<String> getCharacterAchievementList(Player player, WauzAchievementType type) {
+		return playerConfigGetStringList(player, "achievements." + type.getKey(), true);
+	}
+	
+	/**
+	 * @param player The player that owns the config file.
+	 * @param type The type of non generic achievement.
+	 * @param list The new awarded achevements of that type.
+	 */
+	public static void setCharacterAchievementList(Player player, WauzAchievementType type, List<String> list) {
+		playerConfigSet(player, "achievements." + type.getKey(), list, true);
 	}
 
 }

@@ -97,8 +97,8 @@ public class MobEventMapper {
 	 * 
 	 * @see PetOverviewMenu#removeOwner(String, Player)
 	 * @see InstanceMobArena#tryToDecreaseMobCount(Entity)
-	 * @see AchievementTracker#addProgress(Player, WauzAchievementType, double)
 	 * @see ObservationTracker#tryToAddProgress(Player, Entity)
+	 * @see AchievementTracker#addProgress(Player, WauzAchievementType, double)
 	 * @see Strongbox#destroy(MythicMobDeathEvent)
 	 * @see CmdWzTravelEvent#getEventTravelMap()
 	 * @see MobEventMapper#explodeMob(MythicMob, Entity, Location)
@@ -118,8 +118,10 @@ public class MobEventMapper {
 			InstanceMobArena.tryToDecreaseMobCount(entity);
 		}
 		if(SkillUtils.isValidAttackTarget(entity) && event.getKiller() instanceof Player) {
-			AchievementTracker.addProgress((Player) event.getKiller(), WauzAchievementType.KILL_ENEMIES, 1);
-			ObservationTracker.tryToAddProgress((Player) event.getKiller(), entity);
+			Player player = (Player) event.getKiller();
+			ObservationTracker.tryToAddProgress(player, entity);
+			AchievementTracker.addProgress(player, WauzAchievementType.KILL_ENEMIES, 1);
+			AchievementTracker.checkForAchievement(player, WauzAchievementType.DEFEAT_BOSSES, entity.getCustomName());
 		}
 		if(StringUtils.contains(event.getEntity().getCustomName(), "Strongbox")) {
 			Strongbox.destroy(event);

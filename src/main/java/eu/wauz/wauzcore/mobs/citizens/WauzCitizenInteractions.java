@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.mobs.citizens;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,11 @@ public class WauzCitizenInteractions {
 	 * The mode that should be selected from the hub on interaction.
 	 */
 	private String modeSelection;
+	
+	/**
+	 * The list of item stacks, representing the interactions.
+	 */
+	private List<ItemStack> interactionItemStacks = new ArrayList<>();
 	
 	/**
 	 * A map of interaction events, indexed by the triggering item stacks.
@@ -112,11 +118,11 @@ public class WauzCitizenInteractions {
 	 * @return The created inventory menu.
 	 */
 	public Inventory createInteractionMenuBase(InventoryHolder holder, String title) {
-		int size = (int) Math.ceil((double) interactionEventMap.size() / (double) 5) * 9;
+		int size = (int) Math.ceil((double) interactionItemStacks.size() / (double) 5) * 9;
 		Inventory menu = Bukkit.createInventory(holder, size, title);
 		int row = 0;
 		int column = 0;
-		for(ItemStack interactionItemStack : interactionEventMap.keySet()) {
+		for(ItemStack interactionItemStack : interactionItemStacks) {
 			if(column >= 5) {
 				row++;
 				column = 0;
@@ -178,6 +184,7 @@ public class WauzCitizenInteractions {
 			return;
 		}
 		MenuUtils.addItemLore(interactionItemStack, ChatColor.GRAY + "Required Relation Level:" + ChatColor.YELLOW + " " + level, false);
+		interactionItemStacks.add(interactionItemStack);
 		interactionEventMap.put(interactionItemStack, event);
 	}
 

@@ -179,11 +179,16 @@ public abstract class QuestRequirementChecker {
 	public abstract void initRequirements();
 	
 	/**
-	 * Checks the requirements and hands in the quest items, if all requirements were met.
+	 * Checks if the requirements have been fulfilled.
 	 * 
-	 * @return If the quest phase is completed.
+	 * @return If the requirements were fulfilled.
 	 */
-	public abstract boolean tryToHandInQuest();
+	public abstract boolean checkRequirements();
+	
+	/**
+	 * Hands in quest related items, if any were needed.
+	 */
+	public abstract void handInItems();
 	
 	/**
 	 * Checks the requirements of the quest and creates corresponding tracker locations and lore.

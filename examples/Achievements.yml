@@ -1,4 +1,3 @@
-generic:
   kills1:
     name: First Blood
     type: KILL_ENEMIES
@@ -274,3 +273,33 @@ generic:
     type: GAIN_LEVELS
     goal: 60
     reward: 100
+  artifactsSilverCoin:
+    name: Old Treasure
+    type: COLLECT_ARTIFACTS
+    goal: Silver Coin
+    reward: 1
+  artifactsGoldCoin:
+    name: Ancient Treasure
+    type: COLLECT_ARTIFACTS
+    goal: Gold Coin
+    reward: 2
+  artifactsCrystalCoin:
+    name: Forsaken Treasure
+    type: COLLECT_ARTIFACTS
+    goal: Crystal Coin
+    reward: 3
+  campaignsTestQuest:
+    name: Test Quest
+    type: COMPLETE_CAMPAIGNS
+    goal: Rewards Test Quest
+    reward: 1
+  bossesSeiSeiDai:
+    name: Lord of Ducksmoria
+    type: DEFEAT_BOSSES
+    goal: Sei Sei Dai (12)
+    reward: 5
+  regionsPortowauza:
+    name: Capital of Wauzland
+    type: EXPLORE_REGIONS
+    goal: Portowauza
+    reward: 1

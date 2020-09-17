@@ -341,6 +341,10 @@ public class CharacterManager {
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.EARN_COINS.getKey(), 0);
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.PLAY_HOURS.getKey(), 0);
 			playerDataConfig.set("achievements.generic." + WauzAchievementType.GAIN_LEVELS.getKey(), 1);
+			playerDataConfig.set("achievements." + WauzAchievementType.COLLECT_ARTIFACTS.getKey(), "");
+			playerDataConfig.set("achievements." + WauzAchievementType.COMPLETE_CAMPAIGNS.getKey(), "");
+			playerDataConfig.set("achievements." + WauzAchievementType.DEFEAT_BOSSES.getKey(), "");
+			playerDataConfig.set("achievements." + WauzAchievementType.EXPLORE_REGIONS.getKey(), "");
 			
 			playerDataConfig.set("inventory", new ArrayList<>());
 			persistCharacterFile(playerDataFile, playerDataConfig);

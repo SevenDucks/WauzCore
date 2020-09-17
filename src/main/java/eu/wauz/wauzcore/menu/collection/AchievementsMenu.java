@@ -127,26 +127,26 @@ public class AchievementsMenu implements WauzInventory {
 		List<String> subMenuLores = new ArrayList<>();
 		subMenuLores.add(ChatColor.GREEN + "Click to View");
 		
-		ItemStack bossesItemStack = GenericIconHeads.getAchievementBossesItem();
-		ItemMeta bossesItemMeta = bossesItemStack.getItemMeta();
-		bossesItemMeta.setDisplayName(ChatColor.GOLD + "Defeated Bosses");
-		bossesItemMeta.setLore(subMenuLores);
-		bossesItemStack.setItemMeta(bossesItemMeta);
-		menu.setItem(10, bossesItemStack);
-		
 		ItemStack artifactsItemStack = GenericIconHeads.getAchievementArtifactsItem();
 		ItemMeta artifactsItemMeta = artifactsItemStack.getItemMeta();
 		artifactsItemMeta.setDisplayName(ChatColor.GOLD + "Collected Artifacts");
 		artifactsItemMeta.setLore(subMenuLores);
 		artifactsItemStack.setItemMeta(artifactsItemMeta);
-		menu.setItem(12, artifactsItemStack);
+		menu.setItem(10, artifactsItemStack);
 		
 		ItemStack campaignsItemStack = GenericIconHeads.getAchievementCampaignsItem();
 		ItemMeta campaignsItemMeta = campaignsItemStack.getItemMeta();
 		campaignsItemMeta.setDisplayName(ChatColor.GOLD + "Completed Campaigns");
 		campaignsItemMeta.setLore(subMenuLores);
 		campaignsItemStack.setItemMeta(campaignsItemMeta);
-		menu.setItem(14, campaignsItemStack);
+		menu.setItem(12, campaignsItemStack);
+		
+		ItemStack bossesItemStack = GenericIconHeads.getAchievementBossesItem();
+		ItemMeta bossesItemMeta = bossesItemStack.getItemMeta();
+		bossesItemMeta.setDisplayName(ChatColor.GOLD + "Defeated Bosses");
+		bossesItemMeta.setLore(subMenuLores);
+		bossesItemStack.setItemMeta(bossesItemMeta);
+		menu.setItem(14, bossesItemStack);
 		
 		ItemStack regionsItemStack = GenericIconHeads.getAchievementRegionsItem();
 		ItemMeta regionsItemMeta = regionsItemStack.getItemMeta();
@@ -161,13 +161,28 @@ public class AchievementsMenu implements WauzInventory {
 
 	/**
 	 * Checks if an event in this inventory was triggered by a player click.
-	 * This menu has no events yet, so the click is canceled.
+	 * Cancels the event and lets the player navigate through achievement categories.
 	 * 
 	 * @param event The inventory click event.
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
 		event.setCancelled(true);
+		final Player player = (Player) event.getWhoClicked();
+		int slot = event.getRawSlot();
+		
+		if(slot == 10) {
+			AchievementsMenuPage.open(player, WauzAchievementType.COLLECT_ARTIFACTS);
+		}
+		else if(slot == 12) {
+			AchievementsMenuPage.open(player, WauzAchievementType.COMPLETE_CAMPAIGNS);
+		}
+		else if(slot == 14) {
+			AchievementsMenuPage.open(player, WauzAchievementType.DEFEAT_BOSSES);
+		}
+		else if(slot == 16) {
+			AchievementsMenuPage.open(player, WauzAchievementType.EXPLORE_REGIONS);
+		}
 	}
 
 }

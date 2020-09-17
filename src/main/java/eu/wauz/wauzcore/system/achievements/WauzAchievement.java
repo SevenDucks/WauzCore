@@ -29,6 +29,11 @@ public class WauzAchievement {
 	private static Map<WauzAchievementType, List<WauzAchievement>> achievementMap = new HashMap<>();
 	
 	/**
+	 * A map with mappings of non generic achievement goals to their achievements, indexed by type.
+	 */
+	private static Map<WauzAchievementType, Map<String, WauzAchievement>> achievementGoalMap = new HashMap<>();
+	
+	/**
 	 * Gets the number of all earnable achievements.
 	 * 
 	 * @return The achievement count.
@@ -42,25 +47,55 @@ public class WauzAchievement {
 	}
 	
 	/**
-	 * Initializes all achievements and fills the internal achievement map.
+	 * Initializes all achievements and fills the internal achievement maps.
 	 * 
 	 * @see AchievementConfigurator#getAchievementKeys()
 	 */
 	public static void init() {
 		for(WauzAchievementType achievementType : WauzAchievementType.values()) {
 			achievementMap.put(achievementType, new ArrayList<>());
+			achievementGoalMap.put(achievementType, new HashMap<>());
 		}
 		
 		for(String key : AchievementConfigurator.getAchievementKeys()) {
 			WauzAchievement achievement = new WauzAchievement(key);
 			achievement.setName(AchievementConfigurator.getName(key));
-			achievement.setType(AchievementConfigurator.getType(key));
-			achievement.setGoal(AchievementConfigurator.getGoal(key));
 			achievement.setReward(AchievementConfigurator.getReward(key));
+			achievement.setType(AchievementConfigurator.getType(key));
+			if(achievement.getType().isGeneric()) {
+				achievement.setGoal(AchievementConfigurator.getGoal(key));
+			}
+			else {
+				achievement.setGoalString(AchievementConfigurator.getGoalString(key));
+				achievementGoalMap.get(achievement.getType()).put(achievement.getGoalString(), achievement);
+			}
 			achievementMap.get(achievement.getType()).add(achievement);
 		}
 		
 		WauzCore.getInstance().getLogger().info("Loaded " + getAchievementCount() + " Achievements!");
+	}
+	
+	/**
+	 * Gets a non generic achievement for the given goal, if existant.
+	 * 
+	 * @param type The non generic achievement type.
+	 * @param goal The goal to check for.
+	 * 
+	 * @return The found achievement or null.
+	 */
+	public static WauzAchievement getAchievementForGoal(WauzAchievementType type, String goal) {
+		return achievementGoalMap.get(type).get(ChatColor.stripColor(goal));
+	}
+	
+	/**
+	 * Gets all achievements of the given type.
+	 * 
+	 * @param type The achievement type.
+	 * 
+	 * @return The list of achievements.
+	 */
+	public static List<WauzAchievement> getAchievementsOfType(WauzAchievementType type) {
+		return achievementMap.get(type);
 	}
 	
 	/**
@@ -117,6 +152,11 @@ public class WauzAchievement {
 	private WauzAchievementType type;
 	
 	/**
+	 * The required target name to complete the achievement.
+	 */
+	private String goalString;
+	
+	/**
 	 * The required value to complete the achievement.
 	 */
 	private int goal;
@@ -147,8 +187,14 @@ public class WauzAchievement {
 		
 		player.sendTitle(ChatColor.GOLD + "Achievement Earned", name, 10, 70, 20);
 		player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
-		String goalDisplay = ChatColor.YELLOW + " (" + Formatters.INT.format(goal) + " " + type.getMessage() + ")";
-		player.sendMessage(ChatColor.YELLOW + "You earned " + ChatColor.GOLD + name + goalDisplay);
+		String goalDisplay;
+		if(type.isGeneric()) {
+			goalDisplay = " (" + Formatters.INT.format(goal) + " " + type.getMessage() + ")";
+		}
+		else {
+			goalDisplay = " (" + type.getMessage() + " \"" + goalString + "\")";
+		}
+		player.sendMessage(ChatColor.YELLOW + "You earned " + ChatColor.GOLD + name + ChatColor.YELLOW + goalDisplay);
 		player.sendMessage(ChatColor.YELLOW + "You received " + reward + " soulstones as reward!");
 		UnicodeUtils.sendChatCommand(player, "menu achievements", ChatColor.YELLOW + "To view your achievements:", false);
 		player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
@@ -194,6 +240,20 @@ public class WauzAchievement {
 	 */
 	public void setType(WauzAchievementType type) {
 		this.type = type;
+	}
+
+	/**
+	 * @return The required target name to complete the achievement.
+	 */
+	public String getGoalString() {
+		return goalString;
+	}
+
+	/**
+	 * @param goalString The new required target name to complete the achievement.
+	 */
+	public void setGoalString(String goalString) {
+		this.goalString = goalString;
 	}
 
 	/**

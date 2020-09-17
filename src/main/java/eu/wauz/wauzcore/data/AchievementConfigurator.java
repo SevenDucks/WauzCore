@@ -19,7 +19,7 @@ public class AchievementConfigurator extends GlobalConfigurationUtils {
 	 * @return The keys of all achievements.
 	 */
 	public static List<String> getAchievementKeys() {
-		return new ArrayList<>(mainConfigGetKeys("Achievements", "generic"));
+		return new ArrayList<>(mainConfigGetKeys("Achievements", null));
 	}
 	
 	/**
@@ -28,7 +28,7 @@ public class AchievementConfigurator extends GlobalConfigurationUtils {
 	 * @return The name of the achievement.
 	 */
 	public static String getName(String achievementKey) {
-		return mainConfigGetString("Achievements", "generic." + achievementKey + ".name");
+		return mainConfigGetString("Achievements", achievementKey + ".name");
 	}
 	
 	/**
@@ -37,7 +37,16 @@ public class AchievementConfigurator extends GlobalConfigurationUtils {
 	 * @return The type of the achievement.
 	 */
 	public static WauzAchievementType getType(String achievementKey) {
-		return WauzAchievementType.valueOf(mainConfigGetString("Achievements", "generic." + achievementKey + ".type"));
+		return WauzAchievementType.valueOf(mainConfigGetString("Achievements", achievementKey + ".type"));
+	}
+	
+	/**
+	 * @param achievementKey The key of the achievement.
+	 * 
+	 * @return The required target name to complete the achievement.
+	 */
+	public static String getGoalString(String achievementKey) {
+		return mainConfigGetString("Achievements", achievementKey + ".goal");
 	}
 	
 	/**
@@ -46,7 +55,7 @@ public class AchievementConfigurator extends GlobalConfigurationUtils {
 	 * @return The required value to complete the achievement.
 	 */
 	public static int getGoal(String achievementKey) {
-		return mainConfigGetInt("Achievements", "generic." + achievementKey + ".goal");
+		return mainConfigGetInt("Achievements", achievementKey + ".goal");
 	}
 	
 	/**
@@ -55,7 +64,7 @@ public class AchievementConfigurator extends GlobalConfigurationUtils {
 	 * @return The amount of soulstones to receive as an achievement reward.
 	 */
 	public static int getReward(String achievementKey) {
-		return mainConfigGetInt("Achievements", "generic." + achievementKey + ".reward");
+		return mainConfigGetInt("Achievements", achievementKey + ".reward");
 	}
 	
 }

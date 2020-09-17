@@ -35,18 +35,22 @@ public class QuestRequirementCheckerItems extends QuestRequirementChecker {
 	public void initRequirements() {
 		// Nothing to do here...
 	}
-
+	
 	/**
-	 * Checks the requirements and hands in the quest items, if all requirements were met.
+	 * Checks if the requirements have been fulfilled.
 	 * 
-	 * @return If the quest phase is completed.
+	 * @return If the requirements were fulfilled.
 	 */
-	public boolean tryToHandInQuest() {
-		boolean success = execute(false);
-		if(success) {
-			itemRemover.execute();
-		}
-		return success;
+	public boolean checkRequirements() {
+		return execute(false);
+	}
+	
+	/**
+	 * Hands in quest related items, if any were needed.
+	 */
+	public void handInItems() {
+		execute(false);
+		itemRemover.execute();
 	}
 	
 	/**

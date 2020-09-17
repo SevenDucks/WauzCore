@@ -19,6 +19,7 @@ import eu.wauz.wauzcore.mobs.citizens.RelationTracker;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 import eu.wauz.wauzcore.system.quests.QuestType;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 
@@ -80,6 +81,7 @@ public class WauzPlayerEventQuestComplete implements WauzPlayerEvent {
 			String questName = quest.getQuestName();
 			String questGiver = quest.getQuestGiver();
 			
+			QuestRequirementChecker.create(player, quest, quest.getPhaseAmount()).handInItems();
 			PlayerQuestConfigurator.setQuestPhase(player, questName, 0);
 			PlayerConfigurator.setCharacterQuestSlot(player, questSlot, "none");
 			if(quest.getType().equals(QuestType.DAILY)) {
@@ -88,6 +90,7 @@ public class WauzPlayerEventQuestComplete implements WauzPlayerEvent {
 			PlayerQuestConfigurator.addQuestCompletions(player, questName);
 			player.getWorld().playEffect(player.getLocation(), Effect.DRAGON_BREATH, 0);
 			player.sendMessage(ChatColor.GREEN + "You completed [" + quest.getDisplayName() + "]");
+			AchievementTracker.checkForAchievement(player, WauzAchievementType.COMPLETE_CAMPAIGNS, quest.getDisplayName());
 			
 			int relationProgress = PlayerRelationConfigurator.getRelationProgress(player, questGiver);
 			double rewardMultiplier = RelationLevel.getRelationLevel(relationProgress).getRewardMultiplier();

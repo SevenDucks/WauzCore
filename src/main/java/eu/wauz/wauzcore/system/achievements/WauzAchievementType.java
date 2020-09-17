@@ -53,24 +53,24 @@ public enum WauzAchievementType {
 	GAIN_LEVELS("levels", "Levels Gained", true),
 	
 	/**
-	 * Achievements for defeating a specific boss.
-	 */
-	DEFEAT_BOSSES("bosses", "Bosses Defeated", false),
-	
-	/**
 	 * Achievements for collecting a specific artifact.
 	 */
-	COLLECT_ARTIFACTS("artifacts", "Artifacts Collected", false),
+	COLLECT_ARTIFACTS("artifacts", "Pick up", false),
 	
 	/**
 	 * Achievements for completing a specific campaign quest.
 	 */
-	COMPLETE_CAMPAIGN("campaigns", "Campaigns Completed", false),
+	COMPLETE_CAMPAIGNS("campaigns", "Complete", false),
+	
+	/**
+	 * Achievements for defeating a specific boss.
+	 */
+	DEFEAT_BOSSES("bosses", "Defeat", false),
 	
 	/**
 	 * Achievements for exploring a specific region.
 	 */
-	EXPLORE_REGION("regions", "Regions Explored", false);
+	EXPLORE_REGIONS("regions", "Explore", false);
 	
 	/**
 	 * The key for this achievement type, used in player data configs.
