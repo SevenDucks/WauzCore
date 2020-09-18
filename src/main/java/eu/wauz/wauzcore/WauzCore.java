@@ -155,9 +155,6 @@ public class WauzCore extends JavaPlugin {
 					WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 					WauzRegion.regionCheck(player);
 					WauzCitizenSpawner.showNpcsNearPlayer(player);
-					if(WauzMode.isMMORPG(player)) {
-						RageCalculator.degenerateRage(player);
-					}
 				}
 			}
 			
@@ -174,6 +171,7 @@ public class WauzCore extends JavaPlugin {
 					if(WauzMode.isMMORPG(player)) {
 						ClimateCalculator.updateTemperature(player);
 						ManaCalculator.regenerateMana(player);
+						RageCalculator.degenerateRage(player);
 					}
 					else if(WauzMode.isSurvival(player)) {
 						DamageCalculator.decreasePvPProtection(player);

@@ -1,0 +1,8 @@
+name: WauzPets
+description: Advanced Minecraft MMORPG Engine - Pets Addon
+main: eu.wauz.wauzpets.WauzPets
+website: http://wauz.eu/
+version: 1.0
+api-version: 1.16
+author: Nikolas Keller
+loadbefore: [WauzCore]

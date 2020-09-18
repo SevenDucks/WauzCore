@@ -1,5 +1,3 @@
-Patch 6XX: Marvelous Mounts
-
 Patch 6XX: Kingdom Siege
 
 Patch 6XX: Content Extension
@@ -8,7 +6,37 @@ Patch 6XX: Survival Ascended
 
 Patch 6XX: Powerful Professions
 
+Patch 608: Minigame Madness
+
+Patch 607: Marvelous Mounts
+
 Patch 606: Bloody Bestiary
+	Minecraft Update
+	  - Server now runs on Paper 1.16.3
+	  
+	New Feature: Bestiary
+	  - Has Entries of all defeated Enemy Types
+	  - Slay more to increase Entry Rank
+	  - Each Rank unlocks new Info and Perks
+	  - Higher Ranks also award Soulstones
+	  
+	New Feature: Material Bag
+	  - Automatically Stores picked up Loot
+	  - Sections for Materials and Quest Items
+	  - Helps freeing up Inventory Space
+	  - Function for Selling Bag Contents
+	  
+	Added Achievement Types
+	  - Collected Artifacts (Rare Items)
+	  - Completed Campaigns (Story Questslines)
+	  - Defeated Bosses
+	  - Explored Regions
+	  
+	Miscellaneous
+	  - Added more Debug Commands
+	  - Extended Discord Configuration
+	  - Runes now have Success Rates
+	  - Improved Quest Goals
 
 Patch 605: Crucible of Classes II
 	Class Casting System
