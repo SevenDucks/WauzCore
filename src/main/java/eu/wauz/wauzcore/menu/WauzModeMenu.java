@@ -45,7 +45,7 @@ public class WauzModeMenu implements WauzInventory {
 	
 	/**
 	 * Opens the menu for the given player.
-	 * Shows three hardcoded modes to choose: "MineKart", "MMORPG", "Survival".
+	 * Shows three hardcoded modes to choose: "DropGuys", "MMORPG", "OneBlock".
 	 * 
 	 * @param player The player that should view the inventory.
 	 * 
@@ -55,23 +55,23 @@ public class WauzModeMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzModeMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Select a Gamemode!");
 		
-		ItemStack modeKartItemStack = new ItemStack(Material.MINECART);
-		ItemMeta modeKartItemMeta = modeKartItemStack.getItemMeta();
-		modeKartItemMeta.setDisplayName(ChatColor.RED + "MineKart");
-		modeKartItemStack.setItemMeta(modeKartItemMeta);
-		menu.setItem(2, modeKartItemStack);
+		ItemStack modeDropGuysItemStack = new ItemStack(Material.HOPPER);
+		ItemMeta modeDropGuysItemMeta = modeDropGuysItemStack.getItemMeta();
+		modeDropGuysItemMeta.setDisplayName(ChatColor.RED + "DropGuys");
+		modeDropGuysItemStack.setItemMeta(modeDropGuysItemMeta);
+		menu.setItem(2, modeDropGuysItemStack);
 		
-		ItemStack modeMmoItemStack = new ItemStack(Material.DRAGON_HEAD);
-		ItemMeta modeMmoItemMeta = modeMmoItemStack.getItemMeta();
-		modeMmoItemMeta.setDisplayName(ChatColor.DARK_PURPLE + "MMORPG");
-		modeMmoItemStack.setItemMeta(modeMmoItemMeta);
-		menu.setItem(4, modeMmoItemStack);
+		ItemStack modeMmoRpgItemStack = new ItemStack(Material.DRAGON_HEAD);
+		ItemMeta modeMmoRpgItemMeta = modeMmoRpgItemStack.getItemMeta();
+		modeMmoRpgItemMeta.setDisplayName(ChatColor.DARK_PURPLE + "MMORPG");
+		modeMmoRpgItemStack.setItemMeta(modeMmoRpgItemMeta);
+		menu.setItem(4, modeMmoRpgItemStack);
 		
-		ItemStack modeSurvivalItemStack = new ItemStack(Material.PLAYER_HEAD);
-		ItemMeta modeSurvivalItemMeta = modeSurvivalItemStack.getItemMeta();
-		modeSurvivalItemMeta.setDisplayName(ChatColor.GOLD + "Survival");
-		modeSurvivalItemStack.setItemMeta(modeSurvivalItemMeta);
-		menu.setItem(6, modeSurvivalItemStack);
+		ItemStack modeOneBlockItemStack = new ItemStack(Material.GRASS_BLOCK);
+		ItemMeta modeOneBlockItemMeta = modeOneBlockItemStack.getItemMeta();
+		modeOneBlockItemMeta.setDisplayName(ChatColor.GOLD + "OneBlock");
+		modeOneBlockItemStack.setItemMeta(modeOneBlockItemMeta);
+		menu.setItem(6, modeOneBlockItemStack);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -101,8 +101,7 @@ public class WauzModeMenu implements WauzInventory {
 	
 	/**
 	 * Starts the given mode for the player.
-	 * For MMORPG and Survival mode, the character selection will be shown.
-	 * The MineKart mode shows just a warning, that it is unfinished.
+	 * For the character selection for the chosen mode will be shown.
 	 * 
 	 * @param player The player who selected the mode.
 	 * @param modeName The name of the mode that has been selected.
@@ -116,12 +115,11 @@ public class WauzModeMenu implements WauzInventory {
 		else if(modeName.equals("MMORPG")) {
 			CharacterSlotMenu.open(player, WauzMode.MMORPG);
 		}
-		else if(modeName.equals("Survival")) {
+		else if(modeName.equals("OneBlock")) {
 			CharacterSlotMenu.open(player, WauzMode.SURVIVAL);
 		}
-		else if(modeName.equals("MineKart")) {
-			player.closeInventory();
-			player.sendMessage(ChatColor.RED + "This mode is still unfinished!");
+		else if(modeName.equals("DropGuys")) {
+			CharacterSlotMenu.open(player, WauzMode.ARCADE);
 		}
 	}
 

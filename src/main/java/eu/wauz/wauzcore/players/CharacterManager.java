@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.InventoryStringConverter;
@@ -123,6 +124,9 @@ public class CharacterManager {
 		
 		if(WauzMode.isMMORPG(player)) {
 			PetOverviewMenu.unsummon(player);
+		}
+		else if(WauzMode.isArcade(player)) {
+			ArcadeLobby.removePlayer(player);
 		}
 		
 		if(playerData.isInGroup()) {

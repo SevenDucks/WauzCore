@@ -21,6 +21,7 @@ import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -55,7 +56,7 @@ public class CharacterSlotMenu implements WauzInventory {
 	
 	/**
 	 * Opens the menu for the given player.
-	 * Shows three choosable slots for MMO mode or one seasonal slot for Survival mode.
+	 * Shows three choosable chearacter slot for the given mode.
 	 * 
 	 * @param player The player that should view the inventory.
 	 * @param wauzMode The wauz mode of the character slots.
@@ -66,16 +67,21 @@ public class CharacterSlotMenu implements WauzInventory {
 	 */
 	public static void open(Player player, WauzMode wauzMode) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterSlotMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Character!");
+		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Slot!");
 
 		if(wauzMode.equals(WauzMode.MMORPG)) {
-			for(int slotId = 1; slotId <= 3; slotId++)
+			for(int slotId = 1; slotId <= 3; slotId++) {
 				menu.setItem(slotId * 2, getCharacterSlot(player, "MMORPG-" + slotId, true));
+			}
 		}
 		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
 			int season = WauzDateUtils.getSurvivalSeasonInteger();
-			menu.setItem(3, getCharacterSlot(player, "OneBlock-Survival-" + season, true));
-			menu.setItem(5, getCharacterSlot(player, "Classic-Survival-" + season, true));
+			menu.setItem(4, getCharacterSlot(player, "OneBlock-Survival-" + season, true));
+		}
+		else if(wauzMode.equals(WauzMode.ARCADE)) {
+			ItemStack slotItemStack = new ItemStack(Material.CLOCK);
+			MenuUtils.setItemDisplayName(slotItemStack, ChatColor.GREEN + "Connect to Main Lobby");
+			menu.setItem(4, slotItemStack);
 		}
 		
 		MenuUtils.setBorders(menu);
@@ -152,6 +158,7 @@ public class CharacterSlotMenu implements WauzInventory {
 	 * 
 	 * @param event The inventory click event.
 	 * 
+	 * @see InstanceManager#enterArcade(Player)
 	 * @see WauzPlayerData#setSelectedCharacterSlot(String)
 	 * @see CharacterWorldMenu#open(Player)
 	 * @see CharacterManager#createCharacter(Player, WauzMode)
@@ -165,14 +172,18 @@ public class CharacterSlotMenu implements WauzInventory {
 		final Player player = (Player) event.getWhoClicked();
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(playerData == null) {
+		if(playerData == null || clicked == null) {
 			return;
 		}
 		
-		if(clicked == null || (!clicked.getType().equals(Material.TOTEM_OF_UNDYING) && !clicked.getType().equals(Material.BARRIER))) {
+		Material type = clicked.getType();
+		if(type.equals(Material.CLOCK)) {
+			InstanceManager.enterArcade(player);
 			return;
 		}
-
+		else if(!type.equals(Material.TOTEM_OF_UNDYING) && !clicked.getType().equals(Material.BARRIER)) {
+			return;
+		}
 		String slotId = clicked.getItemMeta().getDisplayName().split(" ")[1];
 		playerData.setSelectedCharacterSlot("char" + slotId);		
 		

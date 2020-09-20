@@ -22,6 +22,11 @@ public enum WauzMode {
 	SURVIVAL("Survival"),
 	
 	/**
+	 * The Wauz Arcade mode.
+	 */
+	ARCADE("Arcade"),
+	
+	/**
 	 * If the Wauz mode is unknown.
 	 */
 	UNKNOWN("Unknown");
@@ -155,6 +160,33 @@ public enum WauzMode {
 	public static boolean isSurvival(String worldName) {
 		return isInstanceOfType(worldName, "Survival") ||
 				StringUtils.startsWith(worldName, "Survival");
+	}
+	
+	/**
+	 * @param entity The entity for checking the mode.
+	 * 
+	 * @return If the entity is in Arcade mode.
+	 */
+	public static boolean isArcade(Entity entity) {
+		return isArcade(entity.getWorld());
+	}
+	
+	/**
+	 * @param world The world for checking the mode.
+	 * 
+	 * @return If the world is in Arcade mode.
+	 */
+	public static boolean isArcade(World world) {
+		return isArcade(world.getName());
+	}
+	
+	/**
+	 * @param worldName The name of the world for checking the mode.
+	 * 
+	 * @return If the world with this name is in Arcade mode.
+	 */
+	public static boolean isArcade(String worldName) {
+		return isInstanceOfType(worldName, "Arcade");
 	}
 	
 	/**

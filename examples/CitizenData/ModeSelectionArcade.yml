@@ -1,11 +1,11 @@
 display: Survival
 name:
   - Gamemode Selection
-  - §6OneBlockl§r
+  - §6DropGuys§r
   - ''
 world: HubNexus
-location: -49.5 98 68.5 180 0
-skinid: 481191
+location: 50.5 98 68.5 180 0
+skinid: 366304335
 invisible: false
 burning: false
 items:
@@ -15,5 +15,5 @@ items:
   chestplate:
   leggings:
   boots:
-modeselect: Survival
+modeselect: Arcade
 interactions:

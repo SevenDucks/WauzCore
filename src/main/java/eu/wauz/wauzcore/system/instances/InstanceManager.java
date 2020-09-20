@@ -27,6 +27,7 @@ import org.bukkit.util.BlockVector;
 import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
@@ -132,6 +133,39 @@ public class InstanceManager {
 		}
 		
 		player.teleport(new Location(instanceWorld, 0.5, 26, 0.5));
+		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
+	}
+	
+// Create Guild Instance
+	
+	/**
+	 * Lets the player enter the arcade lobby.
+	 * If there is no lobby already open, a new instance is created.
+	 * Handles the teleportation of the player afterwards.
+	 * 
+	 * @param player The player who opened the instance.
+	 * 
+	 * @see InstanceManager#openInstance(File, File)
+	 */
+	public static void enterArcade(Player player) {
+		String instanceUuid = "WzInstance_Arcade";
+		World instanceWorld = Bukkit.getWorld(instanceUuid);
+		if(instanceWorld == null) {
+			File sourceFolder = new File(core.getDataFolder(), "Worlds/Arcade");
+			String path = Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", instanceUuid);
+			File targetFolder = new File(path);
+			targetFolder.mkdir();
+			openInstance(sourceFolder, targetFolder);
+			instanceWorld = core.getServer().createWorld(new WorldCreator(instanceUuid));
+			
+			WauzActiveInstance activeInstance = new WauzActiveInstance(instanceWorld, "DropGuys");
+			activeInstance.setDisplayTitle("DropGuys");
+			activeInstance.setDisplaySubtitle("Ultimate Knockdown");
+			WauzActiveInstancePool.registerInstance(activeInstance);
+		}
+		
+		ArcadeLobby.addPlayer(player);
+		player.teleport(new Location(instanceWorld, 0.5, 91, 0.5));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
 	

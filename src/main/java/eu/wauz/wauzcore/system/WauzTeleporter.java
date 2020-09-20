@@ -124,7 +124,11 @@ public class WauzTeleporter {
 		if(!WauzPlayerDataPool.isCharacterSelected(player) || StringUtils.equals(player.getWorld().getName(), PlayerConfigurator.getCharacterWorldString(player))) {
 			player.sendMessage(ChatColor.RED + "You can't leave when not inside an instance!");
 			return;
-		}	
+		}
+		if(WauzMode.isArcade(player)) {
+			CharacterManager.logoutCharacter(player);
+			return;
+		}
 		PetOverviewMenu.unsummon(player);
 		player.teleport(PlayerConfigurator.getCharacterLocation(player));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
