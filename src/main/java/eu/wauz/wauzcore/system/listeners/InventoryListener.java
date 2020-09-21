@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
-import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.CombatMapper;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.util.WauzMode;

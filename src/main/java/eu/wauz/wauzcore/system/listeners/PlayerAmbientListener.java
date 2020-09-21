@@ -20,7 +20,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
-import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;

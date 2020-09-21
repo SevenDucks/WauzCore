@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.data.players.PlayerBestiaryConfigurator;
 import eu.wauz.wauzcore.mobs.bestiary.ObservationRank;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
-import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.instances.WauzInstanceKeyStatus;

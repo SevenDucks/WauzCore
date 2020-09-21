@@ -121,12 +121,12 @@ public class WauzTeleporter {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
 			return;
 		}
-		if(!WauzPlayerDataPool.isCharacterSelected(player) || StringUtils.equals(player.getWorld().getName(), PlayerConfigurator.getCharacterWorldString(player))) {
-			player.sendMessage(ChatColor.RED + "You can't leave when not inside an instance!");
-			return;
-		}
 		if(WauzMode.isArcade(player)) {
 			CharacterManager.logoutCharacter(player);
+			return;
+		}
+		if(!WauzPlayerDataPool.isCharacterSelected(player) || StringUtils.equals(player.getWorld().getName(), PlayerConfigurator.getCharacterWorldString(player))) {
+			player.sendMessage(ChatColor.RED + "You can't leave when not inside an instance!");
 			return;
 		}
 		PetOverviewMenu.unsummon(player);

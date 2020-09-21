@@ -25,7 +25,7 @@ import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.players.calc.RageCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerNotifier;
-import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;

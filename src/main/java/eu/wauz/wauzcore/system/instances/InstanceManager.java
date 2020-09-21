@@ -165,7 +165,10 @@ public class InstanceManager {
 		}
 		
 		ArcadeLobby.addPlayer(player);
-		player.teleport(new Location(instanceWorld, 0.5, 91, 0.5));
+		Location destination = new Location(instanceWorld, 0.5, 91, 0.5);
+		player.getInventory().clear();
+		player.setBedSpawnLocation(destination);
+		player.teleport(destination);
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
 	

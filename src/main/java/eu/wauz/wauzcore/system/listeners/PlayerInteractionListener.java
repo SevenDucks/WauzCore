@@ -43,7 +43,7 @@ import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
-import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.EventMapper;

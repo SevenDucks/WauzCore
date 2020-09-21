@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.players.ui;
+package eu.wauz.wauzcore.players.ui.scoreboard;
 
 import java.util.UUID;
 

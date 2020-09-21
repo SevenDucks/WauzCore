@@ -13,7 +13,7 @@ import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.mobs.MobSpawn;
-import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 
 /**
  * An arena that spawns waves of mobs in an instance world.

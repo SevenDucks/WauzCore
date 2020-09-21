@@ -28,7 +28,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
-import eu.wauz.wauzcore.players.ui.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.quests.QuestMenuItems;
 import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
