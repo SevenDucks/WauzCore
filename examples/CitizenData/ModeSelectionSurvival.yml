@@ -15,5 +15,5 @@ items:
   chestplate:
   leggings:
   boots:
-modeselect: Survival
+modeselect: OneBlock
 interactions:

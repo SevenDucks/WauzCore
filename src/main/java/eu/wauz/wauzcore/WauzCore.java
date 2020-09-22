@@ -205,7 +205,7 @@ public class WauzCore extends JavaPlugin {
 			@Override
 			public void run() {
 				for(World world : Bukkit.getWorlds()) {
-					if(world.getPlayerCount() == 0) {
+					if(world.getPlayerCount() == 0 && !world.getName().equals("WzInstance_Arcade")) {
 						InstanceManager.closeInstance(world);
 					}
 				}

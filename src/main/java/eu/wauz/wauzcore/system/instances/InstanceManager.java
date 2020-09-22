@@ -164,12 +164,7 @@ public class InstanceManager {
 			WauzActiveInstancePool.registerInstance(activeInstance);
 		}
 		
-		ArcadeLobby.addPlayer(player);
-		Location destination = new Location(instanceWorld, 0.5, 91, 0.5);
-		player.getInventory().clear();
-		player.setBedSpawnLocation(destination);
-		player.teleport(destination);
-		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
+		ArcadeLobby.addPlayerToQueue(player);
 	}
 	
 // Create Survival Instance

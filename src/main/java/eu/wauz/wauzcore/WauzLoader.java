@@ -2,6 +2,7 @@ package eu.wauz.wauzcore;
 
 import org.bukkit.Bukkit;
 
+import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.commands.CmdApply;
 import eu.wauz.wauzcore.commands.CmdDesc;
 import eu.wauz.wauzcore.commands.CmdFriend;
@@ -21,6 +22,7 @@ import eu.wauz.wauzcore.commands.CmdSendItem;
 import eu.wauz.wauzcore.commands.CmdSethome;
 import eu.wauz.wauzcore.commands.CmdSit;
 import eu.wauz.wauzcore.commands.CmdSpawn;
+import eu.wauz.wauzcore.commands.CmdStart;
 import eu.wauz.wauzcore.commands.CmdTalk;
 import eu.wauz.wauzcore.commands.CmdTip;
 import eu.wauz.wauzcore.commands.CmdTrade;
@@ -197,6 +199,7 @@ public class WauzLoader {
 		WauzTitle.init();
 		WauzPlayerGuild.init();
 		OnePhase.init();
+		ArcadeLobby.init();
 		
 		InstanceManager.removeInactiveInstances();
 		StatisticsFetcher.calculate();
@@ -267,6 +270,7 @@ public class WauzLoader {
 		WauzCommandExecutor.registerCommand(new CmdSethome());
 		WauzCommandExecutor.registerCommand(new CmdSit());
 		WauzCommandExecutor.registerCommand(new CmdSpawn());
+		WauzCommandExecutor.registerCommand(new CmdStart());
 		WauzCommandExecutor.registerCommand(new CmdTalk());
 		WauzCommandExecutor.registerCommand(new CmdTip());
 		WauzCommandExecutor.registerCommand(new CmdTrade());

@@ -42,11 +42,11 @@ public class ArcadeScoreboard extends BaseScoreboard {
 		if(ArcadeLobby.isWaiting(player)) {
 			rowStrings.add("Waiting for a Game to Start...");
 			rowStrings.add("Currently Waiting: " + ChatColor.YELLOW + ArcadeLobby.getWaitingCount());
+			rowStrings.add(ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "start " + ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "hub");
 			rowStrings.add(" ");
 		}
 		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)));
 		rowStrings.add("  ");
-		rowStrings.add(ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "hub");
 	}
 
 }

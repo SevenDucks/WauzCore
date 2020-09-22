@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
+import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
 import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
@@ -59,6 +60,7 @@ public class CombatMapper {
 	 * @param event The damage event.
 	 * 
 	 * @see CombatMapper#shouldCancelDamageEvent(EntityDamageEvent)
+	 * @see ArcadeLobby#handleDamageEvent(EntityDamageEvent)
 	 * @see CombatMapper#handleDamageByEntityEvent(EntityDamageByEntityEvent, WauzPlayerBossBar)
 	 * @see CustomWeaponGlider#cancelFallDamage(EntityDamageEvent)
 	 * @see DamageCalculator#defend(EntityDamageEvent)
@@ -68,6 +70,10 @@ public class CombatMapper {
 	public static void handleDamageEvent(EntityDamageEvent event) {
 		if(shouldCancelDamageEvent(event)) {
 			event.setCancelled(true);
+			return;
+		}
+		if(WauzMode.isArcade(event.getEntity())) {
+			ArcadeLobby.handleDamageEvent(event);
 			return;
 		}
 		

@@ -96,6 +96,10 @@ commands:
     description: Talk to Nearest Citizen
     usage: /talk
     permission: wauz.normal
+  start:
+    description: Start Next Arcade Game
+    usage: /start
+    permission: wauz.normal
   nextwave:
     description: Start Next 5 Arena Waves
     usage: /nextwave
