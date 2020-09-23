@@ -48,7 +48,7 @@ public class SurvivalScoreboard extends BaseScoreboard {
 		rowStrings.add("for each Level beyond 30");
 		rowStrings.add("  ");
 		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)));
-		rowStrings.add("Use an Ender Chest to spend");
+		rowStrings.add("Use an Ender Chest to Spend");
 		rowStrings.add("   ");
 		rowStrings.add(ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "hub " + ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "spawn");
 		rowStrings.add(ChatColor.RED + "/" + ChatColor.WHITE + "home " + ChatColor.RED + "/" + ChatColor.WHITE + "sethome");

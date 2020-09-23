@@ -162,7 +162,7 @@ public class PlayerAmbientListener implements Listener {
 	 */
 	@EventHandler
 	public void onHunger(FoodLevelChangeEvent event) {
-		if(WauzMode.inHub(event.getEntity())) {
+		if(WauzMode.inHub(event.getEntity()) || WauzMode.isArcade(event.getEntity())) {
 			event.setCancelled(true);
 		}
 	}

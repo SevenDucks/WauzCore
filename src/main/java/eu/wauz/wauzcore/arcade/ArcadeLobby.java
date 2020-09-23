@@ -12,6 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
+import eu.wauz.wauzcore.items.WauzRewards;
+import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
+import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -40,6 +43,11 @@ public class ArcadeLobby {
 	 * The currently played minigame.
 	 */
 	private static ArcadeMinigame minigame;
+	
+	/**
+	 * The remaining time of the current game as readable string.
+	 */
+	private static String remainingTime = "0:00";
 	
 	/**
 	 * A random instance, for rolling minigames.
@@ -77,13 +85,21 @@ public class ArcadeLobby {
 	 * Ends the current game and puts the players back into queue.
 	 */
 	public static void endGame() {
-		minigame.endGame();
+		List<Player> winners = minigame.endGame();
 		minigame = null;
 		List<Player> players = new ArrayList<>(playingPlayers);
 		playingPlayers.clear();
 		
 		for(Player player : players) {
+			WauzNoteBlockPlayer.play(player, "None");
 			addPlayerToQueue(player);
+			if(winners.contains(player)) {
+				player.sendTitle(ChatColor.DARK_GREEN + "Qualified", "You WON the minigame round!", 10, 70, 20);
+				WauzRewards.earnArcadeToken(player);
+			}
+			else {
+				player.sendTitle(ChatColor.DARK_PURPLE + "Eliminated", "You LOST the minigame round!", 10, 70, 20);
+			}
 		}
 	}
 	
@@ -107,8 +123,13 @@ public class ArcadeLobby {
 	 * @param player The player to remove.
 	 */
 	public static void removePlayer(Player player) {
+		if(playingPlayers.contains(player)) {
+			if(minigame != null) {
+				minigame.handleQuitEvent(player);
+			}
+			playingPlayers.remove(player);
+		}
 		waitingPlayers.remove(player);
-		playingPlayers.remove(player);
 	}
 	
 	/**
@@ -144,12 +165,38 @@ public class ArcadeLobby {
 	}
 	
 	/**
+	 * @return The currently played minigame.
+	 */
+	public static ArcadeMinigame getMinigame() {
+		return minigame;
+	}
+	
+	/**
+	 * @return The remaining time of the current game as readable string.
+	 */
+	public static String getRemainingTime() {
+		return remainingTime;
+	}
+	
+	/**
+	 * @param seconds The new remaining time of the current game in seconds.
+	 */
+	public static void updateRemainingTime(int seconds) {
+		remainingTime = WauzDateUtils.formatMinsSecs(seconds * 1000);
+	}
+	
+	/**
 	 * @return The arcade world.
 	 */
 	public static World getWorld() {
 		return Bukkit.getWorld("WzInstance_Arcade");
 	}
 	
+	/**
+	 * Handles the given damage event, that occured in the minigame.
+	 * 
+	 * @param event The damage event.
+	 */
 	public static void handleDamageEvent(EntityDamageEvent event) {
 		if(!(event.getEntity() instanceof Player)) {
 			return;
@@ -159,7 +206,16 @@ public class ArcadeLobby {
 			event.setCancelled(true);
 		}
 		else if(minigame != null) {
-			handleDamageEvent(event);
+			minigame.handleDamageEvent(event);
+		}
+	}
+	
+	/**
+	 * A method that is called every second of the minigame.
+	 */
+	public static void handleTick() {
+		if(minigame != null) {
+			minigame.handleTick();
 		}
 	}
 

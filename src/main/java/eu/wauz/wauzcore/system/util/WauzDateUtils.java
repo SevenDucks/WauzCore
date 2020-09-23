@@ -83,6 +83,18 @@ public class WauzDateUtils {
 	}
 	
 	/**
+	 * @param millis  A millisecond count.
+	 * 
+	 * @return The milliseconds converted to readable time string.
+	 */
+	public static String formatMinsSecs(long millis) {
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
+		long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
+		
+		return String.format("%d:%02d", minutes, seconds - TimeUnit.MINUTES.toSeconds(minutes));
+	}
+	
+	/**
 	 * @return A string that shows the official server time.
 	 */
 	public static String getServerTime() {

@@ -44,7 +44,7 @@ public class CmdStart implements WauzCommand {
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
 		Player player = (Player) sender;
-		if(WauzMode.isArcade(player)) {
+		if(!WauzMode.isArcade(player)) {
 			player.sendMessage(ChatColor.RED + "You can't do that in this world!");
 		}
 		else {

@@ -84,15 +84,33 @@ public class WauzRewards {
 		player.setExp(0);
 		
 		final int limit = 20;
-		final int today = getTokensEarnedToday(player, "survival");
+		final int today = getTokensEarnedToday(player, "oneblock");
 		if(today >= limit) {
-			player.sendMessage(ChatColor.YELLOW + "Tokenlimit (Survival) of " + limit + " reached for today!");
+			player.sendMessage(ChatColor.YELLOW + "Tokenlimit (OneBlock) of " + limit + " reached for today!");
 			return;
 		}
 		Long survivalScore = PlayerConfigurator.getSurvivalScore(player) + 1;
 		PlayerConfigurator.setSurvivalScore(player, survivalScore);
 		player.sendMessage(ChatColor.GOLD + "You reached Survival Score " + Formatters.INT.format(survivalScore) + "!");
-		earnToken(player, "Survival", today + 1, limit);
+		earnToken(player, "OneBlock", today + 1, limit);
+	}
+	
+	/**
+	 * Adds a token from Arcade mode, if the limit of 20 has not been reached today.
+	 * 
+	 * @param player The player to receive the token.
+	 * 
+	 * @see WauzRewards#getTokensEarnedToday(Player, String)
+	 * @see WauzRewards#earnToken(Player, String, int, int)
+	 */
+	public static void earnArcadeToken(Player player) {
+		final int limit = 20;
+		final int today = getTokensEarnedToday(player, "dropguys");
+		if(today >= limit) {
+			player.sendMessage(ChatColor.YELLOW + "Tokenlimit (DropGuys) of " + limit + " reached for today!");
+			return;
+		}
+		earnToken(player, "DropGuys", today + 1, limit);
 	}
 	
 	/**

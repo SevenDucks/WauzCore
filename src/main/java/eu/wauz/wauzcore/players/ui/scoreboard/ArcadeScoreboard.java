@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.arcade.ArcadeLobby;
+import eu.wauz.wauzcore.arcade.ArcadeMinigame;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.system.util.Formatters;
 
@@ -28,7 +29,7 @@ public class ArcadeScoreboard extends BaseScoreboard {
 	 */
 	@Override
 	public String getTitleText() {
-		return ChatColor.DARK_RED + "" + ChatColor.BOLD + "Arcade" + ChatColor.RESET;
+		return ChatColor.DARK_RED + "" + ChatColor.BOLD + "DropGuys" + ChatColor.RESET;
 	}
 
 	/**
@@ -38,15 +39,22 @@ public class ArcadeScoreboard extends BaseScoreboard {
 	 */
 	@Override
 	public void fillScoreboard(Player player) {
+		ArcadeMinigame minigame = ArcadeLobby.getMinigame();
 		rowStrings.add("");
-		if(ArcadeLobby.isWaiting(player)) {
-			rowStrings.add("Waiting for a Game to Start...");
-			rowStrings.add("Currently Waiting: " + ChatColor.YELLOW + ArcadeLobby.getWaitingCount());
-			rowStrings.add(ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "start " + ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "hub");
-			rowStrings.add(" ");
+		rowStrings.add("Currently Waiting: " + ChatColor.YELLOW + ArcadeLobby.getWaitingCount());
+		rowStrings.add("Currently Playing: " + ChatColor.GREEN + ArcadeLobby.getPlayingCount());
+		if(minigame == null) {
+			rowStrings.add("Type " + ChatColor.RED + "/" + ChatColor.WHITE + "start to Start Game");
 		}
-		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)));
+		else {
+			rowStrings.add("Game Ends in: " + ChatColor.RED + ArcadeLobby.getRemainingTime());
+			rowStrings.add(" ");
+			rowStrings.add("Minigame: " + ChatColor.GOLD + minigame.getName());
+			rowStrings.addAll(minigame.getDescription());
+		}
 		rowStrings.add("  ");
+		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)));
+		rowStrings.add("Go to the " + ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "hub to Spend");
 	}
 
 }

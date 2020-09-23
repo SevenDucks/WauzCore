@@ -61,10 +61,6 @@ public class WauzPlayerRegistrator {
 			playerDataConfig.set("guild", "none");
 			playerDataConfig.set("tokens", 0);
 			long dateLong = WauzDateUtils.getDateLong();
-			playerDataConfig.set("tokenlimit.survival.date", dateLong);
-			playerDataConfig.set("tokenlimit.survival.amount", 0);
-			playerDataConfig.set("tokenlimit.mmorpg.date", dateLong);
-			playerDataConfig.set("tokenlimit.mmprgp.amount", 0);
 			playerDataConfig.set("tokenlimit.mails.date", dateLong);
 			playerDataConfig.set("tokenlimit.mails.amount", 0);
 			playerDataConfig.set("score.survival", 0);

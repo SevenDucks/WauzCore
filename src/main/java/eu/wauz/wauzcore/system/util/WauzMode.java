@@ -196,7 +196,7 @@ public enum WauzMode {
 	 * @return If the world with this name is an instance of the specified type.
 	 */
 	public static boolean isInstanceOfType(String worldName, String worldType) {
-		return StringUtils.startsWith(worldName, "WzInstance_" + worldType + "_");
+		return StringUtils.startsWith(worldName, "WzInstance_" + worldType);
 	}
 	
 	/**
