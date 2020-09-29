@@ -37,6 +37,13 @@ public class ServerConfigurator extends GlobalConfigurationUtils {
 	}
 	
 	/**
+	 * @return All modules that are activated on the server.
+	 */
+	public static List<String> getModules() {
+		return mainConfigGetStringList("Server", "modules");
+	}
+	
+	/**
 	 * @return The port for the web api of the server.
 	 */
 	public static int getServerApiPort() {

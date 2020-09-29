@@ -1,0 +1,12 @@
+Charlie:
+  mob: PetCharlie
+  category: Exotic
+  rarity: EPIC
+Asuna:
+  mob: PetAsuna
+  category: Humanoid
+  rarity: EPIC
+Shiro:
+  mob: PetShiro
+  category: Humanoid
+  rarity: EPIC

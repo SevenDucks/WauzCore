@@ -11,7 +11,7 @@ SpiderCave:
   world: Dalyreos
   coords: -5184.5 154 6020.5
 DevilKnCamp:
-  name: The Devil Knight Camp
+  name: Devil Knight Camp
   world: Dalyreos
   coords: -4799.5 67 5750.5
 DemonShrine:
@@ -34,6 +34,10 @@ Teranos:
   name: Teranos Village
   world: Dalyreos
   coords: -6384.5 68 5950.5
+Bloodmace:
+  name: Bloodmace Keep
+  world: Dalyreos
+  coords: -6879.5 74 5725.5
 TrollDen:
   name: Troll Den
   world: Dalyreos

@@ -1,4 +1,5 @@
-key: Wauzland
+key: DelseyriaReborn
+modules: [main, pets]
 apiport: 7069
 motd:
   base: "§f»§f§m---§b§m---§a§m---§a»§r §6§l< §2§lDelseyria§3§lReborn §6§l> §a«§a§m---§b§m---§f§m---§f«§r §3§lDRPG.us.to§f§l: §6%random%"
