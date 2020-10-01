@@ -170,7 +170,7 @@ public class WauzEquipment {
 	 * 
 	 * @return The generated item stack.
 	 */
-	private static ItemStack getCosmeticItem(Material material) {
+	public static ItemStack getCosmeticItem(Material material) {
 		return getCosmeticItem(material, null);
 	}
 	
@@ -182,11 +182,12 @@ public class WauzEquipment {
 	 * 
 	 * @return The generated item stack.
 	 */
-	private static ItemStack getCosmeticItem(Material material, Color color) {
+	public static ItemStack getCosmeticItem(Material material, Color color) {
 		ItemStack itemStack = new ItemStack(material);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.RESET + "Cosmetic Item");
 		itemMeta.setUnbreakable(true);
+		itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		if(color != null) {
 			((LeatherArmorMeta) itemMeta).setColor(color);

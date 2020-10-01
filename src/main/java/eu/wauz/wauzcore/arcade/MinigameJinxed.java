@@ -69,7 +69,7 @@ public class MinigameJinxed implements ArcadeMinigame {
 		List<String> description = new ArrayList<>();
 		description.add(ChatColor.WHITE + "Run away from Jinxed Players!");
 		description.add(ChatColor.WHITE + "If you are Jinxed, try to");
-		description.add(ChatColor.WHITE + "hit Players of the other Team,");
+		description.add(ChatColor.WHITE + "hit Players of the other Team");
 		description.add(ChatColor.WHITE + "to Jinx them and get Unjinxed.");
 		description.add("   ");
 		description.add(ChatColor.GREEN + "Team Green: " + ChatColor.GOLD + getJinxedCount(teamGreen));

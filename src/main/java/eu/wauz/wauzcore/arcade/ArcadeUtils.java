@@ -12,12 +12,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 
@@ -84,16 +82,10 @@ public class ArcadeUtils {
 	 * @param name Their team name.
 	 */
 	public static void equipTeamColor(List<Player> players, Color color, String name) {
-		ItemStack chestplateItemStack = new ItemStack(Material.LEATHER_CHESTPLATE);
-		LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) chestplateItemStack.getItemMeta();
-		leatherArmorMeta.setColor(color);
-		leatherArmorMeta.setUnbreakable(true);
-		leatherArmorMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-		leatherArmorMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		chestplateItemStack.setItemMeta(leatherArmorMeta);
-		
 		for(Player player : players) {
-			player.getEquipment().setChestplate(chestplateItemStack);
+			player.getEquipment().setChestplate(WauzEquipment.getCosmeticItem(Material.LEATHER_CHESTPLATE, color));
+			player.getEquipment().setLeggings(WauzEquipment.getCosmeticItem(Material.LEATHER_LEGGINGS, color));
+			player.getEquipment().setBoots(WauzEquipment.getCosmeticItem(Material.LEATHER_LEGGINGS, color));
 			player.sendMessage(ChatColor.YELLOW + "You are in " + name + ChatColor.YELLOW + "!");
 		}
 	}

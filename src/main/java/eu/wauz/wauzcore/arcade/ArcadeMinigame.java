@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 /**
  * A minigame playable in the arcade mode.
@@ -41,18 +42,33 @@ public interface ArcadeMinigame {
 	 * 
 	 * @param player The player who quit.
 	 */
-	public void handleQuitEvent(Player player);
+	public default void handleQuitEvent(Player player) {
+		
+	}
 	
 	/**
 	 * Handles the given damage event, that occured in the minigame.
 	 * 
 	 * @param event The damage event.
 	 */
-	public void handleDamageEvent(EntityDamageEvent event);
+	public default void handleDamageEvent(EntityDamageEvent event) {
+		
+	}
+	
+	/**
+	 * Handles the given move event, that occured in the minigame.
+	 * 
+	 * @param event The move event.
+	 */
+	public default void handleMoveEvent(PlayerMoveEvent event) {
+		
+	}
 	
 	/**
 	 * A method that is called every second of the minigame.
 	 */
-	public void handleTick();
+	public default void handleTick() {
+		
+	}
 
 }

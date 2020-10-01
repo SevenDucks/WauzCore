@@ -34,6 +34,7 @@ import eu.wauz.wauzcore.commands.administrative.CmdWzDebugCrafting;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebugDefense;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebugFlying;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebugMagic;
+import eu.wauz.wauzcore.commands.administrative.CmdWzEnd;
 import eu.wauz.wauzcore.commands.administrative.CmdWzEnter;
 import eu.wauz.wauzcore.commands.administrative.CmdWzEnterDev;
 import eu.wauz.wauzcore.commands.administrative.CmdWzExp;
@@ -290,6 +291,7 @@ public class WauzLoader {
 		WauzCommandExecutor.registerCommand(new CmdWzDebugDefense());
 		WauzCommandExecutor.registerCommand(new CmdWzDebugFlying());
 		WauzCommandExecutor.registerCommand(new CmdWzDebugMagic());
+		WauzCommandExecutor.registerCommand(new CmdWzEnd());
 		WauzCommandExecutor.registerCommand(new CmdWzEnter());
 		WauzCommandExecutor.registerCommand(new CmdWzEnterDev());
 		WauzCommandExecutor.registerCommand(new CmdWzExp());

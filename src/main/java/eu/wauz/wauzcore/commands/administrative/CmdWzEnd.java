@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.commands;
+package eu.wauz.wauzcore.commands.administrative;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,23 +14,23 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Start Next Arcade Game</b></br>
- * - Usage: <b>/start</b></br>
- * - Permission: <b>wauz.normal</b>
+ * - Description: <b>End Arcade Game</b></br>
+ * - Usage: <b>/wzEnd</b></br>
+ * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons
  * 
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
-public class CmdStart implements WauzCommand {
+public class CmdWzEnd implements WauzCommand {
 
 	/**
 	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("start");
+		return Arrays.asList("wzEnd", "end");
 	}
 
 	/**
@@ -47,14 +47,11 @@ public class CmdStart implements WauzCommand {
 		if(!WauzMode.isArcade(player)) {
 			player.sendMessage(ChatColor.RED + "You can't do that in this world!");
 		}
-		else if(ArcadeLobby.getMinigame() != null) {
-			player.sendMessage(ChatColor.RED + "There already is a game in progress!");
-		}
-		else if(ArcadeLobby.getWaitingCount() < 2) {
-			player.sendMessage(ChatColor.RED + "There are not enough players for a game!");
+		else if(ArcadeLobby.getMinigame() == null) {
+			player.sendMessage(ChatColor.RED + "There is no game in progress!");
 		}
 		else {
-			ArcadeLobby.startGame();
+			ArcadeLobby.endGame();
 		}
 		return true;
 	}

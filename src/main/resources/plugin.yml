@@ -144,6 +144,11 @@ commands:
     description: Change Dungeon Key Status
     usage: /wzKey [world (this)] [keyId] [status (0, 1, 2)]
     permission: wauz.system
+  wzEnd:
+    description: End Arcade Game
+    aliases: [end]
+    usage: /wzEnd
+    permission: wauz.system
   wzTravel:
     description: Travel to Location
     aliases: [warp]

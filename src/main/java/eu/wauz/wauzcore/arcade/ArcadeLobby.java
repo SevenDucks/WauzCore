@@ -11,6 +11,9 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
@@ -37,7 +40,12 @@ public class ArcadeLobby {
 	/**
 	 * All minigames that can be played.
 	 */
-	private static List<ArcadeMinigame> minigames = new ArrayList<>();
+	private static List<ArcadeMinigame> allMinigames = new ArrayList<>();
+	
+	/**
+	 * All minigames that can randomly come up in the next round.
+	 */
+	private static List<ArcadeMinigame> queuedMinigames = new ArrayList<>();
 	
 	/**
 	 * The currently played minigame.
@@ -58,24 +66,20 @@ public class ArcadeLobby {
 	 * Initializes all minigames for the lobby.
 	 */
 	public static void init() {
-		minigames.add(new MinigameJinxed());
+		allMinigames.add(new MinigameJinxed());
 	}
 	
 	/**
-	 * Starts a new game, if requirements are met.
+	 * Starts a random new game.
 	 * 
-	 * @param player The player who tries to start the game.
+	 * @see ArcadeMinigame#startGame(List)
 	 */
-	public static void startGame(Player player) {
-		if(minigame != null) {
-			player.sendMessage(ChatColor.RED + "There already is a game in progress!");
-			return;
+	public static void startGame() {
+		if(queuedMinigames.isEmpty()) {
+			queuedMinigames.addAll(allMinigames);
 		}
-		if(getWaitingCount() < 2) {
-			player.sendMessage(ChatColor.RED + "There are not enough players for a game!");
-			return;
-		}
-		minigame = minigames.get(random.nextInt(minigames.size()));
+		minigame = queuedMinigames.get(random.nextInt(queuedMinigames.size()));
+		queuedMinigames.remove(minigame);
 		playingPlayers.addAll(waitingPlayers);
 		waitingPlayers.clear();
 		minigame.startGame(playingPlayers);
@@ -83,6 +87,8 @@ public class ArcadeLobby {
 	
 	/**
 	 * Ends the current game and puts the players back into queue.
+	 * 
+	 * @see ArcadeMinigame#endGame()
 	 */
 	public static void endGame() {
 		List<Player> winners = minigame.endGame();
@@ -207,6 +213,21 @@ public class ArcadeLobby {
 		}
 		else if(minigame != null) {
 			minigame.handleDamageEvent(event);
+		}
+	}
+	
+	/**
+	 * Handles the given move event, that occured in the minigame.
+	 * 
+	 * @param event The move event.
+	 */
+	public static void handleMoveEvent(PlayerMoveEvent event) {
+		PotionEffect effect = event.getPlayer().getPotionEffect(PotionEffectType.SLOW);
+		if(effect != null && effect.getAmplifier() >= 100) {
+			event.setCancelled(true);
+		}
+		else if(minigame != null) {
+			minigame.handleMoveEvent(event);
 		}
 	}
 	

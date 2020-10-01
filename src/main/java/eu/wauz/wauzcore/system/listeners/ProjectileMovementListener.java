@@ -11,6 +11,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponHook;
@@ -69,6 +70,7 @@ public class ProjectileMovementListener implements Listener {
 			if(((Entity) player).isOnGround()) {
 				event.getPlayer().setAllowFlight(true);
 			}
+			return;
 		}
 		else {
 			event.getPlayer().setAllowFlight(player.hasPermission(WauzPermission.DEBUG_FLYING.toString())
@@ -83,6 +85,9 @@ public class ProjectileMovementListener implements Listener {
 			else {
 				CustomWeaponGlider.dechick(event);
 			}
+		}
+		else if(WauzMode.isArcade(player)) {
+			ArcadeLobby.handleMoveEvent(event);
 		}
 	}
 
