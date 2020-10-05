@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.players.ui.scoreboard;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -45,6 +46,9 @@ public class ArcadeScoreboard extends BaseScoreboard {
 		rowStrings.add("Currently Playing: " + ChatColor.GREEN + ArcadeLobby.getPlayingCount());
 		if(minigame == null) {
 			rowStrings.add("Type " + ChatColor.RED + "/" + ChatColor.WHITE + "start to Start Game");
+			if(!StringUtils.equals(ArcadeLobby.getRemainingTime(), "0:00")) {
+				rowStrings.add("Auto Start in: " + ChatColor.RED + ArcadeLobby.getRemainingTime());
+			}
 		}
 		else {
 			rowStrings.add("Game Ends in: " + ChatColor.RED + ArcadeLobby.getRemainingTime());

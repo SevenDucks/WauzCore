@@ -97,7 +97,7 @@ public class WauzPlayerTrade {
 			UnicodeUtils.sendChatCommand(requestedOnlinePlayer, "trade " + requestingPlayer.getName(),
 					ChatColor.YELLOW + requestingPlayer.getName() + " wants to trade! " +
 					"To accept:", false);
-			requestedOnlinePlayer.playSound(requestedOnlinePlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1); 
+			requestedOnlinePlayer.playSound(requestedOnlinePlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1); 
 			requestingPlayer.sendMessage(ChatColor.YELLOW + "A trade request was sent to " + requestedPlayer.getName() + "!");
 		}
 		else {

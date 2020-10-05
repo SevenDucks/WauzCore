@@ -18,6 +18,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * An util class for the arcade gamemode.
@@ -96,14 +97,58 @@ public class ArcadeUtils {
 	 * 
 	 * @param players The group of players.
 	 * @param location Their team spawn.
+	 * @param xOffset Possible x-offset of the spawn point.
+	 * @param zOffset Possible z-offset of the spawn point.
 	 */
-	public static void placeTeam(List<Player> players, Location location) {
+	public static void placeTeam(List<Player> players, Location location, int xOffset, int zOffset) {
 		for(Player player : players) {
+			Location spawnLocation = location.clone();
+			if(xOffset > 0 || zOffset > 0) {
+				float spawnXOffset = Chance.negativePositive(xOffset);
+				float spawnZOffset = Chance.negativePositive(zOffset);
+				spawnLocation.add(spawnXOffset, 0, spawnZOffset);
+			}
 			SkillUtils.addPotionEffect(player, PotionEffectType.SLOW, 500, 200);
 			SkillUtils.addPotionEffect(player, PotionEffectType.JUMP, 500, 200);
-			player.setBedSpawnLocation(location);
-			player.teleport(location);
+			player.setBedSpawnLocation(spawnLocation);
+			player.teleport(spawnLocation);
 		}
+	}
+	
+	/**
+	 * Runs a recursive timer for all players in the lobby.
+	 * If the time is up, a new game will be selected.
+	 * 
+	 * @param secondsTillNext How many seconds to wait until the next game.
+	 */
+	public static void runNextTimer(int secondsTillNext) {
+		if(ArcadeLobby.getMinigame() != null) {
+			return;
+		}
+		ArcadeLobby.updateRemainingTime(secondsTillNext);
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+			
+			@Override
+			public void run() {
+				if(secondsTillNext > 0) {
+					runNextTimer(secondsTillNext - 1);
+				}
+				else {
+					if(ArcadeLobby.getWaitingCount() < 2) {
+						for(Player player : ArcadeLobby.getPlayingPlayers()) {
+							player.sendMessage(ChatColor.YELLOW + "There are not enough players to auto-start a game!");
+						}
+					}
+					else {
+						for(Player player : ArcadeLobby.getPlayingPlayers()) {
+							player.sendMessage(ChatColor.YELLOW + "Auto-starting next game!");
+						}
+						ArcadeLobby.startGame();
+					}
+				}
+			}
+			
+		}, 20);
 	}
 	
 	/**
@@ -114,6 +159,9 @@ public class ArcadeUtils {
 	 * @param secondsTillEnd How many seconds to wait until game end.
 	 */
 	public static void runStartTimer(int secondsTillStart, int secondsTillEnd) {
+		if(ArcadeLobby.getMinigame() != null) {
+			return;
+		}
 		ArcadeLobby.updateRemainingTime(secondsTillStart + secondsTillEnd);
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
@@ -164,5 +212,5 @@ public class ArcadeUtils {
 			
 		}, 20);
 	}
-
+	
 }

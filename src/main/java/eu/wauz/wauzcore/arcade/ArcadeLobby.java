@@ -1,7 +1,9 @@
 package eu.wauz.wauzcore.arcade;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
@@ -38,9 +40,9 @@ public class ArcadeLobby {
 	private static List<Player> playingPlayers = new ArrayList<>();
 	
 	/**
-	 * All minigames that can be played.
+	 * A map of all minigames that can be played, indexed by name.
 	 */
-	private static List<ArcadeMinigame> allMinigames = new ArrayList<>();
+	private static Map<String, ArcadeMinigame> minigameMap = new HashMap<>();
 	
 	/**
 	 * All minigames that can randomly come up in the next round.
@@ -63,12 +65,44 @@ public class ArcadeLobby {
 	private static Random random = new Random();
 	
 	/**
-	 * Initializes all minigames for the lobby.
+	 * Registers the given minigame.
+	 * 
+	 * @param minigame The minigame to register.
 	 */
-	public static void init() {
-		allMinigames.add(new MinigameJinxed());
+	public static void registerMinigame(ArcadeMinigame minigame) {
+		minigameMap.put(minigame.getName(), minigame);
 	}
 	
+	/**
+	 * Gets a list of all minigame names.
+	 * 
+	 * @return The list of all minigame names.
+	 */
+	public static List<String> getAllMinigameNames() {
+		return new ArrayList<>(minigameMap.keySet());
+	}
+	
+	/**
+	 * Starts a specific new game.
+	 * 
+	 * @param minigameName The name of the minigame to start.
+	 * 
+	 * @return If the game was valid.
+	 * 
+	 * @see ArcadeMinigame#startGame(List)
+	 */
+	public static boolean startGame(String minigameName) {
+		if(!minigameMap.containsKey(minigameName)) {
+			return false;
+		}
+		minigame = minigameMap.get(minigameName);
+		queuedMinigames.remove(minigame);
+		playingPlayers.addAll(waitingPlayers);
+		waitingPlayers.clear();
+		minigame.startGame(playingPlayers);
+		return true;
+	}
+ 	
 	/**
 	 * Starts a random new game.
 	 * 
@@ -76,7 +110,7 @@ public class ArcadeLobby {
 	 */
 	public static void startGame() {
 		if(queuedMinigames.isEmpty()) {
-			queuedMinigames.addAll(allMinigames);
+			queuedMinigames.addAll(minigameMap.values());
 		}
 		minigame = queuedMinigames.get(random.nextInt(queuedMinigames.size()));
 		queuedMinigames.remove(minigame);
@@ -107,6 +141,7 @@ public class ArcadeLobby {
 				player.sendTitle(ChatColor.DARK_PURPLE + "Eliminated", "You LOST the minigame round!", 10, 70, 20);
 			}
 		}
+		ArcadeUtils.runNextTimer(30);
 	}
 	
 	/**

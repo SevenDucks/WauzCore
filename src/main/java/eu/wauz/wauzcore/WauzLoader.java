@@ -3,6 +3,8 @@ package eu.wauz.wauzcore;
 import org.bukkit.Bukkit;
 
 import eu.wauz.wauzcore.arcade.ArcadeLobby;
+import eu.wauz.wauzcore.arcade.MinigameJinxed;
+import eu.wauz.wauzcore.arcade.MinigameTipToe;
 import eu.wauz.wauzcore.commands.CmdApply;
 import eu.wauz.wauzcore.commands.CmdDesc;
 import eu.wauz.wauzcore.commands.CmdFriend;
@@ -52,6 +54,7 @@ import eu.wauz.wauzcore.commands.administrative.CmdWzSkill;
 import eu.wauz.wauzcore.commands.administrative.CmdWzSkillWeapon;
 import eu.wauz.wauzcore.commands.administrative.CmdWzSpeedFlying;
 import eu.wauz.wauzcore.commands.administrative.CmdWzSpeedWalking;
+import eu.wauz.wauzcore.commands.administrative.CmdWzStart;
 import eu.wauz.wauzcore.commands.administrative.CmdWzSystem;
 import eu.wauz.wauzcore.commands.administrative.CmdWzTravel;
 import eu.wauz.wauzcore.commands.administrative.CmdWzTravelEvent;
@@ -60,6 +63,7 @@ import eu.wauz.wauzcore.commands.completion.TabCompleterEquip;
 import eu.wauz.wauzcore.commands.completion.TabCompleterGuilds;
 import eu.wauz.wauzcore.commands.completion.TabCompleterInstances;
 import eu.wauz.wauzcore.commands.completion.TabCompleterMenus;
+import eu.wauz.wauzcore.commands.completion.TabCompleterMinigames;
 import eu.wauz.wauzcore.commands.completion.TabCompleterRanks;
 import eu.wauz.wauzcore.commands.completion.TabCompleterRunes;
 import eu.wauz.wauzcore.commands.completion.TabCompleterSkills;
@@ -200,7 +204,6 @@ public class WauzLoader {
 		WauzTitle.init();
 		WauzPlayerGuild.init();
 		OnePhase.init();
-		ArcadeLobby.init();
 		
 		InstanceManager.removeInactiveInstances();
 		StatisticsFetcher.calculate();
@@ -217,6 +220,8 @@ public class WauzLoader {
 		registerSkillgems();
 		registerRunes();
 		registerEnhancements();
+		
+		registerMinigames();
 	}
 	
 	/**
@@ -309,6 +314,7 @@ public class WauzLoader {
 		WauzCommandExecutor.registerCommand(new CmdWzSkillWeapon());
 		WauzCommandExecutor.registerCommand(new CmdWzSpeedFlying());
 		WauzCommandExecutor.registerCommand(new CmdWzSpeedWalking());
+		WauzCommandExecutor.registerCommand(new CmdWzStart());
 		WauzCommandExecutor.registerCommand(new CmdWzSystem());
 		WauzCommandExecutor.registerCommand(new CmdWzTravel());
 		WauzCommandExecutor.registerCommand(new CmdWzTravelEvent());
@@ -331,6 +337,7 @@ public class WauzLoader {
 		Bukkit.getPluginCommand("wzRank").setTabCompleter(new TabCompleterRanks());
 		Bukkit.getPluginCommand("wzSkill").setTabCompleter(new TabCompleterSkills());
 		Bukkit.getPluginCommand("wzSkill.weapon").setTabCompleter(new TabCompleterSkills());
+		Bukkit.getPluginCommand("wzStart").setTabCompleter(new TabCompleterMinigames());
 		Bukkit.getPluginCommand("wzTravel").setTabCompleter(new TabCompleterWaypoints());
 	}
 	
@@ -457,6 +464,17 @@ public class WauzLoader {
 		WauzEquipmentEnhancer.registerEnhancement(new EnhancementNumbing());
 		WauzEquipmentEnhancer.registerEnhancement(new EnhancementDurability());
 		WauzEquipmentEnhancer.registerEnhancement(new EnhancementMastery());
+	}
+	
+	/**
+	 * Initializes all predefined arcade minigames.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	private static void registerMinigames() {
+		ArcadeLobby.registerMinigame(new MinigameJinxed());
+		ArcadeLobby.registerMinigame(new MinigameTipToe());
 	}
 	
 }

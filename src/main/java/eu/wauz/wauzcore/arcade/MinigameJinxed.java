@@ -91,8 +91,8 @@ public class MinigameJinxed implements ArcadeMinigame {
 		ArcadeUtils.equipTeamColor(teamBlue, Color.AQUA, ChatColor.AQUA + "Team Blue");
 		Location greenLocation = new Location(ArcadeLobby.getWorld(), 500.5, 88, 524.5, 180, 0);
 		Location blueLocation = new Location(ArcadeLobby.getWorld(), 500.5, 88, 479.5, 0, 0);
-		ArcadeUtils.placeTeam(teamGreen, greenLocation);
-		ArcadeUtils.placeTeam(teamBlue, blueLocation);
+		ArcadeUtils.placeTeam(teamGreen, greenLocation, 3, 1);
+		ArcadeUtils.placeTeam(teamBlue, blueLocation, 3, 1);
 		int playerCount = players.size();
 		if(playerCount <= 3) {
 			jinxPlayers(ArcadeUtils.selectRandomPlayers(players, 1));

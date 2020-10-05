@@ -226,6 +226,10 @@ commands:
     description: Get Weapon with Skillgem
     usage: /wzSkill.weapon [skillname]
     permission: wauz.system
+  wzStart:
+    description: Start Specific Arcade Game
+    usage: /wzStart [gamename]
+    permission: wauz.system
 permissions:
   wauz.system:
     description: Gives access to system commands.

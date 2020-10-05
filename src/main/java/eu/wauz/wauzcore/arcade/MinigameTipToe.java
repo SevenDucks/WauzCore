@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -67,22 +68,25 @@ public class MinigameTipToe implements ArcadeMinigame {
 	 */
 	@Override
 	public void startGame(List<Player> players) {
-		int startX = 0;
-		int startZ = 0;
+		maxWinningPlayers = players.size() / 2;
 		int width = 5;
-		int length = 5;
-		int y = 0;
+		int length = 13;
 		World world = ArcadeLobby.getWorld();
+		Location cornerLocation = new Location(world, 731.5, 87, 493.5);
 		PathGenerator generator = new PathGenerator(width, length);
 		generator.run();
 		int[][] grid = generator.getPathMatrix();
+		boolean isAlternate = true;
 		for(int x = 0; x < width; x++) {
 			for(int z = 0; z < length; z++) {
-				
+				Location tileCornerLocation = cornerLocation.clone().add(z * 3, 0, x * 3);
+				boolean isFake = grid[x][z] == 0;
+				isAlternate = !isAlternate;
+				createTile(tileCornerLocation, isFake, isAlternate);
 			}
 		}
-		Location spawnLocation = new Location(world, 500.5, 88, 479.5, 0, 0);
-		ArcadeUtils.placeTeam(players, spawnLocation);
+		Location spawnLocation = new Location(world, 776.5, 88, 500.5, 90, 0);
+		ArcadeUtils.placeTeam(players, spawnLocation, 1, 6);
 		ArcadeUtils.runStartTimer(10, 180);
 	}
 
@@ -107,15 +111,46 @@ public class MinigameTipToe implements ArcadeMinigame {
 	 */
 	@Override
 	public void handleMoveEvent(PlayerMoveEvent event) {
-		Block blockBelow = event.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN);
+		Player player = event.getPlayer();
+		Block playerBlock = player.getLocation().getBlock();
+		Block blockBelow = playerBlock.getRelative(BlockFace.DOWN);
 		List<Block> tileBlocks = blockFakeTileMap.get(blockBelow);
 		if(tileBlocks != null) {
 			makeTileFall(tileBlocks);
 		}
+		else if(playerBlock.getX() <= 728) {
+			finishedPlayers.add(player);
+			player.teleport(new Location(ArcadeLobby.getWorld(), 750.5, 96, 500.5, 90, 0));
+			player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1, 1);
+			if(finishedPlayers.size() >= maxWinningPlayers) {
+				endGame();
+			}
+		}
 	}
 	
-	public void createTile(Location cornerLocation, boolean isFake) {
-		// TODO Auto-generated method stub
+	/**
+	 * Creates a 3x3 block tile.
+	 * 
+	 * @param cornerLocation The location of the tile block with the lowest coordinates.
+	 * @param isFake If the tile should fall when touched.
+	 * @param isAlternate If the tile should have an alternative color.
+	 */
+	public void createTile(Location cornerLocation, boolean isFake, boolean isAlternate) {
+		List<Block> blocks = new ArrayList<>();
+		Material material = isAlternate ? Material.YELLOW_CONCRETE : Material.ORANGE_CONCRETE;
+		for(int x = 0; x < 3; x++) {
+			for(int z = 0; z < 3; z++) {
+				Location blockLocation = cornerLocation.clone().add(x, 0, z);
+				Block block = blockLocation.getBlock();
+				block.setType(material);
+				blocks.add(block);
+			}
+		}
+		if(isFake) {
+			for(Block block : blocks) {
+				blockFakeTileMap.put(block, blocks);
+			}
+		}
 	}
 	
 	/**
