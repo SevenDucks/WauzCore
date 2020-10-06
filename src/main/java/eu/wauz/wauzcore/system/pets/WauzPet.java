@@ -1,8 +1,11 @@
 package eu.wauz.wauzcore.system.pets;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.PetConfigurator;
 
 /**
@@ -23,9 +26,30 @@ public class WauzPet {
 	 * @see PetConfigurator#getPetKeys()
 	 */
 	public static void init() {
+		WauzPetStat.init();
+		WauzPetBreedingLevel.init();
+		
 		for(String key : PetConfigurator.getPetKeys()) {
 			petMap.put(key, new WauzPet(key));
 		}
+		
+		WauzCore.getInstance().getLogger().info("Loaded " + petMap.size() + " Pets!");
+	}
+	
+	/**
+	 * @param petKey A pet key.
+	 * 
+	 * @return The pet with that key.
+	 */
+	public static WauzPet getPet(String petKey) {
+		return petMap.get(petKey);
+	}
+	
+	/**
+	 * @return A list of all pet keys.
+	 */
+	public static List<String> getAllPetKeys() {
+		return new ArrayList<>(petMap.keySet());
 	}
 	
 	/**
@@ -53,7 +77,7 @@ public class WauzPet {
 	 * 
 	 * @param key The key of the pet.
 	 */
-	public WauzPet(String key) {
+	private WauzPet(String key) {
 		this.key = key;
 		this.name = PetConfigurator.getName(key);
 		this.category = PetConfigurator.getCategory(key);

@@ -167,6 +167,7 @@ import eu.wauz.wauzcore.system.economy.WauzCurrency;
 import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.instances.WauzInstance;
+import eu.wauz.wauzcore.system.pets.WauzPet;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -199,6 +200,7 @@ public class WauzLoader {
 		WauzQuest.init();
 		WauzBestiarySpecies.init();
 		WauzCitizen.init();
+		WauzPet.init();
 		WauzInstance.init();
 		WauzRank.init();
 		WauzTitle.init();

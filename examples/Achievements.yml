@@ -162,6 +162,11 @@
     name: Gotta Catch Em All
     type: COLLECT_PETS
     goal: 300
+    reward: 80
+  pets6:
+    name: Arch Summoner
+    type: COLLECT_PETS
+    goal: 750
     reward: 200
   coins1:
     name: Spare Change

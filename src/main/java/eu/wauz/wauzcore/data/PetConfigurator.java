@@ -19,7 +19,7 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	 * @return The keys of all pets.
 	 */
 	public static List<String> getPetKeys() {
-		return new ArrayList<>(mainConfigGetKeys("Pets", null));
+		return new ArrayList<>(mainConfigGetKeys("Pets", "pets"));
 	}
 	
 	/**
@@ -28,7 +28,7 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	 * @return The name of the pet.
 	 */
 	public static String getName(String petKey) {
-		return mainConfigGetString("Pets", petKey + ".name");
+		return mainConfigGetString("Pets", "pets." + petKey + ".name");
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	 * @return The category of the pet.
 	 */
 	public static String getCategory(String petKey) {
-		return mainConfigGetString("Pets", petKey + ".category");
+		return mainConfigGetString("Pets", "pets." + petKey + ".category");
 	}
 	
 	/**
@@ -46,7 +46,64 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	 * @return The rarity of the pet.
 	 */
 	public static WauzPetRarity getRarity(String petKey) {
-		return WauzPetRarity.valueOf(mainConfigGetString("Pets", petKey + ".rarity"));
+		return WauzPetRarity.valueOf(mainConfigGetString("Pets", "pets." + petKey + ".rarity"));
+	}
+	
+// Pet Stats
+	
+	/**
+	 * @return The keys of all pet stats.
+	 */
+	public static List<String> getPetStatKeys() {
+		return new ArrayList<>(mainConfigGetKeys("Pets", "stats"));
+	}
+	
+	/**
+	 * @param stat The key of the pet stat.
+	 * 
+	 * @return The short display name of the pet stat.
+	 */
+	public static String getPetStatName(String stat) {
+		return mainConfigGetString("Pets", "stats." + stat + ".name");
+	}
+	
+	/**
+	 * @param stat The key of the pet stat.
+	 * 
+	 * @return The effect description of the pet stat.
+	 */
+	public static String getPetStatDescription(String stat) {
+		return mainConfigGetString("Pets", "stats." + stat + ".description");
+	}
+	
+// Breeding Levels
+	
+	/**
+	 * @param level The breeding level.
+	 * 
+	 * @return The exp needed to reach the breeding level.
+	 */
+	public static int getBreedingLevelExp(int level) {
+		return mainConfigGetInt("Pets", "levels." + level + ".exp");
+	}
+	
+	/**
+	 * @param level The breeding level.
+	 * 
+	 * @return The available breeding slots.
+	 */
+	public static int getBreedingLevelSlots(int level) {
+		return mainConfigGetInt("Pets", "levels." + level + ".slots");
+	}
+	
+	/**
+	 * @param level The breeding level.
+	 * @param rarity The rarity of the pet to breed.
+	 * 
+	 * @return The breeding time in seconds.
+	 */
+	public static int getBreedingLevelTime(int level, WauzPetRarity rarity) {
+		return mainConfigGetInt("Pets", "levels." + level + ".breedtime." + rarity.toString());
 	}
 
 }
