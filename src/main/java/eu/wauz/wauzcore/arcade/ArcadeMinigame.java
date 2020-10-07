@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 /**
@@ -43,6 +44,15 @@ public interface ArcadeMinigame {
 	 * @param player The player who quit.
 	 */
 	public default void handleQuitEvent(Player player) {
+		
+	}
+	
+	/**
+	 * Handles the given death event, that occured in the minigame.
+	 * 
+	 * @param event The death event.
+	 */
+	public default void handleDeathEvent(PlayerDeathEvent event) {
 		
 	}
 	

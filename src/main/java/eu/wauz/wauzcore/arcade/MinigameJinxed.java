@@ -17,7 +17,7 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import net.md_5.bungee.api.ChatColor;
 
 /**
- * A group minigame, where you have to "jinx" other players, playable in the arcade mode.
+ * A group minigame, where you have to "jinx" players of the other team.
  * 
  * @author Wauzmons
  */
@@ -163,6 +163,7 @@ public class MinigameJinxed implements ArcadeMinigame {
 		Player damager = (Player) damageByEntityEvent.getDamager();
 		Player damaged = (Player) damageByEntityEvent.getEntity();
 		if(jinx(damager, damaged)) {
+			event.setCancelled(false);
 			event.setDamage(0);
 		}
 		else {

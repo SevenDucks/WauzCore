@@ -13,6 +13,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -132,6 +133,8 @@ public class ArcadeLobby {
 		
 		for(Player player : players) {
 			WauzNoteBlockPlayer.play(player, "None");
+			player.removePotionEffect(PotionEffectType.SLOW);
+			player.removePotionEffect(PotionEffectType.JUMP);
 			addPlayerToQueue(player);
 			if(winners.contains(player)) {
 				player.sendTitle(ChatColor.DARK_GREEN + "Qualified", "You WON the minigame round!", 10, 70, 20);
@@ -152,7 +155,7 @@ public class ArcadeLobby {
 	public static void addPlayerToQueue(Player player) {
 		Location destination = new Location(getWorld(), 0.5, 91, 0.5);
 		player.getInventory().clear();
-		player.setBedSpawnLocation(destination);
+		player.setBedSpawnLocation(destination, true);
 		player.teleport(destination);
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 		waitingPlayers.add(player);
@@ -182,6 +185,13 @@ public class ArcadeLobby {
 	 */
 	public static boolean isWaiting(Player player) {
 		return waitingPlayers.contains(player);
+	}
+	
+	/**
+	 * @return All players waiting for a game to start.
+	 */
+	public static List<Player> getWaitingPlayers() {
+		return new ArrayList<>(waitingPlayers);
 	}
 	
 	/**
@@ -234,6 +244,17 @@ public class ArcadeLobby {
 	}
 	
 	/**
+	 * Handles the given death event, that occured in the minigame.
+	 * 
+	 * @param event The death event.
+	 */
+	public static void handleDeathEvent(PlayerDeathEvent event) {
+		if(minigame != null) {
+			minigame.handleDeathEvent(event);
+		}
+	}
+	
+	/**
 	 * Handles the given damage event, that occured in the minigame.
 	 * 
 	 * @param event The damage event.
@@ -242,11 +263,10 @@ public class ArcadeLobby {
 		if(!(event.getEntity() instanceof Player)) {
 			return;
 		}
-		Player player = (Player) event.getEntity();
-		if(isWaiting(player) && event.getCause().equals(DamageCause.ENTITY_ATTACK)) {
+		if(!event.getCause().equals(DamageCause.VOID)) {
 			event.setCancelled(true);
 		}
-		else if(minigame != null) {
+		if(minigame != null) {
 			minigame.handleDamageEvent(event);
 		}
 	}

@@ -110,7 +110,7 @@ public class ArcadeUtils {
 			}
 			SkillUtils.addPotionEffect(player, PotionEffectType.SLOW, 500, 200);
 			SkillUtils.addPotionEffect(player, PotionEffectType.JUMP, 500, 200);
-			player.setBedSpawnLocation(spawnLocation);
+			player.setBedSpawnLocation(spawnLocation, true);
 			player.teleport(spawnLocation);
 		}
 	}
@@ -122,25 +122,25 @@ public class ArcadeUtils {
 	 * @param secondsTillNext How many seconds to wait until the next game.
 	 */
 	public static void runNextTimer(int secondsTillNext) {
-		if(ArcadeLobby.getMinigame() != null) {
-			return;
-		}
-		ArcadeLobby.updateRemainingTime(secondsTillNext);
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
 			@Override
 			public void run() {
+				if(ArcadeLobby.getMinigame() != null) {
+					return;
+				}
+				ArcadeLobby.updateRemainingTime(secondsTillNext);
 				if(secondsTillNext > 0) {
 					runNextTimer(secondsTillNext - 1);
 				}
 				else {
 					if(ArcadeLobby.getWaitingCount() < 2) {
-						for(Player player : ArcadeLobby.getPlayingPlayers()) {
+						for(Player player : ArcadeLobby.getWaitingPlayers()) {
 							player.sendMessage(ChatColor.YELLOW + "There are not enough players to auto-start a game!");
 						}
 					}
 					else {
-						for(Player player : ArcadeLobby.getPlayingPlayers()) {
+						for(Player player : ArcadeLobby.getWaitingPlayers()) {
 							player.sendMessage(ChatColor.YELLOW + "Auto-starting next game!");
 						}
 						ArcadeLobby.startGame();
@@ -159,14 +159,14 @@ public class ArcadeUtils {
 	 * @param secondsTillEnd How many seconds to wait until game end.
 	 */
 	public static void runStartTimer(int secondsTillStart, int secondsTillEnd) {
-		if(ArcadeLobby.getMinigame() != null) {
-			return;
-		}
-		ArcadeLobby.updateRemainingTime(secondsTillStart + secondsTillEnd);
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
 			@Override
 			public void run() {
+				if(ArcadeLobby.getMinigame() == null) {
+					return;
+				}
+				ArcadeLobby.updateRemainingTime(secondsTillStart + secondsTillEnd);
 				if(secondsTillStart > 0) {
 					for(Player player : ArcadeLobby.getPlayingPlayers()) {
 						player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1, 1);
@@ -201,6 +201,9 @@ public class ArcadeUtils {
 			
 			@Override
 			public void run() {
+				if(ArcadeLobby.getMinigame() == null) {
+					return;
+				}
 				if(secondsTillEnd <= 0 || ArcadeLobby.getPlayingCount() <= 1) {
 					ArcadeLobby.endGame();
 				}

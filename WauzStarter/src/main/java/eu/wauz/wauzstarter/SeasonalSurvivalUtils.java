@@ -42,8 +42,9 @@ public class SeasonalSurvivalUtils {
 					Material material = isCircleEdge ? Material.GOLD_BLOCK : Material.CHISELED_QUARTZ_BLOCK;
 					
 					world.getBlockAt(x, 70, z).setType(material);
-					for(int y = 71; y < 256; y++)
+					for(int y = 71; y < 256; y++) {
 						world.getBlockAt(x, y, z).setType(Material.AIR);
+					}
 				}
 			}
 		}
@@ -87,7 +88,8 @@ public class SeasonalSurvivalUtils {
 		    for(int i = 0; i < files.length; i++) {
 		        if(files[i].isDirectory()) {
 		            deleteWorld(files[i]);
-		        } else {
+		        }
+		        else {
 		            files[i].delete();
 		        }
 		    }

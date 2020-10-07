@@ -44,7 +44,7 @@ public class MinigameTipToe implements ArcadeMinigame {
 	 */
 	@Override
 	public String getName() {
-		return "TipToe";
+		return "Tip-Toe";
 	}
 
 	/**
@@ -123,8 +123,11 @@ public class MinigameTipToe implements ArcadeMinigame {
 			player.teleport(new Location(ArcadeLobby.getWorld(), 750.5, 96, 500.5, 90, 0));
 			player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1, 1);
 			if(finishedPlayers.size() >= maxWinningPlayers) {
-				endGame();
+				ArcadeLobby.endGame();
 			}
+		}
+		else if(playerBlock.getY() <= 64) {
+			player.teleport(player.getBedSpawnLocation());
 		}
 	}
 	

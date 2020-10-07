@@ -3,6 +3,7 @@ package eu.wauz.wauzcore;
 import org.bukkit.Bukkit;
 
 import eu.wauz.wauzcore.arcade.ArcadeLobby;
+import eu.wauz.wauzcore.arcade.MinigameHexAGone;
 import eu.wauz.wauzcore.arcade.MinigameJinxed;
 import eu.wauz.wauzcore.arcade.MinigameTipToe;
 import eu.wauz.wauzcore.commands.CmdApply;
@@ -14,6 +15,7 @@ import eu.wauz.wauzcore.commands.CmdGrp;
 import eu.wauz.wauzcore.commands.CmdGuild;
 import eu.wauz.wauzcore.commands.CmdHome;
 import eu.wauz.wauzcore.commands.CmdHub;
+import eu.wauz.wauzcore.commands.CmdLeave;
 import eu.wauz.wauzcore.commands.CmdMenu;
 import eu.wauz.wauzcore.commands.CmdMotd;
 import eu.wauz.wauzcore.commands.CmdNextwave;
@@ -28,7 +30,6 @@ import eu.wauz.wauzcore.commands.CmdStart;
 import eu.wauz.wauzcore.commands.CmdTalk;
 import eu.wauz.wauzcore.commands.CmdTip;
 import eu.wauz.wauzcore.commands.CmdTrade;
-import eu.wauz.wauzcore.commands.CmdLeave;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebug;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebugAttack;
 import eu.wauz.wauzcore.commands.administrative.CmdWzDebugBuilding;
@@ -167,7 +168,6 @@ import eu.wauz.wauzcore.system.economy.WauzCurrency;
 import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.instances.WauzInstance;
-import eu.wauz.wauzcore.system.pets.WauzPet;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -200,7 +200,7 @@ public class WauzLoader {
 		WauzQuest.init();
 		WauzBestiarySpecies.init();
 		WauzCitizen.init();
-		WauzPet.init();
+//		WauzPet.init();
 		WauzInstance.init();
 		WauzRank.init();
 		WauzTitle.init();
@@ -477,6 +477,7 @@ public class WauzLoader {
 	private static void registerMinigames() {
 		ArcadeLobby.registerMinigame(new MinigameJinxed());
 		ArcadeLobby.registerMinigame(new MinigameTipToe());
+		ArcadeLobby.registerMinigame(new MinigameHexAGone());
 	}
 	
 }

@@ -31,6 +31,7 @@ import org.bukkit.inventory.ItemStack;
 import org.spigotmc.event.entity.EntityDismountEvent;
 import org.spigotmc.event.entity.EntityMountEvent;
 
+import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.data.ServerConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.items.WauzEquipment;
@@ -144,6 +145,9 @@ public class PlayerInteractionListener implements Listener {
 	public void onDeath(PlayerDeathEvent event) {
 		Player player = event.getEntity();
 		WauzPlayerRegistrator.respawn(player);
+		if(WauzMode.isArcade(player)) {
+			ArcadeLobby.handleDeathEvent(event);
+		}
 	}
 
 	/**
