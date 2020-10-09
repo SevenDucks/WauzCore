@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.system.pets;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 
 /**
  * The rarity of a pet, containing name, color and max stat multiplier.
@@ -12,27 +13,27 @@ public enum WauzPetRarity {
 	/**
 	 * The first rarity for pets "Normal", in green, with a max stat multiplier of 1.
 	 */
-	NORMAL("Normal", 1, ChatColor.GREEN),
+	NORMAL("Normal", 1, ChatColor.GREEN, Material.SLIME_SPAWN_EGG),
 	
 	/**
 	 * The second rarity for pets "Magic", in blue, with a max stat multiplier of 2.
 	 */
-	MAGIC("Magic", 2, ChatColor.BLUE),
+	MAGIC("Magic", 2, ChatColor.BLUE, Material.SQUID_SPAWN_EGG),
 	
 	/**
 	 * The third rarity for pets "Rare", in gold, with a max stat multiplier of 3.
 	 */
-	RARE("Rare", 3, ChatColor.GOLD),
+	RARE("Rare", 3, ChatColor.GOLD, Material.BLAZE_SPAWN_EGG),
 	
 	/**
 	 * The fourth rarity for pets "Epic", in dark purple, with max stat a multiplier of 4.
 	 */
-	EPIC("Epic", 4, ChatColor.DARK_PURPLE),
+	EPIC("Epic", 4, ChatColor.DARK_PURPLE, Material.SHULKER_SPAWN_EGG),
 	
 	/**
 	 * The fifth rarity for pets "Unique", in dark red, with a max stat multiplier of 5.
 	 */
-	UNIQUE("Unique", 5, ChatColor.DARK_RED);
+	UNIQUE("Unique", 5, ChatColor.DARK_RED, Material.MOOSHROOM_SPAWN_EGG);
 	
 	/**
 	 * The name of the pet rarity.
@@ -50,16 +51,23 @@ public enum WauzPetRarity {
 	private final ChatColor color;
 	
 	/**
+	 * The spawn egg material of the pet rarity.
+	 */
+	private final Material material;
+	
+	/**
 	 * Creates a new pet rarity with given values.
 	 * 
 	 * @param name The name of the pet rarity.
 	 * @param multiplier The max stat multiplier of the pet rarity.
 	 * @param color The color of the pet rarity.
+	 * @param material The spawn egg material of the pet rarity.
 	 */
-	WauzPetRarity(String name, int multiplier, ChatColor color) {
+	WauzPetRarity(String name, int multiplier, ChatColor color, Material material) {
 		this.name = name;
 		this.multiplier = multiplier;
 		this.color = color;
+		this.material = material;
 	}
 
 	/**
@@ -81,6 +89,13 @@ public enum WauzPetRarity {
 	 */
 	public ChatColor getColor() {
 		return color;
+	}
+
+	/**
+	 * @return The spawn egg material of the pet rarity.
+	 */
+	public Material getMaterial() {
+		return material;
 	}
 
 }
