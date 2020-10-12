@@ -1,5 +1,5 @@
 # WauzCore - Heart of Delseyria
-[![Build Status](https://travis-ci.org/Wauzmons/WauzCore.svg?branch=master)](https://travis-ci.org/Wauzmons/WauzCore)
+[![Build Status](https://travis-ci.com/Wauzmons/WauzCore.svg?branch=master)](https://travis-ci.com/Wauzmons/WauzCore)
 [![Discord](https://img.shields.io/discord/212147184999596032)](https://discord.gg/dhHJp5a)
 [![CodeFactor](https://www.codefactor.io/repository/github/wauzmons/wauzcore/badge)](https://www.codefactor.io/repository/github/wauzmons/wauzcore)
 [![Codebeat](https://codebeat.co/badges/ddcb8361-5bb9-4988-b3c7-51f34db15f21)](https://codebeat.co/projects/github-com-wauzmons-wauzcore-master)
