@@ -60,4 +60,27 @@ public class Chance {
 		return (float) ((float) (random.nextInt(maximum * 200 + 1) / (float) 100) - maximum);
 	}
 	
+	/**
+	 * @param bound The exclusive maximum value.
+	 * 
+	 * @return A random integer.
+	 */
+	public static int randomInt(int bound) {
+		return random.nextInt(bound);
+	}
+	
+	/**
+	 * @return a random float.
+	 */
+	public static float randomFloat() {
+		return random.nextFloat();
+	}
+	
+	/**
+	 * @return A random boolean.
+	 */
+	public static boolean randomBoolean() {
+		return random.nextBoolean();
+	}
+	
 }

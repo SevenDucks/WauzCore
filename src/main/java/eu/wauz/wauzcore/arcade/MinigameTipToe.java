@@ -14,7 +14,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import eu.wauz.upward.generation.PathGenerator;
+import eu.wauz.wauzcore.building.PathGenerator;
 import net.md_5.bungee.api.ChatColor;
 
 /**
