@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
  * @author Wauzmons
  * 
  * @see EquipmentUtils
+ * @see PetEggUtils
  */
 public class ItemUtils {
 	

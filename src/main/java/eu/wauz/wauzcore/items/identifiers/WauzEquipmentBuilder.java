@@ -257,20 +257,17 @@ public class WauzEquipmentBuilder {
 		List<String> lores = new ArrayList<>();
 		String rarityName = rarityNamePrefix + rarity.getName() + " ";
 		String rarityStars = rarityStarPrefix + rarity.getStars();
-		String mainStatString = "";
 		int sellValue = 0;
 		if(type.equals(EquipmentType.WEAPON)) {	
 			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Weapon " + rarityStars);
 			lores.add("");
-			mainStatString = "Attack:" + ChatColor.RED + " " + attackStat + scalingString;
-			lores.add(mainStatString);
+			lores.add("Attack:" + ChatColor.RED + " " + attackStat + scalingString);
 			sellValue = (int) (attackStat * (Math.random() + 0.5) + 1);
 		}
 		else if(type.equals(EquipmentType.ARMOR)) {		
 			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Armor " + rarityStars);
 			lores.add("");
-			mainStatString = "Defense:" + ChatColor.BLUE + " " + defenseStat + scalingString;
-			lores.add(mainStatString);
+			lores.add("Defense:" + ChatColor.BLUE + " " + defenseStat + scalingString);
 			sellValue = (int) (attackStat * (Math.random() + 0.5) * 3 + 1);
 		}
 		for(String enhancementString : enhancementStrings) {

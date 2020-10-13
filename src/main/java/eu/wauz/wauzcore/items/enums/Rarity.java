@@ -150,9 +150,7 @@ public enum Rarity {
 	 */
 	Rarity(String rarityName, int stars, int starsMax, ChatColor rarityColor, double rarityMultiplier) {
 		this.rarityName = rarityName;
-		this.rarityColor = rarityColor;
-		this.rarityMultiplier = rarityMultiplier;
-		
+		this.rarityStarCount = stars;
 		String rarityStars = "";
 		for(int index = 0; index < starsMax; index++) {
 			rarityStars += UnicodeUtils.ICON_DIAMOND;
@@ -160,8 +158,10 @@ public enum Rarity {
 				rarityStars += ChatColor.GRAY;
 			}
 		}
-		this.rarityStarCount = stars;
 		this.rarityStars = rarityStars;
+		this.rarityColor = rarityColor;
+		this.rarityMultiplier = rarityMultiplier;
+		
 	}
 
 	/**

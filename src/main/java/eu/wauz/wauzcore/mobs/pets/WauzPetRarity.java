@@ -1,7 +1,9 @@
-package eu.wauz.wauzcore.system.pets;
+package eu.wauz.wauzcore.mobs.pets;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
  * The rarity of a pet, containing name, color and max stat multiplier.
@@ -41,9 +43,14 @@ public enum WauzPetRarity {
 	private final String name;
 	
 	/**
-	 * The max stat multiplier of the pet rarity.
+	 * The max stat multiplier of the pet rarity. Also acts as star count.
 	 */
 	private final int multiplier;
+	
+	/**
+	 * The stars of the pet rarity.
+	 */
+	private final String rarityStars;
 	
 	/**
 	 * The color of the pet rarity.
@@ -59,13 +66,21 @@ public enum WauzPetRarity {
 	 * Creates a new pet rarity with given values.
 	 * 
 	 * @param name The name of the pet rarity.
-	 * @param multiplier The max stat multiplier of the pet rarity.
+	 * @param multiplier The max stat multiplier of the pet rarity. Also acts as star count.
 	 * @param color The color of the pet rarity.
 	 * @param material The spawn egg material of the pet rarity.
 	 */
 	WauzPetRarity(String name, int multiplier, ChatColor color, Material material) {
 		this.name = name;
 		this.multiplier = multiplier;
+		String rarityStars = "";
+		for(int index = 0; index < multiplier; index++) {
+			rarityStars += UnicodeUtils.ICON_DIAMOND;
+			if(index == multiplier - 1) {
+				rarityStars += ChatColor.GRAY;
+			}
+		}
+		this.rarityStars = rarityStars;
 		this.color = color;
 		this.material = material;
 	}
@@ -78,11 +93,19 @@ public enum WauzPetRarity {
 	}
 
 	/**
-	 * @return The max stat multiplier of the pet rarity.
+	 * @return The max stat multiplier of the pet rarity. Also acts as star count.
 	 */
 	public int getMultiplier() {
 		return multiplier;
 	}
+	
+	/**
+	 * @return The stars of the pet rarity.
+	 */
+	public String getStars() {
+		return rarityStars;
+	}
+
 
 	/**
 	 * @return The color of the pet rarity.

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
-import eu.wauz.wauzcore.system.pets.WauzPetRarity;
+import eu.wauz.wauzcore.mobs.pets.WauzPetRarity;
 
 /**
  * Configurator to fetch or modify data from the Pets.yml.

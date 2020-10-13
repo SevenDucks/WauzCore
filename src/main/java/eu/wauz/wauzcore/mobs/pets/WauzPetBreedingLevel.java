@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.system.pets;
+package eu.wauz.wauzcore.mobs.pets;
 
 import java.util.ArrayList;
 import java.util.HashMap;
