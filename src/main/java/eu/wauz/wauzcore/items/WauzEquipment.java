@@ -124,6 +124,11 @@ public class WauzEquipment {
 			player.getEquipment().setBoots(getCosmeticItem(Material.DIAMOND_BOOTS));
 			return;
 		}
+		if(armorItemStack.getType().equals(Material.NETHERITE_CHESTPLATE)) {
+			player.getEquipment().setLeggings(getCosmeticItem(Material.NETHERITE_LEGGINGS));
+			player.getEquipment().setBoots(getCosmeticItem(Material.NETHERITE_BOOTS));
+			return;
+		}
 	}
 	
 	/**

@@ -15,20 +15,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.data.ServerConfigurator;
-import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
-import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
-import eu.wauz.wauzcore.players.calc.ClimateCalculator;
-import eu.wauz.wauzcore.players.calc.DamageCalculator;
-import eu.wauz.wauzcore.players.calc.ManaCalculator;
-import eu.wauz.wauzcore.players.calc.RageCalculator;
-import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
-import eu.wauz.wauzcore.players.ui.WauzPlayerNotifier;
-import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.WauzRegion;
-import eu.wauz.wauzcore.system.achievements.AchievementTracker;
-import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.WauzLoader;
+import eu.wauz.wauzcore.system.WauzModules;
+import eu.wauz.wauzcore.system.WauzRepeatingTasks;
 import eu.wauz.wauzcore.system.api.WebServerManager;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
@@ -39,7 +30,6 @@ import eu.wauz.wauzcore.system.listeners.PlayerAmbientListener;
 import eu.wauz.wauzcore.system.listeners.PlayerCombatListener;
 import eu.wauz.wauzcore.system.listeners.PlayerInteractionListener;
 import eu.wauz.wauzcore.system.listeners.ProjectileMovementListener;
-import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * The main class of the plugin and holder of system information.
@@ -112,125 +102,31 @@ public class WauzCore extends JavaPlugin {
 		getLogger().info("");
 		getLogger().info("O-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~O");
 		
-		WauzLoader.init();
-		getLogger().info("Loaded Data from Files!");
-		
-		PluginManager pluginManager = getServer().getPluginManager();
-		pluginManager.registerEvents(new ArmorEquipEventListener(), this);
-		pluginManager.registerEvents(new BlockProtectionListener(), this);
-		pluginManager.registerEvents(new InventoryListener(), this);
-		pluginManager.registerEvents(new MythicMobsListener(), this);
-		pluginManager.registerEvents(new PlayerAmbientListener(), this);
-		pluginManager.registerEvents(new PlayerCombatListener(), this);
-		pluginManager.registerEvents(new PlayerInteractionListener(), this);
-		pluginManager.registerEvents(new ProjectileMovementListener(), this);
-		getLogger().info("Registered EventListeners!");
-		
-		int port = getWebApiPort();
-		webServerManager = new WebServerManager(port);
-		getLogger().info("Started WebServerManager on port " + port + "!");
-		
-		/**
-		 * Every second
-		 */
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+		if(WauzModules.isMainModuleActive()) {
+			WauzLoader.init();
+			getLogger().info("Loaded Data from Files!");
 			
-			@Override
-			public void run() {
-				for(Player player : getRegisteredActivePlayers()) {
-					WauzPlayerActionBar.update(player);
-				}
-			}
+			PluginManager pluginManager = getServer().getPluginManager();
+			pluginManager.registerEvents(new ArmorEquipEventListener(), this);
+			pluginManager.registerEvents(new BlockProtectionListener(), this);
+			pluginManager.registerEvents(new InventoryListener(), this);
+			pluginManager.registerEvents(new MythicMobsListener(), this);
+			pluginManager.registerEvents(new PlayerAmbientListener(), this);
+			pluginManager.registerEvents(new PlayerCombatListener(), this);
+			pluginManager.registerEvents(new PlayerInteractionListener(), this);
+			pluginManager.registerEvents(new ProjectileMovementListener(), this);
+			getLogger().info("Registered EventListeners!");
 			
-		}, 200, 20);
-		
-		/**
-		 * Every 3 seconds
-		 */
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			int port = getWebApiPort();
+			webServerManager = new WebServerManager(port);
+			getLogger().info("Started WebServerManager on port " + port + "!");
 			
-			@Override
-			public void run() {
-				for(Player player : getRegisteredActivePlayers()) {
-					WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
-					WauzRegion.regionCheck(player);
-					WauzCitizenSpawner.showNpcsNearPlayer(player);
-				}
-			}
-			
-		}, 200, 60);
-		
-		/**
-		 * Every 5 seconds
-		 */
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			
-			@Override
-			public void run() {
-				for(Player player : getRegisteredActivePlayers()) {
-					if(WauzMode.isMMORPG(player)) {
-						ClimateCalculator.updateTemperature(player);
-						ManaCalculator.regenerateMana(player);
-						RageCalculator.degenerateRage(player);
-					}
-					else if(WauzMode.isSurvival(player)) {
-						DamageCalculator.decreasePvPProtection(player);
-					}
-				}
-			}
-			
-		}, 200, 100);
-		
-		/**
-		 * Every 3 minutes
-		 */
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			
-			@Override
-			public void run() {
-				for(Player player : getRegisteredActivePlayers()) {
-					if(WauzMode.isMMORPG(player) && WauzPlayerDataPool.isCharacterSelected(player)) {
-						AchievementTracker.addProgress(player, WauzAchievementType.PLAY_HOURS, 0.05);
-					}
-				}
-			}
-			
-		}, 200, 3600);
-		
-		/**
-		 * Every 5 minutes
-		 */
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			
-			@Override
-			public void run() {
-				for(World world : Bukkit.getWorlds()) {
-					if(world.getPlayerCount() == 0 && !world.getName().equals("WzInstance_Arcade")) {
-						InstanceManager.closeInstance(world);
-					}
-				}
-				for(Player player : getRegisteredActivePlayers()) {
-					CharacterManager.saveCharacter(player);
-				}
-			}
-			
-		}, 200, 6000);
-		
-		/**
-		 * Every 15 minutes
-		 */
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			
-			@Override
-			public void run() {
-				for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-					WauzPlayerNotifier.execute(player);
-				}
-			}
-			
-		}, 200, 18000);
-		
-		getLogger().info("Scheduled Repeating Tasks!");
+			WauzRepeatingTasks.schedule(this);
+			getLogger().info("Scheduled Repeating Tasks!");
+		}
+		else {
+			// TODO
+		}
 	}
 
 	/**
@@ -297,7 +193,7 @@ public class WauzCore extends JavaPlugin {
 	 * 
 	 * @see WauzPlayerDataPool
 	 */
-	public List<Player> getRegisteredActivePlayers() {
+	public static List<Player> getRegisteredActivePlayers() {
 		List<Player> players = new ArrayList<Player>();
 		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
 			if(WauzPlayerDataPool.getPlayer(player) != null) {

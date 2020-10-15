@@ -10,7 +10,7 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 
 /**
  * A rune, that can be inserted into a piece of equipment, with a fitting slot.
- * Effect: Increases maximum durability by (Might * 12).
+ * Effect: Increases maximum durability by (Might * 24).
  * 
  * @author Wauzmons
  *
@@ -43,7 +43,7 @@ public class RuneHardening implements WauzRune {
 	@Override
 	public boolean insertInto(ItemStack equipmentItemStack, EquipmentType equipmentType, double runeMightDecimal) {
 		int baseDurability = EquipmentUtils.getMaximumDurability(equipmentItemStack);
-		double bonusDurability = runeMightDecimal * 100 * 12;
+		double bonusDurability = runeMightDecimal * 100 * 24;
 		if(bonusDurability < 1) {
 			bonusDurability = 1;
 		}

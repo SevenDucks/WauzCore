@@ -19,21 +19,21 @@ public class WauzModules {
 	/**
 	 * @return If the main module is active.
 	 */
-	public boolean isMainModuleActive() {
+	public static boolean isMainModuleActive() {
 		return isModuleActive("main");
 	}
 	
 	/**
 	 * @return If the pets module is active.
 	 */
-	public boolean isPetsModuleActive() {
+	public static boolean isPetsModuleActive() {
 		return isModuleActive("pets");
 	}
 	
 	/**
 	 * @return If the pets module is active, without the main module.
 	 */
-	public boolean isPetsModuleStandalone() {
+	public static boolean isPetsModuleStandalone() {
 		return !isMainModuleActive() && isPetsModuleActive();
 	}
 	
@@ -44,7 +44,7 @@ public class WauzModules {
 	 * 
 	 * @return If the module is active.
 	 */
-	public boolean isModuleActive(String moduleName) {
+	public static boolean isModuleActive(String moduleName) {
 		return MODULES.contains(moduleName);
 	}
 

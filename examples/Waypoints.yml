@@ -2,6 +2,10 @@ Maretas:
   name: Maretas Village
   world: Dalyreos
   coords: -5274.5 70 6760.5
+PirateCoast:
+  name: Pirate Coast
+  world: Dalyreos
+  coords: -5789.5 80 6820.5
 Kurataki:
   name: Kurataki Isles
   world: Dalyreos
@@ -10,10 +14,18 @@ SpiderCave:
   name: Spider Cave
   world: Dalyreos
   coords: -5184.5 154 6020.5
-DevilKnCamp:
+DevilKnightCamp:
   name: Devil Knight Camp
   world: Dalyreos
   coords: -4799.5 67 5750.5
+Colossus:
+  name: Colossus of Anemor
+  world: Dalyreos
+  coords: -5134.5 131 5845.5
+GolemMonastery:
+  name: Golem Monastery
+  world: Dalyreos
+  coords: -5389.5 183 6085.5
 DemonShrine:
   name: Demon Shrine
   world: Dalyreos
@@ -26,10 +38,14 @@ Wrayvell:
   name: Wrayvell City
   world: Dalyreos
   coords: -5599.5 91 5600.5
-WrayCave:
+WrayvellCave:
   name: Wrayvell Cave
   world: Dalyreos
   coords: -5439.5 82 5700.5
+ForestOfSouls:
+  name: Forest of Souls
+  world: Dalyreos
+  coords: -6034.5 79 5620.5
 Teranos:
   name: Teranos Village
   world: Dalyreos
