@@ -38,9 +38,9 @@ import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.CitizenInteractionMenu;
 import eu.wauz.wauzcore.menu.MaterialPouch;
-import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
+import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
@@ -312,7 +312,7 @@ public class PlayerInteractionListener implements Listener {
 	 */
 	@EventHandler
 	public void onMount(EntityMountEvent event) {
-		Entity owner = PetOverviewMenu.getOwner(event.getMount());
+		Entity owner = WauzActivePet.getOwner(event.getMount());
 		if(owner != null && !owner.getUniqueId().equals(event.getEntity().getUniqueId())) {
 			event.getEntity().sendMessage(ChatColor.RED + "This is not your mount!");
 			event.setCancelled(true);

@@ -66,15 +66,12 @@ public class WauzEquipment {
 	 * 
 	 * @see WauzEquipment#doesLevelMatch(Player, ItemStack)
 	 * @see WauzEquipment#doesClassMatch(Player, ItemStack)
+	 * @see WauzEquipment#equipArmor(Player, ItemStack)
 	 */
 	public static void equipArmor(ArmorEquipEvent event) {
-		if(EquipMethod.DEATH.equals(event.getEquipMethod())) {
+		if(EquipMethod.DEATH.equals(event.getEquipMethod()) || !ArmorType.CHESTPLATE.equals(event.getArmorType())) {
 			return;
 		}
-		if(!ArmorType.CHESTPLATE.equals(event.getArmorType())) {
-			return;
-		}
-		
 		Player player = event.getPlayer();
 		ItemStack armorItemStack = event.getNewArmorPiece();
 		ItemStack oldItemStack = event.getOldArmorPiece();
@@ -82,52 +79,55 @@ public class WauzEquipment {
 		WauzDebugger.log(player, "New: " + (armorItemStack != null ? armorItemStack.getType() : "none"));
 		WauzDebugger.log(player, "Old: " + (oldItemStack != null ? oldItemStack.getType() : "none"));
 		
-		
 		if(!doesLevelMatch(player, armorItemStack) || !doesClassMatch(player, armorItemStack)) {
 			event.setCancelled(true);
 			return;
 		}
-		
+		equipArmor(player, armorItemStack);
+	}
+
+	/**
+	 * Equips a fitting cosmetic set of armor for the given chestplate.
+	 * 
+	 * @param player The player to who equipped the chestplate.
+	 * @param armorItemStack The equipped chestplate.
+	 */
+	public static void equipArmor(Player player, ItemStack armorItemStack) {
 		if(armorItemStack == null || armorItemStack.getType().equals(Material.AIR)) {
 			player.getEquipment().setLeggings(null);
 			player.getEquipment().setBoots(null);
 			return;
 		}
-		if(armorItemStack.getType().equals(Material.LEATHER_CHESTPLATE)) {
+		else if(armorItemStack.getType().equals(Material.LEATHER_CHESTPLATE)) {
 			if(armorItemStack.getItemMeta() instanceof LeatherArmorMeta) {
 				Color color = ((LeatherArmorMeta) armorItemStack.getItemMeta()).getColor();
 				player.getEquipment().setLeggings(getCosmeticItem(Material.LEATHER_LEGGINGS, color));
 				player.getEquipment().setBoots(getCosmeticItem(Material.LEATHER_BOOTS, color));
-				return;
 			}
-			player.getEquipment().setLeggings(getCosmeticItem(Material.LEATHER_LEGGINGS));
-			player.getEquipment().setBoots(getCosmeticItem(Material.LEATHER_BOOTS));
-			return;
+			else {
+				player.getEquipment().setLeggings(getCosmeticItem(Material.LEATHER_LEGGINGS));
+				player.getEquipment().setBoots(getCosmeticItem(Material.LEATHER_BOOTS));
+			}
 		}
-		if(armorItemStack.getType().equals(Material.GOLDEN_CHESTPLATE)) {
+		else if(armorItemStack.getType().equals(Material.GOLDEN_CHESTPLATE)) {
 			player.getEquipment().setLeggings(getCosmeticItem(Material.GOLDEN_LEGGINGS));
 			player.getEquipment().setBoots(getCosmeticItem(Material.GOLDEN_BOOTS));
-			return;
 		}
-		if(armorItemStack.getType().equals(Material.CHAINMAIL_CHESTPLATE)) {
+		else if(armorItemStack.getType().equals(Material.CHAINMAIL_CHESTPLATE)) {
 			player.getEquipment().setLeggings(getCosmeticItem(Material.CHAINMAIL_LEGGINGS));
 			player.getEquipment().setBoots(getCosmeticItem(Material.CHAINMAIL_BOOTS));
-			return;
 		}
-		if(armorItemStack.getType().equals(Material.IRON_CHESTPLATE)) {
+		else if(armorItemStack.getType().equals(Material.IRON_CHESTPLATE)) {
 			player.getEquipment().setLeggings(getCosmeticItem(Material.IRON_LEGGINGS));
 			player.getEquipment().setBoots(getCosmeticItem(Material.IRON_BOOTS));
-			return;
 		}
-		if(armorItemStack.getType().equals(Material.DIAMOND_CHESTPLATE)) {
+		else if(armorItemStack.getType().equals(Material.DIAMOND_CHESTPLATE)) {
 			player.getEquipment().setLeggings(getCosmeticItem(Material.DIAMOND_LEGGINGS));
 			player.getEquipment().setBoots(getCosmeticItem(Material.DIAMOND_BOOTS));
-			return;
 		}
-		if(armorItemStack.getType().equals(Material.NETHERITE_CHESTPLATE)) {
+		else if(armorItemStack.getType().equals(Material.NETHERITE_CHESTPLATE)) {
 			player.getEquipment().setLeggings(getCosmeticItem(Material.NETHERITE_LEGGINGS));
 			player.getEquipment().setBoots(getCosmeticItem(Material.NETHERITE_BOOTS));
-			return;
 		}
 	}
 	

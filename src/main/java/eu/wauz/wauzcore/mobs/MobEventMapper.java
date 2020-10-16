@@ -11,8 +11,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import eu.wauz.wauzcore.commands.administrative.CmdWzTravelEvent;
-import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.mobs.bestiary.ObservationTracker;
+import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -55,7 +55,7 @@ public class MobEventMapper {
 		Entity entity = event.getEntity();
 		MenacingMobsSpawner.addMenacingMob(event.getEntity(), event.getMobType());
 		
-		if(PetOverviewMenu.getOwner(entity) == null) {
+		if(WauzActivePet.getOwner(entity) == null) {
 			InstanceMobArena.tryToIncreaseMobCount(entity);
 		}
 	}
@@ -67,16 +67,16 @@ public class MobEventMapper {
 	 * 
 	 * @param event The despawn event.
 	 * 
-	 * @see PetOverviewMenu#removeOwner(String, Player)
+	 * @see WauzActivePet#removeOwner(String, Player)
 	 * @see InstanceMobArena#tryToDecreaseMobCount(Entity)
 	 */
 	public static void despawn(MythicMobDespawnEvent event) {
 		Entity entity = event.getEntity();
 		String mobId = entity.getUniqueId().toString();
-		Player mobOwner = PetOverviewMenu.getOwner(entity);
+		Player mobOwner = WauzActivePet.getOwner(entity);
 		
 		if(mobOwner != null) {
-			PetOverviewMenu.removeOwner(mobId, mobOwner);
+			WauzActivePet.removeOwner(mobId, mobOwner);
 		}
 		else {
 			InstanceMobArena.tryToDecreaseMobCount(entity);
@@ -95,7 +95,7 @@ public class MobEventMapper {
 	 * 
 	 * @param event The death event.
 	 * 
-	 * @see PetOverviewMenu#removeOwner(String, Player)
+	 * @see WauzActivePet#removeOwner(String, Player)
 	 * @see InstanceMobArena#tryToDecreaseMobCount(Entity)
 	 * @see ObservationTracker#tryToAddProgress(Player, Entity)
 	 * @see AchievementTracker#addProgress(Player, WauzAchievementType, double)
@@ -109,10 +109,10 @@ public class MobEventMapper {
 	public static void death(MythicMobDeathEvent event) {
 		Entity entity = event.getEntity();
 		String mobId = entity.getUniqueId().toString();
-		Player mobOwner = PetOverviewMenu.getOwner(entity);
+		Player mobOwner = WauzActivePet.getOwner(entity);
 		
 		if(mobOwner != null) {
-			PetOverviewMenu.removeOwner(mobId, mobOwner);
+			WauzActivePet.removeOwner(mobId, mobOwner);
 		}
 		else {
 			InstanceMobArena.tryToDecreaseMobCount(entity);

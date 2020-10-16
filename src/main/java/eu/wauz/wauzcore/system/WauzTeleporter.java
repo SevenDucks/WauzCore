@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
+import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
@@ -40,8 +40,6 @@ public class WauzTeleporter {
 	 */
 	public static void hubTeleportManual(Player player) {
 		player.closeInventory();
-		
-		// Handles TamingMenu.unsummon()
 		CharacterManager.logoutCharacter(player);
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
@@ -64,9 +62,7 @@ public class WauzTeleporter {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
 			return;
 		}
-		if(WauzMode.isMMORPG(player)) {
-			PetOverviewMenu.unsummon(player);
-		}
+		WauzActivePet.tryToUnsummon(player, true);
 		player.teleport(PlayerConfigurator.getCharacterSpawn(player));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
@@ -100,7 +96,6 @@ public class WauzTeleporter {
 		String name = event.getItem().getItemMeta().getDisplayName().replaceAll("" + ChatColor.RESET, "");
 		event.getItem().setAmount(event.getItem().getAmount() - 1);
 		
-		// Handles TamingMenu.unsummon() and Effect.PORTAL_TRAVEL
 		if(type.contains("Survival")) {
 			InstanceManager.enter(player, type);
 		}
@@ -129,7 +124,7 @@ public class WauzTeleporter {
 			player.sendMessage(ChatColor.RED + "You can't leave when not inside an instance!");
 			return;
 		}
-		PetOverviewMenu.unsummon(player);
+		WauzActivePet.tryToUnsummon(player, true);
 		player.teleport(PlayerConfigurator.getCharacterLocation(player));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
@@ -160,7 +155,7 @@ public class WauzTeleporter {
 			return false;
 		}
 		CharacterManager.saveCharacter(player);
-		PetOverviewMenu.unsummon(player);
+		WauzActivePet.tryToUnsummon(player, true);
 		return player.teleport(new Location(Bukkit.getServer().createWorld(new WorldCreator(instanceName)), 0.5, 5, 0.5));
 	}
 	
@@ -179,7 +174,6 @@ public class WauzTeleporter {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
 			return false;
 		}
-		// Handles TamingMenu.unsummon()
 		return InstanceManager.enter(player, instanceName);
 	}
 	
@@ -243,7 +237,7 @@ public class WauzTeleporter {
 			}
 		}
 		CharacterManager.saveCharacter(player);
-		PetOverviewMenu.unsummon(player);
+		WauzActivePet.tryToUnsummon(player, true);
 		player.teleport(target.getLocation());
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
@@ -276,9 +270,7 @@ public class WauzTeleporter {
 					: " Use /sethome to change that!"));
 			return;
 		}
-		if(WauzMode.isMMORPG(player)) {
-			PetOverviewMenu.unsummon(player);
-		}
+		WauzActivePet.tryToUnsummon(player, true);
 		player.teleport(PlayerConfigurator.getCharacterHearthstone(player));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
@@ -309,7 +301,7 @@ public class WauzTeleporter {
 			player.sendMessage(ChatColor.RED + "This waypoint is unknown!");
 			return;
 		}
-		PetOverviewMenu.unsummon(player);
+		WauzActivePet.tryToUnsummon(player, true);
 		CharacterManager.saveCharacter(player);
 		player.teleport(waypoint.getWaypointLocation());
 		player.sendMessage(ChatColor.GREEN + "You were warped to '" + waypoint.getWaypointDisplayName() + "'!");
@@ -343,7 +335,7 @@ public class WauzTeleporter {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
 			return;
 		}
-		PetOverviewMenu.unsummon(player);
+		WauzActivePet.tryToUnsummon(player, true);
 		player.teleport(location);
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}

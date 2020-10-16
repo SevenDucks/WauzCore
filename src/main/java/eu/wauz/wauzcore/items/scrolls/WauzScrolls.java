@@ -17,7 +17,6 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.mobs.towers.WauzTowers;
 
 /**
@@ -90,7 +89,7 @@ public class WauzScrolls implements CustomItem {
 	
 	/**
 	 * Handles the usage of right click scrolls.
-	 * Includes following types: Summoning, Comfort, Blueprint.
+	 * Includes following types: Comfort, Blueprint.
 	 * Removes the scroll item, if successful.
 	 * 
 	 * @param event The interaction event.
@@ -108,10 +107,7 @@ public class WauzScrolls implements CustomItem {
 		}
 		
 		String scrollName = scroll.getItemMeta().getDisplayName();
-		if(scrollName.contains("Scroll of Summoning")) {
-			PetOverviewMenu.addPet(event);
-		}
-		else if(scrollName.contains("Scroll of Comfort")) {
+		if(scrollName.contains("Scroll of Comfort")) {
 			new WauzPlayerEventHomeChange(player.getLocation(), scroll).execute(player);
 		}
 		else if(scrollName.contains("Blueprint: ") && WauzTowers.tryToConstruct(player, StringUtils.substringAfter(scrollName, ": "))) {

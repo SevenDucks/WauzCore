@@ -4,8 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import io.lumine.xikage.mythicmobs.MythicMobs;
+import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
+import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 
 /**
  * A pet egg that can be used to interact with pets.
@@ -15,13 +22,18 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class WauzPetEgg {
 	
 	/**
+	 * Access to the MythicMobs API.
+	 */
+	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
+	
+	/**
 	 * Generates an egg item stack for the given pet.
 	 * 
 	 * @param pet The pet to get an egg item of.
 	 * 
 	 * @return The generated egg item stack.
 	 */
-	public ItemStack getEggItem(WauzPet pet) {
+	public static ItemStack getEggItem(WauzPet pet) {
 		WauzPetRarity rarity = pet.getRarity();
 		ItemStack itemStack = new ItemStack(rarity.getMaterial());
 		ItemMeta itemMeta = itemStack.getItemMeta();
@@ -42,6 +54,31 @@ public class WauzPetEgg {
 		itemMeta.setLore(lores);	
 		itemStack.setItemMeta(itemMeta);
 		return itemStack;
+	}
+	
+	public static void tryToSummon(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+		ItemStack itemStack = player.getEquipment().getItemInMainHand();
+		if(player.isSneaking()) {
+			// TODO
+		}
+		else if(event.getAction().toString().contains("RIGHT")) {
+			try {
+				WauzActivePet.tryToUnsummon(player, false);
+				String petType = ChatColor.stripColor(itemStack.getItemMeta().getDisplayName());
+				MythicMob mob = mythicMobs.getMythicMob(petType);
+				if(mob == null) {
+					player.sendMessage(ChatColor.RED + "Your pet is invalid or outdated!");
+					return;
+				}
+				Entity entity = mythicMobs.spawnMythicMob(mob, player.getLocation(), 1);
+				WauzActivePet.setOwner(player, entity, itemStack);
+				player.sendMessage(ChatColor.GREEN + petType + " was summoned!");
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

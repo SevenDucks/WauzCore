@@ -5,16 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Wolf;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -22,17 +19,17 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.WauzResources;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.menu.ShopMenu;
-import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
@@ -90,23 +87,24 @@ public class EventMapper {
 	 * @param event The interact event.
 	 */
 	public static void handleEntityInteraction(PlayerInteractEntityEvent event) {
-		Player player = event.getPlayer();
-		Entity entity = event.getRightClicked();
-		
-		if(player.equals(PetOverviewMenu.getOwner(entity)) && entity instanceof Wolf) {
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
-	            
-				public void run() {
-	            	try {
-	            		((Wolf) entity).setSitting(false);
-	            	}
-	            	catch (NullPointerException e) {
-	            		WauzDebugger.catchException(getClass(), e);
-	            	}
-	            }
-				
-			}, 10);
-		}
+//		Player player = event.getPlayer();
+//		Entity entity = event.getRightClicked();
+//		
+//		TODO
+//		if(player.equals(PetOverviewMenu.getOwner(entity)) && entity instanceof Wolf) {
+//			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+//	            
+//				public void run() {
+//	            	try {
+//	            		((Wolf) entity).setSitting(false);
+//	            	}
+//	            	catch (NullPointerException e) {
+//	            		WauzDebugger.catchException(getClass(), e);
+//	            	}
+//	            }
+//				
+//			}, 10);
+//		}
 	}
 	
 	/**
@@ -122,6 +120,7 @@ public class EventMapper {
 	 * @see CustomItem#use(PlayerInteractEvent)
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
 	 * @see FoodCalculator#tryToConsume(Player, ItemStack)
+	 * @see WauzPetEgg#tryToSummon(Player, ItemStack)
 	 * @see EventMapper#handleBlockInteraction(PlayerInteractEvent)
 	 */
 	public static void handleItemInteraction(PlayerInteractEvent event) {
@@ -150,7 +149,12 @@ public class EventMapper {
 			customItem.use(event);
 		}
 		else if(event.getAction().toString().contains("RIGHT")) {
-			FoodCalculator.tryToConsume(event.getPlayer(), itemStack);
+			FoodCalculator.tryToConsume(player, itemStack);
+		}
+		else if(itemType.toString().endsWith("_SPAWN_EGG") && PetEggUtils.isEggItem(itemStack)) {
+			WauzPetEgg.tryToSummon(event);
+			event.setCancelled(true);
+			return;
 		}
 		
 		if(event.getAction() == Action.RIGHT_CLICK_BLOCK) {

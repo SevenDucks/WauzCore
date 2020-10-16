@@ -30,7 +30,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.WauzSigns;
-import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
+import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -76,7 +76,7 @@ public class InstanceManager {
 		}
 		
 		CharacterManager.saveCharacter(player);
-		PetOverviewMenu.unsummon(player);
+		WauzActivePet.tryToUnsummon(player, true);
 		
 		String instanceUuid = "WzInstance_MMORPG_" + UUID.randomUUID();
 		String path = Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", instanceUuid);
@@ -114,7 +114,7 @@ public class InstanceManager {
 		}
 		
 		CharacterManager.saveCharacter(player);
-		PetOverviewMenu.unsummon(player);
+		WauzActivePet.tryToUnsummon(player, true);
 		
 		String instanceUuid = "WzInstance_MMORPG_" + guild.getGuildUuidString();
 		World instanceWorld = Bukkit.getWorld(instanceUuid);
@@ -232,6 +232,7 @@ public class InstanceManager {
 	 * @see InstanceManager#placeExitSign(Block, BlockFace)
 	 */
 	private static void createSpawnCircle(World world, Location location) {
+		// TODO
 		Vector vector = new BlockVector(location.getX(), location.getY(), location.getZ());
 		int radius = 7;
 		for(int x = -radius; x <= radius; x++) {

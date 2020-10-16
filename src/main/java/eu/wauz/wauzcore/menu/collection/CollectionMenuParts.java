@@ -11,7 +11,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
@@ -73,9 +72,10 @@ public class CollectionMenuParts {
 		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
 		petsItemMeta.setDisplayName(ChatColor.GOLD + "Pets");
 		List<String> petsLores = new ArrayList<>();
-		petsLores.add(ChatColor.DARK_PURPLE + "Used Pet Slots: " + ChatColor.YELLOW
-				+ PlayerPetsConfigurator.getCharacterUsedPetSlots(player) + " / 5");
-			petsLores.add("");
+//		TODO
+//		petsLores.add(ChatColor.DARK_PURPLE + "Used Pet Slots: " + ChatColor.YELLOW
+//				+ PlayerPetsConfigurator.getCharacterUsedPetSlots(player) + " / 5");
+		petsLores.add("");
 		petsLores.add(ChatColor.GRAY + "View and Summon your tamed Pets.");
 		petsLores.add(ChatColor.GRAY + "Breed them to get stronger Offsprings.");
 		petsItemMeta.setLore(petsLores);
@@ -147,8 +147,9 @@ public class CollectionMenuParts {
 			return true;
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Pets")) {
-			PetOverviewMenu.open(player, -1);
-			return true;
+//			TODO
+//			PetOverviewMenu.open(player, -1);
+//			return true;
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Currencies")) {
 			CurrencyMenu.open(player);

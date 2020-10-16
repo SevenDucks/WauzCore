@@ -24,9 +24,9 @@ import eu.wauz.wauzcore.items.InventoryStringConverter;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentHelper;
 import eu.wauz.wauzcore.items.runes.RuneHardening;
-import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
 import eu.wauz.wauzcore.menu.social.TabardMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
+import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
@@ -123,7 +123,7 @@ public class CharacterManager {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
 		if(WauzMode.isMMORPG(player)) {
-			PetOverviewMenu.unsummon(player);
+			WauzActivePet.tryToUnsummon(player, true);
 		}
 		else if(WauzMode.isArcade(player)) {
 			ArcadeLobby.removePlayer(player);

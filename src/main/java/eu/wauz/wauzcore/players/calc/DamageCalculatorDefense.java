@@ -8,11 +8,11 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
+import eu.wauz.wauzcore.mobs.pets.WauzPetStat;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
@@ -160,7 +160,6 @@ public class DamageCalculatorDefense {
 	 * @see EquipmentUtils#getBaseDef(ItemStack)
 	 * @see DurabilityCalculator#damageItem(Player, ItemStack, boolean)
 	 * @see PlayerSkillConfigurator#getStrengthFloat(Player)
-	 * @see PlayerConfigurator#getCharacterPetAbsorption(Player, int)
 	 */
 	private void calculateDefense() {
 		ItemStack armorItemStack = player.getEquipment().getChestplate();
@@ -171,10 +170,8 @@ public class DamageCalculatorDefense {
 		DurabilityCalculator.damageItem(player, armorItemStack, true);
 		
 		float multiplier = PlayerSkillConfigurator.getStrengthFloat(player);
-		int petSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
-		if(petSlot >= 0) {
-			multiplier += ((float) PlayerPetsConfigurator.getCharacterPetAbsorption(player, petSlot) / 10f);
-		}
+		int petAbs = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Absorption"));
+		multiplier += (float) petAbs / 10f;
 		
 		WauzDebugger.log(player, "Defense Multiplier: " + Formatters.DEC.format(multiplier));	
 		damage -= (int) ((float) defense * multiplier);

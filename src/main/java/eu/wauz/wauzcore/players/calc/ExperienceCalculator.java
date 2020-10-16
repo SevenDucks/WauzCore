@@ -7,10 +7,10 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerPetsConfigurator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
+import eu.wauz.wauzcore.mobs.pets.WauzPetStat;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
@@ -138,7 +138,6 @@ public class ExperienceCalculator {
 	 * @return The exp with added bonus.
 	 * 
 	 * @see EquipmentUtils#getExperienceBonus(ItemStack)
-	 * @see PlayerConfigurator#getCharacterPetIntelligence(Player, int)
 	 */
 	public static double applyExperienceBonus(Player player, double experience) {		
 		ItemStack weaponItemStack = player.getEquipment().getItemInMainHand();
@@ -148,10 +147,8 @@ public class ExperienceCalculator {
 		
 		double multiplier = 1 + (weaponBonus / 100.0) + (armorBonus / 100.0);
 		
-		int petSlot = PlayerPetsConfigurator.getCharacterActivePetSlot(player);
-		if(petSlot >= 0) {
-			multiplier += (float) PlayerPetsConfigurator.getCharacterPetIntelligence(player, petSlot) / 10f;
-		}
+		int petInt = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Intelligence"));
+		multiplier += (float) petInt / 10f;
 		
 		return experience * multiplier;
 	}

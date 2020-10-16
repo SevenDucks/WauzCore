@@ -39,7 +39,6 @@ public class FoodCalculator {
 		if(!ItemUtils.isFoodItem(itemStack) || !Cooldown.playerFoodConsume(player)) {
 			return;
 		}
-		
 		WauzDebugger.log(player, "Try to consume Food Item");
 		
 		PlayerItemConsumeEvent event = new PlayerItemConsumeEvent(player, itemStack);

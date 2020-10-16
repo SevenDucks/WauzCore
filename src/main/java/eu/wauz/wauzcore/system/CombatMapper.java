@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
-import eu.wauz.wauzcore.menu.collection.PetOverviewMenu;
+import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
@@ -149,12 +149,12 @@ public class CombatMapper {
 	 * @return If the event should be cancelled.
 	 * 
 	 * @see WauzMode#inHub(org.bukkit.entity.Entity)
-	 * @see PetOverviewMenu#getOwner(org.bukkit.entity.Entity)
+	 * @see WauzActivePet#getOwner(org.bukkit.entity.Entity)
 	 * @see WauzDebugger#toggleDefenseDebugMode(Player)
 	 */
 	private static boolean shouldCancelDamageEvent(EntityDamageEvent event) {
 		return WauzMode.inHub(event.getEntity())
-				|| PetOverviewMenu.getOwner(event.getEntity()) != null
+				|| WauzActivePet.getOwner(event.getEntity()) != null
 				|| event.getEntity().hasPermission(WauzPermission.DEBUG_DEFENSE.toString())
 				|| event.getCause().equals(DamageCause.BLOCK_EXPLOSION);
 	}

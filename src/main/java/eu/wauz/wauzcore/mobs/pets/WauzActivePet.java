@@ -2,10 +2,18 @@ package eu.wauz.wauzcore.mobs.pets;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Tameable;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.util.PetEggUtils;
+import eu.wauz.wauzcore.players.calc.SpeedCalculator;
+import eu.wauz.wauzcore.system.WauzModules;
 
 /**
  * A cached pet, currently summoned by a player.
@@ -15,6 +23,105 @@ import eu.wauz.wauzcore.items.util.PetEggUtils;
 public class WauzActivePet {
 	
 	/**
+	 * A map that contains all players with active pets, indexed by pet uuid.
+	 */
+	private static Map<String, Player> petOwnerMap = new HashMap<>();
+	
+	/**
+	 * A map that contains all active pets, indexed by their owners.
+	 */
+	private static Map<Player, WauzActivePet> ownerPetMap = new HashMap<>();
+	
+	/**
+	 * Gets the owner of a pet from the pet owner map.
+	 * 
+	 * @param entity The pet to get the owner from.
+	 * 
+	 * @return The owner of the pet.
+	 */
+	public static Player getOwner(Entity entity) {
+		return petOwnerMap.get(entity.getUniqueId().toString());
+	}
+	
+	/**
+	 * Gets the active pet of a player from the owner pet map.
+	 * 
+	 * @param player The player to get the pet from.
+	 * .
+	 * @return The pet of the player.
+	 */
+	public static WauzActivePet getPet(Player player) {
+		return ownerPetMap.get(player);
+	}
+	
+	/**
+	 * Adds a player to the owner map.
+	 * 
+	 * @param player The owner of the pet.
+	 * @param petEntity The pet entity.
+	 * @param eggItemStack The pet egg item stack.
+	 */
+	public static void setOwner(Player player, Entity petEntity, ItemStack eggItemStack) {
+		if(petEntity instanceof Tameable) {
+			((Tameable) petEntity).setOwner(player);
+		}
+		petOwnerMap.put(petEntity.getUniqueId().toString(), player);
+		ownerPetMap.put(player, new WauzActivePet(player, petEntity, eggItemStack));
+		if(!WauzModules.isPetsModuleStandalone()) {
+			SpeedCalculator.resetWalkSpeed(player);
+		}
+	}
+	
+	/**
+	 * Removes a player from the owner map.
+	 * 
+	 * @param petId The uuid of the pet, owned by the player.
+	 * @param player The player to remove from the owner map.
+	 */
+	public static void removeOwner(String petId, Player player) {
+		petOwnerMap.remove(petId);
+		ownerPetMap.remove(player);
+		if(!WauzModules.isPetsModuleStandalone()) {
+			SpeedCalculator.resetWalkSpeed(player);
+		}
+	}
+	
+	/**
+	 * Unsummons the currently active pet, if possible.
+	 * 
+	 * @param player The owner of the pet.
+	 * @param showMessage If a message should be shown to the owner.
+	 */
+	public static void tryToUnsummon(Player player, boolean showMessage) {
+		WauzActivePet pet = WauzActivePet.getPet(player);
+		if(pet != null) {
+			pet.unsummon(showMessage);
+		}
+	}
+	
+	/**
+	 * Gets a stat of the currently active pet.
+	 * 
+	 * @param player The owner of the pet.
+	 * @param stat  The stat to get.
+	 * @return The stat value of the pet.
+	 */
+	public static int getPetStat(Player player, WauzPetStat stat) {
+		WauzActivePet pet = WauzActivePet.getPet(player);
+		return pet != null ? pet.getPetStat(stat) : 0;
+	}
+	
+	/**
+	 * The owner of the pet.
+	 */
+	private Player owner;
+	
+	/**
+	 * The pet entity.
+	 */
+	private Entity petEntity;
+	
+	/**
 	 * A map of pet stat values, indexed by corresponding stat objects.
 	 */
 	private Map<WauzPetStat, Integer> petStatMap = new HashMap<>();
@@ -22,9 +129,13 @@ public class WauzActivePet {
 	/**
 	 * Creates a new active pet data.
 	 * 
+	 * @param owner The owner of the pet.
+	 * @param petEntity The pet entity.
 	 * @param eggItemStack The pet egg item stack.
 	 */
-	public WauzActivePet(ItemStack eggItemStack) {
+	public WauzActivePet(Player owner, Entity petEntity, ItemStack eggItemStack) {
+		this.owner = owner;
+		this.petEntity = petEntity;
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
 			petStatMap.put(stat, PetEggUtils.getPetStat(eggItemStack, stat));
 		}
@@ -37,8 +148,25 @@ public class WauzActivePet {
 	 * 
 	 * @return The stat value of the pet.
 	 */
-	public Integer getPetStat(WauzPetStat stat) {
+	public int getPetStat(WauzPetStat stat) {
 		return petStatMap.get(stat);
+	}
+	
+	/**
+	 * Unsummons the pet.
+	 * 
+	 * @param showMessage If a message should be shown to the owner.
+	 */
+	public void unsummon(boolean showMessage) {
+		String petId = petEntity.getUniqueId().toString();
+		Entity entity = Bukkit.getServer().getEntity(UUID.fromString(petId));		
+		if(entity != null) {
+			entity.remove();
+			if(showMessage) {
+				owner.sendMessage(ChatColor.GREEN + "Your current Pet was unsommoned!");
+			}
+		}
+		removeOwner(petId, owner);
 	}
 
 }

@@ -26,6 +26,7 @@ import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
 import eu.wauz.wauzcore.system.listeners.BlockProtectionListener;
 import eu.wauz.wauzcore.system.listeners.InventoryListener;
 import eu.wauz.wauzcore.system.listeners.MythicMobsListener;
+import eu.wauz.wauzcore.system.listeners.PetModuleListener;
 import eu.wauz.wauzcore.system.listeners.PlayerAmbientListener;
 import eu.wauz.wauzcore.system.listeners.PlayerCombatListener;
 import eu.wauz.wauzcore.system.listeners.PlayerInteractionListener;
@@ -102,11 +103,11 @@ public class WauzCore extends JavaPlugin {
 		getLogger().info("");
 		getLogger().info("O-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~O");
 		
+		PluginManager pluginManager = getServer().getPluginManager();
 		if(WauzModules.isMainModuleActive()) {
 			WauzLoader.init();
 			getLogger().info("Loaded Data from Files!");
 			
-			PluginManager pluginManager = getServer().getPluginManager();
 			pluginManager.registerEvents(new ArmorEquipEventListener(), this);
 			pluginManager.registerEvents(new BlockProtectionListener(), this);
 			pluginManager.registerEvents(new InventoryListener(), this);
@@ -125,7 +126,9 @@ public class WauzCore extends JavaPlugin {
 			getLogger().info("Scheduled Repeating Tasks!");
 		}
 		else {
-			// TODO
+			if(WauzModules.isPetsModuleActive()) {
+				pluginManager.registerEvents(new PetModuleListener(), this);
+			}
 		}
 	}
 
