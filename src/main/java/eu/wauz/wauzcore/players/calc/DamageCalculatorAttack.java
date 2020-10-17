@@ -135,6 +135,7 @@ public class DamageCalculatorAttack {
 			return;
 		}
 		
+		WauzDebugger.log(player, "Attacked Entity Type: " + entity.getType());
 		if(MobMetadataUtils.hasFixedDamage(entity)) {
 			MobMetadataUtils.setFixedDamage(entity, false);
 			damage = (int) event.getDamage();
@@ -175,6 +176,7 @@ public class DamageCalculatorAttack {
 			DurabilityCalculator.damageItem(player, weaponItemStack, false);
 			RageCalculator.generateRage(player);
 			ValueIndicator.spawnDamageIndicator(event.getEntity(), 1);
+			WauzDebugger.log(player, "Attacked with Non-Weapon");
 			return false;
 		}
 		int requiredLevel = EquipmentUtils.getLevelRequirement(weaponItemStack);

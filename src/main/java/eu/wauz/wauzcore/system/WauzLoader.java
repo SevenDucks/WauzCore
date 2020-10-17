@@ -66,6 +66,7 @@ import eu.wauz.wauzcore.commands.completion.TabCompleterGuilds;
 import eu.wauz.wauzcore.commands.completion.TabCompleterInstances;
 import eu.wauz.wauzcore.commands.completion.TabCompleterMenus;
 import eu.wauz.wauzcore.commands.completion.TabCompleterMinigames;
+import eu.wauz.wauzcore.commands.completion.TabCompleterPets;
 import eu.wauz.wauzcore.commands.completion.TabCompleterRanks;
 import eu.wauz.wauzcore.commands.completion.TabCompleterRunes;
 import eu.wauz.wauzcore.commands.completion.TabCompleterSkills;
@@ -330,6 +331,7 @@ public class WauzLoader {
 		Bukkit.getPluginCommand("wzEnter.dev").setTabCompleter(new TabCompleterWorlds());
 		Bukkit.getPluginCommand("wzGetEquip").setTabCompleter(new TabCompleterEquip());
 		Bukkit.getPluginCommand("wzGetEquip.enhanced").setTabCompleter(new TabCompleterEnhancements());
+		Bukkit.getPluginCommand("wzGetPet").setTabCompleter(new TabCompleterPets());
 		Bukkit.getPluginCommand("wzGetRune").setTabCompleter(new TabCompleterRunes());
 		Bukkit.getPluginCommand("wzRank").setTabCompleter(new TabCompleterRanks());
 		Bukkit.getPluginCommand("wzSkill").setTabCompleter(new TabCompleterSkills());

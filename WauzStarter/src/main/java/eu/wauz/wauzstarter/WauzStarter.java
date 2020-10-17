@@ -43,7 +43,7 @@ public class WauzStarter extends JavaPlugin {
 		
 		getServer().createWorld(new WorldCreator("Wauzland"));
 		getServer().createWorld(new WorldCreator("Dalyreos"));
-		//new SeasonalSurvivalManager(new WorldCreator("Survival"), true).generateSurvivalWorld();
+		new SeasonalSurvivalManager(new WorldCreator("Survival"), true).generateSurvivalWorld();
 		new SeasonalSurvivalManager(new EmptyWorldCreator("SurvivalOneBlock"), false).generateSurvivalWorld();
 		getLogger().info("Created Worlds!");
 		

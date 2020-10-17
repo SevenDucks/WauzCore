@@ -13,6 +13,8 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.system.WauzPermission;
+import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -57,19 +59,19 @@ public class WauzModeMenu implements WauzInventory {
 		
 		ItemStack modeDropGuysItemStack = new ItemStack(Material.HOPPER);
 		ItemMeta modeDropGuysItemMeta = modeDropGuysItemStack.getItemMeta();
-		modeDropGuysItemMeta.setDisplayName(ChatColor.RED + "DropGuys");
+		modeDropGuysItemMeta.setDisplayName(ChatColor.DARK_RED + "ALPHA " + ChatColor.RED + "DropGuys");
 		modeDropGuysItemStack.setItemMeta(modeDropGuysItemMeta);
 		menu.setItem(2, modeDropGuysItemStack);
 		
 		ItemStack modeMmoRpgItemStack = new ItemStack(Material.DRAGON_HEAD);
 		ItemMeta modeMmoRpgItemMeta = modeMmoRpgItemStack.getItemMeta();
-		modeMmoRpgItemMeta.setDisplayName(ChatColor.DARK_PURPLE + "MMORPG");
+		modeMmoRpgItemMeta.setDisplayName(ChatColor.DARK_RED + "ALPHA " + ChatColor.DARK_PURPLE + "MMORPG");
 		modeMmoRpgItemStack.setItemMeta(modeMmoRpgItemMeta);
 		menu.setItem(4, modeMmoRpgItemStack);
 		
 		ItemStack modeOneBlockItemStack = new ItemStack(Material.GRASS_BLOCK);
 		ItemMeta modeOneBlockItemMeta = modeOneBlockItemStack.getItemMeta();
-		modeOneBlockItemMeta.setDisplayName(ChatColor.GOLD + "OneBlock");
+		modeOneBlockItemMeta.setDisplayName(ChatColor.GOLD + "OneBlock and Survival");
 		modeOneBlockItemStack.setItemMeta(modeOneBlockItemMeta);
 		menu.setItem(6, modeOneBlockItemStack);
 		
@@ -112,10 +114,20 @@ public class WauzModeMenu implements WauzInventory {
 		if(modeName == null) {
 			return;
 		}
-		else if(modeName.equals("MMORPG")) {
+		if(modeName.contains("ALPHA ")) {
+			boolean staff = WauzRank.getRank(player).getRankPermission().equals(WauzPermission.SYSTEM);
+			if(staff) {
+				modeName = modeName.replace("ALPHA ", "");
+			}
+			else {
+				player.sendMessage(ChatColor.RED + "This gamemode isn't public yet!");
+				return;
+			}
+		}
+		if(modeName.equals("MMORPG")) {
 			CharacterSlotMenu.open(player, WauzMode.MMORPG);
 		}
-		else if(modeName.equals("OneBlock")) {
+		else if(modeName.equals("OneBlock and Survival")) {
 			CharacterSlotMenu.open(player, WauzMode.SURVIVAL);
 		}
 		else if(modeName.equals("DropGuys")) {

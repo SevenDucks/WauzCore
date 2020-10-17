@@ -74,7 +74,7 @@ public enum WauzPetRarity {
 		this.name = name;
 		this.multiplier = multiplier;
 		String rarityStars = "";
-		for(int index = 0; index < multiplier; index++) {
+		for(int index = 0; index < 5; index++) {
 			rarityStars += UnicodeUtils.ICON_DIAMOND;
 			if(index == multiplier - 1) {
 				rarityStars += ChatColor.GRAY;

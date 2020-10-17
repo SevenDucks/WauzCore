@@ -39,11 +39,6 @@ public class WauzPetBreedingLevel {
 	private int exp;
 	
 	/**
-	 * The available breeding slots.
-	 */
-	private int slots;
-	
-	/**
 	 * The breeding time in seconds, indexed by pet rarity.
 	 */
 	private Map<WauzPetRarity, Integer> rarityTimeMap = new HashMap<>();
@@ -56,7 +51,6 @@ public class WauzPetBreedingLevel {
 	private WauzPetBreedingLevel(int level) {
 		this.level = level;
 		this.exp = PetConfigurator.getBreedingLevelExp(level);
-		this.slots = PetConfigurator.getBreedingLevelSlots(level);
 		for(WauzPetRarity rarity : WauzPetRarity.values()) {
 			rarityTimeMap.put(rarity, PetConfigurator.getBreedingLevelTime(level, rarity));
 		}
@@ -74,13 +68,6 @@ public class WauzPetBreedingLevel {
 	 */
 	public int getExp() {
 		return exp;
-	}
-
-	/**
-	 * @return The available breeding slots.
-	 */
-	public int getSlots() {
-		return slots;
 	}
 	
 	/**

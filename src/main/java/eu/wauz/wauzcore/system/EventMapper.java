@@ -120,7 +120,7 @@ public class EventMapper {
 	 * @see CustomItem#use(PlayerInteractEvent)
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
 	 * @see FoodCalculator#tryToConsume(Player, ItemStack)
-	 * @see WauzPetEgg#tryToSummon(Player, ItemStack)
+	 * @see WauzPetEgg#tryToSummon(PlayerInteractEvent)
 	 * @see EventMapper#handleBlockInteraction(PlayerInteractEvent)
 	 */
 	public static void handleItemInteraction(PlayerInteractEvent event) {
@@ -137,24 +137,24 @@ public class EventMapper {
 			return;
 		}
 		
-		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		if(event.getAction() == Action.LEFT_CLICK_AIR) {
 			Cooldown.playerWeaponUse(player);
 			event.setCancelled(true);
 		}
 		
+		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		Material itemType = itemStack.getType();
 		CustomItem customItem = customItemMap.get(itemType);
 		if(customItem != null) {
 			customItem.use(event);
 		}
-		else if(event.getAction().toString().contains("RIGHT")) {
-			FoodCalculator.tryToConsume(player, itemStack);
-		}
 		else if(itemType.toString().endsWith("_SPAWN_EGG") && PetEggUtils.isEggItem(itemStack)) {
 			WauzPetEgg.tryToSummon(event);
 			event.setCancelled(true);
 			return;
+		}
+		else if(event.getAction().toString().contains("RIGHT")) {
+			FoodCalculator.tryToConsume(player, itemStack);
 		}
 		
 		if(event.getAction() == Action.RIGHT_CLICK_BLOCK) {

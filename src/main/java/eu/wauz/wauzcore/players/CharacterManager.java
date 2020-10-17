@@ -317,17 +317,6 @@ public class CharacterManager {
 			
 			playerDataConfig.set("cooldown.reward", 0);
 			
-			playerDataConfig.set("pets.active.id", "none");
-			playerDataConfig.set("pets.active.slot", -1);
-			playerDataConfig.set("pets.slot0.type", "none");
-			playerDataConfig.set("pets.slot1.type", "none");
-			playerDataConfig.set("pets.slot2.type", "none");
-			playerDataConfig.set("pets.slot3.type", "none");
-			playerDataConfig.set("pets.slot4.type", "none");
-			playerDataConfig.set("pets.slot6.type", "none");
-			playerDataConfig.set("pets.slot8.type", "none");
-			playerDataConfig.set("pets.egg.time", 0);
-			
 			playerDataConfig.set(QuestSlot.MAIN.getConfigKey(), "none");
 			playerDataConfig.set(QuestSlot.CAMPAIGN1.getConfigKey(), "none");
 			playerDataConfig.set(QuestSlot.CAMPAIGN2.getConfigKey(), "none");

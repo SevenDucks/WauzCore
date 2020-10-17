@@ -91,12 +91,16 @@ public class WauzActivePet {
 	 * 
 	 * @param player The owner of the pet.
 	 * @param showMessage If a message should be shown to the owner.
+	 * 
+	 * @return If there was a pet to unsummon.
 	 */
-	public static void tryToUnsummon(Player player, boolean showMessage) {
+	public static boolean tryToUnsummon(Player player, boolean showMessage) {
 		WauzActivePet pet = WauzActivePet.getPet(player);
 		if(pet != null) {
 			pet.unsummon(showMessage);
+			return true;
 		}
+		return false;
 	}
 	
 	/**

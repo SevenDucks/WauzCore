@@ -28,7 +28,7 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	 * @return The name of the pet.
 	 */
 	public static String getName(String petKey) {
-		return mainConfigGetString("Pets", "pets." + petKey + ".name");
+		return mainConfigGetString("Pets", "pets." + petKey + ".mob");
 	}
 	
 	/**
@@ -85,15 +85,6 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	 */
 	public static int getBreedingLevelExp(int level) {
 		return mainConfigGetInt("Pets", "levels." + level + ".exp");
-	}
-	
-	/**
-	 * @param level The breeding level.
-	 * 
-	 * @return The available breeding slots.
-	 */
-	public static int getBreedingLevelSlots(int level) {
-		return mainConfigGetInt("Pets", "levels." + level + ".slots");
 	}
 	
 	/**

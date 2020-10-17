@@ -45,7 +45,8 @@ public class WauzPetEgg {
 		lores.add("Category:" + ChatColor.GREEN + " " + pet.getCategory());
 		int maxStat = 2 * rarity.getMultiplier();
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
-			lores.add(stat.getName() + ":" + ChatColor.GREEN + " " + 0 + " / " + maxStat);
+			String description = " " + ChatColor.GRAY + stat.getDescription();
+			lores.add(stat.getName() + ":" + ChatColor.GREEN + " " + 0 + " / " + maxStat + description);
 		}
 		lores.add("");
 		lores.add(ChatColor.GRAY + "Use while Sneaking to open Menu");
@@ -56,6 +57,12 @@ public class WauzPetEgg {
 		return itemStack;
 	}
 	
+	/**
+	 * Tries to spawn a pet by interacting with its egg item stack.
+	 * If it is a shift interaction the pet menu will be opened.
+	 * 
+	 * @param event The interact event.
+	 */
 	public static void tryToSummon(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
@@ -64,10 +71,16 @@ public class WauzPetEgg {
 		}
 		else if(event.getAction().toString().contains("RIGHT")) {
 			try {
-				WauzActivePet.tryToUnsummon(player, false);
+				if(WauzActivePet.tryToUnsummon(player, true)) {
+					return;
+				}
 				String petType = ChatColor.stripColor(itemStack.getItemMeta().getDisplayName());
-				MythicMob mob = mythicMobs.getMythicMob(petType);
-				if(mob == null) {
+				WauzPet pet = WauzPet.getPet(petType);
+				MythicMob mob = null;
+				if(pet != null) {
+					mob = mythicMobs.getMythicMob(pet.getName());
+				}
+				if(pet == null || mob == null) {
 					player.sendMessage(ChatColor.RED + "Your pet is invalid or outdated!");
 					return;
 				}

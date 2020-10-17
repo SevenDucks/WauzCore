@@ -61,7 +61,7 @@ public class CustomWeaponStaff implements CustomWeapon {
 	@Override
 	public List<Material> getCustomItemMaterials() {
 		return Arrays.asList(Material.WOODEN_HOE, Material.GOLDEN_HOE, Material.STONE_HOE, Material.IRON_HOE,
-				Material.DIAMOND_HOE);
+				Material.DIAMOND_HOE, Material.NETHERITE_HOE);
 	}
 	
 	/**

@@ -31,7 +31,9 @@ public class WauzPetStat {
 	 */
 	public static void init() {
 		for(String key : PetConfigurator.getPetStatKeys()) {
-			petStatMap.put(key, new WauzPetStat(key));
+			WauzPetStat stat = new WauzPetStat(key);
+			petStats.add(stat);
+			petStatMap.put(key, stat);
 		}
 	}
 	

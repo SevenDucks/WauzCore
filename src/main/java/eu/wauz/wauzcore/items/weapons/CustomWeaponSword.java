@@ -61,7 +61,7 @@ public class CustomWeaponSword implements CustomWeapon {
 	@Override
 	public List<Material> getCustomItemMaterials() {
 		return Arrays.asList(Material.WOODEN_SWORD, Material.GOLDEN_SWORD, Material.STONE_SWORD, Material.IRON_SWORD,
-				Material.DIAMOND_SWORD);
+				Material.DIAMOND_SWORD, Material.NETHERITE_SWORD);
 	}
 	
 	/**

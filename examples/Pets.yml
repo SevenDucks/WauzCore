@@ -11,43 +11,36 @@ stats:
 levels:
   1:
     exp: 1
-    slots: 1
     breedtime:
       COMMON: 3600 # 1 hour
   2:
     exp: 10
-    slots: 1
     breedtime:
       COMMON: 2700 # 45 min
   3:
     exp: 30
-    slots: 1
     breedtime:
       COMMON: 1800 # 30 min
       MAGIC: 7200 # 2 hours
   4:
     exp: 60
-    slots: 1
     breedtime:
       COMMON: 1200 # 20 min
       MAGIC: 5400 # 1.5 hours
   5:
     exp: 100
-    slots: 2
     breedtime:
       COMMON: 900 # 15 min
       MAGIC: 3600 # 1 hour
       RARE: 21600 # 6 hours
   6:
     exp: 150
-    slots: 2
     breedtime:
       COMMON: 600 # 10 min
       MAGIC: 2700 # 45 min
       RARE: 10800 # 3 hours
   7:
     exp: 225
-    slots: 2
     breedtime:
       COMMON: 300 # 5 min
       MAGIC: 1800 # 30 min
@@ -55,7 +48,6 @@ levels:
       EPIC: 86400 # 1 day
   8:
     exp: 375
-    slots: 3
     breedtime:
       COMMON: 180 # 3 min
       MAGIC: 1200 # 20 min
@@ -63,7 +55,6 @@ levels:
       EPIC: 43200 # 12 hours
   9:
     exp: 600
-    slots: 3
     breedtime:
       COMMON: 120 # 2 min
       MAGIC: 900 # 15 min
@@ -72,7 +63,6 @@ levels:
       UNIQUE: 86400 # 1 day
   10:
     exp: 1000
-    slots: 3
     breedtime:
       COMMON: 60 # 1 min
       MAGIC: 600 # 10 min
@@ -83,12 +73,4 @@ pets:
   Charlie:
     mob: PetCharlie
     category: Exotic
-    rarity: EPIC
-  Asuna:
-    mob: PetAsuna
-    category: Humanoid
-    rarity: EPIC
-  Shiro:
-    mob: PetShiro
-    category: Humanoid
-    rarity: EPIC
+    rarity: MAGIC

@@ -61,7 +61,7 @@ public class CustomWeaponAxe implements CustomWeapon {
 	@Override
 	public List<Material> getCustomItemMaterials() {
 		return Arrays.asList(Material.WOODEN_AXE, Material.GOLDEN_AXE, Material.STONE_AXE, Material.IRON_AXE,
-				Material.DIAMOND_AXE);
+				Material.DIAMOND_AXE, Material.NETHERITE_AXE);
 	}
 	
 	/**
