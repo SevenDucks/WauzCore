@@ -244,6 +244,13 @@ public class ArcadeLobby {
 	}
 	
 	/**
+	 * Handles the start event, that gets fired when the start countdown ends.
+	 */
+	public static void handleStartEvent() {
+		
+	}
+	
+	/**
 	 * Handles the given death event, that occured in the minigame.
 	 * 
 	 * @param event The death event.
@@ -279,7 +286,11 @@ public class ArcadeLobby {
 	public static void handleMoveEvent(PlayerMoveEvent event) {
 		PotionEffect effect = event.getPlayer().getPotionEffect(PotionEffectType.SLOW);
 		if(effect != null && effect.getAmplifier() >= 100) {
-			event.setCancelled(true);
+			Location from = event.getFrom();
+			Location to = event.getTo();
+			if(from.getBlockX() != to.getBlockX() || from.getBlockY() != to.getBlockY() || from.getBlockZ() != to.getBlockZ()) {
+				event.setCancelled(true);
+			}
 		}
 		else if(minigame != null) {
 			minigame.handleMoveEvent(event);

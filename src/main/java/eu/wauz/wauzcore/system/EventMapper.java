@@ -288,6 +288,9 @@ public class EventMapper {
 			}
 			MenuUtils.onSpecialItemInventoryClick(event);
 		}
+		else if(WauzMode.isArcade(player)) {
+			event.setCancelled(true);
+		}
 	}
 	
 	/**

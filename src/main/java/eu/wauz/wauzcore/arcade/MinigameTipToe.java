@@ -10,7 +10,6 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -87,7 +86,7 @@ public class MinigameTipToe implements ArcadeMinigame {
 		}
 		Location spawnLocation = new Location(world, 776.5, 88, 500.5, 90, 0);
 		ArcadeUtils.placeTeam(players, spawnLocation, 1, 6);
-		ArcadeUtils.runStartTimer(10, 180);
+		ArcadeUtils.runStartTimer(10, 120);
 	}
 
 	/**
@@ -112,13 +111,19 @@ public class MinigameTipToe implements ArcadeMinigame {
 	@Override
 	public void handleMoveEvent(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
-		Block playerBlock = player.getLocation().getBlock();
-		Block blockBelow = playerBlock.getRelative(BlockFace.DOWN);
-		List<Block> tileBlocks = blockFakeTileMap.get(blockBelow);
-		if(tileBlocks != null) {
-			makeTileFall(tileBlocks);
+		Location location = player.getLocation().clone().subtract(0, 1, 0);
+		for(double x = -0.15; x <= 0.15; x += 0.15) {
+			for(double z = -0.15; z <= 0.15; z += 0.15) {
+				Block blockBelow = location.clone().add(x, 0, z).getBlock();
+				List<Block> tileBlocks = blockFakeTileMap.get(blockBelow);
+				if(tileBlocks != null) {
+					makeTileFall(tileBlocks);
+					player.teleport(player.getLocation().clone().subtract(0, 0.1, 0));
+					return;
+				}
+			}
 		}
-		else if(playerBlock.getX() <= 728) {
+		if(location.getX() <= 728 && location.getY() >= 87) {
 			finishedPlayers.add(player);
 			player.teleport(new Location(ArcadeLobby.getWorld(), 750.5, 96, 500.5, 90, 0));
 			player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1, 1);
@@ -126,7 +131,7 @@ public class MinigameTipToe implements ArcadeMinigame {
 				ArcadeLobby.endGame();
 			}
 		}
-		else if(playerBlock.getY() <= 64) {
+		else if(location.getY() <= 64) {
 			player.teleport(player.getBedSpawnLocation());
 		}
 	}

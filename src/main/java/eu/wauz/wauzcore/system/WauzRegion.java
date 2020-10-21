@@ -113,7 +113,7 @@ public class WauzRegion {
 			return false;
 		}
 		WauzRegion region = getNewRegion(block.getLocation());
-		return region == null || !region.getFlags().contains(FLAG_BUILD) || OneBlock.isOneBlock(block);
+		return region == null || !region.getFlags().contains(FLAG_BUILD);
 	}
 	
 	/**

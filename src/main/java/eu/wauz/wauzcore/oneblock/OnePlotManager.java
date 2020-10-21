@@ -21,7 +21,7 @@ public class OnePlotManager {
 	/**
 	 * The world used for the one block gamemode.
 	 */
-	private static final World oneBlockWorld = Bukkit.getWorld("SurvivalOneBlock");
+	private static final World WORLD = Bukkit.getWorld("SurvivalOneBlock");
 	
 	/**
 	 * Gets the location of the next plot, that hasn't been claimed yet.
@@ -34,8 +34,8 @@ public class OnePlotManager {
 	 * @see OnePlotManager#getPlotLocation(int)
 	 */
 	public static Location getNextFreePlotLocation() {
-		int plotIndex = SeasonConfigurator.getLastTakenPlot(oneBlockWorld) + 1;
-		SeasonConfigurator.setLastTakenPlot(oneBlockWorld, plotIndex);
+		int plotIndex = SeasonConfigurator.getLastTakenPlot(WORLD) + 1;
+		SeasonConfigurator.setLastTakenPlot(WORLD, plotIndex);
 		return getPlotLocation(plotIndex);
 	}
 	
@@ -50,7 +50,7 @@ public class OnePlotManager {
 	 */
 	public static Location getPlotLocation(int plotIndex) {
 		int[] gridPosition = OnePlotCalculator.getPlotGridPosition(plotIndex);
-		return new Location(oneBlockWorld, gridPosition[0] * PLOT_SIZE, 70, gridPosition[1] * PLOT_SIZE);
+		return new Location(WORLD, gridPosition[0] * PLOT_SIZE, 70, gridPosition[1] * PLOT_SIZE);
 	}
 
 }

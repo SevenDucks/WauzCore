@@ -1,6 +1,6 @@
 name: Survival Shop
 type: Global
-amount: 4
+amount: 7
 items:
   1:
     type: SurvivalNether
@@ -23,6 +23,24 @@ items:
   4:
     type: ShieldPotionT2
     amount: 1
+    price: 45
+    currency: tokens
+    relation: 0
+  5:
+    type: VanillaIronIngot
+    amount: 8
+    price: 15
+    currency: tokens
+    relation: 0
+  6:
+    type: VanillaIronIngot
+    amount: 32
+    price: 45
+    currency: tokens
+    relation: 0
+  7:
+    type: VanillaDiamond
+    amount: 3
     price: 45
     currency: tokens
     relation: 0

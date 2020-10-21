@@ -39,6 +39,13 @@ public interface ArcadeMinigame {
 	public List<Player> endGame();
 	
 	/**
+	 * Handles the start event, that gets fired when the start countdown ends.
+	 */
+	public default void handleStartEvent() {
+		
+	}
+	
+	/**
 	 * Handles the given quit event, that occured in the minigame.
 	 * 
 	 * @param player The player who quit.

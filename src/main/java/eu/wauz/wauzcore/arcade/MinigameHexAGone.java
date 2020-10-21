@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -77,6 +78,9 @@ public class MinigameHexAGone implements ArcadeMinigame {
 		breakingBlocks.addAll(new ShapeHexagon(floorLocation.subtract(0, 10, 0), 12).create(Material.RED_CONCRETE));
 		Location spawnLocation = new Location(world, 750.5, 88, 750.5, 0, 0);
 		ArcadeUtils.placeTeam(players, spawnLocation, 6, 6);
+		for(Player player : ArcadeLobby.getPlayingPlayers()) {
+			player.getLocation().getBlock().getRelative(BlockFace.DOWN).setType(Material.BARRIER);
+		}
 		ArcadeUtils.runStartTimer(10, 180);
 	}
 
@@ -93,6 +97,16 @@ public class MinigameHexAGone implements ArcadeMinigame {
 		eliminatedPlayers.clear();
 		maxLosingPlayers = 1;
 		return winners;
+	}
+	
+	/**
+	 * Handles the start event, that gets fired when the start countdown ends.
+	 */
+	@Override
+	public void handleStartEvent() {
+		for(Player player : ArcadeLobby.getPlayingPlayers()) {
+			player.getLocation().getBlock().getRelative(BlockFace.DOWN).setType(Material.AIR);
+		}
 	}
 	
 	/**

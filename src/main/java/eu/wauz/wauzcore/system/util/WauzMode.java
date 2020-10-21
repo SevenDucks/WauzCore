@@ -94,7 +94,16 @@ public enum WauzMode {
 	 * @return If the entity is in the hub.
 	 */
 	public static boolean inHub(Entity entity) {
-		return entity.getWorld().getName().equals("HubNexus");
+		return inHub(entity.getWorld());
+	}
+	
+	/**
+	 * @param world The world for checking the mode.
+	 * 
+	 * @return If the word is the hub.
+	 */
+	public static boolean inHub(World world) {
+		return world.getName().equals("HubNexus");
 	}
 	
 	/**

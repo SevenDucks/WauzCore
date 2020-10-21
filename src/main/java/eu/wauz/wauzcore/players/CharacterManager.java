@@ -217,7 +217,7 @@ public class CharacterManager {
 		String characterPosition = null;
 		if(characterSlot.contains("OneBlock")) {
 			Location oneBlockLocation = OnePlotManager.getNextFreePlotLocation();
-			oneBlockLocation.getBlock().setType(Material.GRASS_BLOCK);
+			oneBlockLocation.getBlock().setType(Material.OAK_LOG);
 			characterPosition = (oneBlockLocation.getX() + 0.5) + " " + (oneBlockLocation.getY() + 1) + " " + (oneBlockLocation.getZ() + 0.5);
 		}
 		else {

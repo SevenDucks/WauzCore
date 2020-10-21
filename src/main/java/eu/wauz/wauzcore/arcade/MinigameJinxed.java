@@ -11,7 +11,9 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.potion.PotionEffectType;
 
+import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import net.md_5.bungee.api.ChatColor;
@@ -106,7 +108,7 @@ public class MinigameJinxed implements ArcadeMinigame {
 			jinxPlayers(ArcadeUtils.selectRandomPlayers(teamGreen, jinxedCount));
 			jinxPlayers(ArcadeUtils.selectRandomPlayers(teamBlue, jinxedCount));
 		}
-		ArcadeUtils.runStartTimer(10, 180);
+		ArcadeUtils.runStartTimer(10, 120);
 	}
 
 	/**
@@ -224,6 +226,8 @@ public class MinigameJinxed implements ArcadeMinigame {
 		}
 		jinxedBar.removePlayer(jinxer);
 		jinxedBar.addPlayer(jinxed);
+		SkillUtils.addPotionEffect(jinxed, PotionEffectType.BLINDNESS, 2, 50);
+		SkillUtils.addPotionEffect(jinxed, PotionEffectType.SLOW, 2, 50);
 		String jinxedName = getTeamColor(jinxed) + jinxed.getName() + ChatColor.DARK_PURPLE;
 		String jinxerName = getTeamColor(jinxer) + jinxer.getName() + ChatColor.DARK_PURPLE;
 		for(Player player : ArcadeLobby.getPlayingPlayers()) {

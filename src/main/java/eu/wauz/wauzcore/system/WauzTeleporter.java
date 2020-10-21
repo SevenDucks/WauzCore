@@ -7,10 +7,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
@@ -29,8 +31,6 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * @author Wauzmons
  */
 public class WauzTeleporter {
-	
-// Spawn and Hub
 	
 	/**
 	 * Teleports the player to the hub.
@@ -67,8 +67,6 @@ public class WauzTeleporter {
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
 	
-// Instances - Manual
-	
 	/**
 	 * Teleports the player to an instance.
 	 * The player can manually call this method.
@@ -93,7 +91,7 @@ public class WauzTeleporter {
 			return;
 		}	
 		String type = ItemUtils.getInstanceMapType(event.getItem());
-		String name = event.getItem().getItemMeta().getDisplayName().replaceAll("" + ChatColor.RESET, "");
+		String name = ChatColor.stripColor(event.getItem().getItemMeta().getDisplayName());
 		event.getItem().setAmount(event.getItem().getAmount() - 1);
 		
 		if(type.contains("Survival")) {
@@ -128,8 +126,6 @@ public class WauzTeleporter {
 		player.teleport(PlayerConfigurator.getCharacterLocation(player));
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
-	
-// Instances - Development
 	
 	/**
 	 * Teleports the player to a development instance (actually any world).
@@ -176,8 +172,6 @@ public class WauzTeleporter {
 		}
 		return InstanceManager.enter(player, instanceName);
 	}
-	
-// Player Groups
 	
 	/**
 	 * Teleports the player to another player.
@@ -231,7 +225,7 @@ public class WauzTeleporter {
 			}
 			int maxDeaths = instance.getMaxDeaths();
 			if(maxDeaths > 0 && instance.getPlayerDeaths(player) >= maxDeaths) {
-				player.sendMessage(ChatColor.RED + "You already died too much in this instance!");
+				player.sendMessage(ChatColor.RED + "You already died too often in this instance!");
 				player.closeInventory();
 				return;
 			}
@@ -242,7 +236,44 @@ public class WauzTeleporter {
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
 	
-// Hearthstone
+	/**
+	 * Teleports the player per command.
+	 * The player can manually call this method.
+	 * Not usable when mounted.
+	 * Not usable when in hub.
+	 * Not usable when location is in another gamemode.
+	 * Not usable when location is in another (non instance) world.
+	 * 
+	 * @param event The teleport event.
+	 */
+	public static void commandTeleport(PlayerTeleportEvent event) {
+		Player player = event.getPlayer();
+		
+		if(player.isInsideVehicle()) {
+			event.setCancelled(true);
+			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
+			return;
+		}
+		World sourceWorld = event.getFrom().getWorld();
+		World targetWorld = event.getTo().getWorld();
+		String sourceWorldName = sourceWorld.getName();
+		String targetWorldName = targetWorld.getName();
+		if(WauzMode.inHub(sourceWorld)) {
+			event.setCancelled(true);
+			player.sendMessage(ChatColor.RED + "You can't do that in this world!");
+			return;
+		}
+		if(!Objects.equals(WauzMode.getMode(sourceWorldName), WauzMode.getMode(targetWorldName))) {
+			event.setCancelled(true);
+			player.sendMessage(ChatColor.RED + "You can only teleport to locations in the same gamemode!");
+			return;
+		}
+		if(!targetWorldName.contains("Instance") && !targetWorldName.equals(sourceWorldName)) {
+			event.setCancelled(true);
+			player.sendMessage(ChatColor.RED + "You can only teleport to locations in instances or the same world!");
+			return;
+		}
+	}
 	
 	/**
 	 * Teleports the player to their home.
@@ -275,8 +306,6 @@ public class WauzTeleporter {
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
 	
-// Waypoint
-	
 	/**
 	 * Teleports the player to a waypoint.
 	 * The player can manually call this method.
@@ -307,8 +336,6 @@ public class WauzTeleporter {
 		player.sendMessage(ChatColor.GREEN + "You were warped to '" + waypoint.getWaypointDisplayName() + "'!");
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 	}
-	
-// Event
 	
 	/**
 	 * Teleports the player to an event.

@@ -12,6 +12,8 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.event.player.PlayerRecipeDiscoverEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.event.world.WorldInitEvent;
 
 import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent;
@@ -19,11 +21,13 @@ import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
+import eu.wauz.wauzcore.oneblock.OneBlock;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
@@ -72,6 +76,20 @@ public class PlayerAmbientListener implements Listener {
 	}
 	
 	/**
+	 * Checks if a player is allowed to teleport to another location.
+	 * 
+	 * @param event The teleport event.
+	 * 
+	 * @see WauzTeleporter#commandTeleport(PlayerTeleportEvent)
+	 */
+	@EventHandler
+	public void onTeleport(PlayerTeleportEvent event) {
+		if(event.getCause().equals(TeleportCause.COMMAND)) {
+			WauzTeleporter.commandTeleport(event);
+		}
+	}
+	
+	/**
 	 * Prevents players to break blocks in certain regions.
 	 * 
 	 * @param event The break event.
@@ -81,7 +99,12 @@ public class PlayerAmbientListener implements Listener {
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
-		if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString()) && WauzRegion.disallowBuild(event.getBlock())) {
+		Block block = event.getBlock();
+		if(OneBlock.isOneBlock(block)) {
+			event.setCancelled(true);
+			OneBlock.breakOneBlock(player, block);
+		}
+		else if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString()) && WauzRegion.disallowBuild(block)) {
 			event.setCancelled(true);
 			player.sendMessage(ChatColor.RED + "You can't build here! Find another spot!");
 		}

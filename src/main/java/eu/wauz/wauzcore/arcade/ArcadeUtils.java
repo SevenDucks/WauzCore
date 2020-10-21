@@ -86,7 +86,7 @@ public class ArcadeUtils {
 		for(Player player : players) {
 			player.getEquipment().setChestplate(WauzEquipment.getCosmeticItem(Material.LEATHER_CHESTPLATE, color));
 			player.getEquipment().setLeggings(WauzEquipment.getCosmeticItem(Material.LEATHER_LEGGINGS, color));
-			player.getEquipment().setBoots(WauzEquipment.getCosmeticItem(Material.LEATHER_LEGGINGS, color));
+			player.getEquipment().setBoots(WauzEquipment.getCosmeticItem(Material.LEATHER_BOOTS, color));
 			player.sendMessage(ChatColor.YELLOW + "You are in " + name + ChatColor.YELLOW + "!");
 		}
 	}
@@ -181,6 +181,7 @@ public class ArcadeUtils {
 						player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 1, 1);
 						player.sendTitle("", ChatColor.GOLD + "START", 2, 14, 4);
 						WauzNoteBlockPlayer.play(player, "Olympus Mons");
+						ArcadeLobby.handleStartEvent();
 					}
 					runEndTimer(secondsTillEnd - 1);
 				}
