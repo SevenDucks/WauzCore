@@ -138,6 +138,7 @@ public class WauzCitizenSpawner {
 	 */
 	public static void showNpc(NPC npc, Player player) {
 		if(!npc.isShown(player)) {
+			npc = npc.create();
 			npc.show(player);
 		}
 	}

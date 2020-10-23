@@ -13,8 +13,6 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
-import eu.wauz.wauzcore.system.WauzPermission;
-import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -114,16 +112,7 @@ public class WauzModeMenu implements WauzInventory {
 		if(modeName == null) {
 			return;
 		}
-		if(modeName.contains("ALPHA ")) {
-			boolean staff = WauzRank.getRank(player).getRankPermission().equals(WauzPermission.SYSTEM);
-			if(staff) {
-				modeName = modeName.replace("ALPHA ", "");
-			}
-			else {
-				player.sendMessage(ChatColor.RED + "This gamemode isn't public yet!");
-				return;
-			}
-		}
+		modeName = modeName.replace("ALPHA ", "");
 		if(modeName.equals("MMORPG")) {
 			CharacterSlotMenu.open(player, WauzMode.MMORPG);
 		}

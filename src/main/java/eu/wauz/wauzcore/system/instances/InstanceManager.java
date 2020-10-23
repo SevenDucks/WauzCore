@@ -232,7 +232,6 @@ public class InstanceManager {
 	 * @see InstanceManager#placeExitSign(Block, BlockFace)
 	 */
 	private static void createSpawnCircle(World world, Location location) {
-		// TODO
 		Vector vector = new BlockVector(location.getX(), location.getY(), location.getZ());
 		int radius = 7;
 		for(int x = -radius; x <= radius; x++) {

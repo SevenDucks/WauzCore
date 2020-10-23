@@ -125,10 +125,8 @@ public class WauzCore extends JavaPlugin {
 			WauzRepeatingTasks.schedule(this);
 			getLogger().info("Scheduled Repeating Tasks!");
 		}
-		else {
-			if(WauzModules.isPetsModuleActive()) {
-				pluginManager.registerEvents(new PetModuleListener(), this);
-			}
+		else if(WauzModules.isPetsModuleActive()) {
+			pluginManager.registerEvents(new PetModuleListener(), this);
 		}
 	}
 
@@ -143,18 +141,20 @@ public class WauzCore extends JavaPlugin {
 	 */
 	@Override
 	public void onDisable() {
-		webServerManager.stop();
-		getLogger().info("Stopped WebServerManager!");
-		
-		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-			WauzPlayerRegistrator.logout(player);
+		if(WauzModules.isMainModuleActive()) {
+			webServerManager.stop();
+			getLogger().info("Stopped WebServerManager!");
+			
+			for(Player player : Bukkit.getServer().getOnlinePlayers()) {
+				WauzPlayerRegistrator.logout(player);
+			}
+			getLogger().info("Logged Out Players!");
+			
+			for(World world : Bukkit.getWorlds()) {
+				InstanceManager.closeInstance(world);
+			}
+			getLogger().info("Closed Active Instances!");
 		}
-		getLogger().info("Logged Out Players!");
-		
-		for(World world : Bukkit.getWorlds()) {
-			InstanceManager.closeInstance(world);
-		}
-		getLogger().info("Closed Active Instances!");
 	}
 
 	/**

@@ -163,16 +163,16 @@ public class PlayerInteractionListener implements Listener {
 	}
 
 	/**
-	 * Lets the mapper decide how to handle the interaction with an entity.
+	 * Handles possible interactions with pets.
 	 * 
 	 * @param event The interact event.
 	 * 
-	 * @see EventMapper#handleEntityInteraction(PlayerInteractEntityEvent)
+	 * @see WauzActivePet#handlePetInteraction(PlayerInteractEntityEvent)
 	 */
 	@EventHandler
 	public void onEntityInteraction(PlayerInteractEntityEvent event) {
-		if(WauzMode.isMMORPG(event.getPlayer()) && event.getRightClicked().getCustomName() != null) {
-			EventMapper.handleEntityInteraction(event);
+		if(WauzMode.isMMORPG(event.getPlayer())) {
+			WauzActivePet.handlePetInteraction(event);
 		}
 	}
 	

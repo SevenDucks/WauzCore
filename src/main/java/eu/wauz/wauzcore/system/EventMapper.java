@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -78,33 +77,6 @@ public class EventMapper {
 		for(Material material : customItem.getCustomItemMaterials()) {
 			customItemMap.put(material, customItem);
 		}
-	}
-	
-	/**
-	 * Called when a player interacts with an entity.
-	 * Cancels the sit command for pets.
-	 * 
-	 * @param event The interact event.
-	 */
-	public static void handleEntityInteraction(PlayerInteractEntityEvent event) {
-//		Player player = event.getPlayer();
-//		Entity entity = event.getRightClicked();
-//		
-//		TODO
-//		if(player.equals(PetOverviewMenu.getOwner(entity)) && entity instanceof Wolf) {
-//			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
-//	            
-//				public void run() {
-//	            	try {
-//	            		((Wolf) entity).setSitting(false);
-//	            	}
-//	            	catch (NullPointerException e) {
-//	            		WauzDebugger.catchException(getClass(), e);
-//	            	}
-//	            }
-//				
-//			}, 10);
-//		}
 	}
 	
 	/**

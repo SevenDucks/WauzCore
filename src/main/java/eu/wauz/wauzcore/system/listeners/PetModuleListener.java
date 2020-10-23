@@ -2,13 +2,16 @@ package eu.wauz.wauzcore.system.listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
+import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * A listener to catch events, related to the standalone pet module.
@@ -38,6 +41,20 @@ public class PetModuleListener implements Listener {
 		if(itemStack.getType().toString().endsWith("_SPAWN_EGG") && PetEggUtils.isEggItem(itemStack)) {
 			WauzPetEgg.tryToSummon(event);
 			event.setCancelled(true);
+		}
+	}
+	
+	/**
+	 * Handles possible interactions with pets.
+	 * 
+	 * @param event The interact event.
+	 * 
+	 * @see WauzActivePet#handlePetInteraction(PlayerInteractEntityEvent)
+	 */
+	@EventHandler
+	public void onEntityInteraction(PlayerInteractEntityEvent event) {
+		if(WauzMode.isMMORPG(event.getPlayer())) {
+			WauzActivePet.handlePetInteraction(event);
 		}
 	}
 

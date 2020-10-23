@@ -9,10 +9,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Tameable;
+import org.bukkit.entity.Wolf;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.players.calc.SpeedCalculator;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzModules;
 
 /**
@@ -113,6 +117,32 @@ public class WauzActivePet {
 	public static int getPetStat(Player player, WauzPetStat stat) {
 		WauzActivePet pet = WauzActivePet.getPet(player);
 		return pet != null ? pet.getPetStat(stat) : 0;
+	}
+	
+	/**
+	 * Called when a player interacts with an entity.
+	 * Cancels the sit command for pets.
+	 * 
+	 * @param event The interact event.
+	 */
+	public static void handlePetInteraction(PlayerInteractEntityEvent event) {
+		Player player = event.getPlayer();
+		Entity entity = event.getRightClicked();
+		
+		if(player.equals(getOwner(entity)) && entity instanceof Wolf) {
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+	            
+				public void run() {
+	            	try {
+	            		((Wolf) entity).setSitting(false);
+	            	}
+	            	catch (NullPointerException e) {
+	            		WauzDebugger.catchException(getClass(), e);
+	            	}
+	            }
+				
+			}, 10);
+		}
 	}
 	
 	/**

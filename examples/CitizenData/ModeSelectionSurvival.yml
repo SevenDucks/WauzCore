@@ -1,7 +1,7 @@
 display: Survival
 name:
   - Gamemode Selection
-  - §6OneBlockl§r
+  - §6OneBlock§r
   - ''
 world: HubNexus
 location: -49.5 98 68.5 180 0
@@ -15,5 +15,5 @@ items:
   chestplate:
   leggings:
   boots:
-modeselect: OneBlock
+modeselect: OneBlock and Survival
 interactions:

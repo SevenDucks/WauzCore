@@ -21,6 +21,8 @@ import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzPermission;
+import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -66,6 +68,13 @@ public class CharacterSlotMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player, WauzMode wauzMode) {
+		if(wauzMode.equals(WauzMode.MMORPG) || wauzMode.equals(WauzMode.ARCADE)) {
+			boolean staff = WauzRank.getRank(player).getRankPermission().equals(WauzPermission.SYSTEM);
+			if(!staff) {
+				player.sendMessage(ChatColor.RED + "This gamemode isn't public yet!");
+				return;
+			}
+		}
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterSlotMenu());
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Slot!");
 
