@@ -59,17 +59,13 @@ public class WauzPetEgg {
 	
 	/**
 	 * Tries to spawn a pet by interacting with its egg item stack.
-	 * If it is a shift interaction the pet menu will be opened.
 	 * 
 	 * @param event The interact event.
 	 */
 	public static void tryToSummon(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
-		if(player.isSneaking()) {
-			// TODO
-		}
-		else if(event.getAction().toString().contains("RIGHT")) {
+		if(event.getAction().toString().contains("RIGHT")) {
 			try {
 				if(WauzActivePet.tryToUnsummon(player, true)) {
 					return;

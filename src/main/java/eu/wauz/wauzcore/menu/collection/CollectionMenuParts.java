@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
@@ -70,14 +71,14 @@ public class CollectionMenuParts {
 		
 		ItemStack petsItemStack = MenuIconHeads.getTamesItem();
 		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
-		petsItemMeta.setDisplayName(ChatColor.GOLD + "Pets");
+		petsItemMeta.setDisplayName(ChatColor.GOLD + "Breeding");
 		List<String> petsLores = new ArrayList<>();
 //		TODO
 //		petsLores.add(ChatColor.DARK_PURPLE + "Used Pet Slots: " + ChatColor.YELLOW
 //				+ PlayerPetsConfigurator.getCharacterUsedPetSlots(player) + " / 5");
 		petsLores.add("");
-		petsLores.add(ChatColor.GRAY + "View and Summon your tamed Pets.");
-		petsLores.add(ChatColor.GRAY + "Breed them to get stronger Offsprings.");
+		petsLores.add(ChatColor.GRAY + "Breed your collected Pets");
+		petsLores.add(ChatColor.GRAY + "and obtain stronger Offsprings.");
 		petsItemMeta.setLore(petsLores);
 		petsItemStack.setItemMeta(petsItemMeta);
 		menu.setItem(startIndex + 2, petsItemStack);
@@ -146,10 +147,9 @@ public class CollectionMenuParts {
 			AchievementsMenu.open(player);
 			return true;
 		}
-		else if(HeadUtils.isHeadMenuItem(clicked, "Pets")) {
-//			TODO
-//			PetOverviewMenu.open(player, -1);
-//			return true;
+		else if(HeadUtils.isHeadMenuItem(clicked, "Breeding")) {
+			BreedingMenu.open(player, PlayerSkillConfigurator.getTamingSkill(player));
+			return true;
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Currencies")) {
 			CurrencyMenu.open(player);

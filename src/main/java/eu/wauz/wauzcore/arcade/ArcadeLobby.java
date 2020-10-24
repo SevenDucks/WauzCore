@@ -247,7 +247,9 @@ public class ArcadeLobby {
 	 * Handles the start event, that gets fired when the start countdown ends.
 	 */
 	public static void handleStartEvent() {
-		
+		if(minigame != null) {
+			minigame.handleStartEvent();
+		}
 	}
 	
 	/**

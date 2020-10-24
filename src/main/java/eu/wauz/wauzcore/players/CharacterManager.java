@@ -219,6 +219,9 @@ public class CharacterManager {
 			Location oneBlockLocation = OnePlotManager.getNextFreePlotLocation();
 			oneBlockLocation.getBlock().setType(Material.OAK_LOG);
 			characterPosition = (oneBlockLocation.getX() + 0.5) + " " + (oneBlockLocation.getY() + 1) + " " + (oneBlockLocation.getZ() + 0.5);
+			playerDataConfig.set("oneblock.phase", 1);
+			playerDataConfig.set("oneblock.level", 1);
+			playerDataConfig.set("oneblock.block", 1);
 		}
 		else {
 			Location spawnLocation = core.getServer().getWorld(characterWorldString).getSpawnLocation();
@@ -286,6 +289,7 @@ public class CharacterManager {
 			playerDataConfig.set("stats.agilitypts", 0);
 			
 			playerDataConfig.set("skills.crafting", 1);
+			playerDataConfig.set("skills.taming", 0);
 			playerDataConfig.set("skills.sword", startingStats.getSwordSkill());
 			playerDataConfig.set("skills.swordmax", startingStats.getSwordSkillMax());
 			playerDataConfig.set("skills.axe", startingStats.getAxeSkill());
