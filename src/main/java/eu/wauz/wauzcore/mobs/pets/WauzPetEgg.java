@@ -6,10 +6,12 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.items.util.PetEggUtils;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
@@ -88,6 +90,25 @@ public class WauzPetEgg {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * Tries to feed a pet by dragging food on its egg item stack.
+	 * 
+	 * @param event The click event.
+	 * 
+	 * @return If the pet and food items were valid.
+	 */
+	public static boolean tryToFeed(InventoryClickEvent event) {
+		ItemStack eggItemStack = event.getCurrentItem();
+		ItemStack foodItemStack = event.getCursor();
+		if(PetEggUtils.isEggItem(eggItemStack) && PetEggUtils.isFoodItem(foodItemStack)) {
+			event.setCancelled(true);
+			// TODO
+			foodItemStack.setAmount(foodItemStack.getAmount() - 1);
+			return true;
+		}
+		return false;
 	}
 
 }

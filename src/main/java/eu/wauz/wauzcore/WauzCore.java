@@ -23,6 +23,7 @@ import eu.wauz.wauzcore.system.WauzRepeatingTasks;
 import eu.wauz.wauzcore.system.api.WebServerManager;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
+import eu.wauz.wauzcore.system.listeners.BaseModuleListener;
 import eu.wauz.wauzcore.system.listeners.BlockProtectionListener;
 import eu.wauz.wauzcore.system.listeners.InventoryListener;
 import eu.wauz.wauzcore.system.listeners.MythicMobsListener;
@@ -125,8 +126,11 @@ public class WauzCore extends JavaPlugin {
 			WauzRepeatingTasks.schedule(this);
 			getLogger().info("Scheduled Repeating Tasks!");
 		}
-		else if(WauzModules.isPetsModuleActive()) {
-			pluginManager.registerEvents(new PetModuleListener(), this);
+		else {
+			pluginManager.registerEvents(new BaseModuleListener(), this);
+			if(WauzModules.isPetsModuleActive()) {
+				pluginManager.registerEvents(new PetModuleListener(), this);
+			}
 		}
 	}
 

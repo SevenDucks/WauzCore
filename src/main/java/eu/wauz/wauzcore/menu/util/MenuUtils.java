@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.items.scrolls.WauzScrolls;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
+import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
@@ -287,7 +288,9 @@ public class MenuUtils {
 			event.setCancelled(true);
 			return;
 		}
-		WauzScrolls.onScrollItemInteract(event, itemName);
+		if(!WauzPetEgg.tryToFeed(event)) {
+			WauzScrolls.onScrollItemInteract(event, itemName);
+		}
 	}
 	
 	/**

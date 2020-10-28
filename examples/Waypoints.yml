@@ -46,6 +46,10 @@ ForestOfSouls:
   name: Forest of Souls
   world: Dalyreos
   coords: -6034.5 79 5620.5
+OldBrewery:
+  name: Old Brewery
+  world: Dalyreos
+  coords: -5949.5 78 5000.5
 Teranos:
   name: Teranos Village
   world: Dalyreos

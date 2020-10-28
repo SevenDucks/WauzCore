@@ -267,7 +267,7 @@ public class EventMapper {
 	
 	/**
 	 * Called when a player closes an inventory menu.
-	 * If the inventory has a fitting inventory holder, it tries properly destroy the menu contents.
+	 * If the inventory has a fitting inventory holder, it tries to properly destroy the menu contents.
 	 * 
 	 * @param event The inventory close event.
 	 * 

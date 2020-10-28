@@ -27,6 +27,18 @@ public class PetEggUtils {
 	}
 	
 	/**
+	 * Checks if an item stack is a pet food item, based on lore.
+	 * Includes null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return If the item is a pet food item.
+	 */
+	public static boolean isFoodItem(ItemStack itemStack) {
+		return ItemUtils.hasLore(itemStack) && ItemUtils.doesLoreContain(itemStack, "Pet Food");
+	}
+	
+	/**
 	 * Gets the category of an egg item stack, based on lore.
 	 * Does NOT include null check.
 	 * 
