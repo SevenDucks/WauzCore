@@ -51,6 +51,19 @@ public class PetEggUtils {
 	}
 	
 	/**
+	 * Gets a stat of an pet food item stack, based on lore.
+	 * Does NOT include null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * @param stat The stat to get.
+	 * 
+	 * @return The stat value of the item.
+	 */
+	public static int getPetFoodStat(ItemStack itemStack, WauzPetStat stat) {
+		return ItemUtils.getIntegerFromLore(itemStack, "Pet " + stat.getName() + ":" + ChatColor.GREEN, 2);
+	}
+	
+	/**
 	 * Gets a stat of an egg item stack, based on lore.
 	 * Does NOT include null check.
 	 * 

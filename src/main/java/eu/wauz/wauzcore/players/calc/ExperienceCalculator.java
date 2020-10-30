@@ -148,7 +148,7 @@ public class ExperienceCalculator {
 		double multiplier = 1 + (weaponBonus / 100.0) + (armorBonus / 100.0);
 		
 		int petInt = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Intelligence"));
-		multiplier += (float) petInt / 10f;
+		multiplier += (float) petInt / 200f;
 		
 		return experience * multiplier;
 	}

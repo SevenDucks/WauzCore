@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.PetConfigurator;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * A pet, generated from the pet config file.
@@ -46,10 +48,111 @@ public class WauzPet {
 	}
 	
 	/**
+	 * @param rarity The pet rarity of the parents.
+	 * @param category The pet category.
+	 * 
+	 * @return The pets matching the filter criteria.
+	 */
+	public static List<WauzPet> getMatchingPets(WauzPetRarity rarity, String category) {
+		return getAllPets().stream()
+			.filter(pet -> pet.getRarity().equals(rarity))
+			.filter(pet -> pet.getCategory().equals(category))
+			.collect(Collectors.toList());
+	}
+	
+	/**
+	 * @return A list of all pets.
+	 */
+	public static List<WauzPet> getAllPets() {
+		return new ArrayList<>(petMap.values());
+	}
+	
+	/**
 	 * @return A list of all pet keys.
 	 */
 	public static List<String> getAllPetKeys() {
 		return new ArrayList<>(petMap.keySet());
+	}
+	
+	/**
+	 * Gets a random new pet, based off its parent's rarity and category.
+	 * 30% chance for a higher rarity, 60% for the same, 10% for a lower one.
+	 * 
+	 * @param rarity The pet rarity of the parents.
+	 * @param category The pet category.
+	 * 
+	 * @return The offspring pet.
+	 */
+	public static WauzPet getOffspring(WauzPetRarity rarity, String category) {
+		int randomizer = Chance.randomInt(100);
+		if(randomizer > 30) {
+			return getHigherRarityOffspring(rarity, category);
+		}
+		else if(randomizer < 90) {
+			return getSameRarityOffspring(rarity, category);
+		}
+		else {
+			return getLowerRarityOffspring(rarity, category);
+		}
+	}
+	
+	/**
+	 * Gets a new random pet, with a higher rarity than its parents.
+	 * If that is not possible, a same rarity pet is returned.
+	 * 
+	 * @param rarity The pet rarity of the parents.
+	 * @param category The pet category.
+	 * 
+	 * @return The offspring pet.
+	 */
+	private static WauzPet getHigherRarityOffspring(WauzPetRarity rarity, String category) {
+		int oldRarityNumber = rarity.getMultiplier();
+		if(oldRarityNumber >= WauzPetRarity.values().length) {
+			return getSameRarityOffspring(rarity, category);
+		}
+		
+		WauzPetRarity newRarity = WauzPetRarity.values()[oldRarityNumber];
+		List<WauzPet> pets = getMatchingPets(newRarity, category);
+		if(pets.isEmpty()) {
+			return getSameRarityOffspring(rarity, category);
+		}
+		return pets.get(Chance.randomInt(pets.size()));
+	}
+	
+	/**
+	 * Gets a new random pet, with a lower rarity than its parents.
+	 * If that is not possible, a same rarity pet is returned.
+	 * 
+	 * @param rarity The pet rarity of the parents.
+	 * @param category The pet category.
+	 * 
+	 * @return The offspring pet.
+	 */
+	private static WauzPet getLowerRarityOffspring(WauzPetRarity rarity, String category) {
+		int oldRarityNumber = rarity.getMultiplier();
+		if(oldRarityNumber <= 1) {
+			return getSameRarityOffspring(rarity, category);
+		}
+		
+		WauzPetRarity newRarity = WauzPetRarity.values()[oldRarityNumber - 2];
+		List<WauzPet> pets = getMatchingPets(newRarity, category);
+		if(pets.isEmpty()) {
+			return getSameRarityOffspring(rarity, category);
+		}
+		return pets.get(Chance.randomInt(pets.size()));
+	}
+	
+	/**
+	 * Gets a new random pet, with the same rarity as its parents.
+	 * 
+	 * @param rarity The pet rarity of the parents.
+	 * @param category The pet category.
+	 * 
+	 * @return The offspring pet.
+	 */
+	private static WauzPet getSameRarityOffspring(WauzPetRarity rarity, String category) {
+		List<WauzPet> pets = getMatchingPets(rarity, category);
+		return pets.get(Chance.randomInt(pets.size()));
 	}
 	
 	/**

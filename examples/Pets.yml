@@ -1,13 +1,13 @@
 stats:
   Intelligence:
     name: Int
-    description: Gain 10% Bonus Experience Points per Level
+    description: Gain 0.5% Bonus Experience Points per Level
   Dexterity:
     name: Dex
-    description: Adds 10% per Level to your Movement Speed
+    description: Adds 0.3% per Level to your Movement Speed
   Absorption:
     name: Abs
-    description: Absorbs 10% Defense per Level from Damage
+    description: Absorbs 1% Defense per Level from Damage
 levels:
   1:
     exp: 1
@@ -70,7 +70,211 @@ levels:
       EPIC: 7200 # 2 hours
       UNIQUE: 43200 # 12 hours
 pets:
-  Charlie:
-    mob: PetCharlie
+  Heinz:
+    mob: PetChicken
+    category: Farm
+    rarity: COMMON
+  Caerbannog:
+    mob: PetRabbit
+    category: Farm
+    rarity: COMMON
+  Lambert:
+    mob: PetSheep
+    category: Farm
+    rarity: COMMON
+  Plopper:
+    mob: PetPig
+    category: Farm
+    rarity: MAGIC
+  Betsie:
+    mob: PetCow
+    category: Farm
+    rarity: MAGIC
+  Garfield:
+    mob: PetCat
+    category: Farm
+    rarity: MAGIC
+  Maya:
+    mob: PetBee
+    category: Farm
+    rarity: RARE
+  Funny:
+    mob: PetWolf
+    category: Farm
+    rarity: RARE
+  Hogger:
+    mob: PetHoglin
+    category: Farm
+    rarity: RARE
+  Paul:
+    mob: PetLlama
+    category: Farm
+    rarity: EPIC
+  Milkshake:
+    mob: PetMilkshake
+    category: Farm
+    rarity: EPIC
+  Carl:
+    mob: PetTraderLlama
+    category: Farm
+    rarity: UNIQUE
+  Angus:
+    mob: PetBrownMooshroom
+    category: Farm
+    rarity: UNIQUE
+  Goo:
+    mob: PetSlime
+    category: Exotic
+    rarity: COMMON
+  Batthew:
+    mob: PetBet
+    category: Exotic
+    rarity: COMMON
+  Bubbles:
+    mob: PetCod
+    category: Exotic
+    rarity: COMMON
+  Squidward:
+    mob: PetSquid
     category: Exotic
     rarity: MAGIC
+  Leonardo:
+    mob: PetTurtle
+    category: Exotic
+    rarity: MAGIC
+  Saskia:
+    mob: PetSalmon
+    category: Exotic
+    rarity: MAGIC
+  Burney:
+    mob: PetMagmaCube
+    category: Exotic
+    rarity: RARE
+  Charlie:
+    mob: PetParrot
+    category: Exotic
+    rarity: RARE
+  Cheetah:
+    mob: PetOcelot
+    category: Exotic
+    rarity: RARE
+  Flocki:
+    mob: PetFox
+    category: Exotic
+    rarity: EPIC
+  Flipper:
+    mob: PetDolphin
+    category: Exotic
+    rarity: EPIC
+  Po:
+    mob: PetPanda
+    category: Exotic
+    rarity: UNIQUE
+  Bernard:
+    mob: PetPolarBear
+    category: Exotic
+    rarity: UNIQUE
+  Bob:
+    mob: PetVillager
+    category: Human
+    rarity: COMMON
+  Voss:
+    mob: PetZombie
+    category: Human
+    rarity: COMMON
+  Jack:
+    mob: PetSkeleton
+    category: Human
+    rarity: COMMON
+  Tormund:
+    mob: PetPillager
+    category: Human
+    rarity: MAGIC
+  Rob:
+    mob: PetZombieVillager
+    category: Human
+    rarity: MAGIC
+  Ramses:
+    mob: PetHusk
+    category: Human
+    rarity: MAGIC
+  Blair:
+    mob: PetWitch
+    category: Human
+    rarity: RARE
+  Jason:
+    mob: PetDrowned
+    category: Human
+    rarity: RARE
+  Walker:
+    mob: PetStray
+    category: Human
+    rarity: RARE
+  Azog:
+    mob: PetPiglin
+    category: Human
+    rarity: EPIC
+  Jastor:
+    mob: PetWanderingTrader
+    category: Human
+    rarity: EPIC
+  Merlin:
+    mob: PetIllusioner
+    category: Human
+    rarity: UNIQUE
+  Colossus:
+    mob: PetIronGolem
+    category: Human
+    rarity: UNIQUE
+  Frosty:
+    mob: PetSnowGolem
+    category: Monster
+    rarity: COMMON
+  Twister:
+    mob: PetSilverfish
+    category: Monster
+    rarity: COMMON
+  Shelob:
+    mob: PetSpider
+    category: Monster
+    rarity: COMMON
+  Blocc:
+    mob: PetShulker
+    category: Monster
+    rarity: MAGIC
+  Kevin:
+    mob: PetEndermite
+    category: Monster
+    rarity: MAGIC
+  Muffet:
+    mob: PetCaveSpider
+    category: Monster
+    rarity: MAGIC
+  Inferno:
+    mob: PetBlaze
+    category: Monster
+    rarity: RARE
+  Boomer:
+    mob: PetCreeper
+    category: Monster
+    rarity: RARE
+  Mordon:
+    mob: PetStrider
+    category: Monster
+    rarity: RARE
+  Femto:
+    mob: PetPhantom
+    category: Monster
+    rarity: EPIC
+  Beholder:
+    mob: PetBeholder
+    category: Monster
+    rarity: EPIC
+  Slender:
+    mob: PetEnderman
+    category: Monster
+    rarity: UNIQUE
+  Zodd:
+    mob: PetRavager
+    category: Monster
+    rarity: UNIQUE

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -31,11 +32,12 @@ public class WauzPetEgg {
 	/**
 	 * Generates an egg item stack for the given pet.
 	 * 
+	 * @param owner The owner of the pet.
 	 * @param pet The pet to get an egg item of.
 	 * 
 	 * @return The generated egg item stack.
 	 */
-	public static ItemStack getEggItem(WauzPet pet) {
+	public static ItemStack getEggItem(Player owner, WauzPet pet) {
 		WauzPetRarity rarity = pet.getRarity();
 		ItemStack itemStack = new ItemStack(rarity.getMaterial());
 		ItemMeta itemMeta = itemStack.getItemMeta();
@@ -45,14 +47,16 @@ public class WauzPetEgg {
 		lores.add(ChatColor.WHITE + rarity.getName() + " Pet Egg " + ChatColor.LIGHT_PURPLE + rarity.getStars());
 		lores.add("");
 		lores.add("Category:" + ChatColor.GREEN + " " + pet.getCategory());
-		int maxStat = 2 * rarity.getMultiplier();
+		int maxStat = 20 * rarity.getMultiplier();
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
 			String description = " " + ChatColor.GRAY + stat.getDescription();
 			lores.add(stat.getName() + ":" + ChatColor.GREEN + " " + 0 + " / " + maxStat + description);
 		}
 		lores.add("");
-		lores.add(ChatColor.GRAY + "Use while Sneaking to open Menu");
-		lores.add(ChatColor.GRAY + "Right Click to summon Pet");
+		lores.add(ChatColor.GRAY + "Right Click to (un)summon Pet");
+		lores.add(ChatColor.GRAY + "Drag Pet Food on Egg to raise Stats");
+		lores.add("");
+		lores.add(ChatColor.DARK_GRAY + "Owner-ID: " + owner.getUniqueId().toString());
 		
 		itemMeta.setLore(lores);	
 		itemStack.setItemMeta(itemMeta);
@@ -100,13 +104,17 @@ public class WauzPetEgg {
 	 * @return If the pet and food items were valid.
 	 */
 	public static boolean tryToFeed(InventoryClickEvent event) {
+		Player player = (Player) event.getWhoClicked();
 		ItemStack eggItemStack = event.getCurrentItem();
 		ItemStack foodItemStack = event.getCursor();
 		if(PetEggUtils.isEggItem(eggItemStack) && PetEggUtils.isFoodItem(foodItemStack)) {
 			event.setCancelled(true);
-			// TODO
-			foodItemStack.setAmount(foodItemStack.getAmount() - 1);
-			return true;
+			if(new WauzPetFoodStats(foodItemStack).tryToApply(eggItemStack)) {
+				WauzActivePet.tryToUnsummon(player, true);
+				foodItemStack.setAmount(foodItemStack.getAmount() - 1);
+				player.playSound(player.getLocation(), Sound.ENTITY_FOX_EAT, 1, 1);
+				return true;
+			}
 		}
 		return false;
 	}

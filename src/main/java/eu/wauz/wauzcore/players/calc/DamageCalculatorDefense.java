@@ -171,7 +171,7 @@ public class DamageCalculatorDefense {
 		
 		float multiplier = PlayerSkillConfigurator.getStrengthFloat(player);
 		int petAbs = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Absorption"));
-		multiplier += (float) petAbs / 10f;
+		multiplier += (float) petAbs / 100f;
 		
 		WauzDebugger.log(player, "Defense Multiplier: " + Formatters.DEC.format(multiplier));	
 		damage -= (int) ((float) defense * multiplier);

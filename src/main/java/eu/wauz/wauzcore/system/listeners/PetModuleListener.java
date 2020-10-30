@@ -1,10 +1,12 @@
 package eu.wauz.wauzcore.system.listeners;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
@@ -66,6 +68,18 @@ public class PetModuleListener implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
 		WauzPetEgg.tryToFeed(event);
+	}
+	
+	/**
+	 * Unsummons the active pet before logging out a player.
+	 * 
+	 * @param event The logout event.
+	 * 
+	 * @see WauzActivePet#tryToUnsummon(Player, boolean)
+	 */
+	@EventHandler
+	public void onLogout(PlayerQuitEvent event) {
+		WauzActivePet.tryToUnsummon(event.getPlayer(), true);
 	}
 
 }

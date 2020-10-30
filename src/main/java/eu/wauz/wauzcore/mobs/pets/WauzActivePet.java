@@ -130,6 +130,7 @@ public class WauzActivePet {
 		Entity entity = event.getRightClicked();
 		
 		if(player.equals(getOwner(entity)) && entity instanceof Wolf) {
+			event.setCancelled(true);
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 	            
 				public void run() {

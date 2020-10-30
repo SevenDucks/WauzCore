@@ -24,7 +24,7 @@ public class SpeedCalculator {
 	public static void resetWalkSpeed(Player player) {
 		float bonusSpeed = 0;
 		int petDex = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Dexterity"));
-		bonusSpeed += (float) petDex * 0.02f;
+		bonusSpeed += (float) petDex * 0.0006;
 		player.setWalkSpeed(0.2f + bonusSpeed);
 	}
 	
