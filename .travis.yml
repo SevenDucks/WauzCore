@@ -37,4 +37,4 @@ script:
 deploy:
   provider: script
   script: "mvn -B -V deploy"
-  cleanup: false
+  skip_cleanup: true
