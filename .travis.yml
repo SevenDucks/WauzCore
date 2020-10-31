@@ -9,6 +9,7 @@ cache:
 install: true
 
 script:
+- cp .travis.settings.xml $HOME/.m2/settings.xml
 - wget -O BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 - java -jar BuildTools.jar --rev 1.16.3 > /dev/null 2>&1
 - ls
@@ -31,5 +32,7 @@ script:
 - cd ../WauzUnit
 - mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 
-- cd ..
-- mvn deploy -Dregistry=https://maven.pkg.github.com/Wauzmons -Dtoken=$GH_TOKEN
+deploy:
+  provider: script
+  script: "mvn -B -V clean deploy"
+  skip_cleanup: true
