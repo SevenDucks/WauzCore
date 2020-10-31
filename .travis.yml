@@ -31,5 +31,5 @@ script:
 - cd ../WauzUnit
 - mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 
-after_success:
+- cd ..
 - mvn deploy -Dregistry=https://maven.pkg.github.com/Wauzmons -Dtoken=$GH_TOKEN
