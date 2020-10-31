@@ -32,8 +32,8 @@ script:
 - cd ../WauzUnit
 - mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 
+- cd ..
+
 deploy:
   provider: script
-  script:
-  - cd ..
-  - mvn -B -V deploy
+  script: "mvn -B -V deploy"
