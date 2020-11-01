@@ -60,7 +60,7 @@ public class PetEggUtils {
 	 * @return The stat value of the item.
 	 */
 	public static int getPetFoodStat(ItemStack itemStack, WauzPetStat stat) {
-		return ItemUtils.getIntegerFromLore(itemStack, "Pet " + stat.getName() + ":" + ChatColor.GREEN, 2);
+		return ItemUtils.getIntegerFromLore(itemStack, "Pet " + stat.getName() + ":", 2);
 	}
 	
 	/**

@@ -61,7 +61,7 @@ public class WauzPetFoodStats {
 			if(currentValue < maximumValue) {
 				currentValue = currentValue + entry.getValue() <= maximumValue ? currentValue + entry.getValue() : maximumValue;
 				PetEggUtils.setPetStat(eggItemStack, stat, currentValue, maximumValue);
-				return true;
+				result = true;
 			}
 		}
 		return result;

@@ -12,51 +12,51 @@ levels:
   1:
     exp: 1
     breedtime:
-      COMMON: 3600 # 1 hour
+      NORMAL: 3600 # 1 hour
   2:
     exp: 10
     breedtime:
-      COMMON: 2700 # 45 min
+      NORMAL: 2700 # 45 min
   3:
     exp: 30
     breedtime:
-      COMMON: 1800 # 30 min
+      NORMAL: 1800 # 30 min
       MAGIC: 7200 # 2 hours
   4:
     exp: 60
     breedtime:
-      COMMON: 1200 # 20 min
+      NORMAL: 1200 # 20 min
       MAGIC: 5400 # 1.5 hours
   5:
     exp: 100
     breedtime:
-      COMMON: 900 # 15 min
+      NORMAL: 900 # 15 min
       MAGIC: 3600 # 1 hour
       RARE: 21600 # 6 hours
   6:
     exp: 150
     breedtime:
-      COMMON: 600 # 10 min
+      NORMAL: 600 # 10 min
       MAGIC: 2700 # 45 min
       RARE: 10800 # 3 hours
   7:
     exp: 225
     breedtime:
-      COMMON: 300 # 5 min
+      NORMAL: 300 # 5 min
       MAGIC: 1800 # 30 min
       RARE: 7200 # 2 hours
       EPIC: 86400 # 1 day
   8:
     exp: 375
     breedtime:
-      COMMON: 180 # 3 min
+      NORMAL: 180 # 3 min
       MAGIC: 1200 # 20 min
       RARE: 3600 # 1 hours
       EPIC: 43200 # 12 hours
   9:
     exp: 600
     breedtime:
-      COMMON: 120 # 2 min
+      NORMAL: 120 # 2 min
       MAGIC: 900 # 15 min
       RARE: 2700 # 45 min
       EPIC: 14400 # 4 hours
@@ -64,7 +64,7 @@ levels:
   10:
     exp: 1000
     breedtime:
-      COMMON: 60 # 1 min
+      NORMAL: 60 # 1 min
       MAGIC: 600 # 10 min
       RARE: 1800 # 30 min
       EPIC: 7200 # 2 hours
@@ -73,25 +73,17 @@ pets:
   Heinz:
     mob: PetChicken
     category: Farm
-    rarity: COMMON
-  Caerbannog:
-    mob: PetRabbit
-    category: Farm
-    rarity: COMMON
+    rarity: NORMAL
   Lambert:
     mob: PetSheep
     category: Farm
-    rarity: COMMON
+    rarity: NORMAL
   Plopper:
     mob: PetPig
     category: Farm
     rarity: MAGIC
   Betsie:
     mob: PetCow
-    category: Farm
-    rarity: MAGIC
-  Garfield:
-    mob: PetCat
     category: Farm
     rarity: MAGIC
   Maya:
@@ -102,54 +94,34 @@ pets:
     mob: PetWolf
     category: Farm
     rarity: RARE
-  Hogger:
-    mob: PetHoglin
-    category: Farm
-    rarity: RARE
   Paul:
     mob: PetLlama
     category: Farm
     rarity: EPIC
   Milkshake:
-    mob: PetMilkshake
+    mob: PetMooshroom
     category: Farm
     rarity: EPIC
   Carl:
     mob: PetTraderLlama
     category: Farm
     rarity: UNIQUE
-  Angus:
-    mob: PetBrownMooshroom
-    category: Farm
-    rarity: UNIQUE
   Goo:
     mob: PetSlime
     category: Exotic
-    rarity: COMMON
+    rarity: NORMAL
   Batthew:
-    mob: PetBet
+    mob: PetBat
     category: Exotic
-    rarity: COMMON
-  Bubbles:
-    mob: PetCod
-    category: Exotic
-    rarity: COMMON
+    rarity: NORMAL
   Squidward:
     mob: PetSquid
-    category: Exotic
-    rarity: MAGIC
-  Leonardo:
-    mob: PetTurtle
     category: Exotic
     rarity: MAGIC
   Saskia:
     mob: PetSalmon
     category: Exotic
     rarity: MAGIC
-  Burney:
-    mob: PetMagmaCube
-    category: Exotic
-    rarity: RARE
   Charlie:
     mob: PetParrot
     category: Exotic
@@ -170,28 +142,16 @@ pets:
     mob: PetPanda
     category: Exotic
     rarity: UNIQUE
-  Bernard:
-    mob: PetPolarBear
-    category: Exotic
-    rarity: UNIQUE
   Bob:
     mob: PetVillager
     category: Human
-    rarity: COMMON
+    rarity: NORMAL
   Voss:
     mob: PetZombie
     category: Human
-    rarity: COMMON
-  Jack:
-    mob: PetSkeleton
-    category: Human
-    rarity: COMMON
+    rarity: NORMAL
   Tormund:
     mob: PetPillager
-    category: Human
-    rarity: MAGIC
-  Rob:
-    mob: PetZombieVillager
     category: Human
     rarity: MAGIC
   Ramses:
@@ -206,10 +166,6 @@ pets:
     mob: PetDrowned
     category: Human
     rarity: RARE
-  Walker:
-    mob: PetStray
-    category: Human
-    rarity: RARE
   Azog:
     mob: PetPiglin
     category: Human
@@ -222,26 +178,14 @@ pets:
     mob: PetIllusioner
     category: Human
     rarity: UNIQUE
-  Colossus:
-    mob: PetIronGolem
-    category: Human
-    rarity: UNIQUE
-  Frosty:
-    mob: PetSnowGolem
-    category: Monster
-    rarity: COMMON
   Twister:
     mob: PetSilverfish
     category: Monster
-    rarity: COMMON
+    rarity: NORMAL
   Shelob:
     mob: PetSpider
     category: Monster
-    rarity: COMMON
-  Blocc:
-    mob: PetShulker
-    category: Monster
-    rarity: MAGIC
+    rarity: NORMAL
   Kevin:
     mob: PetEndermite
     category: Monster
@@ -258,23 +202,15 @@ pets:
     mob: PetCreeper
     category: Monster
     rarity: RARE
-  Mordon:
-    mob: PetStrider
-    category: Monster
-    rarity: RARE
   Femto:
     mob: PetPhantom
     category: Monster
     rarity: EPIC
   Beholder:
-    mob: PetBeholder
+    mob: PetGuardian
     category: Monster
     rarity: EPIC
   Slender:
     mob: PetEnderman
-    category: Monster
-    rarity: UNIQUE
-  Zodd:
-    mob: PetRavager
     category: Monster
     rarity: UNIQUE

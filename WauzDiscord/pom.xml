@@ -72,7 +72,7 @@
 		<dependency>
 			<groupId>net.dv8tion</groupId>
 			<artifactId>JDA</artifactId>
-			<version>4.0.0_39</version>
+			<version>4.2.0_214</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -118,6 +118,12 @@
 						</goals>
 						<configuration>
 							<finalName>WauzDiscord</finalName>
+							<relocations>
+								<relocation>
+									<pattern>com.fasterxml</pattern>
+									<shadedPattern>shaded.com.fasterxml</shadedPattern>
+								</relocation>
+							</relocations>
 							<artifactSet>
 								<excludes>
 									<exclude>eu.wauz:WauzCore</exclude>

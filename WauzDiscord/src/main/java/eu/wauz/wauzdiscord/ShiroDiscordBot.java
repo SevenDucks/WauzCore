@@ -1,6 +1,9 @@
 package eu.wauz.wauzdiscord;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
@@ -11,7 +14,6 @@ import eu.wauz.wauzcore.system.SystemAnalytics;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzdiscord.data.DiscordConfigurator;
 import eu.wauz.wauzdiscord.music.MusicManager;
-import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -22,6 +24,8 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 /**
  * The Discord bot running on the server.
@@ -77,8 +81,12 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	 * @see ShiroDiscordBot#setupAudioPlayer()
 	 */
 	public ShiroDiscordBot() {
-		JDABuilder jdaBuilder = new JDABuilder(AccountType.BOT);
-		jdaBuilder.setToken(ShiroDiscordBotConfiguration.TOKEN);
+		List<GatewayIntent> intents = new ArrayList<>();
+		intents.addAll(Arrays.asList(GatewayIntent.values()));
+		intents.remove(GatewayIntent.GUILD_MEMBERS);
+		intents.remove(GatewayIntent.GUILD_PRESENCES);
+		JDABuilder jdaBuilder = JDABuilder.create(ShiroDiscordBotConfiguration.TOKEN, intents);
+		jdaBuilder.disableCache(CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS);
 		jdaBuilder.setAutoReconnect(true);
 		jdaBuilder.setStatus(OnlineStatus.ONLINE);
 		jdaBuilder.setActivity(Activity.playing(ShiroDiscordBotConfiguration.PLAYS_MESSAGE));
