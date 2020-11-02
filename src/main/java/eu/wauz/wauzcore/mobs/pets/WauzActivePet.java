@@ -116,7 +116,7 @@ public class WauzActivePet {
 	 */
 	public static int getPetStat(Player player, WauzPetStat stat) {
 		WauzActivePet pet = WauzActivePet.getPet(player);
-		return pet != null ? pet.getPetStat(stat) : 0;
+		return pet != null ? pet.getActivePetStat(stat) : 0;
 	}
 	
 	/**
@@ -183,7 +183,7 @@ public class WauzActivePet {
 	 * 
 	 * @return The stat value of the pet.
 	 */
-	public int getPetStat(WauzPetStat stat) {
+	public int getActivePetStat(WauzPetStat stat) {
 		return petStatMap.get(stat);
 	}
 	

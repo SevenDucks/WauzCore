@@ -71,6 +71,15 @@ public class RankConfigurator extends GlobalConfigurationUtils {
 		return mainConfigGetBoolean("Ranks", rank + ".op");
 	}
 	
+	/**
+	 * @param rank The name of the rank.
+	 * 
+	 * @return If the rank is a staff only rank.
+	 */
+	public static boolean isRankStaff(String rank) {
+		return mainConfigGetBoolean("Ranks", rank + ".staff");
+	}
+	
 // Daily Rewards
 	
 	/**

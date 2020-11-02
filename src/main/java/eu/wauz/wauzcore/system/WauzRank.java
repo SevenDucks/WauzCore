@@ -104,6 +104,11 @@ public class WauzRank {
 	private boolean grantOp;
 	
 	/**
+	 * If the rank is a staff only rank.
+	 */
+	private boolean isStaff;
+	
+	/**
 	 * The daily coin reward of the rank.
 	 */
 	private int dailyCoins;
@@ -130,6 +135,7 @@ public class WauzRank {
 		rankPermission = RankConfigurator.getRankPermission(rankName);
 		rankPermissionLevel = RankConfigurator.getRankPermissionLevel(rankName);
 		grantOp = RankConfigurator.hasRankOp(rankName);
+		isStaff = RankConfigurator.isRankStaff(rankName);
 		dailyCoins = RankConfigurator.getRankRewardCoins(rankName);
 		dailySoulstones = RankConfigurator.getRankRewardSoulstones(rankName);
 		shopDiscount = RankConfigurator.getRankRewardDiscount(rankName);
@@ -175,6 +181,13 @@ public class WauzRank {
 	 */
 	public boolean isGrantOp() {
 		return grantOp;
+	}
+
+	/**
+	 * @return If the rank is a staff only rank.
+	 */
+	public boolean isStaff() {
+		return isStaff;
 	}
 
 	/**

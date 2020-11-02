@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.bukkit.entity.Horse;
+
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.PetConfigurator;
 import eu.wauz.wauzcore.system.util.Chance;
@@ -176,6 +178,11 @@ public class WauzPet {
 	private WauzPetRarity rarity;
 	
 	/**
+	 * The horse color of the pet. Null if not a horse.
+	 */
+	private Horse.Color horseColor;
+	
+	/**
 	 * Constructor for a new pet.
 	 * 
 	 * @param key The key of the pet.
@@ -184,6 +191,9 @@ public class WauzPet {
 		this.key = key;
 		this.name = PetConfigurator.getName(key);
 		this.category = PetConfigurator.getCategory(key);
+		if(category.equals("Horse")) {
+			horseColor = Horse.Color.valueOf(name.toUpperCase());
+		}
 		this.rarity = PetConfigurator.getRarity(key);
 	}
 
@@ -213,6 +223,20 @@ public class WauzPet {
 	 */
 	public WauzPetRarity getRarity() {
 		return rarity;
+	}
+	
+	/**
+	 * @return The horse color of the pet. Null if not a horse.
+	 */
+	public Horse.Color getHorseColor() {
+		return horseColor;
+	}
+
+	/**
+	 * @return If the pet is a horse.
+	 */
+	public boolean isHorse() {
+		return horseColor != null;
 	}
 
 }

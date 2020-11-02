@@ -4,8 +4,11 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -18,6 +21,7 @@ import com.google.common.io.Files;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
@@ -49,12 +53,18 @@ public class StatisticsFetcher {
 	private static String totalPlaytimeDaysString;
 	
 	/**
+	 * The list of staff members, if already calculated.
+	 */
+	private static List<String> staffMembers;
+	
+	/**
 	 * Calculates all global statistics.
 	 */
 	public static void calculate() {
-		totalCustomEntitiesString = getTotalCustomEntities();
-		totalPlayersString = getTotalPlayers();
-		totalPlaytimeDaysString = getTotalPlaytimeDays();
+		totalCustomEntitiesString = fetchTotalCustomEntities();
+		totalPlayersString = fetchTotalPlayers();
+		totalPlaytimeDaysString = fetchTotalPlaytimeDays();
+		staffMembers = fetchStaffMemberList();
 	}
 	
 	/**
@@ -79,11 +89,18 @@ public class StatisticsFetcher {
 	}
 	
 	/**
+	 * @return The list of staff members, if already calculated.
+	 */
+	public static List<String> getStaffMemberList() {
+		return staffMembers;
+	}
+	
+	/**
 	 * Counts the amount of MythicMobs entity files, by iterating through the mobs folder.
 	 * 
 	 * @return The amount of MythicMobs entity files.
 	 */
-	private static String getTotalCustomEntities() {
+	private static String fetchTotalCustomEntities() {
 		int customEntities = 0;
 		String statisticsPath = core.getDataFolder().getAbsolutePath().replace("WauzCore", "MythicMobs/Mobs/Wauzland");
 		
@@ -109,7 +126,7 @@ public class StatisticsFetcher {
 	 * 
 	 * @return The amount of all players, that ever played.
 	 */
-	private static String getTotalPlayers() {
+	private static String fetchTotalPlayers() {
 		File statisticsFolder = new File(core.getDataFolder().getAbsolutePath().replace("plugins/WauzCore", "HubNexus/stats/"));
 		return Integer.toString(statisticsFolder.list().length);
 	}
@@ -119,7 +136,7 @@ public class StatisticsFetcher {
 	 * 
 	 * @return The amount of days all players together played.
 	 */
-	private static String getTotalPlaytimeDays() {
+	private static String fetchTotalPlaytimeDays() {
 		long playedHours = 0;
 		String statisticsPath = core.getDataFolder().getAbsolutePath().replace("plugins/WauzCore", "HubNexus/stats/%uuid%.json");
 		for(OfflinePlayer player : Bukkit.getOfflinePlayers()) {
@@ -127,6 +144,23 @@ public class StatisticsFetcher {
 			playedHours += getPlayedHoursFromStatistics(statisticsFile);
 		}
 		return Long.toString(playedHours / 24);
+	}
+	
+	/**
+	 * Iterates trough all players and creates an ordered list of staff members ad their ranks.
+	 * 
+	 * @return The list of staff members.
+	 */
+	private static List<String> fetchStaffMemberList() {
+		Comparator<Pair<OfflinePlayer, WauzRank>> comparator = Comparator.comparing(pair -> - pair.getValue().getRankPermissionLevel());
+		comparator = comparator.thenComparing(pair -> pair.getKey().getName());
+		
+		return Arrays.asList(Bukkit.getServer().getOfflinePlayers()).stream()
+				.map(player -> Pair.of(player, WauzRank.getRank(player)))
+				.filter(pair -> pair.getValue().isStaff())
+				.sorted(comparator)
+				.map(pair -> pair.getValue().getRankName() + " :: " + pair.getKey().getName())
+				.collect(Collectors.toList());
 	}
 	
 	/**

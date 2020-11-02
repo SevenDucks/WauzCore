@@ -261,22 +261,22 @@ public class WauzEquipmentBuilder {
 		if(type.equals(EquipmentType.WEAPON)) {	
 			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Weapon " + rarityStars);
 			lores.add("");
-			lores.add("Attack:" + ChatColor.RED + " " + attackStat + scalingString);
+			lores.add(ChatColor.WHITE + "Attack:" + ChatColor.RED + " " + attackStat + scalingString);
 			sellValue = (int) (attackStat * (Math.random() + 0.5) + 1);
 		}
 		else if(type.equals(EquipmentType.ARMOR)) {		
 			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Armor " + rarityStars);
 			lores.add("");
-			lores.add("Defense:" + ChatColor.BLUE + " " + defenseStat + scalingString);
+			lores.add(ChatColor.WHITE + "Defense:" + ChatColor.BLUE + " " + defenseStat + scalingString);
 			sellValue = (int) (attackStat * (Math.random() + 0.5) * 3 + 1);
 		}
 		for(String enhancementString : enhancementStrings) {
-			lores.add(enhancementString);
+			lores.add(ChatColor.WHITE + enhancementString);
 		}
 		addLoreIfNotBlank(lores, speedString);
 		addLoreIfNotBlank(lores, armorCategoryString);
 		addLoreIfNotBlank(lores, durabilityString);
-		lores.add("Sell Value:" + ChatColor.DARK_GREEN + " " + sellValue);
+		lores.add(ChatColor.WHITE + "Sell Value:" + ChatColor.DARK_GREEN + " " + sellValue);
 		applyCustomItemProperties(lores, EventMapper.getCustomItem(itemStack.getType()), rarity);
 		
 		itemMeta.setLore(lores);
@@ -299,7 +299,7 @@ public class WauzEquipmentBuilder {
 	 */
 	private void addLoreIfNotBlank(List<String> lores, String lore) {
 		if(StringUtils.isNotBlank(lore)) {
-			lores.add(lore);
+			lores.add(ChatColor.WHITE + lore);
 		}
 	}
 	

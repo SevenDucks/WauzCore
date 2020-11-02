@@ -35,6 +35,7 @@ public class WauzPetStat {
 			petStats.add(stat);
 			petStatMap.put(key, stat);
 		}
+		new WauzPetStat("Speed", "Spd", "Determines the Horse Speed", true);
 	}
 	
 	/**
@@ -76,7 +77,12 @@ public class WauzPetStat {
 	private String description;
 	
 	/**
-	 * Constructor for a new pet stat.
+	 * If the stat is a horse stat.
+	 */
+	private boolean horse;
+	
+	/**
+	 * Constructor for a new (non horse) pet stat.
 	 * 
 	 * @param key The key of the pet stat.
 	 */
@@ -84,6 +90,24 @@ public class WauzPetStat {
 		this.key = key;
 		this.name = PetConfigurator.getPetStatName(key);
 		this.description = PetConfigurator.getPetStatDescription(key);
+		this.horse = false;
+	}
+	
+	/**
+	 * Constructor for a new pet stat.
+	 * 
+	 * @param key The key of the pet stat.
+	 * @param name The short display name of the pet stat.
+	 * @param description The effect description of the pet stat.
+	 * @param horse If the stat is a horse stat.
+	 */
+	public WauzPetStat(String key, String name, String description, boolean horse) {
+		this.key = key;
+		this.name = name;
+		this.description = description;
+		this.horse = horse;
+		petStats.add(this);
+		petStatMap.put(key, this);
 	}
 
 	/**
@@ -105,6 +129,13 @@ public class WauzPetStat {
 	 */
 	public String getDescription() {
 		return description;
+	}
+
+	/**
+	 * @return If the stat is a horse stat.
+	 */
+	public boolean isHorse() {
+		return horse;
 	}
 
 }

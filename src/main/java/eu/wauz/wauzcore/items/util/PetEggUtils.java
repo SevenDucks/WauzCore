@@ -109,8 +109,8 @@ public class PetEggUtils {
 	 */
 	public static boolean setPetStat(ItemStack itemStack, WauzPetStat stat, int value, int max) {
 		String description = " " + ChatColor.GRAY + stat.getDescription();
-		String oldStatLore = stat.getName() + ":" + ChatColor.GREEN + " ";
-		String newStatLore = stat.getName() + ":" + ChatColor.GREEN + " " + value + " / " + max + description;
+		String oldStatLore = ChatColor.WHITE + stat.getName() + ":" + ChatColor.GREEN + " ";
+		String newStatLore = ChatColor.WHITE + stat.getName() + ":" + ChatColor.GREEN + " " + value + " / " + max + description;
 		return ItemUtils.replaceStringFromLore(itemStack, oldStatLore, newStatLore);
 	}
 

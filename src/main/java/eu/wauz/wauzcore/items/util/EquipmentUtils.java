@@ -138,8 +138,8 @@ public class EquipmentUtils {
 	 * @see EquipmentUtils#getBaseAtk(ItemStack)
 	 */
 	public static boolean setBaseAtk(ItemStack itemStack, int newAttack) {
-		String oldAttackLore = "Attack:" + ChatColor.RED + " ";
-		String newAttackLore = "Attack:" + ChatColor.RED + " " + newAttack;
+		String oldAttackLore = ChatColor.WHITE + "Attack:" + ChatColor.RED + " ";
+		String newAttackLore = ChatColor.WHITE + "Attack:" + ChatColor.RED + " " + newAttack;
 		return ItemUtils.replaceStringFromLore(itemStack, oldAttackLore, newAttackLore);
 	}
 	
@@ -169,8 +169,8 @@ public class EquipmentUtils {
 	 * @see EquipmentUtils#getBaseDef(ItemStack)
 	 */
 	public static boolean setBaseDef(ItemStack itemStack, int newDefense) {
-		String oldDefenseLore = "Defense:" + ChatColor.BLUE + " ";
-		String newDefenseLore = "Defense:" + ChatColor.BLUE + " " + newDefense;
+		String oldDefenseLore = ChatColor.WHITE + "Defense:" + ChatColor.BLUE + " ";
+		String newDefenseLore = ChatColor.WHITE + "Defense:" + ChatColor.BLUE + " " + newDefense;
 		return ItemUtils.replaceStringFromLore(itemStack, oldDefenseLore, newDefenseLore);
 	}
 	
@@ -238,7 +238,7 @@ public class EquipmentUtils {
 	 * @see EquipmentUtils#getCurrentDurability(ItemStack)
 	 */
 	public static boolean setCurrentDurability(ItemStack itemStack, int durability) {
-		return ItemUtils.replaceStringFromLore(itemStack, "Durability:" + ChatColor.DARK_GREEN, 1, durability + "");
+		return ItemUtils.replaceStringFromLore(itemStack, ChatColor.WHITE + "Durability:" + ChatColor.DARK_GREEN, 1, durability + "");
 	}
 	
 	/**
@@ -253,8 +253,8 @@ public class EquipmentUtils {
 	 * @see EquipmentUtils#getMaximumDurability(ItemStack)
 	 */
 	public static boolean setMaximumDurability(ItemStack itemStack, int newDurability) {
-		String oldDurabilityLore = "Durability:" + ChatColor.DARK_GREEN + " ";
-		String newDurabilityLore = "Durability:" + ChatColor.DARK_GREEN + " " + newDurability;
+		String oldDurabilityLore = ChatColor.WHITE + "Durability:" + ChatColor.DARK_GREEN + " ";
+		String newDurabilityLore = ChatColor.WHITE + "Durability:" + ChatColor.DARK_GREEN + " " + newDurability;
 		newDurabilityLore += " " + ChatColor.DARK_GRAY + "/ " + newDurability;
 		DurabilityCalculator.setDamage(itemStack, 0);
 		return ItemUtils.replaceStringFromLore(itemStack, oldDurabilityLore, newDurabilityLore);

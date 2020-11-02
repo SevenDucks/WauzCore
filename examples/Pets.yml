@@ -1,13 +1,13 @@
 stats:
   Intelligence:
     name: Int
-    description: Gain 0.5% Bonus Experience Points per Level
+    description: + 0.5% Bonus Exp per Level
   Dexterity:
     name: Dex
-    description: Adds 0.3% per Level to your Movement Speed
+    description: + 0.3% Movement Speed per Level
   Absorption:
     name: Abs
-    description: Absorbs 1% Defense per Level from Damage
+    description: + 1.0% Armor Defense per Level
 levels:
   1:
     exp: 1
@@ -213,4 +213,24 @@ pets:
   Slender:
     mob: PetEnderman
     category: Monster
+    rarity: UNIQUE
+  Stallion:
+    mob: BROWN
+    category: Horse
+    rarity: NORMAL
+  Charger:
+    mob: BLACK
+    category: Horse
+    rarity: MAGIC
+  Goldenmane:
+    mob: CREAMY
+    category: Horse
+    rarity: RARE
+  Warsteed:
+    mob: GRAY
+    category: Horse
+    rarity: EPIC
+  Invincible:
+    mob: WHITE
+    category: Horse
     rarity: UNIQUE

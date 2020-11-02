@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
+import eu.wauz.wauzcore.system.nms.NmsEntityHorseMount;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
@@ -39,6 +44,7 @@ public class WauzPetEgg {
 	 */
 	public static ItemStack getEggItem(Player owner, WauzPet pet) {
 		WauzPetRarity rarity = pet.getRarity();
+		boolean isHorse = pet.isHorse();
 		ItemStack itemStack = new ItemStack(rarity.getMaterial());
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(rarity.getColor() + pet.getKey());
@@ -46,11 +52,13 @@ public class WauzPetEgg {
 		List<String> lores = new ArrayList<>();
 		lores.add(ChatColor.WHITE + rarity.getName() + " Pet Egg " + ChatColor.LIGHT_PURPLE + rarity.getStars());
 		lores.add("");
-		lores.add("Category:" + ChatColor.GREEN + " " + pet.getCategory());
+		lores.add(ChatColor.WHITE + "Category:" + ChatColor.GREEN + " " + pet.getCategory());
 		int maxStat = 20 * rarity.getMultiplier();
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
-			String description = " " + ChatColor.GRAY + stat.getDescription();
-			lores.add(stat.getName() + ":" + ChatColor.GREEN + " " + 0 + " / " + maxStat + description);
+			if(isHorse == stat.isHorse()) {
+				String description = " " + ChatColor.GRAY + stat.getDescription();
+				lores.add(ChatColor.WHITE + stat.getName() + ":" + ChatColor.GREEN + " " + 0 + " / " + maxStat + description);
+			}
 		}
 		lores.add("");
 		lores.add(ChatColor.GRAY + "Right Click to (un)summon Pet");
@@ -79,15 +87,28 @@ public class WauzPetEgg {
 				String petType = ChatColor.stripColor(itemStack.getItemMeta().getDisplayName());
 				WauzPet pet = WauzPet.getPet(petType);
 				MythicMob mob = null;
-				if(pet != null) {
+				if(pet != null && !pet.isHorse()) {
 					mob = mythicMobs.getMythicMob(pet.getName());
 				}
-				if(pet == null || mob == null) {
+				if(pet == null || (!pet.isHorse() && mob == null)) {
 					player.sendMessage(ChatColor.RED + "Your pet is invalid or outdated!");
 					return;
 				}
-				Entity entity = mythicMobs.spawnMythicMob(mob, player.getLocation(), 1);
-				WauzActivePet.setOwner(player, entity, itemStack);
+				
+				if(pet.isHorse()) {
+					Horse horse = NmsEntityHorseMount.create(player.getLocation(), pet.getHorseColor(), petType);
+					WauzActivePet.setOwner(player, horse, itemStack);
+					int petSpd = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Speed"));
+					horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.2 + (float) petSpd * 0.003f);
+					horse.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
+					horse.setHealth(20);
+					horse.getInventory().setSaddle(WauzEquipment.getCosmeticItem(Material.SADDLE));
+					horse.addPassenger(player);
+				}
+				else {
+					Entity entity = mythicMobs.spawnMythicMob(mob, player.getLocation(), 1);
+					WauzActivePet.setOwner(player, entity, itemStack);
+				}
 				player.sendMessage(ChatColor.GREEN + petType + " was summoned!");
 			}
 			catch (Exception e) {

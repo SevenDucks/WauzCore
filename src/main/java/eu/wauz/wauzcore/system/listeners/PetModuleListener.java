@@ -1,19 +1,24 @@
 package eu.wauz.wauzcore.system.listeners;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.spigotmc.event.entity.EntityDismountEvent;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
+import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
+import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDespawnEvent;
 
 /**
  * A listener to catch events, related to the standalone pet module.
@@ -71,6 +76,65 @@ public class PetModuleListener implements Listener {
 	}
 	
 	/**
+	 * Removes a player from the owner map, in case their pet dies.
+	 * 
+	 * @param event The death event.
+	 */
+	@EventHandler
+	public void onMythicDeath(MythicMobDeathEvent event) {
+		Entity entity = event.getEntity();
+		String mobId = entity.getUniqueId().toString();
+		Player mobOwner = WauzActivePet.getOwner(entity);
+		if(mobOwner != null) {
+			WauzActivePet.removeOwner(mobId, mobOwner);
+		}
+	}
+	
+	/**
+	 * Removes a player from the owner map, in case their pet despawns.
+	 * 
+	 * @param event The despawn event.
+	 */
+	@EventHandler
+	public void onMythicDespawn(MythicMobDespawnEvent event) {
+		Entity entity = event.getEntity();
+		String mobId = entity.getUniqueId().toString();
+		Player mobOwner = WauzActivePet.getOwner(entity);
+		if(mobOwner != null) {
+			WauzActivePet.removeOwner(mobId, mobOwner);
+		}
+	}
+	
+	/**
+	 * Makes a player's mount despawn when standing up.
+	 *
+	 * @param event The dismount event.
+	 */
+	@EventHandler
+	public void onDismount(EntityDismountEvent event) {
+		if(!(event.getEntity() instanceof Player)) {
+			return;
+		}
+		Player player = (Player) event.getEntity();
+		Entity owner = WauzActivePet.getOwner(event.getDismounted());
+		if(owner != null && owner.getUniqueId().equals(player.getUniqueId())) {
+			WauzActivePet.tryToUnsummon(player, false);
+		}
+	}
+	
+	/**
+	 * Unsummons the active pet after the player dies.
+	 * 
+	 * @param event The death event.
+	 * 
+	 * @see WauzActivePet#tryToUnsummon(Player, boolean)
+	 */
+	@EventHandler
+	public void onDeath(PlayerDeathEvent event) {
+		WauzActivePet.tryToUnsummon(event.getEntity(), false);
+	}
+	
+	/**
 	 * Unsummons the active pet before logging out a player.
 	 * 
 	 * @param event The logout event.
@@ -79,7 +143,7 @@ public class PetModuleListener implements Listener {
 	 */
 	@EventHandler
 	public void onLogout(PlayerQuitEvent event) {
-		WauzActivePet.tryToUnsummon(event.getPlayer(), true);
+		WauzActivePet.tryToUnsummon(event.getPlayer(), false);
 	}
-
+	
 }

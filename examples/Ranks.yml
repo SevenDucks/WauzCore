@@ -4,6 +4,7 @@ Normal:
   permission: NORMAL
   level: 1
   op: false
+  staff: false
   rewards:
     coins: 100
     soulstones: 0
@@ -14,6 +15,7 @@ Ultra:
   permission: NORMAL
   level: 2
   op: false
+  staff: false
   rewards:
     coins: 500
     soulstones: 1
@@ -24,6 +26,7 @@ Staff:
   permission: SYSTEM
   level: 3
   op: false
+  staff: true
   rewards:
     coins: 500
     soulstones: 1
@@ -34,6 +37,7 @@ Admin:
   permission: SYSTEM
   level: 4
   op: true
+  staff: true
   rewards:
     coins: 500
     soulstones: 500
@@ -44,6 +48,7 @@ Owner:
   permission: SYSTEM
   level: 1337
   op: true
+  staff: true
   rewards:
     coins: 500
     soulstones: 500

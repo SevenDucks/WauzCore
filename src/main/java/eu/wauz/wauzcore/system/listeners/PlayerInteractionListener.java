@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -29,7 +28,6 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.ItemStack;
 import org.spigotmc.event.entity.EntityDismountEvent;
-import org.spigotmc.event.entity.EntityMountEvent;
 
 import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.data.ServerConfigurator;
@@ -145,6 +143,9 @@ public class PlayerInteractionListener implements Listener {
 	public void onDeath(PlayerDeathEvent event) {
 		Player player = event.getEntity();
 		WauzPlayerRegistrator.respawn(player);
+		if(WauzMode.isMMORPG(player)) {
+			WauzActivePet.tryToUnsummon(player, false);
+		}
 		if(WauzMode.isArcade(player)) {
 			ArcadeLobby.handleDeathEvent(event);
 		}
@@ -306,29 +307,24 @@ public class PlayerInteractionListener implements Listener {
 	}
 	
 	/**
-	 * Prevents players to ride on mounts, that belong to someone else.
-	 * 
-	 * @param event The mount event.
-	 */
-	@EventHandler
-	public void onMount(EntityMountEvent event) {
-		Entity owner = WauzActivePet.getOwner(event.getMount());
-		if(owner != null && !owner.getUniqueId().equals(event.getEntity().getUniqueId())) {
-			event.getEntity().sendMessage(ChatColor.RED + "This is not your mount!");
-			event.setCancelled(true);
-		}
-	}
-	
-	/**
-	 * Makes a player stand up, if they were sitting.
+	 * Makes a player stand up, if they were sitting and despawns their mount.
 	 *
 	 * @param event The dismount event.
 	 */
 	@EventHandler
 	public void onDismount(EntityDismountEvent event) {
-		if(event.getEntity() instanceof Player && event.getDismounted() instanceof Arrow) {
+		if(!(event.getEntity() instanceof Player)) {
+			return;
+		}
+		Player player = (Player) event.getEntity();
+		if(event.getDismounted() instanceof Arrow) {
 			WauzDebugger.log((Player) event.getEntity(), "Stood Up");
 			WauzPlayerSit.standUp(event);
+			return;
+		}
+		Entity owner = WauzActivePet.getOwner(event.getDismounted());
+		if(owner != null && owner.getUniqueId().equals(player.getUniqueId())) {
+			WauzActivePet.tryToUnsummon(player, false);
 		}
 	}
 	

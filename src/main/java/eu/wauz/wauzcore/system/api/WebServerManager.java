@@ -46,6 +46,7 @@ public class WebServerManager implements HttpHandler {
 			server.createContext("/get/resourcepack", this);
 			server.createContext("/get/system", this);
 			server.createContext("/get/stats", this);
+			server.createContext("/get/staff", this);
 			server.createContext("/", this);
 			server.setExecutor(null);
 			server.start();
@@ -78,6 +79,9 @@ public class WebServerManager implements HttpHandler {
 		}
 		else if(path.equals("/get/stats")) {
 			sendStats(httpExchange);
+		}
+		else if(path.equals("/get/staff")) {
+			sendStaff(httpExchange);
 		}
 		else {
 			sendOverview(httpExchange);
@@ -144,6 +148,24 @@ public class WebServerManager implements HttpHandler {
 	}
 	
 	/**
+	 * Sends a response to the request, containing a list of all staff members.
+	 * 
+	 * @param httpExchange The encapsulated HTTP request.
+	 */
+	private static void sendStaff(HttpExchange httpExchange) {
+		try {
+			String response = "";
+			for(String staffString : StatisticsFetcher.getStaffMemberList()) {
+				response += "[" + staffString + "]\r\n";
+			}
+			sendTextResponse(httpExchange, response, false);
+		}
+		catch(Exception e) {
+			WauzDebugger.catchException(WebServerManager.class, e);
+		}
+	}
+	
+	/**
 	 * Sends a response to the request, containing links to the other requests.
 	 * 
 	 * @param httpExchange The encapsulated HTTP request.
@@ -155,6 +177,7 @@ public class WebServerManager implements HttpHandler {
 			response += "<a href=\"/get/resourcepack\">/get/resourcepack<a/></br>";
 			response += "<a href=\"/get/system\">/get/system<a/></br>";
 			response += "<a href=\"/get/stats\">/get/stats<a/></br>";
+			response += "<a href=\"/get/staff\">/get/staff<a/></br>";
 			response += "</body></html>";
 			sendTextResponse(httpExchange, response, true);
 		}

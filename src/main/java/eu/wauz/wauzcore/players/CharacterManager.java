@@ -123,7 +123,7 @@ public class CharacterManager {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
 		if(WauzMode.isMMORPG(player)) {
-			WauzActivePet.tryToUnsummon(player, true);
+			WauzActivePet.tryToUnsummon(player, false);
 		}
 		else if(WauzMode.isArcade(player)) {
 			ArcadeLobby.removePlayer(player);

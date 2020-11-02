@@ -87,9 +87,9 @@ public class WauzRuneBuilder {
 		int sellValue = (int) (mightStat * (Math.random() + 0.5) * 3 + 1);
 		lores.add(ChatColor.WHITE + tier.getName() + " " + rarity.getName() + " Rune " + ChatColor.GREEN + rarity.getStars());
 		lores.add("");
-		lores.add("Might:" + ChatColor.YELLOW + " " + mightStat);
+		lores.add(ChatColor.WHITE + "Might:" + ChatColor.YELLOW + " " + mightStat);
 		addLoreIfNotBlank(lores, successString);
-		lores.add("Sell Value:" + ChatColor.DARK_GREEN + " " + sellValue);
+		lores.add(ChatColor.WHITE + "Sell Value:" + ChatColor.DARK_GREEN + " " + sellValue);
 		lores.add("");
 		lores.add(ChatColor.GRAY + "Can be inserted into Equipment,");
 		lores.add(ChatColor.GRAY + "which possesses an empty Rune Slot.");
@@ -107,7 +107,7 @@ public class WauzRuneBuilder {
 	 */
 	private void addLoreIfNotBlank(List<String> lores, String lore) {
 		if(StringUtils.isNotBlank(lore)) {
-			lores.add(lore);
+			lores.add(ChatColor.WHITE + lore);
 		}
 	}
 
