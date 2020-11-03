@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 
 import eu.wauz.wauzcore.data.OneBlockConfigurator;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * A level of a phase of the one-block gamemode.
@@ -56,6 +58,8 @@ public class OnePhaseLevel {
 	public OnePhaseLevel(OnePhase phase, String levelKey) {
 		this.phase = phase;
 		this.levelKey = levelKey;
+		levelName = OneBlockConfigurator.getPhaseLevelName(phase.getPhaseKey(), levelKey);
+		blockAmount = OneBlockConfigurator.getPhaseLevelBlockAmount(phase.getPhaseKey(), levelKey);
 		
 		blocks = new ArrayList<>();
 		for(String blockString : OneBlockConfigurator.getPhaseLevelBlocks(phase.getPhaseKey(), levelKey)) {
@@ -66,6 +70,16 @@ public class OnePhaseLevel {
 				blocks.add(material);
 			}
 		}
+	}
+	
+	/**
+	 * Replaces the given block with a random block of the level.
+	 * 
+	 * @param block The block to replace.
+	 */
+	public void placeRandomBlock(Block block) {
+		Material material = blocks.get(Chance.randomInt(blocks.size()));
+		block.setType(material);
 	}
 
 	/**

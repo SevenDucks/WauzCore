@@ -70,7 +70,7 @@ public class WauzPlayerEventHomeChange implements WauzPlayerEvent {
 	public boolean execute(Player player) {
 		try {
 			player.closeInventory();
-			if(!WauzMode.isSurvival(player) && fromCommand) {
+			if((!WauzMode.isSurvival(player) || WauzMode.inOneBlock(player)) && fromCommand) {
 				player.sendMessage(ChatColor.RED + "You can't do that in this world!");
 				return true;
 			}

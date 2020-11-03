@@ -51,7 +51,7 @@ public class CmdMenu implements WauzCommand {
 		Player player = (Player) sender;
 		String menuType = args[0].toLowerCase();
 		
-		if(!WauzMode.inHub(player)) {
+		if(!WauzMode.inHub(player) && !WauzMode.inOneBlock(player)) {
 			MenuRegisterEntry menu = MenuRegister.getInventory(menuType);
 			if(menu != null && menu.getValidModes().contains(WauzMode.getMode(player))) {
 				menu.getInventory().openInstance(player);

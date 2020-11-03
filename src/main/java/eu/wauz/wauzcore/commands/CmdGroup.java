@@ -44,7 +44,7 @@ public class CmdGroup implements WauzCommand {
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
 		Player player = (Player) sender;
-		if((WauzMode.isMMORPG(player) || WauzMode.isSurvival(player)) && !WauzMode.inHub(player)) {
+		if((WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) || (WauzMode.isSurvival(player)) && !WauzMode.inOneBlock(player)) {
 			GroupMenu.open(player);
 			return true;
 		}

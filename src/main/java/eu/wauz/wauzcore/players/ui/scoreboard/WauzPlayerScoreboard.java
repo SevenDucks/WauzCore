@@ -47,7 +47,7 @@ public class WauzPlayerScoreboard {
             		}
             	}
             	else if(WauzMode.isSurvival(player)) {
-            		scoreboard = new SurvivalScoreboard(player).getScoreboard();
+            		scoreboard = (WauzMode.inOneBlock(player) ? new OneBlockScoreboard(player) : new SurvivalScoreboard(player)).getScoreboard();
             	}
             	else if(WauzMode.isArcade(player)) {
             		scoreboard = new ArcadeScoreboard(player).getScoreboard();

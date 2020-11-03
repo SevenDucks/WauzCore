@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.OneBlockConfigurator;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * A phase of the one-block gamemode.
@@ -21,9 +23,9 @@ import eu.wauz.wauzcore.data.OneBlockConfigurator;
 public class OnePhase {
 	
 	/**
-	 * A map of phases, indexed by their unique key.
+	 * A list of all one-block phases.
 	 */
-	private static Map<String, OnePhase> phaseMap = new HashMap<>();
+	private static List<OnePhase> phases = new ArrayList<>();
 	
 	/**
 	 * Initializes all one-block phases from the config and fills the internal phase map.
@@ -32,10 +34,32 @@ public class OnePhase {
 	 */
 	public static void init() {
 		for(String phaseKey : OneBlockConfigurator.getAllPhaseKeys()) {
-			phaseMap.put(phaseKey, new OnePhase(phaseKey));
+			phases.add(new OnePhase(phaseKey));
 		}
 		
-		WauzCore.getInstance().getLogger().info("Loaded " + phaseMap.size() + " OneBlock Phases!");
+		WauzCore.getInstance().getLogger().info("Loaded " + phases.size() + " OneBlock Phases!");
+	}
+	
+	/**
+	 * Gets the requested one-block phase.
+	 * If the phase is bigger than the phase count, the first phase is returned.
+	 * 
+	 * @param phase The number of the phase.
+	 * 
+	 * @return The requested phase.
+	 */
+	public static OnePhase get(int phase) {
+		if(phase > phases.size()) {
+			phase = 1;
+		}
+		return phases.get(phase - 1);
+	}
+	
+	/**
+	 * @return The count of all one-block phases.
+	 */
+	public static int count() {
+		return phases.size();
 	}
 	
 	/**
@@ -76,7 +100,7 @@ public class OnePhase {
 	/**
 	 * The chests that can spawn in this phase, indexed by type.
 	 */
-	private Map<OneChestType, OneChest> chests = new HashMap<>();
+	private Map<OneChestType, OneChest> chests;
 	
 	/**
 	 * Constructs a phase, based on the one-block file in the /WauzCore folder.
@@ -96,9 +120,49 @@ public class OnePhase {
 			phaseLevels.add(new OnePhaseLevel(this, levelKey));
 		}
 		
+		chests = new HashMap<>();
 		for(OneChestType chestType : OneChestType.values()) {
 			chests.put(chestType, new OneChest(this, chestType));
 		}
+	}
+	
+	/**
+	 * Gets the requested one-block phase level.
+	 * If the level is bigger than the level count, the first level is returned.
+	 * 
+	 * @param level The number of the level.
+	 * 
+	 * @return The requested level.
+	 */
+	public OnePhaseLevel getLevel(int level) {
+		if(level > phaseLevels.size()) {
+			level = 1;
+		}
+		return phaseLevels.get(level - 1);
+	}
+	
+	/**
+	 * Spawns a mob at the given location, depending on the phase's chances.
+	 * 
+	 * @param location The mob spawn location.
+	 * 
+	 * @return If a mob was spawned.
+	 */
+	public boolean tryToSpawnMob(Location location) {
+		if(!Chance.percent(mobSpawnChance)) {
+			return false;
+		}
+		List<EntityType> types = Chance.percent(mobHostileChance) ? hostileMobs : passiveMobs;
+		EntityType type = types.get(Chance.randomInt(types.size()));
+		location.getWorld().spawnEntity(location, type);
+		return true;
+	}
+	
+	/**
+	 * @return The count of all one-block phase levels.
+	 */
+	public int levelCount() {
+		return phaseLevels.size();
 	}
 
 	/**

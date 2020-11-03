@@ -2,8 +2,8 @@ phases:
   1:
     name: Test Phase
     mobs:
-      spawnchance: 0.3
-      hostilechance: 0.5
+      spawnchance: 0.1
+      hostilechance: 0.3
       passive:
       - 'PIG'
       - 'SHEEP'
@@ -34,7 +34,7 @@ phases:
         - 'CAKE 1 1-1'
     levels:
       1-1:
-        name: 1
+        name: Area 1
         blockamount: 20
         blocks:
         - 'GRASS_BLOCK 3'
@@ -42,7 +42,7 @@ phases:
         - 'STONE 2'
         - 'COAL_ORE 1'
       1-2:
-        name: 2
+        name: Area 2
         blockamount: 20
         blocks:
         - 'PODZOL 3'

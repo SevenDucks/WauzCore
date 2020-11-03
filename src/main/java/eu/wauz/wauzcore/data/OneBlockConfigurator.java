@@ -31,7 +31,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 	 * @return The keys of all levels of the phase.
 	 */
 	public static List<String> getPhaseLevelKeys(String phaseKey) {
-		return new ArrayList<>(mainConfigGetKeys("OneBlock", "phases. " + phaseKey + ".levels"));
+		return new ArrayList<>(mainConfigGetKeys("OneBlock", "phases." + phaseKey + ".levels"));
 	}
 	
 // Names
@@ -42,7 +42,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 	 * @return The display name of the phase.
 	 */
 	public static String getPhaseName(String phaseKey) {
-		return mainConfigGetString("OneBlock", "phases. " + phaseKey + ".name");
+		return mainConfigGetString("OneBlock", "phases." + phaseKey + ".name");
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 	 * @return The display name of the level.
 	 */
 	public static String getPhaseLevelName(String phaseKey, String levelKey) {
-		return mainConfigGetString("OneBlock", "phases. " + phaseKey + ".levels." + levelKey + ".name");
+		return mainConfigGetString("OneBlock", "phases." + phaseKey + ".levels." + levelKey + ".name");
 	}
 	
 // Mobs
@@ -63,7 +63,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 	 * @return The chance that a mob spawns, when a block is destroyed.
 	 */
 	public static double getMobSpawnChance(String phaseKey) {
-		return mainConfigGetDouble("OneBlock", "phases. " + phaseKey + ".mobs.spawnchance");
+		return mainConfigGetDouble("OneBlock", "phases." + phaseKey + ".mobs.spawnchance");
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 	 * @return The chance of it being hostile, when a mob spawns.
 	 */
 	public static double getMobHostileChance(String phaseKey) {
-		return mainConfigGetDouble("OneBlock", "phases. " + phaseKey + ".mobs.hostilechance");
+		return mainConfigGetDouble("OneBlock", "phases." + phaseKey + ".mobs.hostilechance");
 	}
 	
 	/**
@@ -83,7 +83,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 	 */
 	public static List<EntityType> getMobs(String phaseKey, boolean hostile) {
 		String mobCategory = hostile ? "hostile" : "passive";
-		List<String> mobNames = mainConfigGetStringList("OneBlock", "phases. " + phaseKey + ".mobs." + mobCategory);
+		List<String> mobNames = mainConfigGetStringList("OneBlock", "phases." + phaseKey + ".mobs." + mobCategory);
 		return mobNames.stream()
 				.map(mob -> EntityType.valueOf(mob))
 				.collect(Collectors.toList());
@@ -98,7 +98,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 	 * @return How many item stacks are contained in the chest.
 	 */
 	public static int getChestStackCount(String phaseKey, OneChestType chestType) {
-		return mainConfigGetInt("OneBlock", "phases. " + phaseKey + ".chests." + chestType.toString() + ".stackcount");
+		return mainConfigGetInt("OneBlock", "phases." + phaseKey + ".chests." + chestType.toString() + ".stackcount");
 	}
 	
 	/**
@@ -108,7 +108,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 	 * @return A list of strings, representing the possible items in the chest.
 	 */
 	public static List<String> getChestContentStrings(String phaseKey, OneChestType chestType) {
-		return mainConfigGetStringList("OneBlock", "phases. " + phaseKey + ".chests." + chestType.toString() + ".content");
+		return mainConfigGetStringList("OneBlock", "phases." + phaseKey + ".chests." + chestType.toString() + ".content");
 	}
 	
 // Blocks
@@ -120,7 +120,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 	 * @return How many blocks need to be mined, to proceed to the next level.
 	 */
 	public static int getPhaseLevelBlockAmount(String phaseKey, String levelKey) {
-		return mainConfigGetInt("OneBlock", "phases. " + phaseKey + ".levels." + levelKey + ".blockamount");
+		return mainConfigGetInt("OneBlock", "phases." + phaseKey + ".levels." + levelKey + ".blockamount");
 	}
 	
 	/**
@@ -130,7 +130,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 	 * @return A list of strings, representing the possible blocks spawning in the level.
 	 */
 	public static List<String> getPhaseLevelBlocks(String phaseKey, String levelKey) {
-		return mainConfigGetStringList("OneBlock", "phases. " + phaseKey + ".levels." + levelKey + ".blocks");
+		return mainConfigGetStringList("OneBlock", "phases." + phaseKey + ".levels." + levelKey + ".blocks");
 	}
 
 }

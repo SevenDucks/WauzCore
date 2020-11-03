@@ -33,6 +33,15 @@ public class Chance {
 	}
 	
 	/**
+	 * @param chance The x value where 1 = 100%.
+	 * 
+	 * @return True with a chance of x percent.
+	 */
+	public static boolean percent(double chance) {
+		return random.nextDouble() < chance;
+	}
+	
+	/**
 	 * @param minimum The minimum possible value.
 	 * @param maximum The maximum possible value.
 	 * 

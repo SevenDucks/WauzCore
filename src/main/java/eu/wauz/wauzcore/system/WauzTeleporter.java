@@ -286,7 +286,7 @@ public class WauzTeleporter {
 	 */
 	public static void hearthstoneTeleport(Player player) {
 		player.closeInventory();
-		if(!WauzPlayerDataPool.isCharacterSelected(player)) {
+		if(!WauzPlayerDataPool.isCharacterSelected(player) || !WauzMode.inOneBlock(player)) {
 			player.sendMessage(ChatColor.RED + "You can't do that in this world!");
 			return;
 		}

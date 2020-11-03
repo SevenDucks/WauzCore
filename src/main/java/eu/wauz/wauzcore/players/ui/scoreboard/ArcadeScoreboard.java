@@ -42,6 +42,7 @@ public class ArcadeScoreboard extends BaseScoreboard {
 	public void fillScoreboard(Player player) {
 		ArcadeMinigame minigame = ArcadeLobby.getMinigame();
 		rowStrings.add("");
+		rowStrings.add("" + ChatColor.WHITE + ChatColor.BOLD + "IP: play.wauz.eu");
 		rowStrings.add("Currently Waiting: " + ChatColor.YELLOW + ArcadeLobby.getWaitingCount());
 		rowStrings.add("Currently Playing: " + ChatColor.GREEN + ArcadeLobby.getPlayingCount());
 		if(minigame == null) {
@@ -49,6 +50,9 @@ public class ArcadeScoreboard extends BaseScoreboard {
 			if(!StringUtils.equals(ArcadeLobby.getRemainingTime(), "0:00")) {
 				rowStrings.add("Auto Start in: " + ChatColor.RED + ArcadeLobby.getRemainingTime());
 			}
+			rowStrings.add(" ");
+			rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)));
+			rowStrings.add("Go to the " + ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "hub to Spend");
 		}
 		else {
 			rowStrings.add("Game Ends in: " + ChatColor.RED + ArcadeLobby.getRemainingTime());
@@ -56,9 +60,6 @@ public class ArcadeScoreboard extends BaseScoreboard {
 			rowStrings.add("Minigame: " + ChatColor.GOLD + minigame.getName());
 			rowStrings.addAll(minigame.getDescription());
 		}
-		rowStrings.add("  ");
-		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)));
-		rowStrings.add("Go to the " + ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "hub to Spend");
 	}
 
 }

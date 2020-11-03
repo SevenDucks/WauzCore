@@ -19,17 +19,20 @@ import org.bukkit.event.world.WorldInitEvent;
 import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.oneblock.OneBlock;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -71,6 +74,10 @@ public class PlayerAmbientListener implements Listener {
 			player.sendTitle(ChatColor.RED + instance.getDisplayTitle(), instance.getDisplaySubtitle(), 10, 70, 20);
 		}
 		else {
+			if(WauzMode.inOneBlock(player)) {
+				WauzNmsClient.nmsBorder(player, PlayerConfigurator.getCharacterSpawn(player), 120);
+				WauzDebugger.log(player, "Created World Border");
+			}
 			WauzRegion.regionCheck(player);
 		}
 	}
@@ -149,7 +156,8 @@ public class PlayerAmbientListener implements Listener {
 	 */
 	@EventHandler
 	public void onLevelUp(PlayerLevelChangeEvent event) {
-		if(WauzMode.isSurvival(event.getPlayer()) && event.getNewLevel() > WauzCore.MAX_PLAYER_LEVEL_SURVIVAL) {
+		Player player = event.getPlayer();
+		if(WauzMode.isSurvival(player) && !WauzMode.inOneBlock(player) && event.getNewLevel() > WauzCore.MAX_PLAYER_LEVEL_SURVIVAL) {
 			WauzRewards.earnSurvivalToken(event.getPlayer());
 		}
 	}
