@@ -3,8 +3,10 @@ package eu.wauz.wauzcore.arcade;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -16,7 +18,6 @@ import org.bukkit.potion.PotionEffectType;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A group minigame, where you have to "jinx" players of the other team.
@@ -127,7 +128,6 @@ public class MinigameJinxed implements ArcadeMinigame {
 		else if(jinxedGreen > jinxedBlue) {
 			winners.addAll(teamBlue);
 		}
-		
 		teamGreen.clear();
 		teamBlue.clear();
 		jinxedBar.removeAll();
@@ -158,7 +158,7 @@ public class MinigameJinxed implements ArcadeMinigame {
 			return;
 		}
 		EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) event;
-		if(!(damageByEntityEvent.getDamager() instanceof Player)) {
+		if(!(damageByEntityEvent.getDamager() instanceof Player) || !(damageByEntityEvent.getEntity() instanceof Player)) {
 			event.setCancelled(true);
 			return;
 		}
@@ -230,6 +230,7 @@ public class MinigameJinxed implements ArcadeMinigame {
 		SkillUtils.addPotionEffect(jinxed, PotionEffectType.SLOW, 2, 50);
 		String jinxedName = getTeamColor(jinxed) + jinxed.getName() + ChatColor.DARK_PURPLE;
 		String jinxerName = getTeamColor(jinxer) + jinxer.getName() + ChatColor.DARK_PURPLE;
+		jinxed.playSound(jinxed.getLocation(), Sound.ENTITY_BLAZE_DEATH, 1, 1);
 		for(Player player : ArcadeLobby.getPlayingPlayers()) {
 			player.sendMessage(jinxedName + " was jinxed by " + jinxerName + "!");
 		}

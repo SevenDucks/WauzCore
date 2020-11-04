@@ -7,6 +7,7 @@ import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.arcade.MinigameHexAGone;
 import eu.wauz.wauzcore.arcade.MinigameJinxed;
 import eu.wauz.wauzcore.arcade.MinigameTipToe;
+import eu.wauz.wauzcore.arcade.MinigameVanHelsing;
 import eu.wauz.wauzcore.commands.CmdApply;
 import eu.wauz.wauzcore.commands.CmdDesc;
 import eu.wauz.wauzcore.commands.CmdFriend;
@@ -475,6 +476,7 @@ public class WauzLoader {
 		ArcadeLobby.registerMinigame(new MinigameJinxed());
 		ArcadeLobby.registerMinigame(new MinigameTipToe());
 		ArcadeLobby.registerMinigame(new MinigameHexAGone());
+		ArcadeLobby.registerMinigame(new MinigameVanHelsing());
 	}
 	
 }

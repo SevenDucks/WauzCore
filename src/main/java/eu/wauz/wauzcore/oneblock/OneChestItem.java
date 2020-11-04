@@ -60,7 +60,7 @@ public class OneChestItem {
 		
 		String[] itemAmountRange = itemStringParts[2].split("-");
 		minAmount = Integer.parseInt(itemAmountRange[0]);
-		minAmount = Integer.parseInt(itemAmountRange[1]);
+		maxAmount = Integer.parseInt(itemAmountRange[1]);
 	}
 	
 	/**

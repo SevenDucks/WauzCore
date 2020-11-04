@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -15,7 +16,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.building.ShapeHexagon;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A survival minigame, where you have to stay alive while the floor breaks.
@@ -140,6 +140,9 @@ public class MinigameHexAGone implements ArcadeMinigame {
 			eliminatedPlayers.add(player);
 			player.teleport(new Location(ArcadeLobby.getWorld(), 750.5, 96, 750.5, 90, 0));
 			player.playSound(player.getLocation(), Sound.ENTITY_BLAZE_DEATH, 1, 1);
+			for(Player playing : ArcadeLobby.getPlayingPlayers()) {
+				playing.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.RED + " has been eliminated!");
+			}
 			if(eliminatedPlayers.size() >= maxLosingPlayers) {
 				ArcadeLobby.endGame();
 			}

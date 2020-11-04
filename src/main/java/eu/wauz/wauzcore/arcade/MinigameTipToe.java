@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -14,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import eu.wauz.wauzcore.building.PathGenerator;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * A race minigame, where you have to find a hidden path among fake tiles.
@@ -127,6 +127,9 @@ public class MinigameTipToe implements ArcadeMinigame {
 			finishedPlayers.add(player);
 			player.teleport(new Location(ArcadeLobby.getWorld(), 750.5, 96, 500.5, 90, 0));
 			player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1, 1);
+			for(Player playing : ArcadeLobby.getPlayingPlayers()) {
+				playing.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.BLUE + " has been qualified!");
+			}
 			if(finishedPlayers.size() >= maxWinningPlayers) {
 				ArcadeLobby.endGame();
 			}

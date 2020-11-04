@@ -103,7 +103,7 @@ public class OneBlock {
 		}
 		int totalBlocks = PlayerOneBlockConfigurator.getTotalBlocks(player) + 1;
 		PlayerOneBlockConfigurator.setTotalBlocks(player, totalBlocks);
-		if(totalBlocks % 1000 == 0) {
+		if(totalBlocks % 750 == 0) {
 			WauzRewards.earnOneBlockToken(player);
 		}
 	}

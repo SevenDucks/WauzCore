@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -21,7 +22,6 @@ import org.bukkit.potion.PotionEffectType;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * The static lobby for the arcade mode.
@@ -269,10 +269,7 @@ public class ArcadeLobby {
 	 * @param event The damage event.
 	 */
 	public static void handleDamageEvent(EntityDamageEvent event) {
-		if(!(event.getEntity() instanceof Player)) {
-			return;
-		}
-		if(!event.getCause().equals(DamageCause.VOID)) {
+		if(event.getEntity() instanceof Player && !event.getCause().equals(DamageCause.VOID)) {
 			event.setCancelled(true);
 		}
 		if(minigame != null) {

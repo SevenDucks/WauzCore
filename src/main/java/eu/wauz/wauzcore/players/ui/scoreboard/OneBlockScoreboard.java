@@ -50,11 +50,11 @@ public class OneBlockScoreboard extends BaseScoreboard {
 		int currentBlock = PlayerOneBlockConfigurator.getBlock(player);
 		int maximumBlock = level.getBlockAmount();
 		rowStrings.add("Phase: " + ChatColor.GREEN + phase.getPhaseName() + " " + level.getLevelName());
-		rowStrings.add("Destroyed Blocks: " + ChatColor.YELLOW + currentBlock + " / " + maximumBlock);
+		rowStrings.add("Block Progress: " + ChatColor.YELLOW + currentBlock + " / " + maximumBlock);
 		rowStrings.add("  ");
 		rowStrings.add("Total Blocks: " + ChatColor.AQUA + Formatters.INT.format(PlayerOneBlockConfigurator.getTotalBlocks(player)));
 		rowStrings.add("One point and a free Token");
-		rowStrings.add("for every 1,000 Blocks");
+		rowStrings.add("for every 750 Blocks");
 		rowStrings.add("   ");
 		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)));
 		rowStrings.add("Use an Ender Chest to Spend");
