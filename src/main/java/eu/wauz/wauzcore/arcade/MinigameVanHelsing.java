@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -17,6 +18,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.projectiles.ProjectileSource;
 
 /**
  * A group minigame, where you have to kill the most vampire bats.
@@ -97,7 +99,7 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 		}
 		Location batLocation = spawnLocation.clone().add(0, 12, 0);
 		for(int bat = 0; bat <= playerCount * 4; bat++) {
-			batLocation.getWorld().spawnEntity(batLocation, EntityType.BAT);
+			bats.add(batLocation.getWorld().spawnEntity(batLocation, EntityType.BAT));
 		}
 		ArcadeUtils.runStartTimer(10, 120);
 	}
@@ -167,11 +169,16 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 			return;
 		}
 		EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) event;
-		if(!(damageByEntityEvent.getDamager() instanceof Player) || !(damageByEntityEvent.getEntity() instanceof Bat)) {
+		if(!(damageByEntityEvent.getDamager() instanceof Arrow) || !(damageByEntityEvent.getEntity() instanceof Bat)) {
 			event.setCancelled(true);
 			return;
 		}
-		Player damager = (Player) damageByEntityEvent.getDamager();
+		ProjectileSource source = ((Arrow) damageByEntityEvent.getDamager()).getShooter();
+		if(!(source instanceof Player)) {
+			event.setCancelled(true);
+			return;
+		}
+		Player damager = (Player) source;
 		Entity damaged = damageByEntityEvent.getEntity();
 		ChatColor teamColor = getTeamColor(damager);
 		if(teamColor.equals(ChatColor.GREEN)) {
@@ -184,7 +191,7 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 		bats.remove(damaged);
 		damaged.remove();
 		for(Player player : ArcadeLobby.getPlayingPlayers()) {
-			player.sendMessage(teamColor + damager.getName() + ChatColor.DARK_PURPLE + " shot a bat!");
+			player.sendMessage(teamColor + damager.getName() + ChatColor.LIGHT_PURPLE + " shot a bat!");
 		}
 		if(bats.size() == 0) {
 			ArcadeLobby.endGame();

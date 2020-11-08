@@ -21,7 +21,6 @@ import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -69,8 +68,7 @@ public class CharacterSlotMenu implements WauzInventory {
 	 */
 	public static void open(Player player, WauzMode wauzMode) {
 		if(wauzMode.equals(WauzMode.MMORPG) || wauzMode.equals(WauzMode.ARCADE)) {
-			boolean staff = WauzRank.getRank(player).getRankPermission().equals(WauzPermission.SYSTEM);
-			if(!staff) {
+			if(!WauzRank.getRank(player).isStaff()) {
 				player.sendMessage(ChatColor.RED + "This gamemode isn't public yet!");
 				return;
 			}

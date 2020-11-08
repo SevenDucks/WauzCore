@@ -228,8 +228,8 @@ public class MinigameJinxed implements ArcadeMinigame {
 		jinxedBar.addPlayer(jinxed);
 		SkillUtils.addPotionEffect(jinxed, PotionEffectType.BLINDNESS, 2, 50);
 		SkillUtils.addPotionEffect(jinxed, PotionEffectType.SLOW, 2, 50);
-		String jinxedName = getTeamColor(jinxed) + jinxed.getName() + ChatColor.DARK_PURPLE;
-		String jinxerName = getTeamColor(jinxer) + jinxer.getName() + ChatColor.DARK_PURPLE;
+		String jinxedName = getTeamColor(jinxed) + jinxed.getName() + ChatColor.LIGHT_PURPLE;
+		String jinxerName = getTeamColor(jinxer) + jinxer.getName() + ChatColor.LIGHT_PURPLE;
 		jinxed.playSound(jinxed.getLocation(), Sound.ENTITY_BLAZE_DEATH, 1, 1);
 		for(Player player : ArcadeLobby.getPlayingPlayers()) {
 			player.sendMessage(jinxedName + " was jinxed by " + jinxerName + "!");

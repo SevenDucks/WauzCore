@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -18,6 +20,7 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -161,6 +164,19 @@ public class PlayerInteractionListener implements Listener {
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
 		event.setFormat(ChatFormatter.global(event));
+	}
+	
+	/**
+	 * Disables certain commands for all players.
+	 * 
+	 * @param event The command event.
+	 */
+	@EventHandler
+	public void onCommand(PlayerCommandPreprocessEvent event) {
+		if(StringUtils.startsWithAny(event.getMessage().toLowerCase(), "/op ", "/deop ")) {
+			event.getPlayer().sendMessage(ChatColor.RED + "This command is disabled!");
+			event.setCancelled(true);
+		}
 	}
 
 	/**

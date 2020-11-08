@@ -20,12 +20,56 @@ Ultra:
     coins: 500
     soulstones: 1
     discount: 0.15
-Staff:
-  prefix: '§2STAFF'
+Tester:
+  prefix: '§5TESTER'
+  color: GOLD
+  permission: NORMAL
+  level: 100
+  op: false
+  staff: true
+  rewards:
+    coins: 500
+    soulstones: 1
+    discount: 0.15
+Helper:
+  prefix: '§5HELPER'
   color: GOLD
   permission: SYSTEM
-  level: 3
+  level: 150
   op: false
+  staff: true
+  rewards:
+    coins: 500
+    soulstones: 1
+    discount: 0.15
+Moderator:
+  prefix: '§5MOD'
+  color: GOLD
+  permission: SYSTEM
+  level: 160
+  op: false
+  staff: true
+  rewards:
+    coins: 500
+    soulstones: 1
+    discount: 0.15
+Writer:
+  prefix: '§2WRITER'
+  color: GOLD
+  permission: SYSTEM
+  level: 155
+  op: true
+  staff: true
+  rewards:
+    coins: 500
+    soulstones: 1
+    discount: 0.15
+Builder:
+  prefix: '§2BUILDER'
+  color: GOLD
+  permission: SYSTEM
+  level: 155
+  op: true
   staff: true
   rewards:
     coins: 500
@@ -35,7 +79,29 @@ Admin:
   prefix: '§3ADMIN'
   color: GOLD
   permission: SYSTEM
-  level: 4
+  level: 180
+  op: true
+  staff: true
+  rewards:
+    coins: 500
+    soulstones: 500
+    discount: 0.3
+Developer:
+  prefix: '§3DEV'
+  color: GOLD
+  permission: SYSTEM
+  level: 200
+  op: true
+  staff: true
+  rewards:
+    coins: 500
+    soulstones: 500
+    discount: 0.3
+Manager:
+  prefix: '§4MANAGER'
+  color: GOLD
+  permission: SYSTEM
+  level: 300
   op: true
   staff: true
   rewards:
@@ -46,7 +112,7 @@ Owner:
   prefix: '§4OWNER'
   color: GOLD
   permission: SYSTEM
-  level: 1337
+  level: 500
   op: true
   staff: true
   rewards:

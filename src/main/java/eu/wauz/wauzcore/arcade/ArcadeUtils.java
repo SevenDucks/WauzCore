@@ -181,8 +181,8 @@ public class ArcadeUtils {
 						player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 1, 1);
 						player.sendTitle("", ChatColor.GOLD + "START", 2, 14, 4);
 						WauzNoteBlockPlayer.play(player, "Olympus Mons");
-						ArcadeLobby.handleStartEvent();
 					}
+					ArcadeLobby.handleStartEvent();
 					runEndTimer(secondsTillEnd - 1);
 				}
 			}

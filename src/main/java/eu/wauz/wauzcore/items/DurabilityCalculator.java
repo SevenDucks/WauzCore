@@ -99,10 +99,36 @@ public class DurabilityCalculator {
 	 * @param damage The new amount of damage.
 	 */
 	public static void setDamage(ItemStack itemStack, int damage) {
-		if(itemStack.getItemMeta() instanceof Damageable) {
+		if(itemStack != null && itemStack.getItemMeta() instanceof Damageable) {
 			Damageable damageable = (Damageable) itemStack.getItemMeta();
 			damageable.setDamage(damage);
 			itemStack.setItemMeta((ItemMeta) damageable);
+		}
+	}
+	
+	/**
+	 * Increases the vanilla Minecraft damage of an item.
+	 * 
+	 * @param itemStack The item to increase the damage for.
+	 * @param player The player who owns the item.
+	 */
+	public static void increaseDamageOnOneBlock(ItemStack itemStack, Player player) {
+		if(itemStack != null && itemStack.getItemMeta() instanceof Damageable) {
+			Damageable damageable = (Damageable) itemStack.getItemMeta();
+			int newDamage = damageable.getDamage() + 1;
+			int maxDamage = itemStack.getType().getMaxDurability();
+			if(maxDamage <= 1) {
+				return;
+			}
+			if(player != null && newDamage >= maxDamage) {
+				itemStack.setAmount(0);
+				player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_BREAK, 0);
+				player.sendMessage(ChatColor.RED + "Your tool shattered on the mighty OneBlock!");
+			}
+			else {
+				damageable.setDamage(newDamage);
+				itemStack.setItemMeta((ItemMeta) damageable);
+			}
 		}
 	}
 

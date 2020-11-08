@@ -153,6 +153,7 @@ public class StatisticsFetcher {
 	 */
 	private static List<String> fetchStaffMemberList() {
 		Comparator<Pair<OfflinePlayer, WauzRank>> comparator = Comparator.comparing(pair -> - pair.getValue().getRankPermissionLevel());
+		comparator = comparator.thenComparing(pair -> pair.getValue().getRankName());
 		comparator = comparator.thenComparing(pair -> pair.getKey().getName());
 		
 		return Arrays.asList(Bukkit.getServer().getOfflinePlayers()).stream()

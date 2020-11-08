@@ -79,6 +79,9 @@ public class InventoryListener implements Listener {
 			MenuUtils.checkForStaticItemDrop(event);
 			WauzPlayerScoreboard.scheduleScoreboardRefresh(event.getPlayer());
 		}
+		else if(WauzMode.isArcade(event.getPlayer())) {
+			event.setCancelled(true);
+		}
 	}
 	
 	/**
@@ -93,6 +96,9 @@ public class InventoryListener implements Listener {
 	public void onSwapItem(PlayerSwapHandItemsEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
 			CombatMapper.handleSwapEvent(event);
+		}
+		else if(WauzMode.isArcade(event.getPlayer())) {
+			event.setCancelled(true);
 		}
 	}
 	

@@ -6,8 +6,8 @@ import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
-import org.bukkit.block.Chest;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.inventory.Inventory;
 
@@ -99,10 +99,11 @@ public class OneChest {
 	 * @param block The block to turn into a chest.
 	 */
 	public void spawnRandomFilledChest(Block block) {
-		block.setType(Material.CHEST);
-		Chest chest = (Chest) block.getState();
-		chest.setCustomName(ChatColor.GOLD + StringUtils.capitalize(type.toString()) + " Chest");
-		Inventory inventory = chest.getInventory();
+		block.setType(Material.BARREL);
+		Barrel barrel = (Barrel) block.getState();
+		barrel.setCustomName(ChatColor.BLUE + StringUtils.capitalize(type.toString()) + " Crate");
+		barrel.update();
+		Inventory inventory = barrel.getInventory();
 		for(int count = 0; count < stackCount; count++) {
 			OneChestItem randomItem = contentItemStacks.get(random.nextInt(contentItemStacks.size()));
 			inventory.addItem(randomItem.generateItemStack());

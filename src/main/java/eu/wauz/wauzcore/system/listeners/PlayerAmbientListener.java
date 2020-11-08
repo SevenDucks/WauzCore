@@ -127,7 +127,12 @@ public class PlayerAmbientListener implements Listener {
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString()) && WauzRegion.disallowBuild(event.getBlock())) {
+		Block block = event.getBlock();
+		if(OneBlock.isOneBlock(block)) {
+			event.setCancelled(true);
+			player.sendMessage(ChatColor.RED + "You can't build in the OneBlock spawn zone!");
+		}
+		if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString()) && WauzRegion.disallowBuild(block)) {
 			event.setCancelled(true);
 			player.sendMessage(ChatColor.RED + "You can't build here! Find another spot!");
 		}

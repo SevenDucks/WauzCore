@@ -5,11 +5,11 @@ import java.util.Collection;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.players.PlayerOneBlockConfigurator;
+import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.WauzRewards;
 
 /**
@@ -20,7 +20,7 @@ import eu.wauz.wauzcore.items.WauzRewards;
 public class OneBlock {
 	
 	/**
-	 * Checks if the given block is the one infinite block or a block on top of it.
+	 * Checks if the given block is the one infinite block or a block in its spawn zone.
 	 * 
 	 * @param block The block to check.
 	 * 
@@ -30,7 +30,15 @@ public class OneBlock {
 		if(!block.getWorld().getName().equals("SurvivalOneBlock")) {
 			return false;
 		}
-		return block.getX() % 250 == 0 && block.getY() >= 70 && block.getY() < 75 && block.getZ() % 250 == 0;
+		int x = Math.abs(block.getX() % 250);
+		int y = block.getY();
+		int z = Math.abs(block.getZ() % 250);
+		if(x == 0 && y == 70 && z == 0) {
+			return true;
+		}
+		else {
+			return (x <= 1 || x == 249) && (y >= 71 && y < 74) && (z <= 1 || z == 249);
+		}
 	}
 	
 	/**
@@ -41,11 +49,12 @@ public class OneBlock {
 	 * @param blockToBreak The one block.
 	 */
 	public static void breakOneBlock(Player player, Block blockToBreak) {
-		if(blockToBreak.getY() != 70) {
+		if(blockToBreak.getX() % 250 != 0 || blockToBreak.getY() != 70 || blockToBreak.getZ() % 250 != 0 ) {
 			return;
 		}
-		Collection<ItemStack> drops = blockToBreak.getDrops(player.getEquipment().getItemInMainHand(), player);
-		Location dropLocation = blockToBreak.getRelative(BlockFace.UP).getLocation();
+		ItemStack equipmentItemStack = player.getEquipment().getItemInMainHand();
+		Collection<ItemStack> drops = blockToBreak.getDrops(equipmentItemStack, player);
+		Location dropLocation = blockToBreak.getLocation().clone().add(0.5, 1, 0.5);
 		for(ItemStack dropItemStack : drops) {
 			player.getWorld().dropItemNaturally(dropLocation, dropItemStack);
 		}
@@ -103,6 +112,7 @@ public class OneBlock {
 		}
 		int totalBlocks = PlayerOneBlockConfigurator.getTotalBlocks(player) + 1;
 		PlayerOneBlockConfigurator.setTotalBlocks(player, totalBlocks);
+		DurabilityCalculator.increaseDamageOnOneBlock(equipmentItemStack, player);
 		if(totalBlocks % 750 == 0) {
 			WauzRewards.earnOneBlockToken(player);
 		}
