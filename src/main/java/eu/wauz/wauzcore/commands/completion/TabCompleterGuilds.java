@@ -27,10 +27,6 @@ public class TabCompleterGuilds implements TabCompleter {
 	 */
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		if(!StringUtils.startsWithIgnoreCase(command.getName(), "apply")) {
-			return null;
-		}
-		
 		List<String> guildNamesList = WauzPlayerGuild.getGuildNames();
 		
 		if(args.length == 1) {

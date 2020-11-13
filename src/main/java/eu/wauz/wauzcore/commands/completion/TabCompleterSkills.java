@@ -34,10 +34,6 @@ public class TabCompleterSkills implements TabCompleter {
 	 */
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzSkill")) {
-			return null;
-		}
-		
 		if(playerSkillList == null) {
 			playerSkillList = WauzPlayerSkillExecutor.getAllSkillIds().stream()
 					.map(skillId -> skillId.replace(" ", "_"))

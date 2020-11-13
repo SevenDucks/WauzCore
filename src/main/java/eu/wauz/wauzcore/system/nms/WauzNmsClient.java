@@ -14,7 +14,6 @@ import net.minecraft.server.v1_16_R2.WorldBorder;
 
 /**
  * Collection of general net.minecraft.server specific methods.
- * Used to only have a single place, when in need of changing version numbers.
  * 
  * @author Wauzmons
  */
@@ -30,6 +29,13 @@ public class WauzNmsClient {
 		((CraftPlayer) player).getHandle().playerConnection.a(packet);
 	}
 	
+	/**
+	 * Sends a packet to create a world border for the given player.
+	 * 
+	 * @param player The player to create the border for.
+	 * @param location The location of the border.
+	 * @param radius The radius of the border.
+	 */
 	public static void nmsBorder(Player player, Location location, int radius) {
 		WorldBorder worldBorder = new WorldBorder();
 		worldBorder.setCenter(location.getBlockX(), location.getBlockZ());

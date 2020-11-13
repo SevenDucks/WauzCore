@@ -32,10 +32,6 @@ public class TabCompleterMinigames implements TabCompleter {
 	 */
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzStart")) {
-			return null;
-		}
-		
 		if(minigameList == null) {
 			minigameList = ArcadeLobby.getAllMinigameNames();
 		}

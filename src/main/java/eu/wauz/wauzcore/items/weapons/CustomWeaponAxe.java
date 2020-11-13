@@ -118,7 +118,7 @@ public class CustomWeaponAxe implements CustomWeapon {
 		
 		ItemStack axeItemStack = player.getEquipment().getItemInMainHand();
 		int damage = EquipmentUtils.getBaseAtk(axeItemStack);
-		List<Entity> targets = SkillUtils.getTargetsInLine(player, 2);
+		List<Entity> targets = SkillUtils.getTargetsInLine(player, 3);
 		for(Entity entity : targets) {
 			SkillUtils.callPlayerFixedDamageEvent(player, entity, damage);
 			SkillUtils.addPotionEffect(targets, PotionEffectType.SLOW, 2, 200);

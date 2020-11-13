@@ -32,10 +32,6 @@ public class TabCompleterWorlds implements TabCompleter {
 	 */
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzEnter.dev")) {
-			return null;
-		}
-		
 		worldNameList = Bukkit.getWorlds().stream()
 				.map(world -> world.getName().replace(" ", "_"))
 				.collect(Collectors.toList());

@@ -30,7 +30,7 @@ public class CmdWzGetEquipEnhanced implements WauzCommand {
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzGetEquip.enhanced");
+		return Arrays.asList("wzGetEquip.enhanced", "getequip.enhanced");
 	}
 
 	/**

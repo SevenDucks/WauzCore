@@ -33,7 +33,7 @@ public class CmdWzGetEquip implements WauzCommand {
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzGetEquip");
+		return Arrays.asList("wzGetEquip", "getequip");
 	}
 
 	/**

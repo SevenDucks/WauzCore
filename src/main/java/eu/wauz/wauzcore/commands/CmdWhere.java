@@ -1,36 +1,44 @@
-package eu.wauz.wauzcore.commands.administrative;
+package eu.wauz.wauzcore.commands;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.items.identifiers.WauzEquipmentHelper;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Get Rune from String</b></br>
- * - Usage: <b>/wzGetRune [runename] [player]</b></br>
- * - Permission: <b>wauz.system</b>
+ * - Description: <b>Get the Location of a Player</b></br>
+ * - Usage: <b>/where [player]</b></br>
+ * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons
  * 
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
-public class CmdWzGetRune implements WauzCommand {
+public class CmdWhere implements WauzCommand {
 
 	/**
 	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzGetRune", "getrune");
+		return Arrays.asList("where");
+	}
+	
+	/**
+	 * @return If the command can be executed from the console. Default is false.
+	 */
+	@Override
+	public boolean allowConsoleExecution() {
+		return true;
 	}
 
 	/**
@@ -47,14 +55,17 @@ public class CmdWzGetRune implements WauzCommand {
 			return false;
 		}
 		
-		String type = args[0];
-		Player player = args.length < 2 ? (Player) sender : WauzCore.getOnlinePlayer(args[1]);
+		Player player = WauzCore.getOnlinePlayer(args[0]);
 		if(player == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;
 		}
-
-		return WauzEquipmentHelper.getRune(player, type);
+		
+		Location location = player.getLocation();
+		String message = ChatColor.YELLOW + player.getName() + " is located in " + location.getWorld().getName()
+			+ " at " + location.getBlockX() + " " + location.getBlockY() + " " + location.getBlockZ();
+		sender.sendMessage(message);
+		return true;
 	}
 
 }

@@ -32,10 +32,6 @@ public class TabCompleterInstances implements TabCompleter {
 	 */
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzEnter")) {
-			return null;
-		}
-		
 		if(instanceNameList == null) {
 			instanceNameList = WauzInstance.getAllInstanceNames().stream()
 					.map(instanceName -> instanceName.replace(" ", "_"))

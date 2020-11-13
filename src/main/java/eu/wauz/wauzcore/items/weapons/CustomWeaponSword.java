@@ -120,7 +120,7 @@ public class CustomWeaponSword implements CustomWeapon {
 		
 		ItemStack swordItemStack = player.getEquipment().getItemInMainHand();
 		int damage = EquipmentUtils.getBaseAtk(swordItemStack);
-		List<Entity> targets = SkillUtils.getTargetsInLine(player, 2);
+		List<Entity> targets = SkillUtils.getTargetsInLine(player, 3);
 		for(Entity entity : targets) {
 			SkillUtils.callPlayerFixedDamageEvent(player, entity, damage);
 			SkillUtils.callPlayerDamageOverTimeEvent(player, entity, Color.RED, (int) (damage * 1.35), 1, 40);

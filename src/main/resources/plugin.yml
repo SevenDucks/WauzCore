@@ -55,6 +55,10 @@ commands:
     description: Set the Guild Message of the Day
     usage: /modt [text]
     permission: wauz.normal
+  where:
+    description: Get the Location of a Player
+    usage: /where [player]
+    permission: wauz.normal
   friend:
     description: Send a Friend Request to a Player
     usage: /friend [player]
@@ -204,18 +208,22 @@ commands:
     permission: wauz.system
   wzGetPet:
     description: Get Pet from String
+    aliases: [getpet]
     usage: /wzGetPet [petname] [player]
     permission: wauz.system
   wzGetEquip:
     description: Get Equip from String
+    aliases: [getequip]
     usage: /wzGetEquip [equipname] [tier] [player]
     permission: wauz.system
   wzGetEquip.enhanced:
     description: Get Enhanced Equip from String
+    aliases: [getequip.enhanced]
     usage: /wzGetEquip.enhanced [enname] [enlvl] [player]
     permission: wauz.system
   wzGetRune:
     description: Get Rune from String
+    aliases: [getrune]
     usage: /wzGetRune [runename] [player]
     permission: wauz.system
   wzSkill:

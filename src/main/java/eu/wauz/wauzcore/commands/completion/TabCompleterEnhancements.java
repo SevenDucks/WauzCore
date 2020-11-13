@@ -32,10 +32,6 @@ public class TabCompleterEnhancements implements TabCompleter {
 	 */
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzGetEquip.enhanced")) {
-			return null;
-		}
-		
 		if(enhancementTypesList == null) {
 			enhancementTypesList = WauzEquipmentEnhancer.getAllEnhancementIds();
 		}

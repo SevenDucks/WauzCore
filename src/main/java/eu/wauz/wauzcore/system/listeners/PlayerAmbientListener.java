@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
@@ -199,6 +200,18 @@ public class PlayerAmbientListener implements Listener {
 	@EventHandler
 	public void onHunger(FoodLevelChangeEvent event) {
 		if(WauzMode.inHub(event.getEntity()) || WauzMode.isArcade(event.getEntity())) {
+			event.setCancelled(true);
+		}
+	}
+	
+	/**
+	 * Prevents entities from dropping unallowed items for the player.
+	 * 
+	 * @param event the item drop event.
+	 */
+	@EventHandler
+	public void onItemDrop(EntityDropItemEvent event) {
+		if(WauzMode.isMMORPG(event.getEntity())) {
 			event.setCancelled(true);
 		}
 	}

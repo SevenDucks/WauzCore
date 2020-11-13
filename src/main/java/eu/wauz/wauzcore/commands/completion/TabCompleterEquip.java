@@ -33,10 +33,6 @@ public class TabCompleterEquip implements TabCompleter {
 	 */
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzGetEquip")) {
-			return null;
-		}
-		
 		if(equipTypeList == null) {
 			equipTypeList = WauzEquipmentIdentifier.getAllEquipTypes().stream()
 					.map(equipType -> equipType.getName().replace(" ", "_"))

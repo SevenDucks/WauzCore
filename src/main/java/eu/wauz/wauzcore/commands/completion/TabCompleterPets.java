@@ -32,10 +32,6 @@ public class TabCompleterPets implements TabCompleter {
 	 */
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		if(!StringUtils.startsWithIgnoreCase(command.getName(), "wzGetPet")) {
-			return null;
-		}
-		
 		if(playerPetList == null) {
 			playerPetList = WauzPet.getAllPetKeys().stream()
 					.map(petId -> petId.replace(" ", "_"))

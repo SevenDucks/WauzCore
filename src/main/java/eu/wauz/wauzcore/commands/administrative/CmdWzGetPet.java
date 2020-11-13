@@ -31,7 +31,7 @@ public class CmdWzGetPet implements WauzCommand {
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzGetPet");
+		return Arrays.asList("wzGetPet", "getpet");
 	}
 
 	/**

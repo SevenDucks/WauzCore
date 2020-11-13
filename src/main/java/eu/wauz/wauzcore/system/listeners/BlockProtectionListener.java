@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.system.listeners;
 import java.util.ArrayList;
 
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
@@ -42,6 +43,20 @@ public class BlockProtectionListener implements Listener {
 	/**
 	 * Prevents changes to protected regions.
 	 * 
+	 * @param event The fade event.
+	 * 
+	 * @see WauzRegion#disallowBlockChange(Block)
+	 */
+	@EventHandler
+	public void onBlockChangeFade(BlockFadeEvent event) {
+		if(WauzMode.isMMORPG(event.getBlock().getWorld()) || WauzRegion.disallowBlockChange(event.getBlock())) {
+			event.setCancelled(true);
+		}
+	}
+	
+	/**
+	 * Prevents changes to protected regions.
+	 * 
 	 * @param event The explode event.
 	 * 
 	 * @see WauzRegion#disallowBlockChange(Block)
@@ -64,20 +79,6 @@ public class BlockProtectionListener implements Listener {
 	 */
 	@EventHandler
 	public void onBlockChangeExplode(BlockExplodeEvent event) {
-		if(WauzRegion.disallowBlockChange(event.getBlock())) {
-			event.setCancelled(true);
-		}
-	}
-	
-	/**
-	 * Prevents changes to protected regions.
-	 * 
-	 * @param event The fade event.
-	 * 
-	 * @see WauzRegion#disallowBlockChange(Block)
-	 */
-	@EventHandler
-	public void onBlockChangeFade(BlockFadeEvent event) {
 		if(WauzRegion.disallowBlockChange(event.getBlock())) {
 			event.setCancelled(true);
 		}
@@ -134,8 +135,16 @@ public class BlockProtectionListener implements Listener {
 	 */
 	@EventHandler
 	public void onBlockChangePistonExtend(BlockPistonExtendEvent event) {
-		if(WauzRegion.disallowBlockChange(event.getBlock())) {
+		BlockFace face = event.getDirection();
+		if(WauzRegion.disallowBlockChange(event.getBlock()) || WauzRegion.disallowBlockChange(event.getBlock().getRelative(face))) {
 			event.setCancelled(true);
+			return;
+		}
+		for(Block block : new ArrayList<>(event.getBlocks())) {
+			if(WauzRegion.disallowBlockChange(block) || WauzRegion.disallowBlockChange(block.getRelative(face))) {
+				event.setCancelled(true);
+				return;
+			}
 		}
 	}
 	
@@ -148,8 +157,16 @@ public class BlockProtectionListener implements Listener {
 	 */
 	@EventHandler
 	public void onBlockChangePistonRetract(BlockPistonRetractEvent event) {
-		if(WauzRegion.disallowBlockChange(event.getBlock())) {
+		BlockFace face = event.getDirection();
+		if(WauzRegion.disallowBlockChange(event.getBlock()) || WauzRegion.disallowBlockChange(event.getBlock().getRelative(face))) {
 			event.setCancelled(true);
+			return;
+		}
+		for(Block block : new ArrayList<>(event.getBlocks())) {
+			if(WauzRegion.disallowBlockChange(block) || WauzRegion.disallowBlockChange(block.getRelative(face))) {
+				event.setCancelled(true);
+				return;
+			}
 		}
 	}
 
