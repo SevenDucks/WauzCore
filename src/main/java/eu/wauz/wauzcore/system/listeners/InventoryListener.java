@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.CombatMapper;
 import eu.wauz.wauzcore.system.EventMapper;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -117,6 +118,7 @@ public class InventoryListener implements Listener {
 			item.setCustomName(itemStack.getItemMeta().getDisplayName());
 			item.setCustomNameVisible(true);
 		}
+		item.setItemStack(WauzNmsClient.nmsSerialize(itemStack));
 	}
 	
 	/**

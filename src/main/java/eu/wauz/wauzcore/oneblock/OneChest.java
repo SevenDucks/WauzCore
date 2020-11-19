@@ -12,6 +12,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.inventory.Inventory;
 
 import eu.wauz.wauzcore.data.OneBlockConfigurator;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
  * A reward chest of a phase of the one-block gamemode.
@@ -106,7 +107,7 @@ public class OneChest {
 		Inventory inventory = barrel.getInventory();
 		for(int count = 0; count < stackCount; count++) {
 			OneChestItem randomItem = contentItemStacks.get(random.nextInt(contentItemStacks.size()));
-			inventory.addItem(randomItem.generateItemStack());
+			inventory.addItem(WauzNmsClient.nmsSerialize(randomItem.generateItemStack()));
 		}
 	}
 	

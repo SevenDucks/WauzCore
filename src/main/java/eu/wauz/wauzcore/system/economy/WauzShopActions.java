@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Chance;
 
 /**
@@ -80,7 +81,7 @@ public class WauzShopActions {
 				return false;
 			}
 			currency.setCurrencyAmount(player, money - currencyCost);
-			player.getInventory().addItem(boughtItem);
+			player.getInventory().addItem(WauzNmsClient.nmsSerialize(boughtItem));
 			player.sendMessage(ChatColor.GREEN + "Your purchase was successful!");
 			WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 		}

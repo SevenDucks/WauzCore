@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.data.QuestConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.items.ItemManager;
 import io.lumine.xikage.mythicmobs.items.MythicItem;
@@ -92,7 +93,7 @@ public class WauzQuestLoot {
 			
 			Optional<MythicItem> mythicItemOptional = mythicMobs.getItem(canonicalName);
 			if(mythicItemOptional.isPresent()) {
-				ItemStack rewardItemStack = mythicMobs.getItemStack(canonicalName);
+				ItemStack rewardItemStack = WauzNmsClient.nmsSerialize(mythicMobs.getItemStack(canonicalName));
 				if(StringUtils.isNotBlank(displayNameSuffix) && ItemUtils.hasDisplayName(rewardItemStack)) {
 					ItemMeta rewardItemMeta = rewardItemStack.getItemMeta();
 					rewardItemMeta.setDisplayName(rewardItemMeta.getDisplayName() + displayNameSuffix);

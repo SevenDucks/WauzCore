@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -64,7 +65,7 @@ public class CmdWzGetEquip implements WauzCommand {
 		equipmentItemStack.setItemMeta(equipmentItemMeta);
 		
 		new WauzEquipmentIdentifier().identifyItem(player, equipmentItemStack);
-		player.getInventory().addItem(equipmentItemStack);
+		player.getInventory().addItem(WauzNmsClient.nmsSerialize(equipmentItemStack));
 		return true;
 	}
 

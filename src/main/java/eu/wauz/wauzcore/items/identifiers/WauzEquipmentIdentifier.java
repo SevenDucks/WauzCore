@@ -22,6 +22,7 @@ import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Chance;
 
 /**
@@ -202,7 +203,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 		
 		String verb = equipPrefixes.get(random.nextInt(equipPrefixes.size()));
 		String name = verb + " " + equipmentType.getName();
-		ItemStack generatedItemStack = builder.generate(tier, rarity, equipmentType.getType(), name);
+		ItemStack generatedItemStack = WauzNmsClient.nmsSerialize(builder.generate(tier, rarity, equipmentType.getType(), name));
 		equipmentItemStack.setType(generatedItemStack.getType());
 		equipmentItemStack.setItemMeta(generatedItemStack.getItemMeta());
 		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);

@@ -25,6 +25,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.economy.WauzShopActions;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -134,6 +135,17 @@ public class MaterialPouch implements WauzInventory {
 	}
 	
 	/**
+	 * Unloads the cache of the inventory with the given name for the player.
+	 * 
+	 * @param player The player who owns the pouch that contains the inventory.
+	 * @param inventoryName The name of the inventory.
+	 */
+	public static void unloadInventory(Player player, String inventoryName) {
+		String inventoryKey = player.getUniqueId() + "::" + inventoryName;
+		inventoryMap.remove(inventoryKey);
+	}
+	
+	/**
 	 * Let's the player add an item to the inventory, if there is enough space.
 	 * 
 	 * @param player The player who owns the pouch that contains the inventory.
@@ -144,7 +156,7 @@ public class MaterialPouch implements WauzInventory {
 	 */
 	public static boolean addItem(Player player, ItemStack itemStack, String inventoryName) {
 		Inventory inventory = MaterialPouch.getInventory(player, inventoryName);
-		if(inventory.addItem(itemStack).isEmpty()) {
+		if(inventory.addItem(WauzNmsClient.nmsSerialize(itemStack)).isEmpty()) {
 			String displayName = itemStack.getItemMeta().getDisplayName();
 			String message = ChatColor.AQUA + "Found Material: " + displayName;
 			player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);

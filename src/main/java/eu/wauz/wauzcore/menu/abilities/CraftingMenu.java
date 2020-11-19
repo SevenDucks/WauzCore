@@ -31,6 +31,7 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -355,7 +356,7 @@ public class CraftingMenu implements WauzInventory {
 		if(increasesLevel) {
 			PlayerSkillConfigurator.increaseCraftingSkill(player);
 		}
-		player.getInventory().addItem(itemStack);
+		player.getInventory().addItem(WauzNmsClient.nmsSerialize(itemStack));
 		AchievementTracker.addProgress(player, WauzAchievementType.CRAFT_ITEMS, 1);
 		listRecipes(player, getIndex(player.getOpenInventory()));
 	}

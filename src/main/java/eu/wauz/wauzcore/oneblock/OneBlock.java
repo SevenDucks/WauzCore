@@ -1,9 +1,6 @@
 package eu.wauz.wauzcore.oneblock;
 
-import java.util.Collection;
-
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -52,13 +49,6 @@ public class OneBlock {
 		if(blockToBreak.getX() % 250 != 0 || blockToBreak.getY() != 70 || blockToBreak.getZ() % 250 != 0 ) {
 			return;
 		}
-		ItemStack equipmentItemStack = player.getEquipment().getItemInMainHand();
-		Collection<ItemStack> drops = blockToBreak.getDrops(equipmentItemStack, player);
-		Location dropLocation = blockToBreak.getLocation().clone().add(0.5, 1, 0.5);
-		for(ItemStack dropItemStack : drops) {
-			player.getWorld().dropItemNaturally(dropLocation, dropItemStack);
-		}
-		
 		int phaseNo = PlayerOneBlockConfigurator.getPhase(player);
 		int levelNo = PlayerOneBlockConfigurator.getLevel(player);
 		int blockNo = PlayerOneBlockConfigurator.getBlock(player);
@@ -79,9 +69,11 @@ public class OneBlock {
 			blockNo++;
 		}
 		
+		ItemStack equipmentItemStack = player.getEquipment().getItemInMainHand();
 		if(blockNo == level.getBlockAmount()) {
 			OneChestType chestType = OneChestType.getRandomChestType();
 			OneChest chest = phase.getChests().get(chestType);
+			blockToBreak.breakNaturally(equipmentItemStack, true);
 			chest.spawnRandomFilledChest(blockToBreak);
 			PlayerOneBlockConfigurator.setBlock(player, blockNo);
 		}
@@ -106,7 +98,8 @@ public class OneBlock {
 				level = phase.getLevel(levelNo);
 				player.sendMessage(ChatColor.GREEN + "You advanced to [" + phase.getPhaseName() + " " + level.getLevelName() + "]");
 			}
-			phase.tryToSpawnMob(dropLocation);
+			phase.tryToSpawnMob(blockToBreak.getLocation().clone().add(0.5, 1, 0.5));
+			blockToBreak.breakNaturally(equipmentItemStack, true);
 			level.placeRandomBlock(blockToBreak);
 			PlayerOneBlockConfigurator.setBlock(player, blockNo);
 		}

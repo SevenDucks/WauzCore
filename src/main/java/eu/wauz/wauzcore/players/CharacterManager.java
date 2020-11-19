@@ -37,6 +37,7 @@ import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassStats;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.quests.QuestProcessor;
 import eu.wauz.wauzcore.system.quests.QuestSlot;
@@ -348,8 +349,8 @@ public class CharacterManager {
 			playerDataConfig.set("inventory", new ArrayList<>());
 			persistCharacterFile(playerDataFile, playerDataConfig);
 			
-			player.getInventory().addItem(characterClass.getStartingWeapon());
-			player.getInventory().addItem(WauzEquipmentHelper.getRune(new RuneHardening(), false));
+			player.getInventory().addItem(WauzNmsClient.nmsSerialize(characterClass.getStartingWeapon()));
+			player.getInventory().addItem(WauzNmsClient.nmsSerialize(WauzEquipmentHelper.getRune(new RuneHardening(), false)));
 			equipCharacterItems(player);
 			WauzRewards.earnDailyReward(player);
 			

@@ -20,6 +20,7 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
+import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -342,6 +343,16 @@ public class PlayerInteractionListener implements Listener {
 		if(owner != null && owner.getUniqueId().equals(player.getUniqueId())) {
 			WauzActivePet.tryToUnsummon(player, false);
 		}
+	}
+	
+	/**
+	 * Prevents a player's spawn from changing when leaving a bed.
+	 * 
+	 * @param event The bed leave event.
+	 */
+	@EventHandler
+	public void onBedLeave(PlayerBedLeaveEvent event) {
+		event.setSpawnLocation(false);
 	}
 	
 }

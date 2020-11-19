@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 
@@ -22,6 +23,7 @@ import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * The player registrator is used to initially create/remove/update player information.
@@ -135,6 +137,7 @@ public class WauzPlayerRegistrator {
 		}
 		
 		final boolean respawnInCurrentWorld = allowRespawn;
+		final boolean characterSelected = WauzPlayerDataPool.isCharacterSelected(player);
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(core, new Runnable() {
 			public void run() {
 				if(respawnInCurrentWorld) {
@@ -143,7 +146,16 @@ public class WauzPlayerRegistrator {
 					WauzNmsClient.nmsRepsawn(player);
 					player.setBedSpawnLocation(spawnLocation, true);
 				}
+				else if(characterSelected && WauzMode.isMMORPG(player) && !StringUtils.isBlank(PlayerConfigurator.getCharacterHearthstoneRegion(player))) {
+					Location spawnLocation = player.getBedSpawnLocation();
+					player.setBedSpawnLocation(PlayerConfigurator.getCharacterHearthstone(player), true);
+					WauzNmsClient.nmsRepsawn(player);
+					player.setBedSpawnLocation(spawnLocation, true);
+				}
 				else {
+					if(characterSelected) {
+						player.setBedSpawnLocation(PlayerConfigurator.getCharacterSpawn(player), true);
+					}
 					WauzNmsClient.nmsRepsawn(player);
 				}
 	        	player.sendTitle(ChatColor.DARK_RED + "" + ChatColor.BOLD + "YOU DIED", "", 10, 70, 20);
@@ -160,5 +172,5 @@ public class WauzPlayerRegistrator {
 		playerData.setResistancePvP((short) 0);
 		WauzPlayerActionBar.update(player);
 	}
-
+	
 }

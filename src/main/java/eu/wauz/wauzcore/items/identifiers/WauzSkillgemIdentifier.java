@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
  * Typed identifier, used for identifying skillgem items.
@@ -56,7 +57,8 @@ public class WauzSkillgemIdentifier {
 	 * @return The created skillgem item stack.
 	 */
 	public static ItemStack createSkillgem(ItemStack skillgemItemStack, WauzPlayerSkill skill) {
-		ItemMeta itemMeta = skillgemItemStack.getItemMeta();
+		ItemStack itemStack = new ItemStack(Material.REDSTONE);
+		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.DARK_RED + "Skillgem: " + ChatColor.LIGHT_PURPLE + skill.getSkillId());
 		
 		List<String> lores = new ArrayList<String>();
@@ -68,8 +70,9 @@ public class WauzSkillgemIdentifier {
 		lores.add(ChatColor.WHITE + skill.getSkillStats());
 		
 		itemMeta.setLore(lores);
-		skillgemItemStack.setItemMeta(itemMeta);
-		skillgemItemStack.setType(Material.REDSTONE);
+		ItemStack generatedItemStack = WauzNmsClient.nmsSerialize(itemStack);
+		skillgemItemStack.setType(generatedItemStack.getType());
+		skillgemItemStack.setItemMeta(generatedItemStack.getItemMeta());
 		return skillgemItemStack;
 	}
 

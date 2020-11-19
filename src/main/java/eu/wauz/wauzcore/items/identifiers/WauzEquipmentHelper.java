@@ -15,6 +15,7 @@ import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
  * A class to get special equipment items from.
@@ -37,7 +38,7 @@ public class WauzEquipmentHelper {
 			return false;
 		}
 		
-		player.getInventory().addItem(getSkillgemWeapon(skill, Material.DIAMOND_HOE, true));
+		player.getInventory().addItem(WauzNmsClient.nmsSerialize(getSkillgemWeapon(skill, Material.DIAMOND_HOE, true)));
 		return true;
 	}
 	
@@ -74,7 +75,7 @@ public class WauzEquipmentHelper {
 			return false;
 		}
 		
-		player.getInventory().addItem(getEnhancedEquipment(enhancement, enhancementLevel));
+		player.getInventory().addItem(WauzNmsClient.nmsSerialize(getEnhancedEquipment(enhancement, enhancementLevel)));
 		return true;
 	}
 	
@@ -121,7 +122,7 @@ public class WauzEquipmentHelper {
 			return false;
 		}
 		
-		player.getInventory().addItem(getRune(rune, true));
+		player.getInventory().addItem(WauzNmsClient.nmsSerialize(getRune(rune, true)));
 		return true;
 	}
 	

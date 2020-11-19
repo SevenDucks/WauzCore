@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.ShopConfigurator;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Formatters;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.items.ItemManager;
@@ -57,7 +58,7 @@ public class WauzShopItem {
 	 */
 	public WauzShopItem(String shopName, int itemIndex) {
 		String shopItemType = ShopConfigurator.getItemType(shopName, itemIndex);
-		this.shopItemStack = mythicMobs.getItemStack(shopItemType);
+		this.shopItemStack = WauzNmsClient.nmsSerialize(mythicMobs.getItemStack(shopItemType));
 		this.shopItemAmount = ShopConfigurator.getItemAmount(shopName, itemIndex);
 		this.shopItemPrice = ShopConfigurator.getItemPrice(shopName, itemIndex);
 		this.shopItemCurrency = ShopConfigurator.getItemCurrency(shopName, itemIndex);
