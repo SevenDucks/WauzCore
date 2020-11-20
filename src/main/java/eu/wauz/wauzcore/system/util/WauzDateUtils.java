@@ -83,6 +83,21 @@ public class WauzDateUtils {
 	}
 	
 	/**
+	 * @param millis A millisecond count.
+	 * 
+	 * @return The milliseconds converted to readable time string.
+	 */
+	public static String formatHoursMins(long millis) {
+		long hours = TimeUnit.MILLISECONDS.toHours(millis);
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
+		
+		String m = String.format("%02dm",
+	            minutes - TimeUnit.HOURS.toMinutes(hours));
+		
+		return hours + "h " + m;
+	}
+	
+	/**
 	 * @param millis  A millisecond count.
 	 * 
 	 * @return The milliseconds converted to readable time string.

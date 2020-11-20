@@ -98,8 +98,10 @@ public class EventMapper {
 	 */
 	public static void handleItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND)) {
-			event.setCancelled(true);
+		if(event.getAction() == Action.PHYSICAL) {
+			if(event.getClickedBlock().getType().equals(Material.FARMLAND)) {
+				event.setCancelled(true);
+			}
 			return;
 		}
 		if(player.getGameMode().equals(GameMode.CREATIVE)) {

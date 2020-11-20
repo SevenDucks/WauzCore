@@ -58,6 +58,11 @@ public class WauzCore extends JavaPlugin {
 	public static final int MAX_CRAFTING_SKILL = 40;
 	
 	/**
+	 * The maximum breeding skill a player can reach in MMORPG mode.
+	 */
+	public static final int MAX_BREEDING_SKILL = 10;
+	
+	/**
 	 * The public IP address of the Minecraft server.
 	 */
 	public static final String IP = Bukkit.getServer().getIp();

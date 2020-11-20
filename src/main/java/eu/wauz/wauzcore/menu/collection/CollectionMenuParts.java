@@ -9,6 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
@@ -16,6 +17,7 @@ import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.social.TitleMenu;
+import eu.wauz.wauzcore.mobs.pets.WauzPetBreedingLevel;
 import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Formatters;
@@ -73,9 +75,8 @@ public class CollectionMenuParts {
 		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
 		petsItemMeta.setDisplayName(ChatColor.GOLD + "Breeding");
 		List<String> petsLores = new ArrayList<>();
-//		TODO
-//		petsLores.add(ChatColor.DARK_PURPLE + "Used Pet Slots: " + ChatColor.YELLOW
-//				+ PlayerPetsConfigurator.getCharacterUsedPetSlots(player) + " / 5");
+		petsLores.add(ChatColor.DARK_PURPLE + "Breeding Level: " + ChatColor.YELLOW
+				+ WauzPetBreedingLevel.getBreedingLevel(PlayerSkillConfigurator.getTamingSkill(player)) + " / " + WauzCore.MAX_BREEDING_SKILL);
 		petsLores.add("");
 		petsLores.add(ChatColor.GRAY + "Breed your collected Pets");
 		petsLores.add(ChatColor.GRAY + "and obtain stronger Offsprings.");

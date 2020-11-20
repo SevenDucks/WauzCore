@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.PetConfigurator;
 
 /**
@@ -23,9 +24,26 @@ public class WauzPetBreedingLevel {
 	 * Initializes all pet breeding levels from 1-10 and fills the internal pet breeding level list.
 	 */
 	public static void init() {
-		for(int level = 1; level <= 10; level++) {
+		for(int level = 0; level <= WauzCore.MAX_BREEDING_SKILL; level++) {
 			petBreedingLevels.add(new WauzPetBreedingLevel(level));
 		}
+	}
+	
+	/**
+	 * Determines the breeding level, based on the amount of experience.
+	 * 
+	 * @param breedingExp The experience to determine the level for.
+	 * 
+	 * @return The current breeding level.
+	 */
+	public static WauzPetBreedingLevel getBreedingLevel(int breedingExp) {
+		WauzPetBreedingLevel currentLevel = null;
+		for(WauzPetBreedingLevel breedingLevel : petBreedingLevels) {
+			if(breedingExp >= breedingLevel.getExp()) {
+				currentLevel = breedingLevel;
+			}
+		}
+		return currentLevel;
 	}
 	
 	/**
@@ -68,6 +86,13 @@ public class WauzPetBreedingLevel {
 	 */
 	public int getExp() {
 		return exp;
+	}
+	
+	/**
+	 * @return The following breeding level.
+	 */
+	public WauzPetBreedingLevel getNextLevel() {
+		return level + 1 >= petBreedingLevels.size() ? null : petBreedingLevels.get(level + 1);
 	}
 	
 	/**

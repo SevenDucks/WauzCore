@@ -2,6 +2,7 @@ package eu.wauz.wauzcore.mobs.pets;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
@@ -36,6 +37,23 @@ public enum WauzPetRarity {
 	 * The fifth rarity for pets "Unique", in dark red, with a max stat multiplier of 5.
 	 */
 	UNIQUE("Unique", 5, ChatColor.DARK_RED, Material.MOOSHROOM_SPAWN_EGG);
+	
+	/**
+	 * Determines the pet rarity of the given item stack's material. 
+	 * 
+	 * @param itemStack The item stack to get the rarity of.
+	 * 
+	 * @return The rarity. Returns the lowest rarity when the material is unknown. 
+	 */
+	public static WauzPetRarity determineRarity(ItemStack itemStack) {
+		Material material = itemStack.getType();
+		for(WauzPetRarity rarity : values()) {
+			if(rarity.getMaterial().equals(material)) {
+				return rarity;
+			}
+		}
+		return NORMAL;
+	}
 	
 	/**
 	 * The name of the pet rarity.
