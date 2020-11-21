@@ -87,7 +87,7 @@ public class WauzPet {
 	 */
 	public static WauzPet getOffspring(WauzPetRarity rarity, String category) {
 		int randomizer = Chance.randomInt(100);
-		if(randomizer > 30) {
+		if(randomizer < 30) {
 			return getHigherRarityOffspring(rarity, category);
 		}
 		else if(randomizer < 90) {
@@ -154,6 +154,9 @@ public class WauzPet {
 	 */
 	private static WauzPet getSameRarityOffspring(WauzPetRarity rarity, String category) {
 		List<WauzPet> pets = getMatchingPets(rarity, category);
+		if(pets.isEmpty()) {
+			return null;
+		}
 		return pets.get(Chance.randomInt(pets.size()));
 	}
 	

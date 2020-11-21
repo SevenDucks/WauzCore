@@ -1,26 +1,32 @@
 package eu.wauz.wauzcore.menu.collection;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Sound;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.events.PetObtainEvent;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
+import eu.wauz.wauzcore.menu.LootContainer;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetBreedingLevel;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.mobs.pets.WauzPetRarity;
@@ -122,6 +128,36 @@ public class BreedingMenu implements WauzInventory {
 	private Inventory menu;
 	
 	/**
+	 * The item stack, used to breed pets.
+	 */
+	private ItemStack breedItemStack;
+	
+	/**
+	 * The status text of the pets selected for breeding.
+	 */
+	private String breedStatusText;
+	
+	/**
+	 * If the selected pets can be bred.
+	 */
+	private boolean breedStatusValid;
+	
+	/**
+	 * The type of the new pet.
+	 */
+	private String newPetType;
+	
+	/**
+	 * The rarity of the new pet;
+	 */
+	private WauzPetRarity newPetRarity;
+	
+	/**
+	 * The seconds it takes the new pet to hatch.
+	 */
+	private int newPetSeconds;
+	
+	/**
 	 * Constructs a new breeding menu instance
 	 * 
 	 * @param exp The breeding experience of the player.
@@ -147,7 +183,13 @@ public class BreedingMenu implements WauzInventory {
 			tryToBreed(event);
 		}
 		else if(slot == 3 || slot == 5 || event.getClick().toString().contains("SHIFT")) {
-			updateBreedButton();
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+				
+				public void run() {
+					updateBreedButton();
+				}
+				
+			}, 1);
 		}
 		else if(slot < 9) {
 			event.setCancelled(true);
@@ -163,8 +205,8 @@ public class BreedingMenu implements WauzInventory {
 	@Override
 	public void destroyInventory(InventoryCloseEvent event) {
 		Location dropLocation = event.getPlayer().getLocation();
-		ItemStack leftPetItemStack = getMenu().getItem(3);
-		ItemStack rightPetItemStack = getMenu().getItem(3);
+		ItemStack leftPetItemStack = menu.getItem(3);
+		ItemStack rightPetItemStack = menu.getItem(5);
 		if(ItemUtils.isNotAir(leftPetItemStack)) {
 			dropLocation.getWorld().dropItemNaturally(dropLocation, leftPetItemStack);
 		}
@@ -176,43 +218,86 @@ public class BreedingMenu implements WauzInventory {
 	/**
 	 * Updates the breed button by checking if the selected pets are compatible.
 	 * Sets the type and lore of the button accordingly.
+	 * 
+	 * @see BreedingMenu#updatePetCompatibility(ItemStack, ItemStack)
 	 */
 	public void updateBreedButton() {
-//		ItemStack breedItemStack;
-//		List<String> breedLores = new ArrayList<>();
-//		ItemStack leftPetItemStack = getMenu().getItem(3);
-//		ItemStack rightPetItemStack = getMenu().getItem(3);
-//		WauzPetRarity leftPetRarity;
-//		WauzPetRarity rightPetRarity;
-//		String leftPetType;
-//		String rightPetType;
-//		if(!PetEggUtils.isEggItem(leftPetItemStack) || !PetEggUtils.isEggItem(rightPetItemStack)) {
-//			breedItemStack = GenericIconHeads.getDeclineItem();
-//			breedLores.add(ChatColor.RED + "Please select valid Pets!");
-//		}
-//		else {
-//			leftPet
-//		}
-//		else {
-//			breedItemStack = GenericIconHeads.getConfirmItem();
-//			breedLores.add(ChatColor.GREEN + "The Pets are ready to breed!");
-//		}
-//		ItemMeta breedItemMeta = breedItemStack.getItemMeta();
-//		breedItemMeta.setDisplayName(ChatColor.YELLOW + "Click to Breed Pets");
-//		breedLores.add("");
-//		breedLores.add(ChatColor.GRAY + "Insert Pets in both Slots to combine them.");
-//		breedLores.add(ChatColor.GRAY + "They need to be of same Type and Rarity.");
-//		breedLores.add(ChatColor.GRAY + "The maximum Rarity depends on your Level.");
-//		breedLores.add(ChatColor.GRAY + "The new Pet can be better, worse or equal.");
-//		breedItemMeta.setLore(breedLores);
-//		breedItemStack.setItemMeta(breedItemMeta);
-//		getMenu().setItem(4, breedItemStack);
+		updatePetCompatibility(menu.getItem(3), menu.getItem(5));
+		ItemMeta breedItemMeta = breedItemStack.getItemMeta();
+		breedItemMeta.setDisplayName(ChatColor.YELLOW + "Click to Breed Pets");
+		List<String> breedLores = new ArrayList<>();
+		breedLores.add(breedStatusText);
+		breedLores.add("");
+		breedLores.add(ChatColor.GRAY + "Insert Pets in both Slots to combine them.");
+		breedLores.add(ChatColor.GRAY + "They need to be of same Type and Rarity.");
+		breedLores.add(ChatColor.GRAY + "The maximum Rarity depends on your Level.");
+		breedLores.add(ChatColor.GRAY + "New Pets can be better, worse or equal.");
+		breedItemMeta.setLore(breedLores);
+		breedItemStack.setItemMeta(breedItemMeta);
+		menu.setItem(4, breedItemStack);
 	}
 	
+	/**
+	 * Checks if the given pets are compatible and sets the status accordingly.
+	 * 
+	 * @param leftPetItemStack The pet in the left slot.
+	 * @param rightPetItemStack The pet in the right slot.
+	 */
+	private void updatePetCompatibility(ItemStack leftPetItemStack, ItemStack rightPetItemStack) {
+		breedStatusValid = false;
+		breedItemStack = GenericIconHeads.getDeclineItem();
+		if(!PetEggUtils.isEggItem(leftPetItemStack) || !PetEggUtils.isEggItem(rightPetItemStack)) {
+			breedStatusText = ChatColor.RED + "Please select two valid Pets!";
+			return;
+		}
+		String leftPetType = PetEggUtils.getPetCategory(leftPetItemStack);
+		String rightPetType = PetEggUtils.getPetCategory(rightPetItemStack);
+		if(leftPetType == null || rightPetType == null || !StringUtils.equals(leftPetType, rightPetType)) {
+			breedStatusText = ChatColor.RED + "The Pet Types do not match!";
+			return;
+		}
+		newPetType = leftPetType;
+		WauzPetRarity leftPetRarity = WauzPetRarity.determineRarity(leftPetItemStack);
+		WauzPetRarity rightPetRarity = WauzPetRarity.determineRarity(rightPetItemStack);
+		if(!leftPetRarity.equals(rightPetRarity)) {
+			breedStatusText = ChatColor.RED + "The Pet Rarities do not match!";
+			return;
+		}
+		newPetRarity = leftPetRarity;
+		newPetSeconds = level.getTime(newPetRarity);
+		if(newPetSeconds <= 0) {
+			breedStatusText = ChatColor.RED + "Breeding Level too low for Rarity!";
+			return;
+		}
+		breedStatusValid = true;
+		breedItemStack = GenericIconHeads.getConfirmItem();
+		breedStatusText = ChatColor.GREEN + "The Pets are ready to breed!";
+	}
+	
+	/**
+	 * Tries to breed the selected pets when their status is valid.
+	 * 
+	 * @param event The inventory click event.
+	 * 
+	 * @see WauzPet#getOffspring(WauzPetRarity, String)
+	 * @see PetObtainEvent#call(Player, WauzPet)
+	 */
 	public void tryToBreed(InventoryClickEvent event) {
 		event.setCancelled(true);
-		if(ItemUtils.doesLoreContain(event.getCurrentItem(), ChatColor.GREEN + "The Pets are ready to breed!")) {
-			// TODO
+		Player player = (Player) event.getWhoClicked();
+		if(breedStatusValid) {
+			menu.setItem(3, null);
+			menu.setItem(5, null);
+			WauzPet newPet = WauzPet.getOffspring(newPetRarity, newPetType);
+			if(newPet == null) {
+				player.sendMessage(ChatColor.RED + "Your pets were invalid or outdated!");
+				return;
+			}
+			long hatchTime = System.currentTimeMillis() + (newPetSeconds * 1000);
+			ItemStack newPetItemStack = WauzPetEgg.getEggItem(player, newPet, hatchTime);
+			PetObtainEvent.call(player, newPet);
+			LootContainer.open(player, Collections.singletonList(newPetItemStack));
+			player.playSound(player.getLocation(), Sound.ENTITY_TURTLE_EGG_HATCH, 1, 1);
 		}
 	}
 	
@@ -221,13 +306,6 @@ public class BreedingMenu implements WauzInventory {
 	 */
 	public WauzPetBreedingLevel getLevel() {
 		return level;
-	}
-
-	/**
-	 * @return The breeding inventory menu.
-	 */
-	public Inventory getMenu() {
-		return menu;
 	}
 
 	/**

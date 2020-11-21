@@ -3,7 +3,6 @@ package eu.wauz.wauzcore.system.quests;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,6 +20,7 @@ import eu.wauz.wauzcore.menu.collection.QuestRewardChooser;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
 /**
  * A class to manage quest progression of players.
@@ -183,16 +183,8 @@ public class QuestProcessor {
 		long millis = System.currentTimeMillis() - cooldown;
 		
 		if(questPhase == 0 && millis < 14400000) {
-			millis = 14400000 - millis;
-			long hours = TimeUnit.MILLISECONDS.toHours(millis);
-			long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
-			
-			if(hours > 0) {
-				player.sendMessage(ChatColor.RED + "You have to wait " + (hours + 1) + " hour/s before you can do this quest again!");
-			}
-			else {
-				player.sendMessage(ChatColor.RED + "You have to wait " + (minutes + 1) + " minute/s before you can do this quest again!");
-			}
+			String time = WauzDateUtils.formatHoursMins(14400000 - millis + 60000);
+			player.sendMessage(ChatColor.RED + "You have to wait " + time + " before you can do this quest again!");
 			return true;
 		}
 		

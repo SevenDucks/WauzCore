@@ -18,6 +18,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.system.nms.NmsEntityHorseMount;
+import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
@@ -39,10 +40,11 @@ public class WauzPetEgg {
 	 * 
 	 * @param owner The owner of the pet.
 	 * @param pet The pet to get an egg item of.
+	 * @param hatchTime The time stamp when the pet can hatch.
 	 * 
 	 * @return The generated egg item stack.
 	 */
-	public static ItemStack getEggItem(Player owner, WauzPet pet) {
+	public static ItemStack getEggItem(Player owner, WauzPet pet, long hatchTime) {
 		WauzPetRarity rarity = pet.getRarity();
 		boolean isHorse = pet.isHorse();
 		ItemStack itemStack = new ItemStack(rarity.getMaterial());
@@ -65,6 +67,7 @@ public class WauzPetEgg {
 		lores.add(ChatColor.GRAY + "Drag Pet Food on Egg to raise Stats");
 		lores.add("");
 		lores.add(ChatColor.DARK_GRAY + "Owner-ID: " + owner.getUniqueId().toString());
+		lores.add(ChatColor.DARK_GRAY + "Hatch Time: " + hatchTime);
 		
 		itemMeta.setLore(lores);	
 		itemStack.setItemMeta(itemMeta);
@@ -92,6 +95,12 @@ public class WauzPetEgg {
 				}
 				if(pet == null || (!pet.isHorse() && mob == null)) {
 					player.sendMessage(ChatColor.RED + "Your pet is invalid or outdated!");
+					return;
+				}
+				long hatchTime = PetEggUtils.getPetHatchTime(itemStack);
+				if(hatchTime > System.currentTimeMillis()) {
+					String time = WauzDateUtils.formatHoursMins(hatchTime - System.currentTimeMillis() + 60000);
+					player.sendMessage(ChatColor.RED + "You have to wait " + time + " before the pet is hatched!");
 					return;
 				}
 				

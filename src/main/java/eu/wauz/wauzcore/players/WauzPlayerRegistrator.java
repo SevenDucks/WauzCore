@@ -139,6 +139,7 @@ public class WauzPlayerRegistrator {
 		final boolean respawnInCurrentWorld = allowRespawn;
 		final boolean characterSelected = WauzPlayerDataPool.isCharacterSelected(player);
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(core, new Runnable() {
+			
 			public void run() {
 				if(respawnInCurrentWorld) {
 					Location spawnLocation = player.getBedSpawnLocation();
@@ -160,6 +161,7 @@ public class WauzPlayerRegistrator {
 				}
 	        	player.sendTitle(ChatColor.DARK_RED + "" + ChatColor.BOLD + "YOU DIED", "", 10, 70, 20);
 			}
+			
 		});
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);

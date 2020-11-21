@@ -538,6 +538,26 @@ public class ItemUtils {
 	}
 	
 	/**
+	 * Gets a long from an item stack's lore, based on line content and word index.
+	 * Does NOT include null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * @param content The string to identify the line with.
+	 * @param index The word index inside the found line.
+	 * 
+	 * @return The long on the found line, with the given word index.
+	 */
+	public static long getLongFromLore(ItemStack itemStack, String content, int index) {
+		List<String> lores = itemStack.getItemMeta().getLore();
+		for(String lore : lores) {
+			if(lore.contains(content)) {
+				return Long.parseLong(lore.split(" ")[index]);
+			}
+		}
+		return 0;
+	}
+	
+	/**
 	 * Replaces all occurances of a line inside an item stack's lore.
 	 * Does NOT include null check.
 	 * 

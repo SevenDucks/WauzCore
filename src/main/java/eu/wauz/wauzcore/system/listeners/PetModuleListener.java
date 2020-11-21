@@ -1,5 +1,7 @@
 package eu.wauz.wauzcore.system.listeners;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,6 +15,8 @@ import org.bukkit.inventory.ItemStack;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.events.PetObtainEvent;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
@@ -44,9 +48,22 @@ public class PetModuleListener implements Listener {
 	 */
 	@EventHandler
 	public void onInteraction(PlayerInteractEvent event) {
-		ItemStack itemStack = event.getPlayer().getEquipment().getItemInMainHand();
+		Player player = event.getPlayer();
+		ItemStack itemStack = player.getEquipment().getItemInMainHand();
 		if(itemStack.getType().toString().endsWith("_SPAWN_EGG") && PetEggUtils.isEggItem(itemStack)) {
 			WauzPetEgg.tryToSummon(event);
+			event.setCancelled(true);
+		}
+		else if(ItemUtils.isSpecificItem(itemStack, "Scroll of Summoning")) {
+			WauzPet newPet = WauzPet.getPet(ChatColor.stripColor(itemStack.getLore().get(0)));
+			if(newPet == null) {
+				player.sendMessage(ChatColor.RED + "Your scroll is invalid or outdated!");
+				return;
+			}
+			ItemStack newPetItemStack = WauzPetEgg.getEggItem(player, newPet, System.currentTimeMillis());
+			PetObtainEvent.call(player, newPet);
+			player.getEquipment().setItemInMainHand(newPetItemStack);
+			player.playSound(player.getLocation(), Sound.ENTITY_TURTLE_EGG_HATCH, 1, 1);
 			event.setCancelled(true);
 		}
 	}

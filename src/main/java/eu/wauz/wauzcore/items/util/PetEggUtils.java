@@ -35,7 +35,7 @@ public class PetEggUtils {
 	 * @return If the item is a pet food item.
 	 */
 	public static boolean isFoodItem(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) && ItemUtils.doesLoreContain(itemStack, "Pet Food");
+		return ItemUtils.hasLore(itemStack) && !isEggItem(itemStack) && ItemUtils.doesLoreContain(itemStack, "Pet Food");
 	}
 	
 	/**
@@ -48,6 +48,18 @@ public class PetEggUtils {
 	 */
 	public static String getPetCategory(ItemStack itemStack) {
 		return ItemUtils.getStringFromLore(itemStack, "Category:" + ChatColor.GREEN, 1);
+	}
+	
+	/**
+	 * Gets the hatch time of an egg item stack, based on lore.
+	 * Does NOT include null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return The hatch time of the item.
+	 */
+	public static long getPetHatchTime(ItemStack itemStack) {
+		return ItemUtils.getLongFromLore(itemStack, "Hatch Time:", 2);
 	}
 	
 	/**

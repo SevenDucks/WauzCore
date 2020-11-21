@@ -59,7 +59,7 @@ public class CmdWzGetPet implements WauzCommand {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;
 		}
-		player.getInventory().addItem(WauzNmsClient.nmsSerialize(WauzPetEgg.getEggItem(player, pet)));
+		player.getInventory().addItem(WauzNmsClient.nmsSerialize(WauzPetEgg.getEggItem(player, pet, System.currentTimeMillis())));
 		return true;
 	}
 

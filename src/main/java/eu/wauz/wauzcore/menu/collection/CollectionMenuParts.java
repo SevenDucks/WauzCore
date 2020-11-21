@@ -75,8 +75,9 @@ public class CollectionMenuParts {
 		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
 		petsItemMeta.setDisplayName(ChatColor.GOLD + "Breeding");
 		List<String> petsLores = new ArrayList<>();
+		int breedingExp = PlayerSkillConfigurator.getTamingSkill(player);
 		petsLores.add(ChatColor.DARK_PURPLE + "Breeding Level: " + ChatColor.YELLOW
-				+ WauzPetBreedingLevel.getBreedingLevel(PlayerSkillConfigurator.getTamingSkill(player)) + " / " + WauzCore.MAX_BREEDING_SKILL);
+				+ WauzPetBreedingLevel.getBreedingLevel(breedingExp).getLevel() + " / " + WauzCore.MAX_BREEDING_SKILL);
 		petsLores.add("");
 		petsLores.add(ChatColor.GRAY + "Breed your collected Pets");
 		petsLores.add(ChatColor.GRAY + "and obtain stronger Offsprings.");

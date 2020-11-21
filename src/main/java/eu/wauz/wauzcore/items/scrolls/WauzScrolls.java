@@ -2,21 +2,27 @@ package eu.wauz.wauzcore.items.scrolls;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.events.PetObtainEvent;
 import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.LootContainer;
+import eu.wauz.wauzcore.mobs.pets.WauzPet;
+import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.mobs.towers.WauzTowers;
 
 /**
@@ -89,7 +95,7 @@ public class WauzScrolls implements CustomItem {
 	
 	/**
 	 * Handles the usage of right click scrolls.
-	 * Includes following types: Comfort, Blueprint.
+	 * Includes following types: Comfort, Summoning, Blueprint.
 	 * Removes the scroll item, if successful.
 	 * 
 	 * @param event The interaction event.
@@ -97,6 +103,7 @@ public class WauzScrolls implements CustomItem {
 	 * @see WauzScrolls#onScrollItemInteract(InventoryClickEvent, String) For item interactive scrolls...
 	 * @see PetOverviewMenu#addPet(PlayerInteractEvent)
 	 * @see WauzPlayerEventHomeChange
+	 * @see PetObtainEvent#call(Player, WauzPet)
 	 * @see WauzTowers#tryToConstruct(Player, String)
 	 */
 	public static void onScrollItemInteract(PlayerInteractEvent event) {
@@ -109,6 +116,18 @@ public class WauzScrolls implements CustomItem {
 		String scrollName = scroll.getItemMeta().getDisplayName();
 		if(scrollName.contains("Scroll of Comfort")) {
 			new WauzPlayerEventHomeChange(player.getLocation(), scroll).execute(player);
+		}
+		else if(scrollName.contains("Scroll of Summoning")) {
+			WauzPet newPet = WauzPet.getPet(ChatColor.stripColor(scroll.getLore().get(0)));
+			if(newPet == null) {
+				player.sendMessage(ChatColor.RED + "Your scroll is invalid or outdated!");
+				return;
+			}
+			ItemStack newPetItemStack = WauzPetEgg.getEggItem(player, newPet, System.currentTimeMillis());
+			PetObtainEvent.call(player, newPet);
+			LootContainer.open(player, Collections.singletonList(newPetItemStack));
+			player.playSound(player.getLocation(), Sound.ENTITY_TURTLE_EGG_HATCH, 1, 1);
+			scroll.setAmount(scroll.getAmount() - 1);
 		}
 		else if(scrollName.contains("Blueprint: ") && WauzTowers.tryToConstruct(player, StringUtils.substringAfter(scrollName, ": "))) {
 			scroll.setAmount(scroll.getAmount() - 1);

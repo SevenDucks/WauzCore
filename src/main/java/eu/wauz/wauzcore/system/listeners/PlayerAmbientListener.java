@@ -21,8 +21,11 @@ import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
+import eu.wauz.wauzcore.events.PetObtainEvent;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
+import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.oneblock.OneBlock;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
@@ -31,6 +34,8 @@ import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.WauzTeleporter;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
@@ -166,6 +171,21 @@ public class PlayerAmbientListener implements Listener {
 		if(WauzMode.isSurvival(player) && !WauzMode.inOneBlock(player) && event.getNewLevel() > WauzCore.MAX_PLAYER_LEVEL_SURVIVAL) {
 			WauzRewards.earnSurvivalToken(event.getPlayer());
 		}
+	}
+	
+	/**
+	 * Grants breeding experience when a player obtains a pet.
+	 * 
+	 * @param event The pet obtain event.
+	 */
+	@EventHandler
+	public void onPetObtain(PetObtainEvent event) {
+		Player player = event.getPlayer();
+		WauzPet pet = event.getPet();
+		int exp = pet.getRarity().getMultiplier();
+		PlayerSkillConfigurator.increaseTamingSkill(player, exp);
+		player.sendMessage(ChatColor.GREEN + "You earned " + exp + " breeding exp by obtaining " + pet.getKey() + "!");
+		AchievementTracker.addProgress(player, WauzAchievementType.COLLECT_PETS, 1);
 	}
 	
 	/**
