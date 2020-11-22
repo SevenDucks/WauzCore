@@ -53,7 +53,7 @@ public class WauzTowers {
 	 * 
 	 * @return If the construction was successful.
 	 * 
-	 * @see SkillUtils#
+	 * @see SkillUtils#spawnTower(Player, ItemStack, ItemStack, eu.wauz.wauzcore.skills.execution.SkillUtils.TotemRunnable, int, int)
 	 */
 	public static boolean tryToConstruct(Player player, String towerName) {
 		DefenseTower tower = towerMap.get(towerName);

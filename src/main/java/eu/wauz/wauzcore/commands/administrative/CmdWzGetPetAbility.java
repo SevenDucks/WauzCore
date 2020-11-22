@@ -10,14 +10,16 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.mobs.pets.PetAbility;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
+import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Get Pet from String</b></br>
- * - Usage: <b>/wzGetPet [petname] [player]</b></br>
+ * - Description: <b>Get Ability Pet from String</b></br>
+ * - Usage: <b>/wzGetPet [petname] [ability] [player]</b></br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons
@@ -25,14 +27,14 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
-public class CmdWzGetPet implements WauzCommand {
+public class CmdWzGetPetAbility implements WauzCommand {
 
 	/**
 	 * @return The id of the command, aswell as aliases.
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzGetPet", "getpet");
+		return Arrays.asList("wzGetPet.ability", "getpet.ability");
 	}
 
 	/**
@@ -45,7 +47,7 @@ public class CmdWzGetPet implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		if(args.length < 1) {
+		if(args.length < 2) {
 			return false;
 		}
 		
@@ -54,12 +56,17 @@ public class CmdWzGetPet implements WauzCommand {
 			sender.sendMessage(ChatColor.RED + "Unknown pet type specified!");
 			return false;
 		}
-		Player player = args.length < 2 ? (Player) sender : WauzCore.getOnlinePlayer(args[1]);
+		PetAbility petAbility = WauzPetAbilities.getAbility(args[1]);
+		if(petAbility == null) {
+			sender.sendMessage(ChatColor.RED + "Unknown ability specified!");
+			return false;
+		}
+		Player player = args.length < 3 ? (Player) sender : WauzCore.getOnlinePlayer(args[1]);
 		if(player == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;
 		}
-		player.getInventory().addItem(WauzNmsClient.nmsSerialize(WauzPetEgg.getEggItem(player, pet, null, System.currentTimeMillis())));
+		player.getInventory().addItem(WauzNmsClient.nmsSerialize(WauzPetEgg.getEggItem(player, pet, petAbility, System.currentTimeMillis())));
 		return true;
 	}
 

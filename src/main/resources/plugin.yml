@@ -211,6 +211,11 @@ commands:
     aliases: [getpet]
     usage: /wzGetPet [petname] [player]
     permission: wauz.system
+  wzGetPet.ability:
+    description: Get Ability Pet from String
+    aliases: [getpet.ability]
+    usage: /wzGetPet [petname] [ability] [player]
+    permission: wauz.system
   wzGetEquip:
     description: Get Equip from String
     aliases: [getequip]

@@ -40,11 +40,12 @@ public class WauzPetEgg {
 	 * 
 	 * @param owner The owner of the pet.
 	 * @param pet The pet to get an egg item of.
-	 * @param hatchTime The time stamp when the pet can hatch.
+	 * @param ability The ability of the pet.
+	 * @param hatchTime The timestamp when the pet can hatch.
 	 * 
 	 * @return The generated egg item stack.
 	 */
-	public static ItemStack getEggItem(Player owner, WauzPet pet, long hatchTime) {
+	public static ItemStack getEggItem(Player owner, WauzPet pet, PetAbility ability, long hatchTime) {
 		WauzPetRarity rarity = pet.getRarity();
 		boolean isHorse = pet.isHorse();
 		ItemStack itemStack = new ItemStack(rarity.getMaterial());
@@ -55,6 +56,10 @@ public class WauzPetEgg {
 		lores.add(ChatColor.WHITE + rarity.getName() + " Pet Egg " + ChatColor.LIGHT_PURPLE + rarity.getStars());
 		lores.add("");
 		lores.add(ChatColor.WHITE + "Category:" + ChatColor.GREEN + " " + pet.getCategory());
+		if(ability != null) {
+			String description = ChatColor.DARK_GRAY + ability.getAbilityDescription();
+			lores.add(ChatColor.WHITE + "Ability:" + ChatColor.GREEN + " " + ability.getAbilityName() + " " + description);
+		}
 		int maxStat = 20 * rarity.getMultiplier();
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
 			if(isHorse == stat.isHorse()) {

@@ -2,7 +2,6 @@ package eu.wauz.wauzcore.mobs.pets;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -157,6 +156,16 @@ public class WauzActivePet {
 	private Entity petEntity;
 	
 	/**
+	 * The pet category.
+	 */
+	private String petCategory;
+	
+	/**
+	 * The pet ability.
+	 */
+	private PetAbility petAbility;
+	
+	/**
 	 * A map of pet stat values, indexed by corresponding stat objects.
 	 */
 	private Map<WauzPetStat, Integer> petStatMap = new HashMap<>();
@@ -171,11 +180,38 @@ public class WauzActivePet {
 	public WauzActivePet(Player owner, Entity petEntity, ItemStack eggItemStack) {
 		this.owner = owner;
 		this.petEntity = petEntity;
+		this.petCategory = PetEggUtils.getPetCategory(eggItemStack);
+		this.petAbility = PetEggUtils.getPetAbility(eggItemStack);
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
 			petStatMap.put(stat, PetEggUtils.getPetStat(eggItemStack, stat));
 		}
 	}
 	
+	/**
+	 * @return The pet entity.
+	 */
+	public Entity getPetEntity() {
+		if(!petEntity.isValid()) {
+			removeOwner(petEntity.getUniqueId().toString(), owner);
+			return null;
+		}
+		return petEntity;
+	}
+	
+	/**
+	 * @return The pet category.
+	 */
+	public String getPetCategory() {
+		return petCategory;
+	}
+
+	/**
+	 * @return The pet ability.
+	 */
+	public PetAbility getPetAbility() {
+		return petAbility;
+	}
+
 	/**
 	 * Gets a stat of the pet.
 	 * 
@@ -193,15 +229,13 @@ public class WauzActivePet {
 	 * @param showMessage If a message should be shown to the owner.
 	 */
 	public void unsummon(boolean showMessage) {
-		String petId = petEntity.getUniqueId().toString();
-		Entity entity = Bukkit.getServer().getEntity(UUID.fromString(petId));		
-		if(entity != null) {
-			entity.remove();
+		if(petEntity.isValid()) {
+			petEntity.remove();
 			if(showMessage) {
 				owner.sendMessage(ChatColor.GREEN + "Your current Pet was unsommoned!");
 			}
 		}
-		removeOwner(petId, owner);
+		removeOwner(petEntity.getUniqueId().toString(), owner);
 	}
 
 }

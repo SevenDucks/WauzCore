@@ -3,6 +3,8 @@ package eu.wauz.wauzcore.items.util;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.mobs.pets.PetAbility;
+import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.mobs.pets.WauzPetStat;
 
 /**
@@ -48,6 +50,18 @@ public class PetEggUtils {
 	 */
 	public static String getPetCategory(ItemStack itemStack) {
 		return ItemUtils.getStringFromLore(itemStack, "Category:" + ChatColor.GREEN, 1);
+	}
+	
+	/**
+	 * Gets the ability of an egg item stack, based on lore.
+	 * Does NOT include null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return The ability of the item.
+	 */
+	public static PetAbility getPetAbility(ItemStack itemStack) {
+		return WauzPetAbilities.getAbility(ItemUtils.getStringFromLore(itemStack, "Ability:" + ChatColor.GREEN, 1));
 	}
 	
 	/**

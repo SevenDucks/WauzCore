@@ -7,6 +7,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
+import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.ClimateCalculator;
@@ -38,6 +39,7 @@ public class WauzRepeatingTasks {
 		scheduler.scheduleSyncRepeatingTask(core, getEverySecondTask(), 200, 20);
 		scheduler.scheduleSyncRepeatingTask(core, getEvery3SecondsTask(), 200, 60);
 		scheduler.scheduleSyncRepeatingTask(core, getEvery5SecondsTask(), 200, 100);
+		scheduler.scheduleSyncRepeatingTask(core, getEveryMinuteTask(), 200, 1200);
 		scheduler.scheduleSyncRepeatingTask(core, getEvery3MinutesTask(), 200, 3600);
 		scheduler.scheduleSyncRepeatingTask(core, getEvery5MinutesTask(), 200, 6000);
 		scheduler.scheduleSyncRepeatingTask(core, getEvery15MinutesTask(), 200, 18000);
@@ -99,6 +101,26 @@ public class WauzRepeatingTasks {
 					}
 					else if(WauzMode.isSurvival(player)) {
 						DamageCalculator.decreasePvPProtection(player);
+					}
+				}
+			}
+			
+		};
+	}
+	
+	/**
+	 * Gets the default task to execute every minute.
+	 * 
+	 * @return The task runnable.
+	 */
+	private static Runnable getEveryMinuteTask() {
+		return new Runnable() {
+			
+			@Override
+			public void run() {
+				for(Player player : WauzCore.getRegisteredActivePlayers()) {
+					if(WauzMode.isMMORPG(player)) {
+						WauzPetAbilities.tryToUse(player);
 					}
 				}
 			}

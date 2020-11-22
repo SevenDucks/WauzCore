@@ -26,10 +26,13 @@ import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.mobs.pets.PetAbility;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
+import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.mobs.pets.WauzPetBreedingLevel;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.mobs.pets.WauzPetRarity;
+import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -92,7 +95,7 @@ public class BreedingMenu implements WauzInventory {
 			}
 		}
 		levelLores.add(ChatColor.GRAY + "Tame more Pets to gain Experience");
-		levelLores.add(ChatColor.GRAY + "and unlock more breedable rarities!");
+		levelLores.add(ChatColor.GRAY + "and unlock more breedable Rarities!");
 		String expString = Formatters.INT.format(exp);
 		WauzPetBreedingLevel currentLevel = breedingMenu.getLevel();
 		WauzPetBreedingLevel nextLevel = currentLevel.getNextLevel();
@@ -109,6 +112,24 @@ public class BreedingMenu implements WauzInventory {
 		levelItemMeta.setLore(levelLores);
 		levelItemStack.setItemMeta(levelItemMeta);
 		menu.setItem(1, levelItemStack);
+		
+		ItemStack abilityItemStack = GenericIconHeads.getColorCubeItem();
+		ItemMeta abilityItemMeta = abilityItemStack.getItemMeta();
+		abilityItemMeta.setDisplayName(ChatColor.YELLOW + "Possible Abilities for Current Level");
+		List<String> abilityLores = new ArrayList<>();
+		List<PetAbility> abilities = WauzPetAbilities.getAbilitiesForLevel(currentLevel);
+		if(abilities.isEmpty()) {
+			abilityLores.add(ChatColor.GREEN + "None yet...");
+		}
+		for(PetAbility ability : abilities) {
+			String description = ChatColor.DARK_GRAY + ability.getAbilityDescription();
+			abilityLores.add(ChatColor.GREEN + ability.getAbilityName() + " " + description);
+		}
+		levelLores.add(ChatColor.GRAY + "Bred Pets can have special Abilities");
+		levelLores.add(ChatColor.GRAY + "which they will use once a minute!");
+		abilityItemMeta.setLore(abilityLores);
+		abilityItemStack.setItemMeta(abilityItemMeta);
+		menu.setItem(7, abilityItemStack);
 		
 		MenuUtils.setBorders(menu);
 		menu.setItem(3, null);
@@ -294,7 +315,8 @@ public class BreedingMenu implements WauzInventory {
 				return;
 			}
 			long hatchTime = System.currentTimeMillis() + (newPetSeconds * 1000);
-			ItemStack newPetItemStack = WauzPetEgg.getEggItem(player, newPet, hatchTime);
+			PetAbility petAbility = WauzModules.isPetsModuleStandalone() ? null : WauzPetAbilities.getAbilityForLevel(level);
+			ItemStack newPetItemStack = WauzPetEgg.getEggItem(player, newPet, petAbility, hatchTime);
 			PetObtainEvent.call(player, newPet);
 			LootContainer.open(player, Collections.singletonList(newPetItemStack));
 			player.playSound(player.getLocation(), Sound.ENTITY_TURTLE_EGG_HATCH, 1, 1);

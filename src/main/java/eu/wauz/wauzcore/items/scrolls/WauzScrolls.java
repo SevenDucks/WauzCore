@@ -123,7 +123,7 @@ public class WauzScrolls implements CustomItem {
 				player.sendMessage(ChatColor.RED + "Your scroll is invalid or outdated!");
 				return;
 			}
-			ItemStack newPetItemStack = WauzPetEgg.getEggItem(player, newPet, System.currentTimeMillis());
+			ItemStack newPetItemStack = WauzPetEgg.getEggItem(player, newPet, null, System.currentTimeMillis());
 			PetObtainEvent.call(player, newPet);
 			LootContainer.open(player, Collections.singletonList(newPetItemStack));
 			player.playSound(player.getLocation(), Sound.ENTITY_TURTLE_EGG_HATCH, 1, 1);
