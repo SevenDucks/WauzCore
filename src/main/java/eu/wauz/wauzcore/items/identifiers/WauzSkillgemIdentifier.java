@@ -70,6 +70,7 @@ public class WauzSkillgemIdentifier {
 		lores.add(ChatColor.WHITE + skill.getSkillStats());
 		
 		itemMeta.setLore(lores);
+		itemStack.setItemMeta(itemMeta);
 		ItemStack generatedItemStack = WauzNmsClient.nmsSerialize(itemStack);
 		skillgemItemStack.setType(generatedItemStack.getType());
 		skillgemItemStack.setItemMeta(generatedItemStack.getItemMeta());

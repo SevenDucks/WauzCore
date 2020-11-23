@@ -97,7 +97,6 @@ public class SkillStrength implements WauzPlayerSkill {
 		SkillParticle particle = new SkillParticle(Particle.VILLAGER_ANGRY);
 		ParticleSpawner.spawnParticleSphere(player.getLocation(), particle, 1.5);
 		SkillUtils.addPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 10, 0);
-		
 		return true;
 	}
 

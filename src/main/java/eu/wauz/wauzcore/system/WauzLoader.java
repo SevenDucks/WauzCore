@@ -53,6 +53,7 @@ import eu.wauz.wauzcore.commands.administrative.CmdWzGetRune;
 import eu.wauz.wauzcore.commands.administrative.CmdWzHeal;
 import eu.wauz.wauzcore.commands.administrative.CmdWzKey;
 import eu.wauz.wauzcore.commands.administrative.CmdWzNightvision;
+import eu.wauz.wauzcore.commands.administrative.CmdWzPetAbility;
 import eu.wauz.wauzcore.commands.administrative.CmdWzRank;
 import eu.wauz.wauzcore.commands.administrative.CmdWzRepair;
 import eu.wauz.wauzcore.commands.administrative.CmdWzSkill;
@@ -126,7 +127,15 @@ import eu.wauz.wauzcore.menu.social.TitleMenu;
 import eu.wauz.wauzcore.menu.util.MenuRegister;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiarySpecies;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
+import eu.wauz.wauzcore.mobs.pets.PetAbilityHatred;
+import eu.wauz.wauzcore.mobs.pets.PetAbilityHide;
+import eu.wauz.wauzcore.mobs.pets.PetAbilityMend;
+import eu.wauz.wauzcore.mobs.pets.PetAbilityRefresh;
+import eu.wauz.wauzcore.mobs.pets.PetAbilityRoar;
+import eu.wauz.wauzcore.mobs.pets.PetAbilitySmith;
+import eu.wauz.wauzcore.mobs.pets.PetAbilitySupply;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
+import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.mobs.towers.TowerDamageBooster;
 import eu.wauz.wauzcore.mobs.towers.TowerFreezingPulse;
 import eu.wauz.wauzcore.mobs.towers.TowerHealthRestorer;
@@ -220,6 +229,7 @@ public class WauzLoader {
 		registerCustomItems();
 		registerScrolls();
 		registerTowers();
+		registerPetAbilities();
 		registerSkillgems();
 		registerRunes();
 		registerEnhancements();
@@ -312,6 +322,7 @@ public class WauzLoader {
 		WauzCommandExecutor.registerCommand(new CmdWzHeal());
 		WauzCommandExecutor.registerCommand(new CmdWzKey());
 		WauzCommandExecutor.registerCommand(new CmdWzNightvision());
+		WauzCommandExecutor.registerCommand(new CmdWzPetAbility());
 		WauzCommandExecutor.registerCommand(new CmdWzRank());
 		WauzCommandExecutor.registerCommand(new CmdWzRepair());
 		WauzCommandExecutor.registerCommand(new CmdWzSkill());
@@ -401,11 +412,27 @@ public class WauzLoader {
 	 * 
 	 * @see WauzLoader#init()
 	 */
-	public static void registerTowers() {
+	private static void registerTowers() {
 		WauzTowers.registerTower(new TowerKnockbackCannon());
 		WauzTowers.registerTower(new TowerFreezingPulse());
 		WauzTowers.registerTower(new TowerDamageBooster());
 		WauzTowers.registerTower(new TowerHealthRestorer());
+	}
+	
+	/**
+	 * Initializes all predefined pet abilities.
+	 * Called by the init() method.
+	 * 
+	 * @see WauzLoader#init()
+	 */
+	private static void registerPetAbilities() {
+		WauzPetAbilities.registerAbility(new PetAbilityMend());
+		WauzPetAbilities.registerAbility(new PetAbilityRoar());
+		WauzPetAbilities.registerAbility(new PetAbilityHide());
+		WauzPetAbilities.registerAbility(new PetAbilityRefresh());
+		WauzPetAbilities.registerAbility(new PetAbilityHatred());
+		WauzPetAbilities.registerAbility(new PetAbilitySmith());
+		WauzPetAbilities.registerAbility(new PetAbilitySupply());
 	}
 	
 	/**

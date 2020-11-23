@@ -206,6 +206,11 @@ commands:
     description: Toggle Defense Debug Mode
     usage: /wzDebug.defense [player]
     permission: wauz.system
+  wzPetAbility:
+    description: Force Pet to Use Ability
+    aliases: [petability]
+    usage: /wzPetAbility
+    permission: wauz.system
   wzGetPet:
     description: Get Pet from String
     aliases: [getpet]
@@ -214,7 +219,7 @@ commands:
   wzGetPet.ability:
     description: Get Ability Pet from String
     aliases: [getpet.ability]
-    usage: /wzGetPet [petname] [ability] [player]
+    usage: /wzGetPet.ability [petname] [ability] [player]
     permission: wauz.system
   wzGetEquip:
     description: Get Equip from String

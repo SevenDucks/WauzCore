@@ -113,23 +113,25 @@ public class BreedingMenu implements WauzInventory {
 		levelItemStack.setItemMeta(levelItemMeta);
 		menu.setItem(1, levelItemStack);
 		
-		ItemStack abilityItemStack = GenericIconHeads.getColorCubeItem();
-		ItemMeta abilityItemMeta = abilityItemStack.getItemMeta();
-		abilityItemMeta.setDisplayName(ChatColor.YELLOW + "Possible Abilities for Current Level");
-		List<String> abilityLores = new ArrayList<>();
-		List<PetAbility> abilities = WauzPetAbilities.getAbilitiesForLevel(currentLevel);
-		if(abilities.isEmpty()) {
-			abilityLores.add(ChatColor.GREEN + "None yet...");
+		if(!WauzModules.isPetsModuleStandalone()) {
+			ItemStack abilityItemStack = GenericIconHeads.getColorCubeItem();
+			ItemMeta abilityItemMeta = abilityItemStack.getItemMeta();
+			abilityItemMeta.setDisplayName(ChatColor.YELLOW + "Possible Abilities for Current Level");
+			List<String> abilityLores = new ArrayList<>();
+			List<PetAbility> abilities = WauzPetAbilities.getAbilitiesForLevel(currentLevel);
+			if(abilities.isEmpty()) {
+				abilityLores.add(ChatColor.GREEN + "None yet...");
+			}
+			for(PetAbility ability : abilities) {
+				String description = ChatColor.YELLOW + ability.getAbilityDescription();
+				abilityLores.add(ChatColor.GREEN + ability.getAbilityName() + " " + description);
+			}
+			abilityLores.add(ChatColor.GRAY + "Bred Pets can have special Abilities");
+			abilityLores.add(ChatColor.GRAY + "which they will use once a minute!");
+			abilityItemMeta.setLore(abilityLores);
+			abilityItemStack.setItemMeta(abilityItemMeta);
+			menu.setItem(7, abilityItemStack);
 		}
-		for(PetAbility ability : abilities) {
-			String description = ChatColor.DARK_GRAY + ability.getAbilityDescription();
-			abilityLores.add(ChatColor.GREEN + ability.getAbilityName() + " " + description);
-		}
-		levelLores.add(ChatColor.GRAY + "Bred Pets can have special Abilities");
-		levelLores.add(ChatColor.GRAY + "which they will use once a minute!");
-		abilityItemMeta.setLore(abilityLores);
-		abilityItemStack.setItemMeta(abilityItemMeta);
-		menu.setItem(7, abilityItemStack);
 		
 		MenuUtils.setBorders(menu);
 		menu.setItem(3, null);

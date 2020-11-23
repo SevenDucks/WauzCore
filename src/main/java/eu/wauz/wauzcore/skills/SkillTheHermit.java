@@ -97,7 +97,6 @@ public class SkillTheHermit implements WauzPlayerSkill {
 		SkillParticle particle = new SkillParticle(Particle.VILLAGER_HAPPY);
 		ParticleSpawner.spawnParticleSphere(player.getLocation(), particle, 1.5);
 		SkillUtils.addPotionEffect(player, PotionEffectType.INVISIBILITY, 10, 0);
-		
 		return true;
 	}
 

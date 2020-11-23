@@ -11,6 +11,22 @@ Patch 609: Gathering Goods
 Patch 608: Minigame Madness
 
 Patch 607: Marvelous Mounts
+	Pet System Rework
+	  - Completely Recoded Old Mechanics
+	  - You can now carry Pets as Egg Items
+	  - Added Mount-Type Pets
+	  - Added Pet Abilities
+	    > 7 Different Possible Abilities
+	    > Pet uses Ability once a Minute
+	  - Breeding Pets increases your Skill
+	  - Breeding Skill Level determines:
+	    > Pet Rarities you can Breed
+	    > How long until Offsprings Hatch
+	    > What Abilities your Pets can have
+	  
+	Miscellaneous
+	  - Lots of Bugfixes
+	  - Some new Debug Commands
 
 Patch 606: Bloody Bestiary
 	Minecraft Update

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -100,13 +101,14 @@ public class WauzPetAbilities {
 			return false;
 		}
 		Entity petEntity = pet.getPetEntity();
-		if(petEntity == null) {
+		if(petEntity == null || !player.getWorld().equals(petEntity.getWorld())) {
 			return false;
 		}
 		PetAbility petAbility = pet.getPetAbility();
 		if(petAbility == null) {
 			return false;
 		}
+		player.playSound(petEntity.getLocation(), Sound.ENTITY_WOLF_AMBIENT, 1, 1);
 		petAbility.use(player, petEntity);
 		return true;
 	}

@@ -56,8 +56,8 @@ public class WauzPetEgg {
 		lores.add(ChatColor.WHITE + rarity.getName() + " Pet Egg " + ChatColor.LIGHT_PURPLE + rarity.getStars());
 		lores.add("");
 		lores.add(ChatColor.WHITE + "Category:" + ChatColor.GREEN + " " + pet.getCategory());
-		if(ability != null) {
-			String description = ChatColor.DARK_GRAY + ability.getAbilityDescription();
+		if(ability != null && !isHorse) {
+			String description = ChatColor.GRAY + ability.getAbilityDescription();
 			lores.add(ChatColor.WHITE + "Ability:" + ChatColor.GREEN + " " + ability.getAbilityName() + " " + description);
 		}
 		int maxStat = 20 * rarity.getMultiplier();
