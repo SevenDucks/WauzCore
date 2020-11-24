@@ -1,13 +1,7 @@
 package eu.wauz.wauzcore.oneblock;
 
-import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
-import eu.wauz.wauzcore.data.players.PlayerOneBlockConfigurator;
-import eu.wauz.wauzcore.items.DurabilityCalculator;
-import eu.wauz.wauzcore.items.WauzRewards;
 
 /**
  * The one infinite block from the one-block gamemode.
@@ -39,76 +33,18 @@ public class OneBlock {
 	}
 	
 	/**
-	 * Lets a player break the given one block and progress to the next one.
-	 * Also handles spawning of mobs and chests.
+	 * Checks if the block is a valid one block and lets the player break it to progress further.
 	 * 
 	 * @param player The player who is breaking th block.
 	 * @param blockToBreak The one block.
+	 * 
+	 * @see OneBlockProgression#progress(Block)
 	 */
 	public static void breakOneBlock(Player player, Block blockToBreak) {
 		if(blockToBreak.getX() % 250 != 0 || blockToBreak.getY() != 70 || blockToBreak.getZ() % 250 != 0 ) {
 			return;
 		}
-		int phaseNo = PlayerOneBlockConfigurator.getPhase(player);
-		int levelNo = PlayerOneBlockConfigurator.getLevel(player);
-		int blockNo = PlayerOneBlockConfigurator.getBlock(player);
-		if(phaseNo > OnePhase.count()) {
-			phaseNo = 1;
-			PlayerOneBlockConfigurator.setPhase(player, phaseNo);
-		}
-		OnePhase phase = OnePhase.get(phaseNo);
-		if(levelNo > phase.levelCount()) {
-			levelNo = 1;
-			PlayerOneBlockConfigurator.setLevel(player, levelNo);
-		}
-		OnePhaseLevel level = phase.getLevel(levelNo);
-		if(blockNo > level.getBlockAmount()) {
-			blockNo = 1;
-		}
-		else {
-			blockNo++;
-		}
-		
-		ItemStack equipmentItemStack = player.getEquipment().getItemInMainHand();
-		if(blockNo == level.getBlockAmount()) {
-			OneChestType chestType = OneChestType.getRandomChestType();
-			OneChest chest = phase.getChests().get(chestType);
-			blockToBreak.breakNaturally(equipmentItemStack, true);
-			chest.spawnRandomFilledChest(blockToBreak);
-			PlayerOneBlockConfigurator.setBlock(player, blockNo);
-		}
-		else {
-			if(blockNo > level.getBlockAmount()) {
-				blockNo = 1;
-				levelNo++;
-				if(levelNo > phase.levelCount()) {
-					levelNo = 1;
-					phaseNo++;
-					if(phaseNo > OnePhase.count()) {
-						phaseNo = 1;
-					}
-					PlayerOneBlockConfigurator.setPhase(player, phaseNo);
-					int highestPhase = PlayerOneBlockConfigurator.getHighestPhase(player);
-					if(phaseNo > highestPhase) {
-						PlayerOneBlockConfigurator.setHighestPhase(player, phaseNo);
-					}
-				}
-				PlayerOneBlockConfigurator.setLevel(player, levelNo);
-				phase = OnePhase.get(phaseNo);
-				level = phase.getLevel(levelNo);
-				player.sendMessage(ChatColor.GREEN + "You advanced to [" + phase.getPhaseName() + " " + level.getLevelName() + "]");
-			}
-			phase.tryToSpawnMob(blockToBreak.getLocation().clone().add(0.5, 1, 0.5));
-			blockToBreak.breakNaturally(equipmentItemStack, true);
-			level.placeRandomBlock(blockToBreak);
-			PlayerOneBlockConfigurator.setBlock(player, blockNo);
-		}
-		int totalBlocks = PlayerOneBlockConfigurator.getTotalBlocks(player) + 1;
-		PlayerOneBlockConfigurator.setTotalBlocks(player, totalBlocks);
-		DurabilityCalculator.increaseDamageOnOneBlock(equipmentItemStack, player);
-		if(totalBlocks % 750 == 0) {
-			WauzRewards.earnOneBlockToken(player);
-		}
+		// TODO
 	}
 
 }

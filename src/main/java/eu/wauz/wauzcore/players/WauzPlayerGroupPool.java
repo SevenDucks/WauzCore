@@ -67,7 +67,7 @@ public class WauzPlayerGroupPool {
 	 */
 	public static WauzPlayerGroup regGroup(WauzPlayerGroup wauzPlayerGroup) {
 		storage.put(wauzPlayerGroup.getGroupUuidString(), wauzPlayerGroup);
-		return getGroup(wauzPlayerGroup.getGroupUuidString());
+		return wauzPlayerGroup;
 	}
 	
 	/**
