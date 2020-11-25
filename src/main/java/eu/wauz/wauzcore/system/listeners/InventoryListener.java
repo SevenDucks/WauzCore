@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.system.listeners;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
+import eu.wauz.wauzcore.oneblock.OneBlock;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.CombatMapper;
 import eu.wauz.wauzcore.system.EventMapper;
@@ -105,6 +107,7 @@ public class InventoryListener implements Listener {
 	
 	/**
 	 * Adds a name label to every item that was dropped on the ground.
+	 * Also prevents items from spawning in the one block of the one-block gamemode.
 	 * 
 	 * @param event The spawn event.
 	 * 
@@ -117,6 +120,10 @@ public class InventoryListener implements Listener {
 		if(ItemUtils.hasDisplayName(itemStack)) {
 			item.setCustomName(itemStack.getItemMeta().getDisplayName());
 			item.setCustomNameVisible(true);
+		}
+		Location location = event.getLocation();
+		if(OneBlock.isOneBlock(location.getBlock())) {
+			location.add(0, 1, 0);
 		}
 		item.setItemStack(WauzNmsClient.nmsSerialize(itemStack));
 	}

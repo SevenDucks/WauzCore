@@ -44,7 +44,7 @@ public class OneBlock {
 		if(blockToBreak.getX() % 250 != 0 || blockToBreak.getY() != 70 || blockToBreak.getZ() % 250 != 0 ) {
 			return;
 		}
-		// TODO
+		OneBlockProgression.getPlayerOneBlock(player).progress(blockToBreak);
 	}
 
 }

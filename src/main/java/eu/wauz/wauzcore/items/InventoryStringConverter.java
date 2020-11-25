@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.menu.MaterialPouch;
+import eu.wauz.wauzcore.oneblock.OneBlockProgression;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
@@ -57,6 +58,9 @@ public class InventoryStringConverter {
 			playerDataConfig.set("inventory.questitems", MaterialPouch.getInventory(player, "questitems").getContents());
 		}
 		else {
+			if(WauzMode.inOneBlock(player)) {
+				OneBlockProgression.getPlayerOneBlock(player).save(playerDataConfig);
+			}
 			playerDataConfig.set("stats.current.health", player.getHealth());
 			playerDataConfig.set("level", player.getLevel());
 			playerDataConfig.set("exp", player.getExp() * 100F);
@@ -97,6 +101,9 @@ public class InventoryStringConverter {
     		MaterialPouch.unloadInventory(player, "questitems");
     	}
     	else {
+    		if(WauzMode.inOneBlock(player)) {
+				OneBlockProgression.getPlayerOneBlock(player).load(playerDataConfig);
+			}
     		player.setHealth(playerDataConfig.getInt("stats.current.health"));
     		playerData.setResistancePvP((short) playerDataConfig.getInt("pvp.resticks"));
     	}

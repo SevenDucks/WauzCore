@@ -4,10 +4,10 @@ import java.util.HashMap;
 
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.data.players.PlayerOneBlockConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.WauzRewards;
 
@@ -71,7 +71,8 @@ public class OneBlockProgression {
 	 * @return The requested one-block progressions.
 	 */
 	public static OneBlockProgression getPlayerOneBlock(Player player) {
-		return storage.get(player);
+		OneBlockProgression progression = storage.get(player);
+		return progression != null ? progression : regPlayerOneBlock(player);
 	}
 
 	/**
@@ -81,7 +82,7 @@ public class OneBlockProgression {
 	 * 
 	 * @return The created one-block progressions.
 	 */
-	public static OneBlockProgression regPlayerOneBlock(Player player) {
+	private static OneBlockProgression regPlayerOneBlock(Player player) {
 		OneBlockProgression progression = new OneBlockProgression(player);
 		storage.put(player, progression);
 		return progression;
@@ -94,7 +95,20 @@ public class OneBlockProgression {
 	 */
 	private OneBlockProgression(Player player) {
 		this.player = player;
-		load();
+	}
+	
+	/**
+	 * Loads all progression values.
+	 * 
+	 * @param playerDataConfig The player's save file.
+	 */
+	public void load(FileConfiguration playerDataConfig) {
+		phaseNo = playerDataConfig.getInt("oneblock.phase");
+		levelNo = playerDataConfig.getInt("oneblock.level");
+		blockNo = playerDataConfig.getInt("oneblock.block");
+		highestPhase = playerDataConfig.getInt("oneblock.maxphase");
+		totalBlocks = playerDataConfig.getInt("oneblock.blocks");
+		
 		if(phaseNo > OnePhase.count()) {
 			phaseNo = 1;
 		}
@@ -109,25 +123,16 @@ public class OneBlockProgression {
 	}
 	
 	/**
-	 * Loads all progression values.
-	 */
-	private void load() {
-		phaseNo = PlayerOneBlockConfigurator.getPhase(player);
-		levelNo = PlayerOneBlockConfigurator.getLevel(player);
-		blockNo = PlayerOneBlockConfigurator.getBlock(player);
-		highestPhase = PlayerOneBlockConfigurator.getHighestPhase(player);
-		totalBlocks = PlayerOneBlockConfigurator.getTotalBlocks(player);
-	}
-	
-	/**
 	 * Saves all progression values.
+	 * 
+	 * @param playerDataConfig The player's save file.
 	 */
-	public void save() {
-		PlayerOneBlockConfigurator.setPhase(player, phaseNo);
-		PlayerOneBlockConfigurator.setLevel(player, levelNo);
-		PlayerOneBlockConfigurator.setBlock(player, blockNo);
-		PlayerOneBlockConfigurator.setHighestPhase(player, highestPhase);
-		PlayerOneBlockConfigurator.setTotalBlocks(player, totalBlocks);
+	public void save(FileConfiguration playerDataConfig) {
+		playerDataConfig.set("oneblock.phase", phaseNo);
+		playerDataConfig.set("oneblock.level", levelNo);
+		playerDataConfig.set("oneblock.block", blockNo);
+		playerDataConfig.set("oneblock.maxphase", highestPhase);
+		playerDataConfig.set("oneblock.blocks", totalBlocks);
 	}
 	
 	/**
@@ -167,9 +172,37 @@ public class OneBlockProgression {
 			phase.tryToSpawnMob(blockToBreak.getLocation().clone().add(0.5, 1, 0.5));
 		}
 		DurabilityCalculator.increaseDamageOnOneBlock(equipmentItemStack, player);
-		if(++totalBlocks % 750 == 0) {
+		if(++totalBlocks % 500 == 0) {
 			WauzRewards.earnOneBlockToken(player);
 		}
+	}
+
+	/**
+	 * @return The one-block phase of the player.
+	 */
+	public OnePhase getPhase() {
+		return phase;
+	}
+
+	/**
+	 * @return The one-block level of the player.
+	 */
+	public OnePhaseLevel getLevel() {
+		return level;
+	}
+	
+	/**
+	 * @return The one-block current block number of the player.
+	 */
+	public int getBlockNo() {
+		return blockNo;
+	}
+
+	/**
+	 * @return The one-block total blocks destroyed of the player.
+	 */
+	public int getTotalBlocks() {
+		return totalBlocks;
 	}
 
 }

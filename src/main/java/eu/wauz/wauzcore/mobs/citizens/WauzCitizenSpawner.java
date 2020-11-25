@@ -117,6 +117,7 @@ public class WauzCitizenSpawner {
 		WauzDebugger.log(player, "Rendered " + citizens.size() + " Citizens");
 		for(WauzCitizen citizen : citizens) {
 			NPC npc = citizenNpcMap.get(citizen);
+			npc.lookAt(player.getLocation());
 			showNpc(npc, player);
 		}
 	}
