@@ -100,7 +100,7 @@ public enum WauzMode {
 	/**
 	 * @param world The world for checking the mode.
 	 * 
-	 * @return If the word is the hub.
+	 * @return If the world is the hub.
 	 */
 	public static boolean inHub(World world) {
 		return world.getName().equals("HubNexus");
@@ -112,7 +112,16 @@ public enum WauzMode {
 	 * @return If the entity is in the one-block world.
 	 */
 	public static boolean inOneBlock(Entity entity) {
-		return entity.getWorld().getName().equals("SurvivalOneBlock");
+		return inOneBlock(entity.getWorld());
+	}
+	
+	/**
+	 * @param world The world for checking the mode.
+	 * 
+	 * @return If the world is the one-block world.
+	 */
+	public static boolean inOneBlock(World world) {
+		return world.getName().equals("SurvivalOneBlock");
 	}
 	
 	/**

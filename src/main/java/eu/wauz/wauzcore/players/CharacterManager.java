@@ -27,6 +27,7 @@ import eu.wauz.wauzcore.items.runes.RuneHardening;
 import eu.wauz.wauzcore.menu.social.TabardMenu;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
+import eu.wauz.wauzcore.oneblock.OneBlockProgression;
 import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
@@ -225,6 +226,7 @@ public class CharacterManager {
 			playerDataConfig.set("oneblock.level", 1);
 			playerDataConfig.set("oneblock.block", 1);
 			playerDataConfig.set("oneblock.blocks", 0);
+			OneBlockProgression.getPlayerOneBlock(player).load(playerDataConfig);
 		}
 		else {
 			Location spawnLocation = core.getServer().getWorld(characterWorldString).getSpawnLocation();

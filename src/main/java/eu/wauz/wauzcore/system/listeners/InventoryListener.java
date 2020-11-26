@@ -123,7 +123,7 @@ public class InventoryListener implements Listener {
 		}
 		Location location = event.getLocation();
 		if(OneBlock.isOneBlock(location.getBlock())) {
-			location.add(0, 1, 0);
+			item.teleport(location.add(0, 1, 0));
 		}
 		item.setItemStack(WauzNmsClient.nmsSerialize(itemStack));
 	}
