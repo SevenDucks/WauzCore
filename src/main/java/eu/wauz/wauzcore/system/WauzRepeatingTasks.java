@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.mobs.citizens.WauzCitizenCache;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
 import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.players.CharacterManager;
@@ -58,6 +59,7 @@ public class WauzRepeatingTasks {
 				for(Player player : WauzCore.getRegisteredActivePlayers()) {
 					WauzPlayerActionBar.update(player);
 				}
+				WauzCitizenCache.updateCitizenLookDirections();
 			}
 			
 		};

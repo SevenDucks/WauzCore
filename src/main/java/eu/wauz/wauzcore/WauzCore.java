@@ -25,6 +25,7 @@ import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
 import eu.wauz.wauzcore.system.listeners.BaseModuleListener;
 import eu.wauz.wauzcore.system.listeners.BlockProtectionListener;
+import eu.wauz.wauzcore.system.listeners.CitizenListener;
 import eu.wauz.wauzcore.system.listeners.InventoryListener;
 import eu.wauz.wauzcore.system.listeners.MythicMobsListener;
 import eu.wauz.wauzcore.system.listeners.PetModuleListener;
@@ -116,6 +117,7 @@ public class WauzCore extends JavaPlugin {
 			
 			pluginManager.registerEvents(new ArmorEquipEventListener(), this);
 			pluginManager.registerEvents(new BlockProtectionListener(), this);
+			pluginManager.registerEvents(new CitizenListener(), this);
 			pluginManager.registerEvents(new InventoryListener(), this);
 			pluginManager.registerEvents(new MythicMobsListener(), this);
 			pluginManager.registerEvents(new PlayerAmbientListener(), this);
