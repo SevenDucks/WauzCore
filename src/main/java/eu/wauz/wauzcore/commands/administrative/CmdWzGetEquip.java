@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
+import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
@@ -27,6 +28,7 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
+@Command
 public class CmdWzGetEquip implements WauzCommand {
 
 	/**

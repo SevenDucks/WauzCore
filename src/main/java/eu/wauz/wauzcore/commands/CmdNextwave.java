@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.instances.WauzInstanceType;
@@ -24,6 +25,7 @@ import eu.wauz.wauzcore.system.instances.WauzInstanceType;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
+@Command
 public class CmdNextwave implements WauzCommand {
 
 	/**

@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.mobs.pets.PetAbility;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
+import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
@@ -27,6 +28,7 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
+@Command
 public class CmdWzGetPetAbility implements WauzCommand {
 
 	/**

@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.instances.WauzInstanceKeyStatus;
@@ -25,6 +26,7 @@ import eu.wauz.wauzcore.system.instances.WauzInstanceKeyStatus;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
+@Command
 public class CmdWzKey implements WauzCommand {
 
 	/**

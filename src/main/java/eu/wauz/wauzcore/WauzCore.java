@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.system.WauzLoader;
 import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.WauzRepeatingTasks;
+import eu.wauz.wauzcore.system.annotations.AnnotationLoader;
 import eu.wauz.wauzcore.system.api.WebServerManager;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
@@ -113,6 +114,7 @@ public class WauzCore extends JavaPlugin {
 		PluginManager pluginManager = getServer().getPluginManager();
 		if(WauzModules.isMainModuleActive()) {
 			WauzLoader.init();
+			AnnotationLoader.init();
 			getLogger().info("Loaded Data from Files!");
 			
 			pluginManager.registerEvents(new ArmorEquipEventListener(), this);

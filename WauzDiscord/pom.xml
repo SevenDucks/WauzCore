@@ -131,6 +131,7 @@
 									<exclude>com.github.koca2000:*</exclude>
 									<exclude>net.jitse:*</exclude>
 									<exclude>com.sun.net.httpserver:*</exclude>
+									<exclude>org.reflections:*</exclude>
 								</excludes>
 							</artifactSet>
 						</configuration>

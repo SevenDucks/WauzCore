@@ -13,6 +13,7 @@ import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.data.players.GuildConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -25,6 +26,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
+@Command
 public class CmdMotd implements WauzCommand {
 
 	/**

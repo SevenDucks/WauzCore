@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -24,6 +25,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
+@Command
 public class CmdWzGamemode implements WauzCommand {
 
 	/**

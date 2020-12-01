@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.Chance;
 
 /**
@@ -23,6 +24,7 @@ import eu.wauz.wauzcore.system.util.Chance;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
+@Command
 public class CmdRoll implements WauzCommand {
 
 	/**

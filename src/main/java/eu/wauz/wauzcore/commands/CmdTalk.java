@@ -11,6 +11,7 @@ import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.menu.CitizenInteractionMenu;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
+import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -23,6 +24,7 @@ import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
+@Command
 public class CmdTalk implements WauzCommand {
 
 	/**

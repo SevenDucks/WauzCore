@@ -12,6 +12,7 @@ import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
+import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -25,6 +26,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * @see WauzCommand
  * @see WauzCommandExecutor
  */
+@Command
 public class CmdWzHeal implements WauzCommand {
 
 	/**
