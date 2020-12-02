@@ -1,51 +1,848 @@
 phases:
   1:
-    name: Test Phase
+    name: Oak Woods
     mobs:
-      spawnchance: 0.1
-      hostilechance: 0.3
+      spawnchance: 0.0
+      hostilechance: 0.0
       passive:
-      - 'PIG'
-      - 'SHEEP'
-      - 'CHICKEN'
-      - 'COW'
       hostile:
-      - 'ZOMBIE'
-      - 'SPIDER'
     chests:
       common:
-        stackcount: 1
+        stackcount: 2
         content:
         - 'BREAD 1 2-3'
       rare:
-        stackcount: 2
+        stackcount: 4
         content:
         - 'BREAD 1 3-5'
       epic:
-        stackcount: 3
+        stackcount: 6
         content:
         - 'BREAD 1 3-5'
         - 'IRON_INGOT 1 1-3'
       mythic:
-        stackcount: 5
+        stackcount: 8
         content:
         - 'BREAD 2 3-5'
         - 'IRON_INGOT 3 2-5'
         - 'CAKE 1 1-1'
     levels:
       1-1:
-        name: Area 1
+        name: 1
         blockamount: 20
         blocks:
         - 'GRASS_BLOCK 3'
         - 'OAK_LOG 2'
         - 'STONE 2'
         - 'COAL_ORE 1'
-      1-2:
-        name: Area 2
+  2:
+    name: Birch Woods
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.3
+      passive:
+      - 'BEE'
+      - 'CHICKEN'
+      - 'COW'
+      - 'PIG'
+      - 'WOLF'
+      hostile:
+      - 'SKELETON'
+      - 'SPIDER'
+      - 'ZOMBIE_VILLAGER'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
         blockamount: 20
         blocks:
-        - 'PODZOL 3'
-        - 'SPRUCE_LOG 2'
-        - 'GRANITE 2'
-        - 'GOLD_ORE 1'
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  3:
+    name: Shallow Cave
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.5
+      passive:
+      - 'BAT'
+      - 'COD'
+      - 'RABBIT'
+      hostile:
+      - 'CAVE_SPIDER'
+      - 'SKELETON'
+      - 'ZOMBIE'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  4:
+    name: Flower Fields
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.3
+      passive:
+      - 'CHICKEN'
+      - 'HORSE'
+      - 'RABBIT'
+      - 'SHEEP'
+      - 'WOLF'
+      hostile:
+      - 'CREEPER'
+      - 'PILLAGER'
+      - 'SLIME'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  5:
+    name: Graveyard
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.7
+      passive:
+      - 'PIG'
+      - 'SHEEP'
+      - 'WOLF'
+      hostile:
+      - 'SILVERFISH'
+      - 'SKELETON'
+      - 'ZOMBIE'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  6:
+    name: Savannah
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.4
+      passive:
+      - 'DONKEY'
+      - 'LLAMA'
+      - 'OCELOT'
+      - 'RABBIT'
+      - 'WOLF'
+      hostile:
+      - 'HUSK'
+      - 'MAGMA_CUBE'
+      - 'PILLAGER'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  7:
+    name: Dry Desert
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.4
+      passive:
+      - 'LLAMA'
+      - 'OCELOT'
+      - 'RABBIT'
+      hostile:
+      - 'HUSK'
+      - 'SKELETON'
+      - 'VEX'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  8:
+    name: Ancient Tomb
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.6
+      passive:
+      - 'BAT'
+      - 'IRON_GOLEM'
+      - 'SKELETON_HORSE'
+      hostile:
+      - 'HUSK'
+      - 'SKELETON'
+      - 'VEX'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  9:
+    name: Badlands
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.4
+      passive:
+      - 'FOX'
+      - 'MULE'
+      - 'SHEEP'
+      hostile:
+      - 'HOGLIN'
+      - 'PHANTOM'
+      - 'PIGLIN_BRUTE'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  10:
+    name: Nightmare
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.7
+      passive:
+      - 'FOX'
+      - 'PIG'
+      - 'STRIDER'
+      hostile:
+      - 'BLAZE'
+      - 'GHAST'
+      - 'WITHER_SKELETON'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  11:
+    name: Lost Swamp
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.3
+      passive:
+      - 'CHICKEN'
+      - 'COW'
+      - 'RABBIT'
+      - 'VILLAGER'
+      hostile:
+      - 'DROWNED'
+      - 'SILVERFISH'
+      - 'SLIME'
+      - 'WITCH'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  12:
+    name: Deadly Jungle
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.5
+      passive:
+      - 'BEE'
+      - 'OCELOT'
+      - 'PANDA'
+      - 'PARROT'
+      - 'TROPICAL_FISH'
+      hostile:
+      - 'CREEPER'
+      - 'ENDERMITE'
+      - 'SPIDER'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  13:
+    name: Old Caverns
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.6
+      passive:
+      - 'BAT'
+      - 'SALMON'
+      - 'TURTLE'
+      hostile:
+      - 'CAVE_SPIDER'
+      - 'ENDERMAN'
+      - 'ENDERMITE'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  14:
+    name: Icy Taiga
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.4
+      passive:
+      - 'FOX'
+      - 'POLAR_BEAR'
+      - 'SHEEP'
+      hostile:
+      - 'ENDERMAN'
+      - 'PILLAGER'
+      - 'STRAY'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  15:
+    name: Frozen Peak
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.7
+      passive:
+      - 'FOX'
+      - 'POLAR_BEAR'
+      - 'SHEEP'
+      hostile:
+      - 'RAVAGER'
+      - 'STRAY'
+      - 'VINDICATOR'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  16:
+    name: Rocky Beach
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.4
+      passive:
+      - 'PARROT'
+      - 'SQUID'
+      - 'TURTLE'
+      hostile:
+      - 'DROWNED'
+      - 'GUARDIAN'
+      - 'SPIDER'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  17:
+    name: Deep Ocean
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.5
+      passive:
+      - 'COD'
+      - 'DOLPHIN'
+      - 'PUFFERFISH'
+      - 'SALMON'
+      - 'TURTLE'
+      hostile:
+      - 'DROWNED'
+      - 'ELDER_GUARDIAN'
+      - 'SHULKER'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  18:
+    name: The Abyss
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.6
+      passive:
+      - 'BAT'
+      - 'IRON_GOLEM'
+      - 'PUFFERFISH'
+      hostile:
+      - 'EVOKER'
+      - 'RAVAGER'
+      - 'SHULKER'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  19:
+    name: Mushroom Lands
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.3
+      passive:
+      - 'BEE'
+      - 'MOOSHROOM'
+      - 'PIG'
+      - 'WANDERING_TRADER'
+      hostile:
+      - 'EVOKER'
+      - 'PHANTOM'
+      - 'WITCH'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
+  20:
+    name: Volcano
+    mobs:
+      spawnchance: 0.1
+      hostilechance: 0.8
+      passive:
+      - 'BAT'
+      - 'PIG'
+      - 'STRIDER'
+      hostile:
+      - 'MAGMA_CUBE'
+      - 'WITHER_SKELETON'
+      - 'ZOGLIN'
+    chests:
+      common:
+        stackcount: 2
+        content:
+        - 'BREAD 1 2-3'
+      rare:
+        stackcount: 4
+        content:
+        - 'BREAD 1 3-5'
+      epic:
+        stackcount: 6
+        content:
+        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 1-3'
+      mythic:
+        stackcount: 8
+        content:
+        - 'BREAD 2 3-5'
+        - 'IRON_INGOT 3 2-5'
+        - 'CAKE 1 1-1'
+    levels:
+      1-1:
+        name: 1
+        blockamount: 20
+        blocks:
+        - 'GRASS_BLOCK 3'
+        - 'OAK_LOG 2'
+        - 'STONE 2'
+        - 'COAL_ORE 1'
