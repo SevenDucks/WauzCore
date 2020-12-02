@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.menu.util.MenuRegister;
-import eu.wauz.wauzcore.menu.util.MenuRegisterEntry;
+import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -54,9 +54,9 @@ public class CmdMenu implements WauzCommand {
 		String menuType = args[0].toLowerCase();
 		
 		if(!WauzMode.inHub(player) && !WauzMode.inOneBlock(player)) {
-			MenuRegisterEntry menu = MenuRegister.getInventory(menuType);
-			if(menu != null && menu.getValidModes().contains(WauzMode.getMode(player))) {
-				menu.getInventory().openInstance(player);
+			WauzInventory menu = MenuRegister.getInventory(menuType);
+			if(menu != null && menu.getGamemodes().contains(WauzMode.getMode(player))) {
+				menu.openInstance(player);
 				return true;
 			}
 		}

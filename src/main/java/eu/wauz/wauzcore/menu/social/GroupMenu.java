@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.menu.social;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +29,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzTeleporter;
+import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -38,6 +40,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  *
  * @see WauzPlayerGroup
  */
+@PublicMenu
 public class GroupMenu implements WauzInventory {
 	
 	/**
@@ -46,6 +49,14 @@ public class GroupMenu implements WauzInventory {
 	@Override
 	public String getInventoryId() {
 		return "groups";
+	}
+	
+	/**
+	 * @return The modes in which the inventory can be opened.
+	 */
+	@Override
+	public List<WauzMode> getGamemodes() {
+		return Arrays.asList(WauzMode.MMORPG, WauzMode.SURVIVAL);
 	}
 	
 	/**

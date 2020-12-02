@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.menu.social;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,6 +28,8 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -36,6 +39,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
  * 
  * @see TabardMenu
  */
+@PublicMenu
 public class TabardBuilder implements WauzInventory {
 	
 	/**
@@ -43,7 +47,15 @@ public class TabardBuilder implements WauzInventory {
 	 */
 	@Override
 	public String getInventoryId() {
-		return "tabardbuilder";
+		return "tabard-builder";
+	}
+	
+	/**
+	 * @return The modes in which the inventory can be opened.
+	 */
+	@Override
+	public List<WauzMode> getGamemodes() {
+		return Arrays.asList(WauzMode.MMORPG);
 	}
 	
 	/**
@@ -150,6 +162,13 @@ public class TabardBuilder implements WauzInventory {
 	 * The amount of layers the tabard / banner has.
 	 */
 	private int layers = 0;
+	
+	/**
+	 * Creates an empty tabard builder.
+	 */
+	public TabardBuilder() {
+		
+	}
 	
 	/**
 	 * Creates a new tabard builder for the given guild.

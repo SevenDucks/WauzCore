@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.menu.collection;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +24,9 @@ import eu.wauz.wauzcore.mobs.bestiary.ObservationTracker;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryCategory;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryEntry;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiarySpecies;
+import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -33,6 +36,7 @@ import eu.wauz.wauzcore.system.util.UnicodeUtils;
  *
  * @see WauzBestiaryEntry
  */
+@PublicMenu
 public class BestiaryMenu implements WauzInventory {
 
 	/**
@@ -41,6 +45,14 @@ public class BestiaryMenu implements WauzInventory {
 	@Override
 	public String getInventoryId() {
 		return "bestiary";
+	}
+	
+	/**
+	 * @return The modes in which the inventory can be opened.
+	 */
+	@Override
+	public List<WauzMode> getGamemodes() {
+		return Arrays.asList(WauzMode.MMORPG);
 	}
 
 	/**

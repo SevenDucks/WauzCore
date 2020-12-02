@@ -12,6 +12,7 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.annotations.Skillgem;
 
 /**
  * A skill, that can be executed by a player.
@@ -21,6 +22,7 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
  *
  * @see WauzPlayerSkill
  */
+@Skillgem
 public class SkillTemperance implements WauzPlayerSkill {
 	
 	/**

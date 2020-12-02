@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.items.scrolls;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import eu.wauz.wauzcore.items.WauzEquipment;
+import eu.wauz.wauzcore.system.annotations.Scroll;
 
 /**
  * A scroll or similar that can be used on items in a player's inventory.
@@ -13,6 +14,7 @@ import eu.wauz.wauzcore.items.WauzEquipment;
  * @see WauzScrolls
  * @see WauzEquipment#insertSkillgem(InventoryClickEvent)
  */
+@Scroll
 public class ScrollGenericSkillgem implements InventoryScroll {
 
 	/**

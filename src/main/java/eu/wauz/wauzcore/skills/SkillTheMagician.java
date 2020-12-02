@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
+import eu.wauz.wauzcore.system.annotations.Skillgem;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 
 /**
@@ -21,6 +22,7 @@ import eu.wauz.wauzcore.skills.execution.SkillUtils;
  *
  * @see WauzPlayerSkill
  */
+@Skillgem
 public class SkillTheMagician implements WauzPlayerSkill {
 	
 	/**

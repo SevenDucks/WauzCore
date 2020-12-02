@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.mobs.pets.PetAbility;
+import eu.wauz.wauzcore.mobs.pets.WauzPetAbility;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
@@ -58,7 +58,7 @@ public class CmdWzGetPetAbility implements WauzCommand {
 			sender.sendMessage(ChatColor.RED + "Unknown pet type specified!");
 			return false;
 		}
-		PetAbility petAbility = WauzPetAbilities.getAbility(args[1]);
+		WauzPetAbility petAbility = WauzPetAbilities.getAbility(args[1]);
 		if(petAbility == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown ability specified!");
 			return false;

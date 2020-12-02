@@ -16,12 +16,14 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.building.ShapeHexagon;
+import eu.wauz.wauzcore.system.annotations.Minigame;
 
 /**
  * A survival minigame, where you have to stay alive while the floor breaks.
  * 
  * @author Wauzmons
  */
+@Minigame
 public class MinigameHexAGone implements ArcadeMinigame {
 	
 	/**

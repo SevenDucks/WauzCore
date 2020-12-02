@@ -163,7 +163,7 @@ public class WauzActivePet {
 	/**
 	 * The pet ability.
 	 */
-	private PetAbility petAbility;
+	private WauzPetAbility petAbility;
 	
 	/**
 	 * A map of pet stat values, indexed by corresponding stat objects.
@@ -208,7 +208,7 @@ public class WauzActivePet {
 	/**
 	 * @return The pet ability.
 	 */
-	public PetAbility getPetAbility() {
+	public WauzPetAbility getPetAbility() {
 		return petAbility;
 	}
 

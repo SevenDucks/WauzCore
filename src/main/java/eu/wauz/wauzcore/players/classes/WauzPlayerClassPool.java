@@ -19,14 +19,14 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 public class WauzPlayerClassPool {
 	
 	/**
-	 * A map of all registered classes, indexed by name.
-	 */
-	private static Map<String, WauzPlayerClass> playerClassMap = new HashMap<>();
-	
-	/**
 	 * An ordered list of all classes.
 	 */
 	private static List<WauzPlayerClass> playerClassList = new ArrayList<>();
+	
+	/**
+	 * A map of all registered classes, indexed by name.
+	 */
+	private static Map<String, WauzPlayerClass> playerClassMap = new HashMap<>();
 	
 	/**
 	 * @param className The name of a class.
@@ -75,6 +75,7 @@ public class WauzPlayerClassPool {
 	public static void registerClass(WauzPlayerClass playerClass) {
 		playerClassMap.put(playerClass.getClassName(), playerClass);
 		playerClassList.add(playerClass);
+		playerClassList.sort((class1, class2) -> class2.getClassName().compareTo(class1.getClassName()));
 	}
 
 }

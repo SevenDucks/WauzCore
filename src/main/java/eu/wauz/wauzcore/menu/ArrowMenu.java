@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.menu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -24,6 +25,8 @@ import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -33,6 +36,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
  * 
  * @see CustomWeaponBow
  */
+@PublicMenu
 public class ArrowMenu implements WauzInventory {
 	
 	/**
@@ -41,6 +45,14 @@ public class ArrowMenu implements WauzInventory {
 	@Override
 	public String getInventoryId() {
 		return "arrows";
+	}
+	
+	/**
+	 * @return The modes in which the inventory can be opened.
+	 */
+	@Override
+	public List<WauzMode> getGamemodes() {
+		return Arrays.asList(WauzMode.MMORPG);
 	}
 	
 	/**

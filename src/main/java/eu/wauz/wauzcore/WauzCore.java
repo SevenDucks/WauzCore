@@ -14,10 +14,10 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.data.ConfigurationLoader;
 import eu.wauz.wauzcore.data.ServerConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
-import eu.wauz.wauzcore.system.WauzLoader;
 import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.WauzRepeatingTasks;
 import eu.wauz.wauzcore.system.annotations.AnnotationLoader;
@@ -91,16 +91,12 @@ public class WauzCore extends JavaPlugin {
 	 * 3. Sets up the web based API.
 	 * 4. And finally starts all repeating tasks.
 	 * 
-	 * @see WauzLoader
+	 * @see ConfigurationLoader
 	 * @see WebServerManager
 	 */
 	@Override
 	public void onEnable() {
 		instance = this;
-		
-		/**
-		 * Print the version
-		 */
 		getLogger().info("O~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-O");
 		getLogger().info(" _    _                                           ");
 		getLogger().info("| |  | | WauzCore v" + getDescription().getVersion());
@@ -113,9 +109,11 @@ public class WauzCore extends JavaPlugin {
 		
 		PluginManager pluginManager = getServer().getPluginManager();
 		if(WauzModules.isMainModuleActive()) {
-			WauzLoader.init();
-			AnnotationLoader.init();
+			ConfigurationLoader.init();
 			getLogger().info("Loaded Data from Files!");
+			
+			AnnotationLoader.init();
+			getLogger().info("Loaded Data from Predefined Classes!");
 			
 			pluginManager.registerEvents(new ArmorEquipEventListener(), this);
 			pluginManager.registerEvents(new BlockProtectionListener(), this);

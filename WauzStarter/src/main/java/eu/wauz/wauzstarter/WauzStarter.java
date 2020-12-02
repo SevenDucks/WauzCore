@@ -27,10 +27,6 @@ public class WauzStarter extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
-		
-		/**
-		 * Print the version
-		 */
 		getLogger().info("O~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-O");
 		getLogger().info(" _    _                                           ");
 		getLogger().info("| |  | | WauzStarter v" + getDescription().getVersion());

@@ -33,16 +33,6 @@ public class LootContainer implements WauzInventory {
 	}
 	
 	/**
-	 * Opens a new inventory of this type for the given player.
-	 * 
-	 * @param player The player that should view the inventory.
-	 */
-	@Override
-	public void openInstance(Player player) {
-		throw new RuntimeException("Inventory cannot be opened directly!");
-	}
-	
-	/**
 	 * Opens the menu for the given player.
 	 * Shows all the given loot item stacks, for the player to claim.
 	 * 

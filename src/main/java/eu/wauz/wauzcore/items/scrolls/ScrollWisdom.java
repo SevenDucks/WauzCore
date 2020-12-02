@@ -6,6 +6,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import eu.wauz.wauzcore.items.identifiers.WauzIdentifier;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.annotations.Scroll;
 
 /**
  * A scroll or similar that can be used on items in a player's inventory.
@@ -16,6 +17,7 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
  * @see WauzScrolls
  * @see WauzIdentifier#identify(InventoryClickEvent, String)
  */
+@Scroll
 public class ScrollWisdom implements InventoryScroll {
 
 	/**

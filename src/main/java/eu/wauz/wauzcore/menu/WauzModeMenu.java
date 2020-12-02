@@ -34,16 +34,6 @@ public class WauzModeMenu implements WauzInventory {
 	}
 	
 	/**
-	 * Opens a new inventory of this type for the given player.
-	 * 
-	 * @param player The player that should view the inventory.
-	 */
-	@Override
-	public void openInstance(Player player) {
-		WauzModeMenu.open(player);
-	}
-	
-	/**
 	 * Opens the menu for the given player.
 	 * Shows three hardcoded modes to choose: "DropGuys", "MMORPG", "OneBlock".
 	 * 

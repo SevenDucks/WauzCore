@@ -14,6 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.annotations.Tower;
 
 /**
  * A defense tower to help players to defend themselves from enemies.
@@ -21,6 +22,7 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
  * 
  * @author Wauzmons
  */
+@Tower
 public class TowerDamageBooster implements DefenseTower {
 	
 	/**

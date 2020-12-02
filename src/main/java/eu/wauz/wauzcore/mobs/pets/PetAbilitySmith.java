@@ -10,6 +10,7 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.annotations.PetAbility;
 
 /**
  * A pet ability to help the pet's owner, used every few seconds.
@@ -19,7 +20,8 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
  * 
  * @see WauzPetAbilities
  */
-public class PetAbilitySmith implements PetAbility {
+@PetAbility
+public class PetAbilitySmith implements WauzPetAbility {
 	
 	/**
 	 * The particles used to display the ability's effect.

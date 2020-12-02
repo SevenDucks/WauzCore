@@ -13,6 +13,7 @@ import eu.wauz.wauzcore.players.classes.mage.SubclassNecromancer;
 import eu.wauz.wauzcore.players.classes.mage.SubclassWarlock;
 import eu.wauz.wauzcore.skills.SkillTheMagician;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.system.annotations.CharacterClass;
 
 /**
  * A class, that can be chosen by a player.
@@ -22,6 +23,7 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
  *
  * @see WauzPlayerClassPool
  */
+@CharacterClass
 public class ClassMage extends BaseClass {
 	
 	/**

@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.annotations.Skillgem;
 
 /**
  * A skill, that can be executed by a player.
@@ -29,6 +30,7 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
  *
  * @see WauzPlayerSkill
  */
+@Skillgem
 public class SkillTheHangedMan implements WauzPlayerSkill {
 	
 	/**

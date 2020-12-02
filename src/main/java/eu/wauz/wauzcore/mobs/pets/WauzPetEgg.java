@@ -45,7 +45,7 @@ public class WauzPetEgg {
 	 * 
 	 * @return The generated egg item stack.
 	 */
-	public static ItemStack getEggItem(Player owner, WauzPet pet, PetAbility ability, long hatchTime) {
+	public static ItemStack getEggItem(Player owner, WauzPet pet, WauzPetAbility ability, long hatchTime) {
 		WauzPetRarity rarity = pet.getRarity();
 		boolean isHorse = pet.isHorse();
 		ItemStack itemStack = new ItemStack(rarity.getMaterial());

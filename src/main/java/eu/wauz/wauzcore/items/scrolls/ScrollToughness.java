@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.items.scrolls;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import eu.wauz.wauzcore.system.annotations.Scroll;
 import eu.wauz.wauzcore.system.economy.WauzShopActions;
 
 /**
@@ -14,6 +15,7 @@ import eu.wauz.wauzcore.system.economy.WauzShopActions;
  * @see WauzScrolls
  * @see WauzShopActions#repair(Player, org.bukkit.inventory.ItemStack, boolean)
  */
+@Scroll
 public class ScrollToughness implements InventoryScroll {
 
 	/**

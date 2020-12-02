@@ -50,10 +50,6 @@ public class WauzDiscord extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
-		
-		/**
-		 * Print the version
-		 */
 		getLogger().info("O~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-O");
 		getLogger().info(" _    _                                           ");
 		getLogger().info("| |  | | WauzDiscord running WauzCore v" + WauzCore.getInstance().getDescription().getVersion());

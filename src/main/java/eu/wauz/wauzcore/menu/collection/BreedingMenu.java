@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.menu.collection;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,16 +27,18 @@ import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
-import eu.wauz.wauzcore.mobs.pets.PetAbility;
+import eu.wauz.wauzcore.mobs.pets.WauzPetAbility;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.mobs.pets.WauzPetBreedingLevel;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.mobs.pets.WauzPetRarity;
 import eu.wauz.wauzcore.system.WauzModules;
+import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -45,6 +48,7 @@ import eu.wauz.wauzcore.system.util.WauzDateUtils;
  *
  * @see WauzPetEgg
  */
+@PublicMenu
 public class BreedingMenu implements WauzInventory {
 
 	/**
@@ -53,6 +57,14 @@ public class BreedingMenu implements WauzInventory {
 	@Override
 	public String getInventoryId() {
 		return "breeding";
+	}
+	
+	/**
+	 * @return The modes in which the inventory can be opened.
+	 */
+	@Override
+	public List<WauzMode> getGamemodes() {
+		return Arrays.asList(WauzMode.MMORPG);
 	}
 
 	/**
@@ -118,11 +130,11 @@ public class BreedingMenu implements WauzInventory {
 			ItemMeta abilityItemMeta = abilityItemStack.getItemMeta();
 			abilityItemMeta.setDisplayName(ChatColor.YELLOW + "Possible Abilities for Current Level");
 			List<String> abilityLores = new ArrayList<>();
-			List<PetAbility> abilities = WauzPetAbilities.getAbilitiesForLevel(currentLevel);
+			List<WauzPetAbility> abilities = WauzPetAbilities.getAbilitiesForLevel(currentLevel);
 			if(abilities.isEmpty()) {
 				abilityLores.add(ChatColor.GREEN + "None yet...");
 			}
-			for(PetAbility ability : abilities) {
+			for(WauzPetAbility ability : abilities) {
 				String description = ChatColor.YELLOW + ability.getAbilityDescription();
 				abilityLores.add(ChatColor.GREEN + ability.getAbilityName() + " " + description);
 			}
@@ -181,7 +193,14 @@ public class BreedingMenu implements WauzInventory {
 	private int newPetSeconds;
 	
 	/**
-	 * Constructs a new breeding menu instance
+	 * Constructs an empty breeding menu instance.
+	 */
+	public BreedingMenu() {
+		this.level = WauzPetBreedingLevel.getBreedingLevel(0);
+	}
+	
+	/**
+	 * Constructs a new breeding menu instance.
 	 * 
 	 * @param exp The breeding experience of the player.
 	 */
@@ -317,7 +336,7 @@ public class BreedingMenu implements WauzInventory {
 				return;
 			}
 			long hatchTime = System.currentTimeMillis() + (newPetSeconds * 1000);
-			PetAbility petAbility = WauzModules.isPetsModuleStandalone() ? null : WauzPetAbilities.getAbilityForLevel(level);
+			WauzPetAbility petAbility = WauzModules.isPetsModuleStandalone() ? null : WauzPetAbilities.getAbilityForLevel(level);
 			ItemStack newPetItemStack = WauzPetEgg.getEggItem(player, newPet, petAbility, hatchTime);
 			PetObtainEvent.call(player, newPet);
 			LootContainer.open(player, Collections.singletonList(newPetItemStack));

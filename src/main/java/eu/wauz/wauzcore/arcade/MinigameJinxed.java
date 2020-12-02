@@ -18,12 +18,14 @@ import org.bukkit.potion.PotionEffectType;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.annotations.Minigame;
 
 /**
  * A group minigame, where you have to "jinx" players of the other team.
  * 
  * @author Wauzmons
  */
+@Minigame
 public class MinigameJinxed implements ArcadeMinigame {
 	
 	/**

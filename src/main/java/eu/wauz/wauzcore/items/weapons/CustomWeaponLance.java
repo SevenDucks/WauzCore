@@ -19,6 +19,7 @@ import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.annotations.Item;
 import eu.wauz.wauzcore.system.util.Cooldown;
 
 /**
@@ -26,6 +27,7 @@ import eu.wauz.wauzcore.system.util.Cooldown;
  * 
  * @author Wauzmons
  */
+@Item
 public class CustomWeaponLance implements CustomWeapon {
 	
 	/**

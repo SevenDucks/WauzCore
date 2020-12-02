@@ -21,6 +21,7 @@ import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.annotations.Item;
 import eu.wauz.wauzcore.system.util.Cooldown;
 
 /**
@@ -28,6 +29,7 @@ import eu.wauz.wauzcore.system.util.Cooldown;
  * 
  * @author Wauzmons
  */
+@Item
 public class CustomWeaponAxe implements CustomWeapon {
 
 	/**

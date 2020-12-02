@@ -2,6 +2,7 @@ package eu.wauz.wauzcore.menu.collection;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -29,9 +30,11 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.quests.QuestMenuItems;
 import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -41,6 +44,7 @@ import eu.wauz.wauzcore.system.quests.WauzQuest;
  *
  * @see WauzQuest
  */
+@PublicMenu
 public class QuestMenu implements WauzInventory {
 	
 	/**
@@ -49,6 +53,14 @@ public class QuestMenu implements WauzInventory {
 	@Override
 	public String getInventoryId() {
 		return "quests";
+	}
+	
+	/**
+	 * @return The modes in which the inventory can be opened.
+	 */
+	@Override
+	public List<WauzMode> getGamemodes() {
+		return Arrays.asList(WauzMode.MMORPG);
 	}
 	
 	/**

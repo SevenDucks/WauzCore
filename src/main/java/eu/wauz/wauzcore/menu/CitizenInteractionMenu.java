@@ -39,16 +39,6 @@ public class CitizenInteractionMenu implements WauzInventory {
 	}
 	
 	/**
-	 * Opens a new inventory of this type for the given player.
-	 * 
-	 * @param player The player that should view the inventory.
-	 */
-	@Override
-	public void openInstance(Player player) {
-		throw new RuntimeException("Inventory cannot be opened directly!");
-	}
-	
-	/**
 	 * Opens the menu for the given player.
 	 * Always shows the relation to the given citizen and a "goodbye" option.
 	 * A list of interactions is shown, based on the citizen.

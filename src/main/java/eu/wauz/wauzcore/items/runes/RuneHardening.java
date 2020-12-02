@@ -7,6 +7,7 @@ import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.system.annotations.Rune;
 
 /**
  * A rune, that can be inserted into a piece of equipment, with a fitting slot.
@@ -16,6 +17,7 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
  *
  * @see WauzRune
  */
+@Rune
 public class RuneHardening implements WauzRune {
 
 	/**

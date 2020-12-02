@@ -46,16 +46,6 @@ public class CharacterClassMenu implements WauzInventory {
 	}
 	
 	/**
-	 * Opens a new inventory of this type for the given player.
-	 * 
-	 * @param player The player that should view the inventory.
-	 */
-	@Override
-	public void openInstance(Player player) {
-		CharacterClassMenu.open(player);
-	}
-	
-	/**
 	 * Opens the menu for the given player.
 	 * Shows all the classes to choose from including descriptions and stats.
 	 * 

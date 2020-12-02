@@ -30,6 +30,7 @@ import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.annotations.Item;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -38,6 +39,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * 
  * @author Wauzmons
  */
+@Item
 public class CustomWeaponBow implements CustomWeapon {
 	
 	/**

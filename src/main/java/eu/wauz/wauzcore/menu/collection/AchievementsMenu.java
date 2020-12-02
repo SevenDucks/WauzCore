@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.menu.collection;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -18,6 +19,8 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -27,6 +30,7 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
  * 
  * @see WauzAchievement
  */
+@PublicMenu
 public class AchievementsMenu implements WauzInventory {
 	
 	/**
@@ -35,6 +39,14 @@ public class AchievementsMenu implements WauzInventory {
 	@Override
 	public String getInventoryId() {
 		return "achievements";
+	}
+	
+	/**
+	 * @return The modes in which the inventory can be opened.
+	 */
+	@Override
+	public List<WauzMode> getGamemodes() {
+		return Arrays.asList(WauzMode.MMORPG);
 	}
 	
 	/**

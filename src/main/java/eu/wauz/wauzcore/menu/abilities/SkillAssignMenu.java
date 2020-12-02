@@ -24,6 +24,8 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.skills.execution.Castable;
 import eu.wauz.wauzcore.skills.execution.SkillQuickSlots;
+import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -33,6 +35,7 @@ import eu.wauz.wauzcore.skills.execution.SkillQuickSlots;
  *
  * @see PlayerSkillConfigurator
  */
+@PublicMenu
 public class SkillAssignMenu implements WauzInventory {
 
 	/**
@@ -41,6 +44,14 @@ public class SkillAssignMenu implements WauzInventory {
 	@Override
 	public String getInventoryId() {
 		return "skill-assign";
+	}
+	
+	/**
+	 * @return The modes in which the inventory can be opened.
+	 */
+	@Override
+	public List<WauzMode> getGamemodes() {
+		return Arrays.asList(WauzMode.MMORPG);
 	}
 
 	/**

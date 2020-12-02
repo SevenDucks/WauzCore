@@ -38,16 +38,6 @@ public class CharacterWorldMenu implements WauzInventory {
 	}
 	
 	/**
-	 * Opens a new inventory of this type for the given player.
-	 * 
-	 * @param player The player that should view the inventory.
-	 */
-	@Override
-	public void openInstance(Player player) {
-		CharacterWorldMenu.open(player);
-	}
-	
-	/**
 	 * Opens the menu for the given player.
 	 * Shows two hardcoded worlds to choose: "Dalyreos" and "Wauzland".
 	 * 

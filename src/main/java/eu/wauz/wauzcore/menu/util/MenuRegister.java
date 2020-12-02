@@ -1,12 +1,9 @@
 package eu.wauz.wauzcore.menu.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * A collection of public inventory menus for usage in commands or similar.
@@ -20,7 +17,7 @@ public class MenuRegister {
 	/**
 	 * A map of all registered inventory menus.
 	 */
-	private static Map<String, MenuRegisterEntry> inventoryMap = new HashMap<>();
+	private static Map<String, WauzInventory> inventoryMap = new HashMap<>();
 	
 	/**
 	 * Gets an inventory menu for given id from the map.
@@ -29,7 +26,7 @@ public class MenuRegister {
 	 * 
 	 * @return The inventory menu or null, if not found.
 	 */
-	public static MenuRegisterEntry getInventory(String inventoryId) {
+	public static WauzInventory getInventory(String inventoryId) {
 		return inventoryMap.get(inventoryId);
 	}
 	
@@ -44,11 +41,9 @@ public class MenuRegister {
 	 * Registers an inventory menu.
 	 * 
 	 * @param inventory The inventory menu to register.
-	 * @param validModes The modes in which the inventory menu can be opened.
 	 */
-	public static void registerInventory(WauzInventory inventory, WauzMode... validModes) {
-		MenuRegisterEntry entry = new MenuRegisterEntry(inventory, Arrays.asList(validModes));
-		inventoryMap.put(inventory.getInventoryId().toLowerCase(), entry);
+	public static void registerInventory(WauzInventory inventory) {
+		inventoryMap.put(inventory.getInventoryId().toLowerCase(), inventory);
 	}
 
 }

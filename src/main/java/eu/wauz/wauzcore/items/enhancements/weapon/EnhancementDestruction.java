@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancement;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancementParameters;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
+import eu.wauz.wauzcore.system.annotations.Enhancement;
 
 /**
  * An enhancement, that can be applied onto an unfinished piece of equipment.
@@ -14,6 +15,7 @@ import eu.wauz.wauzcore.items.enums.EquipmentType;
  * 
  * @see WauzEnhancement
  */
+@Enhancement
 public class EnhancementDestruction implements WauzEnhancement {
 	
 	/**

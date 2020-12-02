@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
  * 
  * @see WauzPetAbilities
  */
-public interface PetAbility {
+public interface WauzPetAbility {
 	
 	/**
 	 * @return The name of the ability.

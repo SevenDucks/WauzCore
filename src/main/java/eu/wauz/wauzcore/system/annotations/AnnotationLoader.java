@@ -42,7 +42,18 @@ public class AnnotationLoader {
 	 * @throws Exception Failed to load a class.
 	 */
 	private void run() throws Exception {
+		PublicMenu.MenuAnnotationHelper.init(this);
 		Command.CommandAnnotationHelper.init(this);
+		CharacterClass.ClassAnnotationHelper.init(this);
+		Item.ItemAnnotationHelper.init(this);
+		Scroll.ScrollAnnotationHelper.init(this);
+		Tower.TowerAnnotationHelper.init(this);
+		PetAbility.AbilityAnnotationHelper.init(this);
+		Skill.SkillAnnotationHelper.init(this);
+		Skillgem.SkillgemAnnotationHelper.init(this);
+		Rune.RuneAnnotationHelper.init(this);
+		Enhancement.EnhancementAnnotationHelper.init(this);
+		Minigame.MinigameAnnotationHelper.init(this);
 	}
 	
 	/**

@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.execution.SkillUtils.TotemRunnable;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.annotations.Skillgem;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
@@ -28,6 +29,7 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
  *
  * @see WauzPlayerSkill
  */
+@Skillgem
 public class SkillTheFool implements WauzPlayerSkill {
 	
 	/**

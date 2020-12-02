@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.menu.social;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -25,7 +26,9 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerMail;
+import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -35,6 +38,7 @@ import eu.wauz.wauzcore.system.util.WauzDateUtils;
  *
  * @see WauzPlayerMail
  */
+@PublicMenu
 public class MailMenu implements WauzInventory {
 	
 	/**
@@ -43,6 +47,14 @@ public class MailMenu implements WauzInventory {
 	@Override
 	public String getInventoryId() {
 		return "mails";
+	}
+	
+	/**
+	 * @return The modes in which the inventory can be opened.
+	 */
+	@Override
+	public List<WauzMode> getGamemodes() {
+		return Arrays.asList(WauzMode.MMORPG);
 	}
 	
 	/**

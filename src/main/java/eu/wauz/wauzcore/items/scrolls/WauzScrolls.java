@@ -24,12 +24,14 @@ import eu.wauz.wauzcore.menu.LootContainer;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.mobs.towers.WauzTowers;
+import eu.wauz.wauzcore.system.annotations.Item;
 
 /**
  * A class for handling the usage of scrolls and socketable items.
  * 
  * @author Wauzmons
  */
+@Item
 public class WauzScrolls implements CustomItem {
 	
 	/**

@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
+import eu.wauz.wauzcore.system.annotations.Skillgem;
 
 /**
  * A skill, that can be executed by a player.
@@ -19,6 +20,7 @@ import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillType;
  *
  * @see WauzPlayerSkill
  */
+@Skillgem
 public class SkillWheelOfFortune implements WauzPlayerSkill {
 	
 	/**

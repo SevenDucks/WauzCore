@@ -30,6 +30,7 @@ import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.annotations.Item;
 import eu.wauz.wauzcore.system.nms.NmsEntityChickoon;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Cooldown;
@@ -40,6 +41,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * 
  * @author Wauzmons
  */
+@Item
 public class CustomWeaponGlider implements CustomWeapon {
 	
 	/**

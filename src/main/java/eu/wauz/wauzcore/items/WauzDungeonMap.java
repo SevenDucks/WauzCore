@@ -7,12 +7,14 @@ import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import eu.wauz.wauzcore.system.WauzTeleporter;
+import eu.wauz.wauzcore.system.annotations.Item;
 
 /**
  * A class for handling the usage of dungeon / instance maps.
  * 
  * @author Wauzmons
  */
+@Item
 public class WauzDungeonMap implements CustomItem {
 
 	/**

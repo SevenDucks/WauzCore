@@ -50,16 +50,6 @@ public class ShopMenu implements WauzInventory {
 	}
 	
 	/**
-	 * Opens a new inventory of this type for the given player.
-	 * 
-	 * @param player The player that should view the inventory.
-	 */
-	@Override
-	public void openInstance(Player player) {
-		throw new RuntimeException("Inventory cannot be opened directly!");
-	}
-	
-	/**
 	 * Opens the menu for the given player.
 	 * Shows all buyable items.
 	 * If the shop is global, only global currencies will be additionally shown.

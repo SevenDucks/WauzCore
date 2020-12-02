@@ -1,6 +1,8 @@
 package eu.wauz.wauzcore.menu;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -24,8 +26,10 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.economy.WauzShopActions;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -33,6 +37,7 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
  * 
  * @author Wauzmons
  */
+@PublicMenu
 public class MaterialPouch implements WauzInventory {
 	
 	private static Map<String, Inventory> inventoryMap = new HashMap<>();
@@ -43,6 +48,14 @@ public class MaterialPouch implements WauzInventory {
 	@Override
 	public String getInventoryId() {
 		return "materials";
+	}
+	
+	/**
+	 * @return The modes in which the inventory can be opened.
+	 */
+	@Override
+	public List<WauzMode> getGamemodes() {
+		return Arrays.asList(WauzMode.MMORPG);
 	}
 	
 	/**
@@ -177,11 +190,18 @@ public class MaterialPouch implements WauzInventory {
 	private String inventoryName;
 	
 	/**
+	 * Creates a new menu to display the contents of the materials section of the material pouch.
+	 */
+	public MaterialPouch() {
+		this.inventoryName = "materials";
+	}
+	
+	/**
 	 * Creates a new menu to display the contents of the given section of the material pouch.
 	 * 
 	 * @param inventoryName The name of the inventory, representing the section of the pouch to show.
 	 */
-	public MaterialPouch(String inventoryName) {
+	private MaterialPouch(String inventoryName) {
 		this.inventoryName = inventoryName;
 	}
 

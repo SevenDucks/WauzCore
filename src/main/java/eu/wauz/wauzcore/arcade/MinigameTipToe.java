@@ -15,12 +15,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import eu.wauz.wauzcore.building.PathGenerator;
+import eu.wauz.wauzcore.system.annotations.Minigame;
 
 /**
  * A race minigame, where you have to find a hidden path among fake tiles.
  * 
  * @author Wauzmons
  */
+@Minigame
 public class MinigameTipToe implements ArcadeMinigame {
 	
 	/**

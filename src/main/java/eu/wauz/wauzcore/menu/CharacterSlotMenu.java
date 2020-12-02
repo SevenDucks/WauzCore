@@ -46,16 +46,6 @@ public class CharacterSlotMenu implements WauzInventory {
 	}
 	
 	/**
-	 * Opens a new inventory of this type for the given player.
-	 * 
-	 * @param player The player that should view the inventory.
-	 */
-	@Override
-	public void openInstance(Player player) {
-		CharacterSlotMenu.open(player, WauzMode.MMORPG);
-	}
-	
-	/**
 	 * Opens the menu for the given player.
 	 * Shows three choosable chearacter slot for the given mode.
 	 * 

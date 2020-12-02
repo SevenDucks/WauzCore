@@ -3,6 +3,8 @@ package eu.wauz.wauzcore.skills.execution;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.system.annotations.Skill;
+
 /**
  * A skill, that can be executed by a player.
  * Used as a placeholder for real skills.
@@ -11,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
  *
  * @see WauzPlayerSkill
  */
+@Skill
 public class SkillPlaceholder implements WauzPlayerSkill {
 	
 	/**

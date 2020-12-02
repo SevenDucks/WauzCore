@@ -20,11 +20,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.projectiles.ProjectileSource;
 
+import eu.wauz.wauzcore.system.annotations.Minigame;
+
 /**
  * A group minigame, where you have to kill the most vampire bats.
  * 
  * @author Wauzmons
  */
+@Minigame
 public class MinigameVanHelsing implements ArcadeMinigame {
 	
 	/**

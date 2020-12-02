@@ -19,6 +19,8 @@ import eu.wauz.wauzcore.menu.social.SocialMenuParts;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.system.annotations.Item;
+import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -29,6 +31,8 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * 
  * @see WauzModeMenu
  */
+@PublicMenu
+@Item
 public class WauzMenu implements WauzInventory, CustomItem {
 	
 	/**
@@ -36,7 +40,15 @@ public class WauzMenu implements WauzInventory, CustomItem {
 	 */
 	@Override
 	public String getInventoryId() {
-		return "mainmenu";
+		return "main-menu";
+	}
+	
+	/**
+	 * @return The modes in which the inventory can be opened.
+	 */
+	@Override
+	public List<WauzMode> getGamemodes() {
+		return Arrays.asList(WauzMode.MMORPG);
 	}
 	
 	/**

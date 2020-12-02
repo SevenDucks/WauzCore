@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.skills.execution.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.annotations.Item;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import io.lumine.xikage.mythicmobs.MythicMobs;
@@ -34,6 +35,7 @@ import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
  * 
  * @author Wauzmons
  */
+@Item
 public class CustomWeaponShield implements CustomWeapon {
 	
 	/**

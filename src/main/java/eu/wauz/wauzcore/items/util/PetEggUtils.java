@@ -3,7 +3,7 @@ package eu.wauz.wauzcore.items.util;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.mobs.pets.PetAbility;
+import eu.wauz.wauzcore.mobs.pets.WauzPetAbility;
 import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.mobs.pets.WauzPetStat;
 
@@ -60,7 +60,7 @@ public class PetEggUtils {
 	 * 
 	 * @return The ability of the item.
 	 */
-	public static PetAbility getPetAbility(ItemStack itemStack) {
+	public static WauzPetAbility getPetAbility(ItemStack itemStack) {
 		return WauzPetAbilities.getAbility(ItemUtils.getStringFromLore(itemStack, "Ability:" + ChatColor.GREEN, 1));
 	}
 	

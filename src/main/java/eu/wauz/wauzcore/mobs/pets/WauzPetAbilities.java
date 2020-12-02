@@ -17,19 +17,19 @@ import eu.wauz.wauzcore.system.util.Chance;
  * 
  * @author Wauzmons
  *
- * @see PetAbility
+ * @see WauzPetAbility
  */
 public class WauzPetAbilities {
 	
 	/**
 	 * A list of all abilities.
 	 */
-	private static List<PetAbility> abilities = new ArrayList<>();
+	private static List<WauzPetAbility> abilities = new ArrayList<>();
 	
 	/**
 	 * A map of all abilities, indexed by ability name.
 	 */
-	private static Map<String, PetAbility> abilityMap = new HashMap<>();
+	private static Map<String, WauzPetAbility> abilityMap = new HashMap<>();
 	
 	/**
 	 * @return A list of all ability keys.
@@ -45,7 +45,7 @@ public class WauzPetAbilities {
 	 * 
 	 * @return The list of abilities.
 	 */
-	public static List<PetAbility> getAbilitiesForLevel(WauzPetBreedingLevel breedingLevel) {
+	public static List<WauzPetAbility> getAbilitiesForLevel(WauzPetBreedingLevel breedingLevel) {
 		return abilities.stream()
 				.filter(ability -> ability.getAbilityLevel() <= breedingLevel.getLevel())
 				.collect(Collectors.toList());
@@ -58,8 +58,8 @@ public class WauzPetAbilities {
 	 * 
 	 * @return The ability or null, if no matches.
 	 */
-	public static PetAbility getAbilityForLevel(WauzPetBreedingLevel breedingLevel) {
-		List<PetAbility> abilities = getAbilitiesForLevel(breedingLevel);
+	public static WauzPetAbility getAbilityForLevel(WauzPetBreedingLevel breedingLevel) {
+		List<WauzPetAbility> abilities = getAbilitiesForLevel(breedingLevel);
 		if(abilities.isEmpty()) {
 			return null;
 		}
@@ -73,7 +73,7 @@ public class WauzPetAbilities {
 	 * 
 	 * @return The ability or null, if not found.
 	 */
-	public static PetAbility getAbility(String abilityName) {
+	public static WauzPetAbility getAbility(String abilityName) {
 		return abilityMap.get(abilityName);
 	}
 	
@@ -82,9 +82,10 @@ public class WauzPetAbilities {
 	 * 
 	 * @param ability The ability to register.
 	 */
-	public static void registerAbility(PetAbility ability) {
-		abilities.add(ability);
+	public static void registerAbility(WauzPetAbility ability) {
 		abilityMap.put(ability.getAbilityName(), ability);
+		abilities.add(ability);
+		abilities.sort((ability1, ability2) -> Integer.compare(ability1.getAbilityLevel(), ability2.getAbilityLevel()));
 	}
 	
 	/**
@@ -104,7 +105,7 @@ public class WauzPetAbilities {
 		if(petEntity == null || !player.getWorld().equals(petEntity.getWorld())) {
 			return false;
 		}
-		PetAbility petAbility = pet.getPetAbility();
+		WauzPetAbility petAbility = pet.getPetAbility();
 		if(petAbility == null) {
 			return false;
 		}

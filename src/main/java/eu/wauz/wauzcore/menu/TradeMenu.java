@@ -54,16 +54,6 @@ public class TradeMenu implements WauzInventory {
 	}
 	
 	/**
-	 * Opens a new inventory of this type for the given player.
-	 * 
-	 * @param player The player that should view the inventory.
-	 */
-	@Override
-	public void openInstance(Player player) {
-		throw new RuntimeException("Inventory cannot be opened directly!");
-	}
-	
-	/**
 	 * Opens the menu for the given players.
 	 * The players can put items on their side of the window.
 	 * If one player is ready items cannot be changed anymore.
