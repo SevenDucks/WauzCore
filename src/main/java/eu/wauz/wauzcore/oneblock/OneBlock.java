@@ -21,14 +21,15 @@ public class OneBlock {
 		if(!block.getWorld().getName().equals("SurvivalOneBlock")) {
 			return false;
 		}
-		int x = Math.abs(block.getX() % 250);
+		int x = Math.abs(block.getX() % OnePlotManager.PLOT_SIZE);
 		int y = block.getY();
-		int z = Math.abs(block.getZ() % 250);
+		int z = Math.abs(block.getZ() % OnePlotManager.PLOT_SIZE);
 		if(x == 0 && y == 70 && z == 0) {
 			return true;
 		}
 		else {
-			return (x <= 1 || x == 249) && (y >= 71 && y < 74) && (z <= 1 || z == 249);
+			int b = OnePlotManager.PLOT_SIZE - 1;
+			return (x <= 1 || x == b) && (y >= 71 && y < 74) && (z <= 1 || z == b);
 		}
 	}
 	
@@ -41,7 +42,8 @@ public class OneBlock {
 	 * @see OneBlockProgression#progress(Block)
 	 */
 	public static void breakOneBlock(Player player, Block blockToBreak) {
-		if(blockToBreak.getX() % 250 != 0 || blockToBreak.getY() != 70 || blockToBreak.getZ() % 250 != 0 ) {
+		int plotSize = OnePlotManager.PLOT_SIZE;
+		if(blockToBreak.getX() % plotSize != 0 || blockToBreak.getY() != 70 || blockToBreak.getZ() % plotSize != 0 ) {
 			return;
 		}
 		OneBlockProgression.getPlayerOneBlock(player).progress(blockToBreak);

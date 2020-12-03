@@ -143,7 +143,7 @@ public class OneBlockProgression {
 	 */
 	public void progress(Block blockToBreak) {
 		ItemStack equipmentItemStack = player.getEquipment().getItemInMainHand();
-		if(++blockNo == level.getBlockAmount()) {
+		if(++blockNo % 100 == 0) {
 			OneChestType chestType = OneChestType.getRandomChestType();
 			OneChest chest = phase.getChests().get(chestType);
 			blockToBreak.breakNaturally(equipmentItemStack, true);

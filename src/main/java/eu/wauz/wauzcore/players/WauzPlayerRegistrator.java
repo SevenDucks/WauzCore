@@ -15,10 +15,10 @@ import org.bukkit.permissions.PermissionAttachment;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
+import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
@@ -161,8 +161,7 @@ public class WauzPlayerRegistrator {
 					WauzNmsClient.nmsRepsawn(player);
 				}
 				if(WauzMode.inOneBlock(player)) {
-					WauzNmsClient.nmsBorder(player, PlayerConfigurator.getCharacterSpawn(player), 120);
-					WauzDebugger.log(player, "Re-Created World Border");
+					OnePlotManager.setUpBorder(player);
 				}
 	        	player.sendTitle(ChatColor.DARK_RED + "" + ChatColor.BOLD + "YOU DIED", "", 10, 70, 20);
 			}

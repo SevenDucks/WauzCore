@@ -1,12 +1,9 @@
 package eu.wauz.wauzcore.system.listeners;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -16,13 +13,10 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
-import eu.wauz.wauzcore.oneblock.OneBlock;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.CombatMapper;
 import eu.wauz.wauzcore.system.EventMapper;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -103,29 +97,6 @@ public class InventoryListener implements Listener {
 		else if(WauzMode.isArcade(event.getPlayer())) {
 			event.setCancelled(true);
 		}
-	}
-	
-	/**
-	 * Adds a name label to every item that was dropped on the ground.
-	 * Also prevents items from spawning in the one block of the one-block gamemode.
-	 * 
-	 * @param event The spawn event.
-	 * 
-	 * @see ItemUtils#hasDisplayName(ItemStack)
-	 */
-	@EventHandler
-	public void onItemSpawn(ItemSpawnEvent event) {
-		Item item = event.getEntity();
-		ItemStack itemStack = item.getItemStack();
-		if(ItemUtils.hasDisplayName(itemStack)) {
-			item.setCustomName(itemStack.getItemMeta().getDisplayName());
-			item.setCustomNameVisible(true);
-		}
-		Location location = event.getLocation();
-		if(OneBlock.isOneBlock(location.getBlock())) {
-			item.teleport(location.add(0, 1, 0));
-		}
-		item.setItemStack(WauzNmsClient.nmsSerialize(itemStack));
 	}
 	
 	/**

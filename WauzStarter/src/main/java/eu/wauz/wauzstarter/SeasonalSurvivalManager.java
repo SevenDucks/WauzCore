@@ -115,8 +115,12 @@ public class SeasonalSurvivalManager {
 					}, 600);
 				}
 				world.setSpawnLocation(spawnLocation.clone().add(0, 1, 0));
+				world.setGameRule(GameRule.DO_INSOMNIA, false);
 				world.setGameRule(GameRule.MOB_GRIEFING, false);
 				world.setGameRule(GameRule.SPAWN_RADIUS, 0);
+				if(world.getName().contains("OneBlock")) {
+					world.setGameRule(GameRule.DO_MOB_SPAWNING, false);
+				}
 			}
 			core.getLogger().info(worldName + " Season: " + currentSeason);
 		}

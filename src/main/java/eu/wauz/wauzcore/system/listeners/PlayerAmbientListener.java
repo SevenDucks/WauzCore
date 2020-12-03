@@ -1,35 +1,42 @@
 package eu.wauz.wauzcore.system.listeners;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.event.player.PlayerRecipeDiscoverEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.event.world.WorldInitEvent;
+import org.bukkit.inventory.ItemStack;
 
 import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.events.PetObtainEvent;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.oneblock.OneBlock;
+import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
@@ -81,8 +88,7 @@ public class PlayerAmbientListener implements Listener {
 		}
 		else {
 			if(WauzMode.inOneBlock(player)) {
-				WauzNmsClient.nmsBorder(player, PlayerConfigurator.getCharacterSpawn(player), 120);
-				WauzDebugger.log(player, "Created World Border");
+				OnePlotManager.setUpBorder(player);
 			}
 			WauzRegion.regionCheck(player);
 		}
@@ -234,6 +240,42 @@ public class PlayerAmbientListener implements Listener {
 		if(WauzMode.isMMORPG(event.getEntity())) {
 			event.setCancelled(true);
 		}
+	}
+	
+	/**
+	 * Adds a name label to every item that was dropped on the ground.
+	 * Also prevents items from spawning in the one block of the one-block gamemode.
+	 * 
+	 * @param event The spawn event.
+	 * 
+	 * @see ItemUtils#hasDisplayName(ItemStack)
+	 */
+	@EventHandler
+	public void onItemSpawn(ItemSpawnEvent event) {
+		Item item = event.getEntity();
+		ItemStack itemStack = item.getItemStack();
+		if(ItemUtils.hasDisplayName(itemStack)) {
+			item.setCustomName(itemStack.getItemMeta().getDisplayName());
+			item.setCustomNameVisible(true);
+		}
+		Location location = event.getLocation();
+		if(OneBlock.isOneBlock(location.getBlock())) {
+			item.teleport(location.add(0, 1.25, 0));
+		}
+		item.setItemStack(WauzNmsClient.nmsSerialize(itemStack));
+	}
+	
+	/**
+	 * Prevents unallowed wither spawns.
+	 * 
+	 * @param event The spawn event.
+	 */
+	@EventHandler
+	public void onCreatureSpawn(CreatureSpawnEvent event) {
+		Entity entity = event.getEntity();
+	    if(WauzMode.inOneBlock(entity) && entity.getType().equals(EntityType.WITHER)) {
+	        event.setCancelled(true);
+	    }
 	}
 
 }

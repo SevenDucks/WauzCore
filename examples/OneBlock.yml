@@ -1,6 +1,7 @@
 phases:
   1:
     name: Oak Woods
+    icon: OAK_LOG
     mobs:
       spawnchance: 0.0
       hostilechance: 0.0
@@ -10,33 +11,39 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'BREAD 1 1-3'
+        - 'FERN 1 1-2'
       rare:
         stackcount: 4
         content:
         - 'BREAD 1 3-5'
+        - 'FERN 2 3-5'
+        - 'LARGE_FERN 1 1-3'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'BREAD 1 5-8'
+        - 'FERN 2 5-8'
+        - 'LARGE_FERN 1 3-5'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'BREAD 1 10-20'
+        - 'FERN 2 12-25'
+        - 'LARGE_FERN 1 5-10'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (1)
+        blockamount: 200
         blocks:
-        - 'GRASS_BLOCK 3'
+        - 'GRASS_BLOCK 7'
         - 'OAK_LOG 2'
+        - 'OAK_LEAVES 2'
         - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'PUMPKIN 1'
   2:
     name: Birch Woods
+    icon: BIRCH_LOG
     mobs:
       spawnchance: 0.1
       hostilechance: 0.3
@@ -54,33 +61,38 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'WHEAT_SEEDS 1 2-3'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'WHEAT_SEEDS 1 3-5'
+        - 'PUMPKIN_SEEDS 1 3-5'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
+        - 'WHEAT_SEEDS 1 5-8'
+        - 'PUMPKIN_SEEDS 1 5-8'
         - 'IRON_INGOT 1 1-3'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
+        - 'WHEAT_SEEDS 1 10-20'
+        - 'PUMPKIN_SEEDS 1 10-20'
+        - 'IRON_INGOT 1 4-7'
         - 'CAKE 1 1-1'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (2)
+        blockamount: 600
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
+        - 'GRASS_BLOCK 7'
+        - 'BIRCH_LOG 2'
+        - 'BIRCH_LEAVES 2'
         - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'BEE_NEST 1'
   3:
     name: Shallow Cave
+    icon: STONE
     mobs:
       spawnchance: 0.1
       hostilechance: 0.5
@@ -96,33 +108,38 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'GRAVEL 4 5-10'
+        - 'WATER_BUCKET 1 1-1'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'GRAVEL 3 12-25'
+        - 'WATER_BUCKET 1 1-1'
+        - 'IRON_INGOT 1 2-5'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'GRAVEL 2 32-64'
+        - 'WATER_BUCKET 1 1-1'
+        - 'IRON_INGOT 1 2-5'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'WATER_BUCKET 1 1-1'
+        - 'IRON_INGOT 2 5-8'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (3)
+        blockamount: 900
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'STONE 7'
+        - 'DIORITE 2'
+        - 'GRANITE 2'
+        - 'COAL_ORE 2'
+        - 'IRON_ORE 1'
   4:
     name: Flower Fields
+    icon: GRASS_BLOCK
     mobs:
       spawnchance: 0.1
       hostilechance: 0.3
@@ -140,33 +157,96 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'DANDELION 1 1-2'
+        - 'POPPY 1 1-2'
+        - 'BLUE_ORCHID 1 1-2'
+        - 'ALLIUM 1 1-2'
+        - 'AZURE_BLUET 1 1-2'
+        - 'RED_TULIP 1 1-2'
+        - 'ORANGE_TULIP 1 1-2'
+        - 'WHITE_TULIP 1 1-2'
+        - 'PINK_TULIP 1 1-2'
+        - 'OXEYE_DAISY 1 1-2'
+        - 'CORNFLOWER 1 1-2'
+        - 'LILY_OF_THE_VALLEY 1 1-2'
+        - 'WITHER_ROSE 1 1-2'
+        - 'SUNFLOWER 1 1-2'
+        - 'LILAC 1 1-2'
+        - 'ROSE_BUSH 1 1-2'
+        - 'PEONY 1 1-2'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'DANDELION 1 2-5'
+        - 'POPPY 1 2-5'
+        - 'BLUE_ORCHID 1 2-5'
+        - 'ALLIUM 1 2-5'
+        - 'AZURE_BLUET 1 2-5'
+        - 'RED_TULIP 1 2-5'
+        - 'ORANGE_TULIP 1 2-5'
+        - 'WHITE_TULIP 1 2-5'
+        - 'PINK_TULIP 1 2-5'
+        - 'OXEYE_DAISY 1 2-5'
+        - 'CORNFLOWER 1 2-5'
+        - 'LILY_OF_THE_VALLEY 1 2-5'
+        - 'WITHER_ROSE 1 2-5'
+        - 'SUNFLOWER 1 2-5'
+        - 'LILAC 1 2-5'
+        - 'ROSE_BUSH 1 2-5'
+        - 'PEONY 1 2-5'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'DANDELION 1 5-9'
+        - 'POPPY 1 5-9'
+        - 'BLUE_ORCHID 1 5-9'
+        - 'ALLIUM 1 5-9'
+        - 'AZURE_BLUET 1 5-9'
+        - 'RED_TULIP 1 5-9'
+        - 'ORANGE_TULIP 1 5-9'
+        - 'WHITE_TULIP 1 5-9'
+        - 'PINK_TULIP 1 5-9'
+        - 'OXEYE_DAISY 1 5-9'
+        - 'CORNFLOWER 1 5-9'
+        - 'LILY_OF_THE_VALLEY 1 5-9'
+        - 'WITHER_ROSE 1 5-9'
+        - 'SUNFLOWER 1 5-9'
+        - 'LILAC 1 5-9'
+        - 'ROSE_BUSH 1 5-9'
+        - 'PEONY 1 5-9'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'DANDELION 1 11-24'
+        - 'POPPY 1 11-24'
+        - 'BLUE_ORCHID 1 11-24'
+        - 'ALLIUM 1 11-24'
+        - 'AZURE_BLUET 1 11-24'
+        - 'RED_TULIP 1 11-24'
+        - 'ORANGE_TULIP 1 11-24'
+        - 'WHITE_TULIP 1 11-24'
+        - 'PINK_TULIP 1 11-24'
+        - 'OXEYE_DAISY 1 11-24'
+        - 'CORNFLOWER 1 11-24'
+        - 'LILY_OF_THE_VALLEY 1 11-24'
+        - 'WITHER_ROSE 1 11-24'
+        - 'SUNFLOWER 1 11-24'
+        - 'LILAC 1 11-24'
+        - 'ROSE_BUSH 1 11-24'
+        - 'PEONY 1 11-24'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (4)
+        blockamount: 1200
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'GRASS_BLOCK 7'
+        - 'CLAY 3'
+        - 'DARK_OAK_LEAVES 2'
+        - 'BROWN_MUSHROOM_BLOCK 1'
+        - 'RED_MUSHROOM_BLOCK 1'
   5:
     name: Graveyard
+    icon: MOSSY_COBBLESTONE
     mobs:
       spawnchance: 0.1
       hostilechance: 0.7
@@ -182,33 +262,39 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'POTATO 1 4-6'
+        - 'BONE 1 4-6'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'POTATO 1 8-12'
+        - 'BONE 1 8-12'
+        - 'NAME_TAG 1 1-1'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'POTATO 1 16-24'
+        - 'BONE 1 16-24'
+        - 'NAME_TAG 1 1-1'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'POTATO 1 32-48'
+        - 'BONE 1 32-48'
+        - 'NAME_TAG 2 1-1'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (5)
+        blockamount: 1500
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'COARSE_DIRT 7'
+        - 'MOSSY_COBBLESTONE 2'
+        - 'MOSSY_STONE_BRICKS 2'
+        - 'CRACKED_STONE_BRICKS 2'
+        - 'BONE_BLOCK 1'
   6:
     name: Savannah
+    icon: ACACIA_LOG
     mobs:
       spawnchance: 0.1
       hostilechance: 0.4
@@ -226,33 +312,39 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'CARROT 1 4-6'
+        - 'ROTTEN_FLESH 1 4-6'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'CARROT 1 8-12'
+        - 'ROTTEN_FLESH 1 8-12'
+        - 'LEAD 1 1-1'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'CARROT 1 16-24'
+        - 'ROTTEN_FLESH 1 16-24'
+        - 'LEAD 1 1-1'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'CARROT 1 32-48'
+        - 'ROTTEN_FLESH 1 32-48'
+        - 'LEAD 2 1-1'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (6)
+        blockamount: 1800
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'GRASS_BLOCK 7'
+        - 'COARSE_DIRT 2'
+        - 'ACACIA_LOG 2'
+        - 'ACACIA_LEAVES 2'
+        - 'RED_SANDSTONE 1'
   7:
     name: Dry Desert
+    icon: SANDSTONE
     mobs:
       spawnchance: 0.1
       hostilechance: 0.4
@@ -268,33 +360,38 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'SAND 1 6-12'
+        - 'CACTUS 1 1-1'
+        - 'DEAD_BUSH 1 2-5'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'SAND 1 12-24'
+        - 'CACTUS 1 2-4'
+        - 'DEAD_BUSH 1 10-20'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'SAND 1 24-48'
+        - 'CACTUS 1 6-10'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'SAND 1 64-64'
+        - 'CACTUS 1 15-28'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (7)
+        blockamount: 2100
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'SANDSTONE 7'
+        - 'CLAY 2'
+        - 'BONE_BLOCK 2'
+        - 'COAL_ORE 2'
+        - 'GOLD_ORE 1'
   8:
     name: Ancient Tomb
+    icon: CHISELED_SANDSTONE
     mobs:
       spawnchance: 0.1
       hostilechance: 0.6
@@ -310,33 +407,46 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'FLINT 1 3-5'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'FLINT 5 5-10'
+        - 'GOLD_INGOT 3 3-5'
+        - 'CHAINMAIL_BOOTS 1 1-1'
+        - 'CHAINMAIL_CHESTPLATE 1 1-1'
+        - 'CHAINMAIL_HELMET 1 1-1'
+        - 'CHAINMAIL_LEGGINGS 1 1-1'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'FLINT 3 12-24'
+        - 'GOLD_INGOT 2 8-12'
+        - 'CHAINMAIL_BOOTS 1 1-1'
+        - 'CHAINMAIL_CHESTPLATE 1 1-1'
+        - 'CHAINMAIL_HELMET 1 1-1'
+        - 'CHAINMAIL_LEGGINGS 1 1-1'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'GOLD_INGOT 3 15-32'
+        - 'CHAINMAIL_BOOTS 1 1-1'
+        - 'CHAINMAIL_CHESTPLATE 1 1-1'
+        - 'CHAINMAIL_HELMET 1 1-1'
+        - 'CHAINMAIL_LEGGINGS 1 1-1'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (8)
+        blockamount: 2400
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'SMOOTH_SANDSTONE 4'
+        - 'CHISELED_SANDSTONE 4'
+        - 'ANDESITE 3'
+        - 'IRON_ORE 2'
+        - 'LAPIS_ORE 1'
   9:
     name: Badlands
+    icon: RED_SANDSTONE
     mobs:
       spawnchance: 0.1
       hostilechance: 0.4
@@ -352,33 +462,38 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'RED_SAND 1 6-12'
+        - 'SUGAR_CANE 1 1-1'
+        - 'DEAD_BUSH 1 2-5'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'RED_SAND 1 12-24'
+        - 'SUGAR_CANE 1 2-4'
+        - 'DEAD_BUSH 1 10-20'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'RED_SAND 1 24-48'
+        - 'SUGAR_CANE 1 6-10'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'RED_SAND 1 64-64'
+        - 'SUGAR_CANE 1 15-28'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (9)
+        blockamount: 2700
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'TERRACOTTA 7'
+        - 'RED_SANDSTONE 2'
+        - 'SMOOTH_RED_SANDSTONE 2'
+        - 'CHISELED_RED_SANDSTONE 2'
+        - 'GOLD_ORE 1'
   10:
     name: Nightmare
+    icon: NETHERRACK
     mobs:
       spawnchance: 0.1
       hostilechance: 0.7
@@ -394,33 +509,34 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'NETHER_WART 1 3-5'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'NETHER_WART 1 6-12'
+        - 'QUARTZ 1 3-5'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'NETHER_WART 1 12-24'
+        - 'QUARTZ 1 6-12'
       mythic:
-        stackcount: 8
+        stackcount: 1
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'NETHER_STAR 1 1-1'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (10)
+        blockamount: 3000
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'NETHERRACK 7'
+        - 'NETHER_QUARTZ_ORE 2'
+        - 'NETHER_GOLD_ORE 2'
+        - 'SOUL_SAND 2'
+        - 'GLOWSTONE 1'
   11:
     name: Lost Swamp
+    icon: PODZOL
     mobs:
       spawnchance: 0.1
       hostilechance: 0.3
@@ -438,33 +554,37 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'LILY_PAD 1 3-5'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'LILY_PAD 1 6-12'
+        - 'BEETROOT_SEEDS 1 3-5'
+        - 'WATER_BUCKET 1 1-1'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'LILY_PAD 1 12-24'
+        - 'BEETROOT_SEEDS 1 6-12'
+        - 'WATER_BUCKET 1 1-1'
       mythic:
-        stackcount: 8
+        stackcount: 1
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'LILY_PAD 1 24-48'
+        - 'BEETROOT_SEEDS 1 12-24'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (11)
+        blockamount: 3500
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'GRASS_BLOCK 7'
+        - 'CLAY 2'
+        - 'PODZOL 2'
+        - 'SOUL_SAND 2'
+        - 'DARK_OAK_LOG 1'
   12:
     name: Deadly Jungle
+    icon: JUNGLE_LEAVES
     mobs:
       spawnchance: 0.1
       hostilechance: 0.5
@@ -482,33 +602,39 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'VINE 1 2-3'
+        - 'COCOA_BEANS 1 2-3'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'VINE 1 8-12'
+        - 'COCOA_BEANS 1 3-6'
+        - 'MELON_SEEDS 1 5-10'
+        - 'BAMBOO 1 3-6'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'COCOA_BEANS 2 6-12'
+        - 'MELON_SEEDS 1 8-16'
+        - 'BAMBOO 1 6-12'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'COCOA_BEANS 1 12-24'
+        - 'BAMBOO 1 12-24'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (12)
+        blockamount: 4000
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'GRASS_BLOCK 7'
+        - 'JUNGLE_LOG 2'
+        - 'JUNGLE_LEAVES 2'
+        - 'PODZOL 2'
+        - 'MELON 1'
   13:
     name: Old Caverns
+    icon: BLACKSTONE
     mobs:
       spawnchance: 0.1
       hostilechance: 0.6
@@ -524,33 +650,37 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'ARROW 3 3-5'
+        - 'EMERALD 1 1-2'
+        - 'LAVA_BUCKET 1 1-1'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'ARROW 3 5-10'
+        - 'EMERALD 1 3-5'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'ARROW 3 10-20'
+        - 'EMERALD 2 5-8'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'ARROW 1 20-32'
+        - 'EMERALD 1 8-14'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (13)
+        blockamount: 4500
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'STONE 5'
+        - 'BLACKSTONE 5'
+        - 'IRON_ORE 2'
+        - 'EMERALD_ORE 1'
+        - 'DIAMOND_ORE 1'
   14:
     name: Icy Taiga
+    icon: SNOW_BLOCK
     mobs:
       spawnchance: 0.1
       hostilechance: 0.4
@@ -566,33 +696,37 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'FERN 2 4-5'
+        - 'SWEET_BERRY_BUSH 1 1-1'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'FERN 2 6-9'
+        - 'SWEET_BERRY_BUSH 1 1-1'
+        - 'IRON_INGOT 1 2-3'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'SWEET_BERRY_BUSH 1 1-2'
+        - 'IRON_INGOT 2 4-5'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'SWEET_BERRY_BUSH 1 2-3'
+        - 'IRON_INGOT 2 6-9'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (14)
+        blockamount: 5000
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'GRASS_BLOCK 4'
+        - 'SNOW_BLOCK 4'
+        - 'SPRUCE_LOG 2'
+        - 'SPRUCE_LEAVES 2'
+        - 'DIORITE 2'
   15:
     name: Frozen Peak
+    icon: PACKED_ICE
     mobs:
       spawnchance: 0.1
       hostilechance: 0.7
@@ -608,33 +742,35 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'COAL 1 3-5'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'COAL 1 5-10'
+        - 'EXPERIENCE_BOTTLE 1 3-5'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'COAL 1 10-18'
+        - 'EXPERIENCE_BOTTLE 1 4-7'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'COAL 1 18-32'
+        - 'EXPERIENCE_BOTTLE 1 6-12'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (15)
+        blockamount: 5500
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'SNOW_BLOCK 7'
+        - 'PACKED_ICE 2'
+        - 'BLUE_ICE 2'
+        - 'COAL_ORE 2'
+        - 'LAPIS_ORE 1'
   16:
     name: Rocky Beach
+    icon: CLAY
     mobs:
       spawnchance: 0.1
       hostilechance: 0.4
@@ -650,33 +786,39 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'KELP 1 3-5'
+        - 'SEAGRASS 2 2-3'
+        - 'TALL_SEAGRASS 1 1-1'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'KELP 1 6-9'
+        - 'SEAGRASS 2 5-10'
+        - 'TALL_SEAGRASS 1 3-5'
+        - 'SEA_PICKLE 1 2-3'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'KELP 1 12-24'
+        - 'SEA_PICKLE 1 3-5'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'KELP 1 24-48'
+        - 'SEA_PICKLE 1 6-9'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (16)
+        blockamount: 6000
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'CLAY 7'
+        - 'COBBLESTONE 2'
+        - 'SANDSTONE 2'
+        - 'DIRT 2'
+        - 'DRIED_KELP_BLOCK 1'
   17:
     name: Deep Ocean
+    icon: PRISMARINE
     mobs:
       spawnchance: 0.1
       hostilechance: 0.5
@@ -694,33 +836,44 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'TUBE_CORAL_BLOCK 1 1-3'
+        - 'BRAIN_CORAL_BLOCK 1 1-3'
+        - 'BUBBLE_CORAL_BLOCK 1 1-3'
+        - 'FIRE_CORAL_BLOCK 1 1-3'
+        - 'HORN_CORAL_BLOCK 1 1-3'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'TUBE_CORAL_BLOCK 1 3-6'
+        - 'BRAIN_CORAL_BLOCK 1 3-6'
+        - 'BUBBLE_CORAL_BLOCK 1 3-6'
+        - 'FIRE_CORAL_BLOCK 1 3-6'
+        - 'HORN_CORAL_BLOCK 1 3-6'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'TUBE_CORAL_BLOCK 1 6-12'
+        - 'BRAIN_CORAL_BLOCK 1 6-12'
+        - 'BUBBLE_CORAL_BLOCK 1 6-12'
+        - 'FIRE_CORAL_BLOCK 1 6-12'
+        - 'HORN_CORAL_BLOCK 1 6-12'
       mythic:
-        stackcount: 8
+        stackcount: 1
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'HEART_OF_THE_SEA 1 1-1'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (17)
+        blockamount: 7000
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
+        - 'PRISMARINE 7'
+        - 'PRISMARINE_BRICKS 2'
+        - 'DARK_PRISMARINE 2'
         - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'SPONGE 1'
   18:
     name: The Abyss
+    icon: BASALT
     mobs:
       spawnchance: 0.1
       hostilechance: 0.6
@@ -736,39 +889,44 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'IRON_INGOT 1 1-5'
+        - 'GOLD_INGOT 1 1-5'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'IRON_INGOT 1 4-8'
+        - 'GOLD_INGOT 1 4-8'
+        - 'LAPIS_LAZULI 1 3-7'
+        - 'EMERALD 1 3-7'
       epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'LAPIS_LAZULI 1 6-12'
+        - 'EMERALD 1 6-12'
+        - 'DIAMOND 1 2-5'
       mythic:
         stackcount: 8
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'DIAMOND 1 2-5'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (18)
+        blockamount: 8000
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
+        - 'BASALT 7'
         - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'IRON_ORE 2'
+        - 'REDSTONE_ORE 2'
+        - 'DIAMOND_ORE 1'
   19:
     name: Mushroom Lands
+    icon: MYCELIUM
     mobs:
       spawnchance: 0.1
       hostilechance: 0.3
       passive:
       - 'BEE'
-      - 'MOOSHROOM'
+      - 'MUSHROOM_COW'
       - 'PIG'
       - 'WANDERING_TRADER'
       hostile:
@@ -777,35 +935,46 @@ phases:
       - 'WITCH'
     chests:
       common:
-        stackcount: 2
-        content:
-        - 'BREAD 1 2-3'
-      rare:
-        stackcount: 4
-        content:
-        - 'BREAD 1 3-5'
-      epic:
         stackcount: 6
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
-      mythic:
-        stackcount: 8
+        - 'BROWN_MUSHROOM 1 5-10'
+        - 'RED_MUSHROOM 1 5-10'
+      rare:
+        stackcount: 12
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'BROWN_MUSHROOM 1 10-15'
+        - 'RED_MUSHROOM 1 10-15'
+      epic:
+        stackcount: 1
+        content:
+        - 'FLOWER_BANNER_PATTERN 1 1-1'
+        - 'CREEPER_BANNER_PATTERN 1 1-1'
+        - 'SKULL_BANNER_PATTERN 1 1-1'
+        - 'MOJANG_BANNER_PATTERN 1 1-1'
+        - 'GLOBE_BANNER_PATTERN 1 1-1'
+        - 'PIGLIN_BANNER_PATTERN 1 1-1'
+      mythic:
+        stackcount: 2
+        content:
+        - 'FLOWER_BANNER_PATTERN 1 1-1'
+        - 'CREEPER_BANNER_PATTERN 1 1-1'
+        - 'SKULL_BANNER_PATTERN 1 1-1'
+        - 'MOJANG_BANNER_PATTERN 1 1-1'
+        - 'GLOBE_BANNER_PATTERN 1 1-1'
+        - 'PIGLIN_BANNER_PATTERN 1 1-1'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (19)
+        blockamount: 9000
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'MYCELIUM 7'
+        - 'GRANITE 2'
+        - 'BROWN_MUSHROOM_BLOCK 2'
+        - 'RED_MUSHROOM_BLOCK 2'
+        - 'MUSHROOM_STEM 1'
   20:
     name: Volcano
+    icon: MAGMA_BLOCK
     mobs:
       spawnchance: 0.1
       hostilechance: 0.8
@@ -821,28 +990,51 @@ phases:
       common:
         stackcount: 2
         content:
-        - 'BREAD 1 2-3'
+        - 'FIRE_CHARGE 1 2-3'
       rare:
         stackcount: 4
         content:
-        - 'BREAD 1 3-5'
+        - 'FIRE_CHARGE 6 2-4'
+        - 'LAVA_BUCKET 1 1-1'
       epic:
-        stackcount: 6
+        stackcount: 1
         content:
-        - 'BREAD 1 3-5'
-        - 'IRON_INGOT 1 1-3'
+        - 'MUSIC_DISC_13 1 1-1'
+        - 'MUSIC_DISC_CAT 1 1-1'
+        - 'MUSIC_DISC_BLOCKS 1 1-1'
+        - 'MUSIC_DISC_CHIRP 1 1-1'
+        - 'MUSIC_DISC_FAR 1 1-1'
+        - 'MUSIC_DISC_MALL 1 1-1'
+        - 'MUSIC_DISC_MELLOHI 1 1-1'
+        - 'MUSIC_DISC_STAL 1 1-1'
+        - 'MUSIC_DISC_STRAD 1 1-1'
+        - 'MUSIC_DISC_WARD 1 1-1'
+        - 'MUSIC_DISC_11 1 1-1'
+        - 'MUSIC_DISC_WAIT 1 1-1'
+        - 'MUSIC_DISC_PIGSTEP 1 1-1'
       mythic:
-        stackcount: 8
+        stackcount: 2
         content:
-        - 'BREAD 2 3-5'
-        - 'IRON_INGOT 3 2-5'
-        - 'CAKE 1 1-1'
+        - 'MUSIC_DISC_13 1 1-1'
+        - 'MUSIC_DISC_CAT 1 1-1'
+        - 'MUSIC_DISC_BLOCKS 1 1-1'
+        - 'MUSIC_DISC_CHIRP 1 1-1'
+        - 'MUSIC_DISC_FAR 1 1-1'
+        - 'MUSIC_DISC_MALL 1 1-1'
+        - 'MUSIC_DISC_MELLOHI 1 1-1'
+        - 'MUSIC_DISC_STAL 1 1-1'
+        - 'MUSIC_DISC_STRAD 1 1-1'
+        - 'MUSIC_DISC_WARD 1 1-1'
+        - 'MUSIC_DISC_11 1 1-1'
+        - 'MUSIC_DISC_WAIT 1 1-1'
+        - 'MUSIC_DISC_PIGSTEP 1 1-1'
     levels:
-      1-1:
-        name: 1
-        blockamount: 20
+      default:
+        name: (20)
+        blockamount: 10000
         blocks:
-        - 'GRASS_BLOCK 3'
-        - 'OAK_LOG 2'
-        - 'STONE 2'
-        - 'COAL_ORE 1'
+        - 'ANDESITE 5'
+        - 'BASALT 4'
+        - 'MAGMA_BLOCK 2'
+        - 'OBSIDIAN 2'
+        - 'ANCIENT_DEBRIS 1'

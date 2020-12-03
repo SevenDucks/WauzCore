@@ -9,6 +9,23 @@ Patch 6XX: Powerful Professions
 Patch 609: Gathering Goods
 
 Patch 608: Minigame Madness
+	Experimental: Drop Guys Gamemode (WIP)
+	  - Compete with Others in Fast Minigames
+	  - Inspired by Fall Guys
+	  - Available Minigames
+	    > Jinxed (Team)
+	    > Tip-Toe
+	    > Hex-A-Gone
+	    > Van-Helsing (Team)
+	  
+	Experimental: One Block Gamemode
+	  - Added Borders and Lots of Fixes
+	  - Added 20 OneBlock Phases
+	  - 90% of Vanilla Items Obtainable
+	  
+	Miscellaneous
+	  - Annotations for Premade Content
+	  - Some new Debug Commands
 
 Patch 607: Marvelous Mounts
 	Pet System Rework
