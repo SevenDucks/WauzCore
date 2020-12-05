@@ -35,7 +35,7 @@ public class BlockProtectionListener implements Listener {
 	 */
 	@EventHandler
 	public void onLeafDecay(LeavesDecayEvent event) {
-		if(WauzMode.isMMORPG(event.getBlock().getWorld())) {
+		if(WauzMode.isMMORPG(event.getBlock().getWorld()) || WauzRegion.disallowBlockChange(event.getBlock())) {
 			event.setCancelled(true);
 		}
 	}

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.wauz</groupId>
 	<artifactId>WauzCore</artifactId>
-	<version>Behelit.7-8-SNAPSHOT</version>
+	<version>Behelit.9-SNAPSHOT</version>
 
 
 	<properties>
