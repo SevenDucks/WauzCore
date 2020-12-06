@@ -5,7 +5,8 @@ website: http://wauz.eu/
 version: Behelit.9-SNAPSHOT
 api-version: 1.16
 author: Nikolas Keller
-depend: [MythicMobs, NoteBlockAPI]
+depend: [MythicMobs]
+softdepend: [NoteBlockAPI]
 commands:
   hub:
     description: Teleport to Hub
