@@ -16,7 +16,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.WauzEquipment;
-import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.util.Chance;
 

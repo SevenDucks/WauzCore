@@ -8,7 +8,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.SkillUtils;
 
 /**
  * A class for handling the construction of defense towers.
@@ -53,7 +53,7 @@ public class WauzTowers {
 	 * 
 	 * @return If the construction was successful.
 	 * 
-	 * @see SkillUtils#spawnTower(Player, ItemStack, ItemStack, eu.wauz.wauzcore.skills.execution.SkillUtils.TotemRunnable, int, int)
+	 * @see SkillUtils#spawnTower(Player, ItemStack, ItemStack, eu.wauz.wauzcore.skills.SkillUtils.TotemRunnable, int, int)
 	 */
 	public static boolean tryToConstruct(Player player, String towerName) {
 		DefenseTower tower = towerMap.get(towerName);

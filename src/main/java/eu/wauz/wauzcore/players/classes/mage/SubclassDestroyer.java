@@ -8,9 +8,9 @@ import eu.wauz.wauzcore.players.classes.BaseSubclass;
 import eu.wauz.wauzcore.players.classes.ClassMage;
 import eu.wauz.wauzcore.players.classes.Learnable;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
-import eu.wauz.wauzcore.skills.SkillTheMagician;
-import eu.wauz.wauzcore.skills.SkillTheStar;
-import eu.wauz.wauzcore.skills.execution.SkillPlaceholder;
+import eu.wauz.wauzcore.skills.SkillPlaceholder;
+import eu.wauz.wauzcore.skills.skillgems.SkillTheMagician;
+import eu.wauz.wauzcore.skills.skillgems.SkillTheStar;
 
 /**
  * A subclass / mastery, that belongs to a player class.

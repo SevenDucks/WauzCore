@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.skills.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**

@@ -13,8 +13,8 @@ import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.skills.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**

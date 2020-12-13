@@ -11,8 +11,8 @@ import eu.wauz.wauzcore.players.classes.mage.SubclassBeguiler;
 import eu.wauz.wauzcore.players.classes.mage.SubclassDestroyer;
 import eu.wauz.wauzcore.players.classes.mage.SubclassNecromancer;
 import eu.wauz.wauzcore.players.classes.mage.SubclassWarlock;
-import eu.wauz.wauzcore.skills.SkillTheMagician;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.skillgems.SkillTheMagician;
 import eu.wauz.wauzcore.system.annotations.CharacterClass;
 
 /**

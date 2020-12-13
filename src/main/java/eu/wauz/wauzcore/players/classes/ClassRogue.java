@@ -11,8 +11,8 @@ import eu.wauz.wauzcore.players.classes.rogue.SubclassBard;
 import eu.wauz.wauzcore.players.classes.rogue.SubclassJuggernaut;
 import eu.wauz.wauzcore.players.classes.rogue.SubclassMarksman;
 import eu.wauz.wauzcore.players.classes.rogue.SubclassUmbralist;
-import eu.wauz.wauzcore.skills.SkillTheHierophant;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.skillgems.SkillTheHierophant;
 import eu.wauz.wauzcore.system.annotations.CharacterClass;
 
 /**

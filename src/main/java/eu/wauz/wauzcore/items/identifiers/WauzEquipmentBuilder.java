@@ -24,7 +24,7 @@ import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.items.runes.insertion.WauzSkillgemInserter;
 import eu.wauz.wauzcore.items.weapons.CustomWeapon;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Formatters;

@@ -13,7 +13,7 @@ import com.sun.net.httpserver.HttpServer;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.SystemAnalytics;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;

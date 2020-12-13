@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.skills.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 
 /**
  * An annotation to mark classes as non-gem skills, to automatically register them on startup.

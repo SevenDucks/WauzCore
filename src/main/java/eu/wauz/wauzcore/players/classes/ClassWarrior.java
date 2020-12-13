@@ -11,8 +11,8 @@ import eu.wauz.wauzcore.players.classes.warrior.SubclassBerserker;
 import eu.wauz.wauzcore.players.classes.warrior.SubclassBulwark;
 import eu.wauz.wauzcore.players.classes.warrior.SubclassPaladin;
 import eu.wauz.wauzcore.players.classes.warrior.SubclassTemplar;
-import eu.wauz.wauzcore.skills.SkillTheChariot;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.skillgems.SkillTheChariot;
 import eu.wauz.wauzcore.system.annotations.CharacterClass;
 
 /**

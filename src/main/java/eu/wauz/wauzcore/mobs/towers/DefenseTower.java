@@ -2,7 +2,7 @@ package eu.wauz.wauzcore.mobs.towers;
 
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.skills.execution.SkillUtils.TotemRunnable;
+import eu.wauz.wauzcore.skills.SkillUtils.TotemRunnable;
 
 /**
  * A defense tower to help players to defend themselves from enemies.

@@ -1,4 +1,4 @@
 /**
- * This package contains skills, which are usable by players, with the fitting skillgem.
+ * This package contains classes for creating and executing player and mob skills.
  */
 package eu.wauz.wauzcore.skills;

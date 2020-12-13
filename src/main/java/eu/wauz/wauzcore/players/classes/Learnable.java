@@ -1,6 +1,6 @@
 package eu.wauz.wauzcore.players.classes;
 
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 
 /**
  * A skill or similar, that can be learned through a subclass / mastery.

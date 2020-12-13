@@ -10,7 +10,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
 import eu.wauz.wauzcore.commands.administrative.CmdWzSkill;
 import eu.wauz.wauzcore.commands.administrative.CmdWzSkillWeapon;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 
 /**
  * A completer for the chat, that suggests skill ids.

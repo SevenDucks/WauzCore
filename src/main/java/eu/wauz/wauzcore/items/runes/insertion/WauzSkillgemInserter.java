@@ -10,8 +10,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.items.identifiers.WauzSkillgemIdentifier;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.skills.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 
 /**
  * A helper class for inserting skillgems into items.

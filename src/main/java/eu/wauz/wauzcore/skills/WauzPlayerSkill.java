@@ -1,0 +1,79 @@
+package eu.wauz.wauzcore.skills;
+
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+/**
+ * A skill, that can be executed by a player.
+ * 
+ * @author Wauzmons
+ *
+ * @see WauzPlayerSkillExecutor
+ */
+public interface WauzPlayerSkill { 
+	
+	/**
+	 * @return The id of the skill.
+	 */
+	public String getSkillId();
+	
+	/**
+	 * @return The description of the skill.
+	 */
+	default public String getSkillDescription() {
+		return
+			"[" + ChatColor.RED + getSkillDescriptionType().toString() + ChatColor.WHITE + "] " +
+			"[" + ChatColor.GRAY + getSkillDescriptionEffect() + ChatColor.WHITE + "]";
+	}
+	
+	/**
+	 * @return The type of the skill shown in the default description.
+	 */
+	public WauzPlayerSkillType getSkillDescriptionType();
+	
+	/**
+	 * @return The effect of the skill shown in the default description.
+	 */
+	public String getSkillDescriptionEffect();
+	
+	/**
+	 * @return The effect of the skill shown in quick slots.
+	 */
+	public String getSkillQuickSlotEffect();
+	
+	/**
+	 * @return The condition stats (mana, cooldown etc.) of the skill.
+	 */
+	default public String getSkillStats() {
+		return
+			"[" + ChatColor.GRAY + "CD: " + ChatColor.YELLOW + getCooldownSeconds() + ChatColor.GRAY + "s" + ChatColor.WHITE + "] " +
+			"[" + ChatColor.GRAY + (isPhysical() ? "RP: " + ChatColor.GOLD : "MP: " + ChatColor.LIGHT_PURPLE) + getManaCost() + ChatColor.WHITE + "]";
+	}
+	
+	/**
+	 * @return The cooldown of the skill in seconds.
+	 */
+	public int getCooldownSeconds();
+	
+	/**
+	 * @return The mana cost of the skill.
+	 */
+	public int getManaCost();
+	
+	/**
+	 * @return If rage should be used for this skill instead of mana.
+	 */
+	public boolean isPhysical();
+	
+	/**
+	 * Executes the skill for the given player.
+	 * 
+	 * @param player The player who executes the skill.
+	 * @param weapon The weapon that player uses for it.
+	 * 
+	 * @return If the skill hit something.
+	 */
+	public boolean executeSkill(Player player, ItemStack weapon);
+
+}

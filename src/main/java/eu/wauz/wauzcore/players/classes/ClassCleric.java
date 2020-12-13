@@ -11,8 +11,8 @@ import eu.wauz.wauzcore.players.classes.cleric.SubclassDruid;
 import eu.wauz.wauzcore.players.classes.cleric.SubclassPriest;
 import eu.wauz.wauzcore.players.classes.cleric.SubclassSentinel;
 import eu.wauz.wauzcore.players.classes.cleric.SubclassShaman;
-import eu.wauz.wauzcore.skills.SkillTheHighPriestess;
-import eu.wauz.wauzcore.skills.execution.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.WauzPlayerSkill;
+import eu.wauz.wauzcore.skills.skillgems.SkillTheHighPriestess;
 import eu.wauz.wauzcore.system.annotations.CharacterClass;
 
 /**

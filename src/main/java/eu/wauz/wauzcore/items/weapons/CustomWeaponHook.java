@@ -19,7 +19,7 @@ import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
-import eu.wauz.wauzcore.skills.execution.SkillUtils;
+import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.system.annotations.Item;
 import eu.wauz.wauzcore.system.util.WauzMode;
 

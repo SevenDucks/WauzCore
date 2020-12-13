@@ -8,7 +8,7 @@ import eu.wauz.wauzcore.players.classes.BaseSubclass;
 import eu.wauz.wauzcore.players.classes.ClassRogue;
 import eu.wauz.wauzcore.players.classes.Learnable;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
-import eu.wauz.wauzcore.skills.execution.SkillPlaceholder;
+import eu.wauz.wauzcore.skills.SkillPlaceholder;
 
 /**
  * A subclass / mastery, that belongs to a player class.
