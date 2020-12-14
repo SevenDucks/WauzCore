@@ -2,6 +2,7 @@ package eu.wauz.wauzcore.players.calc;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -116,6 +117,7 @@ public class ExperienceCalculator {
 			if(currentxp >= getExpToLevel(nextLevel)) {
 				player.setLevel(nextLevel);
 				player.sendTitle(ChatColor.GOLD + "Level Up!", "You reached level " + nextLevel + "!", 10, 70, 20);
+				player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 				PlayerCollectionConfigurator.levelUpCharacter(player);
 				currentxp = 0;
 			}

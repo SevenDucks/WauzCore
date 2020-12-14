@@ -50,6 +50,9 @@ public enum RelationLevel {
 			if(relationExp >= relationLevel.getNeededExp()) {
 				currentLevel = relationLevel;
 			}
+			else {
+				break;
+			}
 		}
 		return currentLevel != null ? currentLevel : STRANGER;
 	}

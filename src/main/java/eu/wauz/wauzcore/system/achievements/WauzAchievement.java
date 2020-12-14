@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
@@ -186,6 +187,7 @@ public class WauzAchievement {
 		PlayerCollectionConfigurator.setCharacterSoulstones(player, soulstones + reward);
 		
 		player.sendTitle(ChatColor.GOLD + "Achievement Earned", name, 10, 70, 20);
+		player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 		player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 		String goalDisplay;
 		if(type.isGeneric()) {

@@ -82,6 +82,9 @@ public enum ObservationRank {
 			if(mobKills >= neededKills) {
 				currentRank = observationRank;
 			}
+			else {
+				break;
+			}
 		}
 		return currentRank != null ? currentRank : D;
 	}
