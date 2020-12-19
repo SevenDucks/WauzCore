@@ -5,13 +5,14 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
+import eu.wauz.wauzunit.abstracts.AbstractCoreTest;
 
 /**
  * Tests the leveling mechanics from WauzCore.
  * 
  * @author Wauzmons
  */
-public class LevelingTest {
+public class LevelingTest extends AbstractCoreTest {
 	
 	/**
 	 * Tests the sequence, used to calculate the exp to the next level.

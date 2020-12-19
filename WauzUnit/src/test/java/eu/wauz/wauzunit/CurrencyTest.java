@@ -6,13 +6,14 @@ import org.bukkit.ChatColor;
 import org.junit.Test;
 
 import eu.wauz.wauzcore.system.util.Formatters;
+import eu.wauz.wauzunit.abstracts.AbstractCoreTest;
 
 /**
  * Tests the currency mechanics from WauzCore.
  * 
  * @author Wauzmons
  */
-public class CurrencyTest {
+public class CurrencyTest extends AbstractCoreTest {
 	
 	/**
 	 * Tests the silver, gold and crystal coin formatting.

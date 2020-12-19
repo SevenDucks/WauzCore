@@ -5,13 +5,14 @@ import static org.junit.Assert.assertArrayEquals;
 import org.junit.Test;
 
 import eu.wauz.wauzcore.oneblock.OnePlotCalculator;
+import eu.wauz.wauzunit.abstracts.AbstractCoreTest;
 
 /**
  * Tests the one-block gamemodes from WauzCore.
  * 
  * @author Wauzmons
  */
-public class OneBlockTest {
+public class OneBlockTest extends AbstractCoreTest {
 	
 	/**
 	 * Tests the coordinate assignment to plot numbers.

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import eu.wauz.wauzcore.items.enums.EquipmentType;
@@ -13,14 +12,14 @@ import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzunit.abstracts.AbstractCoreTest;
 
 /**
  * Tests the equipment generation and functionality from WauzCore.
  * 
  * @author Wauzmons
  */
-@Ignore
-public class EquipmentTests {
+public class EquipmentTest extends AbstractCoreTest {
 	
 	/**
 	 * Tests that only higher rarity items can have rune sockets.
@@ -32,6 +31,8 @@ public class EquipmentTests {
 		assertFalse(EquipmentUtils.hasRuneSocket(normalItemStack));
 		ItemStack magicItemStack = builder.generate(Tier.EQUIP_T1, Rarity.MAGIC, EquipmentType.WEAPON, "Test");
 		assertTrue(EquipmentUtils.hasRuneSocket(magicItemStack));
+		ItemStack uniqueItemStack = builder.generate(Tier.EQUIP_T3, Rarity.UNIQUE, EquipmentType.ARMOR, "Test");
+		assertTrue(EquipmentUtils.hasRuneSocket(uniqueItemStack));
 	}
 	
 }

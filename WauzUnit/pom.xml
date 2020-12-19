@@ -17,22 +17,30 @@
 
 	<repositories>
 
-		<!-- Paper -->
+		<!-- Bukkit -->
 		<repository>
-			<id>papermc</id>
-			<url>https://papermc.io/repo/repository/maven-public/</url>
+			<id>bukkit-repo</id>
+			<url>http://repo.bukkit.org/content/groups/public/</url>
 		</repository>
 
 	</repositories>
 
 
 	<dependencies>
-
+		
 		<dependency>
-			<groupId>com.destroystokyo.paper</groupId>
-			<artifactId>paper-api</artifactId>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.16.3-R0.1-SNAPSHOT</version>
+			<scope>test</scope>
+        </dependency>
+        
+        <dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>craftbukkit</artifactId>
 			<version>1.16.3-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
+			<type>jar</type>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -42,11 +50,18 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>com.github.seeseemelk</groupId>
+			<artifactId>MockBukkit-v1.16</artifactId>
+			<version>0.5.0</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>eu.wauz</groupId>
 			<artifactId>WauzCore</artifactId>
 			<version>Behelit.9-SNAPSHOT</version>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
