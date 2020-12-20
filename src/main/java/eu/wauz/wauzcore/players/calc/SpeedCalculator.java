@@ -26,7 +26,7 @@ public class SpeedCalculator {
 		int petDex = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Dexterity"));
 		bonusSpeed += (float) petDex * 0.0006;
 		player.setWalkSpeed(0.2f + bonusSpeed);
-		WauzDebugger.log("Movement Speed: " + player.getWalkSpeed());
+		WauzDebugger.log(player, "Movement Speed: " + player.getWalkSpeed());
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class SpeedCalculator {
 		speed = Math.min(10, Math.max(1, speed));
 		player.setWalkSpeed(0.1f * speed);
 		player.sendMessage(ChatColor.GREEN + "Set walk speed to " + speed + "!");
-		WauzDebugger.log("Movement Speed: " + player.getWalkSpeed());
+		WauzDebugger.log(player, "Movement Speed: " + player.getWalkSpeed());
 	}
 	
 	/**

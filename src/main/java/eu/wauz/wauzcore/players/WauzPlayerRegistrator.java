@@ -19,6 +19,7 @@ import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
@@ -73,8 +74,13 @@ public class WauzPlayerRegistrator {
 		
 		WauzRank rank = WauzRank.getRank(player);
 		PermissionAttachment attachment = player.addAttachment(core);
-		attachment.setPermission(rank.getRankPermission().toString(), true);
 		player.setOp(rank.isGrantOp());
+		attachment.setPermission(rank.getRankPermission().toString(), true);
+		attachment.setPermission(WauzPermission.FAWE_WORLDEDIT_1.toString(), false);
+		attachment.setPermission(WauzPermission.FAWE_WORLDEDIT_2.toString(), false);
+		attachment.setPermission(WauzPermission.FAWE_WORLDEDIT_3.toString(), false);
+		attachment.setPermission(WauzPermission.FAWE_WORLDEDIT_4.toString(), false);
+		attachment.setPermission(WauzPermission.FAWE_VOXELSNIPER.toString(), false);
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
             

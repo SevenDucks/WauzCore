@@ -177,6 +177,10 @@ commands:
     description: Change Rank of a Player
     usage: /wzRank [rank] [player]
     permission: wauz.system
+  wzPerms:
+    description: Show Permissions
+    usage: /wzPerms [filter]
+    permission: wauz.system
   wzDebug:
     description: Toggle Debug Mode
     usage: /wzDebug [player]

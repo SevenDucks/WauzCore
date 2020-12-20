@@ -2,6 +2,7 @@ package eu.wauz.wauzcore.system;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachment;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.players.calc.SpeedCalculator;
@@ -99,7 +100,14 @@ public class WauzDebugger {
 	 */
 	public static boolean toggleBuildingDebugMode(Player player) {
 		String permission = WauzPermission.DEBUG_BUILDING.toString();
-		player.addAttachment(WauzCore.getInstance(), permission, !player.hasPermission(permission));
+		boolean hasPermission = !player.hasPermission(permission);
+		PermissionAttachment attachment = player.addAttachment(WauzCore.getInstance());
+		attachment.setPermission(permission, hasPermission);
+		attachment.setPermission(WauzPermission.FAWE_WORLDEDIT_1.toString(), hasPermission);
+		attachment.setPermission(WauzPermission.FAWE_WORLDEDIT_2.toString(), hasPermission);
+		attachment.setPermission(WauzPermission.FAWE_WORLDEDIT_3.toString(), hasPermission);
+		attachment.setPermission(WauzPermission.FAWE_WORLDEDIT_4.toString(), hasPermission);
+		attachment.setPermission(WauzPermission.FAWE_VOXELSNIPER.toString(), hasPermission);
 		log(player, "Building debug mode toggled!");
 		return true;
 	}
