@@ -61,6 +61,13 @@ public abstract class AbstractPassiveSkill {
 	}
 	
 	/**
+	 * Gets the name of the passive skill.
+	 * 
+	 * @return The name of the skill.
+	 */
+	public abstract String getPassiveName();
+	
+	/**
 	 * @return The current level of this skill.
 	 */
 	public int getLevel() {
@@ -75,26 +82,19 @@ public abstract class AbstractPassiveSkill {
 	}
 	
 	/**
+	 * @return The following milestone.
+	 */
+	public Long getNextMilestone() {
+		return level >= getMilestones().size() ? null : getMilestones().get(level);
+	}
+	
+	/**
 	 * @return If the following milestone has been reached.
 	 */
 	protected boolean hasReachedMilestone() {
 		Long milestone = getNextMilestone();
 		return milestone != null && exp >= milestone;
 	}
-	
-	/**
-	 * @return The following milestone.
-	 */
-	protected Long getNextMilestone() {
-		return level >= getMilestones().size() ? null : getMilestones().get(level);
-	}
-	
-	/**
-	 * Gets the name of the passive skill.
-	 * 
-	 * @return The name of the skill.
-	 */
-	protected abstract String getPassiveName();
 	
 	/**
 	 * Gets all experience milestones, marking where new levels are reached.

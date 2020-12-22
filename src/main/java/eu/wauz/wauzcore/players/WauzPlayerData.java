@@ -18,6 +18,7 @@ import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
 import eu.wauz.wauzcore.skills.Castable;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
@@ -120,6 +121,11 @@ public class WauzPlayerData {
 	private Map<String, Long> actionCooldownMap = new HashMap<>();
 	
 	/**
+	 * The cached passive skills of the player.
+	 */
+	private Map<String, AbstractPassiveSkill> passiveSkillMap = new HashMap<>();
+	
+	/**
 	 * The current pet id.
 	 */
 	private String selectedPetId;
@@ -172,7 +178,7 @@ public class WauzPlayerData {
 	/**
 	 * Creates a player data with given session id.
 	 * 
-	 * @param The session id of the player.
+	 * @param wauzId  session id of the player.
 	 */
 	public WauzPlayerData(int wauzId) {
 		this.wauzId = wauzId;
@@ -500,6 +506,35 @@ public class WauzPlayerData {
 		actionCooldownMap.put(actionId, cooldown + System.currentTimeMillis());
 	}
 
+	/**
+	 * Gets all of the cached passive skills.
+	 * 
+	 * @return The cached passives.
+	 */
+	public List<AbstractPassiveSkill> getAllCachedPassives() {
+		return new ArrayList<>(passiveSkillMap.values());
+	}
+	
+	/**
+	 * Gets the cached passive skill with the given name.
+	 * 
+	 * @param skillName The name of the passive.
+	 * 
+	 * @return The cached passive.
+	 */
+	public AbstractPassiveSkill getCachedPassive(String skillName) {
+		return passiveSkillMap.get(skillName);
+	}
+	
+	/**
+	 * Caches the given passive skill instance.
+	 * 
+	 * @param passiveSkill The passive to cache.
+	 */
+	public void cachePassive(AbstractPassiveSkill passiveSkill) {
+		passiveSkillMap.put(passiveSkill.getPassiveName(), passiveSkill);
+	}
+	
 	/**
 	 * @return The current pet id.
 	 */

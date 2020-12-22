@@ -41,9 +41,9 @@ public class PassiveBreath extends AbstractPassiveSkill {
 			TimeUnit.DAYS.toMillis(3), // 15
 			TimeUnit.DAYS.toMillis(4), // 16
 			TimeUnit.DAYS.toMillis(6), // 17
-			TimeUnit.DAYS.toMillis(9), // 18
-			TimeUnit.DAYS.toMillis(12), // 19
-			TimeUnit.DAYS.toMillis(16)); // 20
+			TimeUnit.DAYS.toMillis(8), // 18
+			TimeUnit.DAYS.toMillis(10), // 19
+			TimeUnit.DAYS.toMillis(12)); // 20
 
 	/**
 	 * Creates a new instance of this passive skill.
@@ -60,7 +60,7 @@ public class PassiveBreath extends AbstractPassiveSkill {
 	 * @return The name of the skill.
 	 */
 	@Override
-	protected String getPassiveName() {
+	public String getPassiveName() {
 		return PASSIVE_NAME;
 	}
 

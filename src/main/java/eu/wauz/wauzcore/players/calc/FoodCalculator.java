@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
 
@@ -44,6 +45,7 @@ public class FoodCalculator {
 		PlayerItemConsumeEvent event = new PlayerItemConsumeEvent(player, itemStack);
 		Bukkit.getServer().getPluginManager().callEvent(event);
 		
+		WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveNutrition.PASSIVE_NAME).grantExperience(player, 1);
 		itemStack.setAmount(itemStack.getAmount() - 1);
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
 	}

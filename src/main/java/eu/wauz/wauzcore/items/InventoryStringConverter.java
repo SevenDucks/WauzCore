@@ -19,6 +19,10 @@ import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
+import eu.wauz.wauzcore.skills.passive.PassiveBreath;
+import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
+import eu.wauz.wauzcore.skills.passive.PassiveWeight;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -56,6 +60,9 @@ public class InventoryStringConverter {
 			playerDataConfig.set("stats.current.mana", playerData.getMana());
 			playerDataConfig.set("inventory.materials", MaterialPouch.getInventory(player, "materials").getContents());
 			playerDataConfig.set("inventory.questitems", MaterialPouch.getInventory(player, "questitems").getContents());
+			for(AbstractPassiveSkill passive : playerData.getAllCachedPassives()) {
+				playerDataConfig.set("skills." + passive.getPassiveName(), passive.getExp());
+			}
 		}
 		else {
 			if(WauzMode.inOneBlock(player)) {
@@ -99,6 +106,9 @@ public class InventoryStringConverter {
     		playerData.setRage(0);
     		MaterialPouch.unloadInventory(player, "materials");
     		MaterialPouch.unloadInventory(player, "questitems");
+    		playerData.cachePassive(new PassiveBreath(playerDataConfig.getLong("skills." + PassiveBreath.PASSIVE_NAME)));
+    		playerData.cachePassive(new PassiveNutrition(playerDataConfig.getLong("skills." + PassiveNutrition.PASSIVE_NAME)));
+    		playerData.cachePassive(new PassiveWeight(playerDataConfig.getLong("skills." + PassiveWeight.PASSIVE_NAME)));
     	}
     	else {
     		if(WauzMode.inOneBlock(player)) {

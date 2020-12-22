@@ -29,6 +29,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.event.player.PlayerToggleSprintEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.ItemStack;
 import org.spigotmc.event.entity.EntityDismountEvent;
@@ -40,11 +41,13 @@ import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.skills.passive.PassiveBreath;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -63,6 +66,11 @@ public class PlayerInteractionListener implements Listener {
 	 * Storage for player names, to greet them in the MotD.
 	 */
 	private Map<InetAddress, String> addressNameMap = new HashMap<>();
+	
+	/**
+	 * Storage for timestamps, when players started sprinting.
+	 */
+	private Map<Player, Long> playerSprintMap = new HashMap<>();
 
 	
 	/**
@@ -300,6 +308,24 @@ public class PlayerInteractionListener implements Listener {
 			player.setVelocity(location.getDirection().multiply(1.2).setY(1.2));
 			location.getWorld().playSound(location, Sound.ENTITY_BLAZE_SHOOT, 1, 0.5f);
 			new SkillParticle(Particle.CLOUD).spawn(location, 20);
+		}
+	}
+	
+	/**
+	 * Measures the time a player sprinted.
+	 * Used to increase the breath skill in MMORPG mode.
+	 * 
+	 * @param event The sprint toggle event.
+	 */
+	@EventHandler
+	public void onSprint(PlayerToggleSprintEvent event) {
+		Player player = event.getPlayer();
+		if(event.isSprinting()) {
+			playerSprintMap.put(player, System.currentTimeMillis());
+		}
+		else if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
+			long sprintedMillis = System.currentTimeMillis() - playerSprintMap.get(player);
+			WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveBreath.PASSIVE_NAME).grantExperience(player, sprintedMillis);
 		}
 	}
 	

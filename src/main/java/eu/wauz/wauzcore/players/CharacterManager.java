@@ -36,6 +36,9 @@ import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassStats;
+import eu.wauz.wauzcore.skills.passive.PassiveBreath;
+import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
+import eu.wauz.wauzcore.skills.passive.PassiveWeight;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
@@ -263,6 +266,9 @@ public class CharacterManager {
 			playerData.setMana(ManaCalculator.MAX_MANA);
 			playerData.setMaxRage(RageCalculator.MAX_RAGE);
 			playerData.setRage(0);
+			playerData.cachePassive(new PassiveBreath(0));
+    		playerData.cachePassive(new PassiveNutrition(0));
+    		playerData.cachePassive(new PassiveWeight(0));
 			
 			WauzPlayerClass characterClass = WauzPlayerClassPool.getClass(characterClassString);
 			WauzPlayerClassStats startingStats = characterClass.getStartingStats();
@@ -301,6 +307,9 @@ public class CharacterManager {
 			playerDataConfig.set("skills.axemax", startingStats.getAxeSkillMax());
 			playerDataConfig.set("skills.staff", startingStats.getStaffSkill());
 			playerDataConfig.set("skills.staffmax", startingStats.getStaffSkillMax());
+			playerDataConfig.set("skills." + PassiveBreath.PASSIVE_NAME, 0);
+			playerDataConfig.set("skills." + PassiveNutrition.PASSIVE_NAME, 0);
+			playerDataConfig.set("skills." + PassiveWeight.PASSIVE_NAME, 0);
 			
 			playerDataConfig.set("skills.active.1", "none");
 			playerDataConfig.set("skills.active.2", "none");

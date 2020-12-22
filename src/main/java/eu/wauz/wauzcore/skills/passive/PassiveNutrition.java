@@ -57,7 +57,7 @@ public class PassiveNutrition extends AbstractPassiveSkill {
 	 * @return The name of the skill.
 	 */
 	@Override
-	protected String getPassiveName() {
+	public String getPassiveName() {
 		return PASSIVE_NAME;
 	}
 
