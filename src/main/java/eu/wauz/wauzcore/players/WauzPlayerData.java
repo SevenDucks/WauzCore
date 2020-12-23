@@ -19,9 +19,11 @@ import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
 import eu.wauz.wauzcore.skills.Castable;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
+import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * A player data to save session scoped player information.
@@ -29,6 +31,11 @@ import eu.wauz.wauzcore.system.WauzRegion;
  * @author Wauzmons
  */
 public class WauzPlayerData {
+	
+	/**
+	 * The player who owns the data.
+	 */
+	private Player player;
 	
 	/**
 	 * The session id of the player.
@@ -178,9 +185,11 @@ public class WauzPlayerData {
 	/**
 	 * Creates a player data with given session id.
 	 * 
-	 * @param wauzId  session id of the player.
+	 * @param player The player who owns the data.
+	 * @param wauzId The session id of the player.
 	 */
-	public WauzPlayerData(int wauzId) {
+	public WauzPlayerData(Player player, int wauzId) {
+		this.player = player;
 		this.wauzId = wauzId;
 	}
 	
@@ -300,7 +309,11 @@ public class WauzPlayerData {
 	 * @return The maximum health of the player.
 	 */
 	public int getMaxHealth() {
-		return maxHealth;
+		int bonusHealth = 0;
+		if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
+			bonusHealth += getCachedPassive(PassiveNutrition.PASSIVE_NAME).getLevel() * 2;
+		}
+		return maxHealth + bonusHealth;
 	}
 
 	/**
@@ -407,10 +420,8 @@ public class WauzPlayerData {
 
 	/**
 	 * Refreshes the list of unlocked castables. Also refreshes selected castables.
-	 * 
-	 * @param player The player to get the castable list from.
 	 */
-	public void refreshUnlockedCastables(Player player) {
+	public void refreshUnlockedCastables() {
 		unlockedCastables.clear();
 		castableMap.clear();
 		List<WauzPlayerSubclass> subclasses = WauzPlayerClassPool.getClass(player).getSubclasses();
@@ -423,15 +434,13 @@ public class WauzPlayerData {
 				castableMap.put("Skill :: " + learnable.getSkill().getSkillId(), castable);
 			}
 		}
-		refreshSelectedCastables(player);
+		refreshSelectedCastables();
 	}
 	
 	/**
 	 * Refreshes the list of selected castables.
-	 * 
-	 * @param player The player to get the castable list from.
 	 */
-	public void refreshSelectedCastables(Player player) {
+	public void refreshSelectedCastables() {
 		selectedCastables.clear();
 		for(int slot = 1; slot <= 8; slot++) {
 			String castableKey = PlayerSkillConfigurator.getQuickSlotSkill(player, slot);
@@ -454,12 +463,11 @@ public class WauzPlayerData {
 	/**
 	 * Checks if the cooldown timestamp for the given skill is smaller than the current time.
 	 * 
-	 * @param player The player that should receive the "not ready" message.
 	 * @param skillId The id of the skill.
 	 * 
 	 * @return If the cooldown is ready.
 	 */
-	public boolean isSkillReady(Player player, String skillId) {
+	public boolean isSkillReady(String skillId) {
 		Long cooldown = skillCooldownMap.get(skillId);
 		if(cooldown == null || cooldown <= System.currentTimeMillis()) {
 			return true;
@@ -474,12 +482,11 @@ public class WauzPlayerData {
 	 * Resets the cooldown for the given skill.
 	 * Only one second if the player has magic debug permissions.
 	 * 
-	 * @param player The player to check for permissions.
 	 * @param skillId The id of the skill.
 	 * 
 	 * @see WauzDebugger#toggleMagicDebugMode(Player)
 	 */
-	public void updateSkillCooldown(Player player, String skillId) {
+	public void updateSkillCooldown(String skillId) {
 		Long cooldown = (long) (player.hasPermission(WauzPermission.DEBUG_MAGIC.toString()) ? 1 : WauzPlayerSkillExecutor.getSkill(skillId).getCooldownSeconds());
 		skillCooldownMap.put(skillId, cooldown * 1000 + System.currentTimeMillis());
 	}

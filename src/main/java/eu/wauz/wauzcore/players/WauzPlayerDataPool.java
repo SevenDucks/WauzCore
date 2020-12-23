@@ -40,7 +40,7 @@ public class WauzPlayerDataPool {
 	 * @return The created player data.
 	 */
 	public static WauzPlayerData regPlayer(Player player) {
-		WauzPlayerData playerData = new WauzPlayerData(storage.size() + 1);
+		WauzPlayerData playerData = new WauzPlayerData(player, storage.size() + 1);
 		storage.put(player, playerData);
 		DamageCalculator.setHealth(player, 20);
 		return playerData;

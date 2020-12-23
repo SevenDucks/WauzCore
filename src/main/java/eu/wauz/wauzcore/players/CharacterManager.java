@@ -82,14 +82,13 @@ public class CharacterManager {
 		if(playerData == null) {
 			return;
 		}
-
 		Location spawn = PlayerConfigurator.getCharacterSpawn(player);
 		Location destination = PlayerConfigurator.getCharacterLocation(player);
 		playerData.setMaxHealth(PlayerSkillConfigurator.getHealth(player));
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			playerData.setMaxMana(PlayerSkillConfigurator.getMana(player));
 			playerData.setMaxRage(RageCalculator.MAX_RAGE);
-			playerData.refreshUnlockedCastables(player);
+			playerData.refreshUnlockedCastables();
 			PlayerConfigurator.setTrackerDestination(player, spawn, "Spawn");
 		}
 		player.setCompassTarget(spawn);
@@ -208,14 +207,12 @@ public class CharacterManager {
 		if(playerData == null) {
 			return;
 		}
-		
 		String characterSlot = playerData.getSelectedCharacterSlot();
 		String characterWorldString = playerData.getSelectedCharacterWorld();
 		String characterClassString = playerData.getSelectedCharacterClass();
 		if(characterSlot == null || characterWorldString == null || characterClassString == null) {
 			return;
 		}
-		
 		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + ".yml");
 		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
 		

@@ -23,6 +23,7 @@ import eu.wauz.wauzcore.items.WauzResources;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
+import eu.wauz.wauzcore.menu.Backpack;
 import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.menu.ShopMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
@@ -258,7 +259,7 @@ public class EventMapper {
 					MaterialPouch.open(player);
 				}
 				else if(HeadUtils.isHeadMenuItem(clicked, "Backpack")) {
-					
+					Backpack.open(player);
 				}
 			}
 			MenuUtils.onSpecialItemInventoryClick(event);

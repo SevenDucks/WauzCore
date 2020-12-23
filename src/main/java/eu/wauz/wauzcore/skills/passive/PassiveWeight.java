@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.menu.Backpack;
+
 /**
  * A passive skill, that increases backpack size, leveled through picking up materials.
  * 
@@ -78,8 +80,7 @@ public class PassiveWeight extends AbstractPassiveSkill {
 	 */
 	@Override
 	protected void onLevelUp(Player player) {
-		// TODO Auto-generated method stub
-		
+		Backpack.updateLockedSlots(player);
 	}
 	
 }

@@ -41,7 +41,10 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 @PublicMenu
 public class MaterialPouch implements WauzInventory {
 	
-	private static Map<String, Inventory> inventoryMap = new HashMap<>();
+	/**
+	 * A map of cached inventories.
+	 */
+	private static final Map<String, Inventory> inventoryMap = new HashMap<>();
 	
 	/**
 	 * @return The id of the inventory.
@@ -171,11 +174,11 @@ public class MaterialPouch implements WauzInventory {
 	public static boolean addItem(Player player, ItemStack itemStack, String inventoryName) {
 		Inventory inventory = MaterialPouch.getInventory(player, inventoryName);
 		if(inventory.addItem(WauzNmsClient.nmsSerialize(itemStack)).isEmpty()) {
-			WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveWeight.PASSIVE_NAME).grantExperience(player, 1);
 			String displayName = itemStack.getItemMeta().getDisplayName();
 			String message = ChatColor.AQUA + "Found Material: " + displayName;
 			player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
 			player.sendTitle("", message, 2, 14, 4);
+			WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveWeight.PASSIVE_NAME).grantExperience(player, 1);
 			return true;
 		}
 		else {

@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.Backpack;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.SkillIconHeads;
@@ -111,7 +112,7 @@ public class SkillMenu implements WauzInventory {
 		skillHealthLores.add(ChatColor.GRAY + "Increases Maximum Hitpoints by 5.");
 		skillHealthLores.add(ChatColor.GRAY + "Also instantly refills your Hitpoints.");
 		skillHealthLores.add("");
-		skillHealthLores.add(ChatColor.WHITE + "Maximum HP: " + ChatColor.RED
+		skillHealthLores.add(ChatColor.WHITE + "Maximum Base HP: " + ChatColor.RED
 				+ PlayerSkillConfigurator.getHealth(player));
 		skillHealthItemMeta.setLore(skillHealthLores);
 		skillHealthItemStack.setItemMeta(skillHealthItemMeta);
@@ -277,6 +278,8 @@ public class SkillMenu implements WauzInventory {
 		skillBreathLores.add(ChatColor.GRAY + "will increase your skill and slowly");
 		skillBreathLores.add(ChatColor.GRAY + "improve your walking speed.");
 		skillBreathLores.add("");
+		skillBreathLores.add(ChatColor.WHITE + "Additional Speed: " + ChatColor.BLUE
+				+ breathSkill.getLevel() + "%");
 		skillBreathLores.addAll(skillMenu.getPassiveProgressLores(breathSkill));
 		skillBreathItemMeta.setLore(skillBreathLores);
 		skillBreathItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -294,6 +297,8 @@ public class SkillMenu implements WauzInventory {
 		skillNutritionLores.add(ChatColor.GRAY + "will increase your skill and slowly");
 		skillNutritionLores.add(ChatColor.GRAY + "improve your maximum health.");
 		skillNutritionLores.add("");
+		skillNutritionLores.add(ChatColor.WHITE + "Additional HP: " + ChatColor.BLUE
+				+ (nutritionSkill.getLevel() * 2));
 		skillNutritionLores.addAll(skillMenu.getPassiveProgressLores(nutritionSkill));
 		skillNutritionItemMeta.setLore(skillNutritionLores);
 		skillNutritionItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -311,6 +316,8 @@ public class SkillMenu implements WauzInventory {
 		skillWeightLores.add(ChatColor.GRAY + "will increase your skill and slowly");
 		skillWeightLores.add(ChatColor.GRAY + "improve your backpack size.");
 		skillWeightLores.add("");
+		skillWeightLores.add(ChatColor.WHITE + "Backpack Slots: " + ChatColor.BLUE
+				+ (weightSkill.getLevel() + Backpack.BASE_SIZE));
 		skillWeightLores.addAll(skillMenu.getPassiveProgressLores(weightSkill));
 		skillWeightItemMeta.setLore(skillWeightLores);
 		skillWeightItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

@@ -5,8 +5,11 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetStat;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.skills.passive.PassiveBreath;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
+import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * Used to calculate the movement and flying speeds of players.
@@ -25,6 +28,9 @@ public class SpeedCalculator {
 		float bonusSpeed = 0;
 		int petDex = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Dexterity"));
 		bonusSpeed += (float) petDex * 0.0006;
+		if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
+			bonusSpeed += WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveBreath.PASSIVE_NAME).getLevel() * 0.002;
+		}
 		player.setWalkSpeed(0.2f + bonusSpeed);
 		WauzDebugger.log(player, "Movement Speed: " + player.getWalkSpeed());
 	}

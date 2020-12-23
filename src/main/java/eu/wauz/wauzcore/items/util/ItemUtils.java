@@ -41,7 +41,7 @@ public class ItemUtils {
 	 * @return If the item is made out of that material.
 	 */
 	public static boolean isMaterial(ItemStack itemStack, Material material) {
-		return itemStack != null & itemStack.getType().equals(material);
+		return itemStack != null && itemStack.getType().equals(material);
 	}
 	
 	/**

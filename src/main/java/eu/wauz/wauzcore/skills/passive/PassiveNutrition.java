@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.calc.DamageCalculator;
+
 /**
  * A passive skill, that increases maximum health, leveled through eating.
  * 
@@ -78,8 +81,7 @@ public class PassiveNutrition extends AbstractPassiveSkill {
 	 */
 	@Override
 	protected void onLevelUp(Player player) {
-		// TODO Auto-generated method stub
-		
+		DamageCalculator.setHealth(player, WauzPlayerDataPool.getPlayer(player).getMaxHealth());
 	}
 	
 }

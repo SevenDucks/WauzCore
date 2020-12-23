@@ -13,6 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.menu.Backpack;
 import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.oneblock.OneBlockProgression;
 import eu.wauz.wauzcore.players.WauzPlayerData;
@@ -56,13 +57,14 @@ public class InventoryStringConverter {
 		playerDataConfig.set("lastplayed", System.currentTimeMillis());
 		
 		if(WauzMode.isMMORPG(player)) {
-			playerDataConfig.set("stats.current.health", playerData.getHealth());
-			playerDataConfig.set("stats.current.mana", playerData.getMana());
-			playerDataConfig.set("inventory.materials", MaterialPouch.getInventory(player, "materials").getContents());
-			playerDataConfig.set("inventory.questitems", MaterialPouch.getInventory(player, "questitems").getContents());
 			for(AbstractPassiveSkill passive : playerData.getAllCachedPassives()) {
 				playerDataConfig.set("skills." + passive.getPassiveName(), passive.getExp());
 			}
+			playerDataConfig.set("stats.current.health", playerData.getHealth());
+			playerDataConfig.set("stats.current.mana", playerData.getMana());
+			playerDataConfig.set("inventory.backpack", Backpack.getBackpack(player).getContents());
+			playerDataConfig.set("inventory.materials", MaterialPouch.getInventory(player, "materials").getContents());
+			playerDataConfig.set("inventory.questitems", MaterialPouch.getInventory(player, "questitems").getContents());
 		}
 		else {
 			if(WauzMode.inOneBlock(player)) {
@@ -101,14 +103,15 @@ public class InventoryStringConverter {
     	player.setGameMode(GameMode.valueOf(playerDataConfig.getString("gamemode")));
     	
     	if(WauzMode.isMMORPG(player)) {
-    		DamageCalculator.setHealth(player, playerDataConfig.getInt("stats.current.health"));
-    		playerData.setMana(playerDataConfig.getInt("stats.current.mana"));
-    		playerData.setRage(0);
-    		MaterialPouch.unloadInventory(player, "materials");
-    		MaterialPouch.unloadInventory(player, "questitems");
     		playerData.cachePassive(new PassiveBreath(playerDataConfig.getLong("skills." + PassiveBreath.PASSIVE_NAME)));
     		playerData.cachePassive(new PassiveNutrition(playerDataConfig.getLong("skills." + PassiveNutrition.PASSIVE_NAME)));
     		playerData.cachePassive(new PassiveWeight(playerDataConfig.getLong("skills." + PassiveWeight.PASSIVE_NAME)));
+    		DamageCalculator.setHealth(player, playerDataConfig.getInt("stats.current.health"));
+    		playerData.setMana(playerDataConfig.getInt("stats.current.mana"));
+    		playerData.setRage(0);
+    		Backpack.unloadBackpack(player);
+    		MaterialPouch.unloadInventory(player, "materials");
+    		MaterialPouch.unloadInventory(player, "questitems");
     	}
     	else {
     		if(WauzMode.inOneBlock(player)) {

@@ -139,7 +139,7 @@ public class MenuUtils {
 		ItemMeta trashcanItemMeta = trashcanItemStack.getItemMeta();
 		trashcanItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Backpack");
 		List<String> trashcanLores = new ArrayList<String>();
-		trashcanLores.add(ChatColor.GRAY + "Click to manage backpack contents...");
+		trashcanLores.add(ChatColor.GRAY + "Click to manage Backpack Contents...");
 		trashcanItemMeta.setLore(trashcanLores);
 		trashcanItemStack.setItemMeta(trashcanItemMeta);
 		menu.setItem(index, trashcanItemStack);

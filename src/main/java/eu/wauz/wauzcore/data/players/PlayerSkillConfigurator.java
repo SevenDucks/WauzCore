@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.data.players;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.api.PlayerConfigurationUtils;
+import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 
@@ -32,7 +33,7 @@ public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 	 */
 	public static void setQuickSlotSkill(Player player, int slot, String skill) {
 		playerConfigSet(player, "skills.active." + slot, skill, true);
-		WauzPlayerDataPool.getPlayer(player).refreshSelectedCastables(player);
+		WauzPlayerDataPool.getPlayer(player).refreshSelectedCastables();
 	}
 	
 // Passive Skills
@@ -104,8 +105,9 @@ public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 		
 		int health = getHealth(player) + 5;			
 		playerConfigSet(player, "stats.health", health, true);
-		WauzPlayerDataPool.getPlayer(player).setMaxHealth(health);
-		DamageCalculator.setHealth(player, health);
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		playerData.setMaxHealth(health);
+		DamageCalculator.setHealth(player, playerData.getMaxHealth());
 	}
 	
 // Passive Skill - Trading
@@ -319,7 +321,7 @@ public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 		increaseSpentStatpoints(player);
 		int statpoints = getMasteryStatpoints(player, mastery) + 1;
 		playerConfigSet(player, "masteries." + mastery, statpoints, true);
-		WauzPlayerDataPool.getPlayer(player).refreshUnlockedCastables(player);
+		WauzPlayerDataPool.getPlayer(player).refreshUnlockedCastables();
 	}
 	
 // Crafting Skill
