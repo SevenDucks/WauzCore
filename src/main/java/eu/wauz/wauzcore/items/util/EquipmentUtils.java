@@ -261,6 +261,37 @@ public class EquipmentUtils {
 	}
 	
 	/**
+	 * Gets the swiftness of an equipment item stack, based on lore.
+	 * Includes null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return The current swiftness of the item.
+	 * 
+	 * @see EquipmentUtils#setSwiftness(ItemStack, int)
+	 */
+	public static int getSwiftness(ItemStack itemStack) {
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Swiftness:" + ChatColor.DARK_GREEN, 2) : 0;
+	}
+	
+	
+	/**
+	 * Sets the current swiftness of an equipment item stack, based on lore.
+	 * Does NOT include null check.
+	 * 
+	 * @param itemStack The item stack to edit.
+	 * @param swiftness The new current swiftness value.
+	 * 
+	 * @return If the action was successful.
+	 * 
+	 * @see EquipmentUtils#getSwiftness(ItemStack)
+	 */
+	public static boolean setSwiftness(ItemStack itemStack, int swiftness) {
+		String symbol = getSwiftness(itemStack) >= 0 ? "+" : "";
+		return ItemUtils.replaceStringFromLore(itemStack, ChatColor.WHITE + "Swiftness:" + ChatColor.DARK_GREEN + symbol, 1, swiftness + "%");
+	}
+	
+	/**
 	 * Gets the attack boost from runes of an equipment item stack, based on lore.
 	 * Does NOT include null check.
 	 * 

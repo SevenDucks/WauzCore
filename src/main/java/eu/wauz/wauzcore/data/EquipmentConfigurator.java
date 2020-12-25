@@ -112,6 +112,15 @@ public class EquipmentConfigurator extends GlobalConfigurationUtils {
 	/**
 	 * @param equipment The name of the equipment base type.
 	 * 
+	 * @return The swiftness stat value of the equipment.
+	 */
+	public static int getSwiftnessStat(String equipment) {
+		return mainConfigGetInt("Equipment", equipment + ".swiftnessstat");
+	}
+	
+	/**
+	 * @param equipment The name of the equipment base type.
+	 * 
 	 * @return The armor category of the equipment.
 	 */
 	public static ArmorCategory getCategory(String equipment) {

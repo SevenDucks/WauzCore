@@ -207,6 +207,7 @@ Cloth:
   name: Cloth
   mainstat: 1.15
   durabilitystat: 512
+  swiftnessstat: -10
   category: LIGHT
   leatherdye: MAROON
 Robe:
@@ -215,6 +216,7 @@ Robe:
   name: Robe
   mainstat: 1.30
   durabilitystat: 1024
+  swiftnessstat: -12
   category: LIGHT
   leatherdye: PURPLE
 Tunic:
@@ -223,6 +225,7 @@ Tunic:
   name: Tunic
   mainstat: 1.45
   durabilitystat: 2048
+  swiftnessstat: -14
   category: LIGHT
   leatherdye: GREEN
 Vest:
@@ -231,6 +234,7 @@ Vest:
   name: Vest
   mainstat: 1.30
   durabilitystat: 512
+  swiftnessstat: -20
   category: MEDIUM
 Mail:
   type: ARMOR
@@ -238,6 +242,7 @@ Mail:
   name: Mail
   mainstat: 1.45
   durabilitystat: 1024
+  swiftnessstat: -22
   category: MEDIUM
 Guard:
   type: ARMOR
@@ -245,6 +250,7 @@ Guard:
   name: Guard
   mainstat: 1.60
   durabilitystat: 2048
+  swiftnessstat: -24
   category: MEDIUM
 Plate:
   type: ARMOR
@@ -252,6 +258,7 @@ Plate:
   name: Plate
   mainstat: 1.45
   durabilitystat: 512
+  swiftnessstat: -30
   category: HEAVY
 Herogarb:
   type: ARMOR
@@ -259,6 +266,7 @@ Herogarb:
   name: Herogarb
   mainstat: 1.60
   durabilitystat: 1024
+  swiftnessstat: -32
   category: HEAVY
 Dragonbones:
   type: ARMOR
@@ -266,4 +274,5 @@ Dragonbones:
   name: Dragonbones
   mainstat: 1.75
   durabilitystat: 2048
+  swiftnessstat: -34
   category: HEAVY

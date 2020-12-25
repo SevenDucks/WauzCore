@@ -33,6 +33,11 @@ public class EquipmentParameters {
 	protected int durabilityStat;
 	
 	/**
+	 * The swiftness stat of the equipment.
+	 */
+	protected int swiftnessStat;
+	
+	/**
 	 * The speed stat of the equipment.
 	 */
 	protected double speedStat;
@@ -78,12 +83,26 @@ public class EquipmentParameters {
 	public int getDurabilityStat() {
 		return durabilityStat;
 	}
-
+	
 	/**
 	 * @param durabilityStat The new durability stat of the equipment.
 	 */
 	public void setDurabilityStat(int durabilityStat) {
 		this.durabilityStat = durabilityStat;
+	}
+	
+	/**
+	 * @return The swiftness stat of the equipment.
+	 */
+	public int getSwiftnessStat() {
+		return swiftnessStat;
+	}
+	
+	/**
+	 * @param swiftnessStat The new swiftness stat of the equipment.
+	 */
+	public void setSwiftnessStat(int swiftnessStat) {
+		this.swiftnessStat = swiftnessStat;
 	}
 
 	/**
