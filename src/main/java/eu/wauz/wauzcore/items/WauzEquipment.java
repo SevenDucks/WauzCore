@@ -49,6 +49,7 @@ public class WauzEquipment {
 			equipment.withMainStat(EquipmentConfigurator.getMainStat(equipmentKey));
 			equipment.withSpeedStat(EquipmentConfigurator.getSpeedStat(equipmentKey));
 			equipment.withDurabilityStat(EquipmentConfigurator.getDurabilityStat(equipmentKey));
+			equipment.withSwiftnessStat(EquipmentConfigurator.getSwiftnessStat(equipmentKey));
 			equipment.withCategory(EquipmentConfigurator.getCategory(equipmentKey));
 			equipment.withLeatherDye(EquipmentConfigurator.getLeatherDye(equipmentKey));
 			
@@ -278,6 +279,11 @@ public class WauzEquipment {
 	private int durabilityStat;
 	
 	/**
+	 * The swiftness stat value of the equipment.
+	 */
+	private int swiftnessStat;
+	
+	/**
 	 * The armor category of the equipment.
 	 */
 	private ArmorCategory category;
@@ -371,6 +377,23 @@ public class WauzEquipment {
 	 */
 	public WauzEquipment withDurabilityStat(int durabilityStat) {
 		this.durabilityStat = durabilityStat;
+		return this;
+	}
+	
+	/**
+	 * @return The swiftness stat value of the equipment.
+	 */
+	public int getSwiftnessStat() {
+		return swiftnessStat;
+	}
+	
+	/**
+	 * @param swiftnessStat The new swiftness stat value of the equipment.
+	 * 
+	 * @return The updated equipment.
+	 */
+	public WauzEquipment withSwiftnessStat(int swiftnessStat) {
+		this.swiftnessStat = swiftnessStat;
 		return this;
 	}
 	

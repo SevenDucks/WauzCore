@@ -143,7 +143,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	
 	/**
 	 * Identifies the item, based on the given event.
-	 * Firstly the equipment type, material, type multiplicator, speed, durability
+	 * Firstly the equipment type, material, type multiplicator, speed, durability, swiftness
 	 * and optionally the leather dye and shield pattern are determined.
 	 * If the item name specifies an equipment type like "Item : Greataxe", it will automatically be used.
 	 * Then additional methods are called to roll base multiplier, rarity and tier.
@@ -173,6 +173,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 		typeMultiplicator = equipmentType.getMainStat();
 		speedStat = equipmentType.getSpeedStat();
 		durabilityStat = equipmentType.getDurabilityStat();
+		swiftnessStat = equipmentType.getSwiftnessStat();
 		
 		if(equipmentType.getMaterial().equals(Material.SHIELD)) {
 			builder.addShieldPattern();
@@ -199,6 +200,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 		builder.addMainStats(attackStat, defenseStat, requiredLevel, scalingLevel);
 		builder.addDurabilityStat(durabilityStat);
 		addSpeedToEquipment();
+		addSwiftnessToEquipment();
 		addArmorCategoryToEquipment();
 		
 		String verb = equipPrefixes.get(random.nextInt(equipPrefixes.size()));
@@ -292,11 +294,21 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	
 	/**
 	 * Adds the speed stat from the equipment type to the lore and applies it as attribute modifier.
-	 * Only works if it is typed weapon, otherwhise it does nothing.
+	 * Only works if it is typed weapon, otherwise it does nothing.
 	 */
 	private void addSpeedToEquipment() {
 		if(equipmentType.getType().equals(EquipmentType.WEAPON)) {
 			builder.addSpeedStat(speedStat);
+		}
+	}
+	
+	/**
+	 * Adds the swiftness stat from the equipment type to the lore and applies it as attribute modifier.
+	 * Only works if it is typed armor, otherwise it does nothing.
+	 */
+	private void addSwiftnessToEquipment() {
+		if(equipmentType.getType().equals(EquipmentType.ARMOR)) {
+			builder.addSwiftnessStat(swiftnessStat);
 		}
 	}
 	

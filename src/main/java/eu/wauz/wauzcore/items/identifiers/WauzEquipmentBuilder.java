@@ -89,6 +89,11 @@ public class WauzEquipmentBuilder {
 	private String durabilityString;
 	
 	/**
+	 * The display of the swiftness stat of the equipment.
+	 */
+	private String swiftnessString;
+	
+	/**
 	 * The display of the speed stat of the equipment.
 	 */
 	private String speedString;
@@ -198,6 +203,16 @@ public class WauzEquipmentBuilder {
 		
 		durabilityString = "Durability:" + ChatColor.DARK_GREEN + " " + durabilityStat;
 		durabilityString += " " + ChatColor.DARK_GRAY + "/ " + durabilityStat;
+	}
+	
+	/**
+	 * Adds a swiftness stat to the equipment item.
+	 * 
+	 * @param swiftnessStat The value of the stat.
+	 */
+	public void addSwiftnessStat(int swiftnessStat) {
+		String symbol = swiftnessStat >= 0 ? "+" : "";
+		swiftnessString = "Swiftness:" + ChatColor.DARK_GREEN + " " + symbol + swiftnessStat + "%";
 	}
 	
 	/**
