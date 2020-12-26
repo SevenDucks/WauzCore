@@ -271,7 +271,7 @@ public class EquipmentUtils {
 	 * @see EquipmentUtils#setSwiftness(ItemStack, int)
 	 */
 	public static int getSwiftness(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Swiftness:" + ChatColor.DARK_GREEN, 2) : 0;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Swiftness:" + ChatColor.DARK_GREEN, 1) : 0;
 	}
 	
 	
@@ -288,7 +288,7 @@ public class EquipmentUtils {
 	 */
 	public static boolean setSwiftness(ItemStack itemStack, int swiftness) {
 		String symbol = getSwiftness(itemStack) >= 0 ? "+" : "";
-		return ItemUtils.replaceStringFromLore(itemStack, ChatColor.WHITE + "Swiftness:" + ChatColor.DARK_GREEN + symbol, 1, swiftness + "%");
+		return ItemUtils.replaceStringFromLore(itemStack, ChatColor.WHITE + "Swiftness:" + ChatColor.DARK_GREEN + symbol, 1, swiftness + " %");
 	}
 	
 	/**

@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.players.calc;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetStat;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -21,6 +22,7 @@ public class SpeedCalculator {
 	/**
 	 * Resets the player's walk speed.
 	 * Adds speed bonus from pet's dexterity stat.
+	 * Adds speed bonus from equipment's swiftness stat
 	 * 
 	 * @param player The player to change the speed of.
 	 */
@@ -30,6 +32,7 @@ public class SpeedCalculator {
 		bonusSpeed += (float) petDex * 0.0006;
 		if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
 			bonusSpeed += WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveBreath.PASSIVE_NAME).getLevel() * 0.002;
+			bonusSpeed += (EquipmentUtils.getSwiftness(player.getEquipment().getChestplate()) / 100) * (0.2f + bonusSpeed);
 		}
 		player.setWalkSpeed(0.2f + bonusSpeed);
 		WauzDebugger.log(player, "Movement Speed: " + player.getWalkSpeed());
