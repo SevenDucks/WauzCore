@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -274,6 +275,17 @@ public class ArcadeLobby {
 		}
 		if(minigame != null) {
 			minigame.handleDamageEvent(event);
+		}
+	}
+	
+	/**
+	 * Handles the given projectile hit event, that occured in the minigame.
+	 * 
+	 * @param event The projectile hit event.
+	 */
+	public static void handleProjectileHitEvent(ProjectileHitEvent event) {
+		if(minigame != null) {
+			minigame.handleProjectileHitEvent(event);
 		}
 	}
 	

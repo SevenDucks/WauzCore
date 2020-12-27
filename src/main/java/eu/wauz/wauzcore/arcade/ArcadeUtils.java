@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.arcade;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -31,6 +32,8 @@ public class ArcadeUtils {
 	 * A random instance, for selecting players and similar things.
 	 */
 	private static Random random = new Random();
+	
+	private static List<String> songs = Arrays.asList("Rakanoth", "Linirea", "Olympus Mons", "Portowauza", "Wauzland");
 	
 	/**
 	 * Splits the given players into random teams.
@@ -175,12 +178,13 @@ public class ArcadeUtils {
 					runStartTimer(secondsTillStart - 1, secondsTillEnd);
 				}
 				else {
+					String songName = songs.get(random.nextInt(songs.size()));
 					for(Player player : ArcadeLobby.getPlayingPlayers()) {
 						player.removePotionEffect(PotionEffectType.SLOW);
 						player.removePotionEffect(PotionEffectType.JUMP);
 						player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 1, 1);
 						player.sendTitle("", ChatColor.GOLD + "START", 2, 14, 4);
-						WauzNoteBlockPlayer.play(player, "Olympus Mons");
+						WauzNoteBlockPlayer.play(player, songName);
 					}
 					ArcadeLobby.handleStartEvent();
 					runEndTimer(secondsTillEnd - 1);

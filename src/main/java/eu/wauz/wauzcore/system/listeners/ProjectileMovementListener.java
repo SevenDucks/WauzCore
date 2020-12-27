@@ -52,6 +52,9 @@ public class ProjectileMovementListener implements Listener {
 		if(WauzMode.isMMORPG(event.getEntity()) && event.getEntityType().equals(EntityType.ARROW)) {
 			event.getEntity().remove();
 		}
+		else if(WauzMode.isArcade(event.getEntity())) {
+			ArcadeLobby.handleProjectileHitEvent(event);
+		}
 	}
 
 	/**

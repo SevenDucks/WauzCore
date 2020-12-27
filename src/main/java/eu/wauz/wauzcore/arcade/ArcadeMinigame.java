@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 /**
@@ -69,6 +70,15 @@ public interface ArcadeMinigame {
 	 * @param event The damage event.
 	 */
 	public default void handleDamageEvent(EntityDamageEvent event) {
+		
+	}
+	
+	/**
+	 * Handles the given projectile hit event, that occured in the minigame.
+	 * 
+	 * @param event The projectile hit event.
+	 */
+	public default void handleProjectileHitEvent(ProjectileHitEvent event) {
 		
 	}
 	
