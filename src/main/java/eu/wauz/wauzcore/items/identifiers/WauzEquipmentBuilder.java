@@ -212,7 +212,7 @@ public class WauzEquipmentBuilder {
 	 */
 	public void addSwiftnessStat(int swiftnessStat) {
 		String symbol = swiftnessStat >= 0 ? "+" : "";
-		swiftnessString = "Swiftness:" + ChatColor.DARK_GREEN + " " + symbol + swiftnessStat + "%";
+		swiftnessString = "Swiftness:" + ChatColor.DARK_GREEN + " " + symbol + swiftnessStat + " %";
 	}
 	
 	/**
