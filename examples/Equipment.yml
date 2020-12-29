@@ -225,7 +225,7 @@ Tunic:
   name: Tunic
   mainstat: 1.45
   durabilitystat: 2048
-  swiftnessstat: -14
+  swiftnessstat: -15
   category: LIGHT
   leatherdye: GREEN
 Vest:
@@ -250,7 +250,7 @@ Guard:
   name: Guard
   mainstat: 1.60
   durabilitystat: 2048
-  swiftnessstat: -24
+  swiftnessstat: -25
   category: MEDIUM
 Plate:
   type: ARMOR
@@ -274,5 +274,5 @@ Dragonbones:
   name: Dragonbones
   mainstat: 1.75
   durabilitystat: 2048
-  swiftnessstat: -34
+  swiftnessstat: -35
   category: HEAVY

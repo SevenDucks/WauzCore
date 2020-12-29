@@ -32,7 +32,7 @@ public class SpeedCalculator {
 		bonusSpeed += (float) petDex * 0.0006;
 		if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
 			bonusSpeed += WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveBreath.PASSIVE_NAME).getLevel() * 0.002;
-			bonusSpeed += (EquipmentUtils.getSwiftness(player.getEquipment().getChestplate()) / 100) * (0.2f + bonusSpeed);
+			bonusSpeed += EquipmentUtils.getSwiftness(player.getEquipment().getChestplate()) * 0.002;
 		}
 		player.setWalkSpeed(0.2f + bonusSpeed);
 		WauzDebugger.log(player, "Movement Speed: " + player.getWalkSpeed());

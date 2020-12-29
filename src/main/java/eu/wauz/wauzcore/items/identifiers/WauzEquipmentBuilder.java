@@ -89,14 +89,14 @@ public class WauzEquipmentBuilder {
 	private String durabilityString;
 	
 	/**
-	 * The display of the swiftness stat of the equipment.
-	 */
-	private String swiftnessString;
-	
-	/**
 	 * The display of the speed stat of the equipment.
 	 */
 	private String speedString;
+	
+	/**
+	 * The display of the swiftness stat of the equipment.
+	 */
+	private String swiftnessString;
 	
 	/**
 	 * The display of the armor category of the equipment.
@@ -206,16 +206,6 @@ public class WauzEquipmentBuilder {
 	}
 	
 	/**
-	 * Adds a swiftness stat to the equipment item.
-	 * 
-	 * @param swiftnessStat The value of the stat.
-	 */
-	public void addSwiftnessStat(int swiftnessStat) {
-		String symbol = swiftnessStat >= 0 ? "+" : "";
-		swiftnessString = "Swiftness:" + ChatColor.DARK_GREEN + " " + symbol + swiftnessStat + " %";
-	}
-	
-	/**
 	 * Adds a speed stat to the equipment item.
 	 * 
 	 * @param speedStat The value of the stat.
@@ -225,6 +215,16 @@ public class WauzEquipmentBuilder {
 		AttributeModifier modifier = new AttributeModifier("generic.attack_speed", genericAttackSpeed, Operation.ADD_NUMBER);
 		itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
 		speedString = "Speed:" + ChatColor.RED + " " + Formatters.DEC_SHORT.format(speedStat);
+	}
+	
+	/**
+	 * Adds a swiftness stat to the equipment item.
+	 * 
+	 * @param swiftnessStat The value of the stat.
+	 */
+	public void addSwiftnessStat(int swiftnessStat) {
+		String symbol = swiftnessStat >= 0 ? "+" : "";
+		swiftnessString = "Swiftness:" + ChatColor.BLUE + " " + symbol + swiftnessStat + " %";
 	}
 	
 	/**
@@ -289,6 +289,7 @@ public class WauzEquipmentBuilder {
 			lores.add(ChatColor.WHITE + enhancementString);
 		}
 		addLoreIfNotBlank(lores, speedString);
+		addLoreIfNotBlank(lores, swiftnessString);
 		addLoreIfNotBlank(lores, armorCategoryString);
 		addLoreIfNotBlank(lores, durabilityString);
 		lores.add(ChatColor.WHITE + "Sell Value:" + ChatColor.DARK_GREEN + " " + sellValue);

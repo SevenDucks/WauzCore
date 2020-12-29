@@ -193,7 +193,8 @@ public class CharacterSlotMenu implements WauzInventory {
 				CharacterManager.createCharacter(player, WauzMode.SURVIVAL);
 			}
 			else {
-				CharacterWorldMenu.open(player);
+				playerData.setSelectedCharacterWorld("MMORPG");
+				CharacterClassMenu.open(player);
 			}
 		}
 		else if(event.getClick().toString().contains("RIGHT")) {

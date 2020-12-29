@@ -1,0 +1,29 @@
+display: Basilius Svetozar
+name:
+  - Basilius Svetozar
+  - ''
+world: MMORPG
+location: -5668.0 88 5580.0 0 0
+skinid: 1220806022
+invisible: false
+burning: false
+items:
+  mainhand:
+  offhand:
+  helmet:
+  chestplate:
+  leggings:
+  boots:
+interactions:
+  1:
+    type: talk
+    name: Who are you?
+    level: 0
+    messages:
+      - 'I am a guard.'
+  2:
+    type: talk
+    name: Where am I?
+    level: 0
+    messages:
+      - 'Wrayvell.'

@@ -53,25 +53,24 @@ OneBlockSurvival:
   temperature: 5
   flags: 'build,pvp'
   areas:
-Wauzland:
+MMORPG:
   type: world
-  world: Wauzland
-  title: Wauzland
-  subtitle: Republic Wauzland
-  music: Wauzland
+  world: MMORPG
+  title: Delseyria
+  subtitle: The Great Sea
   temperature: 6
   flags: ''
   areas:
     NorthernPlains:
       type: polygon
       points:
-      - '-986;0'
-      - '0;-986'
-      - '986;0'
-      - '250;0'
-      - '250;-250'
-      - '-250;-250'
-      - '-250;0'
+      - '-6486;-250'
+      - '-5500;-1236'
+      - '-4514;-250'
+      - '-5250;-250'
+      - '-5250;-500'
+      - '-5750;-500'
+      - '-5750;-250'
       title: Upper Plains
       subtitle: Republic Wauzland
       music: Wauzland
@@ -81,15 +80,15 @@ Wauzland:
         Okiraka:
           type: polygon
           points:
-          - '48;-529'
-          - '125;-529'
-          - '142;-547'
-          - '193;-547'
-          - '261;-615'
-          - '261;-549'
-          - '175;-463'
-          - '100;-433'
-          - '48;-433'
+          - '-5452;-779'
+          - '-5375;-779'
+          - '-5358;-797'
+          - '-5307;-797'
+          - '-5239;-865'
+          - '-5239;-799'
+          - '-5325;-713'
+          - '-5400;-683'
+          - '-5452;-683'
           title: Okiraka Village
           subtitle: Legacy of Durendal
           music: Portowauza
@@ -97,7 +96,7 @@ Wauzland:
           flags: ''
         Kloten:
           type: ellipse
-          radius: '-150;-510;37'
+          radius: '-5650;-760;37'
           title: Fort Kloten
           subtitle: Heart of Lake Asparagur
           music: Linirea
@@ -106,7 +105,7 @@ Wauzland:
           areas:
         Shusia:
           type: ellipse
-          radius: '314;-584;37'
+          radius: '-5186;-834;37'
           title: Shusia Village
           subtitle: Heart of Duck Mountain
           music: Olympus Mons
@@ -116,13 +115,13 @@ Wauzland:
     SouthernPlains:
       type: polygon
       points:
-      - '986;0'
-      - '0;986'
-      - '-986;0'
-      - '-250;0'
-      - '-250;250'
-      - '250;250'
-      - '250;0'
+      - '-4514;-250'
+      - '-5500;736'
+      - '-6486;-250'
+      - '-5750;-250'
+      - '-5750;0'
+      - '-5250;0'
+      - '-5250;-250'
       title: Lower Plains
       subtitle: Republic Wauzland
       music: Wauzland
@@ -132,10 +131,10 @@ Wauzland:
         Gockelhock:
           type: polygon
           points:
-          - '-610;50'
-          - '-300;50'
-          - '-300;360'
-          - '-610;360'
+          - '-6110;-200'
+          - '-5800;-200'
+          - '-5800;110'
+          - '-6110;110'
           title: Gockelhock
           subtitle: Golden City
           music: Sinaithar
@@ -145,10 +144,10 @@ Wauzland:
         GreenSanctuary:
           type: polygon
           points:
-          - '300;50'
-          - '610;50'
-          - '610;360'
-          - '300;360'
+          - '-5200;-200'
+          - '-4890;-200'
+          - '-4890;110'
+          - '-5200;110'
           title: Green Sanctuary
           subtitle: Remote Forest Camp
           music: Rakanoth
@@ -158,10 +157,10 @@ Wauzland:
     Portowauza:
       type: polygon
       points:
-      - '-250;-250'
-      - '250;-250'
-      - '250;250'
-      - '-250;250'
+      - '-5750;-500'
+      - '-5250;-500'
+      - '-5250;0'
+      - '-5750;0'
       title: Portowauza
       subtitle: Capital of Wauzland
       music: Portowauza
@@ -171,11 +170,11 @@ Wauzland:
     Linirea:
       type: polygon
       points:
-      - '0;-986'
-      - '0;-1000'
-      - '1000;-1000'
-      - '1000;0'
-      - '986;0'
+      - '-5500;-1236'
+      - '-5500;-1250'
+      - '-4500;-1250'
+      - '-4500;-250'
+      - '-4514;-250'
       title: Linirea
       subtitle: Frozen Tundra
       music: Linirea
@@ -184,7 +183,7 @@ Wauzland:
       areas:
         Spargelforge:
           type: ellipse
-          radius: '650;-650;75'
+          radius: '-4850;-900;75'
           title: Spargelforge
           subtitle: Capital of Linirea
           music: Linirea
@@ -194,11 +193,11 @@ Wauzland:
     Mons:
       type: polygon
       points:
-      - '0;-986'
-      - '0;-1000'
-      - '-1000;-1000'
-      - '-1000;0'
-      - '-986;0'
+      - '-5500;-1236'
+      - '-5500;-1250'
+      - '-6500;-1250'
+      - '-6500;-250'
+      - '-6486;-250'
       title: Olympus Mons
       subtitle: Scorched Kingdom
       music: Olympus Mons
@@ -207,7 +206,7 @@ Wauzland:
       areas:
         Wesavier:
           type: ellipse
-          radius: '-650;-650;75'
+          radius: '-6150;-900;75'
           title: Wesavier
           subtitle: Capital of Mons
           music: Olympus Mons
@@ -217,11 +216,11 @@ Wauzland:
     Sinaithar:
       type: polygon
       points:
-      - '0;986'
-      - '0;1000'
-      - '-1000;1000'
-      - '-1000;0'
-      - '-986;0'
+      - '-5500;736'
+      - '-5500;750'
+      - '-6500;750'
+      - '-6500;-250'
+      - '-6486;-250'
       title: Sinaithar
       subtitle: Desolate Wasteland
       music: Sinaithar
@@ -230,7 +229,7 @@ Wauzland:
       areas:
         Nagrommar:
           type: ellipse
-          radius: '-650;650;75'
+          radius: '-6150;400;75'
           title: Nagrommar
           subtitle: Capital of Sinaithar
           music: Sinaithar
@@ -240,11 +239,11 @@ Wauzland:
     Rakanoth:
       type: polygon
       points:
-      - '0;986'
-      - '0;1000'
-      - '1000;1000'
-      - '1000;0'
-      - '986;0'
+      - '-5500;736'
+      - '-5500;750'
+      - '-4500;750'
+      - '-4500;-250'
+      - '-4514;-250'
       title: Rakanoth
       subtitle: Lost Swamps
       music: Rakanoth
@@ -253,7 +252,7 @@ Wauzland:
       areas:
         Gündrassil:
           type: ellipse
-          radius: '650;650;75'
+          radius: '-4850;400;75'
           title: Gündrassil
           subtitle: Capital of Rakanoth
           music: Rakanoth
