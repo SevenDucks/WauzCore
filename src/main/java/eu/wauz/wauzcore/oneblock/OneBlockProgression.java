@@ -172,7 +172,7 @@ public class OneBlockProgression {
 			phase.tryToSpawnMob(blockToBreak.getLocation().clone().add(0.5, 1, 0.5));
 		}
 		DurabilityCalculator.increaseDamageOnOneBlock(equipmentItemStack, player);
-		if(++totalBlocks % 500 == 0) {
+		if(++totalBlocks % 300 == 0) {
 			WauzRewards.earnOneBlockToken(player);
 		}
 	}

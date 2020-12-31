@@ -252,10 +252,12 @@ public class SkillUtils {
 	        	try {
 	        		if(player != null && player.isValid() && entity != null && entity.isValid()) {
 	        			ParticleSpawner.spawnParticleHelix(entity.getLocation(), new SkillParticle(color), 0.5, 2.5);
-	        			if(damage > 0)
+	        			if(damage > 0) {
 	        				callPlayerFixedDamageEvent(player, entity, damage);
-	        			if(ticks - 1 > 0)
+	        			}
+	        			if(ticks - 1 > 0) {
 	        				callPlayerDamageOverTimeEvent(player, entity, color, damage, ticks - 1, interval);
+	        			}
 	        		}
 	        	}
 	        	catch (NullPointerException e) {

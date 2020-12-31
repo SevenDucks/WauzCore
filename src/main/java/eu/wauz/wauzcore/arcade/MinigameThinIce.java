@@ -147,7 +147,7 @@ public class MinigameThinIce implements ArcadeMinigame {
 	public void handleProjectileHitEvent(ProjectileHitEvent event) {
 		Entity entity = event.getHitEntity();
 		if(entity instanceof Player) {
-			SkillUtils.throwBackEntity(entity, event.getEntity().getLocation(), 0.75);
+			SkillUtils.throwBackEntity(entity, event.getEntity().getLocation(), 0.5);
 		}
 	}
 	
@@ -231,7 +231,7 @@ public class MinigameThinIce implements ArcadeMinigame {
 				breakingBlocks.add(block);
 			}
 			
-		}, 10);
+		}, 20);
 	}
 
 }

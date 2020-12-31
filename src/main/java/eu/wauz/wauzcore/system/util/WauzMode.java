@@ -83,6 +83,9 @@ public enum WauzMode {
 		else if(isSurvival(worldName)) {
 			return SURVIVAL;
 		}
+		else if(isArcade(worldName)) {
+			return ARCADE;
+		}
 		else {
 			return UNKNOWN;
 		}

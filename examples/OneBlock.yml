@@ -34,7 +34,7 @@ phases:
     levels:
       default:
         name: (1)
-        blockamount: 200
+        blockamount: 100
         blocks:
         - 'GRASS_BLOCK 7'
         - 'OAK_LOG 2'
@@ -83,7 +83,7 @@ phases:
     levels:
       default:
         name: (2)
-        blockamount: 600
+        blockamount: 300
         blocks:
         - 'GRASS_BLOCK 7'
         - 'BIRCH_LOG 2'
@@ -101,8 +101,8 @@ phases:
       - 'COD'
       - 'RABBIT'
       hostile:
-      - 'CAVE_SPIDER'
       - 'SKELETON'
+      - 'SPIDER'
       - 'ZOMBIE'
     chests:
       common:
@@ -130,7 +130,7 @@ phases:
     levels:
       default:
         name: (3)
-        blockamount: 900
+        blockamount: 300
         blocks:
         - 'STONE 7'
         - 'DIORITE 2'
@@ -237,7 +237,7 @@ phases:
     levels:
       default:
         name: (4)
-        blockamount: 1200
+        blockamount: 400
         blocks:
         - 'GRASS_BLOCK 7'
         - 'CLAY 3'
@@ -285,7 +285,7 @@ phases:
     levels:
       default:
         name: (5)
-        blockamount: 1500
+        blockamount: 400
         blocks:
         - 'COARSE_DIRT 7'
         - 'MOSSY_COBBLESTONE 2'
@@ -335,7 +335,7 @@ phases:
     levels:
       default:
         name: (6)
-        blockamount: 1800
+        blockamount: 500
         blocks:
         - 'GRASS_BLOCK 7'
         - 'COARSE_DIRT 2'
@@ -382,7 +382,7 @@ phases:
     levels:
       default:
         name: (7)
-        blockamount: 2100
+        blockamount: 500
         blocks:
         - 'SANDSTONE 7'
         - 'CLAY 2'
@@ -437,7 +437,7 @@ phases:
     levels:
       default:
         name: (8)
-        blockamount: 2400
+        blockamount: 500
         blocks:
         - 'SMOOTH_SANDSTONE 4'
         - 'CHISELED_SANDSTONE 4'
@@ -484,7 +484,7 @@ phases:
     levels:
       default:
         name: (9)
-        blockamount: 2700
+        blockamount: 600
         blocks:
         - 'TERRACOTTA 7'
         - 'RED_SANDSTONE 2'
@@ -527,7 +527,7 @@ phases:
     levels:
       default:
         name: (10)
-        blockamount: 3000
+        blockamount: 600
         blocks:
         - 'NETHERRACK 7'
         - 'NETHER_QUARTZ_ORE 2'
@@ -575,7 +575,7 @@ phases:
     levels:
       default:
         name: (11)
-        blockamount: 3500
+        blockamount: 700
         blocks:
         - 'GRASS_BLOCK 7'
         - 'CLAY 2'
@@ -625,7 +625,7 @@ phases:
     levels:
       default:
         name: (12)
-        blockamount: 4000
+        blockamount: 800
         blocks:
         - 'GRASS_BLOCK 7'
         - 'JUNGLE_LOG 2'
@@ -671,7 +671,7 @@ phases:
     levels:
       default:
         name: (13)
-        blockamount: 4500
+        blockamount: 900
         blocks:
         - 'STONE 5'
         - 'BLACKSTONE 5'
@@ -717,7 +717,7 @@ phases:
     levels:
       default:
         name: (14)
-        blockamount: 5000
+        blockamount: 1000
         blocks:
         - 'GRASS_BLOCK 4'
         - 'SNOW_BLOCK 4'
@@ -761,7 +761,7 @@ phases:
     levels:
       default:
         name: (15)
-        blockamount: 5500
+        blockamount: 1100
         blocks:
         - 'SNOW_BLOCK 7'
         - 'PACKED_ICE 2'
@@ -809,7 +809,7 @@ phases:
     levels:
       default:
         name: (16)
-        blockamount: 6000
+        blockamount: 1200
         blocks:
         - 'CLAY 7'
         - 'COBBLESTONE 2'
@@ -864,7 +864,7 @@ phases:
     levels:
       default:
         name: (17)
-        blockamount: 7000
+        blockamount: 1300
         blocks:
         - 'PRISMARINE 7'
         - 'PRISMARINE_BRICKS 2'
@@ -911,7 +911,7 @@ phases:
     levels:
       default:
         name: (18)
-        blockamount: 8000
+        blockamount: 1400
         blocks:
         - 'BASALT 7'
         - 'STONE 2'
@@ -965,7 +965,7 @@ phases:
     levels:
       default:
         name: (19)
-        blockamount: 9000
+        blockamount: 1500
         blocks:
         - 'MYCELIUM 7'
         - 'GRANITE 2'
@@ -1031,7 +1031,7 @@ phases:
     levels:
       default:
         name: (20)
-        blockamount: 10000
+        blockamount: 1600
         blocks:
         - 'ANDESITE 5'
         - 'BASALT 4'

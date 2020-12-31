@@ -5,7 +5,7 @@ playsmsg: "with Lord Wauzmons"
 errormsg: "Oopsy! Shiro thinks something went wrong. :/"
 guild: 212147184999596032
 channels:
-  general: 666641310987321344
+  general: 212147184999596032
   logging: 664755383855742986
   bots: 492095196641624066
   audio: 685470426293600280

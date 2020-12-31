@@ -1,9 +1,7 @@
 package eu.wauz.wauzcore.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -11,6 +9,7 @@ import org.bukkit.Material;
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 import eu.wauz.wauzcore.items.enums.ArmorCategory;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
+import eu.wauz.wauzcore.skills.particles.Colors;
 
 /**
  * Configurator to fetch or modify data from the Equipment.yml.
@@ -20,31 +19,6 @@ import eu.wauz.wauzcore.items.enums.EquipmentType;
 public class EquipmentConfigurator extends GlobalConfigurationUtils {
 
 // General Parameters
-	
-	/**
-	 * A map of all possible leather dye colors.
-	 */
-	private static final Map<String, Color> COLORS = new HashMap<String, Color>();
-	
-	static {
-		COLORS.put("AQUA", Color.AQUA);
-		COLORS.put("BLACK", Color.BLACK);
-		COLORS.put("BLUE", Color.BLUE);
-		COLORS.put("FUCHSIA", Color.FUCHSIA);
-		COLORS.put("GRAY", Color.GRAY);
-		COLORS.put("GREEN", Color.GREEN);
-		COLORS.put("LIME", Color.LIME);
-		COLORS.put("MAROON", Color.MAROON);
-		COLORS.put("NAVY", Color.NAVY);
-		COLORS.put("OLIVE", Color.OLIVE);
-		COLORS.put("ORANGE", Color.ORANGE);
-		COLORS.put("PURPLE", Color.PURPLE);
-		COLORS.put("RED", Color.RED);
-		COLORS.put("SILVER", Color.SILVER);
-		COLORS.put("TEAL", Color.TEAL);
-		COLORS.put("WHITE", Color.WHITE);
-		COLORS.put("YELLOW", Color.YELLOW);
-	}
 	
 	/**
 	 * @return The keys of all equipment base types.
@@ -141,7 +115,7 @@ public class EquipmentConfigurator extends GlobalConfigurationUtils {
 		if(leatherDye == null) {
 			return null;
 		}
-		return COLORS.get(leatherDye);
+		return Colors.getByName(leatherDye);
 	}
 	
 }
