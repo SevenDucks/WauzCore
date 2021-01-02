@@ -80,10 +80,11 @@ public class CmdWzFirework implements WauzCommand {
 	        		Type type = Type.values()[Chance.randomInt(Type.values().length)];
 	        		Color color1 = Colors.getRandom();
 	        		Color color2 = Colors.getRandom();
+	        		Color color3 = Colors.getRandom();
 	        		FireworkEffect effect = FireworkEffect.builder()
 	        				.with(type)
-	        				.withColor(color1)
-	        				.withFade(color2)
+	        				.withColor(color1, color2)
+	        				.withFade(color3)
 	        				.flicker(Chance.randomBoolean())
 	        				.trail(Chance.randomBoolean())
 	        				.build();

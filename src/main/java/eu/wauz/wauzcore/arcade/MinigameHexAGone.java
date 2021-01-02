@@ -72,7 +72,7 @@ public class MinigameHexAGone implements ArcadeMinigame {
 	 */
 	@Override
 	public void startGame(List<Player> players) {
-		maxLosingPlayers = players.size() / 2;
+		maxLosingPlayers = players.size() - (players.size() / 2);
 		World world = ArcadeLobby.getWorld();
 		Location floorLocation = new Location(world, 750.5, 85, 750.5);
 		breakingBlocks.addAll(new ShapeHexagon(floorLocation, 12).create(Material.CYAN_CONCRETE));
@@ -142,7 +142,7 @@ public class MinigameHexAGone implements ArcadeMinigame {
 		}
 		if(location.getY() <= 32) {
 			eliminatedPlayers.add(player);
-			player.teleport(new Location(ArcadeLobby.getWorld(), 750.5, 96, 750.5, 90, 0));
+			player.teleport(new Location(ArcadeLobby.getWorld(), 750.5, 96, 750.5, 0, 0));
 			player.playSound(player.getLocation(), Sound.ENTITY_BLAZE_DEATH, 1, 1);
 			for(Player playing : ArcadeLobby.getPlayingPlayers()) {
 				playing.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.RED + " has been eliminated!");
