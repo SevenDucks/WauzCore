@@ -31,14 +31,19 @@ public class ChatFormatter {
 		Player player = event.getPlayer();
 		
 		String level;
-		if(WauzMode.inHub(player)) {
-			level = "Hub";
-		}
-		else if(WauzMode.isSurvival(player)) {
-			level = "Survival";
-		}
-		else {
-			level = "" + player.getLevel();
+		switch (WauzMode.getMode(player)) {
+		case MMORPG:
+			level = WauzMode.inHub(player) ? "Hub" : "MMO, " + player.getLevel();
+			break;
+		case SURVIVAL:
+			level = WauzMode.inOneBlock(player) ? "OneBlock" : "Survival";
+			break;
+		case ARCADE:
+			level = "DropGuys";
+			break;
+		default:
+			level = "Unknown";
+			break;
 		}
 		
 		String rankPrefix = getMinecraftRankPrefix(player);

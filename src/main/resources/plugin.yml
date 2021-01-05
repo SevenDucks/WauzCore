@@ -181,6 +181,11 @@ commands:
     description: Show Permissions
     usage: /wzPerms [filter]
     permission: wauz.system
+  wzFirework:
+    description: Create Firework Show
+    aliases: [firework]
+    usage: /wzFirework
+    permission: wauz.system
   wzDebug:
     description: Toggle Debug Mode
     usage: /wzDebug [player]

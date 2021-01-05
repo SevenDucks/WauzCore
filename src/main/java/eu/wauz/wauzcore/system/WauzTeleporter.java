@@ -139,8 +139,8 @@ public class WauzTeleporter {
 	 * @return True if successful.
 	 */
 	public static boolean enterInstanceTeleportSystemDev(Player player, String instanceName) {
-		File file = new File(Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString()
-				.replaceAll("Wauzland", instanceName));
+		File file = new File(Bukkit.getWorld("MMORPG").getWorldFolder().getPath().toString()
+				.replaceAll("MMORPG", instanceName));
 		
 		if(player.isInsideVehicle()) {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");

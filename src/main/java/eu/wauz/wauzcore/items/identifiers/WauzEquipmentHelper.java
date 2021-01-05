@@ -103,6 +103,7 @@ public class WauzEquipmentHelper {
 		}
 		else {
 			builder.addArmorCategory(ArmorCategory.LIGHT);
+			builder.addSwiftnessStat(-10);
 		}
 		EquipmentType equipmentType = isWeapon ? EquipmentType.WEAPON : EquipmentType.ARMOR;
 		return builder.generate(Tier.EQUIP_T1, Rarity.UNIQUE, equipmentType, "Enchanted Iron");

@@ -3,7 +3,7 @@ name: Calamity Beneath Wauzland
 giver: Yamir
 level: 5
 amount: 2
-coords: 0 5 0
+coords: -5500 5 -250
 reward:
   exp: 0
   relation: 0

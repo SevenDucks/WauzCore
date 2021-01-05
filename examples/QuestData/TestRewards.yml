@@ -3,7 +3,7 @@ name: Rewards Test Quest
 giver: Bolvic
 level: 10
 amount: 1
-coords: -23 21 -625
+coords: -5523 21 -875
 reward:
   exp: 5.0
   relation: 30

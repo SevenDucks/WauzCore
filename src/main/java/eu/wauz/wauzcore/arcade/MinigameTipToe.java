@@ -136,7 +136,7 @@ public class MinigameTipToe implements ArcadeMinigame {
 				ArcadeLobby.endGame();
 			}
 		}
-		else if(location.getY() <= 64) {
+		else if(location.getY() <= 72) {
 			player.teleport(player.getBedSpawnLocation());
 		}
 	}

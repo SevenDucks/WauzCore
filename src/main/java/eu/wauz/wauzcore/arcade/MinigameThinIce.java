@@ -78,7 +78,7 @@ public class MinigameThinIce implements ArcadeMinigame {
 	 */
 	@Override
 	public void startGame(List<Player> players) {
-		maxLosingPlayers = players.size() / 2;
+		maxLosingPlayers = players.size() - (players.size() / 2);
 		World world = ArcadeLobby.getWorld();
 		Location floorLocation = new Location(world, 750.5, 85, 1000.5);
 		breakingBlocks.addAll(new ShapeHexagon(floorLocation, 12).create(Material.BLUE_ICE));
@@ -90,7 +90,7 @@ public class MinigameThinIce implements ArcadeMinigame {
 		for(Player player : ArcadeLobby.getPlayingPlayers()) {
 			player.getLocation().getBlock().getRelative(BlockFace.DOWN).setType(Material.BARRIER);
 		}
-		ArcadeUtils.runStartTimer(10, 180);
+		ArcadeUtils.runStartTimer(10, 120);
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class MinigameThinIce implements ArcadeMinigame {
 	 */
 	@Override
 	public void handleStartEvent() {
-		ItemStack snowballItemStack = new ItemStack(Material.SNOWBALL, 64);
+		ItemStack snowballItemStack = new ItemStack(Material.SNOWBALL, 16);
 		ItemMeta snowballItemMeta = snowballItemStack.getItemMeta();
 		snowballItemMeta.setDisplayName(ChatColor.RED + "Snowball");
 		snowballItemMeta.setUnbreakable(true);
@@ -147,7 +147,7 @@ public class MinigameThinIce implements ArcadeMinigame {
 	public void handleProjectileHitEvent(ProjectileHitEvent event) {
 		Entity entity = event.getHitEntity();
 		if(entity instanceof Player) {
-			SkillUtils.throwBackEntity(entity, event.getEntity().getLocation(), 0.75);
+			SkillUtils.throwBackEntity(entity, event.getEntity().getLocation(), 0.5);
 		}
 	}
 	
@@ -167,7 +167,7 @@ public class MinigameThinIce implements ArcadeMinigame {
 		}
 		if(location.getY() <= 32) {
 			eliminatedPlayers.add(player);
-			player.teleport(new Location(ArcadeLobby.getWorld(), 750.5, 70, 1000.5, 90, 0));
+			player.teleport(new Location(ArcadeLobby.getWorld(), 750.5, 96, 1000.5, 0, 0));
 			player.playSound(player.getLocation(), Sound.ENTITY_BLAZE_DEATH, 1, 1);
 			for(Player playing : ArcadeLobby.getPlayingPlayers()) {
 				playing.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.RED + " has been eliminated!");
@@ -231,7 +231,7 @@ public class MinigameThinIce implements ArcadeMinigame {
 				breakingBlocks.add(block);
 			}
 			
-		}, 10);
+		}, 20);
 	}
 
 }

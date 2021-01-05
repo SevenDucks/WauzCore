@@ -83,6 +83,9 @@ public enum WauzMode {
 		else if(isSurvival(worldName)) {
 			return SURVIVAL;
 		}
+		else if(isArcade(worldName)) {
+			return ARCADE;
+		}
 		else {
 			return UNKNOWN;
 		}
@@ -149,7 +152,7 @@ public enum WauzMode {
 	 */
 	public static boolean isMMORPG(String worldName) {
 		return isInstanceOfType(worldName, "MMORPG") ||
-				StringUtils.equalsAny(worldName, "HubNexus", "Wauzland", "Dalyreos");
+				StringUtils.equalsAny(worldName, "HubNexus", "MMORPG");
 	}
 	
 	/**

@@ -56,7 +56,7 @@ public class OneBlockScoreboard extends BaseScoreboard {
 		rowStrings.add("  ");
 		rowStrings.add("Total Blocks: " + ChatColor.AQUA + Formatters.INT.format(totalBlocks));
 		rowStrings.add("Earn a free Token");
-		rowStrings.add("for every 500 Blocks");
+		rowStrings.add("for every 300 Blocks");
 		rowStrings.add("   ");
 		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)));
 		rowStrings.add("Use an Ender Chest to Spend");

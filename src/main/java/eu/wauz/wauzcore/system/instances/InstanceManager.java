@@ -79,7 +79,7 @@ public class InstanceManager {
 		WauzActivePet.tryToUnsummon(player, true);
 		
 		String instanceUuid = "WzInstance_MMORPG_" + UUID.randomUUID();
-		String path = Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", instanceUuid);
+		String path = Bukkit.getWorld("MMORPG").getWorldFolder().getPath().toString().replace("MMORPG", instanceUuid);
 		File targetFolder = new File(path);
 		targetFolder.mkdir();
 		
@@ -120,7 +120,7 @@ public class InstanceManager {
 		World instanceWorld = Bukkit.getWorld(instanceUuid);
 		if(instanceWorld == null) {
 			File sourceFolder = new File(core.getDataFolder(), "Worlds/Guildhall");
-			String path = Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", instanceUuid);
+			String path = Bukkit.getWorld("MMORPG").getWorldFolder().getPath().toString().replace("MMORPG", instanceUuid);
 			File targetFolder = new File(path);
 			targetFolder.mkdir();
 			openInstance(sourceFolder, targetFolder);
@@ -152,7 +152,7 @@ public class InstanceManager {
 		World instanceWorld = Bukkit.getWorld(instanceUuid);
 		if(instanceWorld == null) {
 			File sourceFolder = new File(core.getDataFolder(), "Worlds/Arcade");
-			String path = Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", instanceUuid);
+			String path = Bukkit.getWorld("MMORPG").getWorldFolder().getPath().toString().replace("MMORPG", instanceUuid);
 			File targetFolder = new File(path);
 			targetFolder.mkdir();
 			openInstance(sourceFolder, targetFolder);
@@ -347,7 +347,7 @@ public class InstanceManager {
 	 * @see WauzFileUtils#removeFilesRecursive(File)
 	 */
 	public static void removeInactiveInstances() {
-		File rootDirectory = new File(Bukkit.getWorld("Wauzland").getWorldFolder().getPath().toString().replace("Wauzland", ""));
+		File rootDirectory = new File(Bukkit.getWorld("MMORPG").getWorldFolder().getPath().toString().replace("MMORPG", ""));
 		for(File file : rootDirectory.listFiles()) {
 			if(file.getName().startsWith("WzInstance")) {
 				WauzActiveInstancePool.unregisterInstance(file.getName());

@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.items;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -22,6 +23,7 @@ import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneRemover;
 import eu.wauz.wauzcore.items.runes.insertion.WauzSkillgemInserter;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
@@ -48,8 +50,8 @@ public class WauzEquipment {
 			WauzEquipment equipment = new WauzEquipment(type, material, name);
 			equipment.withMainStat(EquipmentConfigurator.getMainStat(equipmentKey));
 			equipment.withSpeedStat(EquipmentConfigurator.getSpeedStat(equipmentKey));
-			equipment.withDurabilityStat(EquipmentConfigurator.getDurabilityStat(equipmentKey));
 			equipment.withSwiftnessStat(EquipmentConfigurator.getSwiftnessStat(equipmentKey));
+			equipment.withDurabilityStat(EquipmentConfigurator.getDurabilityStat(equipmentKey));
 			equipment.withCategory(EquipmentConfigurator.getCategory(equipmentKey));
 			equipment.withLeatherDye(EquipmentConfigurator.getLeatherDye(equipmentKey));
 			
@@ -85,6 +87,14 @@ public class WauzEquipment {
 			return;
 		}
 		equipArmor(player, armorItemStack);
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+
+			@Override
+			public void run() {
+				SpeedCalculator.resetWalkSpeed(player);
+			}
+			
+		}, 5);
 	}
 
 	/**
@@ -274,14 +284,14 @@ public class WauzEquipment {
 	private double speedStat;
 	
 	/**
-	 * The durability stat value of the equipment.
-	 */
-	private int durabilityStat;
-	
-	/**
 	 * The swiftness stat value of the equipment.
 	 */
 	private int swiftnessStat;
+	
+	/**
+	 * The durability stat value of the equipment.
+	 */
+	private int durabilityStat;
 	
 	/**
 	 * The armor category of the equipment.
@@ -362,23 +372,6 @@ public class WauzEquipment {
 		this.speedStat = speedStat;
 		return this;
 	}
-
-	/**
-	 * @return The durability stat value of the equipment.
-	 */
-	public int getDurabilityStat() {
-		return durabilityStat;
-	}
-
-	/**
-	 * @param durabilityStat The new durability stat value of the equipment.
-	 * 
-	 * @return The updated equipment.
-	 */
-	public WauzEquipment withDurabilityStat(int durabilityStat) {
-		this.durabilityStat = durabilityStat;
-		return this;
-	}
 	
 	/**
 	 * @return The swiftness stat value of the equipment.
@@ -394,6 +387,23 @@ public class WauzEquipment {
 	 */
 	public WauzEquipment withSwiftnessStat(int swiftnessStat) {
 		this.swiftnessStat = swiftnessStat;
+		return this;
+	}
+
+	/**
+	 * @return The durability stat value of the equipment.
+	 */
+	public int getDurabilityStat() {
+		return durabilityStat;
+	}
+
+	/**
+	 * @param durabilityStat The new durability stat value of the equipment.
+	 * 
+	 * @return The updated equipment.
+	 */
+	public WauzEquipment withDurabilityStat(int durabilityStat) {
+		this.durabilityStat = durabilityStat;
 		return this;
 	}
 	

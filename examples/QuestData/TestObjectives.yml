@@ -3,7 +3,7 @@ name: Objectives Test Quest
 giver: Bolvic
 level: 10
 amount: 2
-coords: -23 21 -625
+coords: -5523 21 -875
 class: Mage
 prequest: TestRewards
 reward:
@@ -22,11 +22,11 @@ phases:
       1:
         item: Critter.Bird.Chickoon
         amount: 3
-        coords: -23 21 -625
+        coords: -5523 21 -875
       2:
         item: Critter.Bird.Chickoon
         amount: 6
-        coords: -23 21 -625
+        coords: -5523 21 -875
   2:
     lores:
     - 'Next we are going to test the COLLECT Objective.'
@@ -38,6 +38,6 @@ phases:
       1:
         item: Chickoon Feather
         amount: 5
-        coords: -23 21 -625
+        coords: -5523 21 -875
 completed:
 - 'Well done!'

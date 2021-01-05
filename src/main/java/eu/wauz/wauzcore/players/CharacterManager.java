@@ -58,7 +58,7 @@ public class CharacterManager {
 	/**
 	 * The current schema version of character files.
 	 */
-	public static final int SCHEMA_VERSION = 6;
+	public static final int SCHEMA_VERSION = 7;
 	
 	/**
 	 * A direct reference to the main class.
@@ -361,10 +361,7 @@ public class CharacterManager {
 			player.getInventory().addItem(WauzNmsClient.nmsSerialize(WauzEquipmentHelper.getRune(new RuneHardening(), false)));
 			equipCharacterItems(player);
 			WauzRewards.earnDailyReward(player);
-			
-			if(characterWorldString.equals("Wauzland")) {
-				QuestProcessor.processQuest(player, "CalamityBeneathWauzland");
-			}
+			QuestProcessor.processQuest(player, "CalamityBeneathWauzland");
 		}
 		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
 			playerDataConfig.set("gamemode", GameMode.SURVIVAL.toString());

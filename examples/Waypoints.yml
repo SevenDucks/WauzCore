@@ -1,112 +1,112 @@
 Maretas:
   name: Maretas Village
-  world: Dalyreos
+  world: MMORPG
   coords: -5274.5 70 6760.5
 PirateCoast:
   name: Pirate Coast
-  world: Dalyreos
+  world: MMORPG
   coords: -5789.5 80 6820.5
 Kurataki:
   name: Kurataki Isles
-  world: Dalyreos
+  world: MMORPG
   coords: -4799.5 71 6250.5
 SpiderCave:
   name: Spider Cave
-  world: Dalyreos
+  world: MMORPG
   coords: -5184.5 154 6020.5
 DevilKnightCamp:
   name: Devil Knight Camp
-  world: Dalyreos
+  world: MMORPG
   coords: -4799.5 67 5750.5
 Colossus:
   name: Colossus of Anemor
-  world: Dalyreos
+  world: MMORPG
   coords: -5134.5 131 5845.5
 GolemMonastery:
   name: Golem Monastery
-  world: Dalyreos
+  world: MMORPG
   coords: -5389.5 183 6085.5
 DemonShrine:
   name: Demon Shrine
-  world: Dalyreos
+  world: MMORPG
   coords: -5799.5 150 6300.5
 Rabenfels:
   name: Fort Rabenfels
-  world: Dalyreos
+  world: MMORPG
   coords: -5049.5 74 5200.5
 Wrayvell:
   name: Wrayvell City
-  world: Dalyreos
+  world: MMORPG
   coords: -5599.5 91 5600.5
 WrayvellCave:
   name: Wrayvell Cave
-  world: Dalyreos
+  world: MMORPG
   coords: -5439.5 82 5700.5
 ForestOfSouls:
   name: Forest of Souls
-  world: Dalyreos
+  world: MMORPG
   coords: -6034.5 79 5620.5
 OldBrewery:
   name: Old Brewery
-  world: Dalyreos
+  world: MMORPG
   coords: -5949.5 78 5000.5
 Teranos:
   name: Teranos Village
-  world: Dalyreos
+  world: MMORPG
   coords: -6384.5 68 5950.5
 Bloodmace:
   name: Bloodmace Keep
-  world: Dalyreos
+  world: MMORPG
   coords: -6879.5 74 5725.5
 TrollDen:
   name: Troll Den
-  world: Dalyreos
+  world: MMORPG
   coords: -6484.5 115 5460.5
 Dunkelhaven:
   name: Dunkelhaven
-  world: Dalyreos
+  world: MMORPG
   coords: -4849.5 70 3900.5
 Aldrasin:
   name: Golden City, Aldrasin
-  world: Dalyreos
+  world: MMORPG
   coords: 2800.5 120 5000.5
 Falkgard:
   name: Holy City, Falkgard
-  world: Dalyreos
+  world: MMORPG
   coords: -2399.5 100 -4299.5
 Library:
   name: The Shinigami Library
-  world: Wauzland
-  coords: 23.5 21 -624.5
+  world: MMORPG
+  coords: -5476.5 21 -874.5
 Portowauza:
   name: Capital City, Portowauza
-  world: Wauzland
-  coords: -136.4 26 -77.5
+  world: MMORPG
+  coords: -5636.5 26 -327.5
 Spargelforge:
   name: Spargelforge
-  world: Wauzland
-  coords: 650.5 33 -649.5
+  world: MMORPG
+  coords: -4849.5 33 -899.5
 Wesavier:
   name: Wesavier City
-  world: Wauzland
-  coords: -649.5 61 -564.5
+  world: MMORPG
+  coords: -6149.5 61 -814.5
 Wesawest:
   name: Wesvier West Station
-  world: Wauzland
-  coords: -894.5 12 -584.5
+  world: MMORPG
+  coords: -6394.5 12 -834.5
 Wesaeast:
   name: Weavier East Station
-  world: Wauzland
-  coords: -529.5 16 -784.5
+  world: MMORPG
+  coords: -6029.5 16 -1034.5
 Wesasouth:
   name: Wesavier South Station
-  world: Wauzland
-  coords: -609.5 25 -534.5
+  world: MMORPG
+  coords: -6109.5 25 -784.5
 Kettle:
   name: The Hellfire Kettle
-  world: Wauzland
-  coords: -824.5 96 -675.5
+  world: MMORPG
+  coords: -6324.5 96 -925.5
 Nagrommar:
   name: Nagrommar
-  world: Wauzland
-  coords: -664.5 56 635.5
+  world: MMORPG
+  coords: -6164.5 56 385.5
