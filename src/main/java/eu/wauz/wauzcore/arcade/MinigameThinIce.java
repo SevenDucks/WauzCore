@@ -23,6 +23,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.building.ShapeHexagon;
 import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.system.annotations.Minigame;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * A survival minigame, where you have to stay alive while the floor breaks.
@@ -113,12 +114,7 @@ public class MinigameThinIce implements ArcadeMinigame {
 	 */
 	@Override
 	public void handleStartEvent() {
-		ItemStack snowballItemStack = new ItemStack(Material.SNOWBALL, 16);
-		ItemMeta snowballItemMeta = snowballItemStack.getItemMeta();
-		snowballItemMeta.setDisplayName(ChatColor.RED + "Snowball");
-		snowballItemMeta.setUnbreakable(true);
-		snowballItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
-		snowballItemStack.setItemMeta(snowballItemMeta);
+		ItemStack snowballItemStack = getSnowballItemStack(8);
 		for(Player player : ArcadeLobby.getPlayingPlayers()) {
 			player.getInventory().addItem(snowballItemStack);
 			player.getLocation().getBlock().getRelative(BlockFace.DOWN).setType(Material.AIR);
@@ -190,6 +186,9 @@ public class MinigameThinIce implements ArcadeMinigame {
 					makeBlockMelt(location.clone().add(x, 0, z).getBlock());
 				}
 			}
+			if(Chance.oneIn(3)) {
+				player.getInventory().addItem(getSnowballItemStack(2));
+			}
 		}
 	}
 	
@@ -232,6 +231,23 @@ public class MinigameThinIce implements ArcadeMinigame {
 			}
 			
 		}, 20);
+	}
+	
+	/**
+	 * Gets an item stack of snowballs.
+	 * 
+	 * @param amount The amount of snowballs.
+	 * 
+	 * @return The snowball item stack.
+	 */
+	private ItemStack getSnowballItemStack(int amount) {
+		ItemStack snowballItemStack = new ItemStack(Material.SNOWBALL, amount);
+		ItemMeta snowballItemMeta = snowballItemStack.getItemMeta();
+		snowballItemMeta.setDisplayName(ChatColor.RED + "Snowball");
+		snowballItemMeta.setUnbreakable(true);
+		snowballItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
+		snowballItemStack.setItemMeta(snowballItemMeta);
+		return snowballItemStack;
 	}
 
 }

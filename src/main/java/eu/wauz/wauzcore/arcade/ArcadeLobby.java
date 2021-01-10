@@ -16,6 +16,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerAnimationEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -290,6 +292,28 @@ public class ArcadeLobby {
 	}
 	
 	/**
+	 * Handles the given interact event, that occured in the minigame.
+	 * 
+	 * @param event The interact event.
+	 */
+	public static void handleInteractEvent(PlayerInteractEvent event) {
+		if(minigame != null) {
+			minigame.handleInteractEvent(event);
+		}
+	}
+	
+	/**
+	 * Handles the given animation event, that occured in the minigame.
+	 * 
+	 * @param event The animation event.
+	 */
+	public static void handleAnimationEvent(PlayerAnimationEvent event) {
+		if(minigame != null) {
+			minigame.handleAnimationEvent(event);
+		}
+	}
+	
+	/**
 	 * Handles the given move event, that occured in the minigame.
 	 * 
 	 * @param event The move event.
@@ -302,6 +326,11 @@ public class ArcadeLobby {
 			if(from.getBlockX() != to.getBlockX() || from.getBlockY() != to.getBlockY() || from.getBlockZ() != to.getBlockZ()) {
 				event.setCancelled(true);
 			}
+			return;
+		}
+		Player player = event.getPlayer();
+		if(waitingPlayers.contains(player) && player.getLocation().getY() <= 72) {
+			player.teleport(player.getBedSpawnLocation());
 		}
 		else if(minigame != null) {
 			minigame.handleMoveEvent(event);

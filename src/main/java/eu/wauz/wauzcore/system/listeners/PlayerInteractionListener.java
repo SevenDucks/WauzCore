@@ -19,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -153,7 +154,7 @@ public class PlayerInteractionListener implements Listener {
 		if(WauzMode.isMMORPG(player)) {
 			WauzActivePet.tryToUnsummon(player, false);
 		}
-		if(WauzMode.isArcade(player)) {
+		else if(WauzMode.isArcade(player)) {
 			ArcadeLobby.handleDeathEvent(event);
 		}
 	}
@@ -211,6 +212,21 @@ public class PlayerInteractionListener implements Listener {
 		}
 		else if(WauzMode.isSurvival(event.getPlayer())) {
 			EventMapper.handleSurvivalItemInteraction(event);
+		}
+		else if(WauzMode.isArcade(event.getPlayer())) {
+			ArcadeLobby.handleInteractEvent(event);
+		}
+	}
+	
+	/**
+	 * Catches the player animation for the Arcade mode.
+	 * 
+	 * @param event The animation event.
+	 */
+	@EventHandler
+	public void onAnimate(PlayerAnimationEvent event) {
+		if(WauzMode.isArcade(event.getPlayer())) {
+			ArcadeLobby.handleAnimationEvent(event);
 		}
 	}
 
