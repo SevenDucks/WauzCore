@@ -5,6 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.mobs.towers.DefenseTower;
 import eu.wauz.wauzcore.mobs.towers.WauzTowers;
 
@@ -32,10 +33,13 @@ public @interface Tower {
 		 * @throws Exception Failed to load a class.
 		 */
 		public static void init(AnnotationLoader loader) throws Exception {
+			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(Tower.class)) {
 				Object object = clazz.newInstance();
 				WauzTowers.registerTower((DefenseTower) object);
+				count++;
 			}
+			WauzCore.getInstance().getLogger().info("Loaded " + count + " Towers!");
 		}
 		
 	}

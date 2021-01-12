@@ -77,6 +77,7 @@ public class WauzDiscord extends JavaPlugin {
 			
 			@Override
 			public void run() {
+				shiroDiscordBot.updateGeneralChannelServerStats();
 				shiroDiscordBot.updateLoggingChannelServerStats();
 			}
 			

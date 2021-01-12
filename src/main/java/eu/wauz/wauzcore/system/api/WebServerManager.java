@@ -112,6 +112,7 @@ public class WebServerManager implements HttpHandler {
 		try {
 			String response = "";
 			SystemAnalytics systemAnalytics = new SystemAnalytics();
+			response += systemAnalytics.getServerTime() + "\r\n";
 			response += systemAnalytics.getSystemArchitecture() + "\r\n";
 			response += systemAnalytics.getPlayersOnline() + "\r\n";
 			response += systemAnalytics.getCpuUsage() + "\r\n";

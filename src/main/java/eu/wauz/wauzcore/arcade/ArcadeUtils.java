@@ -33,7 +33,9 @@ public class ArcadeUtils {
 	 */
 	private static Random random = new Random();
 	
-	private static List<String> songs = Arrays.asList("Rakanoth", "Linirea", "Olympus Mons", "Portowauza", "Wauzland");
+	private static List<String> songs = Arrays.asList(
+			"Rakanoth", "Linirea", "Olympus Mons", "Portowauza", "Wauzland",
+			"Forest of Souls", "Maretas", "Ruined Island", "Wrayvell");
 	
 	/**
 	 * Splits the given players into random teams.

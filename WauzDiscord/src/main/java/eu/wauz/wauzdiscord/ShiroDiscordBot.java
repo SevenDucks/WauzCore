@@ -146,14 +146,29 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	}
 	
 	/**
-	 * Updates the topic of the logging channel, to display the newest system analytics.
+	 * Updates the topic of the general channel, to display the newest public stats.
+	 * 
+	 * @see SystemAnalytics
+	 */
+	public void updateGeneralChannelServerStats() {
+		if(isRunning) {
+			SystemAnalytics systemAnalytics = new SystemAnalytics();
+			String topic = "Live Chat"
+					+ " " + systemAnalytics.getServerTime()
+					+ " " + systemAnalytics.getPlayersOnline();
+			generalChannel.getManager().setTopic(topic).submit();
+		}
+	}
+	
+	/**
+	 * Updates the topic of the logging channel, to display the newest private stats.
 	 * 
 	 * @see SystemAnalytics
 	 */
 	public void updateLoggingChannelServerStats() {
 		if(isRunning) {
 			SystemAnalytics systemAnalytics = new SystemAnalytics();
-			String topic = systemAnalytics.getPlayersOnline()
+			String topic = "Live Log"
 					+ " " + systemAnalytics.getCpuUsage()
 					+ " " + systemAnalytics.getRamUsage()
 					+ " " + systemAnalytics.getSsdUsage();

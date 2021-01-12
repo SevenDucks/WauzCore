@@ -5,6 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.menu.util.MenuRegister;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 
@@ -32,10 +33,13 @@ public @interface PublicMenu {
 		 * @throws Exception Failed to load a class.
 		 */
 		public static void init(AnnotationLoader loader) throws Exception {
+			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(PublicMenu.class)) {
 				Object object = clazz.newInstance();
 				MenuRegister.registerInventory((WauzInventory) object);
+				count++;
 			}
+			WauzCore.getInstance().getLogger().info("Loaded " + count + " Public Menus!");
 		}
 		
 	}

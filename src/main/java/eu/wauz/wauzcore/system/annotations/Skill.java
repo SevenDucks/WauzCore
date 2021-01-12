@@ -5,6 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 
@@ -32,10 +33,13 @@ public @interface Skill {
 		 * @throws Exception Failed to load a class.
 		 */
 		public static void init(AnnotationLoader loader) throws Exception {
+			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(Skill.class)) {
 				Object object = clazz.newInstance();
 				WauzPlayerSkillExecutor.registerSkill((WauzPlayerSkill) object, false);
+				count++;
 			}
+			WauzCore.getInstance().getLogger().info("Loaded " + count + " Skills!");
 		}
 		
 	}
