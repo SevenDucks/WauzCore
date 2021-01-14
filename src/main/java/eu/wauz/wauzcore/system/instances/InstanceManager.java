@@ -23,11 +23,10 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
-import org.bukkit.util.BlockVector;
-import org.bukkit.util.Vector;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.arcade.ArcadeLobby;
+import eu.wauz.wauzcore.building.ShapeCircle;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
@@ -232,31 +231,16 @@ public class InstanceManager {
 	 * @see InstanceManager#placeExitSign(Block, BlockFace)
 	 */
 	private static void createSpawnCircle(World world, Location location) {
-		Vector vector = new BlockVector(location.getX(), location.getY(), location.getZ());
-		int radius = 7;
-		for(int x = -radius; x <= radius; x++) {
-			for(int z = -radius; z <= radius; z++) {
-				
-				Vector position = vector.clone().add(new Vector(x, 0, z));
-				double distance = vector.distance(position);
-				
-				if(distance <= radius + 0.5) {
-					boolean isCircleEdge = distance > radius - 0.5;
-					Material material = isCircleEdge ? Material.GLOWSTONE : Material.OBSIDIAN;
-					
-					world.getBlockAt(x, location.getBlockY(), z).setType(material);
-					world.getBlockAt(x, location.getBlockY() + 1, z).setType(Material.AIR);
-					world.getBlockAt(x, location.getBlockY() + 2, z).setType(Material.AIR);
-					world.getBlockAt(x, location.getBlockY() + 3, z).setType(Material.AIR);
-				}
-			}
-		}
+		new ShapeCircle(location, 7, false).create(Material.OBSIDIAN);
+		new ShapeCircle(location, 7, true).create(Material.GLOWSTONE);
+		new ShapeCircle(location.clone().add(0, 1, 0), 7, false).create(Material.AIR);
+		new ShapeCircle(location.clone().add(0, 1, 0), 7, false).create(Material.AIR);
+		new ShapeCircle(location.clone().add(0, 1, 0), 7, false).create(Material.AIR);
 		location.getBlock().setType(Material.BEDROCK);
 		location.getBlock().getRelative(BlockFace.NORTH).setType(Material.GLOWSTONE);
 		location.getBlock().getRelative(BlockFace.SOUTH).setType(Material.GLOWSTONE);
 		location.getBlock().getRelative(BlockFace.EAST).setType(Material.GLOWSTONE);
 		location.getBlock().getRelative(BlockFace.WEST).setType(Material.GLOWSTONE);
-		
 		placeExitSign(location.clone().add(0, 1, +5).getBlock(), BlockFace.NORTH);
 		placeExitSign(location.clone().add(0, 1, -5).getBlock(), BlockFace.SOUTH);
 		placeExitSign(location.clone().add(-5, 1, 0).getBlock(), BlockFace.EAST);

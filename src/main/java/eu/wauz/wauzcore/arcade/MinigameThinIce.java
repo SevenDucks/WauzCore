@@ -26,11 +26,9 @@ import eu.wauz.wauzcore.system.annotations.Minigame;
 import eu.wauz.wauzcore.system.util.Chance;
 
 /**
- * A survival minigame, where you have to stay alive while the floor breaks.
+ * A survival minigame, where you have to shoot players off the breaking floor.
  * 
  * @author Wauzmons
- * 
- * @see MinigameHexAGone
  */
 @Minigame
 public class MinigameThinIce implements ArcadeMinigame {
@@ -82,6 +80,7 @@ public class MinigameThinIce implements ArcadeMinigame {
 		maxLosingPlayers = players.size() - (players.size() / 2);
 		World world = ArcadeLobby.getWorld();
 		Location floorLocation = new Location(world, 750.5, 85, 1000.5);
+		breakingBlocks.clear();
 		breakingBlocks.addAll(new ShapeHexagon(floorLocation, 12).create(Material.BLUE_ICE));
 		breakingBlocks.addAll(new ShapeHexagon(floorLocation, 6).create(Material.AIR));
 		breakingBlocks.addAll(new ShapeHexagon(floorLocation.subtract(0, 1, 0), 12).create(Material.BLUE_ICE));
@@ -195,7 +194,7 @@ public class MinigameThinIce implements ArcadeMinigame {
 	/**
 	 * Makes the given block melt to the next stage and removes it temporarily from the list.
 	 * 
-	 * @param block The block to break.
+	 * @param block The block to melt.
 	 */
 	public void makeBlockMelt(Block block) {
 		if(breakingBlocks.contains(block)) {
@@ -218,9 +217,9 @@ public class MinigameThinIce implements ArcadeMinigame {
 	}
 
 	/**
-	 * Makes the given block break and removes it from the list.
+	 * Makes the given block meltable and re-adds it to the list.
 	 * 
-	 * @param block The block to break.
+	 * @param block The block to make meltable.
 	 */
 	private void makeBlockMeltable(Block block) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -23,8 +24,11 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 
+import eu.wauz.wauzcore.skills.SkillUtils;
+import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.annotations.Minigame;
 
 /**
@@ -56,6 +60,16 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 	private List<Entity> bats = new ArrayList<>();
 	
 	/**
+	 * The remaining silver bats in the arena.
+	 */
+	private List<Entity> silverBats = new ArrayList<>();
+	
+	/**
+	 * The particles to show around silver bats.
+	 */
+	private SkillParticle silverParticle = new SkillParticle(Color.SILVER);
+	
+	/**
 	 * The amount of players who can win the game.
 	 */
 	private int maxWinningPlayers = 1;
@@ -63,7 +77,7 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 	/**
 	 * The score needed to win the game.
 	 */
-	private int neededScore = 5;
+	private int neededScore = 7;
 
 	/**
 	 * @return The display name of the minigame.
@@ -106,6 +120,9 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 		for(int bat = 0; bat < playerCount * 5; bat++) {
 			bats.add(batLocation.getWorld().spawnEntity(batLocation, EntityType.BAT));
 		}
+		for(int silverBat = 0; silverBat < playerCount; silverBat++) {
+			silverBats.add(batLocation.getWorld().spawnEntity(batLocation, EntityType.BAT));
+		}
 		ArcadeUtils.runStartTimer(10, 120);
 	}
 	
@@ -144,6 +161,10 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 			bat.remove();
 		}
 		bats.clear();
+		for(Entity bat : silverBats) {
+			bat.remove();
+		}
+		silverBats.clear();
 		maxWinningPlayers = 1;
 		return winners;
 	}
@@ -171,19 +192,40 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 		}
 		Player damager = (Player) source;
 		Entity damaged = damageByEntityEvent.getEntity();
-		bats.remove(damaged);
+		if(bats.contains(damaged)) {
+			bats.remove(damaged);
+			addProgress(damager, 1);
+		}
+		else if(silverBats.contains(damaged)) {
+			silverBats.remove(damaged);
+			addProgress(damager, 3);
+		}
 		damaged.remove();
 		damager.playSound(damager.getLocation(), Sound.ENTITY_BAT_HURT, 1, 1);
-		addProgress(damager);
+	}
+	
+	/**
+	 * A method that is called every second of the minigame.
+	 */
+	@Override
+	public void handleTick() {
+		for(Entity silverBat : silverBats) {
+			silverParticle.spawn(silverBat.getLocation(), 1);
+			SkillUtils.addPotionEffect(silverBat, PotionEffectType.SPEED, 1, 2);
+		}
 	}
 	
 	/**
 	 * Adds progress to the given player's goal.
 	 * 
 	 * @param player The player to add progress for.
+	 * @param progress The amount of progress to add.
 	 */
-	private void addProgress(Player player) {
-		int score = playerScoreMap.get(player) + 1;
+	private void addProgress(Player player, int progress) {
+		int score = playerScoreMap.get(player) + progress;
+		if(score > neededScore) {
+			score = neededScore;
+		}
 		playerScoreMap.put(player, score);
 		updateProgressBar(player);
 		if(score >= neededScore) {

@@ -104,10 +104,10 @@ public class MinigameWallSiege implements ArcadeMinigame {
 	@Override
 	public List<Player> endGame() {
 		List<Player> winners = new ArrayList<>(finishedPlayers);
+		finishedPlayers.clear();
 		for(Entity box : boxes) {
 			box.remove();
 		}
-		finishedPlayers.clear();
 		boxes.clear();
 		maxWinningPlayers = 1;
 		return winners;
