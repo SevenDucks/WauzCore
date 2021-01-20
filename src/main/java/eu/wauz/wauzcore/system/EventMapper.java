@@ -52,7 +52,7 @@ public class EventMapper {
 			Material.DISPENSER, Material.DROPPER, Material.CAKE, Material.BLAST_FURNACE, Material.CAMPFIRE,
 			Material.CARTOGRAPHY_TABLE, Material.COMPOSTER, Material.FLETCHING_TABLE, Material.GRINDSTONE, Material.LOOM,
 			Material.SMITHING_TABLE, Material.SMOKER, Material.STONECUTTER, Material.LODESTONE, Material.RESPAWN_ANCHOR,
-			Material.LECTERN);
+			Material.LECTERN, Material.CAULDRON);
 	
 	/**
 	 * A map of all coustom items for the MMORPG mode, indexed by trigger materials.

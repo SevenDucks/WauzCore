@@ -10,9 +10,11 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Hanging;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -52,6 +54,8 @@ import eu.wauz.wauzcore.skills.passive.PassiveBreath;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzPermission;
+import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -193,7 +197,15 @@ public class PlayerInteractionListener implements Listener {
 	 */
 	@EventHandler
 	public void onEntityInteraction(PlayerInteractEntityEvent event) {
-		if(WauzMode.isMMORPG(event.getPlayer())) {
+		Player player = event.getPlayer();
+		Entity entity = event.getRightClicked();
+		Block block = entity.getLocation().getBlock();
+		if(entity instanceof Hanging
+				&& !player.hasPermission(WauzPermission.DEBUG_BUILDING.toString())
+				&& WauzRegion.disallowBuild(block)) {
+			event.setCancelled(true);
+		}
+		else if(WauzMode.isMMORPG(player)) {
 			WauzActivePet.handlePetInteraction(event);
 		}
 	}
