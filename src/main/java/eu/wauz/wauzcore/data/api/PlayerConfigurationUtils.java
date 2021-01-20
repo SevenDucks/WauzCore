@@ -47,7 +47,7 @@ public class PlayerConfigurationUtils {
 			characterSlot = StringUtils.substringBefore(path, ".");
 		}
 		else {
-			characterSlot = characterSpecific ? WauzPlayerDataPool.getPlayer(player).getSelectedCharacterSlot() : "global";
+			characterSlot = characterSpecific ? WauzPlayerDataPool.getPlayer(player).getSelections().getSelectedCharacterSlot() : "global";
 		}
 			
 		File playerDirectory = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/");

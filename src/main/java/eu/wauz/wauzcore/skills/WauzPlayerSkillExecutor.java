@@ -173,11 +173,11 @@ public class WauzPlayerSkillExecutor {
 			return false;
 		}
 		
-		boolean skillReady = playerData.isSkillReady(skill.getSkillId());
+		boolean skillReady = playerData.getSkills().isSkillReady(skill.getSkillId());
 		int manaCost = player.hasPermission(WauzPermission.DEBUG_MAGIC.toString()) ? 0 : skill.getManaCost();
 		
 		if(skillReady && (skill.isPhysical() ? RageCalculator.useRage(player, manaCost) : ManaCalculator.useMana(player, manaCost))) {
-			playerData.updateSkillCooldown(skill.getSkillId());
+			playerData.getSkills().updateSkillCooldown(skill.getSkillId());
 			player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
 			
 			boolean success = skill.executeSkill(player, itemStack);

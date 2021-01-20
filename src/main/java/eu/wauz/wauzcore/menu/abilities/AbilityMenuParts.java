@@ -85,7 +85,7 @@ public class AbilityMenuParts {
 			travellingLores.add(ChatColor.DARK_PURPLE + "Region: " + ChatColor.YELLOW + instance.getInstanceName());
 		}
 		else {
-			WauzRegion region = WauzPlayerDataPool.getPlayer(player).getRegion();
+			WauzRegion region = WauzPlayerDataPool.getPlayer(player).getSelections().getRegion();
 			travellingLores.add(ChatColor.DARK_PURPLE + "Region: " + ChatColor.YELLOW
 					+ (region != null ?  region.getTitle() : "(None)"));
 		}

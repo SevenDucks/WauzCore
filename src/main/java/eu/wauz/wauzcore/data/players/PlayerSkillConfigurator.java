@@ -33,7 +33,7 @@ public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 	 */
 	public static void setQuickSlotSkill(Player player, int slot, String skill) {
 		playerConfigSet(player, "skills.active." + slot, skill, true);
-		WauzPlayerDataPool.getPlayer(player).refreshSelectedCastables();
+		WauzPlayerDataPool.getPlayer(player).getSkills().refreshSelectedCastables();
 	}
 	
 // Passive Skills
@@ -106,8 +106,8 @@ public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 		int health = getHealth(player) + 5;			
 		playerConfigSet(player, "stats.health", health, true);
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		playerData.setMaxHealth(health);
-		DamageCalculator.setHealth(player, playerData.getMaxHealth());
+		playerData.getStats().setMaxHealth(health);
+		DamageCalculator.setHealth(player, playerData.getStats().getMaxHealth());
 	}
 	
 // Passive Skill - Trading
@@ -216,7 +216,7 @@ public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 		if(statpoints <= 40) {
 			int mana = getMana(player) + 1;			
 			playerConfigSet(player, "stats.mana", mana, true);
-			WauzPlayerDataPool.getPlayer(player).setMaxMana(mana);
+			WauzPlayerDataPool.getPlayer(player).getStats().setMaxMana(mana);
 		}
 	}
 	
@@ -321,7 +321,7 @@ public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 		increaseSpentStatpoints(player);
 		int statpoints = getMasteryStatpoints(player, mastery) + 1;
 		playerConfigSet(player, "masteries." + mastery, statpoints, true);
-		WauzPlayerDataPool.getPlayer(player).refreshUnlockedCastables();
+		WauzPlayerDataPool.getPlayer(player).getSkills().refreshUnlockedCastables();
 	}
 	
 // Crafting Skill

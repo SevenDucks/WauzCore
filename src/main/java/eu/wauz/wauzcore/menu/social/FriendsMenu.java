@@ -155,8 +155,8 @@ public class FriendsMenu implements WauzInventory {
 			if(sm.getOwningPlayer() == null || playerData == null) {
 				return;
 			}
-			playerData.setWauzPlayerEventName("Unfriend Player");
-			playerData.setWauzPlayerEvent(new WauzPlayerEventUnfriend(sm.getOwningPlayer()));
+			playerData.getSelections().setWauzPlayerEventName("Unfriend Player");
+			playerData.getSelections().setWauzPlayerEvent(new WauzPlayerEventUnfriend(sm.getOwningPlayer()));
 			WauzDialog.open(player, clicked);
 		}
 	}

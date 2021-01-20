@@ -31,7 +31,7 @@ public class PlayerQuestConfigurationUtils {
 	 * @return The player quest config file.
 	 */
 	private static File getPlayerQuestDataFile(Player player, String quest) {
-		String characterSlot = WauzPlayerDataPool.getPlayer(player).getSelectedCharacterSlot();
+		String characterSlot = WauzPlayerDataPool.getPlayer(player).getSelections().getSelectedCharacterSlot();
 		File playerQuestDirectory = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + "-quests/");
 		playerQuestDirectory.mkdirs();
 		return new File(playerQuestDirectory, quest + ".yml");

@@ -47,8 +47,8 @@ public class WauzPlayerEventCitizenInn implements WauzPlayerEvent {
 	public boolean execute(Player player) {
 		try {
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-			playerData.setWauzPlayerEventName("Change Home");
-			playerData.setWauzPlayerEvent(new WauzPlayerEventHomeChange(location, false));
+			playerData.getSelections().setWauzPlayerEventName("Change Home");
+			playerData.getSelections().setWauzPlayerEvent(new WauzPlayerEventHomeChange(location, false));
 			WauzDialog.open(player);
 			return true;
 		}

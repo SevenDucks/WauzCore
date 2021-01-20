@@ -267,7 +267,7 @@ public class SkillMenu implements WauzInventory {
 		skillWeaponSwordItemStack.setItemMeta(skillWeaponSwordItemMeta);
 		menu.setItem(8, skillWeaponSwordItemStack);
 		
-		AbstractPassiveSkill breathSkill = playerData.getCachedPassive(PassiveBreath.PASSIVE_NAME);
+		AbstractPassiveSkill breathSkill = playerData.getSkills().getCachedPassive(PassiveBreath.PASSIVE_NAME);
 		ItemStack skillBreathItemStack = new ItemStack(Material.DIAMOND_HELMET, 1);
 		ItemMeta skillBreathItemMeta = skillBreathItemStack.getItemMeta();
 		skillBreathItemMeta.setDisplayName(ChatColor.DARK_BLUE + "Breath (Passive)");
@@ -286,7 +286,7 @@ public class SkillMenu implements WauzInventory {
 		skillBreathItemStack.setItemMeta(skillBreathItemMeta);
 		menu.setItem(15, skillBreathItemStack);
 		
-		AbstractPassiveSkill nutritionSkill = playerData.getCachedPassive(PassiveNutrition.PASSIVE_NAME);
+		AbstractPassiveSkill nutritionSkill = playerData.getSkills().getCachedPassive(PassiveNutrition.PASSIVE_NAME);
 		ItemStack skillNutritionItemStack = new ItemStack(Material.APPLE, 1);
 		ItemMeta skillNutritionItemMeta = skillNutritionItemStack.getItemMeta();
 		skillNutritionItemMeta.setDisplayName(ChatColor.DARK_BLUE + "Nutrition (Passive)");
@@ -305,7 +305,7 @@ public class SkillMenu implements WauzInventory {
 		skillNutritionItemStack.setItemMeta(skillNutritionItemMeta);
 		menu.setItem(16, skillNutritionItemStack);
 		
-		AbstractPassiveSkill weightSkill = playerData.getCachedPassive(PassiveWeight.PASSIVE_NAME);
+		AbstractPassiveSkill weightSkill = playerData.getSkills().getCachedPassive(PassiveWeight.PASSIVE_NAME);
 		ItemStack skillWeightItemStack = new ItemStack(Material.CHAIN, 1);
 		ItemMeta skillWeightItemMeta = skillWeightItemStack.getItemMeta();
 		skillWeightItemMeta.setDisplayName(ChatColor.DARK_BLUE + "Weight (Passive)");

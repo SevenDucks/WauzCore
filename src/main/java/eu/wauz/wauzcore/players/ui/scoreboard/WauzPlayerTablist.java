@@ -118,10 +118,10 @@ public class WauzPlayerTablist {
 		teamPrefix = ChatColor.BLUE + "GRP ";
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null || !playerData.isInGroup()) {
+		if(playerData == null || !playerData.getSelections().isInGroup()) {
 			return;
 		}
-		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getSelections().getGroupUuidString());
 		for(Player member : playerGroup.getPlayers()) {
 			if(player != member) {
 				addEntry(member);

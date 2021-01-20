@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionStats;
 import eu.wauz.wauzcore.skills.Castable;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
@@ -44,6 +45,7 @@ public class WauzPlayerActionBar {
 		if(playerData == null) {
 			return;
 		}
+		WauzPlayerDataSectionStats stats = playerData.getStats();
 		
 		if(WauzMode.inHub(player)) {
 			String actionBarMessage = ChatColor.LIGHT_PURPLE + "Try to Double-Jump!";
@@ -58,23 +60,23 @@ public class WauzPlayerActionBar {
 		String locationString = "" + ChatColor.AQUA + x + " " + y + " " + z;
 		
 		if(WauzMode.isSurvival(player)) {
-			String pvspResString = playerData.getResistancePvP() != 0 ? ChatColor.GREEN + "NoPvP " + (playerData.getResistancePvP() * 5) + SEPERATOR : "";
+			String pvspResString = stats.getResistancePvP() != 0 ? ChatColor.GREEN + "NoPvP " + (stats.getResistancePvP() * 5) + SEPERATOR : "";
 			String actionBarMessage = pvspResString + locationString;
 			player.sendActionBar(actionBarMessage);
 			return;
 		}
 		
 		if(WauzMode.isMMORPG(player)) {
-			if(playerData.getActionBar() > 0 && !player.getGameMode().equals(GameMode.CREATIVE)) {
+			if(playerData.getSkills().getActionBar() > 0 && !player.getGameMode().equals(GameMode.CREATIVE)) {
 				showCastingBar(player, playerData);
 				return;
 			}
-			String healthString = ChatColor.RED + "" + playerData.getHealth() + " / " + playerData.getMaxHealth() + " " + UnicodeUtils.ICON_HEART + SEPERATOR;
-			String manaString = ChatColor.LIGHT_PURPLE + "" + playerData.getMana() + " / " + playerData.getMaxMana() + " " + UnicodeUtils.ICON_STAR + SEPERATOR;
-			String rageString = ChatColor.GOLD + "" + playerData.getRage() + " / " + playerData.getMaxRage() + " " + UnicodeUtils.ICON_SUN + SEPERATOR;
-			String heatString = ChatColor.GREEN + "" + ((playerData.getHeat()* 5 - 10) + playerData.getHeatRandomizer()) + " " + UnicodeUtils.ICON_DEGREES + "C" + SEPERATOR;
-			String heatResString = playerData.getResistanceHeat() != 0 ? ChatColor.GREEN + "HtRes " + (playerData.getResistanceHeat() * 5) + SEPERATOR : "";
-			String coldResString = playerData.getResistanceCold() != 0 ? ChatColor.GREEN + "CdRes " + (playerData.getResistanceCold() * 5) + SEPERATOR : "";
+			String healthString = ChatColor.RED + "" + stats.getHealth() + " / " + stats.getMaxHealth() + " " + UnicodeUtils.ICON_HEART + SEPERATOR;
+			String manaString = ChatColor.LIGHT_PURPLE + "" + stats.getMana() + " / " + stats.getMaxMana() + " " + UnicodeUtils.ICON_STAR + SEPERATOR;
+			String rageString = ChatColor.GOLD + "" + stats.getRage() + " / " + stats.getMaxRage() + " " + UnicodeUtils.ICON_SUN + SEPERATOR;
+			String heatString = ChatColor.GREEN + "" + ((stats.getHeat()* 5 - 10) + stats.getHeatRandomizer()) + " " + UnicodeUtils.ICON_DEGREES + "C" + SEPERATOR;
+			String heatResString = stats.getResistanceHeat() != 0 ? ChatColor.GREEN + "HtRes " + (stats.getResistanceHeat() * 5) + SEPERATOR : "";
+			String coldResString = stats.getResistanceCold() != 0 ? ChatColor.GREEN + "CdRes " + (stats.getResistanceCold() * 5) + SEPERATOR : "";
 			String actionBarMessage = healthString + manaString + rageString + heatString + heatResString + coldResString + locationString;
 			player.sendActionBar(actionBarMessage);
 			return;
@@ -93,8 +95,8 @@ public class WauzPlayerActionBar {
 	 */
 	private static void showCastingBar(Player player, WauzPlayerData playerData) {
 		String actionBarMessage = "";
-		List<Castable> selectedCastables = playerData.getSelectedCastables();
-		int startSlot = playerData.getActionBar() == 1 ? 1 : 5;
+		List<Castable> selectedCastables = playerData.getSkills().getSelectedCastables();
+		int startSlot = playerData.getSkills().getActionBar() == 1 ? 1 : 5;
 		for(int slot = startSlot; slot <= startSlot + 3; slot++) {
 			actionBarMessage += getQuickSlot(playerData, selectedCastables, slot) + SEPERATOR;
 		}
@@ -114,7 +116,7 @@ public class WauzPlayerActionBar {
 	 */
 	private static String getQuickSlot(WauzPlayerData playerData, List<Castable> selectedCastables, int number) {
 		Castable castable = selectedCastables.get(number - 1);
-		String quickSlot = "(" + (playerData.getActionBar() == 2 ? number - 4 : number) +") ";
+		String quickSlot = "(" + (playerData.getSkills().getActionBar() == 2 ? number - 4 : number) +") ";
 		if(castable != null) {
 			quickSlot += castable.getQuickSlotMessage(playerData);
 		}

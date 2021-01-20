@@ -183,23 +183,23 @@ public class CharacterSlotMenu implements WauzInventory {
 			return;
 		}
 		String slotId = clicked.getItemMeta().getDisplayName().split(" ")[1];
-		playerData.setSelectedCharacterSlot("char" + slotId);		
+		playerData.getSelections().setSelectedCharacterSlot("char" + slotId);		
 		
 		String clickedName = clicked.getItemMeta().getDisplayName();
 		if(clickedName.contains("" + ChatColor.RED)) {
 			if(slotId.contains("Survival")) {
-				playerData.setSelectedCharacterWorld(slotId.startsWith("OneBlock") ? "SurvivalOneBlock" : "Survival");
-				playerData.setSelectedCharacterClass(WauzDateUtils.getSurvivalSeason());
+				playerData.getSelections().setSelectedCharacterWorld(slotId.startsWith("OneBlock") ? "SurvivalOneBlock" : "Survival");
+				playerData.getSelections().setSelectedCharacterClass(WauzDateUtils.getSurvivalSeason());
 				CharacterManager.createCharacter(player, WauzMode.SURVIVAL);
 			}
 			else {
-				playerData.setSelectedCharacterWorld("MMORPG");
+				playerData.getSelections().setSelectedCharacterWorld("MMORPG");
 				CharacterClassMenu.open(player);
 			}
 		}
 		else if(event.getClick().toString().contains("RIGHT")) {
-			playerData.setWauzPlayerEventName("Delete Slot");
-			playerData.setWauzPlayerEvent(new WauzPlayerEventCharacterDelete());
+			playerData.getSelections().setWauzPlayerEventName("Delete Slot");
+			playerData.getSelections().setWauzPlayerEvent(new WauzPlayerEventCharacterDelete());
 			WauzDialog.open(player, getCharacterSlot(player, slotId, false));
 		}
 		else {

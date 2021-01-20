@@ -162,8 +162,8 @@ public class MailMenu implements WauzInventory {
 		if(mailName != null) {
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 			WauzPlayerEventMailClaim playerEvent = new WauzPlayerEventMailClaim(player, mailName);
-			playerData.setWauzPlayerEventName("Claim Mail");
-			playerData.setWauzPlayerEvent(playerEvent);
+			playerData.getSelections().setWauzPlayerEventName("Claim Mail");
+			playerData.getSelections().setWauzPlayerEvent(playerEvent);
 			WauzDialog.open(player, playerEvent.getMailItemStack());
 		}
 	}

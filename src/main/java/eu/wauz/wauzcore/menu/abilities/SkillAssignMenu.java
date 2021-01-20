@@ -137,7 +137,7 @@ public class SkillAssignMenu implements WauzInventory {
 			return;
 		}
 		WauzInventoryHolder holder = new WauzInventoryHolder(this);
-		List<Castable> unlockedCastables = WauzPlayerDataPool.getPlayer(player).getUnlockedCastables();
+		List<Castable> unlockedCastables = WauzPlayerDataPool.getPlayer(player).getSkills().getUnlockedCastables();
 		int size = MenuUtils.roundInventorySize(unlockedCastables.size() + 2);
 		Inventory menu = Bukkit.createInventory(holder, size, ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Ability to Slot " + slot);
 		page = "choose-skill";

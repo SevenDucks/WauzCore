@@ -201,8 +201,8 @@ public class TitleMenu implements WauzInventory {
 				return;
 			}
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-			playerData.setWauzPlayerEventName("Buy Title");
-			playerData.setWauzPlayerEvent(new WauzPlayerEventTitleBuy(title));
+			playerData.getSelections().setWauzPlayerEventName("Buy Title");
+			playerData.getSelections().setWauzPlayerEvent(new WauzPlayerEventTitleBuy(title));
 			ItemStack titleItemStack = MenuIconHeads.getTitlesItem();
 			MenuUtils.setItemDisplayName(titleItemStack, ChatColor.YELLOW + "Title: " + title.getTitleDisplayName());
 			MenuUtils.addItemLore(titleItemStack, ChatColor.GRAY + "Cost: " + title.getTitleCost() + " Soulstones", true);

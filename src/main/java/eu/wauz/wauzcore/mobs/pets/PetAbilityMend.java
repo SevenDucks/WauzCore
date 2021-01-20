@@ -69,7 +69,7 @@ public class PetAbilityMend implements WauzPetAbility {
 		Location originLocation = player.getLocation().clone().add(0, 1, 0);
 		Location targetLocation = pet.getLocation().clone().add(0, 1, 0);
 		ParticleSpawner.spawnParticleLine(originLocation, targetLocation, particle, 1);
-		DamageCalculator.heal(new EntityRegainHealthEvent(player, playerData.getMaxHealth() / 8, RegainReason.MAGIC));
+		DamageCalculator.heal(new EntityRegainHealthEvent(player, playerData.getStats().getMaxHealth() / 8, RegainReason.MAGIC));
 	}
 
 }

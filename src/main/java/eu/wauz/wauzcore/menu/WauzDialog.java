@@ -63,7 +63,7 @@ public class WauzDialog implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzDialog());
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Confirm: "
-				+ playerData.getWauzPlayerEventName());
+				+ playerData.getSelections().getWauzPlayerEventName());
 		
 		ItemStack confirmItemStack = GenericIconHeads.getConfirmItem();
 		ItemMeta confirmItemMeta = confirmItemStack.getItemMeta();
@@ -107,7 +107,7 @@ public class WauzDialog implements WauzInventory {
 			return;
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "CONFIRM")) {
-			playerData.getWauzPlayerEvent().execute(player);
+			playerData.getSelections().getWauzPlayerEvent().execute(player);
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "DECLINE")) {
 			player.closeInventory();

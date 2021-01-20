@@ -81,7 +81,7 @@ public class PassiveNutrition extends AbstractPassiveSkill {
 	 */
 	@Override
 	protected void onLevelUp(Player player) {
-		DamageCalculator.setHealth(player, WauzPlayerDataPool.getPlayer(player).getMaxHealth());
+		DamageCalculator.setHealth(player, WauzPlayerDataPool.getPlayer(player).getStats().getMaxHealth());
 	}
 	
 }

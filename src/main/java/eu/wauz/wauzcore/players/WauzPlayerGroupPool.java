@@ -30,11 +30,11 @@ public class WauzPlayerGroupPool {
 	 */
 	public static WauzPlayerGroup getGroup(Player player) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null || StringUtils.isBlank(playerData.getGroupUuidString())) {
+		if(playerData == null || StringUtils.isBlank(playerData.getSelections().getGroupUuidString())) {
 			return null;
 		}
 		else {
-			return getGroup(playerData.getGroupUuidString());
+			return getGroup(playerData.getSelections().getGroupUuidString());
 		}
 	}
 	

@@ -341,7 +341,7 @@ public class PlayerInteractionListener implements Listener {
 		}
 		else if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
 			long sprintedMillis = System.currentTimeMillis() - playerSprintMap.get(player);
-			WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveBreath.PASSIVE_NAME).grantExperience(player, sprintedMillis);
+			WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(PassiveBreath.PASSIVE_NAME).grantExperience(player, sprintedMillis);
 		}
 	}
 	

@@ -43,7 +43,7 @@ public class SkillQuickSlots {
 		}
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null || playerData.getActionBar() == 0) {
+		if(playerData == null || playerData.getSkills().getActionBar() == 0) {
 			return false;
 		}
 		
@@ -51,20 +51,20 @@ public class SkillQuickSlots {
 		if(slot < 0 || slot > 3) {
 			return false;
 		}
-		if(playerData.getActionBar() == 2) {
+		if(playerData.getSkills().getActionBar() == 2) {
 			slot += 4;
 		}
 		
-		List<Castable> selectedCastables = playerData.getSelectedCastables();
+		List<Castable> selectedCastables = playerData.getSkills().getSelectedCastables();
 		Castable castable = selectedCastables.get(slot);
 		if(castable != null) {
 			WauzDebugger.log(player, "Use Quick Slot: " + (slot + 1));
-			playerData.setActionBar(0);
+			playerData.getSkills().setActionBar(0);
 			castable.cast(player);
 		}
 		else {
 			SkillAssignMenu.open(player);
-			playerData.setActionBar(0);
+			playerData.getSkills().setActionBar(0);
 			WauzPlayerActionBar.update(player);
 		}
 		return true;
@@ -86,7 +86,7 @@ public class SkillQuickSlots {
 		skillLores.add(ChatColor.WHITE + "" + ChatColor.BOLD + "Assigned Ability:");
 		
 		String castableKey = PlayerSkillConfigurator.getQuickSlotSkill(player, slot);
-		Castable castable = WauzPlayerDataPool.getPlayer(player).getCastable(castableKey);
+		Castable castable = WauzPlayerDataPool.getPlayer(player).getSkills().getCastable(castableKey);
 		if(castable != null) {
 			skillLores.addAll(castable.getCastableInfo());
 		}

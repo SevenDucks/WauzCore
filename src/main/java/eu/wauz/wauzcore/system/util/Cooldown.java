@@ -147,16 +147,14 @@ public class Cooldown {
 	 */
 	private static boolean getAndUpdateCooldownFromCache(Player player, String actionId, Long cooldown, boolean forceUpdate) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData != null && playerData.isActionReady(actionId)) {
-			playerData.updateActionCooldown(actionId, cooldown);
+		if(playerData != null && playerData.getSkills().isActionReady(actionId)) {
+			playerData.getSkills().updateActionCooldown(actionId, cooldown);
 			return true;
 		}
-		else {
-			if(forceUpdate) {
-				playerData.updateActionCooldown(actionId, cooldown);
-			}
-			return false;
+		else if(forceUpdate) {
+			playerData.getSkills().updateActionCooldown(actionId, cooldown);
 		}
+		return false;
 	}
 	
 	/**

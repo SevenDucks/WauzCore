@@ -406,8 +406,8 @@ public class GuildOverviewMenu implements WauzInventory {
 		}
 		else if(clicked.getType().equals(Material.BARRIER)) {
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-			playerData.setWauzPlayerEventName("Leave Guild");
-			playerData.setWauzPlayerEvent(new WauzPlayerEventGuildLeave());
+			playerData.getSelections().setWauzPlayerEventName("Leave Guild");
+			playerData.getSelections().setWauzPlayerEvent(new WauzPlayerEventGuildLeave());
 			WauzDialog.open(player);
 		}
 		else if(clicked.getType().toString().endsWith("_BANNER") && ItemUtils.hasDisplayName(clicked)) {
@@ -441,28 +441,28 @@ public class GuildOverviewMenu implements WauzInventory {
 		if(event.getClick().toString().contains("RIGHT")) {
 			if(ItemUtils.doesLoreContain(clicked, "Right Click to demote to Member")) {
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-				playerData.setWauzPlayerEventName("Demote");
-				playerData.setWauzPlayerEvent(new WauzPlayerEventGuildDemoteMember(member));
+				playerData.getSelections().setWauzPlayerEventName("Demote");
+				playerData.getSelections().setWauzPlayerEvent(new WauzPlayerEventGuildDemoteMember(member));
 				WauzDialog.open(player, clicked);
 			}
 			else if(ItemUtils.doesLoreContain(clicked, "Right Click to Kick")) {
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-				playerData.setWauzPlayerEventName("Kick");
-				playerData.setWauzPlayerEvent(new WauzPlayerEventGuildKick(member));
+				playerData.getSelections().setWauzPlayerEventName("Kick");
+				playerData.getSelections().setWauzPlayerEvent(new WauzPlayerEventGuildKick(member));
 				WauzDialog.open(player, clicked);
 			}
 		}
 		else {
 			if(ItemUtils.doesLoreContain(clicked, "Left Click to promote to Officer")) {
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-				playerData.setWauzPlayerEventName("Promote");
-				playerData.setWauzPlayerEvent(new WauzPlayerEventGuildPromoteOfficer(member));
+				playerData.getSelections().setWauzPlayerEventName("Promote");
+				playerData.getSelections().setWauzPlayerEvent(new WauzPlayerEventGuildPromoteOfficer(member));
 				WauzDialog.open(player, clicked);
 			}
 			else if(ItemUtils.doesLoreContain(clicked, "Left Click to promote to Leader")) {
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-				playerData.setWauzPlayerEventName("Promote");
-				playerData.setWauzPlayerEvent(new WauzPlayerEventGuildPromoteLeader(member));
+				playerData.getSelections().setWauzPlayerEventName("Promote");
+				playerData.getSelections().setWauzPlayerEvent(new WauzPlayerEventGuildPromoteLeader(member));
 				WauzDialog.open(player, clicked);
 			}
 		}

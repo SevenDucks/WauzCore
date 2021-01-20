@@ -111,7 +111,7 @@ public class SkillTheHighPriestess implements WauzPlayerSkill {
 			}
 			
 			ParticleSpawner.spawnParticleHelix(target.getLocation(), new SkillParticle(Particle.HEART), 1, 3.5);
-			DamageCalculator.heal(new EntityRegainHealthEvent(target, playerData.getMaxHealth() / 5, RegainReason.MAGIC));
+			DamageCalculator.heal(new EntityRegainHealthEvent(target, playerData.getStats().getMaxHealth() / 5, RegainReason.MAGIC));
 		}
 		return true;
 	}

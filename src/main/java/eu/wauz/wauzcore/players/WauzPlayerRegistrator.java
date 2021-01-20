@@ -179,9 +179,9 @@ public class WauzPlayerRegistrator {
 			return;
 		}
 		
-		playerData.setResistanceHeat((short) 0);
-		playerData.setResistanceCold((short) 0);
-		playerData.setResistancePvP((short) 0);
+		playerData.getStats().setResistanceHeat((short) 0);
+		playerData.getStats().setResistanceCold((short) 0);
+		playerData.getStats().setResistancePvP((short) 0);
 		WauzPlayerActionBar.update(player);
 	}
 	

@@ -178,7 +178,7 @@ public class MaterialPouch implements WauzInventory {
 			String message = ChatColor.AQUA + "Found Material: " + displayName;
 			player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
 			player.sendTitle("", message, 2, 14, 4);
-			WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveWeight.PASSIVE_NAME).grantExperience(player, 1);
+			WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(PassiveWeight.PASSIVE_NAME).grantExperience(player, 1);
 			return true;
 		}
 		else {
@@ -240,8 +240,8 @@ public class MaterialPouch implements WauzInventory {
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Sell All")) {
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-			playerData.setWauzPlayerEventName("Sell " + StringUtils.capitalize(inventoryName));
-			playerData.setWauzPlayerEvent(new WauzPlayerEventMaterialsSell(inventoryName));
+			playerData.getSelections().setWauzPlayerEventName("Sell " + StringUtils.capitalize(inventoryName));
+			playerData.getSelections().setWauzPlayerEvent(new WauzPlayerEventMaterialsSell(inventoryName));
 			WauzDialog.open(player);
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Show Materials")) {

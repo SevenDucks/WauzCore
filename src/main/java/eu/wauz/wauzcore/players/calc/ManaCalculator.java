@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionStats;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
@@ -53,12 +54,13 @@ public class ManaCalculator {
 		if(playerData == null) {
 			return;
 		}
+		WauzPlayerDataSectionStats stats = playerData.getStats();
 		
-		if(playerData.getMaxMana() > playerData.getMana() + amount) {
-			playerData.setMana(playerData.getMana() + amount);
+		if(stats.getMaxMana() > stats.getMana() + amount) {
+			stats.setMana(stats.getMana() + amount);
 		}
 		else {
-			playerData.setMana(playerData.getMaxMana());
+			stats.setMana(stats.getMaxMana());
 		}
 		WauzPlayerActionBar.update(player);
 	}
@@ -78,11 +80,11 @@ public class ManaCalculator {
 	 */
 	public static boolean useMana(Player player, int amount) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null || (playerData.getMana() - amount) < 0) {
+		if(playerData == null || (playerData.getStats().getMana() - amount) < 0) {
 			player.sendMessage(ChatColor.RED + "Not enough Mana! " + amount + " Points are needed!");
 			return false;
 		}
-		playerData.setMana(playerData.getMana() - amount);
+		playerData.getStats().setMana(playerData.getStats().getMana() - amount);
 		AchievementTracker.addProgress(player, WauzAchievementType.USE_MANA, amount);
 		WauzPlayerActionBar.update(player);
 		return true;

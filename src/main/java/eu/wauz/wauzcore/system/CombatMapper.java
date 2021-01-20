@@ -46,9 +46,9 @@ public class CombatMapper {
 			return;
 		}
 		
-		int actionBar = playerData.getActionBar();
+		int actionBar = playerData.getSkills().getActionBar();
 		actionBar = actionBar == 2 ? 0 : actionBar + 1;
-		playerData.setActionBar(actionBar);
+		playerData.getSkills().setActionBar(actionBar);
 		WauzDebugger.log(player, "Action Bar: " + actionBar);
 		WauzPlayerActionBar.update(player);
 	}

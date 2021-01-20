@@ -63,7 +63,7 @@ public class WauzNoteBlockPlayer {
 			return;
 		}
 		
-		SongPlayer currentSongPlayer = playerData.getSongPlayer();
+		SongPlayer currentSongPlayer = playerData.getSelections().getSongPlayer();
 		if(currentSongPlayer != null) {
 			currentSongPlayer.destroy();
 		}
@@ -78,11 +78,11 @@ public class WauzNoteBlockPlayer {
 			songPlayer.setPlaying(true);
 			
 			WauzDebugger.log(player, "Loaded Soundtrack: " + soundtrackFile.getAbsolutePath());
-			playerData.setSongPlayer(songPlayer);
+			playerData.getSelections().setSongPlayer(songPlayer);
 		}
 		else {
 			WauzDebugger.log(player, "No Soundtrack found: " + soundtrackFile.getAbsolutePath());
-			playerData.setSongPlayer(null);
+			playerData.getSelections().setSongPlayer(null);
 		}
 	}
 

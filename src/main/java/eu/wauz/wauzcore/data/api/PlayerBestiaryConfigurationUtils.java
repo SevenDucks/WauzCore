@@ -30,7 +30,7 @@ public class PlayerBestiaryConfigurationUtils {
 	 * @return The player bestiary config file.
 	 */
 	private static File getPlayerBestiaryDataFile(Player player) {
-		String characterSlot = WauzPlayerDataPool.getPlayer(player).getSelectedCharacterSlot();
+		String characterSlot = WauzPlayerDataPool.getPlayer(player).getSelections().getSelectedCharacterSlot();
 		return new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + "-bestiary.yml");
 	}
 	
