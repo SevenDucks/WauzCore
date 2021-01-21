@@ -2,7 +2,9 @@ package eu.wauz.wauzcore.players.calc;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Hanging;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -24,6 +26,7 @@ import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
+import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.DeprecatedUtils;
@@ -133,6 +136,12 @@ public class DamageCalculatorAttack {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		if(playerData == null) {
 			return;
+		}
+		Block block = entity.getLocation().getBlock();
+		if(entity instanceof Hanging
+				&& !player.hasPermission(WauzPermission.DEBUG_BUILDING.toString())
+				&& WauzRegion.disallowBuild(block)) {
+			event.setCancelled(true);
 		}
 		
 		WauzDebugger.log(player, "Attacked Entity Type: " + entity.getType());

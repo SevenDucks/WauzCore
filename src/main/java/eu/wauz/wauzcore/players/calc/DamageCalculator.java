@@ -104,8 +104,8 @@ public class DamageCalculator {
 		int heal = (int) event.getAmount();
 		
 		event.setAmount(0);
-		int hp = playerData.getHealth() + heal;
-		if(hp > playerData.getMaxHealth()) hp = playerData.getMaxHealth();
+		int hp = playerData.getStats().getHealth() + heal;
+		if(hp > playerData.getStats().getMaxHealth()) hp = playerData.getStats().getMaxHealth();
 		setHealth(player, hp);
 		
 		ValueIndicator.spawnHealIndicator(player.getLocation(), heal);
@@ -148,14 +148,14 @@ public class DamageCalculator {
 		
 		if(hp == 0) {
 			player.setHealth(0);
-			playerData.setHealth(playerData.getMaxHealth());
+			playerData.getStats().setHealth(playerData.getStats().getMaxHealth());
 			WauzPlayerActionBar.update(player);
 			return;
 		}
 		
-		playerData.setHealth(hp);
-		hp = (hp * 20) / playerData.getMaxHealth();
-		if(hp == 20 && playerData.getHealth() > playerData.getMaxHealth()) hp = 19;
+		playerData.getStats().setHealth(hp);
+		hp = (hp * 20) / playerData.getStats().getMaxHealth();
+		if(hp == 20 && playerData.getStats().getHealth() > playerData.getStats().getMaxHealth()) hp = 19;
 		if(hp == 0) hp = 1;
 		player.setHealth(hp);
 		WauzPlayerActionBar.update(player);
@@ -175,7 +175,7 @@ public class DamageCalculator {
 		if(playerData == null) {
 			return false;
 		}
-		return playerData.getResistancePvP() > 0;
+		return playerData.getStats().getResistancePvP() > 0;
 	}
 	
 	/**
@@ -190,7 +190,7 @@ public class DamageCalculator {
 		if(playerData == null) {
 			return;
 		}
-		playerData.decreasePvPProtection();
+		playerData.getStats().decreasePvPProtection();
 	}
 	
 	/**
@@ -220,7 +220,7 @@ public class DamageCalculator {
 			}
 			
 			long addedPvsPRes = ItemUtils.getPvPProtection(itemStack);
-			playerData.setResistancePvP(FoodCalculator.parseEffectTicksToShort(playerData.getResistancePvP(), addedPvsPRes));
+			playerData.getStats().setResistancePvP(FoodCalculator.parseEffectTicksToShort(playerData.getStats().getResistancePvP(), addedPvsPRes));
 			
 			itemStack.setAmount(itemStack.getAmount() - 1);
 			player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_LAND, 0);

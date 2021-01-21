@@ -31,7 +31,7 @@ public class PlayerRelationConfigurationUtils {
 	 * @return The player relation config file.
 	 */
 	private static File getPlayerRelationDataFile(Player player, String citizen) {
-		String characterSlot = WauzPlayerDataPool.getPlayer(player).getSelectedCharacterSlot();
+		String characterSlot = WauzPlayerDataPool.getPlayer(player).getSelections().getSelectedCharacterSlot();
 		File playerQuestDirectory = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + "-relations/");
 		playerQuestDirectory.mkdirs();
 		return new File(playerQuestDirectory, citizen + ".yml");

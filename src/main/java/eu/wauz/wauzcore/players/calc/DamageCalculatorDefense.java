@@ -96,7 +96,7 @@ public class DamageCalculatorDefense {
 		if(damage < 1) {
 			damage = (blockedDamage > 0) ? 0 : 1;
 		}
-		int hp = playerData.getHealth() - damage;
+		int hp = playerData.getStats().getHealth() - damage;
 		if(hp < 0) {
 			hp = 0;
 		}

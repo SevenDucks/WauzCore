@@ -95,7 +95,7 @@ public class Castable {
 			String skillName = skill.getSkillId();
 			ChatColor color = ChatColor.GREEN;
 			
-			long cooldown = playerData.getRemainingSkillCooldown(skillName);
+			long cooldown = playerData.getSkills().getRemainingSkillCooldown(skillName);
 			if(cooldown > 0) {
 				cooldown = cooldown / 1000;
 				message += ChatColor.YELLOW + "" + (cooldown < 1 ? 1 : cooldown) + "s ";
@@ -105,13 +105,13 @@ public class Castable {
 			int manaCost = skill.getManaCost();
 			if(skill.isPhysical()) {
 				message += ChatColor.GOLD + "" + manaCost + " " + UnicodeUtils.ICON_SUN + " ";
-				if(playerData.getRage() < manaCost) {
+				if(playerData.getStats().getRage() < manaCost) {
 					color = ChatColor.RED;
 				}
 			}
 			else {
 				message += ChatColor.LIGHT_PURPLE + "" + manaCost + " " + UnicodeUtils.ICON_STAR + " ";
-				if(playerData.getMana() < manaCost) {
+				if(playerData.getStats().getMana() < manaCost) {
 					color = ChatColor.RED;
 				}
 			}

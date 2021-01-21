@@ -10,15 +10,18 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Hanging;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -51,6 +54,8 @@ import eu.wauz.wauzcore.skills.passive.PassiveBreath;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzPermission;
+import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -153,7 +158,7 @@ public class PlayerInteractionListener implements Listener {
 		if(WauzMode.isMMORPG(player)) {
 			WauzActivePet.tryToUnsummon(player, false);
 		}
-		if(WauzMode.isArcade(player)) {
+		else if(WauzMode.isArcade(player)) {
 			ArcadeLobby.handleDeathEvent(event);
 		}
 	}
@@ -192,7 +197,15 @@ public class PlayerInteractionListener implements Listener {
 	 */
 	@EventHandler
 	public void onEntityInteraction(PlayerInteractEntityEvent event) {
-		if(WauzMode.isMMORPG(event.getPlayer())) {
+		Player player = event.getPlayer();
+		Entity entity = event.getRightClicked();
+		Block block = entity.getLocation().getBlock();
+		if(entity instanceof Hanging
+				&& !player.hasPermission(WauzPermission.DEBUG_BUILDING.toString())
+				&& WauzRegion.disallowBuild(block)) {
+			event.setCancelled(true);
+		}
+		else if(WauzMode.isMMORPG(player)) {
 			WauzActivePet.handlePetInteraction(event);
 		}
 	}
@@ -211,6 +224,21 @@ public class PlayerInteractionListener implements Listener {
 		}
 		else if(WauzMode.isSurvival(event.getPlayer())) {
 			EventMapper.handleSurvivalItemInteraction(event);
+		}
+		else if(WauzMode.isArcade(event.getPlayer())) {
+			ArcadeLobby.handleInteractEvent(event);
+		}
+	}
+	
+	/**
+	 * Catches the player animation for the Arcade mode.
+	 * 
+	 * @param event The animation event.
+	 */
+	@EventHandler
+	public void onAnimate(PlayerAnimationEvent event) {
+		if(WauzMode.isArcade(event.getPlayer())) {
+			ArcadeLobby.handleAnimationEvent(event);
 		}
 	}
 
@@ -325,7 +353,7 @@ public class PlayerInteractionListener implements Listener {
 		}
 		else if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
 			long sprintedMillis = System.currentTimeMillis() - playerSprintMap.get(player);
-			WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveBreath.PASSIVE_NAME).grantExperience(player, sprintedMillis);
+			WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(PassiveBreath.PASSIVE_NAME).grantExperience(player, sprintedMillis);
 		}
 	}
 	

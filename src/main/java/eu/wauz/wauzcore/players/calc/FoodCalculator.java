@@ -45,7 +45,7 @@ public class FoodCalculator {
 		PlayerItemConsumeEvent event = new PlayerItemConsumeEvent(player, itemStack);
 		Bukkit.getServer().getPluginManager().callEvent(event);
 		
-		WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveNutrition.PASSIVE_NAME).grantExperience(player, 1);
+		WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(PassiveNutrition.PASSIVE_NAME).grantExperience(player, 1);
 		itemStack.setAmount(itemStack.getAmount() - 1);
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
 	}
@@ -85,9 +85,9 @@ public class FoodCalculator {
 		if(ItemUtils.containsTemperatureModifier(itemStack)) {
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 			long addedHeatRes = ItemUtils.getHeatResistance(itemStack);
-			playerData.setResistanceHeat(parseEffectTicksToShort(playerData.getResistanceHeat(), addedHeatRes));
+			playerData.getStats().setResistanceHeat(parseEffectTicksToShort(playerData.getStats().getResistanceHeat(), addedHeatRes));
 			long addedColdRes = ItemUtils.getColdResistance(itemStack);
-			playerData.setResistanceCold(parseEffectTicksToShort(playerData.getResistanceCold(), addedColdRes));
+			playerData.getStats().setResistanceCold(parseEffectTicksToShort(playerData.getStats().getResistanceCold(), addedColdRes));
 		}
 	}
 	

@@ -21,22 +21,12 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.annotations.Minigame;
 
 /**
- * A group minigame, where you have to "jinx" players of the other team.
+ * A hunt minigame, where you have to "jinx" other players.
  * 
  * @author Wauzmons
  */
 @Minigame
 public class MinigameJinxed implements ArcadeMinigame {
-	
-	/**
-	 * The members of the green team.
-	 */
-	private List<Player> teamGreen = new ArrayList<>();
-	
-	/**
-	 * The members of the blue team.
-	 */
-	private List<Player> teamBlue = new ArrayList<>();
 	
 	/**
 	 * The boss bar, visible for jinxed players.
@@ -74,11 +64,7 @@ public class MinigameJinxed implements ArcadeMinigame {
 		List<String> description = new ArrayList<>();
 		description.add(ChatColor.WHITE + "Run away from Jinxed Players!");
 		description.add(ChatColor.WHITE + "If you are Jinxed, try to");
-		description.add(ChatColor.WHITE + "hit Players of the other Team");
-		description.add(ChatColor.WHITE + "to Jinx them and get Unjinxed.");
-		description.add("   ");
-		description.add(ChatColor.GREEN + "Team Green: " + ChatColor.GOLD + getJinxedCount(teamGreen));
-		description.add(ChatColor.AQUA + "Team Blue: " + ChatColor.GOLD + getJinxedCount(teamBlue));
+		description.add(ChatColor.WHITE + "hit Players to Jinx them.");
 		return description;
 	}
 
@@ -90,27 +76,11 @@ public class MinigameJinxed implements ArcadeMinigame {
 	@Override
 	public void startGame(List<Player> players) {
 		List<List<Player>> teams = ArcadeUtils.splitIntoTeams(players, 2);
-		teamGreen.addAll(teams.get(0));
-		teamBlue.addAll(teams.get(1));
-		ArcadeUtils.equipTeamColor(teamGreen, Color.LIME, ChatColor.GREEN + "Team Green");
-		ArcadeUtils.equipTeamColor(teamBlue, Color.AQUA, ChatColor.AQUA + "Team Blue");
 		Location greenLocation = new Location(ArcadeLobby.getWorld(), 500.5, 88, 524.5, 180, 0);
 		Location blueLocation = new Location(ArcadeLobby.getWorld(), 500.5, 88, 479.5, 0, 0);
-		ArcadeUtils.placeTeam(teamGreen, greenLocation, 3, 1);
-		ArcadeUtils.placeTeam(teamBlue, blueLocation, 3, 1);
-		int playerCount = players.size();
-		if(playerCount <= 3) {
-			jinxPlayers(ArcadeUtils.selectRandomPlayers(players, 1));
-		}
-		else if(playerCount <= 6) {
-			jinxPlayers(ArcadeUtils.selectRandomPlayers(teamGreen, 1));
-			jinxPlayers(ArcadeUtils.selectRandomPlayers(teamBlue, 1));
-		}
-		else {
-			int jinxedCount = (int) Math.ceil((float) playerCount / 4.0f);
-			jinxPlayers(ArcadeUtils.selectRandomPlayers(teamGreen, jinxedCount));
-			jinxPlayers(ArcadeUtils.selectRandomPlayers(teamBlue, jinxedCount));
-		}
+		ArcadeUtils.placeTeam(teams.get(0), greenLocation, 3, 1);
+		ArcadeUtils.placeTeam(teams.get(1), blueLocation, 3, 1);
+		jinxPlayers(ArcadeUtils.selectRandomPlayers(players, players.size() - (players.size() / 2)));
 		ArcadeUtils.runStartTimer(10, 120);
 	}
 
@@ -122,16 +92,11 @@ public class MinigameJinxed implements ArcadeMinigame {
 	@Override
 	public List<Player> endGame() {
 		List<Player> winners = new ArrayList<>();
-		int jinxedGreen = getJinxedCount(teamGreen);
-		int jinxedBlue = getJinxedCount(teamBlue);
-		if(jinxedBlue > jinxedGreen) {
-			winners.addAll(teamGreen);
+		for(Player player : ArcadeLobby.getPlayingPlayers()) {
+			if(!isJinxed(player)) {
+				winners.add(player);
+			}
 		}
-		else if(jinxedGreen > jinxedBlue) {
-			winners.addAll(teamBlue);
-		}
-		teamGreen.clear();
-		teamBlue.clear();
 		jinxedBar.removeAll();
 		return winners;
 	}
@@ -143,8 +108,6 @@ public class MinigameJinxed implements ArcadeMinigame {
 	 */
 	@Override
 	public void handleQuitEvent(Player player) {
-		teamGreen.remove(player);
-		teamBlue.remove(player);
 		jinxedBar.removePlayer(player);
 	}
 
@@ -182,6 +145,7 @@ public class MinigameJinxed implements ArcadeMinigame {
 	public void handleTick() {
 		for(Player player : jinxedBar.getPlayers()) {
 			ParticleSpawner.spawnParticleCircle(player.getLocation(), jinxedParticle, 1, 8);
+			SkillUtils.addPotionEffect(player, PotionEffectType.SPEED, 1, 0);
 		}
 	}
 	
@@ -223,15 +187,15 @@ public class MinigameJinxed implements ArcadeMinigame {
 	 * @return If the jinxing was successful.
 	 */
 	public boolean jinx(Player jinxer, Player jinxed) {
-		if(!isJinxed(jinxer) || isJinxed(jinxed) || sameTeam(jinxer, jinxed)) {
+		if(!isJinxed(jinxer) || isJinxed(jinxed)) {
 			return false;
 		}
 		jinxedBar.removePlayer(jinxer);
 		jinxedBar.addPlayer(jinxed);
 		SkillUtils.addPotionEffect(jinxed, PotionEffectType.BLINDNESS, 2, 50);
 		SkillUtils.addPotionEffect(jinxed, PotionEffectType.SLOW, 2, 50);
-		String jinxedName = getTeamColor(jinxed) + jinxed.getName() + ChatColor.LIGHT_PURPLE;
-		String jinxerName = getTeamColor(jinxer) + jinxer.getName() + ChatColor.LIGHT_PURPLE;
+		String jinxedName = ChatColor.GOLD + jinxed.getName() + ChatColor.LIGHT_PURPLE;
+		String jinxerName = ChatColor.GOLD + jinxer.getName() + ChatColor.LIGHT_PURPLE;
 		jinxed.playSound(jinxed.getLocation(), Sound.ENTITY_BLAZE_DEATH, 1, 1);
 		for(Player player : ArcadeLobby.getPlayingPlayers()) {
 			player.sendMessage(jinxedName + " was jinxed by " + jinxerName + "!");
@@ -247,38 +211,6 @@ public class MinigameJinxed implements ArcadeMinigame {
 	public void jinxPlayers(List<Player> players) {
 		for(Player player : players) {
 			jinxedBar.addPlayer(player);
-		}
-	}
-	
-	/**
-	 * Checks if two players a in the same team.
-	 * 
-	 * @param player1 The first player.
-	 * @param player2 The second player.
-	 * 
-	 * @return If they are in the same team.
-	 */
-	public boolean sameTeam(Player player1, Player player2) {
-		return (teamGreen.contains(player1) && teamGreen.contains(player2))
-				|| (teamBlue.contains(player1) && teamBlue.contains(player2));
-	}
-	
-	/**
-	 * Gets the team color of the given player.
-	 * 
-	 * @param player The player to check.
-	 * 
-	 * @return Their team color.
-	 */
-	public ChatColor getTeamColor(Player player) {
-		if(teamGreen.contains(player)) {
-			return ChatColor.GREEN;
-		}
-		else if(teamBlue.contains(player)) {
-			return ChatColor.AQUA;
-		}
-		else {
-			return ChatColor.WHITE;
 		}
 	}
 	

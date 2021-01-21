@@ -307,8 +307,8 @@ public class QuestMenu implements WauzInventory {
 			
 			if(ItemUtils.doesLoreContain(clicked, "Right Click to Cancel") && event.getClick().toString().contains("RIGHT")) {
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-				playerData.setWauzPlayerEventName("Cancel Quest");
-				playerData.setWauzPlayerEvent(new WauzPlayerEventQuestCancel(questName));
+				playerData.getSelections().setWauzPlayerEventName("Cancel Quest");
+				playerData.getSelections().setWauzPlayerEvent(new WauzPlayerEventQuestCancel(questName));
 				clicked.setType(Material.WRITABLE_BOOK);
 				WauzDialog.open(player, QuestMenuItems.generateUnacceptedQuest(player, quest, phase, false));
 			}

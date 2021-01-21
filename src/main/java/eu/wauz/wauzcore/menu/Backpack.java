@@ -102,7 +102,7 @@ public class Backpack implements WauzInventory {
 		Inventory backpack = getBackpack(player);
 		ItemStack lockedItemStack = new ItemStack(Material.BARRIER);
 		MenuUtils.setItemDisplayName(lockedItemStack, ChatColor.RED + "Slot Locked");
-		int slotCount = BASE_SIZE + WauzPlayerDataPool.getPlayer(player).getCachedPassive(PassiveWeight.PASSIVE_NAME).getLevel();
+		int slotCount = BASE_SIZE + WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(PassiveWeight.PASSIVE_NAME).getLevel();
 		for(int slot = 0; slot < backpack.getSize(); slot++) {
 			if(slot >= slotCount) {
 				backpack.setItem(slot, lockedItemStack);

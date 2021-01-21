@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
 /**
  * A class used to display system info and usage at the point of its creation.
@@ -15,6 +16,11 @@ import eu.wauz.wauzcore.WauzCore;
  * @author Wauzmons
  */
 public class SystemAnalytics {
+	
+	/**
+	 * The current server time.
+	 */
+	private final String serverTime;
 	
 	/**
 	 * The operating system's name and architecture.
@@ -46,6 +52,8 @@ public class SystemAnalytics {
 	 * Automatically generates system info and usage at the point of its creation.
 	 */
 	public SystemAnalytics() {
+		serverTime = "[Server Time: " + WauzDateUtils.getServerTime() + "]";
+		
 		OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
 		systemArchitecture = "[System: " + os.getName() + " " + os.getArch() + "]";
 		
@@ -72,6 +80,7 @@ public class SystemAnalytics {
 	 * @param sender The person who requested the analytics.
 	 */
 	public void print(CommandSender sender) {
+		sender.sendMessage(ChatColor.DARK_RED + serverTime);
 		sender.sendMessage(ChatColor.DARK_RED + systemArchitecture);
 		sender.sendMessage(ChatColor.DARK_RED + playersOnline);
 		sender.sendMessage(ChatColor.DARK_RED + ramUsage);
@@ -91,6 +100,13 @@ public class SystemAnalytics {
 		}
 		int exp = (int) (Math.log(bytes) / Math.log(1024));
 		return String.format("%.0f %sB", bytes / Math.pow(1024, exp), ("KMGTPE").charAt(exp - 1));
+	}
+	
+	/**
+	 * @return The current server time.
+	 */
+	public String getServerTime() {
+		return serverTime;
 	}
 
 	/**

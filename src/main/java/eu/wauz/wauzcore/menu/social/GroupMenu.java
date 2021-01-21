@@ -88,8 +88,8 @@ public class GroupMenu implements WauzInventory {
 		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Group Overview");
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(playerData.isInGroup()) {
-			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+		if(playerData.getSelections().isInGroup()) {
+			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getSelections().getGroupUuidString());
 			
 			ItemStack groupItemStack = MenuIconHeads.getGroupItem();
 			setGroupItemMeta(groupItemStack, playerGroup, true);
@@ -271,7 +271,7 @@ public class GroupMenu implements WauzInventory {
 				+ (promote ? "Promote" : "Kick"));
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getSelections().getGroupUuidString());
 		
 		int playerNumber = 1;
 		for(Player member : playerGroup.getPlayers()) {
@@ -324,7 +324,7 @@ public class GroupMenu implements WauzInventory {
 			if(clicked.getItemMeta().getDisplayName().contains("Open")) {
 				WauzPlayerGroup playerGroup = new WauzPlayerGroup(player);
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-				playerData.setGroupUuidString(playerGroup.getGroupUuidString());
+				playerData.getSelections().setGroupUuidString(playerGroup.getGroupUuidString());
 				WauzPlayerGroupPool.regGroup(playerGroup);
 				open(player);
 			}
@@ -346,7 +346,7 @@ public class GroupMenu implements WauzInventory {
 			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(groupUuidString);
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 			playerGroup.addPlayer(player);
-			playerData.setGroupUuidString(groupUuidString);
+			playerData.getSelections().setGroupUuidString(groupUuidString);
 			open(player);
 		}
 		
@@ -362,7 +362,7 @@ public class GroupMenu implements WauzInventory {
 					if(passwordString.equals(playerGroup.getGroupPassword())) {
 						WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 						playerGroup.addPlayer(player);
-						playerData.setGroupUuidString(groupUuidString);
+						playerData.getSelections().setGroupUuidString(groupUuidString);
 						open(player);
 					}
 					else {
@@ -380,7 +380,7 @@ public class GroupMenu implements WauzInventory {
 				if(passwordString.length() == 5) {
 					WauzPlayerGroup playerGroup = new WauzPlayerGroup(player);
 					WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-					playerData.setGroupUuidString(playerGroup.getGroupUuidString());
+					playerData.getSelections().setGroupUuidString(playerGroup.getGroupUuidString());
 					playerGroup.setGroupPassword(passwordString);
 					WauzPlayerGroupPool.regGroup(playerGroup);
 					open(player);
@@ -420,8 +420,8 @@ public class GroupMenu implements WauzInventory {
 			if(target == null || player.equals(target) || WauzPlayerDataPool.getPlayer(target) == null) {
 				return;
 			}
-			String playerGroupUuid = WauzPlayerDataPool.getPlayer(player).getGroupUuidString();
-			String targetGroupUuid = WauzPlayerDataPool.getPlayer(target).getGroupUuidString();
+			String playerGroupUuid = WauzPlayerDataPool.getPlayer(player).getSelections().getGroupUuidString();
+			String targetGroupUuid = WauzPlayerDataPool.getPlayer(target).getSelections().getGroupUuidString();
 			if(!StringUtils.equals(playerGroupUuid, targetGroupUuid)) {
 				return;
 			}
@@ -445,10 +445,10 @@ public class GroupMenu implements WauzInventory {
 		}
 		else if(clicked.getType().equals(Material.BARRIER)) {
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getSelections().getGroupUuidString());
 			if(playerGroup != null) {
 				playerGroup.removePlayer(player);
-				playerData.setGroupUuidString(null);
+				playerData.getSelections().setGroupUuidString(null);
 				open(player);
 			}
 			else {
@@ -465,7 +465,7 @@ public class GroupMenu implements WauzInventory {
 	 */
 	private void promotePlayer(Player player, Player target) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(target);
-		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getSelections().getGroupUuidString());
 		if(playerGroup != null) {
 			playerGroup.setAdminUuidString(target.getUniqueId().toString());
 			for(Player member : playerGroup.getPlayers()) {
@@ -487,10 +487,10 @@ public class GroupMenu implements WauzInventory {
 	 */
 	private void kickPlayer(Player player, Player target) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(target);
-		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getSelections().getGroupUuidString());
 		if(playerGroup != null) {
 			playerGroup.removePlayer(target);
-			playerData.setGroupUuidString(null);
+			playerData.getSelections().setGroupUuidString(null);
 			target.sendMessage(ChatColor.RED + player.getName() + " kicked you out of the group!");
 			for(Player member : playerGroup.getPlayers()) {
 				member.sendMessage(ChatColor.RED + player.getName() + " kicked "

@@ -129,8 +129,8 @@ public class WauzNmsMinimap {
 	    				}
 	    				
 	    				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-	    				if(playerData != null && playerData.getRegion() != null) {
-	    					mapCanvas.drawText(1, 1, MinecraftFont.Font, playerData.getRegion().getTitle());
+	    				if(playerData != null && playerData.getSelections().getRegion() != null) {
+	    					mapCanvas.drawText(1, 1, MinecraftFont.Font, playerData.getSelections().getRegion().getTitle());
 	    				}
 	    				else if(WauzMode.isInstance(mapView.getWorld().getName())) {
 	    					WauzActiveInstance instance = WauzActiveInstancePool.getInstance(mapView.getWorld());

@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionStats;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 
 /**
@@ -50,12 +51,13 @@ public class RageCalculator {
 		if(playerData == null) {
 			return;
 		}
+		WauzPlayerDataSectionStats stats = playerData.getStats();
 		
-		if(playerData.getMaxRage() > playerData.getRage() + amount) {
-			playerData.setRage(playerData.getRage() + amount);
+		if(stats.getMaxRage() > stats.getRage() + amount) {
+			stats.setRage(stats.getRage() + amount);
 		}
 		else {
-			playerData.setRage(playerData.getMaxRage());
+			stats.setRage(stats.getMaxRage());
 		}
 		WauzPlayerActionBar.update(player);
 	}
@@ -75,11 +77,11 @@ public class RageCalculator {
 			return;
 		}
 		
-		if(playerData.getRage() - 1 >= 0) {
-			playerData.setRage(playerData.getRage() - 1);
+		if(playerData.getStats().getRage() - 1 >= 0) {
+			playerData.getStats().setRage(playerData.getStats().getRage() - 1);
 		}
 		else {
-			playerData.setRage(0);
+			playerData.getStats().setRage(0);
 		}
 		WauzPlayerActionBar.update(player);
 	}
@@ -99,11 +101,11 @@ public class RageCalculator {
 	 */
 	public static boolean useRage(Player player, int amount) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null || (playerData.getRage() - amount) < 0) {
+		if(playerData == null || (playerData.getStats().getRage() - amount) < 0) {
 			player.sendMessage(ChatColor.RED + "Not enough Rage! " + amount + " Points are needed!");
 			return false;
 		}
-		playerData.setRage(playerData.getRage() - amount);
+		playerData.getStats().setRage(playerData.getStats().getRage() - amount);
 		WauzPlayerActionBar.update(player);
 		return true;
 	}

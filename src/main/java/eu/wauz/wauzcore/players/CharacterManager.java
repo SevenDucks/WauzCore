@@ -84,11 +84,11 @@ public class CharacterManager {
 		}
 		Location spawn = PlayerConfigurator.getCharacterSpawn(player);
 		Location destination = PlayerConfigurator.getCharacterLocation(player);
-		playerData.setMaxHealth(PlayerSkillConfigurator.getHealth(player));
+		playerData.getStats().setMaxHealth(PlayerSkillConfigurator.getHealth(player));
 		if(wauzMode.equals(WauzMode.MMORPG)) {
-			playerData.setMaxMana(PlayerSkillConfigurator.getMana(player));
-			playerData.setMaxRage(RageCalculator.MAX_RAGE);
-			playerData.refreshUnlockedCastables();
+			playerData.getStats().setMaxMana(PlayerSkillConfigurator.getMana(player));
+			playerData.getStats().setMaxRage(RageCalculator.MAX_RAGE);
+			playerData.getSkills().refreshUnlockedCastables();
 			PlayerConfigurator.setTrackerDestination(player, spawn, "Spawn");
 		}
 		player.setCompassTarget(spawn);
@@ -133,9 +133,9 @@ public class CharacterManager {
 			ArcadeLobby.removePlayer(player);
 		}
 		
-		if(playerData.isInGroup()) {
-			WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString()).removePlayer(player);
-			playerData.setGroupUuidString(null);
+		if(playerData.getSelections().isInGroup()) {
+			WauzPlayerGroupPool.getGroup(playerData.getSelections().getGroupUuidString()).removePlayer(player);
+			playerData.getSelections().setGroupUuidString(null);
 		}
 		
 		for(PotionEffect potionEffect : player.getActivePotionEffects()) {
@@ -144,21 +144,21 @@ public class CharacterManager {
 		
 		saveCharacter(player);
 		
-		playerData.setSelectedCharacterSlot(null);
-		playerData.setSelectedCharacterWorld(null);
-		playerData.setSelectedCharacterClass(null);
+		playerData.getSelections().setSelectedCharacterSlot(null);
+		playerData.getSelections().setSelectedCharacterWorld(null);
+		playerData.getSelections().setSelectedCharacterClass(null);
 		
 		player.setGameMode(GameMode.ADVENTURE);
 	    player.setExp(0);
 		player.setLevel(0);
 
-		playerData.setMaxHealth(20);
+		playerData.getStats().setMaxHealth(20);
 		DamageCalculator.setHealth(player, 20);
-		playerData.setMaxMana(0);
-		playerData.setMana(0);
-		playerData.setMaxRage(0);
-		playerData.setRage(0);
-		playerData.setActionBar(0);
+		playerData.getStats().setMaxMana(0);
+		playerData.getStats().setMana(0);
+		playerData.getStats().setMaxRage(0);
+		playerData.getStats().setRage(0);
+		playerData.getSkills().setActionBar(0);
 		
 		player.setFoodLevel(20);
 		player.setSaturation(20);
@@ -207,9 +207,9 @@ public class CharacterManager {
 		if(playerData == null) {
 			return;
 		}
-		String characterSlot = playerData.getSelectedCharacterSlot();
-		String characterWorldString = playerData.getSelectedCharacterWorld();
-		String characterClassString = playerData.getSelectedCharacterClass();
+		String characterSlot = playerData.getSelections().getSelectedCharacterSlot();
+		String characterWorldString = playerData.getSelections().getSelectedCharacterWorld();
+		String characterClassString = playerData.getSelections().getSelectedCharacterClass();
 		if(characterSlot == null || characterWorldString == null || characterClassString == null) {
 			return;
 		}
@@ -257,15 +257,15 @@ public class CharacterManager {
 			player.setGameMode(GameMode.ADVENTURE);
 			player.setLevel(1);
 			
-			playerData.setMaxHealth(10);
-			playerData.setHealth(10);
-			playerData.setMaxMana(ManaCalculator.MAX_MANA);
-			playerData.setMana(ManaCalculator.MAX_MANA);
-			playerData.setMaxRage(RageCalculator.MAX_RAGE);
-			playerData.setRage(0);
-			playerData.cachePassive(new PassiveBreath(0));
-    		playerData.cachePassive(new PassiveNutrition(0));
-    		playerData.cachePassive(new PassiveWeight(0));
+			playerData.getStats().setMaxHealth(10);
+			playerData.getStats().setHealth(10);
+			playerData.getStats().setMaxMana(ManaCalculator.MAX_MANA);
+			playerData.getStats().setMana(ManaCalculator.MAX_MANA);
+			playerData.getStats().setMaxRage(RageCalculator.MAX_RAGE);
+			playerData.getStats().setRage(0);
+			playerData.getSkills().cachePassive(new PassiveBreath(0));
+    		playerData.getSkills().cachePassive(new PassiveNutrition(0));
+    		playerData.getSkills().cachePassive(new PassiveWeight(0));
 			
 			WauzPlayerClass characterClass = WauzPlayerClassPool.getClass(characterClassString);
 			WauzPlayerClassStats startingStats = characterClass.getStartingStats();
@@ -368,7 +368,7 @@ public class CharacterManager {
 			player.setGameMode(GameMode.SURVIVAL);
 			player.setLevel(0);
 			
-			playerData.setResistancePvP((short) 720);
+			playerData.getStats().setResistancePvP((short) 720);
 			playerDataConfig.set("pvp.resticks", 720);
 			persistCharacterFile(playerDataFile, playerDataConfig);
 		}

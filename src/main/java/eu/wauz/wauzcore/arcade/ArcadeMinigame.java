@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerAnimationEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 /**
@@ -79,6 +81,24 @@ public interface ArcadeMinigame {
 	 * @param event The projectile hit event.
 	 */
 	public default void handleProjectileHitEvent(ProjectileHitEvent event) {
+		
+	}
+	
+	/**
+	 * Handles the given interact event, that occured in the minigame.
+	 * 
+	 * @param event The interact event.
+	 */
+	public default void handleInteractEvent(PlayerInteractEvent event) {
+		
+	}
+	
+	/**
+	 * Handles the given animation event, that occured in the minigame.
+	 * 
+	 * @param event The animation event.
+	 */
+	public default void handleAnimationEvent(PlayerAnimationEvent event) {
 		
 	}
 	

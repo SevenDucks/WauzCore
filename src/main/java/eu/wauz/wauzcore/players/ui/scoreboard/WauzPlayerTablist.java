@@ -12,6 +12,8 @@ import org.bukkit.scoreboard.RenderType;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import org.bukkit.scoreboard.Team.Option;
+import org.bukkit.scoreboard.Team.OptionStatus;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerData;
@@ -116,10 +118,10 @@ public class WauzPlayerTablist {
 		teamPrefix = ChatColor.BLUE + "GRP ";
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null || !playerData.isInGroup()) {
+		if(playerData == null || !playerData.getSelections().isInGroup()) {
 			return;
 		}
-		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getGroupUuidString());
+		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getSelections().getGroupUuidString());
 		for(Player member : playerGroup.getPlayers()) {
 			if(player != member) {
 				addEntry(member);
@@ -198,6 +200,7 @@ public class WauzPlayerTablist {
 	private void addEntry(Player player) {
 		Team team = scoreboard.registerNewTeam(getNextTeamId());
 		generatePrefix(team, player);
+		team.setOption(Option.COLLISION_RULE, OptionStatus.NEVER);
 		team.addEntry(player.getName());
 		
 		Score health = healthObjective.getScore(player.getName());

@@ -48,20 +48,20 @@ public class InventoryStringConverter {
 	 * @see WauzPlayerData#getSelectedCharacterSlot()
 	 */
     public static void saveInventory(Player player) {
+    	WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
     	File playerDirectory = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/");
-		File playerDataFile = new File(playerDirectory, WauzPlayerDataPool.getPlayer(player).getSelectedCharacterSlot() + ".yml");
+		File playerDataFile = new File(playerDirectory, playerData.getSelections().getSelectedCharacterSlot() + ".yml");
 		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
 		
-		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		playerDataConfig.set("gamemode", player.getGameMode().toString());
 		playerDataConfig.set("lastplayed", System.currentTimeMillis());
 		
 		if(WauzMode.isMMORPG(player)) {
-			for(AbstractPassiveSkill passive : playerData.getAllCachedPassives()) {
+			for(AbstractPassiveSkill passive : playerData.getSkills().getAllCachedPassives()) {
 				playerDataConfig.set("skills." + passive.getPassiveName(), passive.getExp());
 			}
-			playerDataConfig.set("stats.current.health", playerData.getHealth());
-			playerDataConfig.set("stats.current.mana", playerData.getMana());
+			playerDataConfig.set("stats.current.health", playerData.getStats().getHealth());
+			playerDataConfig.set("stats.current.mana", playerData.getStats().getMana());
 			playerDataConfig.set("inventory.backpack", Backpack.getBackpack(player).getContents());
 			playerDataConfig.set("inventory.materials", MaterialPouch.getInventory(player, "materials").getContents());
 			playerDataConfig.set("inventory.questitems", MaterialPouch.getInventory(player, "questitems").getContents());
@@ -73,7 +73,7 @@ public class InventoryStringConverter {
 			playerDataConfig.set("stats.current.health", player.getHealth());
 			playerDataConfig.set("level", player.getLevel());
 			playerDataConfig.set("exp", player.getExp() * 100F);
-			playerDataConfig.set("pvp.resticks", playerData.getResistancePvP());
+			playerDataConfig.set("pvp.resticks", playerData.getStats().getResistancePvP());
 		}
 		playerDataConfig.set("stats.current.hunger", player.getFoodLevel());
 		playerDataConfig.set("stats.current.saturation", player.getSaturation());
@@ -95,20 +95,20 @@ public class InventoryStringConverter {
 	 * @see WauzPlayerData#getSelectedCharacterSlot()
 	 */
     public static void loadInventory(Player player) {
+    	WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
     	File playerDirectory = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/");
-		File playerDataFile = new File(playerDirectory, WauzPlayerDataPool.getPlayer(player).getSelectedCharacterSlot() + ".yml");
+		File playerDataFile = new File(playerDirectory, playerData.getSelections().getSelectedCharacterSlot() + ".yml");
 		FileConfiguration playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
     	
-    	WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
     	player.setGameMode(GameMode.valueOf(playerDataConfig.getString("gamemode")));
     	
     	if(WauzMode.isMMORPG(player)) {
-    		playerData.cachePassive(new PassiveBreath(playerDataConfig.getLong("skills." + PassiveBreath.PASSIVE_NAME)));
-    		playerData.cachePassive(new PassiveNutrition(playerDataConfig.getLong("skills." + PassiveNutrition.PASSIVE_NAME)));
-    		playerData.cachePassive(new PassiveWeight(playerDataConfig.getLong("skills." + PassiveWeight.PASSIVE_NAME)));
+    		playerData.getSkills().cachePassive(new PassiveBreath(playerDataConfig.getLong("skills." + PassiveBreath.PASSIVE_NAME)));
+    		playerData.getSkills().cachePassive(new PassiveNutrition(playerDataConfig.getLong("skills." + PassiveNutrition.PASSIVE_NAME)));
+    		playerData.getSkills().cachePassive(new PassiveWeight(playerDataConfig.getLong("skills." + PassiveWeight.PASSIVE_NAME)));
     		DamageCalculator.setHealth(player, playerDataConfig.getInt("stats.current.health"));
-    		playerData.setMana(playerDataConfig.getInt("stats.current.mana"));
-    		playerData.setRage(0);
+    		playerData.getStats().setMana(playerDataConfig.getInt("stats.current.mana"));
+    		playerData.getStats().setRage(0);
     		Backpack.unloadBackpack(player);
     		MaterialPouch.unloadInventory(player, "materials");
     		MaterialPouch.unloadInventory(player, "questitems");
@@ -118,7 +118,7 @@ public class InventoryStringConverter {
 				OneBlockProgression.getPlayerOneBlock(player).load(playerDataConfig);
 			}
     		player.setHealth(playerDataConfig.getInt("stats.current.health"));
-    		playerData.setResistancePvP((short) playerDataConfig.getInt("pvp.resticks"));
+    		playerData.getStats().setResistancePvP((short) playerDataConfig.getInt("pvp.resticks"));
     	}
     	player.setLevel(playerDataConfig.getInt("level"));
     	ExperienceCalculator.updateExperienceBar(player);

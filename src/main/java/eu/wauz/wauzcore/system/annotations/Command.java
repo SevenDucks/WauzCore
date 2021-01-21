@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 import org.bukkit.Bukkit;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.completion.TabCompleterEnhancements;
 import eu.wauz.wauzcore.commands.completion.TabCompleterEquip;
 import eu.wauz.wauzcore.commands.completion.TabCompleterGuilds;
@@ -47,11 +48,14 @@ public @interface Command {
 		 * @throws Exception Failed to load a class.
 		 */
 		public static void init(AnnotationLoader loader) throws Exception {
+			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(Command.class)) {
 				Object object = clazz.newInstance();
 				WauzCommandExecutor.registerCommand((WauzCommand) object);
-				addCompleters();
+				count++;
 			}
+			addCompleters();
+			WauzCore.getInstance().getLogger().info("Loaded " + count + " Commands!");
 		}
 		
 		/**

@@ -1,6 +1,6 @@
 package eu.wauz.wauzcore.building;
 
-import java.awt.Polygon;
+import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,19 +16,19 @@ import org.bukkit.block.Block;
 public class ShapeHexagon {
 	
 	/**
+	 * The center location of the hexagon.
+	 */
+	private final Location center;
+	
+	/**
 	 * The radius of the hexagon.
 	 */
 	private final int radius;
 
-	/**
-	 * The center location of the hexagon.
-	 */
-    private final Location center;
-
     /**
      * The calculated polygon object.
      */
-    private final Polygon polygon;
+    private final Path2D.Double polygon;
 
     /**
      * Constructs a block structure in the shape of a hexagon.
@@ -42,14 +42,28 @@ public class ShapeHexagon {
         this.polygon = createHexagon();
     }
 
-    private Polygon createHexagon() {
-        Polygon polygon = new Polygon();
+    private Path2D.Double createHexagon() {
+    	Path2D.Double polygon = null;
         for (int point = 0; point < 6; point++) {
-            int xval = (int) (center.getBlockX() + radius * Math.cos(point * 2 * Math.PI / 6D));
-            int yval = (int) (center.getBlockZ() + radius * Math.sin(point * 2 * Math.PI / 6D));
-            polygon.addPoint(xval, yval);
+        	double xval = (double) center.getBlockX() + (double) radius * Math.cos(point * 2 * Math.PI / 6D);
+        	double yval = (double) center.getBlockZ() + (double) radius * Math.sin(point * 2 * Math.PI / 6D);
+        	if(polygon == null) {
+        		polygon = new Path2D.Double();
+        		polygon.moveTo(xval, yval);
+        	}
+        	else {
+        		polygon.lineTo(xval, yval);
+        	}
         }
+        polygon.closePath();
         return polygon;
+    }
+    
+    /**
+     * @return The center location of the hexagon.
+     */
+    public Location getCenter() {
+    	return center;
     }
 
     /**
@@ -60,16 +74,9 @@ public class ShapeHexagon {
     }
 
     /**
-     * @return The center location of the hexagon.
-     */
-    public Location getCenter() {
-        return center;
-    }
-
-    /**
      * @return The calculated polygon object.
      */
-    public Polygon getPolygon() {
+    public Path2D.Double getPolygon() {
         return polygon;
     }
     
@@ -85,7 +92,7 @@ public class ShapeHexagon {
     	for(int x = -radius; x <= radius; x++) {
     		for(int z = -radius; z <= radius; z++) {
     			Block block = center.clone().add(x, 0, z).getBlock();
-    			if(polygon.intersects(block.getX() - 0.5, block.getZ() - 0.5, 1, 1)) {
+    			if(polygon.intersects(block.getX(), block.getZ(), 1, 1)) {
     				block.setType(material);
     				blocks.add(block);
     			}

@@ -1,13 +1,19 @@
 package eu.wauz.wauzcore.arcade;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Bat;
@@ -18,12 +24,15 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 
+import eu.wauz.wauzcore.skills.SkillUtils;
+import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.annotations.Minigame;
 
 /**
- * A group minigame, where you have to kill the most vampire bats.
+ * A hunt minigame, where you have to fastly kill vampire bats.
  * 
  * @author Wauzmons
  */
@@ -31,14 +40,19 @@ import eu.wauz.wauzcore.system.annotations.Minigame;
 public class MinigameVanHelsing implements ArcadeMinigame {
 	
 	/**
-	 * The members of the green team.
+	 * A map of the player's scores.
 	 */
-	private List<Player> teamGreen = new ArrayList<>();
+	private Map<Player, Integer> playerScoreMap = new HashMap<>();
 	
 	/**
-	 * The members of the blue team.
+	 * A map of the player's boss bars.
 	 */
-	private List<Player> teamBlue = new ArrayList<>();
+	private Map<Player, BossBar> playerBarMap = new HashMap<>();
+	
+	/**
+	 * The players who have shot enough bats.
+	 */
+	private List<Player> finishedPlayers = new ArrayList<>();
 	
 	/**
 	 * The remaining bats in the arena.
@@ -46,14 +60,24 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 	private List<Entity> bats = new ArrayList<>();
 	
 	/**
-	 * The score of the green team.
+	 * The remaining silver bats in the arena.
 	 */
-	private int greenScore = 0;
+	private List<Entity> silverBats = new ArrayList<>();
 	
 	/**
-	 * The score of the blue team.
+	 * The particles to show around silver bats.
 	 */
-	private int blueScore = 0;
+	private SkillParticle silverParticle = new SkillParticle(Color.SILVER);
+	
+	/**
+	 * The amount of players who can win the game.
+	 */
+	private int maxWinningPlayers = 1;
+	
+	/**
+	 * The score needed to win the game.
+	 */
+	private int neededScore = 7;
 
 	/**
 	 * @return The display name of the minigame.
@@ -70,11 +94,10 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 	public List<String> getDescription() {
 		List<String> description = new ArrayList<>();
 		description.add(ChatColor.WHITE + "Win by using your Longbow");
-		description.add(ChatColor.WHITE + "to shoot more Vampire Bats");
-		description.add(ChatColor.WHITE + "than the other Team!");
+		description.add(ChatColor.WHITE + "to shoot " + neededScore + " Vampire Bats");
+		description.add(ChatColor.WHITE + "before the other Players!");
 		description.add("   ");
-		description.add(ChatColor.GREEN + "Team Green: " + ChatColor.GOLD + greenScore);
-		description.add(ChatColor.AQUA + "Team Blue: " + ChatColor.GOLD + blueScore);
+		description.add(ChatColor.BLUE + "Qualified Players: " + ChatColor.GOLD + finishedPlayers.size() + " / " + maxWinningPlayers);
 		return description;
 	}
 
@@ -85,24 +108,20 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 	 */
 	@Override
 	public void startGame(List<Player> players) {
-		List<List<Player>> teams = ArcadeUtils.splitIntoTeams(players, 2);
-		teamGreen.addAll(teams.get(0));
-		teamBlue.addAll(teams.get(1));
-		ArcadeUtils.equipTeamColor(teamGreen, Color.LIME, ChatColor.GREEN + "Team Green");
-		ArcadeUtils.equipTeamColor(teamBlue, Color.AQUA, ChatColor.AQUA + "Team Blue");
+		maxWinningPlayers = players.size() / 2;
 		Location spawnLocation = new Location(ArcadeLobby.getWorld(), 500.5, 88, 750.5, 0, 0);
-		ArcadeUtils.placeTeam(teamGreen, spawnLocation, 8, 8);
-		ArcadeUtils.placeTeam(teamBlue, spawnLocation, 8, 8);
+		ArcadeUtils.placeTeam(players, spawnLocation, 8, 8);
 		int playerCount = players.size();
-		if(teamGreen.size() < teamBlue.size()) {
-			greenScore = 3;
-		}
-		else if(teamBlue.size() < teamGreen.size()) {
-			blueScore = 3;
+		for(Player player : players) {
+			playerScoreMap.put(player, 0);
+			updateProgressBar(player);
 		}
 		Location batLocation = spawnLocation.clone().add(0, 12, 0);
-		for(int bat = 0; bat <= playerCount * 4; bat++) {
+		for(int bat = 0; bat < playerCount * 5; bat++) {
 			bats.add(batLocation.getWorld().spawnEntity(batLocation, EntityType.BAT));
+		}
+		for(int silverBat = 0; silverBat < playerCount; silverBat++) {
+			silverBats.add(batLocation.getWorld().spawnEntity(batLocation, EntityType.BAT));
 		}
 		ArcadeUtils.runStartTimer(10, 120);
 	}
@@ -131,33 +150,23 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 	 */
 	@Override
 	public List<Player> endGame() {
-		List<Player> winners = new ArrayList<>();
-		if(greenScore >= blueScore) {
-			winners.addAll(teamGreen);
+		List<Player> winners = new ArrayList<>(finishedPlayers);
+		playerScoreMap.clear();
+		for(BossBar bar : playerBarMap.values()) {
+			bar.removeAll();
 		}
-		if(blueScore >= greenScore) {
-			winners.addAll(teamBlue);
-		}
+		playerBarMap.clear();
+		finishedPlayers.clear();
 		for(Entity bat : bats) {
 			bat.remove();
 		}
-		teamGreen.clear();
-		teamBlue.clear();
 		bats.clear();
-		greenScore = 0;
-		blueScore = 0;
+		for(Entity bat : silverBats) {
+			bat.remove();
+		}
+		silverBats.clear();
+		maxWinningPlayers = 1;
 		return winners;
-	}
-	
-	/**
-	 * Handles the given quit event, that occured in the minigame.
-	 * 
-	 * @param player The player who quit.
-	 */
-	@Override
-	public void handleQuitEvent(Player player) {
-		teamGreen.remove(player);
-		teamBlue.remove(player);
 	}
 	
 	/**
@@ -183,40 +192,75 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 		}
 		Player damager = (Player) source;
 		Entity damaged = damageByEntityEvent.getEntity();
-		ChatColor teamColor = getTeamColor(damager);
-		if(teamColor.equals(ChatColor.GREEN)) {
-			greenScore++;
+		if(bats.contains(damaged)) {
+			bats.remove(damaged);
+			addProgress(damager, 1);
 		}
-		else if(teamColor.equals(ChatColor.AQUA)) {
-			blueScore++;
+		else if(silverBats.contains(damaged)) {
+			silverBats.remove(damaged);
+			addProgress(damager, 3);
 		}
-		damager.playSound(damager.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1, 1);
-		bats.remove(damaged);
 		damaged.remove();
-		for(Player player : ArcadeLobby.getPlayingPlayers()) {
-			player.sendMessage(teamColor + damager.getName() + ChatColor.LIGHT_PURPLE + " shot a bat!");
-		}
-		if(bats.size() == 0) {
-			ArcadeLobby.endGame();
+		damager.playSound(damager.getLocation(), Sound.ENTITY_BAT_HURT, 1, 1);
+	}
+	
+	/**
+	 * A method that is called every second of the minigame.
+	 */
+	@Override
+	public void handleTick() {
+		for(Entity silverBat : silverBats) {
+			silverParticle.spawn(silverBat.getLocation(), 1);
+			SkillUtils.addPotionEffect(silverBat, PotionEffectType.SPEED, 1, 2);
 		}
 	}
 	
 	/**
-	 * Gets the team color of the given player.
+	 * Adds progress to the given player's goal.
 	 * 
-	 * @param player The player to check.
-	 * 
-	 * @return Their team color.
+	 * @param player The player to add progress for.
+	 * @param progress The amount of progress to add.
 	 */
-	public ChatColor getTeamColor(Player player) {
-		if(teamGreen.contains(player)) {
-			return ChatColor.GREEN;
+	private void addProgress(Player player, int progress) {
+		int score = playerScoreMap.get(player) + progress;
+		if(score > neededScore) {
+			score = neededScore;
 		}
-		else if(teamBlue.contains(player)) {
-			return ChatColor.AQUA;
+		playerScoreMap.put(player, score);
+		updateProgressBar(player);
+		if(score >= neededScore) {
+			finishedPlayers.add(player);
+			player.teleport(new Location(ArcadeLobby.getWorld(), 500.5, 105, 750.5, 0, 0));
+			player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1, 1);
+			for(Player playing : ArcadeLobby.getPlayingPlayers()) {
+				playing.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.BLUE + " has been qualified!");
+			}
+			if(finishedPlayers.size() >= maxWinningPlayers) {
+				ArcadeLobby.endGame();
+			}
+		}
+	}
+	
+	/**
+	 * Updates the progress bar for the given player.
+	 * 
+	 * @param player The player to update the bar for.
+	 */
+	private void updateProgressBar(Player player) {
+		int currentScore = playerScoreMap.get(player);
+		double progress = (double) currentScore / (double) neededScore;
+		String scoreString = ChatColor.GOLD + " " + currentScore + " / " + neededScore;
+		String barTitle = ChatColor.WHITE + "~~~" + scoreString + ChatColor.YELLOW + " POINTS EARNED " + ChatColor.WHITE + "~~~";
+		BossBar bar = playerBarMap.get(player);
+		if(bar == null) {
+			bar = Bukkit.createBossBar(barTitle, BarColor.YELLOW, BarStyle.SOLID);
+			bar.setProgress(progress);
+			bar.addPlayer(player);
+			playerBarMap.put(player, bar);
 		}
 		else {
-			return ChatColor.WHITE;
+			bar.setTitle(barTitle);
+			bar.setProgress(progress);
 		}
 	}
 

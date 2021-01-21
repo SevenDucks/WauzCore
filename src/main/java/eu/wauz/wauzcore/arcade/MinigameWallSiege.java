@@ -104,10 +104,10 @@ public class MinigameWallSiege implements ArcadeMinigame {
 	@Override
 	public List<Player> endGame() {
 		List<Player> winners = new ArrayList<>(finishedPlayers);
+		finishedPlayers.clear();
 		for(Entity box : boxes) {
 			box.remove();
 		}
-		finishedPlayers.clear();
 		boxes.clear();
 		maxWinningPlayers = 1;
 		return winners;
@@ -138,7 +138,7 @@ public class MinigameWallSiege implements ArcadeMinigame {
 	@Override
 	public void handleMoveEvent(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
-		Location location = player.getLocation().clone().subtract(0, 1, 0);
+		Location location = player.getLocation();
 		if(location.getZ() <= 682 && location.getY() >= 92) {
 			finishedPlayers.add(player);
 			player.teleport(new Location(ArcadeLobby.getWorld(), 1000.5, 101, 710.5, 180, 0));
@@ -193,6 +193,8 @@ public class MinigameWallSiege implements ArcadeMinigame {
 				Panda panda = (Panda) shulkerLocation.getWorld().spawnEntity(shulkerLocation, EntityType.PANDA);
 				boxes.add(panda);
 				panda.setSilent(true);
+				panda.setAware(false);
+				panda.setCollidable(false);
 				panda.setAdult();
 				panda.addPassenger(nextPassenger);
 				nextPassenger = panda;

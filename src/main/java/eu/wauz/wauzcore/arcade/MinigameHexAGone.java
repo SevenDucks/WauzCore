@@ -22,8 +22,6 @@ import eu.wauz.wauzcore.system.annotations.Minigame;
  * A survival minigame, where you have to stay alive while the floor breaks.
  * 
  * @author Wauzmons
- * 
- * @see MinigameThinIce
  */
 @Minigame
 public class MinigameHexAGone implements ArcadeMinigame {
@@ -75,6 +73,7 @@ public class MinigameHexAGone implements ArcadeMinigame {
 		maxLosingPlayers = players.size() - (players.size() / 2);
 		World world = ArcadeLobby.getWorld();
 		Location floorLocation = new Location(world, 750.5, 85, 750.5);
+		breakingBlocks.clear();
 		breakingBlocks.addAll(new ShapeHexagon(floorLocation, 12).create(Material.CYAN_CONCRETE));
 		breakingBlocks.addAll(new ShapeHexagon(floorLocation.subtract(0, 10, 0), 12).create(Material.GREEN_CONCRETE));
 		breakingBlocks.addAll(new ShapeHexagon(floorLocation.subtract(0, 10, 0), 12).create(Material.YELLOW_CONCRETE));

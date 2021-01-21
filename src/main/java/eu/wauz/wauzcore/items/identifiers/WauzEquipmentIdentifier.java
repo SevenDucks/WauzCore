@@ -69,7 +69,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	/**
 	 * All possible equipment prefixes.
 	 */
-	private static List<String> equipPrefixes = new ArrayList<>(Arrays.asList(
+	private static List<String> equipPrefixes = Arrays.asList(
 			"Adamantite", "Ancient", "Alloyed", "Barbarian", "Blessed",
 			"Broken", "Ceremonial", "Cobalt", "Colossal", "Corrupted",
 			"Cruel", "Cursed", "Damaged", "Dragonbone", "Enchanted",
@@ -79,7 +79,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 			"Malevolent", "Merciful", "Mighty", "Mythril", "Outlandish",
 			"Plain", "Polished", "Robust", "Royal", "Ruined",
 			"Rusty", "Savage", "Soldier", "Spiked", "Stained",
-			"Timeworn", "Warforged", "Weakened", "Weathered", "Worthless"));
+			"Timeworn", "Warforged", "Weakened", "Weathered", "Worthless");
 	
 	/**
 	 * A random instance, for rolling item stats.

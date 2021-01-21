@@ -82,7 +82,7 @@ public class WauzRegion {
 			return;
 		}
 		
-		WauzRegion currentRegion = playerData.getRegion();
+		WauzRegion currentRegion = playerData.getSelections().getRegion();
 		WauzRegion newRegion = null;
 		
 		if(currentRegion == null) {
@@ -92,7 +92,7 @@ public class WauzRegion {
 			newRegion = getNewRegion(player.getLocation(), currentRegion, false);
 		}
 		
-		playerData.setRegion(newRegion);
+		playerData.getSelections().setRegion(newRegion);
 		if(currentRegion != newRegion) {
 			if(newRegion != null) {
 				newRegion.enter(player);

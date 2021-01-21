@@ -238,8 +238,8 @@ public class QuestProcessor {
 				return;
 			}
 			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-			playerData.setWauzPlayerEventName("Accept Quest");
-			playerData.setWauzPlayerEvent(event);
+			playerData.getSelections().setWauzPlayerEventName("Accept Quest");
+			playerData.getSelections().setWauzPlayerEvent(event);
 			WauzDialog.open(player, QuestMenuItems.generateUnacceptedQuest(player, quest, 1, false));
 		}
 	}

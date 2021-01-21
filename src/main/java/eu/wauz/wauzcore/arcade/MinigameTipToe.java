@@ -114,8 +114,8 @@ public class MinigameTipToe implements ArcadeMinigame {
 	public void handleMoveEvent(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
 		Location location = player.getLocation().clone().subtract(0, 1, 0);
-		for(double x = -0.15; x <= 0.15; x += 0.15) {
-			for(double z = -0.15; z <= 0.15; z += 0.15) {
+		for(double x = -0.2; x <= 0.2; x += 0.2) {
+			for(double z = -0.2; z <= 0.2; z += 0.2) {
 				Block blockBelow = location.clone().add(x, 0, z).getBlock();
 				List<Block> tileBlocks = blockFakeTileMap.get(blockBelow);
 				if(tileBlocks != null) {

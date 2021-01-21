@@ -16,6 +16,10 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.hanging.HangingBreakByEntityEvent;
+import org.bukkit.event.hanging.HangingBreakEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.event.player.PlayerRecipeDiscoverEvent;
@@ -147,6 +151,60 @@ public class PlayerAmbientListener implements Listener {
 		if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString()) && WauzRegion.disallowBuild(block)) {
 			event.setCancelled(true);
 			player.sendMessage(ChatColor.RED + "You can't build here! Find another spot!");
+		}
+	}
+	
+	/**
+	 * Prevents players to empty bukkets in certain regions.
+	 * 
+	 * @param event The bukket empty event.
+	 * 
+	 * @see WauzRegion#disallowBuild(Block)
+	 */
+	@EventHandler
+	public void onBukketEmpty(PlayerBucketEmptyEvent event) {
+		Player player = event.getPlayer();
+		Block block = event.getBlock();
+		if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString()) && WauzRegion.disallowBuild(block)) {
+			event.setCancelled(true);
+			player.sendMessage(ChatColor.RED + "You can't build here! Find another spot!");
+		}
+	}
+	
+	/**
+	 * Prevents players to fill bukkets in certain regions.
+	 * 
+	 * @param event The bukket fill event.
+	 * 
+	 * @see WauzRegion#disallowBuild(Block)
+	 */
+	@EventHandler
+	public void onBukketFill(PlayerBucketFillEvent event) {
+		Player player = event.getPlayer();
+		Block block = event.getBlock();
+		if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString()) && WauzRegion.disallowBuild(block)) {
+			event.setCancelled(true);
+			player.sendMessage(ChatColor.RED + "You can't build here! Find another spot!");
+		}
+	}
+	
+	/**
+	 * Prevents players from breaking frames and paintings in certain regions.
+	 * 
+	 * @param event The hanging break event.
+	 * 
+	 * @see WauzRegion#disallowBuild(Block)
+	 */
+	@EventHandler
+	public void onHangingBreak(HangingBreakEvent event) {
+		Block block = event.getEntity().getLocation().getBlock();
+		boolean hasDebugPermission = false;
+		if(event instanceof HangingBreakByEntityEvent) {
+			HangingBreakByEntityEvent entityEvent = (HangingBreakByEntityEvent) event;
+			hasDebugPermission = entityEvent.getRemover().hasPermission(WauzPermission.DEBUG_BUILDING.toString());
+		}
+		if(!hasDebugPermission && WauzRegion.disallowBuild(block)) {
+			event.setCancelled(true);
 		}
 	}
 

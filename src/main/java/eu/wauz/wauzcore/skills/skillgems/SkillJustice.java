@@ -126,7 +126,7 @@ public class SkillJustice implements WauzPlayerSkill {
 			
 			double randomDamageMultiplier = (random.nextInt(651) + 100) / 100;
 			SkillUtils.callPlayerMagicDamageEvent(player, target, randomDamageMultiplier);
-			int randomHealingAmount = playerData.getMaxHealth() * ((random.nextInt(15) + 1) / 100) + 1;
+			int randomHealingAmount = playerData.getStats().getMaxHealth() * ((random.nextInt(15) + 1) / 100) + 1;
 			DamageCalculator.heal(new EntityRegainHealthEvent(player, randomHealingAmount, RegainReason.MAGIC));
 			return true;
 		}

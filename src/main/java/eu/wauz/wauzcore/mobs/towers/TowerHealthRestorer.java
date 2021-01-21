@@ -79,7 +79,7 @@ public class TowerHealthRestorer implements DefenseTower {
 				return;
 			}
 			ParticleSpawner.spawnParticleLine(towerLocation, target.getLocation(), particle, 1);
-			DamageCalculator.heal(new EntityRegainHealthEvent(target, playerData.getMaxHealth() / 8, RegainReason.MAGIC));
+			DamageCalculator.heal(new EntityRegainHealthEvent(target, playerData.getStats().getMaxHealth() / 8, RegainReason.MAGIC));
 		}
 	}
 

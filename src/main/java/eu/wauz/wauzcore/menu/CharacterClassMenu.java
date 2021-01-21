@@ -123,7 +123,7 @@ public class CharacterClassMenu implements WauzInventory {
 		
 		String className = ChatColor.stripColor(clicked.getItemMeta().getDisplayName());
 		if(WauzPlayerClassPool.getClass(className) != null) {
-			playerData.setSelectedCharacterClass(className);
+			playerData.getSelections().setSelectedCharacterClass(className);
 			CharacterManager.createCharacter(player, WauzMode.MMORPG);
 			player.closeInventory();
 		}

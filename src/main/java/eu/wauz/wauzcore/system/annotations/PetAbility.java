@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import eu.wauz.wauzcore.mobs.pets.WauzPetAbility;
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 
 /**
@@ -32,10 +33,13 @@ public @interface PetAbility {
 		 * @throws Exception Failed to load a class.
 		 */
 		public static void init(AnnotationLoader loader) throws Exception {
+			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(PetAbility.class)) {
 				Object object = clazz.newInstance();
 				WauzPetAbilities.registerAbility((WauzPetAbility) object);
+				count++;
 			}
+			WauzCore.getInstance().getLogger().info("Loaded " + count + " Pet Abilities!");
 		}
 		
 	}

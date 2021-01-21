@@ -110,10 +110,10 @@ public class WauzCore extends JavaPlugin {
 		PluginManager pluginManager = getServer().getPluginManager();
 		if(WauzModules.isMainModuleActive()) {
 			ConfigurationLoader.init();
-			getLogger().info("Loaded Data from Files!");
+			getLogger().info("Finished Loading Data from Files!");
 			
 			AnnotationLoader.init();
-			getLogger().info("Loaded Data from Predefined Classes!");
+			getLogger().info("Finished Loading Data from Predefined Classes!");
 			
 			pluginManager.registerEvents(new ArmorEquipEventListener(), this);
 			pluginManager.registerEvents(new BlockProtectionListener(), this);

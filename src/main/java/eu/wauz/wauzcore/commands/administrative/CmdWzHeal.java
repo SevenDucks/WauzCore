@@ -54,7 +54,7 @@ public class CmdWzHeal implements WauzCommand {
 		}
 		
 		if(WauzMode.isMMORPG(player)) {
-			DamageCalculator.setHealth(player, WauzPlayerDataPool.getPlayer(player).getMaxHealth());
+			DamageCalculator.setHealth(player, WauzPlayerDataPool.getPlayer(player).getStats().getMaxHealth());
 		}
 		else {
 			player.setHealth(20);
