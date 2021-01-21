@@ -285,4 +285,11 @@ public class GenericIconHeads {
 		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjc3MTJjYTY1NTEyODcwMWVhM2U1ZjI4ZGRkNjllNmE4ZTYzYWRmMjgwNTJjNTFiMmZkNWFkYjUzOGUxIn19fQ==");
 	}
 	
+	/**
+	 * @return An item stack representing a bed.
+	 */
+	public static ItemStack getCitizenRestItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZiMjkwYTEzZGY4ODI2N2VhNWY1ZmNmNzk2YjYxNTdmZjY0Y2NlZTVjZDM5ZDQ2OTcyNDU5MWJhYmVlZDFmNiJ9fX0=");
+	}
+	
 }

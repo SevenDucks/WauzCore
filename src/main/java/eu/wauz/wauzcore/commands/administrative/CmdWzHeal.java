@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.events.WauzPlayerEventCitizenRest;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.system.annotations.Command;
@@ -51,17 +52,11 @@ public class CmdWzHeal implements WauzCommand {
 		if(player == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;
+		} else {
+			WauzPlayerEventCitizenRest WauzPlayerEventCitizenRest = new WauzPlayerEventCitizenRest("");
+			WauzPlayerEventCitizenRest.execute(player);
+			return true;
 		}
-		
-		if(WauzMode.isMMORPG(player)) {
-			DamageCalculator.setHealth(player, WauzPlayerDataPool.getPlayer(player).getStats().getMaxHealth());
-		}
-		else {
-			player.setHealth(20);
-		}
-		player.setFoodLevel(20);
-		player.setSaturation(20);
-		return true;
 	}
 
 }
