@@ -19,7 +19,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.CustomItem;
-import eu.wauz.wauzcore.items.WauzResources;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
@@ -165,9 +164,6 @@ public class EventMapper {
 		}
 		else if(blockType.equals(Material.OAK_SIGN) || blockType.equals(Material.OAK_WALL_SIGN)) {
 			WauzSigns.interact(player, block);
-		}
-		else if(blockType.toString().endsWith("ORE") && itemType.toString().endsWith("PICKAXE")) {
-			WauzResources.tryToMine(player, block);
 		}
 		else if(blockType.toString().endsWith("STAIRS") && itemType.equals(Material.AIR))  {
 			WauzPlayerSit.sit(player, block);

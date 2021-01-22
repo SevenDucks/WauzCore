@@ -38,31 +38,37 @@ interactions:
     type: inn
     level: 1
   4:
+    type: rest
+    level: 1
+  5:
+    type: rest
+    level: 2
+  6:
     type: shop
     name: ShinigamiShop
     level: 0
-  5:
+  7:
     type: shop
     name: AmmoShop
     level: 0
-  6:
+  8:
     type: quest
     name: TestRewards
     level: 0
-  7:
+  9:
     type: quest
     name: TestObjectives
     level: 0
-  8:
+  10:
     type: quest
     name: TheWayOfUganda
     level: 0
-  9:
+  11:
     type: command
     name: Teleport to Spawn
     level: 0
     command: spawn
-  10:
+  12:
     type: command
     name: Teleport to Hub
     level: 0

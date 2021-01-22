@@ -174,17 +174,17 @@ public class WauzCitizenInteractions {
 			Location location = CitizenConfigurator.getLocation(citizenName);
 			event = new WauzPlayerEventCitizenInn(displayName, location);
 			break;
+		case "rest":
+			interactionItemStack = GenericIconHeads.getCitizenRestItem();
+			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.LIGHT_PURPLE + "Rest: Restore HP and Saturation");
+			event = new WauzPlayerEventCitizenRest(displayName);
+			break;
 		case "command":
 			interactionItemStack = GenericIconHeads.getCitizenCommandItem();
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.BLUE + "Action: " + interactionName);
 			String command = CitizenConfigurator.getInteractionCommand(citizenName, interactionKey);
 			event = new WauzPlayerEventCitizenCommand(displayName, command);
 			break;
-		case "rest":
-			interactionItemStack = GenericIconHeads.getCitizenRestItem();
-			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.YELLOW + "Rest: Restore HP and Saturation");
-			event = new WauzPlayerEventCitizenRest(displayName);
-		break;
 		default:
 			WauzDebugger.log("Invalid Citizen Interaction Type: " + type);
 			return;

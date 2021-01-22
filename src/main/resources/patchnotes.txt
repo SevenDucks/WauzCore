@@ -4,9 +4,13 @@ Patch 6XX: Content Extension
 
 Patch 6XX: Survival Ascended
 
-Patch 6XX: Powerful Professions
+Patch 612: Cosmetic Chaos
 
-Patch 609: Gathering Goods
+Patch 611: Powerful Professions
+
+Patch 610: Gathering Goods
+
+Patch 609: Passive Perks
 
 Patch 608: Minigame Madness
 	Experimental: Drop Guys Gamemode (WIP)

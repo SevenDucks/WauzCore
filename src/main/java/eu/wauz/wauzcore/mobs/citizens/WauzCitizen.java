@@ -39,11 +39,6 @@ public class WauzCitizen {
 	private static int citizenCount;
 	
 	/**
-	 * The radius in chunks, in which citizens should be rendered.
-	 */
-	private static final int RENDER_RADIUS = 4;
-	
-	/**
 	 * Initializes all citizen configs and fills the internal citizen maps.
 	 * 
 	 * @see CitizenConfigurator#getCitizenNameList()
@@ -117,16 +112,17 @@ public class WauzCitizen {
 	 * Finds all the citzens, the player should be able to see.
 	 * 
 	 * @param player The player to get the citizens for.
+	 * @param radius The radius in chunks, in which citizens should be found.
 	 * 
 	 * @return A list of all citizens, the player should see.
 	 */
-	public static List<WauzCitizen> getCitizensNearPlayer(Player player) {
+	public static List<WauzCitizen> getCitizensNearPlayer(Player player, int radius) {
 		List<WauzCitizen> citizens = new ArrayList<>();
 		int chunkX = player.getChunk().getX();
 		int chunkZ = player.getChunk().getZ();
 		World world = player.getWorld();
-		for(int x = chunkX - RENDER_RADIUS; x <= chunkX + RENDER_RADIUS; x++) {
-			for(int z = chunkZ - RENDER_RADIUS; z <= chunkZ + RENDER_RADIUS; z++) {
+		for(int x = chunkX - radius; x <= chunkX + radius; x++) {
+			for(int z = chunkZ - radius; z <= chunkZ + radius; z++) {
 				Chunk chunk = world.getChunkAt(x, z);
 				List<WauzCitizen> chunkCitizens = chunkCitizensMap.get(getChunkKey(chunk));
 				if(chunkCitizens != null) {
