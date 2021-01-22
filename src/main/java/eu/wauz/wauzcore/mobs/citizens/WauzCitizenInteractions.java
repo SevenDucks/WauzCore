@@ -21,6 +21,7 @@ import eu.wauz.wauzcore.events.WauzPlayerEvent;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenCommand;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenInn;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenQuest;
+import eu.wauz.wauzcore.events.WauzPlayerEventCitizenRest;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenShop;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTalk;
 import eu.wauz.wauzcore.items.util.ItemUtils;
@@ -179,6 +180,11 @@ public class WauzCitizenInteractions {
 			String command = CitizenConfigurator.getInteractionCommand(citizenName, interactionKey);
 			event = new WauzPlayerEventCitizenCommand(displayName, command);
 			break;
+		case "rest":
+			interactionItemStack = GenericIconHeads.getCitizenRestItem();
+			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.YELLOW + "Rest: Restore HP and Saturation");
+			event = new WauzPlayerEventCitizenRest(displayName);
+		break;
 		default:
 			WauzDebugger.log("Invalid Citizen Interaction Type: " + type);
 			return;

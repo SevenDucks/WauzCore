@@ -47,11 +47,23 @@ public class CmdTalk implements WauzCommand {
 	public boolean executeCommand(CommandSender sender, String[] args) {
 		Player player = (Player) sender;
 		List<WauzCitizen> citizens = WauzCitizen.getCitizensNearPlayer(player);
+		for(WauzCitizen citizen : citizens) {
+			if(citizen.getLocation().distance(player.getLocation()) > 8D) {
+				citizens.remove(citizen);
+			}
+		}
+		
 		if(citizens.isEmpty()) {
 			player.sendMessage(ChatColor.RED + "There are no citizens near you!");
 		}
 		else {
-			CitizenInteractionMenu.open(player, citizens.get(0));
+			WauzCitizen nearestCitizen = citizens.get(0);
+			for(WauzCitizen citizen : citizens) {
+				if(citizen.getLocation().distance(player.getLocation()) < nearestCitizen.getLocation().distance(player.getLocation())) {
+					nearestCitizen = citizen;
+				}
+			}
+			CitizenInteractionMenu.open(player, nearestCitizen);
 		}
 		return true;
 	}
