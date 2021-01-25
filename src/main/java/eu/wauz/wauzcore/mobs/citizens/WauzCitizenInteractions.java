@@ -24,10 +24,12 @@ import eu.wauz.wauzcore.events.WauzPlayerEventCitizenQuest;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenRest;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenShop;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTalk;
+import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTravel;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.WauzWaypoint;
 import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 
@@ -178,6 +180,12 @@ public class WauzCitizenInteractions {
 			interactionItemStack = GenericIconHeads.getCitizenRestItem();
 			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.LIGHT_PURPLE + "Rest: Restore HP and Saturation");
 			event = new WauzPlayerEventCitizenRest(displayName);
+			break;
+		case "travel":
+			interactionItemStack = GenericIconHeads.getCitizenTravelItem();
+			WauzWaypoint waypoint = WauzWaypoint.getWaypoint(interactionName);
+			MenuUtils.setItemDisplayName(interactionItemStack, ChatColor.DARK_PURPLE + "Travel: " + waypoint.getWaypointDisplayName());
+			event = new WauzPlayerEventCitizenTravel(citizenName, waypoint);
 			break;
 		case "command":
 			interactionItemStack = GenericIconHeads.getCitizenCommandItem();

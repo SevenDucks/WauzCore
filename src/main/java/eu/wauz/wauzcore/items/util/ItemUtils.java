@@ -168,7 +168,7 @@ public class ItemUtils {
 	 * @return If the item is a food item.
 	 */
 	public static boolean isFoodItem(ItemStack itemStack) {
-		return hasLore(itemStack) && doesLoreContain(itemStack, "Food Item");
+		return hasDisplayName(itemStack) && hasLore(itemStack) && doesLoreContain(itemStack, "Food Item");
 	}
 	
 	/**
@@ -224,7 +224,19 @@ public class ItemUtils {
 	 * @see ItemUtils#isBoughtItem(ItemStack)
 	 */
 	public static int getSellValue(ItemStack itemStack) {
-		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Sell Value", 2) * itemStack.getAmount() : 0;
+		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Sell Value:" + ChatColor.DARK_GREEN, 2) * itemStack.getAmount() : 0;
+	}
+	
+	/**
+	 * Gets the cooldown of an item stack, based on lore.
+	 * Includes null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return The cooldown seconds.
+	 */
+	public static int getCooldown(ItemStack itemStack) {
+		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Cooldown:" + ChatColor.YELLOW, 1) : 1;
 	}
 	
 	/**

@@ -41,8 +41,9 @@ interactions:
     type: rest
     level: 1
   5:
-    type: rest
-    level: 2
+    type: travel
+    name: Library
+    level: 1
   6:
     type: shop
     name: ShinigamiShop

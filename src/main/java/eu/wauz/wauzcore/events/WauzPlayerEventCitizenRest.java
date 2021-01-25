@@ -34,6 +34,8 @@ public class WauzPlayerEventCitizenRest implements WauzPlayerEvent {
 	 * @param player The player for the execution.
 	 * 
 	 * @return If the event was executed successfully.
+	 * 
+	 * @see DamageCalculator#setHealth(Player, int)
 	 */
 	@Override
 	public boolean execute(Player player) {

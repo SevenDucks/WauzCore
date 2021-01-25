@@ -53,9 +53,14 @@ public class WauzPlayerDataSectionSkills {
 	private Map<String, Castable> castableMap = new HashMap<>();
 	
 	/**
-	 * The skill coodlown times by id.
+	 * The skill cooldown times by id.
 	 */
 	private Map<String, Long> skillCooldownMap = new HashMap<>();
+	
+	/**
+	 * The food cooldown times by id.
+	 */
+	private Map<String, Long> foodCooldownMap = new HashMap<>();
 	
 	/**
 	 * The action cooldown times by id.
@@ -195,6 +200,34 @@ public class WauzPlayerDataSectionSkills {
 		boolean hasDebugPermission = playerData.getPlayer().hasPermission(WauzPermission.DEBUG_MAGIC.toString());
 		Long cooldown = (long) (hasDebugPermission ? 1 : WauzPlayerSkillExecutor.getSkill(skillId).getCooldownSeconds());
 		skillCooldownMap.put(skillId, cooldown * 1000 + System.currentTimeMillis());
+	}
+	
+	/**
+	 * Checks if the cooldown timestamp for the given food is smaller than the current time.
+	 * 
+	 * @param foodId The id of the food.
+	 * 
+	 * @return If the cooldown is ready.
+	 */
+	public boolean isFoodReady(String foodId) {
+		Long cooldown = foodCooldownMap.get(foodId);
+		if(cooldown == null || cooldown <= System.currentTimeMillis()) {
+			return true;
+		}
+		long remaining = (cooldown - System.currentTimeMillis()) / 1000;
+		remaining = remaining < 1 ? 1 : remaining;
+		playerData.getPlayer().sendMessage(ChatColor.RED + "Food not ready! " + remaining + " Seconds remain!");
+		return false;
+	}
+	
+	/**
+	 * Resets the cooldown for the given food.
+	 * 
+	 * @param foodId The id of the food.
+	 * @param cooldown The food cooldown in seconds.
+	 */
+	public void updateFoodCooldown(String foodId, int cooldown) {
+		foodCooldownMap.put(foodId, cooldown * 1000 + System.currentTimeMillis());
 	}
 	
 	/**
