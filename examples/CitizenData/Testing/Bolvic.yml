@@ -46,7 +46,7 @@ interactions:
     level: 1
   6:
     type: shop
-    name: ShinigamiShop
+    name: Testing/ShinigamiShop
     level: 0
   7:
     type: shop
@@ -54,15 +54,15 @@ interactions:
     level: 0
   8:
     type: quest
-    name: TestRewards
+    name: Testing/TestRewards
     level: 0
   9:
     type: quest
-    name: TestObjectives
+    name: Testing/TestObjectives
     level: 0
   10:
     type: quest
-    name: TheWayOfUganda
+    name: Testing/TheWayOfUganda
     level: 0
   11:
     type: command
