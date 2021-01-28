@@ -89,7 +89,7 @@ public class InstanceManager {
 		WauzActiveInstance activeInstance = new WauzActiveInstance(instanceWorld, instanceTemplate);
 		WauzActiveInstancePool.registerInstance(activeInstance);
 		
-		player.teleport(new Location(instanceWorld, 0.5, 5, 0.5));
+		player.teleport(activeInstance.getSpawnLocation());
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 		return true;
 	}

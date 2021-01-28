@@ -1,5 +1,6 @@
 world: Day
 type: DEFAULT
+coords: 0.5 10 0.5
 title: Test-Instance
 subtitle: Realm of Eternal Day
 music: None

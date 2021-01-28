@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
+
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.RankConfigurator;
@@ -79,6 +81,14 @@ public class WauzInstance extends WauzBaseInstance {
 		this.instanceWorldTemplateName = InstanceConfigurator.getWorldTemplateName(instanceName);
 		WauzInstanceType type = InstanceConfigurator.getInstanceType(instanceName);
 		setType(type);
+		List<Float> spawnCoords = new ArrayList<>();
+		String spawnCoordsString = InstanceConfigurator.getPlayerSpawnCoords(instanceName);
+		if(StringUtils.isNotBlank(spawnCoordsString)) {
+			for(String spawnCoord : spawnCoordsString.split(" ")) {
+				spawnCoords.add(Float.parseFloat(spawnCoord));
+			}
+		}
+		setSpawnCoords(spawnCoords);
 		setMaxPlayers(InstanceConfigurator.getMaximumPlayers(instanceName));
 		setMaxDeaths(InstanceConfigurator.getMaximumDeaths(instanceName));
 		setDisplayTitle(InstanceConfigurator.getDisplayTitle(instanceName));

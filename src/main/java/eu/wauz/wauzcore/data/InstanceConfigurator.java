@@ -35,6 +35,15 @@ public class InstanceConfigurator extends InstanceConfigurationUtils {
 	/**
 	 * @param instanceName The name of the instance.
 	 * 
+	 * @return The coordinates to spawn players.
+	 */
+	public static String getPlayerSpawnCoords(String instanceName) {
+		return instanceConfigGetString(instanceName, "coords");
+	}
+	
+	/**
+	 * @param instanceName The name of the instance.
+	 * 
 	 * @return The maximum players of the instance.
 	 */
 	public static int getMaximumPlayers(String instanceName) {
