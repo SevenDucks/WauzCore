@@ -65,10 +65,10 @@ public class WauzActiveInstance extends WauzBaseInstance {
 		setType(template.getType());
 		List<Float> coords = template.getSpawnCoords();
 		if(coords.size() >= 5) {
-			this.spawnLocation = new Location(world, coords.get(0), coords.get(1), coords.get(2));
+			this.spawnLocation = new Location(world, coords.get(0), coords.get(1), coords.get(2), coords.get(3), coords.get(4));
 		}
 		else if(coords.size() >= 3) {
-			this.spawnLocation = new Location(world, coords.get(0), coords.get(1), coords.get(2), coords.get(3), coords.get(4));
+			this.spawnLocation = new Location(world, coords.get(0), coords.get(1), coords.get(2));
 		}
 		else {
 			this.spawnLocation = new Location(world, 0.5, 5, 0.5);

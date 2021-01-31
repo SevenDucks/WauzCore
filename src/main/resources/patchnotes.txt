@@ -1,8 +1,8 @@
-Patch 6XX: Kingdom Siege
+Patch 7XX: Kingdom Siege
 
-Patch 6XX: Content Extension
+Patch 7XX: Content Extension
 
-Patch 6XX: Survival Ascended
+Patch 7XX: Survival Ascended
 
 Patch 612: Cosmetic Chaos
 
@@ -11,6 +11,29 @@ Patch 611: Powerful Professions
 Patch 610: Gathering Goods
 
 Patch 609: Passive Perks
+	New Feature: Fitness Skills
+	  - Breath - Leveled through Sprinting
+	    > Increases Walk Speed
+	  - Nutrition - Leveled through Eating
+	    > Increases Maximum HP
+	  - Weight - Leveled through Materials
+	    > Increases Backpack Size
+	
+	Added Configuration Options
+	  - Subfolders / Nested Data Files
+	  - Flexible Instance Spawn Points
+	  - Food Cooldown Stat
+	  - Armor Swiftness Stat (Walk Speed)
+	  - Citizen "Rest" Option
+	  - Citizen "Travel" Option
+	  
+	Drop Guys Additions
+	  - Removed Teams from Games
+	  - Removed Multiple Exploits
+	  - New Minigames
+	    > Thin-Ice
+	    > Wall-Siege
+	    > Door-Dash
 
 Patch 608: Minigame Madness
 	Experimental: Drop Guys Gamemode (WIP)

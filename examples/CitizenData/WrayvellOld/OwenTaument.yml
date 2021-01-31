@@ -1,0 +1,29 @@
+display: Owen Taument
+name:
+  - Owen Taument
+  - ''
+world: MMORPG
+location: -5597.092 97 5617.975 0 0
+skinid: 2054986010
+invisible: false
+burning: false
+items:
+  mainhand:
+  offhand:
+  helmet:
+  chestplate:
+  leggings:
+  boots:
+interactions:
+  1:
+    type: talk
+    name: Who are you?
+    level: 0
+    messages:
+      - 'I am a nobody.'
+  2:
+    type: talk
+    name: Where am I?
+    level: 0
+    messages:
+      - 'Wrayvell.'

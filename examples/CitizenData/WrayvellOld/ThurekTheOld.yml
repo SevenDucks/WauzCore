@@ -1,0 +1,29 @@
+display: Thurek The Old
+name:
+  - Thurek The Old
+  - ''
+world: MMORPG
+location: -5611.5 92.0 5624.5 0 0
+skinid: 110658741
+invisible: false
+burning: false
+items:
+  mainhand:
+  offhand:
+  helmet:
+  chestplate:
+  leggings:
+  boots:
+interactions:
+  1:
+    type: talk
+    name: Who are you?
+    level: 0
+    messages:
+      - 'I am a hobo.'
+  2:
+    type: talk
+    name: Where am I?
+    level: 0
+    messages:
+      - 'Wrayvell.'

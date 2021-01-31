@@ -44,7 +44,7 @@ public class FoodCalculator {
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		String foodId = itemStack.getItemMeta().getDisplayName();
-		if(playerData == null || playerData.getSkills().isFoodReady(foodId)) {
+		if(playerData == null || !playerData.getSkills().isFoodReady(foodId)) {
 			return;
 		}
 		int foodCooldown = ItemUtils.getCooldown(itemStack);

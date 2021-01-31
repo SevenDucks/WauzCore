@@ -1,0 +1,29 @@
+display: Robin Everstone
+name:
+  - Robin Everstone
+  - ''
+world: MMORPG
+location: -5706.0 105 5611.0 0 0
+skinid: 2089776092
+invisible: false
+burning: false
+items:
+  mainhand:
+  offhand:
+  helmet:
+  chestplate:
+  leggings:
+  boots:
+interactions:
+  1:
+    type: talk
+    name: Who are you?
+    level: 0
+    messages:
+      - 'I am a white carpenter.'
+  2:
+    type: talk
+    name: Where am I?
+    level: 0
+    messages:
+      - 'Wrayvell.'
