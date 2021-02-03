@@ -182,8 +182,7 @@ public class WauzPlayerDataSectionSkills {
 		if(cooldown == null || cooldown <= System.currentTimeMillis()) {
 			return true;
 		}
-		long remaining = (cooldown - System.currentTimeMillis()) / 1000;
-		remaining = remaining < 1 ? 1 : remaining;
+		long remaining = (cooldown - System.currentTimeMillis()) / 1000 + 1;
 		playerData.getPlayer().sendMessage(ChatColor.RED + "Skill not ready! " + remaining + " Seconds remain!");
 		return false;
 	}
@@ -214,8 +213,7 @@ public class WauzPlayerDataSectionSkills {
 		if(cooldown == null || cooldown <= System.currentTimeMillis()) {
 			return true;
 		}
-		long remaining = (cooldown - System.currentTimeMillis()) / 1000;
-		remaining = remaining < 1 ? 1 : remaining;
+		long remaining = (cooldown - System.currentTimeMillis()) / 1000 + 1;
 		playerData.getPlayer().sendMessage(ChatColor.RED + "Food not ready! " + remaining + " Seconds remain!");
 		return false;
 	}

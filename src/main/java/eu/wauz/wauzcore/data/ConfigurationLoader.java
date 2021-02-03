@@ -7,6 +7,7 @@ import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.oneblock.OnePhase;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.professions.WauzResource;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.WauzTitle;
@@ -45,6 +46,7 @@ public class ConfigurationLoader {
 		WauzAchievement.init();
 		WauzShop.init();
 		WauzQuest.init();
+		WauzResource.init();
 		WauzBestiarySpecies.init();
 		WauzCitizen.init();
 		WauzPet.init();
