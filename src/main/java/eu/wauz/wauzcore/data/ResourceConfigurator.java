@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 import eu.wauz.wauzcore.data.api.ResourceConfigurationUtils;
+import eu.wauz.wauzcore.professions.WauzResourceType;
 
 /**
  * Configurator to fetch or modify data from the Resource.yml files.
@@ -32,8 +33,8 @@ public class ResourceConfigurator extends ResourceConfigurationUtils {
 	 * 
 	 * @return The type of the resource.
 	 */
-	public static String getResourceType(String resourceName) {
-		return resourceConfigGetString(resourceName, "type");
+	public static WauzResourceType getResourceType(String resourceName) {
+		return WauzResourceType.valueOf(resourceConfigGetString(resourceName, "type"));
 	}
 	
 	/**

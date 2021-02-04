@@ -7,12 +7,12 @@ import java.util.Map;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.CitizenConfigurator;
+import eu.wauz.wauzcore.system.util.ChunkKeyMap;
 
 /**
  * A citizen, generated from a citizen config file.
@@ -26,7 +26,7 @@ public class WauzCitizen {
 	/**
 	 * A map with lists of citizens, indexed by chunk keys.
 	 */
-	private static Map<String, List<WauzCitizen>> chunkCitizensMap = new HashMap<>();
+	private static ChunkKeyMap<List<WauzCitizen>> chunkCitizensMap = new ChunkKeyMap<>();
 	
 	/**
 	 * A map of citizens that aren't assigned to a world, indexed by name.
@@ -71,11 +71,10 @@ public class WauzCitizen {
 	 * @see WauzCitizenSpawner#createNpc(WauzCitizen)
 	 */
 	public static void addToChunkMap(WauzCitizen citizen, Chunk chunk) {
-		String chunkKey = getChunkKey(chunk);
-		if(chunkCitizensMap.get(chunkKey) == null) {
-			chunkCitizensMap.put(chunkKey, new ArrayList<>());
+		if(chunkCitizensMap.get(chunk) == null) {
+			chunkCitizensMap.put(chunk, new ArrayList<>());
 		}
-		chunkCitizensMap.get(chunkKey).add(citizen);
+		chunkCitizensMap.get(chunk).add(citizen);
 		WauzCitizenSpawner.createNpc(citizen);
 	}
 	
@@ -88,11 +87,10 @@ public class WauzCitizen {
 	 * @see WauzCitizenSpawner#unregisterNpc(WauzCitizen)
 	 */
 	public static void removeFromChunkMap(WauzCitizen citizen, Chunk chunk) {
-		String chunkKey = getChunkKey(chunk);
-		List<WauzCitizen> chunkCitizens = chunkCitizensMap.get(chunkKey);
+		List<WauzCitizen> chunkCitizens = chunkCitizensMap.get(chunk);
 		chunkCitizens.remove(citizen);
 		if(chunkCitizens.isEmpty()) {
-			chunkCitizensMap.remove(chunkKey);
+			chunkCitizensMap.remove(chunk);
 		}
 		WauzCitizenSpawner.unregisterNpc(citizen);
 	}
@@ -109,7 +107,7 @@ public class WauzCitizen {
 	}
 	
 	/**
-	 * Finds all the citzens, the player should be able to see.
+	 * Finds all the citzens, near the given player.
 	 * 
 	 * @param player The player to get the citizens for.
 	 * @param radius The radius in chunks, in which citizens should be found.
@@ -118,30 +116,10 @@ public class WauzCitizen {
 	 */
 	public static List<WauzCitizen> getCitizensNearPlayer(Player player, int radius) {
 		List<WauzCitizen> citizens = new ArrayList<>();
-		int chunkX = player.getChunk().getX();
-		int chunkZ = player.getChunk().getZ();
-		World world = player.getWorld();
-		for(int x = chunkX - radius; x <= chunkX + radius; x++) {
-			for(int z = chunkZ - radius; z <= chunkZ + radius; z++) {
-				Chunk chunk = world.getChunkAt(x, z);
-				List<WauzCitizen> chunkCitizens = chunkCitizensMap.get(getChunkKey(chunk));
-				if(chunkCitizens != null) {
-					citizens.addAll(chunkCitizens);
-				}
-			}
+		for(List<WauzCitizen> chunkCitizens : chunkCitizensMap.getInRadius(player.getChunk(), radius)) {
+			citizens.addAll(chunkCitizens);
 		}
 		return citizens;
-	}
-	
-	/**
-	 * Converts the chunks data into an unique key.
-	 * 
-	 * @param chunk The chunk to get a key to.
-	 * 
-	 * @return The key of the chunk.
-	 */
-	public static String getChunkKey(Chunk chunk) {
-		return chunk.getWorld().getName() + "::" + chunk.getX() + "::" + chunk.getZ();
 	}
 	
 	/**

@@ -1,5 +1,22 @@
 package eu.wauz.wauzcore.professions;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+
+import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.ResourceConfigurator;
+import eu.wauz.wauzcore.system.util.ChunkKeyMap;
+import io.lumine.xikage.mythicmobs.MythicMobs;
+import io.lumine.xikage.mythicmobs.drops.DropManager;
+import io.lumine.xikage.mythicmobs.drops.DropTable;
+
 /**
  * A gatherable resource, generated from a resource config file.
  * 
@@ -7,8 +24,132 @@ package eu.wauz.wauzcore.professions;
  */
 public class WauzResource {
 	
+	/**
+	 * Access to the MythicMobs API.
+	 */
+	private static DropManager mythicMobs = MythicMobs.inst().getDropManager();
+	
+	/**
+	 * A map with lists of resource spawns, indexed by chunk keys.
+	 */
+	private static ChunkKeyMap<List<WauzResourceSpawn>> chunkResourcesMap = new ChunkKeyMap<>();
+	
+	/**
+	 * A map with resource spawns, indexed by block.
+	 */
+	private static Map<Block, WauzResourceSpawn> blockResourceMap = new HashMap<>();
+	
+	/**
+	 * The number of all different registred resources.
+	 */
+	private static int resourceCount;
+	
+	/**
+	 * Initializes all resource configs and fills the internal resource maps.
+	 * 
+	 * @see ResourceConfigurator#getResourceNameList()
+	 * @see WauzResource#addToChunkMap(WauzResource, List)
+	 */
 	public static void init() {
+		for(String resourceName : ResourceConfigurator.getResourceNameList()) {
+			WauzResource resource = new WauzResource(resourceName);
+			addToChunkMap(resource, ResourceConfigurator.getResourceLocations(resourceName));
+			resourceCount++;
+		}
 		
+		WauzCore.getInstance().getLogger().info("Loaded " + resourceCount + " Resources!");
+	}
+	
+	/**
+	 * Adds a resource to the chunk map, so it can spawn in related chunks.
+	 * 
+	 * @param resource The resource to add.
+	 * @param locations The spawn locations of the resource.
+	 */
+	public static void addToChunkMap(WauzResource resource, List<Location> locations) {
+		for(Location location : locations) {
+			Chunk chunk = location.getChunk();
+			if(chunkResourcesMap.get(chunk) == null) {
+				chunkResourcesMap.put(chunk, new ArrayList<>());
+			}
+			WauzResourceSpawn resourceSpawn = new WauzResourceSpawn(resource, location);
+			chunkResourcesMap.get(chunk).add(resourceSpawn);
+			blockResourceMap.put(location.getBlock(), resourceSpawn);
+		}
+	}
+	
+	/**
+	 * Highlights all the resources, near the given player.
+	 * 
+	 * @param player The player to highlight the resources for.
+	 */
+	public static void highlightResourcesNearPlayer(Player player) {
+		for(List<WauzResourceSpawn> resourceSpawns : chunkResourcesMap.getInRadius(player.getChunk(), 1)) {
+			for(WauzResourceSpawn resourceSpawn : resourceSpawns) {
+				resourceSpawn.tryToHighlightResource(player);
+			}
+		}
+	}
+	
+	/**
+	 * The canonical name of the resource.
+	 */
+	private String resourceName;
+	
+	/**
+	 * The type of the resource.
+	 */
+	private WauzResourceType type;
+	
+	/**
+	 * The drop table of the resource.
+	 */
+	private DropTable dropTable;
+	
+	/**
+	 * The respawn minutes of the resource.
+	 */
+	private int respawnMins;
+	
+	/**
+	 * Constructs a resource, based on the resource file name in the /WauzCore/ResourceData folder.
+	 * 
+	 * @param resourceName The canonical name of the resource.
+	 */
+	public WauzResource(String resourceName) {
+		this.resourceName = resourceName;
+		
+		type = ResourceConfigurator.getResourceType(resourceName);
+		dropTable = mythicMobs.getDropTable(ResourceConfigurator.getResourceDropTable(resourceName)).get();
+		respawnMins = ResourceConfigurator.getResourceRespawnMinutes(resourceName);
+	}
+
+	/**
+	 * @return The canonical name of the resource.
+	 */
+	public String getResourceName() {
+		return resourceName;
+	}
+
+	/**
+	 * @return The type of the resource.
+	 */
+	public WauzResourceType getType() {
+		return type;
+	}
+
+	/**
+	 * @return The drop table of the resource.
+	 */
+	public DropTable getDropTable() {
+		return dropTable;
+	}
+
+	/**
+	 * @return The respawn minutes of the resource.
+	 */
+	public int getRespawnMins() {
+		return respawnMins;
 	}
 
 }

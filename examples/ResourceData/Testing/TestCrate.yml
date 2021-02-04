@@ -1,0 +1,5 @@
+type: CONTAINER
+droptable:
+respawnmins: 10
+locations:
+- 'MMORPG -5789.5 80 6820.5'
