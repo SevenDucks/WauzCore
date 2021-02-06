@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -89,6 +90,31 @@ public class WauzResource {
 				resourceSpawn.tryToHighlightResource(player);
 			}
 		}
+	}
+	
+	/**
+	 * Lets the player interact with the resource block, if it is valid.
+	 * 
+	 * @param player The player interacting with the resource.
+	 * @param block The block the resource is located at.
+	 * 
+	 * @return If the interaction was successful.
+	 */
+	public static boolean tryToInteractWithResource(Player player, Block block) {
+		WauzResourceSpawn resourceSpawn = blockResourceMap.get(block);
+		if(resourceSpawn == null) {
+			return false;
+		}
+		switch (resourceSpawn.getResource().getType()) {
+		case CONTAINER:
+			if(resourceSpawn.tryToCollectResource(player)) {
+				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
+			}
+			break;
+		case NODE:
+			break;
+		}
+		return true;
 	}
 	
 	/**

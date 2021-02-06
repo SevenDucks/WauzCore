@@ -32,6 +32,7 @@ import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
+import eu.wauz.wauzcore.professions.WauzResource;
 import eu.wauz.wauzcore.skills.SkillQuickSlots;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -51,7 +52,7 @@ public class EventMapper {
 			Material.DISPENSER, Material.DROPPER, Material.CAKE, Material.BLAST_FURNACE, Material.CAMPFIRE,
 			Material.CARTOGRAPHY_TABLE, Material.COMPOSTER, Material.FLETCHING_TABLE, Material.GRINDSTONE, Material.LOOM,
 			Material.SMITHING_TABLE, Material.SMOKER, Material.STONECUTTER, Material.LODESTONE, Material.RESPAWN_ANCHOR,
-			Material.LECTERN, Material.CAULDRON);
+			Material.LECTERN, Material.CAULDRON, Material.CHEST, Material.TRAPPED_CHEST);
 	
 	/**
 	 * A map of all coustom items for the MMORPG mode, indexed by trigger materials.
@@ -157,7 +158,8 @@ public class EventMapper {
 		Material itemType = player.getEquipment().getItemInMainHand().getType();
 		WauzDebugger.log(player, "Clicked Block: " + blockType.toString());
 		
-		if(blockedCraftingStations.contains(blockType)
+		if(WauzResource.tryToInteractWithResource(player, block)
+				|| blockedCraftingStations.contains(blockType)
 				|| blockType.toString().contains("TRAPDOOR")
 				|| blockType.toString().endsWith("BED")) {
 			event.setCancelled(true);

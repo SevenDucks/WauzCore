@@ -10,6 +10,9 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import io.lumine.xikage.mythicmobs.adapters.bukkit.BukkitAdapter;
+import io.lumine.xikage.mythicmobs.drops.DropMetadata;
+import io.lumine.xikage.mythicmobs.drops.LootBag;
 
 /**
  * An instanced block of a gatherable resource.
@@ -67,26 +70,25 @@ public class WauzResourceSpawn {
 		if(!canCollectResource(player)) {
 			return;
 		}
-		ParticleSpawner.spawnParticleCircle(location.getBlock().getLocation(), particle, 0.75, 6);
+		ParticleSpawner.spawnParticleCircle(location, particle, 0.75, 6);
 	}
 	
 	/**
 	 * Lets the player collect the resource, if it is ready.
 	 * 
 	 * @param player The player collecting the resource.
+	 * 
+	 * @return If the collection was successful.
 	 */
-	public void tryToCollectResource(Player player) {
+	public boolean tryToCollectResource(Player player) {
 		if(!canCollectResource(player)) {
-			return;
+			return false;
 		}
-		switch (resource.getType()) {
-		case CONTAINER:
-			break;
-		case NODE:
-			break;
-		}
+		LootBag lootBag = resource.getDropTable().generate(new DropMetadata(null, BukkitAdapter.adapt(player)));
+		lootBag.drop(BukkitAdapter.adapt(location.clone().add(0, 1, 0)));
 		Long cooldown = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(resource.getRespawnMins());
 		playerCooldownMap.put(player, cooldown);
+		return true;
 	}
 	
 	/**
@@ -99,6 +101,13 @@ public class WauzResourceSpawn {
 	public boolean canCollectResource(Player player) {
 		Long cooldown = playerCooldownMap.get(player);
 		return cooldown == null || cooldown < System.currentTimeMillis();
+	}
+
+	/**
+	 * @return The instanced resource.
+	 */
+	public WauzResource getResource() {
+		return resource;
 	}
 
 }
