@@ -62,6 +62,15 @@ public class WauzPetStat {
 	}
 	
 	/**
+	 * @param stat A stat key.
+	 * 
+	 * @return The stat categories with that key.
+	 */
+	public static List<String> getStatCategories(WauzPetStat stat) {
+		return new ArrayList<>(PetConfigurator.getStatCategories(stat));
+	}
+	
+	/**
 	 * The key of the pet stat.
 	 */
 	private String key;

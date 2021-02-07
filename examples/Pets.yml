@@ -2,12 +2,21 @@ stats:
   Intelligence:
     name: Int
     description: + 0.5% Bonus Exp per Level
+    categories:
+    - 'Human'
+    - 'Monster'
   Dexterity:
     name: Dex
     description: + 0.3% Movement Speed per Level
+    categories:
+    - 'Human'
+    - 'Monster'
   Absorption:
     name: Abs
     description: + 1.0% Armor Defense per Level
+    categories:
+    - 'Human'
+    - 'Monster'
 levels:
   1:
     exp: 1
