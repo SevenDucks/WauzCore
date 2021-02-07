@@ -62,7 +62,7 @@ public class WauzPetEgg {
 		}
 		int maxStat = 20 * rarity.getMultiplier();
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
-			if(isHorse == stat.isHorse()) {
+			if(isHorse && stat.isHorse() || WauzPetStat.getStatCategories(stat).contains(pet.getCategory())) {
 				String description = " " + ChatColor.GRAY + stat.getDescription();
 				lores.add(ChatColor.WHITE + stat.getName() + ":" + ChatColor.GREEN + " " + 0 + " / " + maxStat + description);
 			}
