@@ -62,15 +62,6 @@ public class WauzPetStat {
 	}
 	
 	/**
-	 * @param stat A stat key.
-	 * 
-	 * @return The stat categories with that key.
-	 */
-	public static List<String> getStatCategories(WauzPetStat stat) {
-		return new ArrayList<>(PetConfigurator.getStatCategories(stat));
-	}
-	
-	/**
 	 * The key of the pet stat.
 	 */
 	private String key;
@@ -86,6 +77,11 @@ public class WauzPetStat {
 	private String description;
 	
 	/**
+	 * The pet categories of the pet stat.
+	 */
+	private List<String> categories;
+	
+	/**
 	 * If the stat is a horse stat.
 	 */
 	private boolean horse;
@@ -99,6 +95,7 @@ public class WauzPetStat {
 		this.key = key;
 		this.name = PetConfigurator.getPetStatName(key);
 		this.description = PetConfigurator.getPetStatDescription(key);
+		this.categories = PetConfigurator.getStatCategories(key);
 		this.horse = false;
 	}
 	
@@ -114,6 +111,7 @@ public class WauzPetStat {
 		this.key = key;
 		this.name = name;
 		this.description = description;
+		this.categories = new ArrayList<>();
 		this.horse = horse;
 		petStats.add(this);
 		petStatMap.put(key, this);
@@ -138,6 +136,13 @@ public class WauzPetStat {
 	 */
 	public String getDescription() {
 		return description;
+	}
+
+	/**
+	 * @return The pet categories of the pet stat.
+	 */
+	public List<String> getCategories() {
+		return categories;
 	}
 
 	/**

@@ -2,6 +2,7 @@ package eu.wauz.wauzcore.skills.particles;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -69,6 +70,27 @@ public class ParticleSpawner {
 	        double x = origin.getX() + (radius * Math.cos(angle));
 	        double z = origin.getZ() + (radius * Math.sin(angle));
 	        particle.spawn(new Location(world, x, origin.getY() + 0.5, z), 1);
+	    }
+	}
+	
+	/**
+	 * Creates a circle of particles for a player at a specific location.
+	 * 
+	 * @param player The player who should see the particles.
+	 * @param origin Where the particles should originate.
+	 * @param particle The type of particle to spawn.
+	 * @param radius The radius of the circle.
+	 * @param amount The amount of particles to spawn.
+	 */
+	public static void spawnParticleCircle(Player player, Location origin, SkillParticle particle, double radius, int amount) {
+		World world = origin.getWorld();
+	    double increment = (2 * Math.PI) / amount;
+	    for(int iterator = 0; iterator < amount; iterator++)
+	    {
+	        double angle = iterator * increment;
+	        double x = origin.getX() + (radius * Math.cos(angle));
+	        double z = origin.getZ() + (radius * Math.sin(angle));
+	        particle.spawn(player, new Location(world, x, origin.getY() + 0.5, z), 1);
 	    }
 	}
 

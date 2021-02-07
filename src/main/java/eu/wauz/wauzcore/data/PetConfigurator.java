@@ -5,7 +5,6 @@ import java.util.List;
 
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzPetRarity;
-import eu.wauz.wauzcore.mobs.pets.WauzPetStat;
 
 /**
  * Configurator to fetch or modify data from the Pets.yml.
@@ -77,6 +76,15 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 		return mainConfigGetString("Pets", "stats." + stat + ".description");
 	}
 	
+	/**
+	 * @param stat The key of the pet stat
+	 * 
+	 * @return The pet categories of the pet stat.
+	 */
+	public static List<String> getStatCategories(String stat) {
+		return mainConfigGetStringList("Pets", "stats." + stat + ".categories");
+	}
+	
 // Breeding Levels
 	
 	/**
@@ -96,17 +104,6 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	 */
 	public static int getBreedingLevelTime(int level, WauzPetRarity rarity) {
 		return mainConfigGetInt("Pets", "levels." + level + ".breedtime." + rarity.toString());
-	}
-	
-// Stat Categories
-	
-	/**
-	 * @param stat The key of the stat.
-	 * 
-	 * @return The categories of the stat.
-	 */
-	public static List<String> getStatCategories(WauzPetStat stat) {
-		return mainConfigGetStringList("Pets", "stats." + stat + ".categories");
 	}
 
 }

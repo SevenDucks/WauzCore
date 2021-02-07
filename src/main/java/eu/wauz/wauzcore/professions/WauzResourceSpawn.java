@@ -70,7 +70,7 @@ public class WauzResourceSpawn {
 		if(!canCollectResource(player)) {
 			return;
 		}
-		ParticleSpawner.spawnParticleCircle(location, particle, 0.75, 6);
+		ParticleSpawner.spawnParticleCircle(player, location, particle, 0.75, 4);
 	}
 	
 	/**

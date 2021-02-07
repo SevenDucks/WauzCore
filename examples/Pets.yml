@@ -9,13 +9,15 @@ stats:
     name: Dex
     description: + 0.3% Movement Speed per Level
     categories:
+    - 'Farm'
+    - 'Exotic'
     - 'Human'
-    - 'Monster'
   Absorption:
     name: Abs
     description: + 1.0% Armor Defense per Level
     categories:
-    - 'Human'
+    - 'Farm'
+    - 'Exotic'
     - 'Monster'
 levels:
   1:
