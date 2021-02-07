@@ -8,9 +8,9 @@ import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
- * An event that lets a player get healed by a citizen
+ * An event that lets a player get healed and fed by a citizen.
  * 
- * @author Wauzmons
+ * @author Jassuuu
  */
 public class WauzPlayerEventCitizenRest implements WauzPlayerEvent {
 	
@@ -34,6 +34,8 @@ public class WauzPlayerEventCitizenRest implements WauzPlayerEvent {
 	 * @param player The player for the execution.
 	 * 
 	 * @return If the event was executed successfully.
+	 * 
+	 * @see DamageCalculator#setHealth(Player, int)
 	 */
 	@Override
 	public boolean execute(Player player) {
@@ -46,6 +48,7 @@ public class WauzPlayerEventCitizenRest implements WauzPlayerEvent {
 			}
 			player.setFoodLevel(20);
 			player.setSaturation(20);
+			player.sendMessage(ChatColor.GREEN + "You are now fully rested!");
 			return true;
 		}
 		catch (Exception e) {

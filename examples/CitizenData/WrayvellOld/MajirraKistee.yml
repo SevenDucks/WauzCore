@@ -1,0 +1,29 @@
+display: Ma’jirra Kistee
+name:
+  - Ma’jirra Kistee
+  - ''
+world: MMORPG
+location: -5607.471 92 5620.082 0 0
+skinid: 1517708342
+invisible: false
+burning: false
+items:
+  mainhand:
+  offhand:
+  helmet:
+  chestplate:
+  leggings:
+  boots:
+interactions:
+  1:
+    type: talk
+    name: Who are you?
+    level: 0
+    messages:
+      - 'I am a cat.'
+  2:
+    type: talk
+    name: Where am I?
+    level: 0
+    messages:
+      - 'Wrayvell.'

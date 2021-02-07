@@ -132,7 +132,7 @@ public class WauzPlayerRegistrator {
 	public static void respawn(final Player player) {
 		boolean allowRespawn = false;
 		World world = player.getWorld();
-		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(world);
+		final WauzActiveInstance instance = WauzActiveInstancePool.getInstance(world);
 		if(instance != null && instance.getMaxDeaths() > 0) {
 			instance.addPlayerDeath(player);
 			int maxDeaths = instance.getMaxDeaths();
@@ -150,7 +150,7 @@ public class WauzPlayerRegistrator {
 			public void run() {
 				if(respawnInCurrentWorld) {
 					Location spawnLocation = player.getBedSpawnLocation();
-					player.setBedSpawnLocation(new Location(world, 0.5, 5, 0.5), true);
+					player.setBedSpawnLocation(instance.getSpawnLocation(), true);
 					WauzNmsClient.nmsRepsawn(player);
 					player.setBedSpawnLocation(spawnLocation, true);
 				}

@@ -1,0 +1,5 @@
+type: CONTAINER
+droptable: ChestDropsT1
+respawnmins: 5
+locations:
+- 'MMORPG -5496.5 21 -848.5'

@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.players;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
@@ -19,7 +20,7 @@ public class WauzPlayerGroupPool {
 	/**
 	 * A map of cached player groups by uuid.
 	 */
-	private static HashMap<String, WauzPlayerGroup> storage = new HashMap<String, WauzPlayerGroup>();
+	private static Map<String, WauzPlayerGroup> storage = new HashMap<String, WauzPlayerGroup>();
 	
 	/**
 	 * Fetches a cached player group.

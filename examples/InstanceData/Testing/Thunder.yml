@@ -1,0 +1,8 @@
+world: Thunder
+type: DEFAULT
+coords: 0.5 10 0.5
+title: Test-Instance
+subtitle: Realm of Eternal Thunder
+music: None
+mobs:
+citizens:

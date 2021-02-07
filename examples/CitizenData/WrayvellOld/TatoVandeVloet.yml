@@ -1,0 +1,29 @@
+display: Tato Van de Vloet
+name:
+  - Tato Van de Vloet
+  - ''
+world: MMORPG
+location: -5599.5 92 5617.5 0 0
+skinid: 2057141845
+invisible: false
+burning: false
+items:
+  mainhand:
+  offhand:
+  helmet:
+  chestplate:
+  leggings:
+  boots:
+interactions:
+  1:
+    type: talk
+    name: Who are you?
+    level: 0
+    messages:
+      - 'I am Tato Van de Vloet.'
+  2:
+    type: talk
+    name: Where am I?
+    level: 0
+    messages:
+      - 'Wrayvell.'

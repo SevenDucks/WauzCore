@@ -1,13 +1,13 @@
 package eu.wauz.wauzcore.data.api;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.system.util.WauzFileUtils;
 
 /**
  * Collection of methods for reading and writing data in quest config files.
@@ -27,14 +27,8 @@ public class QuestConfigurationUtils {
 	 * @return A list of all quest names.
 	 */
 	protected static List<String> getQuestNameList() {
-		List<String> questNameList = new ArrayList<>();
 		File questDataFolder = new File(core.getDataFolder(), "QuestData/");
-		if(questDataFolder.exists()) {
-			for(File file : questDataFolder.listFiles()) {
-				questNameList.add(file.getName().replace(".yml", ""));
-			}
-		}
-		return questNameList;
+		return WauzFileUtils.findRelativePathsRecursive(questDataFolder, "");
 	}
 
 	/**

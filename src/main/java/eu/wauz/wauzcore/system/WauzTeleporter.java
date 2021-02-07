@@ -152,7 +152,7 @@ public class WauzTeleporter {
 		}
 		CharacterManager.saveCharacter(player);
 		WauzActivePet.tryToUnsummon(player, true);
-		return player.teleport(new Location(Bukkit.getServer().createWorld(new WorldCreator(instanceName)), 0.5, 5, 0.5));
+		return player.teleport(new Location(Bukkit.getServer().createWorld(new WorldCreator(instanceName)), 0.5, 256, 0.5));
 	}
 	
 	/**

@@ -172,7 +172,7 @@ public class PlayerInteractionListener implements Listener {
 	 */
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
-		event.setFormat(ChatFormatter.global(event));
+		event.setFormat(ChatFormatter.global(event).replace("%", "%%"));
 	}
 	
 	/**

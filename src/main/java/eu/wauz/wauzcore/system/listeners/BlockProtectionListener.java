@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.event.block.BlockFertilizeEvent;
+import org.bukkit.event.block.BlockFormEvent;
 import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
@@ -49,6 +50,20 @@ public class BlockProtectionListener implements Listener {
 	 */
 	@EventHandler
 	public void onBlockChangeFade(BlockFadeEvent event) {
+		if(WauzMode.isMMORPG(event.getBlock().getWorld()) || WauzRegion.disallowBlockChange(event.getBlock())) {
+			event.setCancelled(true);
+		}
+	}
+	
+	/**
+	 * Prevents changes to protected regions.
+	 * 
+	 * @param event The form event.
+	 * 
+	 * @see WauzRegion#disallowBlockChange(Block)
+	 */
+	@EventHandler
+	public void onBlockChangeForm(BlockFormEvent event) {
 		if(WauzMode.isMMORPG(event.getBlock().getWorld()) || WauzRegion.disallowBlockChange(event.getBlock())) {
 			event.setCancelled(true);
 		}
