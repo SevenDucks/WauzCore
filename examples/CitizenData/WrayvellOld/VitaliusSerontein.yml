@@ -1,0 +1,29 @@
+display: Vitalius Serontein
+name:
+  - Vitalius Serontein
+  - ''
+world: MMORPG
+location: -5675.0 88.0 5577 0 0
+skinid: 69923865
+invisible: false
+burning: false
+items:
+  mainhand:
+  offhand:
+  helmet:
+  chestplate:
+  leggings:
+  boots:
+interactions:
+  1:
+    type: talk
+    name: Who are you?
+    level: 0
+    messages:
+      - 'I am a guard.'
+  2:
+    type: talk
+    name: Where am I?
+    level: 0
+    messages:
+      - 'Wrayvell.'

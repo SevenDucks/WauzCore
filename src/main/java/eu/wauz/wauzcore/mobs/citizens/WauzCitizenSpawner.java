@@ -27,7 +27,12 @@ public class WauzCitizenSpawner {
 	/**
 	 * Access to the NPCLib API.
 	 */
-	private static final NPCLib npcLib = new NPCLib(WauzCore.getInstance());
+	private static final NPCLib NPC_LIB = new NPCLib(WauzCore.getInstance());
+	
+	/**
+	 * The radius in chunks, in which citizens should be rendered.
+	 */
+	private static final int RENDER_RADIUS = 4;
 	
 	/**
 	 * A map of npcs, indexed by citizen.
@@ -49,7 +54,7 @@ public class WauzCitizenSpawner {
 	 */
 	public static void createNpc(WauzCitizen citizen) {
         MineSkinFetcher.fetchSkinFromIdAsync(citizen.getSkinId(), skin -> {
-            NPC npc = npcLib.createNPC(citizen.getNameLines());
+            NPC npc = NPC_LIB.createNPC(citizen.getNameLines());
             npc.setLocation(citizen.getLocation());
             npc.setSkin(skin);
             if(citizen.isInvisible()) {
@@ -113,7 +118,7 @@ public class WauzCitizenSpawner {
 	 * @param player The player to show the npcs to.
 	 */
 	public static void showNpcsNearPlayer(Player player) {
-		List<WauzCitizen> citizens = WauzCitizen.getCitizensNearPlayer(player);
+		List<WauzCitizen> citizens = WauzCitizen.getCitizensNearPlayer(player, RENDER_RADIUS);
 		WauzDebugger.log(player, "Rendered " + citizens.size() + " Citizens");
 		for(WauzCitizen citizen : citizens) {
 			NPC npc = citizenNpcMap.get(citizen);
@@ -159,7 +164,7 @@ public class WauzCitizenSpawner {
 	 * @return Access to the NPCLib API.
 	 */
 	public static NPCLib getNpclib() {
-		return npcLib;
+		return NPC_LIB;
 	} 
 
 }

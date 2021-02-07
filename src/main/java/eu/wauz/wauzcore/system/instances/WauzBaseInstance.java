@@ -21,6 +21,11 @@ public abstract class WauzBaseInstance {
 	private WauzInstanceType type = WauzInstanceType.DEFAULT;
 	
 	/**
+	 * The coordinates to spawn players.
+	 */
+	private List<Float> spawnCoords = new ArrayList<>();
+	
+	/**
 	 * The maximum players of the instance.
 	 */
 	private int maxPlayers;
@@ -81,6 +86,20 @@ public abstract class WauzBaseInstance {
 	 */
 	public void setType(WauzInstanceType type) {
 		this.type = type;
+	}
+	
+	/**
+	 * @return The coordinates to spawn players.
+	 */
+	public List<Float> getSpawnCoords() {
+		return spawnCoords;
+	}
+
+	/**
+	 * @param spawnCoords The new coordinates to spawn players.
+	 */
+	public void setSpawnCoords(List<Float> spawnCoords) {
+		this.spawnCoords = spawnCoords;
 	}
 
 	/**

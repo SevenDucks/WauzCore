@@ -11,10 +11,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenRest;
-import eu.wauz.wauzcore.players.WauzPlayerDataPool;
-import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.system.annotations.Command;
-import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -52,9 +49,9 @@ public class CmdWzHeal implements WauzCommand {
 		if(player == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;
-		} else {
-			WauzPlayerEventCitizenRest WauzPlayerEventCitizenRest = new WauzPlayerEventCitizenRest("");
-			WauzPlayerEventCitizenRest.execute(player);
+		}
+		else {
+			new WauzPlayerEventCitizenRest("the command").execute(player);
 			return true;
 		}
 	}

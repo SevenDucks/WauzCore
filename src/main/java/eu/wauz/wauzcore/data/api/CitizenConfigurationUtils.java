@@ -1,7 +1,6 @@
 package eu.wauz.wauzcore.data.api;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.system.util.WauzFileUtils;
 
 /**
  * Collection of methods for reading and writing data in citizen config files.
@@ -30,14 +30,8 @@ public class CitizenConfigurationUtils {
 	 * @return A list of all citizen names.
 	 */
 	protected static List<String> getCitizenNameList() {
-		List<String> citizenNameList = new ArrayList<>();
 		File citizenDataFolder = new File(core.getDataFolder(), "CitizenData/");
-		if(citizenDataFolder.exists()) {
-			for(File file : citizenDataFolder.listFiles()) {
-				citizenNameList.add(file.getName().replace(".yml", ""));
-			}
-		}
-		return citizenNameList;
+		return WauzFileUtils.findRelativePathsRecursive(citizenDataFolder, "");
 	}
 
 	/**

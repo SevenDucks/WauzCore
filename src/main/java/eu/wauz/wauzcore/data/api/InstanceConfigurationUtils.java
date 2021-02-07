@@ -1,13 +1,13 @@
 package eu.wauz.wauzcore.data.api;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.system.util.WauzFileUtils;
 
 /**
  * Collection of methods for reading and writing data in instance config files.
@@ -27,14 +27,8 @@ public class InstanceConfigurationUtils {
 	 * @return A list of all instance names.
 	 */
 	protected static List<String> getInstanceNameList() {
-		List<String> instanceNameList = new ArrayList<>();
 		File instanceDataFolder = new File(core.getDataFolder(), "InstanceData/");
-		if(instanceDataFolder.exists()) {
-			for(File file : instanceDataFolder.listFiles()) {
-				instanceNameList.add(file.getName().replace(".yml", ""));
-			}
-		}
-		return instanceNameList;
+		return WauzFileUtils.findRelativePathsRecursive(instanceDataFolder, "");
 	}
 	
 	/**

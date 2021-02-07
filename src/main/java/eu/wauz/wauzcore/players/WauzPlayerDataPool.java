@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.players;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.entity.Player;
 
@@ -19,7 +20,7 @@ public class WauzPlayerDataPool {
 	/**
 	 * A map of cached player datas by player.
 	 */
-	private static HashMap<Player, WauzPlayerData> storage = new HashMap<>();
+	private static Map<Player, WauzPlayerData> storage = new HashMap<>();
 
 	/**
 	 * Fetches a cached player data.

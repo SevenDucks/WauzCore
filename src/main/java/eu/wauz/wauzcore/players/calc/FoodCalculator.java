@@ -42,6 +42,14 @@ public class FoodCalculator {
 		}
 		WauzDebugger.log(player, "Try to consume Food Item");
 		
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		String foodId = itemStack.getItemMeta().getDisplayName();
+		if(playerData == null || !playerData.getSkills().isFoodReady(foodId)) {
+			return;
+		}
+		int foodCooldown = ItemUtils.getCooldown(itemStack);
+		playerData.getSkills().updateFoodCooldown(foodId, foodCooldown);
+		
 		PlayerItemConsumeEvent event = new PlayerItemConsumeEvent(player, itemStack);
 		Bukkit.getServer().getPluginManager().callEvent(event);
 		
