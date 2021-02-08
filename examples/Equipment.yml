@@ -201,6 +201,54 @@ Chicken_Glider:
   mainstat: 0.45
   speedstat: 0.50
   durabilitystat: 288
+Novice_Pickaxe:
+  type: TOOL
+  material: STONE_PICKAXE
+  name: Novice Pickaxe
+  mainstat: 1.00
+  durabilitystat: 256
+Adept_Pickaxe:
+  type: TOOL
+  material: IRON_PICKAXE
+  name: Adept Pickaxe
+  mainstat: 1.20
+  durabilitystat: 384
+Expert_Pickaxe:
+  type: TOOL
+  material: DIAMOND_PICKAXE
+  name: Expert Pickaxe
+  mainstat: 1.40
+  durabilitystat: 512
+Master_Pickaxe:
+  type: TOOL
+  material: NETHERITE_PICKAXE
+  name: Master Pickaxe
+  mainstat: 1.60
+  durabilitystat: 640
+Novice_Spade:
+  type: TOOL
+  material: STONE_SHOVEL
+  name: Novice Spade
+  mainstat: 1.00
+  durabilitystat: 256
+Adept_Spade:
+  type: TOOL
+  material: IRON_SHOVEL
+  name: Adept Spade
+  mainstat: 1.20
+  durabilitystat: 384
+Expert_Spade:
+  type: TOOL
+  material: DIAMOND_SHOVEL
+  name: Expert Spade
+  mainstat: 1.40
+  durabilitystat: 512
+Master_Spade:
+  type: TOOL
+  material: NETHERITE_SHOVEL
+  name: Master Spade
+  mainstat: 1.60
+  durabilitystat: 640
 Cloth:
   type: ARMOR
   material: LEATHER_CHESTPLATE

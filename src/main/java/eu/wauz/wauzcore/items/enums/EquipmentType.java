@@ -13,6 +13,11 @@ public enum EquipmentType {
 	WEAPON,
 	
 	/**
+	 * The type for tools.
+	 */
+	TOOL,
+	
+	/**
 	 * The type for armor.
 	 */
 	ARMOR,

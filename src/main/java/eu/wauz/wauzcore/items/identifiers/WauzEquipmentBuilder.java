@@ -279,6 +279,12 @@ public class WauzEquipmentBuilder {
 			lores.add(ChatColor.WHITE + "Attack:" + ChatColor.RED + " " + attackStat + scalingString);
 			sellValue = (int) (attackStat * (Math.random() + 0.5) + 1);
 		}
+		else if(type.equals(EquipmentType.TOOL)) {
+			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Tool " + rarityStars);
+			lores.add("");
+			lores.add(ChatColor.WHITE + "Efficiency:" + ChatColor.DARK_AQUA + " " + attackStat + scalingString);
+			sellValue = (int) (attackStat * (Math.random() + 0.5) + 1);
+		}
 		else if(type.equals(EquipmentType.ARMOR)) {		
 			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Armor " + rarityStars);
 			lores.add("");
@@ -293,7 +299,13 @@ public class WauzEquipmentBuilder {
 		addLoreIfNotBlank(lores, armorCategoryString);
 		addLoreIfNotBlank(lores, durabilityString);
 		lores.add(ChatColor.WHITE + "Sell Value:" + ChatColor.DARK_GREEN + " " + sellValue);
-		applyCustomItemProperties(lores, EventMapper.getCustomItem(itemStack.getType()), rarity);
+		if(type.equals(EquipmentType.TOOL)) {
+			lores.add("");
+			lores.add(ChatColor.GRAY + "Right Click to gather Resource Nodes");
+		}
+		else {
+			applyCustomItemProperties(lores, EventMapper.getCustomItem(itemStack.getType()), rarity);
+		}
 		
 		itemMeta.setLore(lores);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

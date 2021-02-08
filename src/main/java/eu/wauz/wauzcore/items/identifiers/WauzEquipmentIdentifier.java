@@ -260,6 +260,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	
 	/**
 	 * Adds an optional enhancement to the lore and equipment name.
+	 * Only works if it is not typed tool, otherwise it does nothing.
 	 * The base chance is 1 in 3, with the enhancement level based on the luck stat.
 	 * Each 100% enhance-rate will be a guaranteed level.</br>
 	 * Example 1: 50% = 50% chance for a lvl 1 enhancement, 50% chance for nothing at all.</br>
@@ -270,6 +271,9 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	 * @see WauzEquipmentEnhancer#enhanceEquipment(WauzEquipmentIdentifier)
 	 */
 	private void addEnhancementsToEquipment() {
+		if(equipmentType.getType().equals(EquipmentType.TOOL)) {
+			return;
+		}
 		if(Chance.oneIn(3)) {
 			int enhancementLevel = 0;
 			int luck = PlayerSkillConfigurator.getLuck(player);

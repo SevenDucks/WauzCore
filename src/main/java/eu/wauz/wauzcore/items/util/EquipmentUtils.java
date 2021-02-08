@@ -76,6 +76,9 @@ public class EquipmentUtils {
 				|| material.equals(Material.FISHING_ROD)) {
 			return EquipmentType.WEAPON;
 		}
+		else if(StringUtils.containsAny(materialString, "_PICKAXE", "_SHOVEL")) {
+			return EquipmentType.TOOL;
+		}
 		else if(materialString.contains("CHESTPLATE")) {
 			return EquipmentType.ARMOR;
 		}
