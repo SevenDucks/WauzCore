@@ -1,0 +1,9 @@
+type: NODE
+nodetype: HERB
+nodename: Test Herb
+nodetier: 1
+nodehealth: 50
+droptable: ChestDropsT1
+respawnmins: 5
+locations:
+- 'MMORPG -5502.5 21 -854.5'

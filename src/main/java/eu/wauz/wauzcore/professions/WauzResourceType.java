@@ -8,12 +8,12 @@ package eu.wauz.wauzcore.professions;
 public enum WauzResourceType {
 	
 	/**
-	 * Effect: Knocks back everyone who attacks the mob.
+	 * A container-type resource that can be opened.
 	 */
 	CONTAINER("Container"),
 	
 	/**
-	 * Effect:  Explodes on death, dealing 500% damage.
+	 * A node-type resource that needs to be gathered with a tool.
 	 */
 	NODE("Node");
 	

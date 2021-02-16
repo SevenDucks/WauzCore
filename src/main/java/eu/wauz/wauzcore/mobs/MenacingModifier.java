@@ -13,7 +13,7 @@ public enum MenacingModifier {
 	DEFLECTING("Deflecting"),
 	
 	/**
-	 * Effect:  Explodes on death, dealing 500% damage.
+	 * Effect: Explodes on death, dealing 500% damage.
 	 */
 	EXPLOSIVE("Explosive"),
 	

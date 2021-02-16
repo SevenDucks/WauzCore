@@ -138,6 +138,26 @@ public class WauzResource {
 	private int respawnMins;
 	
 	/**
+	 * The type of the resource node.
+	 */
+	private WauzResourceNodeType nodeType;
+	
+	/**
+	 * The display name of the resource node.
+	 */
+	private String nodeName;
+	
+	/**
+	 * The tier of the resource node.
+	 */
+	private int nodeTier;
+	
+	/**
+	 * The maximum health of the resource node.
+	 */
+	private int nodeHealth;
+	
+	/**
 	 * Constructs a resource, based on the resource file name in the /WauzCore/ResourceData folder.
 	 * 
 	 * @param resourceName The canonical name of the resource.
@@ -148,6 +168,13 @@ public class WauzResource {
 		type = ResourceConfigurator.getResourceType(resourceName);
 		dropTable = mythicMobs.getDropTable(ResourceConfigurator.getResourceDropTable(resourceName)).get();
 		respawnMins = ResourceConfigurator.getResourceRespawnMinutes(resourceName);
+		
+		if(type.equals(WauzResourceType.NODE)) {
+			nodeType = ResourceConfigurator.getNodeType(resourceName);
+			nodeName = ResourceConfigurator.getNodeName(resourceName);
+			nodeTier = ResourceConfigurator.getNodeTier(resourceName);
+			nodeHealth = ResourceConfigurator.getNodeHealth(resourceName);
+		}
 	}
 
 	/**
@@ -176,6 +203,34 @@ public class WauzResource {
 	 */
 	public int getRespawnMins() {
 		return respawnMins;
+	}
+	
+	/**
+	 * @return The type of the resource node.
+	 */
+	public WauzResourceNodeType getNodeType() {
+		return nodeType;
+	}
+
+	/**
+	 * @return The display name of the resource node.
+	 */
+	public String getNodeName() {
+		return nodeName;
+	}
+
+	/**
+	 * @return The tier of the resource node.
+	 */
+	public int getNodeTier() {
+		return nodeTier;
+	}
+
+	/**
+	 * @return The maximum health of the resource node.
+	 */
+	public int getNodeHealth() {
+		return nodeHealth;
 	}
 
 }

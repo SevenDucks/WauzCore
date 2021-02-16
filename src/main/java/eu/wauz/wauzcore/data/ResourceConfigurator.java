@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 import eu.wauz.wauzcore.data.api.ResourceConfigurationUtils;
+import eu.wauz.wauzcore.professions.WauzResourceNodeType;
 import eu.wauz.wauzcore.professions.WauzResourceType;
 
 /**
@@ -71,6 +72,44 @@ public class ResourceConfigurator extends ResourceConfigurationUtils {
 			locations.add(new Location(world, x, y, z));
 		}
 		return locations;
+	}
+	
+// Node Parameters
+	
+	/**
+	 * @param resourceName The name of the resource.
+	 * 
+	 * @return The type of the resource node.
+	 */
+	public static WauzResourceNodeType getNodeType(String resourceName) {
+		return WauzResourceNodeType.valueOf(resourceConfigGetString(resourceName, "nodetype"));
+	}
+	
+	/**
+	 * @param resourceName The name of the resource.
+	 * 
+	 * @return The display name of the resource node.
+	 */
+	public static String getNodeName(String resourceName) {
+		return resourceConfigGetString(resourceName, "nodename");
+	}
+	
+	/**
+	 * @param resourceName The name of the resource.
+	 * 
+	 * @return The tier of the resource node.
+	 */
+	public static int getNodeTier(String resourceName) {
+		return resourceConfigGetInt(resourceName, "nodetier");
+	}
+	
+	/**
+	 * @param resourceName The name of the resource.
+	 * 
+	 * @return The maximum health of the resource node.
+	 */
+	public static int getNodeHealth(String resourceName) {
+		return resourceConfigGetInt(resourceName, "nodehealth");
 	}
 
 }
