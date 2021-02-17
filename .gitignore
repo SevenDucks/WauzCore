@@ -11,3 +11,6 @@
 /bin
 /dist
 /manifest.mf
+
+# Mac OS files
+.DS_Store
