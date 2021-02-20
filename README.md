@@ -7,7 +7,7 @@
 [![Minecraft](https://img.shields.io/badge/Minecraft-PaperMC%201.16.3-orange.svg)](https://papermc.io/downloads#Paper-1.16)
 [![CodeSize](https://img.shields.io/github/languages/code-size/Wauzmons/WauzCore)](https://shields.io/category/size)
 
-<a href="https://seven-ducks.com/delseyria.html"><img src="https://even-ducks.com/assets/images/banner-delseyria.png"/></a> 
+<a href="https://seven-ducks.com/delseyria.html"><img src="https://seven-ducks.com/assets/images/banner-delseyria.png"/></a> 
 
 ## :crown: Advanced Minecraft MMORPG Engine
 Equipment, Skills, Quests, Shops, Dungeons, Bosses, Pets, Achievements and much more!
