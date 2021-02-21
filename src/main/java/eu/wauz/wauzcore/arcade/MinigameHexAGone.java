@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.arcade;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -15,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.arcade.template.MinigameTemplateBreakingFloor;
 import eu.wauz.wauzcore.building.ShapeHexagon;
 import eu.wauz.wauzcore.system.annotations.Minigame;
 
@@ -24,43 +24,14 @@ import eu.wauz.wauzcore.system.annotations.Minigame;
  * @author Wauzmons
  */
 @Minigame
-public class MinigameHexAGone implements ArcadeMinigame {
+public class MinigameHexAGone extends MinigameTemplateBreakingFloor {
 	
-	/**
-	 * The list of blocks that can break.
-	 */
-	private List<Block> breakingBlocks = new ArrayList<>();
-	
-	/**
-	 * The players who have been eliminated.
-	 */
-	private List<Player> eliminatedPlayers = new ArrayList<>();
-	
-	/**
-	 * The amount of players who can loose the game.
-	 */
-	private int maxLosingPlayers = 1;
-
 	/**
 	 * @return The display name of the minigame.
 	 */
 	@Override
 	public String getName() {
 		return "Hex-A-Gone";
-	}
-
-	/**
-	 * @return The scoreboard description of the minigame.
-	 */
-	@Override
-	public List<String> getDescription() {
-		List<String> description = new ArrayList<>();
-		description.add(ChatColor.WHITE + "Floor Pieces break away");
-		description.add(ChatColor.WHITE + "when you stand on them.");
-		description.add(ChatColor.WHITE + "Keep moving to Survive!");
-		description.add("   ");
-		description.add(ChatColor.RED + "Eliminated Players: " + ChatColor.GOLD + eliminatedPlayers.size() + " / " + maxLosingPlayers);
-		return description;
 	}
 
 	/**
@@ -85,21 +56,6 @@ public class MinigameHexAGone implements ArcadeMinigame {
 			player.getLocation().getBlock().getRelative(BlockFace.DOWN).setType(Material.BARRIER);
 		}
 		ArcadeUtils.runStartTimer(10, 180);
-	}
-
-	/**
-	 * Ends the game and decides a winner.
-	 * 
-	 * @return The players wo won the game.
-	 */
-	@Override
-	public List<Player> endGame() {
-		List<Player> winners = new ArrayList<>(ArcadeLobby.getPlayingPlayers());
-		winners.removeAll(eliminatedPlayers);
-		breakingBlocks.clear();
-		eliminatedPlayers.clear();
-		maxLosingPlayers = 1;
-		return winners;
 	}
 	
 	/**

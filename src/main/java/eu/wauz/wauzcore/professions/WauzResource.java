@@ -113,6 +113,8 @@ public class WauzResource {
 			break;
 		case NODE:
 			break;
+		default:
+			break;
 		}
 		return true;
 	}

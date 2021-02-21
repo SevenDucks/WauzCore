@@ -23,26 +23,26 @@ public class PassiveWeight extends AbstractPassiveSkill {
 	 * The static list of experience milestones.
 	 */
 	private static final List<Long> MILESTONES = Arrays.asList(
-			40l, // 01
-			120l, // 02
-			200l, // 03
-			320l, // 04
-			480l, // 05
-			700l, // 06
-			960l, // 07
-			1400l, // 08
-			2000l, // 09
-			3200l, // 10
-			6000l, // 11
-			12000l, // 12
-			24000l, // 13
-			36000l, // 14
-			48000l, // 15
-			60000l, // 16
-			72000l, // 17
-			84000l, // 18
-			96000l, // 19
-			120000l); // 20
+			40L, // 01
+			120L, // 02
+			200L, // 03
+			320L, // 04
+			480L, // 05
+			700L, // 06
+			960L, // 07
+			1400L, // 08
+			2000L, // 09
+			3200L, // 10
+			6000L, // 11
+			12000L, // 12
+			24000L, // 13
+			36000L, // 14
+			48000L, // 15
+			60000L, // 16
+			72000L, // 17
+			84000L, // 18
+			96000L, // 19
+			120000L); // 20
 
 	/**
 	 * Creates a new instance of this passive skill.

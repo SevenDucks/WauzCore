@@ -24,26 +24,26 @@ public class PassiveNutrition extends AbstractPassiveSkill {
 	 * The static list of experience milestones.
 	 */
 	private static final List<Long> MILESTONES = Arrays.asList(
-			10l, // 01
-			30l, // 02
-			50l, // 03
-			80l, // 04
-			120l, // 05
-			175l, // 06
-			240l, // 07
-			350l, // 08
-			500l, // 09
-			800l, // 10
-			1500l, // 11
-			3000l, // 12
-			6000l, // 13
-			9000l, // 14
-			12000l, // 15
-			15000l, // 16
-			18000l, // 17
-			21000l, // 18
-			24000l, // 19
-			30000l); // 20
+			10L, // 01
+			30L, // 02
+			50L, // 03
+			80L, // 04
+			120L, // 05
+			175L, // 06
+			240L, // 07
+			350L, // 08
+			500L, // 09
+			800L, // 10
+			1500L, // 11
+			3000L, // 12
+			6000L, // 13
+			9000L, // 14
+			12000L, // 15
+			15000L, // 16
+			18000L, // 17
+			21000L, // 18
+			24000L, // 19
+			30000L); // 20
 
 	/**
 	 * Creates a new instance of this passive skill.

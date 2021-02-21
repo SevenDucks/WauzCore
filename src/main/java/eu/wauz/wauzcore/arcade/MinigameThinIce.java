@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.arcade;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -20,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.arcade.template.MinigameTemplateBreakingFloor;
 import eu.wauz.wauzcore.building.ShapeHexagon;
 import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.system.annotations.Minigame;
@@ -31,22 +31,7 @@ import eu.wauz.wauzcore.system.util.Chance;
  * @author Wauzmons
  */
 @Minigame
-public class MinigameThinIce implements ArcadeMinigame {
-	
-	/**
-	 * The list of blocks that can break.
-	 */
-	private List<Block> breakingBlocks = new ArrayList<>();
-	
-	/**
-	 * The players who have been eliminated.
-	 */
-	private List<Player> eliminatedPlayers = new ArrayList<>();
-	
-	/**
-	 * The amount of players who can loose the game.
-	 */
-	private int maxLosingPlayers = 1;
+public class MinigameThinIce extends MinigameTemplateBreakingFloor {
 
 	/**
 	 * @return The display name of the minigame.
@@ -54,20 +39,6 @@ public class MinigameThinIce implements ArcadeMinigame {
 	@Override
 	public String getName() {
 		return "Thin-Ice";
-	}
-
-	/**
-	 * @return The scoreboard description of the minigame.
-	 */
-	@Override
-	public List<String> getDescription() {
-		List<String> description = new ArrayList<>();
-		description.add(ChatColor.WHITE + "Ice Tiles melt away");
-		description.add(ChatColor.WHITE + "when you stand on them.");
-		description.add(ChatColor.WHITE + "Keep moving to Survive!");
-		description.add("   ");
-		description.add(ChatColor.RED + "Eliminated Players: " + ChatColor.GOLD + eliminatedPlayers.size() + " / " + maxLosingPlayers);
-		return description;
 	}
 
 	/**
@@ -93,21 +64,6 @@ public class MinigameThinIce implements ArcadeMinigame {
 		ArcadeUtils.runStartTimer(10, 120);
 	}
 
-	/**
-	 * Ends the game and decides a winner.
-	 * 
-	 * @return The players wo won the game.
-	 */
-	@Override
-	public List<Player> endGame() {
-		List<Player> winners = new ArrayList<>(ArcadeLobby.getPlayingPlayers());
-		winners.removeAll(eliminatedPlayers);
-		breakingBlocks.clear();
-		eliminatedPlayers.clear();
-		maxLosingPlayers = 1;
-		return winners;
-	}
-	
 	/**
 	 * Handles the start event, that gets fired when the start countdown ends.
 	 */

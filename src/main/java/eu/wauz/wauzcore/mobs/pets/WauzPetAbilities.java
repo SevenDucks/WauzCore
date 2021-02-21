@@ -10,6 +10,8 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.players.WauzPlayerData;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.util.Chance;
 
 /**
@@ -97,6 +99,10 @@ public class WauzPetAbilities {
 	 * @return If the ability usage was successful.
 	 */
 	public static boolean tryToUse(Player player) {
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null) {
+			return false;
+		}
 		WauzActivePet pet = WauzActivePet.getPet(player);
 		if(pet == null) {
 			return false;

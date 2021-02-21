@@ -58,6 +58,8 @@ public class WauzResourceSpawn {
 		case NODE:
 			particle = new SkillParticle(Color.AQUA);
 			break;
+		default:
+			break;
 		}
 	}
 	
