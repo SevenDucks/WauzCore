@@ -6,12 +6,14 @@ import java.util.List;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.menu.Backpack;
+import eu.wauz.wauzcore.system.annotations.PassiveSkill;
 
 /**
  * A passive skill, that increases backpack size, leveled through picking up materials.
  * 
  * @author Wauzmons
  */
+@PassiveSkill
 public class PassiveWeight extends AbstractPassiveSkill {
 
 	/**
@@ -45,12 +47,30 @@ public class PassiveWeight extends AbstractPassiveSkill {
 			120000L); // 20
 
 	/**
+	 * Creates an empty instance of this passive skill.
+	 */
+	public PassiveWeight() {
+		super();
+	}
+	
+	/**
 	 * Creates a new instance of this passive skill.
 	 * 
 	 * @param exp The current experience in this skill.
 	 */
 	public PassiveWeight(long exp) {
 		super(exp);
+	}
+	
+	/**
+	 * Creates a new instance of this passive skill.
+	 * 
+	 * @param exp The current experience in this skill.
+	 * 
+	 * @return The created instance.
+	 */
+	public AbstractPassiveSkill getInstance(long exp) {
+		return new PassiveWeight(exp);
 	}
 	
 	/**

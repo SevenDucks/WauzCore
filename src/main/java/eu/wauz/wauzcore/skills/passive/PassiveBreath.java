@@ -7,12 +7,14 @@ import java.util.concurrent.TimeUnit;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.calc.SpeedCalculator;
+import eu.wauz.wauzcore.system.annotations.PassiveSkill;
 
 /**
  * A passive skill, that increases movement speed, leveled through sprinting.
  * 
  * @author Wauzmons
  */
+@PassiveSkill
 public class PassiveBreath extends AbstractPassiveSkill {
 	
 	/**
@@ -46,12 +48,30 @@ public class PassiveBreath extends AbstractPassiveSkill {
 			TimeUnit.DAYS.toMillis(12)); // 20
 
 	/**
+	 * Creates an empty instance of this passive skill.
+	 */
+	public PassiveBreath() {
+		super();
+	}
+	
+	/**
 	 * Creates a new instance of this passive skill.
 	 * 
 	 * @param exp The current experience in this skill.
 	 */
 	public PassiveBreath(long exp) {
 		super(exp);
+	}
+	
+	/**
+	 * Creates a new instance of this passive skill.
+	 * 
+	 * @param exp The current experience in this skill.
+	 * 
+	 * @return The created instance.
+	 */
+	public AbstractPassiveSkill getInstance(long exp) {
+		return new PassiveBreath(exp);
 	}
 	
 	/**

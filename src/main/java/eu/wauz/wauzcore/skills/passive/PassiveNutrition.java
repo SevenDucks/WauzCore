@@ -7,12 +7,14 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
+import eu.wauz.wauzcore.system.annotations.PassiveSkill;
 
 /**
  * A passive skill, that increases maximum health, leveled through eating.
  * 
  * @author Wauzmons
  */
+@PassiveSkill
 public class PassiveNutrition extends AbstractPassiveSkill {
 
 	/**
@@ -46,12 +48,30 @@ public class PassiveNutrition extends AbstractPassiveSkill {
 			30000L); // 20
 
 	/**
+	 * Creates an empty instance of this passive skill.
+	 */
+	public PassiveNutrition() {
+		super();
+	}
+	
+	/**
 	 * Creates a new instance of this passive skill.
 	 * 
 	 * @param exp The current experience in this skill.
 	 */
 	public PassiveNutrition(long exp) {
 		super(exp);
+	}
+	
+	/**
+	 * Creates a new instance of this passive skill.
+	 * 
+	 * @param exp The current experience in this skill.
+	 * 
+	 * @return The created instance.
+	 */
+	public AbstractPassiveSkill getInstance(long exp) {
+		return new PassiveNutrition(exp);
 	}
 	
 	/**

@@ -36,6 +36,8 @@ import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassStats;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveBreath;
 import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
 import eu.wauz.wauzcore.skills.passive.PassiveWeight;
@@ -263,9 +265,9 @@ public class CharacterManager {
 			playerData.getStats().setMana(ManaCalculator.MAX_MANA);
 			playerData.getStats().setMaxRage(RageCalculator.MAX_RAGE);
 			playerData.getStats().setRage(0);
-			playerData.getSkills().cachePassive(new PassiveBreath(0));
-    		playerData.getSkills().cachePassive(new PassiveNutrition(0));
-    		playerData.getSkills().cachePassive(new PassiveWeight(0));
+			for(AbstractPassiveSkill passive : AbstractPassiveSkillPool.getPassives()) {
+				playerData.getSkills().cachePassive(passive.getInstance(0));
+			}
 			
 			WauzPlayerClass characterClass = WauzPlayerClassPool.getClass(characterClassString);
 			WauzPlayerClassStats startingStats = characterClass.getStartingStats();

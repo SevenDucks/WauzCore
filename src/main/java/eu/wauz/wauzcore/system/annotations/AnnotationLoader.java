@@ -49,6 +49,7 @@ public class AnnotationLoader {
 		Scroll.ScrollAnnotationHelper.init(this);
 		Tower.TowerAnnotationHelper.init(this);
 		PetAbility.AbilityAnnotationHelper.init(this);
+		PassiveSkill.PassiveSkillAnnotationHelper.init(this);
 		Skill.SkillAnnotationHelper.init(this);
 		Skillgem.SkillgemAnnotationHelper.init(this);
 		Rune.RuneAnnotationHelper.init(this);

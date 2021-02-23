@@ -21,9 +21,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
-import eu.wauz.wauzcore.skills.passive.PassiveBreath;
-import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
-import eu.wauz.wauzcore.skills.passive.PassiveWeight;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -103,9 +101,10 @@ public class InventoryStringConverter {
     	player.setGameMode(GameMode.valueOf(playerDataConfig.getString("gamemode")));
     	
     	if(WauzMode.isMMORPG(player)) {
-    		playerData.getSkills().cachePassive(new PassiveBreath(playerDataConfig.getLong("skills." + PassiveBreath.PASSIVE_NAME)));
-    		playerData.getSkills().cachePassive(new PassiveNutrition(playerDataConfig.getLong("skills." + PassiveNutrition.PASSIVE_NAME)));
-    		playerData.getSkills().cachePassive(new PassiveWeight(playerDataConfig.getLong("skills." + PassiveWeight.PASSIVE_NAME)));
+    		for(AbstractPassiveSkill passive : AbstractPassiveSkillPool.getPassives()) {
+    			long passiveExp = playerDataConfig.getLong("skills." + passive.getPassiveName());
+				playerData.getSkills().cachePassive(passive.getInstance(passiveExp));
+			}
     		DamageCalculator.setHealth(player, playerDataConfig.getInt("stats.current.health"));
     		playerData.getStats().setMana(playerDataConfig.getInt("stats.current.mana"));
     		playerData.getStats().setRage(0);

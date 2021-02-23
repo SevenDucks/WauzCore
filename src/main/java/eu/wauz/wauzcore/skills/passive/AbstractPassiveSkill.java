@@ -26,6 +26,14 @@ public abstract class AbstractPassiveSkill {
 	private long exp;
 	
 	/**
+	 * Creates an empty instance of this passive skill.
+	 */
+	public AbstractPassiveSkill() {
+		this.exp = -1;
+		level = -1;
+	}
+	
+	/**
 	 * Creates a new instance of this passive skill.
 	 * 
 	 * @param exp The current experience in this skill.
@@ -44,21 +52,13 @@ public abstract class AbstractPassiveSkill {
 	}
 	
 	/**
-	 * Adds experience to the passive and levels it up, if a new milestone was reached.
+	 * Creates a new instance of this passive skill.
 	 * 
-	 * @param player The player that should see level up messages.
-	 * @param earned The amount of experience that has been earned.
+	 * @param exp The current experience in this skill.
+	 * 
+	 * @return The created instance.
 	 */
-	public void grantExperience(Player player, long earned) {
-		exp += earned;
-		WauzDebugger.log(player, "You earned " + earned + " " + getPassiveName() + " experience!");
-		while(hasReachedMilestone()) {
-			level++;
-			player.sendTitle(ChatColor.YELLOW + getPassiveName() + " Passive Up!", "Your skill reached " + level + "!", 10, 70, 20);
-			player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-			onLevelUp(player);
-		}
-	}
+	public abstract AbstractPassiveSkill getInstance(long exp);
 	
 	/**
 	 * Gets the name of the passive skill.
@@ -79,6 +79,23 @@ public abstract class AbstractPassiveSkill {
 	 */
 	public long getExp() {
 		return exp;
+	}
+	
+	/**
+	 * Adds experience to the passive and levels it up, if a new milestone was reached.
+	 * 
+	 * @param player The player that should see level up messages.
+	 * @param earned The amount of experience that has been earned.
+	 */
+	public void grantExperience(Player player, long earned) {
+		exp += earned;
+		WauzDebugger.log(player, "You earned " + earned + " " + getPassiveName() + " experience!");
+		while(hasReachedMilestone()) {
+			level++;
+			player.sendTitle(ChatColor.YELLOW + getPassiveName() + " Up!", "Your skill reached " + level + "!", 10, 70, 20);
+			player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+			onLevelUp(player);
+		}
 	}
 	
 	/**
