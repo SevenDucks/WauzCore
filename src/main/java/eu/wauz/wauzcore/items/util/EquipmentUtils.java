@@ -116,6 +116,18 @@ public class EquipmentUtils {
 	}
 	
 	/**
+	 * Gets the tier of an equipment item stack, based on lore.
+	 * Includes null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return The tier of the item.
+	 */
+	public static int getTier(ItemStack itemStack) {
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerBetweenFromLore(itemStack, ChatColor.GRAY + " T", ChatColor.WHITE + " ") : 1;
+	}
+	
+	/**
 	 * Gets the base attack of a weapon item stack, based on lore.
 	 * Includes null check.
 	 * 
@@ -175,6 +187,18 @@ public class EquipmentUtils {
 		String oldDefenseLore = ChatColor.WHITE + "Defense:" + ChatColor.BLUE + " ";
 		String newDefenseLore = ChatColor.WHITE + "Defense:" + ChatColor.BLUE + " " + newDefense;
 		return ItemUtils.replaceStringFromLore(itemStack, oldDefenseLore, newDefenseLore);
+	}
+	
+	/**
+	 * Gets the base efficiency of a weapon item stack, based on lore.
+	 * Includes null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return The base efficiency of the item.
+	 */
+	public static int getBaseEfc(ItemStack itemStack) {
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Efficiency:" + ChatColor.DARK_AQUA, 1) : 0;
 	}
 	
 	/**
@@ -322,7 +346,7 @@ public class EquipmentUtils {
 	 * @return The level requirement of the item.
 	 */
 	public static int getLevelRequirement(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerSumBetweenFromLore(itemStack, "lvl " + ChatColor.AQUA, ChatColor.DARK_GRAY + ")") : 1;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerBetweenFromLore(itemStack, "lvl " + ChatColor.AQUA, ChatColor.DARK_GRAY + ")") : 1;
 	}
 	
 	/**

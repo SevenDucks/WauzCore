@@ -210,7 +210,7 @@ public class ItemUtils {
 	 * @see ItemUtils#isAmmoItem(ItemStack)
 	 */
 	public static int getArrowCount(ItemStack itemStack) {
-		return hasLore(itemStack) ? getIntegerSumBetweenFromLore(itemStack, ChatColor.GRAY + "Amount Left: ", " Arrows") : 0;
+		return hasLore(itemStack) ? getIntegerBetweenFromLore(itemStack, ChatColor.GRAY + "Amount Left: ", " Arrows") : 0;
 	}
 	
 	/**
@@ -523,6 +523,26 @@ public class ItemUtils {
 		for(String lore : lores) {
 			if(lore.contains(content)) {
 				return Integer.parseInt(lore.split(" ")[index]);
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 * Finds an int between two strings somewhere inside an item's lore.
+	 * Does NOT include null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * @param before The string before the wanted int.
+	 * @param after The string after the wanted int.
+	 * 
+	 * @return The int between the other strings.
+	 */
+	public static int getIntegerBetweenFromLore(ItemStack itemStack, String before, String after) {
+		List<String> lores = itemStack.getItemMeta().getLore();
+		for(String lore: lores) {
+			if(lore.contains(before) && lore.contains(after)) {
+				return Integer.parseInt(StringUtils.substringBetween(lore, before, after));
 			}
 		}
 		return 0;
