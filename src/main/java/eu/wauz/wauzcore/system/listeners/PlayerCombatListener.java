@@ -50,7 +50,7 @@ public class PlayerCombatListener implements Listener {
 		}
 		WauzPlayerBossBar playerBossBar = WauzPlayerBossBar.getBossBar(event.getEntity());
 		if(playerBossBar != null) {
-			playerBossBar.updateBossBar(- event.getAmount());
+			playerBossBar.updateBossBar(-event.getAmount());
 		}
 	}
 

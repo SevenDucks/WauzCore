@@ -7,9 +7,12 @@ import java.util.concurrent.TimeUnit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.system.util.Cooldown;
 import io.lumine.xikage.mythicmobs.adapters.bukkit.BukkitAdapter;
 import io.lumine.xikage.mythicmobs.drops.DropMetadata;
 import io.lumine.xikage.mythicmobs.drops.LootBag;
@@ -76,21 +79,42 @@ public class WauzResourceSpawn {
 	}
 	
 	/**
-	 * Lets the player collect the resource, if it is ready.
+	 * Lets the player damage the resource, if it is ready to collect.
+	 * 
+	 * @param player The player damaging the resource.
+	 */
+	public void tryToDamageResource(Player player) {
+		if(!canCollectResource(player) || !Cooldown.playerEntityInteraction(player)) {
+			return;
+		}
+		WauzResourceNodeType type = resource.getNodeType();
+		ItemStack toolItemStack = player.getEquipment().getItemInMainHand();
+		if(type.canGather(player, toolItemStack, resource.getNodeTier())) {
+			return;
+		}
+		// TODO Get / Damage / Destroy Boss Bar
+		boolean a = false;
+		if(a) {
+			collectResource(player);
+			player.playSound(player.getLocation(), type.getBreakSound(), 1, 1);
+			type.getSkill(player).grantExperience(player, 1); // TODO Scaling?
+		}
+		else {
+			player.playSound(player.getLocation(), type.getDamageSound(), 1, 1);
+		}
+		DurabilityCalculator.damageItem(player, toolItemStack, false);
+	}
+	
+	/**
+	 * Lets the player collect the resource.
 	 * 
 	 * @param player The player collecting the resource.
-	 * 
-	 * @return If the collection was successful.
 	 */
-	public boolean tryToCollectResource(Player player) {
-		if(!canCollectResource(player)) {
-			return false;
-		}
+	public void collectResource(Player player) {
 		LootBag lootBag = resource.getDropTable().generate(new DropMetadata(null, BukkitAdapter.adapt(player)));
 		lootBag.drop(BukkitAdapter.adapt(location.clone().add(0, 1, 0)));
 		Long cooldown = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(resource.getRespawnMins());
 		playerCooldownMap.put(player, cooldown);
-		return true;
 	}
 	
 	/**

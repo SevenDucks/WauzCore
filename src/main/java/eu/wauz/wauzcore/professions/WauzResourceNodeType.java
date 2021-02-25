@@ -6,6 +6,12 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.items.util.EquipmentUtils;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
+import eu.wauz.wauzcore.skills.passive.PassiveHerbalism;
+import eu.wauz.wauzcore.skills.passive.PassiveMining;
+
 /**
  * The type of a gatherable resource node.
  * 
@@ -16,12 +22,12 @@ public enum WauzResourceNodeType {
 	/**
 	 * A mineral that can be mined with a pickaxe.
 	 */
-	MINERAL("Minerals", "Pickaxes", "_PICKAXE", Sound.BLOCK_STONE_HIT, Sound.BLOCK_STONE_BREAK),
+	MINERAL("Minerals", "Pickaxes", "_PICKAXE", PassiveMining.PASSIVE_NAME, Sound.BLOCK_STONE_HIT, Sound.BLOCK_STONE_BREAK),
 	
 	/**
 	 * An herb that can be harvested with a spade.
 	 */
-	HERB("Herbs", "Spades", "_SHOVEL", Sound.BLOCK_GRASS_HIT, Sound.BLOCK_GRASS_BREAK);
+	HERB("Herbs", "Spades", "_SHOVEL", PassiveHerbalism.PASSIVE_NAME, Sound.BLOCK_GRASS_HIT, Sound.BLOCK_GRASS_BREAK);
 	
 	/**
 	 * The message display name of the node type.
@@ -36,7 +42,12 @@ public enum WauzResourceNodeType {
 	/**
 	 * The string to look for in the tool material.
 	 */
-	private String neededMaterialString;
+	private String materialString;
+	
+	/**
+	 * The name of the skill needed to to gather the resource.
+	 */
+	private String skillString;
 	
 	/**
 	 * The sound to play when the node gets damaged.
@@ -53,14 +64,16 @@ public enum WauzResourceNodeType {
 	 * 
 	 * @param name The message display name of the node type.
 	 * @param tool The message display name of the tool type.
-	 * @param neededMaterialString The string to look for in the tool material.
+	 * @param materialString The string to look for in the tool material.
+	 * @param skillString The name of the skill needed to to gather the resource.
 	 * @param damageSound The sound to play when the node gets damaged.
 	 * @param breakSound The sound to play when the node gets broken.
 	 */
-	WauzResourceNodeType(String name, String tool, String neededMaterialString, Sound damageSound, Sound breakSound) {
+	WauzResourceNodeType(String name, String tool, String materialString, String skillString, Sound damageSound, Sound breakSound) {
 		this.name = name;
 		this.tool = tool;
-		this.neededMaterialString = neededMaterialString;
+		this.materialString = materialString;
+		this.skillString = skillString;
 		this.damageSound = damageSound;
 		this.breakSound = breakSound;
 	}
@@ -76,17 +89,36 @@ public enum WauzResourceNodeType {
 	 * @return If the node can be gathered.
 	 */
 	public boolean canGather(Player player, ItemStack toolItemStack, int nodeTier) {
-		String materialString = toolItemStack.getType().toString();
-		if(!StringUtils.contains(materialString, neededMaterialString)) {
+		if(toolItemStack == null || !StringUtils.contains(toolItemStack.getType().toString(), materialString)) {
 			player.sendMessage(ChatColor.RED + name + " can only be gathered with " + tool + "!");
 			return false;
 		}
-		int toolTier = 0;
-		if(toolTier >= nodeTier) {
-			player.sendMessage(ChatColor.RED + "These " + name + " can only be gathered with T" + nodeTier + " or better " + tool + "!");
+		int toolTier = EquipmentUtils.getTier(toolItemStack);
+		AbstractPassiveSkill skill = getSkill(player);
+		int currentSkillLevel = getSkill(player).getLevel();
+		int neededSkillLevel = ((toolTier - 1) * 5) + 1;
+		if(currentSkillLevel < neededSkillLevel) {
+			player.sendMessage(ChatColor.RED + "Your " + skill.getPassiveName() + " Skill (" + currentSkillLevel + ") needs to be "
+					+ neededSkillLevel + " or higher to use this " + tool + "!");
+			return false;
+		}
+		if(toolTier < nodeTier) {
+			player.sendMessage(ChatColor.RED + "These " + name + " can only be gathered with T"
+					+ nodeTier + " or better " + tool + "!");
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Gets the needed skill to to gather the resource from a player.
+	 * 
+	 * @param player The player to get the skill of.
+	 * 
+	 * @return The skill needed to to gather the resource.
+	 */
+	public AbstractPassiveSkill getSkill(Player player) {
+		return WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(skillString);
 	}
 	
 	/**

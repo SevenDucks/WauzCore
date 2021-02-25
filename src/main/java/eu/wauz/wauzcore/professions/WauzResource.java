@@ -107,11 +107,13 @@ public class WauzResource {
 		}
 		switch (resourceSpawn.getResource().getType()) {
 		case CONTAINER:
-			if(resourceSpawn.tryToCollectResource(player)) {
+			if(resourceSpawn.canCollectResource(player)) {
+				resourceSpawn.collectResource(player);
 				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
 			}
 			break;
 		case NODE:
+			resourceSpawn.tryToDamageResource(player);
 			break;
 		default:
 			break;
