@@ -8,7 +8,7 @@ import java.util.Random;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 
-import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
+import eu.wauz.wauzcore.players.ui.WauzPlayerEnemyBossBar;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 
 /**
@@ -48,7 +48,7 @@ public class MenacingMobsSpawner {
 			}
 		}
 		if(config.isEnableHealthBar()) {
-			new WauzPlayerBossBar(entity, modifiers, mythicMob.getHealth().get(), config.isEnableRaidHealthBar());
+			new WauzPlayerEnemyBossBar(entity, modifiers, mythicMob.getHealth().get(), config.isEnableRaidHealthBar());
 			MobMetadataUtils.setRaidBoss(entity, config.isEnableRaidHealthBar());
 		}
 		if(StringUtils.isNotBlank(config.getExpDropString())) {

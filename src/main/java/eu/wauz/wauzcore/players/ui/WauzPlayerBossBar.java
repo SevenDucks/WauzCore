@@ -1,56 +1,34 @@
 package eu.wauz.wauzcore.players.ui;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.boss.BossBar;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
-import org.bukkit.entity.Damageable;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffectType;
 
-import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.mobs.MenacingModifier;
-import eu.wauz.wauzcore.mobs.MobMetadataUtils;
-import eu.wauz.wauzcore.skills.SkillUtils;
-import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
-import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
- * An UI class to show the player name and health of the targeted entity.
+ * An UI class to show the player name and health of the targeted object.
  * 
  * @author Wauzmons
  */
-public class WauzPlayerBossBar {
+public abstract class WauzPlayerBossBar {
 	
 	/**
-	 * A map of all boss bars by entity uuid.
+	 * A map of all boss bars, indexed by entity uuid.
 	 */
-	private static Map<String, WauzPlayerBossBar> bossBars = new HashMap<>();
+	protected static Map<String, WauzPlayerBossBar> bossBars = new HashMap<>();
 	
 	/**
-	 * A map of boss bars by the player they are shown to.
+	 * A map of boss bars, indexed by the player they are shown to.
 	 */
-	private static Map<Player, WauzPlayerBossBar> bossBarPlayerLinks = new HashMap<>();
-	
-	/**
-	 * @param entity An entity with a boss bar.
-	 * 
-	 * @return The boss bar of this entity, if existing.
-	 */
-	public static WauzPlayerBossBar getBossBar(Entity entity) {
-		return bossBars.get(entity.getUniqueId().toString());
-	}
+	protected static Map<Player, WauzPlayerBossBar> bossBarPlayerLinks = new HashMap<>();
 	
 	/**
 	 * Removes the shown boss bar for the given player.
@@ -66,74 +44,24 @@ public class WauzPlayerBossBar {
 	}
 	
 	/**
-	 * The entity, this bar belongs to.
+	 * The id of the object, this bar belongs to.
 	 */
-	private Damageable damageable;
+	protected String uuid;
 	
 	/**
-	 * The id of the entity, this bar belongs to.
+	 * Modifiers shown in the bar.
 	 */
-	private String damageableUuid;
-	
-	/**
-	 * Menacing modifiers shown in the bar.
-	 */
-	private String modifiers;
+	protected String modifiers;
 	
 	/**
 	 * Max health shown in the bar.
 	 */
-	private double maxHealth;
+	protected double maxHealth;
 	
 	/**
 	 * The Minecraft boss bar.
 	 */
-	private BossBar bossBar;
-	
-	/**
-	 * The particles circling the entity, this bar belongs to.
-	 */
-	private SkillParticle particle = null;
-	
-	/**
-	 * Creates a boss bar for the given entity.
-	 * Also schedules a task to check if the entity and assigned players are still valid. 
-	 * 
-	 * @param entity The entity, this bar belongs to.
-	 * @param modifiers Menacing modifiers shown in the bar.
-	 * @param maxHealth Max health shown in the bar.
-	 * @param raidBoss If the entity is a raid boss.
-	 * 
-	 * @see WauzPlayerBossBar#doPlayerChecks()
-	 */
-	public WauzPlayerBossBar(Entity entity, List<MenacingModifier> modifiers, double maxHealth, boolean raidBoss) {
-		if(!(entity instanceof Damageable)) {
-			return;
-		}
-		
-		this.damageable = (Damageable) entity;
-		this.damageableUuid = damageable.getUniqueId().toString();
-		this.modifiers = modifiers.size() > 0 ? ChatColor.GOLD + StringUtils.join(modifiers, " ") + " " : "";
-		this.maxHealth = maxHealth;
-		
-		BarColor barColor;
-		if(raidBoss) {
-			barColor = BarColor.PINK;
-		}
-		else if(modifiers.size() > 0) {
-			barColor = BarColor.YELLOW;
-			particle = new SkillParticle(Color.ORANGE);
-		}
-		else {
-			barColor = BarColor.RED;
-		}
-		
-		bossBar = Bukkit.createBossBar(getTitle((int) Math.ceil(damageable.getHealth())), barColor, BarStyle.SEGMENTED_6);
-		bossBar.setProgress(1);
-		
-		bossBars.put(damageableUuid, this);
-		doPlayerChecks();
-	}
+	protected BossBar bossBar;
 	
 	/**
 	 * Adds a player that should see this bar.
@@ -147,7 +75,7 @@ public class WauzPlayerBossBar {
 			return;
 		}
 		
-		if((int) Math.ceil(damageable.getHealth()) - damage <= 0) {
+		if((int) Math.ceil(getHealth()) - damage <= 0) {
 			return;
 		}
 		
@@ -177,14 +105,14 @@ public class WauzPlayerBossBar {
 	 * @param damage The damage that was dealt to the entity.
 	 */
 	public void updateBossBar(double damage) {
-		int health = (int) Math.ceil((damageable.getHealth() - damage));
+		int health = (int) Math.ceil((getHealth() - damage));
 		if(health > maxHealth) {
 			health = (int) maxHealth;
 		}
 		if(health > 0) {
 			for(Player player : bossBar.getPlayers()) {
 				WauzDebugger.log(player, "BossBar: "
-						+ health + " (" + damageable.getHealth() + " - "
+						+ health + " (" + getHealth() + " - "
 						+ damage + ") / " + maxHealth);
 			}
 			bossBar.setTitle(getTitle(health));
@@ -206,59 +134,56 @@ public class WauzPlayerBossBar {
 		String currentHealth = ChatColor.RED + Formatters.INT.format(health);
 		String maximumHealth = Formatters.INT.format(maxHealth) + " " + UnicodeUtils.ICON_HEART;
 		String healthString = ChatColor.GRAY + "[ " + currentHealth + " / " + maximumHealth + ChatColor.GRAY + " ]";
-		return modifiers + damageable.getName() + " " + healthString;
+		return modifiers + getName() + " " + healthString;
 	}
 	
 	/**
-	 * Schedules a task to check if the entity and assigned players are still valid.
+	 * Schedules a task to check if the object and assigned players are still valid.
 	 * If not, they get removed, else the task is scheduled again for the next second.
-	 * Also spawns the circling particles arount the entity.
 	 * 
-	 * @see ParticleSpawner#spawnParticleCircle(org.bukkit.Location, SkillParticle, double, int)
 	 * @see WauzPlayerBossBar#destroy()
 	 */
-	private void doPlayerChecks() {
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
-			
-	        public void run() {
-	        	try {
-	        		if(damageable != null && damageable.isValid()) {
-	        			for(Player player : bossBar.getPlayers()) {
-	        				if(player == null || !player.isValid() || player.getLocation().distance(damageable.getLocation()) > 32) {
-	        					bossBar.removePlayer(player);
-	        					bossBarPlayerLinks.remove(player);
-	        				}
-	        			}
-	        			if(particle != null) {
-	        				ParticleSpawner.spawnParticleCircle(damageable.getLocation(), particle, 1, 8);
-	        			}
-	        			if(MobMetadataUtils.hasMenacingModifier(damageable, MenacingModifier.RAVENOUS)) {
-	        				SkillUtils.addPotionEffect(damageable, PotionEffectType.SPEED, 2, 4);
-	        			}
-	        			doPlayerChecks();
-	        		}
-	        		else {
-	        			destroy();
-	        		}
-	        	}
-	        	catch (Exception e) {
-	        		e.printStackTrace();
-	        		destroy();
-	        	}
-	        }
-	        
-		}, 20);
+	protected abstract void doPlayerChecks();
+	
+	/**
+	 * @return The name of the object, this bar belongs to.
+	 */
+	protected abstract String getName();
+	
+	/**
+	 * @return The health of the object, this bar belongs to.
+	 */
+	protected abstract double getHealth();
+	
+	/**
+	 * Checks if the given player is close enough to see the boss bar.
+	 * 
+	 * @param player The player to check for.
+	 * @param location The current location of the object, this bar belongs to.
+	 * 
+	 * @return If the player is in distance.
+	 */
+	protected boolean inDistance(Player player, Location location) {
+		if(location == null || player == null || !player.isValid()) {
+			return false;
+		}
+		World playerWorld = player.getWorld();
+		World locationWorld = location.getWorld();
+		if(playerWorld == null || locationWorld == null || !playerWorld.equals(locationWorld)) {
+			return false;
+		}
+		return player.getLocation().distance(location) <= 32;
 	}
 	
 	/**
 	 * Removes this boss bar from all maps and clears out all players.
 	 */
-	private void destroy() {
+	protected void destroy() {
 		for(Player player : bossBar.getPlayers()) {
 			bossBar.removePlayer(player);
 			bossBarPlayerLinks.remove(player);
 		}
-		bossBars.remove(damageableUuid);
+		bossBars.remove(uuid);
 	}
 	
 }

@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
+import eu.wauz.wauzcore.players.ui.WauzPlayerEnemyBossBar;
 import eu.wauz.wauzcore.system.CombatMapper;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -48,7 +49,7 @@ public class PlayerCombatListener implements Listener {
 		if(event.getEntity() instanceof Player && WauzMode.isMMORPG(event.getEntity())) {
 			DamageCalculator.heal(event);
 		}
-		WauzPlayerBossBar playerBossBar = WauzPlayerBossBar.getBossBar(event.getEntity());
+		WauzPlayerBossBar playerBossBar = WauzPlayerEnemyBossBar.getBossBar(event.getEntity());
 		if(playerBossBar != null) {
 			playerBossBar.updateBossBar(-event.getAmount());
 		}

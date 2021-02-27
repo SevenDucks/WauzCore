@@ -82,32 +82,43 @@ public enum WauzResourceNodeType {
 	 * Checks if the resource node of this type can be gathered.
 	 * If not, the given player will receive a message with the reason.
 	 * 
-	 * @param player The player to receive the fail message.
+	 * @param player The player gathering the node.
 	 * @param toolItemStack The tool item stack used for gathering.
 	 * @param nodeTier The tier of the resource node.
 	 * 
 	 * @return If the node can be gathered.
 	 */
 	public boolean canGather(Player player, ItemStack toolItemStack, int nodeTier) {
-		if(toolItemStack == null || !StringUtils.contains(toolItemStack.getType().toString(), materialString)) {
-			player.sendMessage(ChatColor.RED + name + " can only be gathered with " + tool + "!");
+		int toolTier = EquipmentUtils.getTier(toolItemStack);
+		if(toolTier < nodeTier || !StringUtils.contains(toolItemStack.getType().toString(), materialString)) {
+			player.sendMessage(ChatColor.RED + "These " + name + " can only be gathered with T"
+					+ nodeTier + " or better " + tool + "! Buy or find a better tool!");
 			return false;
 		}
-		int toolTier = EquipmentUtils.getTier(toolItemStack);
 		AbstractPassiveSkill skill = getSkill(player);
-		int currentSkillLevel = getSkill(player).getLevel();
+		int currentSkillLevel = skill.getLevel();
 		int neededSkillLevel = ((toolTier - 1) * 5) + 1;
 		if(currentSkillLevel < neededSkillLevel) {
 			player.sendMessage(ChatColor.RED + "Your " + skill.getPassiveName() + " Skill (" + currentSkillLevel + ") needs to be "
-					+ neededSkillLevel + " or higher to use this " + tool + "!");
-			return false;
-		}
-		if(toolTier < nodeTier) {
-			player.sendMessage(ChatColor.RED + "These " + name + " can only be gathered with T"
-					+ nodeTier + " or better " + tool + "!");
+					+ neededSkillLevel + " or higher to use this tool! Gather lower tier resources to increase it!");
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Checks if the resource node of this type will give job experience.
+	 * 
+	 * @param player The player gathering the node.
+	 * @param nodeTier The tier of the resource node.
+	 * 
+	 * @return If the node will give job experience.
+	 */
+	public boolean canGetExp(Player player, int nodeTier) {
+		AbstractPassiveSkill skill = getSkill(player);
+		int currentSkillLevel = skill.getLevel();
+		int maximumSkillLevel = nodeTier * 5;
+		return currentSkillLevel <= maximumSkillLevel;
 	}
 	
 	/**

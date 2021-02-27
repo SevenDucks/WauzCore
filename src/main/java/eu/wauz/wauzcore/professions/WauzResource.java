@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -107,10 +106,7 @@ public class WauzResource {
 		}
 		switch (resourceSpawn.getResource().getType()) {
 		case CONTAINER:
-			if(resourceSpawn.canCollectResource(player)) {
-				resourceSpawn.collectResource(player);
-				player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
-			}
+			resourceSpawn.tryToCollectResource(player);
 			break;
 		case NODE:
 			resourceSpawn.tryToDamageResource(player);

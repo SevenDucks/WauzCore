@@ -282,7 +282,7 @@ public class WauzEquipmentBuilder {
 		else if(type.equals(EquipmentType.TOOL)) {
 			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Tool " + rarityStars);
 			lores.add("");
-			lores.add(ChatColor.WHITE + "Efficiency:" + ChatColor.DARK_AQUA + " " + attackStat + scalingString);
+			lores.add(ChatColor.WHITE + "Efficiency:" + ChatColor.DARK_AQUA + " " + attackStat);
 			sellValue = (int) (attackStat * (Math.random() + 0.5) + 1);
 		}
 		else if(type.equals(EquipmentType.ARMOR)) {		

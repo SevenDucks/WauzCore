@@ -124,7 +124,7 @@ public class EquipmentUtils {
 	 * @return The tier of the item.
 	 */
 	public static int getTier(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerBetweenFromLore(itemStack, ChatColor.GRAY + " T", ChatColor.WHITE + " ") : 1;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerBetweenFromLore(itemStack, ChatColor.GRAY + " T", ChatColor.WHITE + " ") : 0;
 	}
 	
 	/**

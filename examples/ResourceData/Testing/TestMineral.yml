@@ -4,6 +4,6 @@ nodename: Test Mineral
 nodetier: 1
 nodehealth: 100
 droptable: ChestDropsT1
-respawnmins: 5
+respawnmins: 1
 locations:
 - 'MMORPG -5502.5 21 -848.5'
