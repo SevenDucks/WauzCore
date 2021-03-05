@@ -11,6 +11,9 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectSource;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
@@ -91,26 +94,16 @@ public class FoodCalculator {
 		}
 		
 		if(ItemUtils.containsTemperatureModifier(itemStack)) {
-			WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-			long addedHeatRes = ItemUtils.getHeatResistance(itemStack);
-			playerData.getStats().setResistanceHeat(parseEffectTicksToShort(playerData.getStats().getResistanceHeat(), addedHeatRes));
-			long addedColdRes = ItemUtils.getColdResistance(itemStack);
-			playerData.getStats().setResistanceCold(parseEffectTicksToShort(playerData.getStats().getResistanceCold(), addedColdRes));
+			WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(player).getStats().getEffects();
+			short heatRes = ItemUtils.getHeatResistance(itemStack);
+			if(heatRes > 0) {
+				effects.addEffect(WauzPlayerEffectType.HEAT_RESISTANCE, WauzPlayerEffectSource.ITEM, heatRes * 60);
+			}
+			short coldRes = ItemUtils.getColdResistance(itemStack);
+			if(coldRes > 0) {
+				effects.addEffect(WauzPlayerEffectType.COLD_RESISTANCE, WauzPlayerEffectSource.ITEM, coldRes * 60);
+			}
 		}
-	}
-	
-	/**
-	 * Adds duration minutes to a status effect, gained from food.
-	 * Used to parse minutes too ticks and prevent overflows.
-	 * 
-	 * @param value The current value in 5 second ticks.
-	 * @param added The minutes added to the effect.
-	 * 
-	 * @return The increased value.
-	 */
-	public static short parseEffectTicksToShort(long value, long added) {
-		value += (added * 12);
-		return value > Short.MAX_VALUE ? Short.MAX_VALUE : (short) value;
 	}
 
 }

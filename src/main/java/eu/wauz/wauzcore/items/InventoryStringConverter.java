@@ -71,7 +71,6 @@ public class InventoryStringConverter {
 			playerDataConfig.set("stats.current.health", player.getHealth());
 			playerDataConfig.set("level", player.getLevel());
 			playerDataConfig.set("exp", player.getExp() * 100F);
-			playerDataConfig.set("pvp.resticks", playerData.getStats().getResistancePvP());
 		}
 		playerDataConfig.set("stats.current.hunger", player.getFoodLevel());
 		playerDataConfig.set("stats.current.saturation", player.getSaturation());
@@ -117,7 +116,6 @@ public class InventoryStringConverter {
 				OneBlockProgression.getPlayerOneBlock(player).load(playerDataConfig);
 			}
     		player.setHealth(playerDataConfig.getInt("stats.current.health"));
-    		playerData.getStats().setResistancePvP((short) playerDataConfig.getInt("pvp.resticks"));
     	}
     	player.setLevel(playerDataConfig.getInt("level"));
     	ExperienceCalculator.updateExperienceBar(player);

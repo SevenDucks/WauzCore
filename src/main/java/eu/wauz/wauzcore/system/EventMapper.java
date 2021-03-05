@@ -181,7 +181,7 @@ public class EventMapper {
 	 * @param event The interact event.
 	 * 
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
-	 * @see DamageCalculator#increasePvPProtection(PlayerInteractEvent)
+	 * @see DamageCalculator#applyPvPProtection(PlayerInteractEvent)
 	 * @see WauzSigns#interact(Player, org.bukkit.block.Block)
 	 * @see ShopMenu#open(Player, String, String)
 	 */
@@ -203,7 +203,7 @@ public class EventMapper {
 				WauzTeleporter.enterInstanceTeleportManual(event);
 			}
 			else if(type.equals(Material.EXPERIENCE_BOTTLE)) {
-				DamageCalculator.increasePvPProtection(event);
+				DamageCalculator.applyPvPProtection(event);
 			}
 		}
 		

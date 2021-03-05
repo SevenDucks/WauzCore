@@ -8,6 +8,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
@@ -53,13 +54,10 @@ public class ClimateCalculator {
 		if(playerData == null) {
 			return;
 		}
-		
 		byte playerTemperature = playerData.getStats().getHeat();
 		WauzRegion region = playerData.getSelections().getRegion();
 		byte regionTemperature = region != null ? region.getTemperature() : 6;
 		regionTemperature -= player.getWorld().getTime() < 12000 ? 0 : 3;
-		
-// Change Temperature
 		
 		if(playerTemperature > regionTemperature) {
 			playerTemperature--;
@@ -69,31 +67,24 @@ public class ClimateCalculator {
 			playerTemperature++;
 			playerData.getStats().setHeat(playerTemperature);
 		}
-		
 		playerData.getStats().setHeatRandomizer((byte) Chance.negativePositive(2));
 		
-// Apply Temperature
-		
 		WauzDebugger.log(player, "Temperature of " + playerTemperature + " Heat Unit(s)");
-		
 		WauzPlayerActionBar.update(player);
-		
 		if(!player.getGameMode().equals(GameMode.CREATIVE) && !WauzMode.inHub(player)) {
-			if(playerTemperature > 8 && playerData.getStats().getResistanceHeat() < 1) {
+			if(playerTemperature > 8 && !playerData.getStats().getEffects().hasEffect(WauzPlayerEffectType.HEAT_RESISTANCE)) {
 				DamageCalculator.setHealth(player, playerData.getStats().getHealth() - 2);
 				PotionEffect effect = new PotionEffect(PotionEffectType.HUNGER, 100, 2);
 				player.addPotionEffect(effect);
 				player.sendTitle(ChatColor.DARK_RED + "Critical Heat!", "Find a colder place asap!", 10, 70, 20);
 			}
-			else if(playerTemperature < 2 && playerData.getStats().getResistanceCold() < 1) {
+			else if(playerTemperature < 2 && !playerData.getStats().getEffects().hasEffect(WauzPlayerEffectType.COLD_RESISTANCE)) {
 				DamageCalculator.setHealth(player, playerData.getStats().getHealth() - 2);
 				PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 100, 2);
 				player.addPotionEffect(effect);
 				player.sendTitle(ChatColor.DARK_BLUE + "Critical Cold!", "Find a warmer place asap!", 10, 70, 20);
 			}
 		}
-		
-		playerData.getStats().decreaseTemperatureResistance();
 	}
 	
 }

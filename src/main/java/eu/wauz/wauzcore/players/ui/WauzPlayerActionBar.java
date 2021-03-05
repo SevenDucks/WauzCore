@@ -30,8 +30,8 @@ public class WauzPlayerActionBar {
 	/**
 	 * Updates the player's action bar, depending on the gamemode.</br>
 	 * Hub: DOUBLE-JUMP-MESSAGE</br>
-	 * Survival: PVP-RES | LOCATION</br>
-	 * MMORPG: HEALTH | MANA | RAGE | HEAT-AND-COLD-RES | LOCATION</br>
+	 * Survival: LOCATION</br>
+	 * MMORPG: HEALTH | MANA | RAGE | HEAT | LOCATION</br>
 	 * MMORPG-Casting: ABILITY-DISPLAY
 	 * 
 	 * @param player The player whose action bar should be updated.
@@ -60,8 +60,7 @@ public class WauzPlayerActionBar {
 		String locationString = "" + ChatColor.AQUA + x + " " + y + " " + z;
 		
 		if(WauzMode.isSurvival(player)) {
-			String pvspResString = stats.getResistancePvP() != 0 ? ChatColor.GREEN + "NoPvP " + (stats.getResistancePvP() * 5) + SEPERATOR : "";
-			String actionBarMessage = pvspResString + locationString;
+			String actionBarMessage = locationString;
 			player.sendActionBar(actionBarMessage);
 			return;
 		}
@@ -75,9 +74,7 @@ public class WauzPlayerActionBar {
 			String manaString = ChatColor.LIGHT_PURPLE + "" + stats.getMana() + " / " + stats.getMaxMana() + " " + UnicodeUtils.ICON_STAR + SEPERATOR;
 			String rageString = ChatColor.GOLD + "" + stats.getRage() + " / " + stats.getMaxRage() + " " + UnicodeUtils.ICON_SUN + SEPERATOR;
 			String heatString = ChatColor.GREEN + "" + ((stats.getHeat()* 5 - 10) + stats.getHeatRandomizer()) + " " + UnicodeUtils.ICON_DEGREES + "C" + SEPERATOR;
-			String heatResString = stats.getResistanceHeat() != 0 ? ChatColor.GREEN + "HtRes " + (stats.getResistanceHeat() * 5) + SEPERATOR : "";
-			String coldResString = stats.getResistanceCold() != 0 ? ChatColor.GREEN + "CdRes " + (stats.getResistanceCold() * 5) + SEPERATOR : "";
-			String actionBarMessage = healthString + manaString + rageString + heatString + heatResString + coldResString + locationString;
+			String actionBarMessage = healthString + manaString + rageString + heatString + locationString;
 			player.sendActionBar(actionBarMessage);
 			return;
 		}

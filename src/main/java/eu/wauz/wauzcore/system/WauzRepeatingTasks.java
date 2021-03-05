@@ -12,9 +12,9 @@ import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.ClimateCalculator;
-import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.players.calc.RageCalculator;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerNotifier;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
@@ -83,6 +83,7 @@ public class WauzRepeatingTasks {
 					WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 					WauzRegion.regionCheck(player);
 					WauzCitizenSpawner.showNpcsNearPlayer(player);
+					WauzPlayerEffects.progressPlayerEffects(player);
 				}
 			}
 			
@@ -104,9 +105,6 @@ public class WauzRepeatingTasks {
 						ClimateCalculator.updateTemperature(player);
 						ManaCalculator.regenerateMana(player);
 						RageCalculator.degenerateRage(player);
-					}
-					else if(WauzMode.isSurvival(player)) {
-						DamageCalculator.decreasePvPProtection(player);
 					}
 				}
 			}

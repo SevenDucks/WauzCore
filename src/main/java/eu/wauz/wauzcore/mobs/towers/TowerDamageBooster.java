@@ -9,8 +9,11 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.bukkit.potion.PotionEffectType;
 
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectSource;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
@@ -72,7 +75,8 @@ public class TowerDamageBooster implements DefenseTower {
 		if(!targets.isEmpty()) {
 			Player target = targets.get(0);
 			ParticleSpawner.spawnParticleLine(towerLocation, target.getLocation(), particle, 1);
-			SkillUtils.addPotionEffect(target, PotionEffectType.INCREASE_DAMAGE, 3, 0);
+			WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(target).getStats().getEffects();
+			effects.addEffect(WauzPlayerEffectType.ATTACK_BOOST, WauzPlayerEffectSource.SUMMON, 3, 50);
 		}
 	}
 

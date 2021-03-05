@@ -2,6 +2,7 @@ package eu.wauz.wauzcore.players;
 
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -20,6 +21,11 @@ public class WauzPlayerDataSectionStats {
 	private final WauzPlayerData playerData;
 	
 	/**
+	 * The active status effects on the player.
+	 */
+	private final WauzPlayerEffects effects = new WauzPlayerEffects();
+	
+	/**
 	 * The temperature of the player.
 	 */
 	private byte heat = 5;
@@ -28,21 +34,6 @@ public class WauzPlayerDataSectionStats {
 	 * The temperature display randomizer of the player.
 	 */
 	private byte heatRandomizer = 0;
-	
-	/**
-	 * The heat resistance duration of the player.
-	 */
-	private short resistanceHeat = 0;
-	
-	/**
-	 * The cold resistance duration of the player.
-	 */
-	private short resistanceCold = 0;
-	
-	/**
-	 * The player vs player resistance duration of the player.
-	 */
-	private short resistancePvP = 0;
 	
 	/**
 	 * The current health of the player.
@@ -84,6 +75,13 @@ public class WauzPlayerDataSectionStats {
 	}
 	
 	/**
+	 * @return The active status effects on the player.
+	 */
+	public WauzPlayerEffects getEffects() {
+		return effects;
+	}
+
+	/**
 	 * @return The player data the section belongs to.
 	 */
 	public WauzPlayerData getPlayerData() {
@@ -116,69 +114,6 @@ public class WauzPlayerDataSectionStats {
 	 */
 	public void setHeatRandomizer(byte heatRandomizer) {
 		this.heatRandomizer = heatRandomizer;
-	}
-
-	/**
-	 * @return The heat resistance duration of the player.
-	 */
-	public short getResistanceHeat() {
-		return resistanceHeat;
-	}
-
-	/**
-	 * @param resistanceHeat The new heat resistance duration of the player.
-	 */
-	public void setResistanceHeat(short resistanceHeat) {
-		this.resistanceHeat = resistanceHeat;
-	}
-
-	/**
-	 * @return The cold resistance duration of the player.
-	 */
-	public short getResistanceCold() {
-		return resistanceCold;
-	}
-	
-	/**
-	 * @param resistanceCold The new cold resistance duration of the player.
-	 */
-	public void setResistanceCold(short resistanceCold) {
-		this.resistanceCold = resistanceCold;
-	}
-	
-	/**
-	 * @return The player vs player resistance duration of the player.
-	 */
-	public short getResistancePvP() {
-		return resistancePvP;
-	}
-
-	/**
-	 * @param resistancePvP The new player vs player resistance duration of the player.
-	 */
-	public void setResistancePvP(short resistancePvP) {
-		this.resistancePvP = resistancePvP;
-	}
-
-	/**
-	 * Decreases temperature resistances by 1, down to 0.
-	 */
-	public void decreaseTemperatureResistance() {
-		if(resistanceHeat != 0) {
-			resistanceHeat--;
-		}
-		if(resistanceCold != 0) {
-			resistanceCold--;
-		}
-	}
-	
-	/**
-	 * Decreases player vs player resistance by 1, down to 0.
-	 */
-	public void decreasePvPProtection() {
-		if(resistancePvP != 0) {
-			resistancePvP--;
-		}
 	}
 
 	/**

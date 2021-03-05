@@ -293,7 +293,7 @@ public class ItemUtils {
 	 * @see ItemUtils#getPvPProtection(ItemStack)
 	 */
 	public static boolean containsPvPProtectionModifier(ItemStack itemStack) {
-		return hasLore(itemStack) && (doesLoreContain(itemStack, "PvP Protection"));
+		return hasLore(itemStack) && doesLoreContain(itemStack, "PvP Protection");
 	}
 	
 	/**

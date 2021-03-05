@@ -3,9 +3,11 @@ package eu.wauz.wauzcore.mobs.pets;
 import org.bukkit.Color;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffectType;
 
-import eu.wauz.wauzcore.skills.SkillUtils;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectSource;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.annotations.PetAbility;
 
@@ -58,7 +60,8 @@ public class PetAbilityRoar implements WauzPetAbility {
 	@Override
 	public void use(Player player, Entity pet) {
 		spawnParticles(player, pet, particle);
-		SkillUtils.addPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 7, 0);
+		WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(player).getStats().getEffects();
+		effects.addEffect(WauzPlayerEffectType.ATTACK_BOOST, WauzPlayerEffectSource.SUMMON, 7, 50);
 	}
 
 }

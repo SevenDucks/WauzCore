@@ -4,9 +4,11 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffectType;
 
-import eu.wauz.wauzcore.skills.SkillUtils;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectSource;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillType;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
@@ -98,7 +100,8 @@ public class SkillTheHermit implements WauzPlayerSkill {
 		player.getWorld().playSound(player.getLocation(), Sound.BLOCK_CONDUIT_ATTACK_TARGET, 1, 1.5f);
 		SkillParticle particle = new SkillParticle(Particle.VILLAGER_HAPPY);
 		ParticleSpawner.spawnParticleSphere(player.getLocation(), particle, 1.5);
-		SkillUtils.addPotionEffect(player, PotionEffectType.INVISIBILITY, 10, 0);
+		WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(player).getStats().getEffects();
+		effects.addEffect(WauzPlayerEffectType.EVASION_CHANCE, WauzPlayerEffectSource.SKILL, 10, 100);
 		return true;
 	}
 

@@ -25,19 +25,29 @@ public enum WauzPlayerEffectType {
 	COLD_RESISTANCE("Cold Resistance"),
 	
 	/**
+	 * Effect that regenerates x hitpoints per second.
+	 */
+	REGENERATION("HP/s Regeneration"),
+	
+	/**
 	 * Effect that boosts attack damage by x percent.
 	 */
-	ATTACK_BOOST("Attack Boost"),
+	ATTACK_BOOST("% Attack Boost"),
 	
 	/**
 	 * Effect that boosts defense by x percent.
 	 */
-	DEFENSE_BOOST("Defense Boost"),
+	DEFENSE_BOOST("% Defense Boost"),
+	
+	/**
+	 * Effect that boosts gained exp by x percent.
+	 */
+	EXP_BOOS("% Experience Boost"),
 	
 	/**
 	 * Effect that boosts evasion chance by x percent.
 	 */
-	EVASION_CHANCE("Evasion Chance");
+	EVASION_CHANCE("% Evasion Chance");
 	
 	/**
 	 * The name of the effect type.

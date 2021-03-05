@@ -36,6 +36,8 @@ import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassStats;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectSource;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveBreath;
@@ -140,6 +142,7 @@ public class CharacterManager {
 			playerData.getSelections().setGroupUuidString(null);
 		}
 		
+		playerData.getStats().getEffects().clearEffects();
 		for(PotionEffect potionEffect : player.getActivePotionEffects()) {
 			player.removePotionEffect(potionEffect.getType());
 		}
@@ -370,8 +373,7 @@ public class CharacterManager {
 			player.setGameMode(GameMode.SURVIVAL);
 			player.setLevel(0);
 			
-			playerData.getStats().setResistancePvP((short) 720);
-			playerDataConfig.set("pvp.resticks", 720);
+			playerData.getStats().getEffects().addEffect(WauzPlayerEffectType.PVP_PROTECTION, WauzPlayerEffectSource.ITEM, 1800);
 			persistCharacterFile(playerDataFile, playerDataConfig);
 		}
 		

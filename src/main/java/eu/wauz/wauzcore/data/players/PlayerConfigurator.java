@@ -305,23 +305,6 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 		playerConfigSet(player, "cooldown." + actionId, cooldown + System.currentTimeMillis(), true);
 	}
 	
-	/**
-	 * @param player The player that owns the config file.
-	 * 
-	 * @return The remaining effect ticks of pvp protection.
-	 */
-	public static short getPvPProtectionTicks(Player player) {
-		return (short) (0 + playerConfigGetInt(player, "pvp.resticks", true));
-	}
-	
-	/**
-	 * @param player The player that owns the config file.
-	 * @param ticks The new remaining effect ticks of pvp protection.
-	 */
-	public static void setPvPProtectionTicks(Player player, short ticks) {
-		playerConfigSet(player, "pvp.resticks", ticks, true);
-	}
-	
 // Tracker
 	
 	/**

@@ -15,6 +15,11 @@ public class WauzPlayerEffect {
 	private final WauzPlayerEffectType type;
 	
 	/**
+	 * The source of the effect.
+	 */
+	private final WauzPlayerEffectSource source;
+	
+	/**
 	 * The remaining duration of the effect in seconds.
 	 */
 	private int duration;
@@ -28,11 +33,24 @@ public class WauzPlayerEffect {
 	 * Creates a new temporary status effect on a player.
 	 * 
 	 * @param type The type of the effect.
+	 * @param source The source of the effect.
 	 * @param duration The remaining duration of the effect in seconds.
+	 * @param power The strength of the effect.
 	 */
-	public WauzPlayerEffect(WauzPlayerEffectType type, int duration) {
+	public WauzPlayerEffect(WauzPlayerEffectType type, WauzPlayerEffectSource source, int duration, int power) {
 		this.type = type;
+		this.source = source;
 		this.duration = duration;
+	}
+	
+	/**
+	 * Reduces the effect duration by 1 second.
+	 * 
+	 * @return If the effect expired.
+	 */
+	public boolean reduceDuration() {
+		duration--;
+		return duration <= 0;
 	}
 	
 	/**
@@ -43,6 +61,13 @@ public class WauzPlayerEffect {
 	}
 
 	/**
+	 * @return The source of the effect.
+	 */
+	public WauzPlayerEffectSource getSource() {
+		return source;
+	}
+
+	/**
 	 * @return The remaining duration of the effect in seconds.
 	 */
 	public int getDuration() {
@@ -50,24 +75,10 @@ public class WauzPlayerEffect {
 	}
 
 	/**
-	 * @param duration The new remaining duration of the effect in seconds.
-	 */
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
-
-	/**
 	 * @return The strength of the effect.
 	 */
 	public int getPower() {
 		return power;
-	}
-
-	/**
-	 * @param power The new strength of the effect.
-	 */
-	public void setPower(int power) {
-		this.power = power;
 	}
 
 }

@@ -17,6 +17,9 @@ import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectSource;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.skills.SkillUtils;
@@ -167,42 +170,25 @@ public class DamageCalculator {
 	 * @param player The player to check.
 	 * 
 	 * @return If the player has a pvp protection effect.
-	 * 
-	 * @see WauzPlayerData#getResistancePvP()
 	 */
 	public static boolean hasPvPProtection(Player player) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		if(playerData == null) {
 			return false;
 		}
-		return playerData.getStats().getResistancePvP() > 0;
+		return playerData.getStats().getEffects().hasEffect(WauzPlayerEffectType.PVP_PROTECTION);
 	}
 	
 	/**
-	 * Decreases the pvp protection time for a player.
-	 * 
-	 * @param player The player to decrease the protection time for.
-	 * 
-	 * @see WauzPlayerData#decreasePvPProtection()
-	 */
-	public static void decreasePvPProtection(Player player) {
-		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null) {
-			return;
-		}
-		playerData.getStats().decreasePvPProtection();
-	}
-	
-	/**
-	 * Increases the pvp protection time for a player, based on a potion interaction.
-	 * This status effect increase, shares the cooldown for food effects.
+	 * Applies pvp protection for a player, based on a potion interaction.
+	 * This status effect increase shares the cooldown for food effects.
 	 * 
 	 * @param event The interact event.
 	 * 
 	 * @see Cooldown#playerFoodConsume(Player)
 	 * @see ItemUtils#getPvPProtection(ItemStack)
 	 */
-	public static void increasePvPProtection(PlayerInteractEvent event) {
+	public static void applyPvPProtection(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		if(playerData == null) {
@@ -219,13 +205,17 @@ public class DamageCalculator {
 				return;
 			}
 			
-			long addedPvsPRes = ItemUtils.getPvPProtection(itemStack);
-			playerData.getStats().setResistancePvP(FoodCalculator.parseEffectTicksToShort(playerData.getStats().getResistancePvP(), addedPvsPRes));
-			
-			itemStack.setAmount(itemStack.getAmount() - 1);
-			player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_LAND, 0);
-			player.sendMessage(ChatColor.GREEN + "Your PvP-Protection was extended by " + (addedPvsPRes * 60) + " seconds!");
-			WauzPlayerActionBar.update(player);
+			int pvpRes = ItemUtils.getPvPProtection(itemStack) * 60;
+			WauzPlayerEffects effects = playerData.getStats().getEffects();
+			if(effects.addEffect(WauzPlayerEffectType.PVP_PROTECTION, WauzPlayerEffectSource.ITEM, pvpRes)) {
+				itemStack.setAmount(itemStack.getAmount() - 1);
+				player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_LAND, 0);
+				player.sendMessage(ChatColor.GREEN + "Your PvP-Protection was extended to " + pvpRes + " seconds!");
+				WauzPlayerActionBar.update(player);
+			}
+			else {
+				player.sendMessage(ChatColor.YELLOW + "You already hava a longer PvP-Protection active!");
+			}
 		}
 	}
 	
