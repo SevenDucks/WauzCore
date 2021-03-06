@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.players.calc;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -8,7 +9,7 @@ import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.items.util.FoodUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffectSource;
@@ -40,7 +41,7 @@ public class FoodCalculator {
 	 * @see FoodCalculator#applyItemEffects(PlayerItemConsumeEvent)
 	 */
 	public static void tryToConsume(Player player, ItemStack itemStack) {
-		if(!ItemUtils.isFoodItem(itemStack) || !Cooldown.playerFoodConsume(player)) {
+		if(!FoodUtils.isFoodItem(itemStack) || !Cooldown.playerFoodConsume(player)) {
 			return;
 		}
 		WauzDebugger.log(player, "Try to consume Food Item");
@@ -50,7 +51,7 @@ public class FoodCalculator {
 		if(playerData == null || !playerData.getSkills().isFoodReady(foodId)) {
 			return;
 		}
-		int foodCooldown = ItemUtils.getCooldown(itemStack);
+		int foodCooldown = FoodUtils.getCooldown(itemStack);
 		playerData.getSkills().updateFoodCooldown(foodId, foodCooldown);
 		
 		PlayerItemConsumeEvent event = new PlayerItemConsumeEvent(player, itemStack);
@@ -63,46 +64,57 @@ public class FoodCalculator {
 	
 	/**
 	 * Applies status effects based on a consumed item's lore.
-	 * This includes saturation, healing and temperature modifiers.
+	 * This includes saturation, healing and status modifiers.
 	 * 
 	 * @param event The consumtion event.
 	 * 
-	 * @see ItemUtils#getSaturation(ItemStack)
-	 * @see ItemUtils#getHealing(ItemStack)
-	 * @see ItemUtils#getHeatResistance(ItemStack)
-	 * @see ItemUtils#getColdResistance(ItemStack)
+	 * @see FoodUtils
 	 */
 	public static void applyItemEffects(PlayerItemConsumeEvent event) {
 		Player player = event.getPlayer();
+		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		ItemStack itemStack = event.getItem();
-		
-		if(!ItemUtils.isFoodItem(itemStack)) {
+		if(playerData == null || !FoodUtils.isFoodItem(itemStack)) {
 			event.setCancelled(true);
 			return;
 		}
+		WauzPlayerEffects effects = playerData.getStats().getEffects();
 		
-		if(ItemUtils.containsSaturationModifier(itemStack) ) {
-			short saturation = ItemUtils.getSaturation(itemStack);
+		if(FoodUtils.containsSaturationModifier(itemStack) ) {
+			int saturation = FoodUtils.getSaturation(itemStack);
 			player.setFoodLevel(player.getFoodLevel() + saturation);
 			player.setSaturation(5);
 		}
-		
-		if(ItemUtils.containsHealingModifier(itemStack)) {
-			short healing = ItemUtils.getHealing(itemStack);
+		if(FoodUtils.containsHealingModifier(itemStack)) {
+			int healing = FoodUtils.getHealing(itemStack);
 			EntityRegainHealthEvent healEvent = new EntityRegainHealthEvent(player, healing, RegainReason.EATING);
 			DamageCalculator.heal(healEvent);
 		}
 		
-		if(ItemUtils.containsTemperatureModifier(itemStack)) {
-			WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(player).getStats().getEffects();
-			short heatRes = ItemUtils.getHeatResistance(itemStack);
-			if(heatRes > 0) {
-				effects.addEffect(WauzPlayerEffectType.HEAT_RESISTANCE, WauzPlayerEffectSource.ITEM, heatRes * 60);
-			}
-			short coldRes = ItemUtils.getColdResistance(itemStack);
-			if(coldRes > 0) {
-				effects.addEffect(WauzPlayerEffectType.COLD_RESISTANCE, WauzPlayerEffectSource.ITEM, coldRes * 60);
-			}
+		if(FoodUtils.containsHeatResistanceModifier(itemStack)) {
+			int duration = FoodUtils.getHeatResistance(itemStack);
+			effects.addEffect(WauzPlayerEffectType.HEAT_RESISTANCE, WauzPlayerEffectSource.ITEM, duration * 60);
+		}
+		if(FoodUtils.containsColdResistanceModifier(itemStack)) {
+			int duration = FoodUtils.getColdResistance(itemStack);
+			effects.addEffect(WauzPlayerEffectType.COLD_RESISTANCE, WauzPlayerEffectSource.ITEM, duration * 60);
+		}
+		
+		if(FoodUtils.containsAttackBoostModifier(itemStack)) {
+			Pair<Integer, Integer> boost = FoodUtils.getAttackBoost(itemStack);
+			effects.addEffect(WauzPlayerEffectType.ATTACK_BOOST, WauzPlayerEffectSource.ITEM, boost.getLeft() * 60, boost.getRight());
+		}
+		if(FoodUtils.containsDefenseBoostModifier(itemStack)) {
+			Pair<Integer, Integer> boost = FoodUtils.getDefenseBoost(itemStack);
+			effects.addEffect(WauzPlayerEffectType.DEFENSE_BOOST, WauzPlayerEffectSource.ITEM, boost.getLeft() * 60, boost.getRight());
+		}
+		if(FoodUtils.containsExpBoostModifier(itemStack)) {
+			Pair<Integer, Integer> boost = FoodUtils.getExpBoost(itemStack);
+			effects.addEffect(WauzPlayerEffectType.EXP_BOOST, WauzPlayerEffectSource.ITEM, boost.getLeft() * 60, boost.getRight());
+		}
+		if(FoodUtils.containsEvasionChanceModifier(itemStack)) {
+			Pair<Integer, Integer> boost = FoodUtils.getEvasionChance(itemStack);
+			effects.addEffect(WauzPlayerEffectType.EVASION_CHANCE, WauzPlayerEffectSource.ITEM, boost.getLeft() * 60, boost.getRight());
 		}
 	}
 

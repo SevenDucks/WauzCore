@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
-import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.items.util.FoodUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffectSource;
@@ -186,7 +186,7 @@ public class DamageCalculator {
 	 * @param event The interact event.
 	 * 
 	 * @see Cooldown#playerFoodConsume(Player)
-	 * @see ItemUtils#getPvPProtection(ItemStack)
+	 * @see FoodUtils#getPvPProtection(ItemStack)
 	 */
 	public static void applyPvPProtection(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -195,7 +195,7 @@ public class DamageCalculator {
 			return;
 		}
 		ItemStack itemStack = player.getEquipment().getItemInMainHand();
-		if(ItemUtils.containsPvPProtectionModifier(itemStack)) {
+		if(FoodUtils.containsPvPProtectionModifier(itemStack)) {
 			event.setCancelled(true);
 			if(!Cooldown.playerFoodConsume(player)) {
 				return;
@@ -205,7 +205,7 @@ public class DamageCalculator {
 				return;
 			}
 			
-			int pvpRes = ItemUtils.getPvPProtection(itemStack) * 60;
+			int pvpRes = FoodUtils.getPvPProtection(itemStack) * 60;
 			WauzPlayerEffects effects = playerData.getStats().getEffects();
 			if(effects.addEffect(WauzPlayerEffectType.PVP_PROTECTION, WauzPlayerEffectSource.ITEM, pvpRes)) {
 				itemStack.setAmount(itemStack.getAmount() - 1);
@@ -214,7 +214,7 @@ public class DamageCalculator {
 				WauzPlayerActionBar.update(player);
 			}
 			else {
-				player.sendMessage(ChatColor.YELLOW + "You already hava a longer PvP-Protection active!");
+				player.sendMessage(ChatColor.RED + "You already hava a longer PvP-Protection active!");
 			}
 		}
 	}

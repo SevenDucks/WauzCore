@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
  * @author Wauzmons
  * 
  * @see EquipmentUtils
+ * @see FoodUtils
  * @see PetEggUtils
  */
 public class ItemUtils {
@@ -160,18 +161,6 @@ public class ItemUtils {
 	}
 	
 	/**
-	 * Checks if an item stack is a food item, based on lore.
-	 * Includes null check.
-	 * 
-	 * @param itemStack The item stack to check.
-	 * 
-	 * @return If the item is a food item.
-	 */
-	public static boolean isFoodItem(ItemStack itemStack) {
-		return hasDisplayName(itemStack) && hasLore(itemStack) && doesLoreContain(itemStack, "Food Item");
-	}
-	
-	/**
 	 * Checks if an item stack is an ammo item, based on lore.
 	 * Includes null check.
 	 * 
@@ -225,150 +214,6 @@ public class ItemUtils {
 	 */
 	public static int getSellValue(ItemStack itemStack) {
 		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Sell Value:" + ChatColor.DARK_GREEN, 2) * itemStack.getAmount() : 0;
-	}
-	
-	/**
-	 * Gets the cooldown of an item stack, based on lore.
-	 * Includes null check.
-	 * 
-	 * @param itemStack The item stack to check.
-	 * 
-	 * @return The cooldown seconds.
-	 */
-	public static int getCooldown(ItemStack itemStack) {
-		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Cooldown:" + ChatColor.YELLOW, 1) : 1;
-	}
-	
-	/**
-	 * Checks if an item stack contains a saturation modifier, based on lore.
-	 * Includes null check.
-	 * 
-	 * @param itemStack The item stack to check.
-	 * 
-	 * @return If the item contains a saturation modifier.
-	 * 
-	 * @see ItemUtils#getSaturation(ItemStack)
-	 */
-	public static boolean containsSaturationModifier(ItemStack itemStack) {
-		return hasLore(itemStack) && doesLoreContain(itemStack, "Saturation");
-	}
-	
-	/**
-	 * Checks if an item stack contains a healing modifier, based on lore.
-	 * Includes null check.
-	 * 
-	 * @param itemStack The item stack to check.
-	 * 
-	 * @return If the item contains a healing modifier.
-	 * 
-	 * @see ItemUtils#getHealing(ItemStack)
-	 */
-	public static boolean containsHealingModifier(ItemStack itemStack) {
-		return hasLore(itemStack) && doesLoreContain(itemStack, "Healing");
-	}
-	
-	/**
-	 * Checks if an item stack contains a heat or cold resistance modifier, based on lore.
-	 * Includes null check.
-	 * 
-	 * @param itemStack The item stack to check.
-	 * 
-	 * @return If the item contains a heat or cold resistance modifier.
-	 * 
-	 * @see ItemUtils#getHeatResistance(ItemStack)
-	 * @see ItemUtils#getColdResistance(ItemStack)
-	 */
-	public static boolean containsTemperatureModifier(ItemStack itemStack) {
-		return hasLore(itemStack) && (doesLoreContain(itemStack, "Heat Resistance") || doesLoreContain(itemStack, "Cold Resistance"));
-	}
-	
-	/**
-	 * Checks if an item stack contains a pvp protection modifier, based on lore.
-	 * Includes null check.
-	 * 
-	 * @param itemStack The item stack to check.
-	 * 
-	 * @return If the item contains a pvp protection modifier.
-	 * 
-	 * @see ItemUtils#getPvPProtection(ItemStack)
-	 */
-	public static boolean containsPvPProtectionModifier(ItemStack itemStack) {
-		return hasLore(itemStack) && doesLoreContain(itemStack, "PvP Protection");
-	}
-	
-	/**
-	 * Gets the saturation value of an item stack, based on lore.
-	 * Includes null check.
-	 * 
-	 * @param itemStack The item stack to check.
-	 * 
-	 * @return The saturation value.
-	 * 
-	 * @see ItemUtils#containsSaturationModifier(ItemStack)
-	 */
-	public static short getSaturation(ItemStack itemStack) {
-		String saturationString = getStringFromLore(itemStack, "Saturation", 1);
-		return saturationString == null ? 0 : Short.parseShort(saturationString);
-	}
-	
-	/**
-	 * Gets the healing value of an item stack, based on lore.
-	 * Includes null check.
-	 * 
-	 * @param itemStack The item stack to check.
-	 * 
-	 * @return The heling value.
-	 * 
-	 * @see ItemUtils#containsHealingModifier(ItemStack)
-	 */
-	public static short getHealing(ItemStack itemStack) {
-		String healingString = getStringFromLore(itemStack, "Healing", 1);
-		return healingString == null ? 0 : Short.parseShort(healingString);
-	}
-	
-	/**
-	 * Gets the heat resistance value of an item stack, based on lore.
-	 * Includes null check.
-	 * 
-	 * @param itemStack The item stack to check.
-	 * 
-	 * @return The heat resistance value.
-	 * 
-	 * @see ItemUtils#containsTemperatureModifier(ItemStack)
-	 */
-	public static short getHeatResistance(ItemStack itemStack) {
-		String resistanceString = getStringFromLore(itemStack, "Heat Resistance", 2);
-		return resistanceString == null ? 0 : Short.parseShort(resistanceString);
-	}
-	
-	/**
-	 * Gets the cold resistance value of an item stack, based on lore.
-	 * Includes null check.
-	 * 
-	 * @param itemStack The item stack to check.
-	 * 
-	 * @return The cold resistance value.
-	 * 
-	 * @see ItemUtils#containsTemperatureModifier(ItemStack)
-	 */
-	public static short getColdResistance(ItemStack itemStack) {
-		String resistanceString = getStringFromLore(itemStack, "Cold Resistance", 2);
-		return resistanceString == null ? 0 : Short.parseShort(resistanceString);
-	}
-	
-	/**
-	 * Gets the the pvp protectino value of an item stack, based on lore.
-	 * Includes null check.
-	 * 
-	 * @param itemStack The item stack to check.
-	 * 
-	 * @return The pvp protection value.
-	 * 
-	 * @see ItemUtils#containsPvPProtectionModifier(ItemStack)
-	 */
-	public static short getPvPProtection(ItemStack itemStack) {
-		String resistanceString = getStringFromLore(itemStack, "PvP Protection", 2);
-		return resistanceString == null ? 0 : Short.parseShort(resistanceString);
 	}
 	
 	/**
