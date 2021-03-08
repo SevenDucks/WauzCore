@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.WauzSigns;
+import eu.wauz.wauzcore.items.util.FoodUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.menu.Backpack;
@@ -129,8 +130,10 @@ public class EventMapper {
 			event.setCancelled(true);
 			return;
 		}
-		else if(event.getAction().toString().contains("RIGHT")) {
+		else if(event.getAction().toString().contains("RIGHT") && FoodUtils.isFoodItem(itemStack)) {
 			FoodCalculator.tryToConsume(player, itemStack);
+			event.setCancelled(true);
+			return;
 		}
 		
 		if(event.getAction() == Action.RIGHT_CLICK_BLOCK) {

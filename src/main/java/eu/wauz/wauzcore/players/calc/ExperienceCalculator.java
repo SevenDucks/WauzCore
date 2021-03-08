@@ -12,8 +12,11 @@ import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetStat;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -143,15 +146,15 @@ public class ExperienceCalculator {
 	 */
 	public static double applyExperienceBonus(Player player, double experience) {		
 		ItemStack weaponItemStack = player.getEquipment().getItemInMainHand();
-		double weaponBonus = ItemUtils.isNotAir(weaponItemStack) ? EquipmentUtils.getExperienceBonus(weaponItemStack) : 0;	
+		double weaponBonus = (ItemUtils.isNotAir(weaponItemStack) ? EquipmentUtils.getExperienceBonus(weaponItemStack) : 0) / 100.0;	
 		ItemStack armorItemStack = player.getEquipment().getChestplate();
-		double armorBonus = ItemUtils.isNotAir(armorItemStack) ? EquipmentUtils.getExperienceBonus(armorItemStack) : 0;
-		
-		double multiplier = 1 + (weaponBonus / 100.0) + (armorBonus / 100.0);
-		
+		double armorBonus = (ItemUtils.isNotAir(armorItemStack) ? EquipmentUtils.getExperienceBonus(armorItemStack) : 0) / 100.0;
+		WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(player).getStats().getEffects();
+		double effectBonus = effects.getEffectPowerSumDecimal(WauzPlayerEffectType.EXP_BOOST);
 		int petInt = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Intelligence"));
-		multiplier += (float) petInt / 200f;
+		double petBonus = (float) petInt / 200f;
 		
+		double multiplier = 1 + weaponBonus + armorBonus + effectBonus + petBonus;
 		return experience * multiplier;
 	}
 	

@@ -1,5 +1,7 @@
 package eu.wauz.wauzcore.players.effects;
 
+import org.bukkit.ChatColor;
+
 /**
  * A temporary status effect on a player.
  * 
@@ -79,6 +81,26 @@ public class WauzPlayerEffect {
 	 */
 	public int getPower() {
 		return power;
+	}
+	
+	/**
+	 * @return The strength of the effect as decimal number.
+	 */
+	public double getPowerDecimal() {
+		return (double) power / (double) 100.0;
+	}
+	
+	/**
+	 * Returns the name of the effect in a scoreboard friendly format.
+	 * 
+	 * @return The name of the effect.
+	 */
+	@Override
+	public String toString() {
+		String prefix = "\n" + type.getColor() + "[" + ChatColor.WHITE;
+		String suffix = type.getColor() + "] " + ChatColor.GRAY + duration + "s";
+		String name = (power == 0 ? "" : "" + power) + type.toString() + " from " + source.toString();
+		return prefix + name + suffix;
 	}
 
 }

@@ -10,7 +10,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.data.players.PlayerBestiaryConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
@@ -22,6 +21,8 @@ import eu.wauz.wauzcore.mobs.MobMetadataUtils;
 import eu.wauz.wauzcore.mobs.bestiary.ObservationRank;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -249,33 +250,26 @@ public class DamageCalculatorAttack {
 		WauzDebugger.log(player, "Attacking with Weapon-Type: " + weaponType);
 		
 		float multiplier = 1;
-		if(weaponType.contains("SWORD")) {
+		if(weaponType.endsWith("_SWORD")) {
 			multiplier = ((float) PlayerSkillConfigurator.getSwordSkill(player) / 100000)
 					* ((float) PlayerSkillConfigurator.getAgilityStatpoints(player) * 5 / 100 + 1);
-			
 			if(Chance.oneIn(INCREASE_SKILL_CHANCE)) {
 				PlayerSkillConfigurator.increaseSwordSkill(player);
 			}
 		}
-		else if(weaponType.contains("AXE")) {
+		else if(weaponType.endsWith("_AXE")) {
 			multiplier = ((float) PlayerSkillConfigurator.getAxeSkill(player) / 100000)
 					* ((float) PlayerSkillConfigurator.getStrengthStatpoints(player) * 5 / 100 + 1);
-			
 			if(Chance.oneIn(INCREASE_SKILL_CHANCE)) {
 				PlayerSkillConfigurator.increaseAxeSkill(player);
 			}
 		}
-		else if(weaponType.contains("HOE")) {
+		else if(weaponType.endsWith("_HOE")) {
 			multiplier = ((float) PlayerSkillConfigurator.getStaffSkill(player) / 100000)
 					* ((float) PlayerSkillConfigurator.getManaStatpoints(player) * 5 / 100 + 1);
-			
 			if(Chance.oneIn(INCREASE_SKILL_CHANCE)) {
 				PlayerSkillConfigurator.increaseStaffSkill(player);
 			}
-		}
-		
-		if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
-			multiplier *= 1.5;
 		}
 		
 		WauzDebugger.log(player, "Weapon Damage-Multiplier: " + Formatters.DEC.format(multiplier));	
@@ -300,6 +294,10 @@ public class DamageCalculatorAttack {
 		else {
 			multiplier += Chance.negativePositive(0.15f);
 		}
+		
+		WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(player).getStats().getEffects();
+		double effectBonus = effects.getEffectPowerSumDecimal(WauzPlayerEffectType.ATTACK_BOOST);
+		multiplier *= (1.0 + effectBonus);
 		
 		if(isAttackDebugMode) {
 			multiplier += 100;

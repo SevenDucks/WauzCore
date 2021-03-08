@@ -21,6 +21,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.util.Formatters;
@@ -104,8 +105,9 @@ public class WauzPlayerTablist {
 		addGuildEntries();
 		addFriendsEntries();
 		addRemainingEntries();
+		WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(player).getStats().getEffects();
 		player.setPlayerListHeader(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Delseyria" + ChatColor.DARK_AQUA + ChatColor.BOLD + "Reborn");
-		player.setPlayerListFooter(ChatColor.LIGHT_PURPLE + "" + ChatColor.AQUA + "----------" + WauzDateUtils.getServerTime() + "----------");
+		player.setPlayerListFooter(ChatColor.AQUA + "----------" + WauzDateUtils.getServerTime() + "----------" + effects);
 		player.setScoreboard(scoreboard);
 	}
 	

@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
@@ -15,6 +14,8 @@ import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetStat;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
+import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
@@ -120,10 +121,10 @@ public class DamageCalculatorDefense {
 	 * @see WauzDebugger#toggleDefenseDebugMode(Player)
 	 */
 	private boolean tryToEvade() {
-		if(player.hasPotionEffect(PotionEffectType.INVISIBILITY)
-				|| player.hasPermission(WauzPermission.DEBUG_DEFENSE.toString())
-				|| Chance.percent(PlayerSkillConfigurator.getAgility(player))) {
-			
+		WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(player).getStats().getEffects();
+		int effectBonus = effects.getEffectPowerSum(WauzPlayerEffectType.EVASION_CHANCE);
+		boolean evaded = Chance.percent(PlayerSkillConfigurator.getAgility(player) + effectBonus);
+		if(evaded || player.hasPermission(WauzPermission.DEBUG_DEFENSE.toString())) {
 			event.setDamage(0);
 			
 			ValueIndicator.spawnEvadedIndicator(player);
@@ -172,6 +173,10 @@ public class DamageCalculatorDefense {
 		float multiplier = PlayerSkillConfigurator.getStrengthFloat(player);
 		int petAbs = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Absorption"));
 		multiplier += (float) petAbs / 100f;
+		
+		WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(player).getStats().getEffects();
+		double effectBonus = effects.getEffectPowerSumDecimal(WauzPlayerEffectType.DEFENSE_BOOST);
+		multiplier *= (1.0 + effectBonus);
 		
 		WauzDebugger.log(player, "Defense Multiplier: " + Formatters.DEC.format(multiplier));	
 		damage -= (int) ((float) defense * multiplier);

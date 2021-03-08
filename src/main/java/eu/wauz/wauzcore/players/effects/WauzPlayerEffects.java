@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.players.effects;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
@@ -79,14 +80,37 @@ public class WauzPlayerEffects {
 	}
 	
 	/**
-	 * Reduces the duration of all effects by 1 second and removes expired ones.
+	 * Gets the combined strength of the all matching effects.
+	 * 
+	 * @param type The type of the effect.
+	 * 
+	 * @return The sum of the effect strengths.
 	 */
-	private void progressEffects() {
+	public int getEffectPowerSum(WauzPlayerEffectType type) {
+		int power = 0;
 		for(WauzPlayerEffect effect : getEffectList()) {
-			if(effect.reduceDuration()) {
-				effects.remove(effect);
+			if(effect.getType().equals(type)) {
+				power += effect.getPower();
 			}
 		}
+		return power;
+	}
+	
+	/**
+	 * Gets the combined strength of the all matching effects as decimal number.
+	 * 
+	 * @param type The type of the effect.
+	 * 
+	 * @return The sum of the effect strengths.
+	 */
+	public double getEffectPowerSumDecimal(WauzPlayerEffectType type) {
+		double power = 0;
+		for(WauzPlayerEffect effect : getEffectList()) {
+			if(effect.getType().equals(type)) {
+				power += effect.getPowerDecimal();
+			}
+		}
+		return power;
 	}
 	
 	/**
@@ -97,10 +121,33 @@ public class WauzPlayerEffects {
 	}
 	
 	/**
+	 * Removes a single active status effect.
+	 * 
+	 * @param effect The effect to remove.
+	 */
+	public void removeEffect(WauzPlayerEffect effect) {
+		effects.remove(effect);
+	}
+	
+	/**
 	 * Removes all currently active status effects.
 	 */
 	public void clearEffects() {
 		effects.clear();
+	}
+	
+	/**
+	 * Returns the names of all effects in a scoreboard friendly format.
+	 * 
+	 * @return The names of all effects.
+	 */
+	@Override
+	public String toString() {
+		String effectString = "";
+		for(WauzPlayerEffect effect : effects) {
+			effectString += effect.toString();
+		}
+		return effectString;
 	}
 	
 	/**
@@ -113,7 +160,16 @@ public class WauzPlayerEffects {
 		if(playerData == null) {
 			return;
 		}
-		playerData.getStats().getEffects().progressEffects();
+		WauzPlayerEffects effects = playerData.getStats().getEffects();
+		for(WauzPlayerEffect effect : effects.getEffectList()) {
+			if(effect.reduceDuration()) {
+				effects.removeEffect(effect);
+				player.sendMessage(ChatColor.YELLOW + "Effect expired: " + effect.toString());
+			}
+			else if(effect.getDuration() == 10) {
+				player.sendMessage(ChatColor.YELLOW + "Effect expires soon: " + effect.toString());
+			}
+		}
 	}
 
 }
