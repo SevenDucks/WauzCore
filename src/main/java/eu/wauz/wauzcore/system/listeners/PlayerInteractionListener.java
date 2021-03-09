@@ -47,7 +47,6 @@ import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.players.WauzPlayerSit;
-import eu.wauz.wauzcore.players.calc.FoodCalculator;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.skills.passive.PassiveBreath;
@@ -276,17 +275,15 @@ public class PlayerInteractionListener implements Listener {
 	}
 
 	/**
-	 * Reads food stats from the consumed item,
-	 * to apply all relevant effects to the player.
+	 * Prevents MMORPG players from consuming items,
+	 * since that is handled by the custom food item system.
 	 * 
 	 * @param event The consume event.
-	 * 
-	 * @see FoodCalculator#applyItemEffects(PlayerItemConsumeEvent)
 	 */
 	@EventHandler
 	public void onConsume(PlayerItemConsumeEvent event) {
 		if(WauzMode.isMMORPG(event.getPlayer())) {
-			FoodCalculator.applyItemEffects(event);
+			event.setCancelled(true);
 		}
 	}
 	
@@ -307,8 +304,8 @@ public class PlayerInteractionListener implements Listener {
 	}
 	
 	/**
-	 * Prevents MMORPG players to modify armor stands,
-	 * because they are used as displays for damage numbers and more.
+	 * Prevents MMORPG players from modifying armor stands,
+	 * since they are used as displays for damage numbers and more.
 	 * 
 	 * @param event The equip event.
 	 */

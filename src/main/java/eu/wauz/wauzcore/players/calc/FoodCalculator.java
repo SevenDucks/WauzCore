@@ -1,7 +1,6 @@
 package eu.wauz.wauzcore.players.calc;
 
 import org.apache.commons.lang3.tuple.Pair;
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
@@ -32,31 +31,24 @@ public class FoodCalculator {
 	/**
 	 * Lets a player consume an item, if it is valid and the cooldown is ready.
 	 * If it was a succes the item is removed and an eating sound is played.
-	 * A new event is called to apply the item effects.
 	 * 
-	 * @param player The player who tris to consume the item.
+	 * @param player The player who tries to consume the item.
 	 * @param itemStack The item the player tries to consume.
 	 * 
-	 * @see PlayerItemConsumeEvent
-	 * @see FoodCalculator#applyItemEffects(PlayerItemConsumeEvent)
+	 * @see Cooldown#playerFoodConsume(Player)
+	 * @see FoodCalculator#applyItemEffects(Player, ItemStack)
 	 */
 	public static void tryToConsume(Player player, ItemStack itemStack) {
-		if(!Cooldown.playerFoodConsume(player)) {
-			return;
-		}
 		WauzDebugger.log(player, "Try to consume Food Item");
-		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		String foodId = itemStack.getItemMeta().getDisplayName();
-		if(playerData == null || !playerData.getSkills().isFoodReady(foodId)) {
+		if(!Cooldown.playerFoodConsume(player) || !playerData.getSkills().isFoodReady(foodId)) {
 			return;
 		}
 		int foodCooldown = FoodUtils.getCooldown(itemStack);
 		playerData.getSkills().updateFoodCooldown(foodId, foodCooldown);
 		
-		PlayerItemConsumeEvent event = new PlayerItemConsumeEvent(player, itemStack);
-		Bukkit.getServer().getPluginManager().callEvent(event);
-		
+		applyItemEffects(player, itemStack);
 		WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(PassiveNutrition.PASSIVE_NAME).grantExperience(player, 1);
 		itemStack.setAmount(itemStack.getAmount() - 1);
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
@@ -66,19 +58,13 @@ public class FoodCalculator {
 	 * Applies status effects based on a consumed item's lore.
 	 * This includes saturation, healing and status modifiers.
 	 * 
-	 * @param event The consumtion event.
+	 * @param player The player consuming the item.
+	 * @param itemStack The item the player consumes.
 	 * 
 	 * @see FoodUtils
 	 */
-	public static void applyItemEffects(PlayerItemConsumeEvent event) {
-		Player player = event.getPlayer();
-		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		ItemStack itemStack = event.getItem();
-		if(playerData == null || !FoodUtils.isFoodItem(itemStack)) {
-			event.setCancelled(true);
-			return;
-		}
-		WauzPlayerEffects effects = playerData.getStats().getEffects();
+	public static void applyItemEffects(Player player, ItemStack itemStack) {
+		WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(player).getStats().getEffects();
 		
 		if(FoodUtils.containsSaturationModifier(itemStack) ) {
 			int saturation = FoodUtils.getSaturation(itemStack);
