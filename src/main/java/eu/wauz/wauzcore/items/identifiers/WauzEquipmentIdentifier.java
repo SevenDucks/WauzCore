@@ -14,6 +14,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.EquipmentParameters;
 import eu.wauz.wauzcore.items.WauzEquipment;
@@ -227,7 +228,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 			else {
 				builder.makeUnbreakable();
 				builder.addRarityPrefixes("Stable ", "" + ChatColor.DARK_AQUA);
-				baseMultiplier = 1.5;
+				baseMultiplier = 1;
 			}
 		}
 		else {
@@ -248,11 +249,12 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	 * to prevent the player from using items, out of their reach.
 	 */
 	private void calculateMainStats() {
+		int playerLevel = PlayerCollectionConfigurator.getCharacterLevel(player);
 		mainStat = (int) (baseMultiplier * typeMultiplicator * tier.getMultiplier() * rarity.getMultiplier());
-		scalingLevel = player.getLevel() - (tier.getLevel() * 10 - 10);
+		scalingLevel = playerLevel - (tier.getLevel() * 10 - 10);
 		scalingLevel = (float) (scalingLevel < 1 ? 3 : (scalingLevel + 2 > 10 ? 10 : scalingLevel + 2)) / 10;	
 		WauzDebugger.log(player, "Level-Scaling Weapon: " + mainStat + " * " + scalingLevel);
-		requiredLevel = Math.max(Math.min((tier.getLevel() * 10), player.getLevel()), tier.getLevel() * 10 - 15);
+		requiredLevel = Math.max(Math.min((tier.getLevel() * 10), playerLevel), tier.getLevel() * 10 - 15);
 		mainStat = (int) (mainStat * scalingLevel);
 		attackStat = mainStat + 1;
 		defenseStat = (mainStat / 4) + 1;

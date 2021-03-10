@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -31,7 +32,11 @@ public class WauzPlayerScoreboard {
 	 */
 	public static void scheduleScoreboardRefresh(final Player player) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+			
             public void run() {
+            	if(player == null || !player.isValid() || WauzPlayerDataPool.getPlayer(player) == null) {
+            		return;
+            	}
             	String worldName = player.getWorld().getName();
             	Scoreboard scoreboard = null;
             	
@@ -57,6 +62,7 @@ public class WauzPlayerScoreboard {
             	}
             	new WauzPlayerTablist(player, scoreboard).createAndShow();
             }
+            
 		}, 10);
 	}
 	

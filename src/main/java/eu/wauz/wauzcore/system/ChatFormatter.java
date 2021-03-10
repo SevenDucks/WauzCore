@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
@@ -33,7 +34,7 @@ public class ChatFormatter {
 		String level;
 		switch (WauzMode.getMode(player)) {
 		case MMORPG:
-			level = WauzMode.inHub(player) ? "Hub" : "MMO, " + player.getLevel();
+			level = WauzMode.inHub(player) ? "Hub" : "MMO, " + PlayerCollectionConfigurator.getCharacterLevel(player);
 			break;
 		case SURVIVAL:
 			level = WauzMode.inOneBlock(player) ? "OneBlock" : "Survival";

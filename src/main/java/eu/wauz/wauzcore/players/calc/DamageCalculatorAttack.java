@@ -12,6 +12,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.players.PlayerBestiaryConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
@@ -191,7 +192,7 @@ public class DamageCalculatorAttack {
 		}
 		int requiredLevel = EquipmentUtils.getLevelRequirement(weaponItemStack);
 		WauzDebugger.log(player, "Required Level: " + requiredLevel);
-		if(player.getLevel() < requiredLevel) {
+		if(PlayerCollectionConfigurator.getCharacterLevel(player) < requiredLevel) {
 			event.setCancelled(true);
 			DurabilityCalculator.damageItem(player, weaponItemStack, false);
 			player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");

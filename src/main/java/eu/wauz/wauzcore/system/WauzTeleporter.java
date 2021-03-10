@@ -150,8 +150,7 @@ public class WauzTeleporter {
 			player.sendMessage(ChatColor.RED + "The world " + file.getPath() + " does not exist!");
 			return false;
 		}
-		CharacterManager.saveCharacter(player);
-		WauzActivePet.tryToUnsummon(player, true);
+		CharacterManager.logoutCharacter(player);
 		return player.teleport(new Location(Bukkit.getServer().createWorld(new WorldCreator(instanceName)), 0.5, 256, 0.5));
 	}
 	

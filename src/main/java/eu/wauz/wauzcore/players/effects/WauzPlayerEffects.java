@@ -59,7 +59,7 @@ public class WauzPlayerEffects {
 			effects.remove(existingEffect);
 		}
 		effects.add(new WauzPlayerEffect(type, source, duration, power));
-		effects.sort((e1, e2) -> Integer.compare(e2.getDuration(), e1.getDuration()));
+		effects.sort((e1, e2) -> Integer.compare(e1.getDuration(), e2.getDuration()));
 		return true;
 	}
 	
@@ -166,7 +166,7 @@ public class WauzPlayerEffects {
 				effects.removeEffect(effect);
 				player.sendMessage(ChatColor.YELLOW + "Effect expired: " + effect.toString());
 			}
-			else if(effect.getDuration() == 10) {
+			else if(effect.getDuration() == 15) {
 				player.sendMessage(ChatColor.YELLOW + "Effect expires soon: " + effect.toString());
 			}
 		}

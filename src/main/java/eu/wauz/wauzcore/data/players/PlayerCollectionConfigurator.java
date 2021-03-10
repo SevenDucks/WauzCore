@@ -85,6 +85,14 @@ public class PlayerCollectionConfigurator extends PlayerConfigurationUtils {
 	}
 	
 	/**
+	 * @param player The player that owns the config file.
+	 * @param level The new character level.
+	 */
+	public static void setCharacterLevel(Player player, int level) {
+		playerConfigSet(player, "level", level, true);
+	}
+	
+	/**
 	 * Increases the character level by 1.
 	 * 
 	 * @param player The player that owns the config file.
@@ -106,7 +114,6 @@ public class PlayerCollectionConfigurator extends PlayerConfigurationUtils {
 	
 	/**
 	 * @param player The player that owns the config file.
-	 * 
 	 * @param experience The new character experience.
 	 */
 	public static void setCharacterExperience(Player player, double experience) {

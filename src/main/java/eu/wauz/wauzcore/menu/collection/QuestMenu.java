@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerQuestConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventQuestCancel;
@@ -217,7 +218,7 @@ public class QuestMenu implements WauzInventory {
 
         };
 		
-		for(int level = player.getLevel(); level <= WauzCore.MAX_PLAYER_LEVEL; level++) {
+		for(int level = PlayerCollectionConfigurator.getCharacterLevel(player); level <= WauzCore.MAX_PLAYER_LEVEL; level++) {
 			List<WauzQuest> quests = WauzQuest.getQuestsForLevel(level);
 			quests = quests.stream()
 					.filter(quest -> PlayerQuestConfigurator.getQuestPhase(player, quest.getQuestName()) == 0)

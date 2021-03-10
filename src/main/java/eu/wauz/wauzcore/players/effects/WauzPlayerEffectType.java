@@ -64,6 +64,7 @@ public enum WauzPlayerEffectType {
 	 */
 	WauzPlayerEffectType(String name, ChatColor color) {
 		this.name = name;
+		this.color = color;
 	}
 	
 	/**

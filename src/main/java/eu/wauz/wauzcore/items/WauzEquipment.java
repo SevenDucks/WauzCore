@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.EquipmentConfigurator;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.ArmorType;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.EquipMethod;
@@ -152,7 +153,7 @@ public class WauzEquipment {
 	 */
 	private static boolean doesLevelMatch(Player player, ItemStack armorItemStack) {
 		int requiredLevel = EquipmentUtils.getLevelRequirement(armorItemStack);
-		boolean levelMatches = player.getLevel() >= requiredLevel;
+		boolean levelMatches = PlayerCollectionConfigurator.getCharacterLevel(player) >= requiredLevel;
 		if(!levelMatches) {
 			player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
 		}

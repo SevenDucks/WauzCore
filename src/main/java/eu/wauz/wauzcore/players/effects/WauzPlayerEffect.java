@@ -43,6 +43,7 @@ public class WauzPlayerEffect {
 		this.type = type;
 		this.source = source;
 		this.duration = duration;
+		this.power = power;
 	}
 	
 	/**
@@ -98,9 +99,10 @@ public class WauzPlayerEffect {
 	@Override
 	public String toString() {
 		String prefix = "\n" + type.getColor() + "[" + ChatColor.WHITE;
-		String suffix = type.getColor() + "] " + ChatColor.GRAY + duration + "s";
-		String name = (power == 0 ? "" : "" + power) + type.toString() + " from " + source.toString();
-		return prefix + name + suffix;
+		String suffix = type.getColor() + "] " + ChatColor.WHITE + duration + "s";
+		String sourceName = ChatColor.GRAY + " from " + source.toString();
+		String name = (power == 0 ? "" : "" + power) + type.toString();
+		return prefix + name + sourceName + suffix;
 	}
 
 }

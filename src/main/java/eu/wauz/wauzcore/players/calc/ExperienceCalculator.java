@@ -35,10 +35,21 @@ public class ExperienceCalculator {
 	 * @param player The player to update the bar.
 	 */
 	public static void updateExperienceBar(Player player) {
-		boolean isSurvival = WauzMode.isSurvival(player);
-		int goalExp = isSurvival ? 100 : getExpToLevel(player.getLevel() + 1);
+		int level = PlayerCollectionConfigurator.getCharacterLevel(player);
 		double currentExp = PlayerCollectionConfigurator.getCharacterExperience(player);
-		player.setExp((float) (currentExp / goalExp));
+		double goalExp;
+		if(WauzMode.isSurvival(player)) {
+			goalExp = 100;
+		}
+		else {
+			if(level < 1) {
+				level = 1;
+				PlayerCollectionConfigurator.setCharacterLevel(player, level);
+			}
+			goalExp = getExpToLevel(level + 1);
+		}
+		player.setLevel(level);
+		player.setExp(Math.min(1, Math.max(0, (float) (currentExp / goalExp))));
 	}
 	
 	/**
@@ -101,31 +112,37 @@ public class ExperienceCalculator {
 				}
 			}
 			
-			if(player == null || player.getLevel() > tier || player.getLevel() >= WauzCore.MAX_PLAYER_LEVEL) {
+			int level = PlayerCollectionConfigurator.getCharacterLevel(player);
+			if(player == null || level > tier || level >= WauzCore.MAX_PLAYER_LEVEL) {
 				return 0;
 			}
 			
-			double amplifiedxp = applyExperienceBonus(player, earnedxp);
-			int displayexp = (int) (amplifiedxp * 100);
-			
+			double amplifiedExp = applyExperienceBonus(player, earnedxp);
+			int displayexp = (int) (amplifiedExp * 100);
 			if(location != null) {
 				ValueIndicator.spawnExpIndicator(location, displayexp);
 			}
 			
-			double currentxp = PlayerCollectionConfigurator.getCharacterExperience(player);
-			currentxp = currentxp + amplifiedxp;
-			WauzDebugger.log(player, "You earned " + amplifiedxp + " (" + earnedxp + ") experience!");
+			double currentExp = PlayerCollectionConfigurator.getCharacterExperience(player);
+			currentExp = currentExp + amplifiedExp;
+			WauzDebugger.log(player, "You earned " + amplifiedExp + " (" + earnedxp + ") experience!");
 			
-			int nextLevel = player.getLevel() + 1;
-			if(currentxp >= getExpToLevel(nextLevel)) {
+			int nextLevel = level + 1;
+			int neededExp = getExpToLevel(nextLevel);
+			double leftoverExp = 0;
+			if(currentExp >= neededExp) {
 				player.setLevel(nextLevel);
 				player.sendTitle(ChatColor.GOLD + "Level Up!", "You reached level " + nextLevel + "!", 10, 70, 20);
 				player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 				PlayerCollectionConfigurator.levelUpCharacter(player);
-				currentxp = 0;
+				leftoverExp = currentExp - neededExp;
+				currentExp = 0;
 			}
-			PlayerCollectionConfigurator.setCharacterExperience(player, currentxp);
+			PlayerCollectionConfigurator.setCharacterExperience(player, currentExp);
 			updateExperienceBar(player);
+			if(leftoverExp > 0) {
+				grantExperience(player, tier, leftoverExp, null, true);
+			}
 			return displayexp;
 		}
 		catch (Exception e) {

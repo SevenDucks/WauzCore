@@ -62,6 +62,7 @@ public class WauzRepeatingTasks {
 						WauzResource.highlightResourcesNearPlayer(player);
 					}
 					WauzPlayerActionBar.update(player);
+					WauzPlayerEffects.progressPlayerEffects(player);
 				}
 				WauzCitizenCache.updateCitizenLookDirections();
 			}
@@ -83,7 +84,6 @@ public class WauzRepeatingTasks {
 					WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 					WauzRegion.regionCheck(player);
 					WauzCitizenSpawner.showNpcsNearPlayer(player);
-					WauzPlayerEffects.progressPlayerEffects(player);
 				}
 			}
 			

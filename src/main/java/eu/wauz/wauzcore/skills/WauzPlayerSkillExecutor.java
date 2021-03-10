@@ -11,6 +11,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
@@ -139,7 +140,7 @@ public class WauzPlayerSkillExecutor {
 	public static void tryToUseSkill(Player player, ItemStack itemStack, WauzPlayerSkill skill) {
 		int requiredLevel = EquipmentUtils.getLevelRequirement(itemStack);
 		WauzDebugger.log(player, "Required Level: " + requiredLevel);
-		if(player.getLevel() < requiredLevel) {
+		if(PlayerCollectionConfigurator.getCharacterLevel(player) < requiredLevel) {
 			player.sendMessage(ChatColor.RED + "You must be at least lvl " + requiredLevel + " to use this item!");
 			return;
 		}

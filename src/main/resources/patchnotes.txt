@@ -9,6 +9,25 @@ Patch 612: Cosmetic Chaos
 Patch 611: Powerful Professions
 
 Patch 610: Gathering Goods
+	New Feature: Resource and Chest Spawns
+	  - Marked by Client Side Particles
+	  - Respawn every few Hours
+	  - Chests drop Random Loot
+	  - Resources drop mostly Materials
+	  - Resource Types
+	    > Minerals -> Collected with Pickaxes
+	    > Herbs -> Collected with Spades
+	    > Skills for Mining and Herblore
+	    > Most require a certain Skill Level
+	    
+	Added Status Effects
+	  - Boosts for Atk, Def, Eva and Exp
+	  - Now shown in Scoreboard
+	  - Chat Warning when Effect Expires
+
+	Miscellaneous
+	  - Category Specific Pet Stats
+	  - Several Small Bug Fixes
 
 Patch 609: Passive Perks
 	New Feature: Fitness Skills

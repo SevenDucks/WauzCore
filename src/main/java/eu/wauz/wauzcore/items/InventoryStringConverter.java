@@ -117,7 +117,6 @@ public class InventoryStringConverter {
 			}
     		player.setHealth(playerDataConfig.getInt("stats.current.health"));
     	}
-    	player.setLevel(playerDataConfig.getInt("level"));
     	ExperienceCalculator.updateExperienceBar(player);
     	player.setFoodLevel(playerDataConfig.getInt("stats.current.hunger"));
     	player.setSaturation((float) playerDataConfig.getDouble("stats.current.saturation"));

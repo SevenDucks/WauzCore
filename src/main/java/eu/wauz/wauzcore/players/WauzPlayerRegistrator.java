@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -91,6 +92,7 @@ public class WauzPlayerRegistrator {
         		player.getInventory().clear();
         		player.setExp(0);
         		player.setLevel(0);
+        		player.setGameMode(GameMode.ADVENTURE);
         		
         		player.setBedSpawnLocation(WauzCore.getHubLocation(), true);
         		player.teleport(WauzCore.getHubLocation());

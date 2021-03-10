@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
-import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillType;
@@ -24,7 +23,7 @@ import eu.wauz.wauzcore.system.annotations.Skillgem;
 
 /**
  * A skill, that can be executed by a player.
- * "Steal" steals a random amount of either coins, experience or saturation from an enemy within 3 blocks.
+ * "Steal" steals a random amount of either coins or saturation from an enemy within 3 blocks.
  * 
  * @author Wauzmons
  *
@@ -112,7 +111,7 @@ public class SkillTheHangedMan implements WauzPlayerSkill {
 			ParticleSpawner.spawnParticleCircle(target.getLocation(), particle, 1, 6);
 
 			Random random = new Random();
-			switch (random.nextInt(3) + 1) {
+			switch (random.nextInt(2) + 1) {
 			case 1:
 				long money = PlayerCollectionConfigurator.getCharacterCoins(player);
 				long added = (int) ((random.nextInt(21) + 10) * PlayerSkillConfigurator.getTradingFloat(player));
@@ -121,12 +120,6 @@ public class SkillTheHangedMan implements WauzPlayerSkill {
 				player.sendMessage(ChatColor.LIGHT_PURPLE + "You stole " + added + " COINS from the enemy!");
 				break;
 			case 2:
-				double earnedxp = ((double) (random.nextInt(5) + 3)) / 100.0; 
-				int tier = player.getLevel();
-				int displayexp = ExperienceCalculator.grantExperience(player, tier, earnedxp, target.getLocation());
-				player.sendMessage(ChatColor.LIGHT_PURPLE + "You stole " + displayexp + " EXP from the enemy!");
-				break;
-			case 3:
 				int saturation = random.nextInt(4) + 4;
 				player.setFoodLevel(player.getFoodLevel() + saturation);
 				player.setSaturation(5);
