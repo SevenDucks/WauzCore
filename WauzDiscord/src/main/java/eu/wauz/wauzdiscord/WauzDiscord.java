@@ -86,7 +86,8 @@ public class WauzDiscord extends JavaPlugin {
 		getLogger().info("Scheduled Repeating Tasks!");
 		
 		if(DiscordConfigurator.showStartStopNotification()) {
-			shiroDiscordBot.sendEmbedFromMinecraft(":white_check_mark: " + WauzCore.getServerKey() + " has been started!", Color.GREEN, false);
+			shiroDiscordBot.sendEmbedFromMinecraft(null, ":white_check_mark: " + WauzCore.getServerKey()
+					+ " has been started!", Color.GREEN, false);
 		}
 	}
 	
@@ -101,7 +102,8 @@ public class WauzDiscord extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		if(DiscordConfigurator.showStartStopNotification()) {
-			shiroDiscordBot.sendEmbedFromMinecraft(":octagonal_sign: " + WauzCore.getServerKey() + " has been stopped!", Color.RED, false);
+			shiroDiscordBot.sendEmbedFromMinecraft(null, ":octagonal_sign: " + WauzCore.getServerKey()
+					+ " has been stopped!", Color.RED, false);
 		}
 		
 		logFilter.close();

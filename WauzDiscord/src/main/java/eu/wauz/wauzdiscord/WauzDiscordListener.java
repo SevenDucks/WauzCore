@@ -1,5 +1,7 @@
 package eu.wauz.wauzdiscord;
 
+import java.awt.Color;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -32,7 +34,8 @@ public class WauzDiscordListener implements Listener {
         }
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
-			WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft("[+] " + player.getName() + " joined the game!", false);
+			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[+] " + player.getName()
+					+ " joined the game!", Color.CYAN, false);
 		}
 	}
 
@@ -47,7 +50,8 @@ public class WauzDiscordListener implements Listener {
 	public void onLogout(PlayerQuitEvent event) {
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
-			WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft("[-] " + player.getName() + " left the game!", false);
+			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[-] " + player.getName()
+					+ " left the game!", Color.ORANGE, false);
 		}
 	}
 	
@@ -62,7 +66,8 @@ public class WauzDiscordListener implements Listener {
 	public void onDeath(PlayerDeathEvent event) {
 		if(DiscordConfigurator.showDeathNotification()) {
 			Player player = event.getEntity();
-			WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft("[x] " + player.getName() + " was killed!", false);
+			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[x] " + event.getDeathMessage()
+					+ "!", Color.BLACK, false);
 		}
 	}
 	

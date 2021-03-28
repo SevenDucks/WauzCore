@@ -7,6 +7,7 @@ import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
+import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -25,6 +26,11 @@ import net.kodehawa.lib.imageboards.entities.impl.Rule34Image;
 public class ShiroDiscordMessageUtils {
 	
 	/**
+	 * The api to grab player skins.
+	 */
+	private static final String SKIN_API = "https://crafatar.com/avatars/";
+	
+	/**
 	 * An instance of the random class to select hentai images. (Oof)
 	 */
 	private static Random random = new Random();
@@ -32,13 +38,19 @@ public class ShiroDiscordMessageUtils {
 	/**
 	 * Sends an embed with custom title and color.
 	 * 
+	 * @param player The player whose head to use in the embed image.
 	 * @param title The title of the embed. 
 	 * @param color The color of the embed.
 	 * @param textChannel The channel to send the embed to.
 	 */
-	public static void sendEmbed(String title, Color color, TextChannel textChannel) {
+	public static void sendEmbed(Player player, String title, Color color, TextChannel textChannel) {
 		EmbedBuilder embedBuilder = new EmbedBuilder();
-		embedBuilder.setTitle(title);
+		if(player != null) {
+			embedBuilder.setAuthor(title, null, SKIN_API + player.getUniqueId());
+		}
+		else {
+			embedBuilder.setTitle(title);
+		}
 		embedBuilder.setColor(color);
 		textChannel.sendMessage(embedBuilder.build()).queue();
 	}

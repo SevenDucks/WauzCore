@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
+import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.ChatFormatter;
@@ -137,12 +138,13 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	/**
 	 * Sends an embed with custom title and color.
 	 * 
+	 * @param player The player whose head to use in the embed image.
 	 * @param title The title of the embed. 
 	 * @param color The color of the embed.
 	 * @param inLogChannel If the message should be send to the log channel.
 	 */
-	public void sendEmbedFromMinecraft(String title, Color color, boolean inLogChannel) {
-		ShiroDiscordMessageUtils.sendEmbed(title, color, inLogChannel ? loggingChannel : generalChannel);
+	public void sendEmbedFromMinecraft(Player player, String title, Color color, boolean inLogChannel) {
+		ShiroDiscordMessageUtils.sendEmbed(player, title, color, inLogChannel ? loggingChannel : generalChannel);
 	}
 	
 	/**
@@ -192,7 +194,9 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			String message = event.getMessage().getContentRaw();
 			boolean isAdmin = isAdmin(user.getId());
 			
-			if(channel.getId().equals(generalChannel.getId()) && !message.startsWith("**Minecraft**")) {
+			if(channel.getId().equals(generalChannel.getId())
+					&& !message.startsWith("**Minecraft**")
+					&& StringUtils.isNotBlank(message)) {
 				ChatFormatter.discord(message, user.getName(), isAdmin);
 			}
 			checkForGlobalCommands(message, channel, isAdmin);
