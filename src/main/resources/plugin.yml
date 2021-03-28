@@ -56,6 +56,10 @@ commands:
     description: Set the Guild Message of the Day
     usage: /modt [text]
     permission: wauz.normal
+  item:
+    description: Send Item in Chat
+    usage: /item
+    permission: wauz.normal
   where:
     description: Get the Location of a Player
     usage: /where [player]

@@ -2,6 +2,8 @@ package eu.wauz.wauzdiscord;
 
 import java.awt.Color;
 
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,7 +12,11 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.events.ShareItemEvent;
+import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzdiscord.data.DiscordConfigurator;
 
 /**
@@ -34,8 +40,8 @@ public class WauzDiscordListener implements Listener {
         }
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
-			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[+] " + player.getName()
-					+ " joined the game!", Color.CYAN, false);
+			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Join] " + player.getName()
+					+ " joined the game!", null, Color.CYAN, false);
 		}
 	}
 
@@ -50,8 +56,8 @@ public class WauzDiscordListener implements Listener {
 	public void onLogout(PlayerQuitEvent event) {
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
-			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[-] " + player.getName()
-					+ " left the game!", Color.ORANGE, false);
+			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Leave] " + player.getName()
+					+ " left the game!", null, Color.ORANGE, false);
 		}
 	}
 	
@@ -66,9 +72,33 @@ public class WauzDiscordListener implements Listener {
 	public void onDeath(PlayerDeathEvent event) {
 		if(DiscordConfigurator.showDeathNotification()) {
 			Player player = event.getEntity();
-			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[x] " + event.getDeathMessage()
-					+ "!", Color.BLACK, false);
+			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Death] " + event.getDeathMessage()
+					+ "!", null, Color.BLACK, false);
 		}
+	}
+	
+	/**
+	 * Sends an item message to Discord.
+	 * 
+	 * @param event The event for creating the message.
+	 */
+	@EventHandler(priority = EventPriority.LOW)
+	public void onItem(ShareItemEvent event) {
+		Player player = event.getPlayer();
+		
+		ItemStack itemStack = event.getItemStack();
+		boolean hasDisplayName = ItemUtils.hasDisplayName(itemStack);
+		String name = hasDisplayName ? itemStack.getItemMeta().getDisplayName() : itemStack.getI18NDisplayName();
+		
+		String description = "**" + ChatColor.stripColor(name) + "**";
+		if(ItemUtils.hasLore(itemStack)) {
+			for(String lore : itemStack.getLore()) {
+				String descriptionLine = StringUtils.substringBeforeLast(lore, ChatColor.GRAY + UnicodeUtils.ICON_DIAMOND);
+				description += System.lineSeparator() + ChatColor.stripColor(descriptionLine);
+			}
+		}
+		WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Item] " + player.getName()
+				+ " shared an item in chat!", description, null, false);
 	}
 	
 }

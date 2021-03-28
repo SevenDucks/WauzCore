@@ -87,7 +87,7 @@ public class WauzDiscord extends JavaPlugin {
 		
 		if(DiscordConfigurator.showStartStopNotification()) {
 			shiroDiscordBot.sendEmbedFromMinecraft(null, ":white_check_mark: " + WauzCore.getServerKey()
-					+ " has been started!", Color.GREEN, false);
+					+ " has been started!", null, Color.GREEN, false);
 		}
 	}
 	
@@ -103,7 +103,7 @@ public class WauzDiscord extends JavaPlugin {
 	public void onDisable() {
 		if(DiscordConfigurator.showStartStopNotification()) {
 			shiroDiscordBot.sendEmbedFromMinecraft(null, ":octagonal_sign: " + WauzCore.getServerKey()
-					+ " has been stopped!", Color.RED, false);
+					+ " has been stopped!", null, Color.RED, false);
 		}
 		
 		logFilter.close();

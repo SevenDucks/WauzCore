@@ -139,12 +139,13 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	 * Sends an embed with custom title and color.
 	 * 
 	 * @param player The player whose head to use in the embed image.
-	 * @param title The title of the embed. 
+	 * @param title The title of the embed.
+	 * @param description The description of the embed.
 	 * @param color The color of the embed.
 	 * @param inLogChannel If the message should be send to the log channel.
 	 */
-	public void sendEmbedFromMinecraft(Player player, String title, Color color, boolean inLogChannel) {
-		ShiroDiscordMessageUtils.sendEmbed(player, title, color, inLogChannel ? loggingChannel : generalChannel);
+	public void sendEmbedFromMinecraft(Player player, String title, String description, Color color, boolean inLogChannel) {
+		ShiroDiscordMessageUtils.sendEmbed(player, title, description, color, inLogChannel ? loggingChannel : generalChannel);
 	}
 	
 	/**

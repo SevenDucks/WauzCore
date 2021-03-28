@@ -39,11 +39,12 @@ public class ShiroDiscordMessageUtils {
 	 * Sends an embed with custom title and color.
 	 * 
 	 * @param player The player whose head to use in the embed image.
-	 * @param title The title of the embed. 
+	 * @param title The title of the embed.
+	 * @param description The description of the embed.
 	 * @param color The color of the embed.
 	 * @param textChannel The channel to send the embed to.
 	 */
-	public static void sendEmbed(Player player, String title, Color color, TextChannel textChannel) {
+	public static void sendEmbed(Player player, String title, String description, Color color, TextChannel textChannel) {
 		EmbedBuilder embedBuilder = new EmbedBuilder();
 		if(player != null) {
 			embedBuilder.setAuthor(title, null, SKIN_API + player.getUniqueId());
@@ -51,7 +52,10 @@ public class ShiroDiscordMessageUtils {
 		else {
 			embedBuilder.setTitle(title);
 		}
-		embedBuilder.setColor(color);
+		if(description != null) {
+			embedBuilder.setDescription(description);
+		}
+		embedBuilder.setColor(color != null ? color : new Color(250, 250, 250));
 		textChannel.sendMessage(embedBuilder.build()).queue();
 	}
 	
