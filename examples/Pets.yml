@@ -85,163 +85,312 @@ pets:
     mob: PetChicken
     category: Farm
     rarity: NORMAL
+    messages:
+    - '*cluck* *cluck*'
+    - 'Buck-buck-buck...'
+    - 'Cock-a-doodle-doo!'
   Lambert:
     mob: PetSheep
     category: Farm
     rarity: NORMAL
+    messages:
+    - 'Baa!'
+    - 'Bahahahaa!'
+    - 'Beep Beep.'
   Plopper:
     mob: PetPig
     category: Farm
     rarity: MAGIC
+    messages:
+    - '*grunt* *grunt*'
+    - '*squeals*'
+    - '*farts*'
   Betsie:
     mob: PetCow
     category: Farm
     rarity: MAGIC
+    messages:
+    - 'Mooooo!'
+    - '*eating grass*'
+    - 'There is no cow level.'
   Maya:
     mob: PetBee
     category: Farm
     rarity: RARE
+    messages:
+    - '*buzz* *buzz*'
+    - '*flying in circles*'
+    - '*makes honey*'
   Funny:
     mob: PetWolf
     category: Farm
     rarity: RARE
+    messages:
+    - '*happy howling*'
+    - 'Woof!'
+    - 'Ruff!'
   Paul:
     mob: PetLlama
     category: Farm
     rarity: EPIC
+    messages:
+    - '*spits*'
+    - '*llama scream*'
+    - 'Caaaaarl!'
   Milkshake:
     mob: PetMooshroom
     category: Farm
     rarity: EPIC
+    messages:
+    - 'Mooooo!'
+    - '*eating mushrooms*'
+    - 'There is no cow level. Really.'
   Carl:
     mob: PetTraderLlama
     category: Farm
     rarity: UNIQUE
+    messages:
+    - '*spits*'
+    - '*llama scream*'
+    - 'I am craving hands.'
   Goo:
     mob: PetSlime
     category: Exotic
     rarity: NORMAL
+    messages:
+    - '*wobble* *wobble*'
+    - '*covers floor in slime*'
+    - '*squish*'
   Batthew:
     mob: PetBat
     category: Exotic
     rarity: NORMAL
+    messages:
+    - '*shriek*'
+    - '*hangs upside down*'
+    - 'Bat is short for Batthew.'
   Squidward:
     mob: PetSquid
     category: Exotic
     rarity: MAGIC
+    messages:
+    - '*squirts ink*'
+    - '*plays the clarinet*'
+    - '*hates his job*'
   Saskia:
     mob: PetSalmon
     category: Exotic
     rarity: MAGIC
+    messages:
+    - '*used Splash, but nothing happened*'
+    - '*blub* *blub*'
+    - '*drowns*'
   Charlie:
     mob: PetParrot
     category: Exotic
     rarity: RARE
+    messages:
+    - 'I can talk.'
+    - 'Give your money to Wauzmons.'
+    - '*chirp* *chirp*'
   Cheetah:
     mob: PetOcelot
     category: Exotic
     rarity: RARE
+    messages:
+    - 'Meow!'
+    - '*hiss*'
+    - '*purr* *purr*'
   Flocki:
     mob: PetFox
     category: Exotic
     rarity: EPIC
+    messages:
+    - 'Ring-ding-ding-ding-dingeringeding!'
+    - 'Wa-pa-pa-pa-pa-pa-pow!'
+    - 'Hatee-hatee-hatee-ho!'
   Flipper:
     mob: PetDolphin
     category: Exotic
     rarity: EPIC
+    messages:
+    - '*whistles*'
+    - '*flip* *flip*'
+    - 'A'
   Po:
     mob: PetPanda
     category: Exotic
     rarity: UNIQUE
+    messages:
+    - '*does nothing*'
+    - '*sleeps*'
+    - '*eats bamboo*'
   Bob:
     mob: PetVillager
     category: Human
     rarity: NORMAL
+    messages:
+    - 'I am Bob.'
+    - 'What are we doing today?'
+    - 'Can I go home now?'
   Voss:
     mob: PetZombie
     category: Human
     rarity: NORMAL
+    messages:
+    - '*groans*'
+    - 'Brrraaiins...'
+    - 'Death to da living...'
   Tormund:
     mob: PetPillager
     category: Human
     rarity: MAGIC
+    messages:
+    - 'Time for an adventure!'
+    - 'Pillage and plunder!'
+    - 'To battle!'
   Ramses:
     mob: PetHusk
     category: Human
     rarity: MAGIC
+    messages:
+    - 'My empire... gone...'
+    - 'Not even death can stop me.'
+    - 'So hungry...'
   Blair:
     mob: PetWitch
     category: Human
     rarity: RARE
+    messages:
+    - 'My potions are the best!'
+    - 'Dark magic is the only way.'
+    - '*reads the necronomicon*'
   Jason:
     mob: PetDrowned
     category: Human
     rarity: RARE
+    messages:
+    - '*gurgles*'
+    - '*yearns for revenge*'
+    - '*waiting for firday*'
   Azog:
     mob: PetPiglin
     category: Human
     rarity: EPIC
+    messages:
+    - 'I want some meat!'
+    - 'I am hungry!'
+    - 'Where is your gold?'
   Jastor:
     mob: PetWanderingTrader
     category: Human
     rarity: EPIC
+    messages:
+    - 'Wanna sign a contract?'
+    - 'I have the finest wares.'
+    - '*counts money*'
   Merlin:
     mob: PetIllusioner
     category: Human
     rarity: UNIQUE
-  Twister:
+    messages:
+    - 'I am omnipresent.'
+    - 'The Seraphim speak to me.'
+    - '*channels mana*'
+  Kevin:
     mob: PetSilverfish
     category: Monster
     rarity: NORMAL
+    messages:
+    - '*crawls around*'
+    - '*hides under stone*'
+    - '*eats bugs*'
   Shelob:
     mob: PetSpider
     category: Monster
     rarity: NORMAL
-  Kevin:
+    messages:
+    - '*spins webs*'
+    - '*catches flies*'
+    - '*lays eggs*'
+  Twister:
     mob: PetEndermite
     category: Monster
     rarity: MAGIC
+    messages:
+    - '*crawls around*'
+    - '*embraces the void*'
+    - '*spins rapidly*'
   Muffet:
     mob: PetCaveSpider
     category: Monster
     rarity: MAGIC
+    messages:
+    - '*spins webs*'
+    - '*bakes spider donuts*'
+    - '*dances*'
   Inferno:
     mob: PetBlaze
     category: Monster
     rarity: RARE
+    messages:
+    - '*burns*'
+    - '*melts metal*'
+    - '*shoots sparks*'
   Boomer:
     mob: PetCreeper
     category: Monster
     rarity: RARE
+    messages:
+    - 'SSSssszzzzz...'
+    - 'BOOM!'
+    - '*recharges*'
   Femto:
     mob: PetPhantom
     category: Monster
     rarity: EPIC
+    messages:
+    - '*flies over the kingdom*'
+    - '*haunts your dreams*'
+    - 'Woosh!'
   Beholder:
     mob: PetGuardian
     category: Monster
     rarity: EPIC
+    messages:
+    - '*stares*'
+    - '*watches*'
+    - '*observes*'
   Slender:
     mob: PetEnderman
     category: Monster
     rarity: UNIQUE
+    messages:
+    - '*teleports*'
+    - '*high pitched screech*'
+    - '*bends reality*'
   Stallion:
     mob: BROWN
     category: Horse
     rarity: NORMAL
+    messages:
   Charger:
     mob: BLACK
     category: Horse
     rarity: MAGIC
+    messages:
   Goldenmane:
     mob: CREAMY
     category: Horse
     rarity: RARE
+    messages:
   Warsteed:
     mob: GRAY
     category: Horse
     rarity: EPIC
+    messages:
   Invincible:
     mob: WHITE
     category: Horse
     rarity: UNIQUE
+    messages:
