@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
@@ -12,6 +13,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -31,26 +33,11 @@ public class ChatFormatter {
 	public static String global(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		
-		String level;
-		switch (WauzMode.getMode(player)) {
-		case MMORPG:
-			level = WauzMode.inHub(player) ? "Hub" : "MMO, " + PlayerCollectionConfigurator.getCharacterLevel(player);
-			break;
-		case SURVIVAL:
-			level = WauzMode.inOneBlock(player) ? "OneBlock" : "Survival";
-			break;
-		case ARCADE:
-			level = "DropGuys";
-			break;
-		default:
-			level = "Unknown";
-			break;
-		}
-		
-		String rankPrefix = getMinecraftRankPrefix(player);
+		String rankPrefix = getRankPrefix(player);
+		String gamemodeSuffix = getGamemodeSuffix(player);
 		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getDisplayName() + ChatColor.WHITE + " (" +
-					 ChatColor.AQUA  + level + ChatColor.WHITE + ")] " +
-					 ChatColor.GRAY + event.getMessage();
+				ChatColor.AQUA  + gamemodeSuffix + ChatColor.WHITE + ")] " +
+				ChatColor.GRAY + event.getMessage();
 		
 		if(Bukkit.getPluginManager().isPluginEnabled("WauzDiscord")) {
 			Bukkit.getScheduler().callSyncMethod(WauzCore.getInstance(),
@@ -60,29 +47,45 @@ public class ChatFormatter {
 	}
 	
 	/**
+	 * Formats and sends an item stack message from a player to the global chat.
+	 * 
+	 * @param player The player who sent the item stack message.
+	 * @param itemStack The item stack to show in the message.
+	 * 
+	 * @see UnicodeUtils#shareChatItem(ItemStack, String)
+	 */
+	public static void share(Player player, ItemStack itemStack) {
+		String rankPrefix = getRankPrefix(player);
+		String gamemodeSuffix = getGamemodeSuffix(player);
+		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getDisplayName() + ChatColor.WHITE + " (" +
+				ChatColor.AQUA  + gamemodeSuffix + ChatColor.WHITE + ") (" +
+				ChatColor.GRAY + "Showcase" + ChatColor.WHITE + ")]";
+		
+		UnicodeUtils.shareChatItem(itemStack, msg);
+	}
+	
+	/**
 	 * Formats and sends a message from a player to their group.
 	 * 
 	 * @param player The player who sent the message.
 	 * @param message The message they sent.
-	 * 
-	 * @return If the message has been sent successfully.
 	 */
-	public static boolean group(Player player, String message) {
+	public static void group(Player player, String message) {
 		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(player);
 		if(!validateGroupMessage(player, playerGroup, message, false)) {
-			return false;
+			return;
 		}
 		
-		String rankPrefix = getMinecraftRankPrefix(player);
+		String rankPrefix = getRankPrefix(player);
+		String gamemodeSuffix = getGamemodeSuffix(player);
 		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getDisplayName() + ChatColor.WHITE + " (" +
-				 ChatColor.BLUE + "Group" + ChatColor.WHITE + ")] " +
-				 ChatColor.GRAY + message;
+				ChatColor.AQUA  + gamemodeSuffix + ChatColor.WHITE + ") (" +
+				ChatColor.BLUE + "Group" + ChatColor.WHITE + ")] " +
+				ChatColor.GRAY + message;
 		
 		for(Player member : playerGroup.getPlayers()) {
 			member.sendMessage(msg);
 		}
-		
-		return true;
 	}
 	
 	/**
@@ -90,23 +93,21 @@ public class ChatFormatter {
 	 * 
 	 * @param player The player who sent the message.
 	 * @param message The message they sent.
-	 * 
-	 * @return If the message has been sent successfully.
 	 */
-	public static boolean guild(Player player, String message) {
+	public static void guild(Player player, String message) {
 		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
 		if(!validateGroupMessage(player, playerGuild, message, true)) {
-			return false;
+			return;
 		}
 		
-		String rankPrefix = getMinecraftRankPrefix(player);
+		String rankPrefix = getRankPrefix(player);
+		String gamemodeSuffix = getGamemodeSuffix(player);
 		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getDisplayName() + ChatColor.WHITE + " (" +
-				 ChatColor.GREEN + "Guild" + ChatColor.WHITE + ")] " +
-				 ChatColor.GRAY + message;
+				ChatColor.AQUA  + gamemodeSuffix + ChatColor.WHITE + ") (" +
+				ChatColor.GREEN + "Guild" + ChatColor.WHITE + ")] " +
+				ChatColor.GRAY + message;
 		
 		playerGuild.sendMessageToGuildMembers(msg);
-		
-		return true;
 	}
 	
 	/**
@@ -114,30 +115,23 @@ public class ChatFormatter {
 	 * 
 	 * @param message The message from Discord.
 	 * @param user The name of the Discord user.
-	 * @param admin If they are the bot admin.
 	 */
-	public static void discord(String message, String user, boolean admin) {
-		ChatColor rankColor;
-		if(admin) {
-			rankColor = ChatColor.GOLD;
-		}
-		else {
-			rankColor = ChatColor.GREEN;
-		}
-		
-		String msg = ChatColor.WHITE + "[" + rankColor + user + ChatColor.WHITE + " (" +
-				 ChatColor.DARK_AQUA  + "Discord" + ChatColor.WHITE + ")] " +
-				 ChatColor.GRAY + message;
+	public static void discord(String message, String user) {
+		String msg = ChatColor.WHITE + "[" + ChatColor.GREEN + user + ChatColor.WHITE + " (" +
+				ChatColor.DARK_AQUA  + "Discord" + ChatColor.WHITE + ")] " +
+				ChatColor.GRAY + message;
 		
 		Bukkit.broadcastMessage(msg);
 	}
 	
 	/**
+	 * Gets the rank prefix of a player.
+	 * 
 	 * @param player The player to get the prefix for.
 	 * 
 	 * @return A rank prefix and color, based on player rank and title.
 	 */
-	public static String getMinecraftRankPrefix(Player player) {
+	public static String getRankPrefix(Player player) {
 		WauzRank rank = WauzRank.getRank(player);
 		String title = WauzTitle.getTitle(player);
 		
@@ -149,6 +143,26 @@ public class ChatFormatter {
 			rankPrefix = StringUtils.isBlank(rank.getRankPrefix()) ? "" : rank.getRankPrefix() + " ";
 		}
 		return rankPrefix + rank.getRankColor();
+	}
+	
+	/**
+	 * Gets the gamemode suffix of a player.
+	 * 
+	 * @param player The player to get the suffix for.
+	 * 
+	 * @return A gamemode suffix, based on player world and level.
+	 */
+	public static String getGamemodeSuffix(Player player) {
+		switch (WauzMode.getMode(player)) {
+		case MMORPG:
+			return WauzMode.inHub(player) ? "Hub" : "MMO, " + PlayerCollectionConfigurator.getCharacterLevel(player);
+		case SURVIVAL:
+			return WauzMode.inOneBlock(player) ? "OneBlock" : "Survival";
+		case ARCADE:
+			return "DropGuys";
+		default:
+			return player.getWorld().getName();
+		}
 	}
 	
 	/**

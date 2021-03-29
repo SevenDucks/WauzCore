@@ -193,14 +193,13 @@ public class ShiroDiscordBot extends ListenerAdapter {
 			User user = event.getAuthor();
 			MessageChannel channel = event.getChannel();
 			String message = event.getMessage().getContentRaw();
-			boolean isAdmin = isAdmin(user.getId());
 			
 			if(channel.getId().equals(generalChannel.getId())
 					&& !message.startsWith("**Minecraft**")
 					&& StringUtils.isNotBlank(message)) {
-				ChatFormatter.discord(message, user.getName(), isAdmin);
+				ChatFormatter.discord(message, user.getName());
 			}
-			checkForGlobalCommands(message, channel, isAdmin);
+			checkForGlobalCommands(message, channel, isAdmin(user.getId()));
 		}
 		catch(Exception e) {
 			WauzDebugger.catchException(getClass(), e);

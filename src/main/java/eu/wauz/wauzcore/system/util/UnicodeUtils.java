@@ -3,12 +3,19 @@ package eu.wauz.wauzcore.system.util;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.chat.ComponentSerializer;
+import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.hover.content.Item;
+import net.md_5.bungee.api.chat.hover.content.Text;
 
 /**
  * An util class for stuff like unicode icons.
@@ -19,55 +26,46 @@ public class UnicodeUtils {
 	
 	/**
 	 * A paragraph icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/00a7/index.htm">fileformat.info</a>
 	 */
 	public static final String ICON_PARAGRAPH = "\u00A7";
 	
 	/**
 	 * A degree icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/00b0/index.htm">fileformat.info</a>
 	 */
 	public static final String ICON_DEGREES = "\u00B0";
 	
 	/**
 	 * A caret icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/00bb/index.htm">fileformat.info</a>
 	 */
 	public static final String ICON_CARET = "\u00BB";
 	
 	/**
 	 * A zero width space icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/200B/index.htm">fileformat.info</a>
 	 */
 	public static final String ICON_ZERO_WIDTH_SPACE = "\u200B";
 	
 	/**
 	 * A bullet icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/2022/index.htm">fileformat.info</a>
 	 */
 	public static final String ICON_BULLET = "\u2022";
 	
 	/**
 	 * A sun icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/2600/index.htm">fileformat.info</a>
 	 */
 	public static final String ICON_SUN = "\u2600";
 	
 	/**
 	 * A diamond icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/2666/index.htm">fileformat.info</a>
 	 */
 	public static final String ICON_DIAMOND = "\u2666";
 	
 	/**
 	 * A star icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/2b50/index.htm">fileformat.info</a>
 	 */
 	public static final String ICON_STAR = "\u2B50";
 	
 	/**
 	 * A heart icon in unicode.
-	 * <a href="https://www.fileformat.info/info/unicode/char/2764/index.htm">fileformat.info</a>
 	 */
 	public static final String ICON_HEART = "\u2764";
 	
@@ -108,6 +106,21 @@ public class UnicodeUtils {
 		}
 		return progressBar + " " + ChatColor.WHITE + ((int) precisePercantage) + "%";
 	}
+	
+	/**
+	 * Sends a hoverable message of an item stack to all players.
+	 * 
+	 * @param itemStack The item that should be shown.
+	 * @param message The message that should be shown.
+	 */
+	public static void shareChatItem(ItemStack itemStack, String message) {
+		String itemKey = itemStack.getType().getKey().toString();
+		Item item = new Item(itemKey, itemStack.getAmount(), WauzNmsClient.getTagFromItem(itemStack));
+		Bukkit.getServer().broadcast(new ComponentBuilder(message)
+				.append(ChatColor.WHITE + " " + ItemUtils.getDisplayName(itemStack))
+				.event(new HoverEvent(HoverEvent.Action.SHOW_ITEM, item))
+				.create());
+	}
 
 	/**
 	 * Sends a clickable message to execute a command to a player.
@@ -122,11 +135,11 @@ public class UnicodeUtils {
 			player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 		}
 		
-		BaseComponent[] comp = ComponentSerializer
-				.parse("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"" + ICON_PARAGRAPH + "bClick Here\","
-						+ "\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"Run Command\"},"
-						+ "\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/" + command + "\"}}]}");
-	    player.spigot().sendMessage(comp);
+		player.spigot().sendMessage(new ComponentBuilder(message)
+				.append(ChatColor.AQUA + " Click Here")
+				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Run Command")))
+				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
+				.create());
 	    
 	    if(border) {
 	    	player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
@@ -146,11 +159,11 @@ public class UnicodeUtils {
 			player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 		}
 		
-		BaseComponent[] comp = ComponentSerializer
-				.parse("{\"text\":\"" + message + " \",\"extra\":[{\"text\":\"" + ICON_PARAGRAPH + "bClick Here\","
-						+ "\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"Open URL\"},"
-						+ "\"clickEvent\":{\"action\":\"open_url\",\"value\":\"" + url + "\"}}]}");
-		player.spigot().sendMessage(comp);
+		player.spigot().sendMessage(new ComponentBuilder(message)
+				.append(ChatColor.AQUA + " Click Here")
+				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Open URL")))
+				.event(new ClickEvent(ClickEvent.Action.OPEN_URL, url))
+				.create());
 	    
 	    if(border) {
 	    	player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");

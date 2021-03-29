@@ -44,7 +44,8 @@ public class CmdGrp implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		return ChatFormatter.group((Player) sender, StringUtils.join(args, " "));
+		ChatFormatter.group((Player) sender, StringUtils.join(args, " "));
+		return true;
 	}
 
 }

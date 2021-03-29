@@ -85,12 +85,8 @@ public class WauzDiscordListener implements Listener {
 	@EventHandler(priority = EventPriority.LOW)
 	public void onItem(ShareItemEvent event) {
 		Player player = event.getPlayer();
-		
 		ItemStack itemStack = event.getItemStack();
-		boolean hasDisplayName = ItemUtils.hasDisplayName(itemStack);
-		String name = hasDisplayName ? itemStack.getItemMeta().getDisplayName() : itemStack.getI18NDisplayName();
-		
-		String description = "**" + ChatColor.stripColor(name) + "**";
+		String description = "**" + ChatColor.stripColor(ItemUtils.getDisplayName(itemStack)) + "**";
 		if(ItemUtils.hasLore(itemStack)) {
 			for(String lore : itemStack.getLore()) {
 				String descriptionLine = StringUtils.substringBeforeLast(lore, ChatColor.GRAY + UnicodeUtils.ICON_DIAMOND);

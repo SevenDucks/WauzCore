@@ -7,6 +7,7 @@ import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_16_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
+import net.md_5.bungee.api.chat.ItemTag;
 import net.minecraft.server.v1_16_R2.ItemStack;
 import net.minecraft.server.v1_16_R2.MojangsonParser;
 import net.minecraft.server.v1_16_R2.NBTTagCompound;
@@ -96,11 +97,20 @@ public class WauzNmsClient {
 	 * @param itemStack The item to convert.
 	 * 
 	 * @return The created string.
-	 * 
-	 * @throws Exception Error while converting.
 	 */
-	public static String nmsStringFromItem(org.bukkit.inventory.ItemStack itemStack) throws Exception {
+	public static String nmsStringFromItem(org.bukkit.inventory.ItemStack itemStack) {
 		return CraftItemStack.asNMSCopy(itemStack).save(new NBTTagCompound()).asString();
+	}
+	
+	/**
+	 * Conberts an item stack into an item tag.
+	 * 
+	 * @param itemStack The item to convert.
+	 * 
+	 * @return The created tag.
+	 */
+	public static ItemTag getTagFromItem(org.bukkit.inventory.ItemStack itemStack) {
+		return ItemTag.ofNbt(CraftItemStack.asNMSCopy(itemStack).getTag().toString());
 	}
 	
 }

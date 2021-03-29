@@ -68,10 +68,7 @@ public class WauzPlayerEventMailClaim implements WauzPlayerEvent {
 			mailLores.add(ChatColor.GRAY + "Coins: " + Formatters.formatCoins(coinAttachment));
 		}
 		if(itemAttachment != null) {
-			String attachmentName = ItemUtils.hasDisplayName(itemAttachment)
-					? itemAttachment.getItemMeta().getDisplayName()
-					: itemAttachment.getI18NDisplayName();
-			mailLores.add(ChatColor.GRAY + "Item: " + attachmentName);
+			mailLores.add(ChatColor.GRAY + "Item: " + ItemUtils.getDisplayName(itemAttachment));
 		}
 		mailLores.add("");
 		for(String textPart : UnicodeUtils.wrapText(text)) {

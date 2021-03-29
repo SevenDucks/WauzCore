@@ -44,7 +44,8 @@ public class CmdGld implements WauzCommand {
 	 */
 	@Override
 	public boolean executeCommand(CommandSender sender, String[] args) {
-		return ChatFormatter.guild((Player) sender, StringUtils.join(args, " "));
+		ChatFormatter.guild((Player) sender, StringUtils.join(args, " "));
+		return true;
 	}
 
 }

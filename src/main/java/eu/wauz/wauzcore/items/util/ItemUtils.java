@@ -270,6 +270,18 @@ public class ItemUtils {
 	}
 	
 	/**
+	 * Gets the display name of the given item stack.
+	 * Includes partial null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return The name of the item.
+	 */
+	public static String getDisplayName(ItemStack itemStack) {
+		return hasDisplayName(itemStack) ? itemStack.getItemMeta().getDisplayName() : itemStack.getI18NDisplayName();
+	}
+	
+	/**
 	 * Checks if the given item has a lore.
 	 * Includes null check.
 	 * 

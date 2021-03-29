@@ -13,6 +13,7 @@ import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.events.ShareItemEvent;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
@@ -53,9 +54,9 @@ public class CmdItem implements WauzCommand {
 			player.sendMessage(ChatColor.RED + "Invalid item selected (in hand)!");
 			return true;
 		}
+		ChatFormatter.share(player, itemStack);
 		ShareItemEvent event = new ShareItemEvent(player, itemStack);
 		Bukkit.getServer().getPluginManager().callEvent(event);
-		// TODO Also share to global chat.
 		return true;
 	}
 
