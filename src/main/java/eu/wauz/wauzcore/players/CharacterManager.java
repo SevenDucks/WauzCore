@@ -62,7 +62,7 @@ public class CharacterManager {
 	/**
 	 * The current schema version of character files.
 	 */
-	public static final int SCHEMA_VERSION = 7;
+	public static final int SCHEMA_VERSION = 8;
 	
 	/**
 	 * A direct reference to the main class.

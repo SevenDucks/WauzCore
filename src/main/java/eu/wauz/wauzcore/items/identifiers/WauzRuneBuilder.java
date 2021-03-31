@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 public class WauzRuneBuilder {
 	
@@ -66,7 +67,8 @@ public class WauzRuneBuilder {
 	 * @param successStat The value of the stat.
 	 */
 	public void addSuccessStat(int successStat) {
-		successString = "Success Chance:" + ChatColor.YELLOW + " " + successStat + " " + ChatColor.GRAY + "%";
+		String icon = ChatColor.YELLOW + UnicodeUtils.ICON_DIAMETER + " ";
+		successString = icon + ChatColor.WHITE + "Success Chance:" + ChatColor.YELLOW + " " + successStat + " " + ChatColor.GRAY + "%";
 	}
 	
 	/**
@@ -85,11 +87,13 @@ public class WauzRuneBuilder {
 		
 		List<String> lores = new ArrayList<String>();
 		int sellValue = (int) (mightStat * (Math.random() + 0.5) * 3 + 1);
+		String mightIcon = ChatColor.YELLOW + UnicodeUtils.ICON_LIGHTNING + " ";
+		String sellIcon = ChatColor.DARK_GREEN + UnicodeUtils.ICON_BULLSEYE + " ";
 		lores.add(ChatColor.WHITE + tier.getName() + " " + rarity.getName() + " Rune " + ChatColor.GREEN + rarity.getStars());
 		lores.add("");
-		lores.add(ChatColor.WHITE + "Might:" + ChatColor.YELLOW + " " + mightStat);
+		lores.add(mightIcon + ChatColor.WHITE + "Might:" + ChatColor.YELLOW + " " + mightStat);
 		addLoreIfNotBlank(lores, successString);
-		lores.add(ChatColor.WHITE + "Sell Value:" + ChatColor.DARK_GREEN + " " + sellValue);
+		lores.add(sellIcon + ChatColor.WHITE + "Sell Value:" + ChatColor.DARK_GREEN + " " + sellValue);
 		lores.add("");
 		lores.add(ChatColor.GRAY + "Can be inserted into Equipment,");
 		lores.add(ChatColor.GRAY + "which possesses an empty Rune Slot.");
@@ -107,7 +111,7 @@ public class WauzRuneBuilder {
 	 */
 	private void addLoreIfNotBlank(List<String> lores, String lore) {
 		if(StringUtils.isNotBlank(lore)) {
-			lores.add(ChatColor.WHITE + lore);
+			lores.add(lore);
 		}
 	}
 

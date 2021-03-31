@@ -50,6 +50,16 @@ public class UnicodeUtils {
 	public static final String ICON_BULLET = "\u2022";
 	
 	/**
+	 * A diameter icon in unicode.
+	 */
+	public static final String ICON_DIAMETER = "\u2300";
+	
+	/**
+	 * A bullseye icon in unicode.
+	 */
+	public static final String ICON_BULLSEYE = "\u25CE";
+	
+	/**
 	 * A sun icon in unicode.
 	 */
 	public static final String ICON_SUN = "\u2600";
@@ -58,6 +68,31 @@ public class UnicodeUtils {
 	 * A diamond icon in unicode.
 	 */
 	public static final String ICON_DIAMOND = "\u2666";
+	
+	/**
+	 * An anchor icon in unicode.
+	 */
+	public static final String ICON_ANCHOR = "\u2693";
+	
+	/**
+	 * A swords icon in unicode.
+	 */
+	public static final String ICON_SWORDS = "\u2694";
+	
+	/**
+	 * A lightning icon in unicode.
+	 */
+	public static final String ICON_LIGHTNING = "\u26A1";
+	
+	/**
+	 * A pickaxe icon in unicode.
+	 */
+	public static final String ICON_PICKAXE = "\u26CF";
+	
+	/**
+	 * A shield icon in unicode.
+	 */
+	public static final String ICON_SHIELD = "\u26E8";
 	
 	/**
 	 * A star icon in unicode.
@@ -138,7 +173,7 @@ public class UnicodeUtils {
 		player.spigot().sendMessage(new ComponentBuilder(message)
 				.append(ChatColor.AQUA + " Click Here")
 				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Run Command")))
-				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
+				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + command))
 				.create());
 	    
 	    if(border) {

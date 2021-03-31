@@ -96,7 +96,7 @@ public class EquipmentUtils {
 	 * @return The armor category of the item.
 	 */
 	public static ArmorCategory getArmorCategory(ItemStack itemStack) {
-		String categoryString = ItemUtils.hasLore(itemStack) ? ItemUtils.getStringFromLore(itemStack, "Category", 1) : null;
+		String categoryString = ItemUtils.hasLore(itemStack) ? ItemUtils.getStringFromLore(itemStack, "Category", 2) : null;
 		
 		if(categoryString == null) {
 			return ArmorCategory.UNKNOWN;
@@ -138,7 +138,7 @@ public class EquipmentUtils {
 	 * @see EquipmentUtils#setBaseAtk(ItemStack, int)
 	 */
 	public static int getBaseAtk(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Attack:" + ChatColor.RED, 1) : 1;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Attack:" + ChatColor.RED, 2) : 1;
 	}
 	
 	/**
@@ -148,14 +148,10 @@ public class EquipmentUtils {
 	 * @param itemStack The item stack to edit.
 	 * @param newAttack The new base attack value.
 	 * 
-	 * @return If the action was successful.
-	 * 
 	 * @see EquipmentUtils#getBaseAtk(ItemStack)
 	 */
-	public static boolean setBaseAtk(ItemStack itemStack, int newAttack) {
-		String oldAttackLore = ChatColor.WHITE + "Attack:" + ChatColor.RED + " ";
-		String newAttackLore = ChatColor.WHITE + "Attack:" + ChatColor.RED + " " + newAttack;
-		return ItemUtils.replaceStringFromLore(itemStack, oldAttackLore, newAttackLore);
+	public static void setBaseAtk(ItemStack itemStack, int newAttack) {
+		ItemUtils.replaceStringFromLore(itemStack, ChatColor.WHITE + "Attack:" + ChatColor.RED, 2, newAttack + "");
 	}
 	
 	/**
@@ -169,7 +165,7 @@ public class EquipmentUtils {
 	 * @see EquipmentUtils#setBaseDef(ItemStack, int)
 	 */
 	public static int getBaseDef(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Defense:" + ChatColor.BLUE, 1) : 0;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Defense:" + ChatColor.BLUE, 2) : 0;
 	}
 	
 	/**
@@ -179,14 +175,10 @@ public class EquipmentUtils {
 	 * @param itemStack The item stack to edit.
 	 * @param newDefense The new base defense value.
 	 * 
-	 * @return If the action was successful.
-	 * 
 	 * @see EquipmentUtils#getBaseDef(ItemStack)
 	 */
-	public static boolean setBaseDef(ItemStack itemStack, int newDefense) {
-		String oldDefenseLore = ChatColor.WHITE + "Defense:" + ChatColor.BLUE + " ";
-		String newDefenseLore = ChatColor.WHITE + "Defense:" + ChatColor.BLUE + " " + newDefense;
-		return ItemUtils.replaceStringFromLore(itemStack, oldDefenseLore, newDefenseLore);
+	public static void setBaseDef(ItemStack itemStack, int newDefense) {
+		ItemUtils.replaceStringFromLore(itemStack, ChatColor.WHITE + "Defense:" + ChatColor.BLUE, 2, newDefense + "");
 	}
 	
 	/**
@@ -198,7 +190,7 @@ public class EquipmentUtils {
 	 * @return The base efficiency of the item.
 	 */
 	public static int getBaseEfc(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Efficiency:" + ChatColor.DARK_AQUA, 1) : 0;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Efficiency:" + ChatColor.DARK_AQUA, 2) : 0;
 	}
 	
 	/**
@@ -210,7 +202,7 @@ public class EquipmentUtils {
 	 * @return The rune might of the item.
 	 */
 	public static int getRuneMight(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Might:" + ChatColor.YELLOW, 1) : 0;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Might:" + ChatColor.YELLOW, 2) : 0;
 	}
 	
 	/**
@@ -222,7 +214,7 @@ public class EquipmentUtils {
 	 * @return The rune success chance of the item.
 	 */
 	public static int getRuneSuccessChance(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Success Chance:" + ChatColor.YELLOW, 2) : 0;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Success Chance:" + ChatColor.YELLOW, 3) : 0;
 	}
 	
 	/**
@@ -236,7 +228,7 @@ public class EquipmentUtils {
 	 * @see EquipmentUtils#setSwiftness(ItemStack, int)
 	 */
 	public static int getSwiftness(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Swiftness:" + ChatColor.BLUE, 1) : 0;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Swiftness:" + ChatColor.BLUE, 2) : 0;
 	}
 	
 	/**
@@ -250,7 +242,7 @@ public class EquipmentUtils {
 	 * @see EquipmentUtils#setCurrentDurability(ItemStack, int)
 	 */
 	public static int getCurrentDurability(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Durability:" + ChatColor.DARK_GREEN, 1) : 0;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Durability:" + ChatColor.DARK_GREEN, 2) : 0;
 	}
 	
 	/**
@@ -264,7 +256,7 @@ public class EquipmentUtils {
 	 * @see EquipmentUtils#setMaximumDurability(ItemStack, int)
 	 */
 	public static int getMaximumDurability(ItemStack itemStack) {
-		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Durability:" + ChatColor.DARK_GREEN, 3) : 0;
+		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Durability:" + ChatColor.DARK_GREEN, 4) : 0;
 	}
 	
 	/**
@@ -274,12 +266,10 @@ public class EquipmentUtils {
 	 * @param itemStack The item stack to edit.
 	 * @param durability The new current durability value.
 	 * 
-	 * @return If the action was successful.
-	 * 
 	 * @see EquipmentUtils#getCurrentDurability(ItemStack)
 	 */
-	public static boolean setCurrentDurability(ItemStack itemStack, int durability) {
-		return ItemUtils.replaceStringFromLore(itemStack, ChatColor.WHITE + "Durability:" + ChatColor.DARK_GREEN, 1, durability + "");
+	public static void setCurrentDurability(ItemStack itemStack, int durability) {
+		ItemUtils.replaceStringFromLore(itemStack, ChatColor.WHITE + "Durability:" + ChatColor.DARK_GREEN, 2, durability + "");
 	}
 	
 	/**
@@ -287,18 +277,14 @@ public class EquipmentUtils {
 	 * Does NOT include null check.
 	 * 
 	 * @param itemStack The item stack to edit.
-	 * @param newDurability The new maximum durability value.
-	 * 
-	 * @return If the action was successful.
+	 * @param durability The new maximum durability value.
 	 * 
 	 * @see EquipmentUtils#getMaximumDurability(ItemStack)
 	 */
-	public static boolean setMaximumDurability(ItemStack itemStack, int newDurability) {
-		String oldDurabilityLore = ChatColor.WHITE + "Durability:" + ChatColor.DARK_GREEN + " ";
-		String newDurabilityLore = ChatColor.WHITE + "Durability:" + ChatColor.DARK_GREEN + " " + newDurability;
-		newDurabilityLore += " " + ChatColor.DARK_GRAY + "/ " + newDurability;
+	public static void setMaximumDurability(ItemStack itemStack, int durability) {
+		ItemUtils.replaceStringFromLore(itemStack, ChatColor.WHITE + "Durability:" + ChatColor.DARK_GREEN, 2, durability + "");
+		ItemUtils.replaceStringFromLore(itemStack, ChatColor.WHITE + "Durability:" + ChatColor.DARK_GREEN, 4, durability + "");
 		DurabilityCalculator.setDamage(itemStack, 0);
-		return ItemUtils.replaceStringFromLore(itemStack, oldDurabilityLore, newDurabilityLore);
 	}
 	
 	/**

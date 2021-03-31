@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
+
 /**
  * An util class for reading and writing item stack properties.
  * 
@@ -213,7 +215,11 @@ public class ItemUtils {
 	 * @see ItemUtils#isBoughtItem(ItemStack)
 	 */
 	public static int getSellValue(ItemStack itemStack) {
-		return hasLore(itemStack) ? getIntegerFromLore(itemStack, "Sell Value:" + ChatColor.DARK_GREEN, 2) * itemStack.getAmount() : 0;
+		if(!hasLore(itemStack)) {
+			return 0;
+		}
+		boolean hasIcon = doesLoreContain(itemStack, UnicodeUtils.ICON_BULLSEYE);
+		return getIntegerFromLore(itemStack, "Sell Value:" + ChatColor.DARK_GREEN, hasIcon ? 3 : 2) * itemStack.getAmount();
 	}
 	
 	/**

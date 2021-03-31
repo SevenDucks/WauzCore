@@ -28,6 +28,7 @@ import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Formatters;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
  * A class for generating equipment with all possible skill and stat combinations.
@@ -198,10 +199,10 @@ public class WauzEquipmentBuilder {
 	 * @param durabilityStat The value of the stat.
 	 */
 	public void addDurabilityStat(int durabilityStat) {
+		String icon = ChatColor.DARK_GREEN + UnicodeUtils.ICON_ANCHOR + " ";
 		Damageable damageable = (Damageable) itemMeta;
 		damageable.setDamage(0);
-		
-		durabilityString = "Durability:" + ChatColor.DARK_GREEN + " " + durabilityStat;
+		durabilityString = icon + ChatColor.WHITE + "Durability:" + ChatColor.DARK_GREEN + " " + durabilityStat;
 		durabilityString += " " + ChatColor.DARK_GRAY + "/ " + durabilityStat;
 	}
 	
@@ -211,10 +212,11 @@ public class WauzEquipmentBuilder {
 	 * @param speedStat The value of the stat.
 	 */
 	public void addSpeedStat(double speedStat) {
+		String icon = ChatColor.RED + UnicodeUtils.ICON_LIGHTNING + " ";
 		double genericAttackSpeed = speedStat - 4.0;
 		AttributeModifier modifier = new AttributeModifier("generic.attack_speed", genericAttackSpeed, Operation.ADD_NUMBER);
 		itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
-		speedString = "Speed:" + ChatColor.RED + " " + Formatters.DEC_SHORT.format(speedStat);
+		speedString = icon + ChatColor.WHITE + "Speed:" + ChatColor.RED + " " + Formatters.DEC_SHORT.format(speedStat);
 	}
 	
 	/**
@@ -223,8 +225,9 @@ public class WauzEquipmentBuilder {
 	 * @param swiftnessStat The value of the stat.
 	 */
 	public void addSwiftnessStat(int swiftnessStat) {
+		String icon = ChatColor.BLUE + UnicodeUtils.ICON_LIGHTNING + " ";
 		String symbol = swiftnessStat >= 0 ? "+" : "";
-		swiftnessString = "Swiftness:" + ChatColor.BLUE + " " + symbol + swiftnessStat + " %";
+		swiftnessString = icon + ChatColor.WHITE + "Swiftness:" + ChatColor.BLUE + " " + symbol + swiftnessStat + " %";
 	}
 	
 	/**
@@ -233,7 +236,8 @@ public class WauzEquipmentBuilder {
 	 * @param armorCategory The category.
 	 */
 	public void addArmorCategory(ArmorCategory armorCategory) {
-		armorCategoryString = "Category:" + ChatColor.BLUE + " " + armorCategory;
+		String icon = ChatColor.BLUE + UnicodeUtils.ICON_SHIELD + " ";
+		armorCategoryString = icon + ChatColor.WHITE + "Category:" + ChatColor.BLUE + " " + armorCategory;
 	}
 	
 	/**
@@ -273,32 +277,40 @@ public class WauzEquipmentBuilder {
 		String rarityName = rarityNamePrefix + rarity.getName() + " ";
 		String rarityStars = rarityStarPrefix + rarity.getStars();
 		int sellValue = 0;
-		if(type.equals(EquipmentType.WEAPON)) {	
+		ChatColor typeColor = null;
+		if(type.equals(EquipmentType.WEAPON)) {
+			typeColor = ChatColor.RED;
+			String icon = typeColor + UnicodeUtils.ICON_SWORDS + " ";
 			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Weapon " + rarityStars);
 			lores.add("");
-			lores.add(ChatColor.WHITE + "Attack:" + ChatColor.RED + " " + attackStat + scalingString);
+			lores.add(icon + ChatColor.WHITE + "Attack:" + typeColor + " " + attackStat + scalingString);
 			sellValue = (int) (attackStat * (Math.random() + 0.5) + 1);
 		}
 		else if(type.equals(EquipmentType.TOOL)) {
+			typeColor = ChatColor.DARK_AQUA;
+			String icon = typeColor + UnicodeUtils.ICON_PICKAXE + " ";
 			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Tool " + rarityStars);
 			lores.add("");
-			lores.add(ChatColor.WHITE + "Efficiency:" + ChatColor.DARK_AQUA + " " + attackStat);
+			lores.add(icon + ChatColor.WHITE + "Efficiency:" + typeColor + " " + attackStat);
 			sellValue = (int) (attackStat * (Math.random() + 0.5) + 1);
 		}
-		else if(type.equals(EquipmentType.ARMOR)) {		
+		else if(type.equals(EquipmentType.ARMOR)) {
+			typeColor = ChatColor.BLUE;
+			String icon = typeColor + UnicodeUtils.ICON_SHIELD + " ";
 			lores.add(ChatColor.WHITE + tier.getName() + " " + rarityName + "Armor " + rarityStars);
 			lores.add("");
-			lores.add(ChatColor.WHITE + "Defense:" + ChatColor.BLUE + " " + defenseStat + scalingString);
+			lores.add(icon + ChatColor.WHITE + "Defense:" + typeColor + " " + defenseStat + scalingString);
 			sellValue = (int) (attackStat * (Math.random() + 0.5) * 3 + 1);
 		}
+		addLoreIfNotBlank(lores, armorCategoryString);
 		for(String enhancementString : enhancementStrings) {
-			lores.add(ChatColor.WHITE + enhancementString);
+			lores.add(typeColor + UnicodeUtils.ICON_DIAMOND + " " + ChatColor.WHITE + enhancementString);
 		}
 		addLoreIfNotBlank(lores, speedString);
 		addLoreIfNotBlank(lores, swiftnessString);
-		addLoreIfNotBlank(lores, armorCategoryString);
 		addLoreIfNotBlank(lores, durabilityString);
-		lores.add(ChatColor.WHITE + "Sell Value:" + ChatColor.DARK_GREEN + " " + sellValue);
+		String icon = ChatColor.DARK_GREEN + UnicodeUtils.ICON_BULLSEYE + " ";
+		lores.add(icon + ChatColor.WHITE + "Sell Value:" + ChatColor.DARK_GREEN + " " + sellValue);
 		if(type.equals(EquipmentType.TOOL)) {
 			lores.add("");
 			lores.add(ChatColor.GRAY + "Right Click to gather Resource Nodes");
@@ -327,7 +339,7 @@ public class WauzEquipmentBuilder {
 	 */
 	private void addLoreIfNotBlank(List<String> lores, String lore) {
 		if(StringUtils.isNotBlank(lore)) {
-			lores.add(ChatColor.WHITE + lore);
+			lores.add(lore);
 		}
 	}
 	

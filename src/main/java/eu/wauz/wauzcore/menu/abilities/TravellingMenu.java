@@ -170,7 +170,7 @@ public class TravellingMenu implements WauzInventory {
 			WauzTeleporter.exitInstanceTeleportManual(player);
 		}
 		else if(clicked.getType().equals(Material.MAP)) {
-			UnicodeUtils.sendChatHyperlink(player, "http://wauz.eu/map.html",
+			UnicodeUtils.sendChatHyperlink(player, "http://map.wauz.eu",
 					ChatColor.YELLOW + "To open the Overview Map:", true);
 			player.closeInventory();
 		}
