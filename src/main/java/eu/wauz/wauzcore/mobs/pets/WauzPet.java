@@ -181,6 +181,11 @@ public class WauzPet {
 	private WauzPetRarity rarity;
 	
 	/**
+	 * The random messages of the pet.
+	 */
+	private List<String> messages;
+	
+	/**
 	 * The horse color of the pet. Null if not a horse.
 	 */
 	private Horse.Color horseColor;
@@ -198,6 +203,7 @@ public class WauzPet {
 			horseColor = Horse.Color.valueOf(name.toUpperCase());
 		}
 		this.rarity = PetConfigurator.getRarity(key);
+		this.messages = PetConfigurator.getMessages(key);
 	}
 
 	/**
@@ -226,6 +232,16 @@ public class WauzPet {
 	 */
 	public WauzPetRarity getRarity() {
 		return rarity;
+	}
+	
+	/**
+	 * @return A random messages of the pet or null, if none defined.
+	 */
+	public String getRandomMessage() {
+		if(messages == null || messages.isEmpty()) {
+			return null;
+		}
+		return messages.get(Chance.randomInt(messages.size()));
 	}
 	
 	/**

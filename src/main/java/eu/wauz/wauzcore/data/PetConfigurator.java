@@ -49,6 +49,15 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 		return WauzPetRarity.valueOf(mainConfigGetString("Pets", "pets." + petKey + ".rarity"));
 	}
 	
+	/**
+	 * @param petKey The key of the pet.
+	 * 
+	 * @return The random messages of the pet.
+	 */
+	public static List<String> getMessages(String petKey) {
+		return mainConfigGetStringList("Pets", "pets." + petKey + ".messages");
+	}
+	
 // Pet Stats
 	
 	/**

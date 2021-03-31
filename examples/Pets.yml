@@ -272,7 +272,7 @@ pets:
     messages:
     - '*gurgles*'
     - '*yearns for revenge*'
-    - '*waiting for firday*'
+    - '*waiting for friday*'
   Azog:
     mob: PetPiglin
     category: Human

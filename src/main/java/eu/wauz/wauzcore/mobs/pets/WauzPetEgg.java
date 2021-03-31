@@ -111,7 +111,7 @@ public class WauzPetEgg {
 				
 				if(pet.isHorse()) {
 					Horse horse = NmsEntityHorseMount.create(player.getLocation(), pet.getHorseColor(), petType);
-					WauzActivePet.setOwner(player, horse, itemStack);
+					WauzActivePet.setOwner(player, horse, pet, itemStack);
 					int petSpd = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Speed"));
 					horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.2 + (float) petSpd * 0.003f);
 					horse.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
@@ -121,9 +121,10 @@ public class WauzPetEgg {
 				}
 				else {
 					Entity entity = mythicMobs.spawnMythicMob(mob, player.getLocation(), 1);
-					WauzActivePet.setOwner(player, entity, itemStack);
+					WauzActivePet.setOwner(player, entity, pet, itemStack);
 				}
 				player.sendMessage(ChatColor.GREEN + petType + " was summoned!");
+				WauzActivePet.getPet(player).showRandomMessage();
 			}
 			catch (Exception e) {
 				e.printStackTrace();

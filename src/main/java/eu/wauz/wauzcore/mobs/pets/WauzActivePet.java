@@ -62,14 +62,15 @@ public class WauzActivePet {
 	 * 
 	 * @param player The owner of the pet.
 	 * @param petEntity The pet entity.
+	 * @param pet The pet type.
 	 * @param eggItemStack The pet egg item stack.
 	 */
-	public static void setOwner(Player player, Entity petEntity, ItemStack eggItemStack) {
+	public static void setOwner(Player player, Entity petEntity, WauzPet pet, ItemStack eggItemStack) {
 		if(petEntity instanceof Tameable) {
 			((Tameable) petEntity).setOwner(player);
 		}
 		petOwnerMap.put(petEntity.getUniqueId().toString(), player);
-		ownerPetMap.put(player, new WauzActivePet(player, petEntity, eggItemStack));
+		ownerPetMap.put(player, new WauzActivePet(player, petEntity, pet, eggItemStack));
 		if(!WauzModules.isPetsModuleStandalone()) {
 			SpeedCalculator.resetWalkSpeed(player);
 		}
@@ -156,9 +157,9 @@ public class WauzActivePet {
 	private Entity petEntity;
 	
 	/**
-	 * The pet category.
+	 * The pet type.
 	 */
-	private String petCategory;
+	private WauzPet pet;
 	
 	/**
 	 * The pet ability.
@@ -175,12 +176,13 @@ public class WauzActivePet {
 	 * 
 	 * @param owner The owner of the pet.
 	 * @param petEntity The pet entity.
+	 * @param pet The pet type.
 	 * @param eggItemStack The pet egg item stack.
 	 */
-	public WauzActivePet(Player owner, Entity petEntity, ItemStack eggItemStack) {
+	public WauzActivePet(Player owner, Entity petEntity, WauzPet pet, ItemStack eggItemStack) {
 		this.owner = owner;
 		this.petEntity = petEntity;
-		this.petCategory = PetEggUtils.getPetCategory(eggItemStack);
+		this.pet = pet;
 		this.petAbility = PetEggUtils.getPetAbility(eggItemStack);
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
 			petStatMap.put(stat, PetEggUtils.getPetStat(eggItemStack, stat));
@@ -199,10 +201,10 @@ public class WauzActivePet {
 	}
 	
 	/**
-	 * @return The pet category.
+	 * @return The pet type.
 	 */
-	public String getPetCategory() {
-		return petCategory;
+	public WauzPet getPet() {
+		return pet;
 	}
 
 	/**
@@ -221,6 +223,16 @@ public class WauzActivePet {
 	 */
 	public int getActivePetStat(WauzPetStat stat) {
 		return petStatMap.get(stat);
+	}
+	
+	public void showRandomMessage() {
+		String randomMessage = pet.getRandomMessage();
+		if(randomMessage != null) {
+			String msg = ChatColor.WHITE + "[" + ChatColor.GREEN + pet.getKey() + ChatColor.WHITE + " (" +
+					 ChatColor.AQUA  + "Pet" + ChatColor.WHITE + ")] " +
+					 ChatColor.GRAY + randomMessage;
+			owner.sendMessage(msg);
+		}
 	}
 	
 	/**

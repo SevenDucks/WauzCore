@@ -62,6 +62,11 @@ public class WauzPlayerDataSectionSelections {
 	private WauzPlayerEvent wauzPlayerEvent;
 	
 	/**
+	 * The amount of conversations the player is engaged in.
+	 */
+	private int activeConversations = 0;
+	
+	/**
 	 * The current note block song player.
 	 */
 	private SongPlayer songPlayer;
@@ -211,6 +216,27 @@ public class WauzPlayerDataSectionSelections {
 	 */
 	public void setWauzPlayerEvent(WauzPlayerEvent wauzPlayerEvent) {
 		this.wauzPlayerEvent = wauzPlayerEvent;
+	}
+
+	/**
+	 * @return The amount of conversations the player is engaged in.
+	 */
+	public int getActiveConversations() {
+		return activeConversations;
+	}
+	
+	/**
+	 * Increases the amount of conversations the player is engaged in by one.
+	 */
+	public void increaseActiveConversations() {
+		activeConversations++;
+	}
+	
+	/**
+	 * Decreases the amount of conversations the player is engaged in by one.
+	 */
+	public void decreaseActiveConversations() {
+		activeConversations--;
 	}
 
 	/**
