@@ -6,6 +6,10 @@ name:
 skinid: 1439168918
 invisible: false
 burning: false
+messages:
+  - 'Quack!'
+  - 'Sometimes, I dream about cheese.'
+  - 'Do you have some spare bread?'
 items:
   mainhand:
   offhand:
@@ -19,13 +23,13 @@ interactions:
     name: What is the Crucible?
     level: 0
     messages:
-      - 'The Crucible of Sei Sei Dai is an arena my ancestors created long ago.'
-      - 'Many strong opponents await you here.'
-      - 'If you dare, you can take on the challenge to defeat them all.'
-      - 'Every 5 waves, you will be rewarded with a precious medal.'
-      - 'If you gather enough, you can exchange them for rare items.'
-      - 'Additionally you can keep the loot, deafeated opponents drop.'
-      - 'Tell me, when you are ready.'
+    - 'The Crucible of Sei Sei Dai is an arena my ancestors created long ago.'
+    - 'Many strong opponents await you here.'
+    - 'If you dare, you can take on the challenge to defeat them all.'
+    - 'Every 5 waves, you will be rewarded with a precious medal.'
+    - 'If you gather enough, you can exchange them for rare items.'
+    - 'Additionally you can keep the loot, deafeated opponents drop.'
+    - 'Tell me, when you are ready.'
   2:
     type: command
     name: Start Next 5 Arena Waves

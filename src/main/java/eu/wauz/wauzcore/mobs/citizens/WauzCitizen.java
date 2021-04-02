@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.CitizenConfigurator;
+import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.ChunkKeyMap;
 
 /**
@@ -158,6 +159,11 @@ public class WauzCitizen {
 	private boolean burning;
 	
 	/**
+	 * The random messages of the citizen.
+	 */
+	private List<String> messages;
+	
+	/**
 	 * The equipped mainhand item.
 	 */
 	private ItemStack mainhandItemStack;
@@ -206,6 +212,7 @@ public class WauzCitizen {
 		skinId = CitizenConfigurator.getSkinId(citizenName);
 		invisible = CitizenConfigurator.isInvisible(citizenName);
 		burning = CitizenConfigurator.isBurning(citizenName);
+		messages = CitizenConfigurator.getMessages(citizenName);
 		
 		mainhandItemStack = CitizenConfigurator.getEquippedMainhandItem(citizenName);
 		offhandItemStack = CitizenConfigurator.getEquippedOffhandItem(citizenName);
@@ -231,6 +238,7 @@ public class WauzCitizen {
 		skinId = citizen.getSkinId();
 		invisible = citizen.isInvisible();
 		burning = citizen.isBurning();
+		messages = citizen.getMessages();
 		
 		mainhandItemStack = citizen.getMainhandItemStack();
 		offhandItemStack = citizen.getOffhandItemStack();
@@ -296,6 +304,23 @@ public class WauzCitizen {
 	 */
 	public boolean isBurning() {
 		return burning;
+	}
+	
+	/**
+	 * @return The random messages of the citizen.
+	 */
+	final List<String> getMessages() {
+		return messages;
+	}
+
+	/**
+	 * @return A random messages of the citizen or null, if none defined.
+	 */
+	public String getRandomMessage() {
+		if(messages == null || messages.isEmpty()) {
+			return null;
+		}
+		return messages.get(Chance.randomInt(messages.size()));
 	}
 
 	/**

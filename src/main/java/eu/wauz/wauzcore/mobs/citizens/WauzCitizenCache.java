@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.util.Chance;
 import net.jitse.npclib.api.NPC;
 
@@ -28,12 +30,43 @@ public class WauzCitizenCache {
 	
 	/**
 	 * Updates the look directions of all cached citizens.
+	 * Has a one in 25 chance per citizen to let them say a random message. 
+	 * 
+	 * @see WauzCitizenCache#showRandomMessage(WauzCitizen, List)
 	 */
 	public static void updateCitizenLookDirections() {
 		for(NPC npc : citizenViewersMap.keySet()) {
 			List<Player> nearbyPlayers = new ArrayList<>(npc.getLocation().getNearbyPlayers(4));
 			if(!nearbyPlayers.isEmpty()) {
+				if(Chance.oneIn(25)) {
+					showRandomMessage(WauzCitizenSpawner.getCitizen(npc), nearbyPlayers);
+				}
 				npc.lookAt(nearbyPlayers.get(Chance.randomInt(nearbyPlayers.size())).getLocation());
+			}
+		}
+	}
+	
+	/**
+	 * Shows a random citizen message to the given players, if possible.
+	 * 
+	 * @param citizen The citizen to send the message.
+	 * @param player The players who should receive the message.
+	 */
+	public static void showRandomMessage(WauzCitizen citizen, List<Player> players) {
+		if(citizen == null) {
+			return;
+		}
+		String randomMessage = citizen.getRandomMessage();
+		if(randomMessage == null) {
+			return;
+		}
+		String msg = ChatColor.WHITE + "[" + ChatColor.YELLOW + citizen.getDisplayName() + ChatColor.WHITE + " (" +
+				ChatColor.AQUA  + "NPC" + ChatColor.WHITE + ")] " +
+				ChatColor.GRAY + randomMessage;
+		
+		for(Player player : players) {
+			if(WauzPlayerDataPool.getPlayer(player).getSelections().getActiveConversations() == 0) {
+				player.sendMessage(msg);
 			}
 		}
 	}

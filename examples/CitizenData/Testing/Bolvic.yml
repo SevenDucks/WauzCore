@@ -8,6 +8,11 @@ location: -5522.5 21 -874.5 -90 0
 skinid: 177263
 invisible: false
 burning: true
+messages:
+messages:
+  - 'Souls are eternal.'
+  - 'Death is not the end.'
+  - 'I am the testing NPC.'
 items:
   mainhand: WATER_BUCKET
   offhand: LAVA_BUCKET

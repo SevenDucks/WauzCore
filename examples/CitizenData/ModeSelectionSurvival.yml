@@ -8,6 +8,7 @@ location: -49.5 98 68.5 180 0
 skinid: 481191
 invisible: false
 burning: false
+messages:
 items:
   mainhand:
   offhand:

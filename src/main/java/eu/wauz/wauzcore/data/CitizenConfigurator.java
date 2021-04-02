@@ -99,6 +99,15 @@ public class CitizenConfigurator extends CitizenConfigurationUtils {
 		return citizenConfigGetBoolean(citizen, "burning");
 	}
 	
+	/**
+	 * @param citizen The name of the citizen.
+	 * 
+	 * @return The random messages of the citizen.
+	 */
+	public static List<String> getMessages(String citizen) {
+		return citizenConfigGetStringList(citizen, "messages");
+	}
+	
 // Equipped Items
 	
 	/**

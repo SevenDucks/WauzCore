@@ -225,6 +225,9 @@ public class WauzActivePet {
 		return petStatMap.get(stat);
 	}
 	
+	/**
+	 * Shows a random pet message to the Owner, if possible.
+	 */
 	public void showRandomMessage() {
 		String randomMessage = pet.getRandomMessage();
 		if(randomMessage != null) {

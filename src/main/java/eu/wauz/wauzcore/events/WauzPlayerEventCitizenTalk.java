@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
 /**
@@ -81,10 +82,12 @@ public class WauzPlayerEventCitizenTalk implements WauzPlayerEvent {
 			if(messages.size() == nextLine) {
 				return;
 			}
+			WauzPlayerDataPool.getPlayer(player).getSelections().increaseActiveConversations();
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(core, new Runnable() {
 				
 				@Override
 				public void run() {
+					WauzPlayerDataPool.getPlayer(player).getSelections().decreaseActiveConversations();
 					printDialog(player, messages, nextLine);
 				}
 				
