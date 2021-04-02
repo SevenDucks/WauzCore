@@ -60,6 +60,10 @@ commands:
     description: Send Item in Chat
     usage: /item
     permission: wauz.normal
+  rename:
+    description: Rename Pet
+    usage: /rename [name]
+    permission: wauz.normal
   where:
     description: Get the Location of a Player
     usage: /where [player]

@@ -41,6 +41,18 @@ public class PetEggUtils {
 	}
 	
 	/**
+	 * Gets the type of an egg item stack as string, based on lore.
+	 * Does NOT include null check.
+	 * 
+	 * @param itemStack The item stack to check.
+	 * 
+	 * @return The category of the item.
+	 */
+	public static String getPetType(ItemStack itemStack) {
+		return ItemUtils.getStringFromLore(itemStack, "Type:" + ChatColor.GREEN, 1);
+	}
+	
+	/**
 	 * Gets the category of an egg item stack, based on lore.
 	 * Does NOT include null check.
 	 * 

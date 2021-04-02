@@ -162,6 +162,11 @@ public class WauzActivePet {
 	private WauzPet pet;
 	
 	/**
+	 * The name of the pet.
+	 */
+	private String petName;
+	
+	/**
 	 * The pet ability.
 	 */
 	private WauzPetAbility petAbility;
@@ -183,6 +188,7 @@ public class WauzActivePet {
 		this.owner = owner;
 		this.petEntity = petEntity;
 		this.pet = pet;
+		this.petName = ChatColor.stripColor(eggItemStack.getItemMeta().getDisplayName());
 		this.petAbility = PetEggUtils.getPetAbility(eggItemStack);
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
 			petStatMap.put(stat, PetEggUtils.getPetStat(eggItemStack, stat));
@@ -205,6 +211,13 @@ public class WauzActivePet {
 	 */
 	public WauzPet getPet() {
 		return pet;
+	}
+
+	/**
+	 * @return The name of the pet.
+	 */
+	final String getPetName() {
+		return petName;
 	}
 
 	/**
@@ -231,7 +244,7 @@ public class WauzActivePet {
 	public void showRandomMessage() {
 		String randomMessage = pet.getRandomMessage();
 		if(randomMessage != null) {
-			String msg = ChatColor.WHITE + "[" + ChatColor.GREEN + pet.getKey() + ChatColor.WHITE + " (" +
+			String msg = ChatColor.WHITE + "[" + ChatColor.GREEN + petName + ChatColor.WHITE + " (" +
 					 ChatColor.AQUA  + "Pet" + ChatColor.WHITE + ")] " +
 					 ChatColor.GRAY + randomMessage;
 			owner.sendMessage(msg);
@@ -247,7 +260,7 @@ public class WauzActivePet {
 		if(petEntity.isValid()) {
 			petEntity.remove();
 			if(showMessage) {
-				owner.sendMessage(ChatColor.GREEN + "Your current Pet was unsommoned!");
+				owner.sendMessage(ChatColor.GREEN + petName + " was unsommoned!");
 			}
 		}
 		removeOwner(petEntity.getUniqueId().toString(), owner);
