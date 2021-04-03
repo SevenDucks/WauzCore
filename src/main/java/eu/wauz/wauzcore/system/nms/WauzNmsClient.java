@@ -1,21 +1,21 @@
 package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_16_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.chat.ItemTag;
-import net.minecraft.server.v1_16_R2.ItemStack;
-import net.minecraft.server.v1_16_R2.MojangsonParser;
-import net.minecraft.server.v1_16_R2.NBTTagCompound;
-import net.minecraft.server.v1_16_R2.PacketPlayInClientCommand;
-import net.minecraft.server.v1_16_R2.PacketPlayInClientCommand.EnumClientCommand;
-import net.minecraft.server.v1_16_R2.PacketPlayOutWorldBorder;
-import net.minecraft.server.v1_16_R2.PacketPlayOutWorldBorder.EnumWorldBorderAction;
-import net.minecraft.server.v1_16_R2.WorldBorder;
+import net.minecraft.server.v1_16_R3.ItemStack;
+import net.minecraft.server.v1_16_R3.MojangsonParser;
+import net.minecraft.server.v1_16_R3.NBTTagCompound;
+import net.minecraft.server.v1_16_R3.PacketPlayInClientCommand;
+import net.minecraft.server.v1_16_R3.PacketPlayInClientCommand.EnumClientCommand;
+import net.minecraft.server.v1_16_R3.PacketPlayOutWorldBorder;
+import net.minecraft.server.v1_16_R3.PacketPlayOutWorldBorder.EnumWorldBorderAction;
+import net.minecraft.server.v1_16_R3.WorldBorder;
 
 /**
  * Collection of general net.minecraft.server specific methods.

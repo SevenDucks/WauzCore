@@ -11,7 +11,7 @@ install: true
 script:
 - cp .travis.settings.xml $HOME/.m2/settings.xml
 - wget -O BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-- java -jar BuildTools.jar --rev 1.16.3 > /dev/null 2>&1
+- java -jar BuildTools.jar --rev 1.16.5 > /dev/null 2>&1
 - ls
 
 - cd Bukkit

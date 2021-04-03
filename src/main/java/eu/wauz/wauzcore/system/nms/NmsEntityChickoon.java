@@ -1,11 +1,11 @@
 package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
 
-import net.minecraft.server.v1_16_R2.EntityChicken;
-import net.minecraft.server.v1_16_R2.EntityTypes;
-import net.minecraft.server.v1_16_R2.WorldServer;
+import net.minecraft.server.v1_16_R3.EntityChicken;
+import net.minecraft.server.v1_16_R3.EntityTypes;
+import net.minecraft.server.v1_16_R3.WorldServer;
 
 /**
  * A chickoon (indestructible chicken) entity based on a normal chicken.

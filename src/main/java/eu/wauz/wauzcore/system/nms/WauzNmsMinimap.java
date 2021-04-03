@@ -3,10 +3,10 @@ package eu.wauz.wauzcore.system.nms;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R2.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_16_R2.map.CraftMapRenderer;
-import org.bukkit.craftbukkit.v1_16_R2.map.CraftMapView;
+import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_16_R3.map.CraftMapRenderer;
+import org.bukkit.craftbukkit.v1_16_R3.map.CraftMapView;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
@@ -24,9 +24,9 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.minecraft.server.v1_16_R2.ItemWorldMap;
-import net.minecraft.server.v1_16_R2.WorldMap;
-import net.minecraft.server.v1_16_R2.WorldServer;
+import net.minecraft.server.v1_16_R3.ItemWorldMap;
+import net.minecraft.server.v1_16_R3.WorldMap;
+import net.minecraft.server.v1_16_R3.WorldServer;
 
 /**
  * Live minimap using net.minecraft.server classes.
@@ -77,7 +77,7 @@ public class WauzNmsMinimap {
 		mapView.setCenterZ(player.getLocation().getBlockZ());
         mapView.setScale(Scale.CLOSE);
         
-        net.minecraft.server.v1_16_R2.ItemStack craftItemStack = CraftItemStack.asNMSCopy(mapItem);
+        net.minecraft.server.v1_16_R3.ItemStack craftItemStack = CraftItemStack.asNMSCopy(mapItem);
 		ItemWorldMap itemWorldMap = (ItemWorldMap) craftItemStack.getItem();
 		
 		WorldServer worldServer = ((CraftWorld) mapView.getWorld()).getHandle();

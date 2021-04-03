@@ -4,11 +4,11 @@ import java.util.UUID;
 
 import com.mojang.authlib.GameProfile;
 
-import net.minecraft.server.v1_16_R2.BlockPosition;
-import net.minecraft.server.v1_16_R2.EntityHuman;
-import net.minecraft.server.v1_16_R2.ItemWorldMap;
-import net.minecraft.server.v1_16_R2.WorldMap;
-import net.minecraft.server.v1_16_R2.WorldServer;
+import net.minecraft.server.v1_16_R3.BlockPosition;
+import net.minecraft.server.v1_16_R3.EntityHuman;
+import net.minecraft.server.v1_16_R3.ItemWorldMap;
+import net.minecraft.server.v1_16_R3.WorldMap;
+import net.minecraft.server.v1_16_R3.WorldServer;
 
 /**
  * A human entity used to trigger map rendering.

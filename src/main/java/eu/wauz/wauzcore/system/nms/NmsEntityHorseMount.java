@@ -2,15 +2,15 @@ package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
 import org.bukkit.entity.Horse;
 
-import net.minecraft.server.v1_16_R2.ChatMessage;
-import net.minecraft.server.v1_16_R2.EntityHorse;
-import net.minecraft.server.v1_16_R2.EntityTypes;
-import net.minecraft.server.v1_16_R2.HorseColor;
-import net.minecraft.server.v1_16_R2.HorseStyle;
-import net.minecraft.server.v1_16_R2.WorldServer;
+import net.minecraft.server.v1_16_R3.ChatMessage;
+import net.minecraft.server.v1_16_R3.EntityHorse;
+import net.minecraft.server.v1_16_R3.EntityTypes;
+import net.minecraft.server.v1_16_R3.HorseColor;
+import net.minecraft.server.v1_16_R3.HorseStyle;
+import net.minecraft.server.v1_16_R3.WorldServer;
 
 /**
  * A horse mount entity based on a normal horse.

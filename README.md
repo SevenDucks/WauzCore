@@ -4,7 +4,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/wauzmons/wauzcore/badge)](https://www.codefactor.io/repository/github/wauzmons/wauzcore)
 [![Codebeat](https://codebeat.co/badges/ddcb8361-5bb9-4988-b3c7-51f34db15f21)](https://codebeat.co/projects/github-com-wauzmons-wauzcore-master)
 [![JDK](https://img.shields.io/badge/Java-Oracle%20JDK%208-orange.svg)](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
-[![Minecraft](https://img.shields.io/badge/Minecraft-PaperMC%201.16.3-orange.svg)](https://papermc.io/downloads#Paper-1.16)
+[![Minecraft](https://img.shields.io/badge/Minecraft-PaperMC%201.16.5-orange.svg)](https://papermc.io/downloads#Paper-1.16)
 [![CodeSize](https://img.shields.io/github/languages/code-size/Wauzmons/WauzCore)](https://shields.io/category/size)
 
 <a href="https://seven-ducks.com/delseyria.html"><img src="https://seven-ducks.com/assets/images/banner-delseyria.png"/></a> 

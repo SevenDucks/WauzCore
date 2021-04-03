@@ -1,11 +1,11 @@
 package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
 
-import net.minecraft.server.v1_16_R2.ChatMessage;
-import net.minecraft.server.v1_16_R2.EntityArmorStand;
-import net.minecraft.server.v1_16_R2.WorldServer;
+import net.minecraft.server.v1_16_R3.ChatMessage;
+import net.minecraft.server.v1_16_R3.EntityArmorStand;
+import net.minecraft.server.v1_16_R3.WorldServer;
 
 /**
  * A hologram entity based on an armor stand.
