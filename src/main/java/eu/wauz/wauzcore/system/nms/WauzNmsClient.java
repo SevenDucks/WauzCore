@@ -43,9 +43,9 @@ public class WauzNmsClient {
 	 */
 	public static void nmsBorder(Player player, Location location, int radius) {
 		WorldBorder worldBorder = new WorldBorder();
+		worldBorder.world = ((CraftWorld) location.getWorld()).getHandle();
 		worldBorder.setCenter(location.getBlockX(), location.getBlockZ());
 		worldBorder.setSize(radius * 2);
-		worldBorder.world = ((CraftWorld) location.getWorld()).getHandle();
 		PacketPlayOutWorldBorder packet = new PacketPlayOutWorldBorder(worldBorder, EnumWorldBorderAction.INITIALIZE);
 		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
 	}

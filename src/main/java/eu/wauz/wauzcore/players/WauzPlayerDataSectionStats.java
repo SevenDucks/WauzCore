@@ -127,6 +127,10 @@ public class WauzPlayerDataSectionStats {
 	 * @param health The new current health of the player.
 	 */
 	public void setHealth(int health) {
+		int maxHealth = getMaxHealth();
+		if(health > maxHealth) {
+			health = maxHealth;
+		}
 		this.health = health;
 	}
 

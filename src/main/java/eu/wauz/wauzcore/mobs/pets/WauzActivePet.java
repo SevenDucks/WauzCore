@@ -159,7 +159,7 @@ public class WauzActivePet {
 	/**
 	 * The pet type.
 	 */
-	private WauzPet pet;
+	private WauzPet petType;
 	
 	/**
 	 * The name of the pet.
@@ -181,13 +181,13 @@ public class WauzActivePet {
 	 * 
 	 * @param owner The owner of the pet.
 	 * @param petEntity The pet entity.
-	 * @param pet The pet type.
+	 * @param petType The pet type.
 	 * @param eggItemStack The pet egg item stack.
 	 */
-	public WauzActivePet(Player owner, Entity petEntity, WauzPet pet, ItemStack eggItemStack) {
+	public WauzActivePet(Player owner, Entity petEntity, WauzPet petType, ItemStack eggItemStack) {
 		this.owner = owner;
 		this.petEntity = petEntity;
-		this.pet = pet;
+		this.petType = petType;
 		this.petName = ChatColor.stripColor(eggItemStack.getItemMeta().getDisplayName());
 		this.petAbility = PetEggUtils.getPetAbility(eggItemStack);
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
@@ -209,8 +209,8 @@ public class WauzActivePet {
 	/**
 	 * @return The pet type.
 	 */
-	public WauzPet getPet() {
-		return pet;
+	public WauzPet getPetType() {
+		return petType;
 	}
 
 	/**
@@ -242,7 +242,7 @@ public class WauzActivePet {
 	 * Shows a random pet message to the Owner, if possible.
 	 */
 	public void showRandomMessage() {
-		String randomMessage = pet.getRandomMessage();
+		String randomMessage = petType.getRandomMessage();
 		if(randomMessage != null) {
 			String msg = ChatColor.WHITE + "[" + ChatColor.GREEN + petName + ChatColor.WHITE + " (" +
 					 ChatColor.AQUA  + "Pet" + ChatColor.WHITE + ")] " +

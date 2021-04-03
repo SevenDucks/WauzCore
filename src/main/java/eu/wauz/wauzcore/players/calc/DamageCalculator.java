@@ -149,7 +149,7 @@ public class DamageCalculator {
 	public static void setHealth(Player player, int hp) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
-		if(hp == 0) {
+		if(hp <= 0) {
 			player.setHealth(0);
 			playerData.getStats().setHealth(playerData.getStats().getMaxHealth());
 			WauzPlayerActionBar.update(player);
@@ -158,8 +158,15 @@ public class DamageCalculator {
 		
 		playerData.getStats().setHealth(hp);
 		hp = (hp * 20) / playerData.getStats().getMaxHealth();
-		if(hp == 20 && playerData.getStats().getHealth() > playerData.getStats().getMaxHealth()) hp = 19;
-		if(hp == 0) hp = 1;
+		if(hp < 1) {
+			hp = 1;
+		}
+		if(hp > 20) {
+			hp = 20;
+		}
+		if(hp == 20 && playerData.getStats().getHealth() > playerData.getStats().getMaxHealth()) {
+			hp = 19;
+		}
 		player.setHealth(hp);
 		WauzPlayerActionBar.update(player);
 	}

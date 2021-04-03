@@ -9,7 +9,6 @@ skinid: 177263
 invisible: false
 burning: true
 messages:
-messages:
   - 'Souls are eternal.'
   - 'Death is not the end.'
   - 'I am the testing NPC.'

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
@@ -16,6 +17,7 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.world.StructureGrowEvent;
 
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -66,6 +68,23 @@ public class BlockProtectionListener implements Listener {
 	public void onBlockChangeForm(BlockFormEvent event) {
 		if(WauzMode.isMMORPG(event.getBlock().getWorld()) || WauzRegion.disallowBlockChange(event.getBlock())) {
 			event.setCancelled(true);
+		}
+	}
+	
+	/**
+	 * Prevents changes to protected regions.
+	 * 
+	 * @param event The structure event.
+	 * 
+	 * @see WauzRegion#disallowBlockChange(Block)
+	 */
+	@EventHandler
+	public void onStructureGrow(StructureGrowEvent event) {
+		for(BlockState blockState : event.getBlocks()) {
+			if(WauzRegion.disallowBlockChange(blockState.getBlock())) {
+				event.setCancelled(true);
+				return;
+			}
 		}
 	}
 	

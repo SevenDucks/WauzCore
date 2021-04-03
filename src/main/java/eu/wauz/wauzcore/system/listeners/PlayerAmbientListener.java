@@ -21,6 +21,7 @@ import org.bukkit.event.hanging.HangingBreakEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.event.player.PlayerRecipeDiscoverEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -223,6 +224,18 @@ public class PlayerAmbientListener implements Listener {
 	}
 	
 	/**
+	 * Prevents the player from gaining natural experience in MMORPG mode.
+	 * 
+	 * @param event The exp change event.
+	 */
+	@EventHandler
+	public void OnExpGain(PlayerExpChangeEvent event) {
+		if(WauzMode.isMMORPG(event.getPlayer())) {
+			event.setAmount(0);
+		}
+	}
+	
+	/**
 	 * Rewards tokens if a Survival player exceeded the maximum level.
 	 * 
 	 * @param event The level change event.
@@ -233,7 +246,7 @@ public class PlayerAmbientListener implements Listener {
 	public void onLevelUp(PlayerLevelChangeEvent event) {
 		Player player = event.getPlayer();
 		if(WauzMode.isSurvival(player) && !WauzMode.inOneBlock(player) && event.getNewLevel() > WauzCore.MAX_PLAYER_LEVEL_SURVIVAL) {
-			WauzRewards.earnSurvivalToken(event.getPlayer());
+			WauzRewards.earnSurvivalToken(player);
 		}
 	}
 	
