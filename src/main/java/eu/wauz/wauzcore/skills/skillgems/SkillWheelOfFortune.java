@@ -1,7 +1,6 @@
 package eu.wauz.wauzcore.skills.skillgems;
 
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -10,6 +9,7 @@ import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillType;
 import eu.wauz.wauzcore.system.annotations.Skillgem;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * A skill, that can be executed by a player.
@@ -95,7 +95,7 @@ public class SkillWheelOfFortune implements WauzPlayerSkill {
 	@Override
 	public boolean executeSkill(final Player player, ItemStack weapon) {
 		List<WauzPlayerSkill> playerSkills = WauzPlayerSkillExecutor.getAllSkills();
-		return playerSkills.get(new Random().nextInt(playerSkills.size())).executeSkill(player, weapon);
+		return playerSkills.get(Chance.randomInt(playerSkills.size())).executeSkill(player, weapon);
 	}
 
 }

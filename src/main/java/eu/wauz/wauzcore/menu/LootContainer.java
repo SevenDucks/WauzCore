@@ -2,7 +2,6 @@ package eu.wauz.wauzcore.menu;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -45,14 +45,13 @@ public class LootContainer implements WauzInventory {
 		Inventory menu = Bukkit.createInventory(holder, 27, ChatColor.BLACK + "" + ChatColor.BOLD + "Loot Chest");
 		lootContainer.setLootChest(menu);
 		
-		Random random = new Random();
 		List<Integer> freeSlots = new ArrayList<>();
 		for(int index = 0; index < menu.getSize(); index++) {
 			freeSlots.add(Integer.valueOf(index));
 		}
 		
 		for(ItemStack lootItemStack : lootItemStacks) {
-			Integer slot = freeSlots.get(random.nextInt(freeSlots.size()));
+			Integer slot = freeSlots.get(Chance.randomInt(freeSlots.size()));
 			menu.setItem(slot, lootItemStack);
 			freeSlots.remove(slot);
 		}

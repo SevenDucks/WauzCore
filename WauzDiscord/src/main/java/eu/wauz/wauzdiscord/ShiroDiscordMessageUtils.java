@@ -2,7 +2,6 @@ package eu.wauz.wauzdiscord;
 
 import java.awt.Color;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -12,6 +11,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
+import eu.wauz.wauzcore.system.util.Chance;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -29,11 +29,6 @@ public class ShiroDiscordMessageUtils {
 	 * The api to grab player skins.
 	 */
 	private static final String SKIN_API = "https://crafatar.com/avatars/";
-	
-	/**
-	 * An instance of the random class to select hentai images. (Oof)
-	 */
-	private static Random random = new Random();
 	
 	/**
 	 * Sends an embed with custom title and color.
@@ -142,7 +137,7 @@ public class ShiroDiscordMessageUtils {
 				return "Shiro didn't find anything...";
 			}
 			else {
-				return result.get(random.nextInt(result.size())).getURL();
+				return result.get(Chance.randomInt(result.size())).getURL();
 			}
 		}
 		catch (Exception e) {

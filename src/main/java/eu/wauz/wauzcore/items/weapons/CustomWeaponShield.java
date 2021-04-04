@@ -3,7 +3,6 @@ package eu.wauz.wauzcore.items.weapons;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -66,11 +65,6 @@ public class CustomWeaponShield implements CustomWeapon {
 	private static List<PatternType> patternTypes = new ArrayList<>(Arrays.asList(
 			PatternType.CROSS, PatternType.GLOBE, PatternType.RHOMBUS_MIDDLE, PatternType.BRICKS,
 			PatternType.CREEPER, PatternType.SKULL, PatternType.MOJANG, PatternType.FLOWER));
-	
-	/**
-	 * A random instance, for rolling shield pattern types and dye colors.
-	 */
-	private static Random random = new Random();
 	
 	/**
 	 * Handles the interaction with a shield.
@@ -162,8 +156,8 @@ public class CustomWeaponShield implements CustomWeapon {
 		BlockStateMeta blockStateMeta = (BlockStateMeta) shieldItemMeta;
         Banner banner = (Banner) blockStateMeta.getBlockState();
         banner.setBaseColor(Chance.oneIn(2) ? DyeColor.WHITE : DyeColor.BLACK);
-        DyeColor dyeColor = dyeColors.get(random.nextInt(dyeColors.size()));
-        PatternType patternType = patternTypes.get(random.nextInt(patternTypes.size()));
+        DyeColor dyeColor = dyeColors.get(Chance.randomInt(dyeColors.size()));
+        PatternType patternType = patternTypes.get(Chance.randomInt(patternTypes.size()));
         banner.addPattern(new Pattern(dyeColor, patternType));
         banner.update();
         blockStateMeta.setBlockState(banner);

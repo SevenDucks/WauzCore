@@ -1,9 +1,9 @@
 package eu.wauz.wauzcore.data;
 
 import java.util.List;
-import java.util.Random;
 
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * Configurator to fetch or modify data from the Crafting.yml.
@@ -61,7 +61,7 @@ public class ServerConfigurator extends GlobalConfigurationUtils {
 		initMessagesParts();
 		String motd = motdBase;
 		if(playerName == null) {
-			String randomMessage = motdRandomMessages.get(new Random().nextInt(motdRandomMessages.size()));
+			String randomMessage = motdRandomMessages.get(Chance.randomInt(motdRandomMessages.size()));
 			motd = motd.replace("%random%", randomMessage);
 		}
 		else {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,6 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
+import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
 /**
@@ -62,11 +62,6 @@ public class ArcadeLobby {
 	 * The remaining time of the current game as readable string.
 	 */
 	private static String remainingTime = "0:00";
-	
-	/**
-	 * A random instance, for rolling minigames.
-	 */
-	private static Random random = new Random();
 	
 	/**
 	 * Registers the given minigame.
@@ -116,7 +111,7 @@ public class ArcadeLobby {
 		if(queuedMinigames.isEmpty()) {
 			queuedMinigames.addAll(minigameMap.values());
 		}
-		minigame = queuedMinigames.get(random.nextInt(queuedMinigames.size()));
+		minigame = queuedMinigames.get(Chance.randomInt(queuedMinigames.size()));
 		queuedMinigames.remove(minigame);
 		playingPlayers.addAll(waitingPlayers);
 		waitingPlayers.clear();

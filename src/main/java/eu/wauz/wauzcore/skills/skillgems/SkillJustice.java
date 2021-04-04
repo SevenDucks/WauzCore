@@ -1,7 +1,5 @@
 package eu.wauz.wauzcore.skills.skillgems;
 
-import java.util.Random;
-
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -20,6 +18,7 @@ import eu.wauz.wauzcore.skills.WauzPlayerSkillType;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.annotations.Skillgem;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * A skill, that can be executed by a player.
@@ -108,8 +107,6 @@ public class SkillJustice implements WauzPlayerSkill {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
 		if(target != null && playerData != null) {
-			Random random = new Random();
-			
 			Location playerLocation = player.getLocation();
 			Location targetLocation = target.getLocation();
 			if(!player.isInsideVehicle() && !target.isInsideVehicle()) {
@@ -124,9 +121,9 @@ public class SkillJustice implements WauzPlayerSkill {
 			ParticleSpawner.spawnParticleHelix(targetLocation, whiteParticle, 0.75, 2);
 			ParticleSpawner.spawnParticleHelix(playerLocation, blackParticle, 0.75, 2);
 			
-			double randomDamageMultiplier = (random.nextInt(651) + 100) / 100;
+			double randomDamageMultiplier = (Chance.randomInt(651) + 100) / 100;
 			SkillUtils.callPlayerMagicDamageEvent(player, target, randomDamageMultiplier);
-			int randomHealingAmount = playerData.getStats().getMaxHealth() * ((random.nextInt(15) + 1) / 100) + 1;
+			int randomHealingAmount = playerData.getStats().getMaxHealth() * ((Chance.randomInt(15) + 1) / 100) + 1;
 			DamageCalculator.heal(new EntityRegainHealthEvent(player, randomHealingAmount, RegainReason.MAGIC));
 			return true;
 		}

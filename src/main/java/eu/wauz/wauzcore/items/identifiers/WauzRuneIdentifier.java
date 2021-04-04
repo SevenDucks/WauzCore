@@ -1,7 +1,6 @@
 package eu.wauz.wauzcore.items.identifiers;
 
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Effect;
 import org.bukkit.entity.Player;
@@ -24,11 +23,6 @@ import eu.wauz.wauzcore.system.util.Chance;
 public class WauzRuneIdentifier {
 	
 	/**
-	 * A random instance, for rolling item stats and rarities.
-	 */
-	private Random random = new Random();
-	
-	/**
 	 * Identifies the item, based on the given event.
 	 * Additional methods are called to roll rarity and tier.
 	 * Then a random rune type is taken and added to the item's display name.
@@ -47,8 +41,8 @@ public class WauzRuneIdentifier {
 		Tier tier = Tier.getRuneTier(itemName);
 		
 		List<WauzRune> runes = WauzRuneInserter.getAllRunes();
-		WauzRune rune = runes.get(random.nextInt(runes.size()));
-		int mightStat = (int) ((2 + random.nextDouble() / 2) * tier.getMultiplier() * rarity.getMultiplier());
+		WauzRune rune = runes.get(Chance.randomInt(runes.size()));
+		int mightStat = (int) ((2 + Chance.randomFloat() / 2) * tier.getMultiplier() * rarity.getMultiplier());
 		
 		WauzRuneBuilder builder = new WauzRuneBuilder(rune);
 		builder.addMightStat(mightStat);

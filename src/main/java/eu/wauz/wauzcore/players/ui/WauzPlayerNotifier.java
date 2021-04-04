@@ -3,13 +3,13 @@ package eu.wauz.wauzcore.players.ui;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
+import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -44,7 +44,7 @@ public class WauzPlayerNotifier {
 	 * @see PlayerMailConfigurator#getPlayerMailNameList(Player)
 	 */
 	public static boolean execute(Player player) {
-		String randomMessage = tipMessages.get(new Random().nextInt(tipMessages.size()));
+		String randomMessage = tipMessages.get(Chance.randomInt(tipMessages.size()));
 		player.sendMessage(ChatColor.YELLOW + "Did you know? " + ChatColor.GOLD + randomMessage);
 		
 		try {

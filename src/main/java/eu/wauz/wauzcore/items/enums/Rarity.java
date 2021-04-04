@@ -1,9 +1,8 @@
 package eu.wauz.wauzcore.items.enums;
 
-import java.util.Random;
-
 import org.bukkit.ChatColor;
 
+import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
@@ -54,11 +53,6 @@ public enum Rarity {
 	DEAFENING("Deafening", 3, 3, ChatColor.GOLD, 2.00);
 	
 	/**
-	 * A random instance, for rolling random rarities.
-	 */
-	private static Random random = new Random();
-	
-	/**
 	 * Determines a random equipment rarity with a multiplier of 1-3 on a scale of 1-5 stars.
 	 * Contains rarity name, color, multiplier and the star string.</br>
 	 * 70% Chance for Normal</br>
@@ -70,7 +64,7 @@ public enum Rarity {
 	 * @return The random rarity.
 	 */
 	public static Rarity getRandomEquipmentRarity() {
-		int rarity = random.nextInt(10000) + 1;
+		int rarity = Chance.randomInt(10000) + 1;
 		
 		if(rarity <= 7000) {
 			return NORMAL;
@@ -100,7 +94,7 @@ public enum Rarity {
 	 * @return The random rarity.
 	 */
 	public static Rarity getRandomRuneRarity() {
-		int rarity = random.nextInt(1000) + 1;
+		int rarity = Chance.randomInt(1000) + 1;
 				
 		if(rarity <= 800) {
 			return WHISPERING;

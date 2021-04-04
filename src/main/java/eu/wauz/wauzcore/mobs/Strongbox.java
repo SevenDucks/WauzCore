@@ -2,7 +2,6 @@ package eu.wauz.wauzcore.mobs;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -67,7 +66,7 @@ public class Strongbox {
 			strongbox.setCollidable(false);
 			strongbox.setVisible(false);
 			
-			int enemyAmount = new Random().nextInt(5) + 3;
+			int enemyAmount = Chance.randomInt(5) + 3;
 			strongbox.setCustomName(ChatColor.GOLD + "Strongbox Guards Left: ["
 					+ ChatColor.DARK_RED + enemyAmount + ChatColor.GOLD + "]");
 			strongbox.setCustomNameVisible(true);

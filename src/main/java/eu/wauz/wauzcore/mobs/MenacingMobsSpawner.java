@@ -3,12 +3,12 @@ package eu.wauz.wauzcore.mobs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 
 import eu.wauz.wauzcore.players.ui.WauzPlayerEnemyBossBar;
+import eu.wauz.wauzcore.system.util.Chance;
 import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 
 /**
@@ -70,9 +70,8 @@ public class MenacingMobsSpawner {
 		List<MenacingModifier> modifiers = new ArrayList<>();
 		List<MenacingModifier> unusedModifiers = new ArrayList<>(Arrays.asList(MenacingModifier.values()));
 		
-		Random random = new Random();
 		while(modifiers.size() < amount) {
-			MenacingModifier modifier = unusedModifiers.get(random.nextInt(unusedModifiers.size()));
+			MenacingModifier modifier = unusedModifiers.get(Chance.randomInt(unusedModifiers.size()));
 			unusedModifiers.remove(modifier);
 			modifiers.add(modifier);
 		}

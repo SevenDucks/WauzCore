@@ -1,6 +1,6 @@
 package eu.wauz.wauzcore.oneblock;
 
-import java.util.Random;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * The types of chests, that can spawn in the one-block gamemode.
@@ -30,11 +30,6 @@ public enum OneChestType {
 	MYTHIC("mythic");
 	
 	/**
-	 * A random instance, for rolling random chest types.
-	 */
-	private static Random random = new Random();
-	
-	/**
 	 * Determines a random chest type, based on rarity rates.</br>
 	 * 55% Chance for Common</br>
 	 * 30% Chance for Rare</br>
@@ -44,7 +39,7 @@ public enum OneChestType {
 	 * @return The random chest type.
 	 */
 	public static OneChestType getRandomChestType() {
-		int rarity = random.nextInt(10000) + 1;
+		int rarity = Chance.randomInt(10000) + 1;
 		
 		if(rarity <= 5500) {
 			return COMMON;

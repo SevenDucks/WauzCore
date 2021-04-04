@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -81,11 +80,6 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 			"Plain", "Polished", "Robust", "Royal", "Ruined",
 			"Rusty", "Savage", "Soldier", "Spiked", "Stained",
 			"Timeworn", "Warforged", "Weakened", "Weathered", "Worthless");
-	
-	/**
-	 * A random instance, for rolling item stats.
-	 */
-	private static Random random = new Random();
 	
 	/**
 	 * The player who identifies the item.
@@ -167,7 +161,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 			equipmentType = equipTypes.get(StringUtils.substringAfter(itemName, " : "));
 		}
 		if(equipmentType == null) {
-			equipmentType = new ArrayList<>(equipTypes.values()).get(random.nextInt(equipTypes.size()));
+			equipmentType = new ArrayList<>(equipTypes.values()).get(Chance.randomInt(equipTypes.size()));
 		}
 		
 		builder = new WauzEquipmentBuilder(equipmentType.getMaterial());
@@ -204,7 +198,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 		addSwiftnessToEquipment();
 		addArmorCategoryToEquipment();
 		
-		String verb = equipPrefixes.get(random.nextInt(equipPrefixes.size()));
+		String verb = equipPrefixes.get(Chance.randomInt(equipPrefixes.size()));
 		String name = verb + " " + equipmentType.getName();
 		ItemStack generatedItemStack = WauzNmsClient.nmsSerialize(builder.generate(tier, rarity, equipmentType.getType(), name));
 		equipmentItemStack.setType(generatedItemStack.getType());
@@ -232,7 +226,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 			}
 		}
 		else {
-			baseMultiplier = 2 + random.nextDouble();
+			baseMultiplier = 2 + Chance.randomFloat();
 		}
 	}
 	

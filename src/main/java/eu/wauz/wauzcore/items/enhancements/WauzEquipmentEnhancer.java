@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.bukkit.ChatColor;
 
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * This class is used to register, find and apply enhancements.
@@ -20,11 +20,6 @@ import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
  * @see WauzEnhancement
  */
 public class WauzEquipmentEnhancer {
-	
-	/**
-	 * A random instance, for selecting random enhancements.
-	 */
-	private static Random random = new Random();
 	
 	/**
 	 * A map of all registered weapon enhancements.
@@ -137,11 +132,11 @@ public class WauzEquipmentEnhancer {
 		EquipmentType equipmentType = identifier.getEquipmentType();
 		if(equipmentType.equals(EquipmentType.WEAPON)) {
 			List<WauzEnhancement> weaponEnhancements = getWeaponEnhancements();
-			enhancement = weaponEnhancements.get(random.nextInt(weaponEnhancements.size()));
+			enhancement = weaponEnhancements.get(Chance.randomInt(weaponEnhancements.size()));
 		}
 		else if(equipmentType.equals(EquipmentType.ARMOR)) {
 			List<WauzEnhancement> armorEnhancements = getArmorEnhancements();
-			enhancement = armorEnhancements.get(random.nextInt(armorEnhancements.size()));
+			enhancement = armorEnhancements.get(Chance.randomInt(armorEnhancements.size()));
 		}
 		
 		parameters = enhanceEquipment(identifier.getBuilder(), enhancement, parameters);

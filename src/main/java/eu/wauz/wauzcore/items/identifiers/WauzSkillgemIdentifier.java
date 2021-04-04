@@ -2,7 +2,6 @@ package eu.wauz.wauzcore.items.identifiers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -14,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * Typed identifier, used for identifying skillgem items.
@@ -23,11 +23,6 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
  * @see WauzIdentifier
  */
 public class WauzSkillgemIdentifier {
-	
-	/**
-	 * A random instance for determining random skills.
-	 */
-	private static Random random = new Random();
 	
 	/**
 	 * Identifies the item, based on the given event.
@@ -40,7 +35,7 @@ public class WauzSkillgemIdentifier {
 	 */
 	public void identifySkillgem(Player player, ItemStack skillgemItemStack) {
 		List<String> skills = WauzPlayerSkillExecutor.getAllSkillgemIds();
-		String skillgemName = skills.get(random.nextInt(skills.size()));
+		String skillgemName = skills.get(Chance.randomInt(skills.size()));
 		
 		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillgemName);
 		createSkillgem(skillgemItemStack, skill);

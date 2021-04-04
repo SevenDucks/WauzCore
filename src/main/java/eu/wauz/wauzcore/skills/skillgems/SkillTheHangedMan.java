@@ -1,7 +1,5 @@
 package eu.wauz.wauzcore.skills.skillgems;
 
-import java.util.Random;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -20,6 +18,7 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.annotations.Skillgem;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * A skill, that can be executed by a player.
@@ -110,17 +109,16 @@ public class SkillTheHangedMan implements WauzPlayerSkill {
 			SkillParticle particle = new SkillParticle(Particle.SQUID_INK);
 			ParticleSpawner.spawnParticleCircle(target.getLocation(), particle, 1, 6);
 
-			Random random = new Random();
-			switch (random.nextInt(2) + 1) {
+			switch (Chance.randomInt(2) + 1) {
 			case 1:
 				long money = PlayerCollectionConfigurator.getCharacterCoins(player);
-				long added = (int) ((random.nextInt(21) + 10) * PlayerSkillConfigurator.getTradingFloat(player));
+				long added = (int) ((Chance.randomInt(21) + 10) * PlayerSkillConfigurator.getTradingFloat(player));
 				PlayerCollectionConfigurator.setCharacterCoins(player, money + added);
 				AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, added);
 				player.sendMessage(ChatColor.LIGHT_PURPLE + "You stole " + added + " COINS from the enemy!");
 				break;
 			case 2:
-				int saturation = random.nextInt(4) + 4;
+				int saturation = Chance.randomInt(4) + 4;
 				player.setFoodLevel(player.getFoodLevel() + saturation);
 				player.setSaturation(5);
 				player.sendMessage(ChatColor.LIGHT_PURPLE + "You stole " + saturation + " SATURATION from the enemy!");

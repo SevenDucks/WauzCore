@@ -2,7 +2,6 @@ package eu.wauz.wauzcore.oneblock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -13,6 +12,7 @@ import org.bukkit.inventory.Inventory;
 
 import eu.wauz.wauzcore.data.OneBlockConfigurator;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * A reward chest of a phase of the one-block gamemode.
@@ -23,11 +23,6 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
  * @see OneChestItem
  */
 public class OneChest {
-	
-	/**
-	 * A random instance for rolling random chest contents.
-	 */
-	private static Random random = new Random();
 
 	/**
 	 * The phase that the chest is part of.
@@ -106,7 +101,7 @@ public class OneChest {
 		barrel.update();
 		Inventory inventory = barrel.getInventory();
 		for(int count = 0; count < stackCount; count++) {
-			OneChestItem randomItem = contentItemStacks.get(random.nextInt(contentItemStacks.size()));
+			OneChestItem randomItem = contentItemStacks.get(Chance.randomInt(contentItemStacks.size()));
 			inventory.addItem(WauzNmsClient.nmsSerialize(randomItem.generateItemStack()));
 		}
 	}

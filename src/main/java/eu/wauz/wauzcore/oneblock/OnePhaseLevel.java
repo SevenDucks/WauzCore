@@ -2,7 +2,6 @@ package eu.wauz.wauzcore.oneblock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -18,11 +17,6 @@ import eu.wauz.wauzcore.system.util.Chance;
  * @see OnePhase
  */
 public class OnePhaseLevel {
-	
-	/**
-	 * A random instance for rolling random blocks.
-	 */
-	private static Random random = new Random();
 	
 	/**
 	 * The phase that the level is part of.
@@ -121,7 +115,7 @@ public class OnePhaseLevel {
 	 * @return A random material for the next block to spawn.
 	 */
 	public Material getRandomBlockMaterial() {
-		return blocks.get(random.nextInt(blocks.size()));
+		return blocks.get(Chance.randomInt(blocks.size()));
 	}
 	
 }

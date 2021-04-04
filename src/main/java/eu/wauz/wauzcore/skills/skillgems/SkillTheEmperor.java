@@ -1,7 +1,6 @@
 package eu.wauz.wauzcore.skills.skillgems;
 
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -18,6 +17,7 @@ import eu.wauz.wauzcore.skills.WauzPlayerSkillType;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.annotations.Skillgem;
+import eu.wauz.wauzcore.system.util.Chance;
 
 /**
  * A skill, that can be executed by a player.
@@ -113,7 +113,6 @@ public class SkillTheEmperor implements WauzPlayerSkill {
 		int amount = 10;
 		int radius = 8;
 		
-		Random random = new Random();
 		List<Entity> targets = SkillUtils.getTargetsInRadius(location, radius);
 		boolean hasTargets = !targets.isEmpty();
 		
@@ -130,7 +129,7 @@ public class SkillTheEmperor implements WauzPlayerSkill {
             ParticleSpawner.spawnParticleSphere(attackLocation, gateParticle, 0.8);
             
             if(hasTargets) {
-            	Entity target = targets.get(random.nextInt(targets.size()));
+            	Entity target = targets.get(Chance.randomInt(targets.size()));
             	player.getWorld().playSound(attackLocation, Sound.BLOCK_BELL_USE, 1, 2);
             	ParticleSpawner.spawnParticleLine(attackLocation, target.getLocation(), beamParticle, 1);
             	SkillUtils.callPlayerMagicDamageEvent(player, target, 4);

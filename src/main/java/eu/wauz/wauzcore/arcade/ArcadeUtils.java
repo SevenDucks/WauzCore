@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,11 +26,6 @@ import eu.wauz.wauzcore.system.util.Chance;
  * @author Wauzmons
  */
 public class ArcadeUtils {
-	
-	/**
-	 * A random instance, for selecting players and similar things.
-	 */
-	private static Random random = new Random();
 	
 	private static List<String> songs = Arrays.asList(
 			"Rakanoth", "Linirea", "Olympus Mons", "Portowauza", "Wauzland",
@@ -73,7 +67,7 @@ public class ArcadeUtils {
 		List<Player> selectedPlayers = new ArrayList<>();
 		List<Player> selectablePlayers = new ArrayList<>(players);
 		while(selectedPlayers.size() < count) {
-			Player player = selectablePlayers.get(random.nextInt(selectablePlayers.size()));
+			Player player = selectablePlayers.get(Chance.randomInt(selectablePlayers.size()));
 			selectablePlayers.remove(player);
 			selectedPlayers.add(player);
 		}
@@ -180,7 +174,7 @@ public class ArcadeUtils {
 					runStartTimer(secondsTillStart - 1, secondsTillEnd);
 				}
 				else {
-					String songName = songs.get(random.nextInt(songs.size()));
+					String songName = songs.get(Chance.randomInt(songs.size()));
 					for(Player player : ArcadeLobby.getPlayingPlayers()) {
 						player.removePotionEffect(PotionEffectType.SLOW);
 						player.removePotionEffect(PotionEffectType.JUMP);

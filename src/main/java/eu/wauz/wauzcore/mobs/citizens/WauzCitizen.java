@@ -159,6 +159,11 @@ public class WauzCitizen {
 	private boolean burning;
 	
 	/**
+	 * The time of the last random message sent by the citizen.
+	 */
+	private long lastMessageTime = 0;
+	
+	/**
 	 * The random messages of the citizen.
 	 */
 	private List<String> messages;
@@ -314,12 +319,14 @@ public class WauzCitizen {
 	}
 
 	/**
-	 * @return A random messages of the citizen or null, if none defined.
+	 * @return A random messages of the citizen or null, if none defined or cooldown is active.
 	 */
 	public String getRandomMessage() {
-		if(messages == null || messages.isEmpty()) {
+		long currentTime = System.currentTimeMillis();
+		if(messages == null || messages.isEmpty() || currentTime - lastMessageTime < 10000) {
 			return null;
 		}
+		lastMessageTime = currentTime;
 		return messages.get(Chance.randomInt(messages.size()));
 	}
 
