@@ -22,6 +22,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.annotations.Item;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -100,7 +101,7 @@ public class WauzMenu implements WauzInventory, CustomItem {
 			return;
 		}
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzMenu());
-		Inventory menu = Bukkit.createInventory(holder, 18, ChatColor.BLACK + "" + ChatColor.BOLD + "Main Menu");
+		Inventory menu = Bukkit.createInventory(holder, 18, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Main Menu"));
 		
 		SocialMenuParts.addMenuParts(player, menu, 0);
 		CollectionMenuParts.addMenuParts(player, menu, 3);

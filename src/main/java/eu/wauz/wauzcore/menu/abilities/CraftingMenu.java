@@ -35,6 +35,7 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -93,13 +94,13 @@ public class CraftingMenu implements WauzInventory {
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CraftingMenu());
 		Integer playerCraftingLevel = PlayerSkillConfigurator.getCraftingSkill(player);
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Crafting Menu" +
-				ChatColor.DARK_RED + ChatColor.BOLD + " Level " + playerCraftingLevel);
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Crafting Menu" +
+				ChatColor.DARK_RED + ChatColor.BOLD + " Level " + playerCraftingLevel));
 		
 		for(int index = 1; index <= MAX_PAGE; index++) {
 			ItemStack pageItemStack = new ItemStack(Material.FLINT_AND_STEEL);
 			ItemMeta pageItemMeta = pageItemStack.getItemMeta();
-			pageItemMeta.setDisplayName(ChatColor.GOLD + "Page " + index);
+			pageItemMeta.displayName(Component.text(ChatColor.GOLD + "Page " + index));
 			pageItemStack.setItemMeta(pageItemMeta);
 			menu.setItem(index - 1, pageItemStack);
 		}
@@ -123,8 +124,8 @@ public class CraftingMenu implements WauzInventory {
 	public static void listRecipes(Player player, int page) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CraftingMenu());
 		Integer playerCraftingLevel = PlayerSkillConfigurator.getCraftingSkill(player);
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Crafting Page "
-				+ page + " " + ChatColor.DARK_RED + ChatColor.BOLD + " Level " + playerCraftingLevel);
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Crafting Page "
+				+ page + " " + ChatColor.DARK_RED + ChatColor.BOLD + " Level " + playerCraftingLevel));
 		
 		for(int index = 0; index < 6; index++) {
 			generateRecipe(menu, player, playerCraftingLevel, index + ((page - 1) * 6), index);
@@ -132,19 +133,19 @@ public class CraftingMenu implements WauzInventory {
 		
 		ItemStack prevItemStack = GenericIconHeads.getPrevItem();
 		ItemMeta prevItemMeta = prevItemStack.getItemMeta();
-		prevItemMeta.setDisplayName(ChatColor.YELLOW + "Page PREV");
+		prevItemMeta.displayName(Component.text(ChatColor.YELLOW + "Page PREV"));
 		prevItemStack.setItemMeta(prevItemMeta);
 		menu.setItem(6, prevItemStack);
 	
 		ItemStack nextItemStack = GenericIconHeads.getNextItem();
 		ItemMeta nextItemMeta = nextItemStack.getItemMeta();
-		nextItemMeta.setDisplayName(ChatColor.YELLOW + "Page NEXT");
+		nextItemMeta.displayName(Component.text(ChatColor.YELLOW + "Page NEXT"));
 		nextItemStack.setItemMeta(nextItemMeta);
 		menu.setItem(8, nextItemStack);
 	
 		ItemStack backItemStack = new ItemStack(Material.FLINT_AND_STEEL);
 		ItemMeta backItemMeta = backItemStack.getItemMeta();
-		backItemMeta.setDisplayName(ChatColor.BLUE + "Back to Page-Selection");
+		backItemMeta.displayName(Component.text(ChatColor.BLUE + "Back to Page-Selection"));
 		backItemStack.setItemMeta(backItemMeta);
 		menu.setItem(7, backItemStack);
 		
@@ -212,7 +213,7 @@ public class CraftingMenu implements WauzInventory {
 		
 		ItemStack recipeItemStack = new ItemStack(Material.getMaterial(material), amount);
 		ItemMeta recipeItemMeta = recipeItemStack.getItemMeta();
-		recipeItemMeta.setDisplayName(name);
+		recipeItemMeta.displayName(Component.text(name));
 		recipeItemMeta.setLore(lores);
 		if(recipeItemMeta instanceof PotionMeta) {
 			PotionEffectType potionType  = CraftingConfigurator.getPotionType(itemIndex);
@@ -236,7 +237,7 @@ public class CraftingMenu implements WauzInventory {
 	public static void getLocked(Inventory menu, int level, int itemIndex, int baseIndex) {
 		ItemStack lockedItemStack = new ItemStack(Material.BARRIER);
 		ItemMeta lockedItemMeta = lockedItemStack.getItemMeta();
-		lockedItemMeta.setDisplayName(ChatColor.RED + "Recipe Locked");
+		lockedItemMeta.displayName(Component.text(ChatColor.RED + "Recipe Locked"));
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.YELLOW + "Required Crafting Level: " + level);
 		lores.add("");
@@ -346,7 +347,7 @@ public class CraftingMenu implements WauzInventory {
 		
 		ItemStack itemStack = new ItemStack(clicked.getType(), clicked.getAmount());
 		ItemMeta itemMeta = clicked.getItemMeta();
-		itemMeta.setDisplayName(clicked.getItemMeta().getDisplayName());
+		itemMeta.displayName(Component.text(clicked.getItemMeta().getDisplayName()));
 		itemMeta.setLore(CraftingConfigurator.getItemLores(itemIndex));
 		itemStack.setItemMeta(itemMeta);
 		

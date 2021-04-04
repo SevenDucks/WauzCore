@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -73,7 +74,7 @@ public class TravellingMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new TravellingMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Travelling Menu");
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Travelling Menu"));
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		if(playerData == null)
@@ -81,7 +82,7 @@ public class TravellingMenu implements WauzInventory {
 		
 		ItemStack portNexusItemStack = new ItemStack(Material.ENDER_EYE);
 		ItemMeta portNexusItemMeta = portNexusItemStack.getItemMeta();
-		portNexusItemMeta.setDisplayName(ChatColor.GREEN + "Nexus Portal");
+		portNexusItemMeta.displayName(Component.text(ChatColor.GREEN + "Nexus Portal"));
 		List<String> portNexusLores = new ArrayList<>();
 		portNexusLores.add(ChatColor.GRAY + "Sends you back to the Nexus Hub,");
 		portNexusLores.add(ChatColor.GRAY + "where you can select your characters.");
@@ -91,7 +92,7 @@ public class TravellingMenu implements WauzInventory {
 		
 		ItemStack portSpawnItemStack = new ItemStack(Material.ENDER_PEARL);
 		ItemMeta portSpawnItemMeta = portSpawnItemStack.getItemMeta();
-		portSpawnItemMeta.setDisplayName(ChatColor.GREEN + "Spawn Portal");
+		portSpawnItemMeta.displayName(Component.text(ChatColor.GREEN + "Spawn Portal"));
 		List<String> portSpawnLores = new ArrayList<>();
 		portSpawnLores.add(ChatColor.GRAY + "Sends you to your Overworld Spawn.");
 		portSpawnLores.add(ChatColor.GRAY + "Use it when stuck or for quick-travel.");
@@ -101,7 +102,7 @@ public class TravellingMenu implements WauzInventory {
 		
 		ItemStack portHomeItemStack = new ItemStack(Material.MAGMA_CREAM);
 		ItemMeta portHomeItemMeta = portHomeItemStack.getItemMeta();
-		portHomeItemMeta.setDisplayName(ChatColor.GREEN + "Hearthstone");
+		portHomeItemMeta.displayName(Component.text(ChatColor.GREEN + "Hearthstone"));
 		List<String> portHomeLores = new ArrayList<>();
 		String region = PlayerConfigurator.getCharacterHearthstoneRegion(player);
 		region = StringUtils.isNotBlank(region) ? ChatColor.GREEN + region : ChatColor.DARK_GRAY + "(None)";
@@ -114,7 +115,7 @@ public class TravellingMenu implements WauzInventory {
 		boolean inInstance = WauzPlayerDataPool.isCharacterSelected(player) && !StringUtils.equals(player.getWorld().getName(), PlayerConfigurator.getCharacterWorldString(player));
 		ItemStack portInstanceExitItemStack = new ItemStack(inInstance ? Material.OAK_DOOR : Material.IRON_DOOR);
 		ItemMeta portInstanceExitItemMeta = portInstanceExitItemStack.getItemMeta();
-		portInstanceExitItemMeta.setDisplayName(ChatColor.YELLOW + "Leave Instance" + (inInstance ? "" : ChatColor.RED + " (Disabled)"));
+		portInstanceExitItemMeta.displayName(Component.text(ChatColor.YELLOW + "Leave Instance" + (inInstance ? "" : ChatColor.RED + " (Disabled)")));
 		List<String> portInstanceExitLore = new ArrayList<>();
 		portInstanceExitLore.add(ChatColor.GRAY + "Leave the instance and return to the");
 		portInstanceExitLore.add(ChatColor.GRAY + "place, from where you entered it.");
@@ -124,7 +125,7 @@ public class TravellingMenu implements WauzInventory {
 		
 		ItemStack mapItemStack = new ItemStack(Material.MAP);
 		ItemMeta mapItemMeta = mapItemStack.getItemMeta();
-		mapItemMeta.setDisplayName(ChatColor.BLUE + "Overview Map");
+		mapItemMeta.displayName(Component.text(ChatColor.BLUE + "Overview Map"));
 		List<String> mapLores = new ArrayList<>();
 		mapLores.add(ChatColor.GRAY + "Sends a link in chat to the Overview Map,");
 		mapLores.add(ChatColor.GRAY + "where you can see your position.");

@@ -16,6 +16,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -62,18 +63,18 @@ public class WauzDialog implements WauzInventory {
 	public static void open(Player player, ItemStack infoItemStack) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzDialog());
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Confirm: "
-				+ playerData.getSelections().getWauzPlayerEventName());
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Confirm: "
+				+ playerData.getSelections().getWauzPlayerEventName()));
 		
 		ItemStack confirmItemStack = GenericIconHeads.getConfirmItem();
 		ItemMeta confirmItemMeta = confirmItemStack.getItemMeta();
-		confirmItemMeta.setDisplayName(ChatColor.GREEN + "CONFIRM");
+		confirmItemMeta.displayName(Component.text(ChatColor.GREEN + "CONFIRM"));
 		confirmItemStack.setItemMeta(confirmItemMeta);
 		menu.setItem(0, confirmItemStack);
 		
 		ItemStack declineItemStack = GenericIconHeads.getDeclineItem();
 		ItemMeta declineItemMeta = declineItemStack.getItemMeta();
-		declineItemMeta.setDisplayName(ChatColor.RED + "DECLINE");
+		declineItemMeta.displayName(Component.text(ChatColor.RED + "DECLINE"));
 		declineItemStack.setItemMeta(declineItemMeta);
 		menu.setItem(8, declineItemStack);
 		

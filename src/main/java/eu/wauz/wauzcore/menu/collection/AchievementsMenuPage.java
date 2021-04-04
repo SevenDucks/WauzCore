@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -54,7 +55,7 @@ public class AchievementsMenuPage implements WauzInventory {
 		List<String> awarded = PlayerCollectionConfigurator.getCharacterAchievementList(player, type);
 		WauzInventoryHolder holder = new WauzInventoryHolder(new AchievementsMenuPage());
 		int size = MenuUtils.roundInventorySize(achievements.size() + 1);
-		Inventory menu = Bukkit.createInventory(holder, size, ChatColor.BLACK + "" + ChatColor.BOLD + "Achievements");
+		Inventory menu = Bukkit.createInventory(holder, size, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Achievements"));
 		
 		ItemStack overviewItemStack = MenuIconHeads.getAchievementsItem();
 		MenuUtils.setItemDisplayName(overviewItemStack, ChatColor.GOLD + "Back to Overview");
@@ -65,7 +66,7 @@ public class AchievementsMenuPage implements WauzInventory {
 			boolean completed = awarded.contains(achievement.getKey());
 			ItemStack achievementItemStack = completed ? GenericIconHeads.getConfirmItem() : GenericIconHeads.getDeclineItem();
 			ItemMeta achievementItemMeta = achievementItemStack.getItemMeta();
-			achievementItemMeta.setDisplayName(ChatColor.YELLOW + achievement.getName());
+			achievementItemMeta.displayName(Component.text(ChatColor.YELLOW + achievement.getName()));
 			List<String> achievementLores = new ArrayList<>();
 			String status = completed ? (ChatColor.GOLD + "COMPLETED") : (ChatColor.RED + "UNCOMPLETED");
 			String goal = " \"" + achievement.getGoalString() + "\"";

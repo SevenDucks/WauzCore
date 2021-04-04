@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -43,23 +44,23 @@ public class WauzModeMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzModeMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Select a Gamemode!");
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Select a Gamemode!"));
 		
 		ItemStack modeDropGuysItemStack = new ItemStack(Material.HOPPER);
 		ItemMeta modeDropGuysItemMeta = modeDropGuysItemStack.getItemMeta();
-		modeDropGuysItemMeta.setDisplayName(ChatColor.DARK_RED + "ALPHA " + ChatColor.RED + "DropGuys");
+		modeDropGuysItemMeta.displayName(Component.text(ChatColor.DARK_RED + "ALPHA " + ChatColor.RED + "DropGuys"));
 		modeDropGuysItemStack.setItemMeta(modeDropGuysItemMeta);
 		menu.setItem(2, modeDropGuysItemStack);
 		
 		ItemStack modeMmoRpgItemStack = new ItemStack(Material.DRAGON_HEAD);
 		ItemMeta modeMmoRpgItemMeta = modeMmoRpgItemStack.getItemMeta();
-		modeMmoRpgItemMeta.setDisplayName(ChatColor.DARK_RED + "ALPHA " + ChatColor.DARK_PURPLE + "MMORPG");
+		modeMmoRpgItemMeta.displayName(Component.text(ChatColor.DARK_RED + "ALPHA " + ChatColor.DARK_PURPLE + "MMORPG"));
 		modeMmoRpgItemStack.setItemMeta(modeMmoRpgItemMeta);
 		menu.setItem(4, modeMmoRpgItemStack);
 		
 		ItemStack modeOneBlockItemStack = new ItemStack(Material.GRASS_BLOCK);
 		ItemMeta modeOneBlockItemMeta = modeOneBlockItemStack.getItemMeta();
-		modeOneBlockItemMeta.setDisplayName(ChatColor.GOLD + "OneBlock and Survival");
+		modeOneBlockItemMeta.displayName(Component.text(ChatColor.GOLD + "OneBlock and Survival"));
 		modeOneBlockItemStack.setItemMeta(modeOneBlockItemMeta);
 		menu.setItem(6, modeOneBlockItemStack);
 		

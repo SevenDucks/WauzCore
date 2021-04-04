@@ -25,6 +25,7 @@ import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -64,7 +65,7 @@ public class CharacterSlotMenu implements WauzInventory {
 			}
 		}
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterSlotMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Slot!");
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Slot!"));
 
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			for(int slotId = 1; slotId <= 3; slotId++) {
@@ -117,7 +118,7 @@ public class CharacterSlotMenu implements WauzInventory {
 		
 		ItemStack slotItemStack = new ItemStack(Material.TOTEM_OF_UNDYING);
 		ItemMeta slotItemMeta = slotItemStack.getItemMeta();
-		slotItemMeta.setDisplayName((characterExists ? ChatColor.GOLD : ChatColor.RED) + "Slot " + slotId);
+		slotItemMeta.displayName(Component.text((characterExists ? ChatColor.GOLD : ChatColor.RED) + "Slot " + slotId));
 		List<String> lores = new ArrayList<String>();
 		
 		if(characterExists) {

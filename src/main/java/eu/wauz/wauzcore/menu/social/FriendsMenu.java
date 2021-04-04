@@ -30,6 +30,7 @@ import eu.wauz.wauzcore.players.WauzPlayerFriends;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -81,11 +82,11 @@ public class FriendsMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new FriendsMenu());
-		Inventory menu = Bukkit.createInventory(holder, 18, ChatColor.BLACK + "" + ChatColor.BOLD + "Friends List");
+		Inventory menu = Bukkit.createInventory(holder, 18, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Friends List"));
 		
 		ItemStack sendItemStack = MenuIconHeads.getFriendsItem();
 		ItemMeta sendItemMeta = sendItemStack.getItemMeta();
-		sendItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Your Friends");
+		sendItemMeta.displayName(Component.text(ChatColor.LIGHT_PURPLE + "Your Friends"));
 		List<String> sendLores = new ArrayList<>();
 		sendLores.add(ChatColor.GRAY + "Being Friends allows you to:");
 		sendLores.add(ChatColor.GRAY + "1. See your Friends Characters in this Menu");
@@ -99,7 +100,7 @@ public class FriendsMenu implements WauzInventory {
 		
 		ItemStack freeSlotItemStack = MenuIconHeads.getSocialItem();
 		ItemMeta freeSlotItemMeta = freeSlotItemStack.getItemMeta();
-		freeSlotItemMeta.setDisplayName(ChatColor.YELLOW + "Free Slot");
+		freeSlotItemMeta.displayName(Component.text(ChatColor.YELLOW + "Free Slot"));
 		freeSlotItemStack.setItemMeta(freeSlotItemMeta);
 		
 		int friendNumber = 0;
@@ -116,7 +117,7 @@ public class FriendsMenu implements WauzInventory {
 			OfflinePlayer friend = Bukkit.getOfflinePlayer(friendUuid);
 			ItemStack skullItemStack = new ItemStack(Material.PLAYER_HEAD);
 			SkullMeta skullItemMeta = (SkullMeta) skullItemStack.getItemMeta();
-			skullItemMeta.setDisplayName(ChatColor.GREEN + friend.getName());
+			skullItemMeta.displayName(Component.text(ChatColor.GREEN + friend.getName()));
 			skullItemMeta.setOwningPlayer(friend);
 			List<String> skullLores = new ArrayList<String>();
 			StatisticsFetcher statistics = new StatisticsFetcher(friend);

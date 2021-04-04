@@ -31,6 +31,7 @@ import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.economy.WauzShopActions;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -96,11 +97,11 @@ public class MaterialPouch implements WauzInventory {
 	public static void open(Player player, String inventoryName) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new MaterialPouch(inventoryName));
 		String displayName = inventoryName.equals("materials") ? "Materials" : "Quest Items";
-		Inventory menu = Bukkit.createInventory(holder, 36, ChatColor.BLACK + "" + ChatColor.BOLD + displayName);
+		Inventory menu = Bukkit.createInventory(holder, 36, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + displayName));
 		
 		ItemStack emptyItemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
 		ItemMeta emptyItemMeta = emptyItemStack.getItemMeta();
-		emptyItemMeta.setDisplayName(" ");
+		emptyItemMeta.displayName(Component.text(" "));
 		emptyItemStack.setItemMeta(emptyItemMeta);
 		
 		int index = 0;

@@ -23,6 +23,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.quests.QuestMenuItems;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -54,12 +55,12 @@ public class QuestRewardChooser implements WauzInventory {
 	public static void open(Player player, WauzQuest quest, WauzPlayerEventQuestComplete completeEvent) {
 		QuestRewardChooser rewardChooser = new QuestRewardChooser(quest, completeEvent);
 		WauzInventoryHolder holder = new WauzInventoryHolder(rewardChooser);
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Complete Quest");
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Complete Quest"));
 		rewardChooser.setChoiceDialog(menu);
 		
 		ItemStack completeItemStack = GenericIconHeads.getConfirmItem();
 		ItemMeta completeItemMeta = completeItemStack.getItemMeta();
-		completeItemMeta.setDisplayName(ChatColor.GREEN + "COMPLETE");
+		completeItemMeta.displayName(Component.text(ChatColor.GREEN + "COMPLETE"));
 		completeItemStack.setItemMeta(completeItemMeta);
 		menu.setItem(0, completeItemStack);
 		
@@ -81,7 +82,7 @@ public class QuestRewardChooser implements WauzInventory {
 		
 		ItemStack cancelItemStack = GenericIconHeads.getDeclineItem();
 		ItemMeta cancelItemMeta = cancelItemStack.getItemMeta();
-		cancelItemMeta.setDisplayName(ChatColor.RED + "CANCEL");
+		cancelItemMeta.displayName(Component.text(ChatColor.RED + "CANCEL"));
 		cancelItemStack.setItemMeta(cancelItemMeta);
 		menu.setItem(8, cancelItemStack);
 		
@@ -99,7 +100,7 @@ public class QuestRewardChooser implements WauzInventory {
 	private static ItemStack generateUnavailableChoiceItem(int itemNumber) {
 		ItemStack choiceItemStack = new ItemStack(Material.OAK_SIGN);
 		ItemMeta choiceItemMeta = choiceItemStack.getItemMeta();
-		choiceItemMeta.setDisplayName(ChatColor.RED + "No Reward Choice " + itemNumber);
+		choiceItemMeta.displayName(Component.text(ChatColor.RED + "No Reward Choice " + itemNumber));
 		choiceItemStack.setItemMeta(choiceItemMeta);
 		return choiceItemStack;
 	}
@@ -111,7 +112,7 @@ public class QuestRewardChooser implements WauzInventory {
 	 */
 	private static ItemStack makeRewardChoice(ItemStack choiceItemStack) {
 		ItemMeta choiceItemMeta = choiceItemStack.getItemMeta();
-		choiceItemMeta.setDisplayName(ChatColor.GREEN + "Reward Choice: " + choiceItemMeta.getDisplayName());
+		choiceItemMeta.displayName(Component.text(ChatColor.GREEN + "Reward Choice: " + choiceItemMeta.getDisplayName()));
 		choiceItemStack.setItemMeta(choiceItemMeta);
 		return choiceItemStack;
 	}
@@ -209,10 +210,10 @@ public class QuestRewardChooser implements WauzInventory {
 		ItemMeta completeItemMeta = completeItemStack.getItemMeta();
 		
 		if(chosenRewardIndex == null) {
-			completeItemMeta.setDisplayName(ChatColor.GREEN + "COMPLETE" + ChatColor.GRAY + " (Select a reward first...)");
+			completeItemMeta.displayName(Component.text(ChatColor.GREEN + "COMPLETE" + ChatColor.GRAY + " (Select a reward first...)"));
 		}
 		else {
-			completeItemMeta.setDisplayName(ChatColor.GREEN + "COMPLETE");
+			completeItemMeta.displayName(Component.text(ChatColor.GREEN + "COMPLETE"));
 			for(int index = 0; index < 3; index++) {
 				int offsetIndex = index + 4;
 				ItemStack choiceItemStack = choiceDialog.getItem(offsetIndex);

@@ -27,6 +27,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -77,7 +78,7 @@ public class ArrowMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new ArrowMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Arrows!");		
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Arrows!"));		
 		
 		String selectedArrowType = PlayerConfigurator.getSelectedArrows(player);
 		
@@ -107,7 +108,7 @@ public class ArrowMenu implements WauzInventory {
 	private static ItemStack getArrowType(Player player, String selectedArrowType, String arrowType, Material material) {
 		ItemStack arrowItemStack = new ItemStack(material);
 		ItemMeta arrowItemMeta = arrowItemStack.getItemMeta();
-		arrowItemMeta.setDisplayName(ChatColor.WHITE + StringUtils.capitalize(arrowType) + " Arrows");
+		arrowItemMeta.displayName(Component.text(ChatColor.WHITE + StringUtils.capitalize(arrowType) + " Arrows"));
 		List<String> lores = new ArrayList<String>();
 		lores.add(getArrowDescription(arrowType));
 		lores.add("");

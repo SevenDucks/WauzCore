@@ -21,6 +21,7 @@ import eu.wauz.wauzcore.system.economy.WauzCurrency;
 import eu.wauz.wauzcore.system.economy.WauzCurrencyCategory;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -73,7 +74,7 @@ public class CurrencyMenu implements WauzInventory {
 		List<WauzCurrencyCategory> categories = WauzCurrency.getCurrencyCategories();
 		int inventorySize = MenuUtils.roundInventorySize(categories.size());
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CurrencyMenu());
-		Inventory menu = Bukkit.createInventory(holder, inventorySize, ChatColor.BLACK + "" + ChatColor.BOLD + "Currencies");
+		Inventory menu = Bukkit.createInventory(holder, inventorySize, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Currencies"));
 		
 		for(int index = 0; index < categories.size(); index++) {
 			setCurrencyCategoryDisplay(menu, player, categories.get(index), index);
@@ -100,7 +101,7 @@ public class CurrencyMenu implements WauzInventory {
 		}
 		ItemStack currencyItemStack = new ItemStack(Material.EMERALD);
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
-		currencyItemMeta.setDisplayName(ChatColor.GREEN + category.getCurrencyCategoryDisplayName());
+		currencyItemMeta.displayName(Component.text(ChatColor.GREEN + category.getCurrencyCategoryDisplayName()));
 		List<String> lores = new ArrayList<String>();
 		for(WauzCurrency currency : category.getCurrencies()) {
 			lores.add(ChatColor.GOLD + Formatters.INT.format(currency.getCurrencyAmount(player))

@@ -29,6 +29,7 @@ import eu.wauz.wauzcore.players.WauzPlayerMail;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -80,14 +81,14 @@ public class MailMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new MailMenu());
-		Inventory menu = Bukkit.createInventory(holder, 18, ChatColor.BLACK + "" + ChatColor.BOLD + "Mailbox");
+		Inventory menu = Bukkit.createInventory(holder, 18, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Mailbox"));
 		List<String> mailNames = PlayerMailConfigurator.getPlayerMailNameList(player);
 		int mailAmount = mailNames.size();
 		int visibleMailAmount = mailAmount > 16 ? 16 : mailAmount;
 		
 		ItemStack inboxItemStack = GenericIconHeads.getAchievementIdentifiesItem();
 		ItemMeta inboxItemMeta = inboxItemStack.getItemMeta();
-		inboxItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Inbox");
+		inboxItemMeta.displayName(Component.text(ChatColor.LIGHT_PURPLE + "Inbox"));
 		List<String> inboxLores = new ArrayList<>();
 		inboxLores.add(ChatColor.DARK_PURPLE + "Showing " + ChatColor.YELLOW
 				+ visibleMailAmount + ChatColor.DARK_PURPLE + " out of " + ChatColor.YELLOW
@@ -102,7 +103,7 @@ public class MailMenu implements WauzInventory {
 		
 		ItemStack sendItemStack = GenericIconHeads.getCitizenCommandItem();
 		ItemMeta sendItemMeta = sendItemStack.getItemMeta();
-		sendItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Send Mails");
+		sendItemMeta.displayName(Component.text(ChatColor.LIGHT_PURPLE + "Send Mails"));
 		List<String> sendLores = new ArrayList<>();
 		sendLores.add(ChatColor.DARK_PURPLE + "Sent Today: " + ChatColor.YELLOW
 				+ WauzPlayerMail.getMailsSentToday(player) + " / " + WauzPlayerMail.MAX_MAILS_PER_DAY);
@@ -125,7 +126,7 @@ public class MailMenu implements WauzInventory {
 			
 			ItemStack mailItemStack = MenuIconHeads.getMailItem();
 			ItemMeta mailItemMeta = mailItemStack.getItemMeta();
-			mailItemMeta.setDisplayName(ChatColor.YELLOW + "Mail from " + sender);
+			mailItemMeta.displayName(Component.text(ChatColor.YELLOW + "Mail from " + sender));
 			List<String> mailLores = new ArrayList<>();
 			mailLores.add(ChatColor.GRAY + "Received " + WauzDateUtils.formatTimeSince(timestamp) + " ago");
 			mailLores.add(ChatColor.GRAY + "Click to Claim");

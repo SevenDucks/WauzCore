@@ -21,6 +21,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.skills.passive.PassiveWeight;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -85,7 +86,7 @@ public class Backpack implements WauzInventory {
 	public static Inventory getBackpack(Player player) {
 		Inventory backpack = backpackMap.get(player);
 		if(backpack == null) {
-			backpack = Bukkit.createInventory(null, 36, ChatColor.BLACK + "" + ChatColor.BOLD + "Backpack");
+			backpack = Bukkit.createInventory(null, 36, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Backpack"));
 			backpack.setContents(PlayerCollectionConfigurator.getCharacterInventoryContents(player, "backpack"));
 			backpackMap.put(player, backpack);
 			updateLockedSlots(player);

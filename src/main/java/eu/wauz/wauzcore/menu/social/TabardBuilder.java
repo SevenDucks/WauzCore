@@ -30,6 +30,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -105,20 +106,20 @@ public class TabardBuilder implements WauzInventory {
 	 */
 	public static void open(Player player, TabardBuilder tabardBuilder) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(tabardBuilder);
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Tabard Builder");
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Tabard Builder"));
 		
 		tabardBuilder.page = "overview";
 		
 		ItemStack saveItemStack = GenericIconHeads.getConfirmItem();
 		ItemMeta saveItemMeta = saveItemStack.getItemMeta();
-		saveItemMeta.setDisplayName(ChatColor.GREEN + "Save Guild Tabard");
+		saveItemMeta.displayName(Component.text(ChatColor.GREEN + "Save Guild Tabard"));
 		saveItemStack.setItemMeta(saveItemMeta);
 		menu.setItem(0, saveItemStack);
 		
 		if(tabardBuilder.getLayers() < 10) {
 			ItemStack layerItemStack = new ItemStack(Material.DRIED_KELP);
 			ItemMeta layerItemMeta = layerItemStack.getItemMeta();
-			layerItemMeta.setDisplayName(ChatColor.GOLD + "Add New Layer");
+			layerItemMeta.displayName(Component.text(ChatColor.GOLD + "Add New Layer"));
 			layerItemStack.setItemMeta(layerItemMeta);
 			menu.setItem(3, layerItemStack);
 		}
@@ -128,14 +129,14 @@ public class TabardBuilder implements WauzInventory {
 		if(tabardBuilder.getLayers() < 10) {
 			ItemStack colorItemStack = new ItemStack(Material.CYAN_DYE);
 			ItemMeta colorItemMeta = colorItemStack.getItemMeta();
-			colorItemMeta.setDisplayName(ChatColor.AQUA + "Change Base Color");
+			colorItemMeta.displayName(Component.text(ChatColor.AQUA + "Change Base Color"));
 			colorItemStack.setItemMeta(colorItemMeta);
 			menu.setItem(5, colorItemStack);
 		}
 		
 		ItemStack closeItemStack = GenericIconHeads.getDeclineItem();
 		ItemMeta closeItemMeta = closeItemStack.getItemMeta();
-		closeItemMeta.setDisplayName(ChatColor.RED + "Close Tabard Builder");
+		closeItemMeta.displayName(Component.text(ChatColor.RED + "Close Tabard Builder"));
 		closeItemStack.setItemMeta(closeItemMeta);
 		menu.setItem(8, closeItemStack);
 		
@@ -312,7 +313,7 @@ public class TabardBuilder implements WauzInventory {
 	public void openColorSelection(Player player) {
 		String colorType = page.contains("layer") ? "Layer" : "Base";
 		WauzInventoryHolder holder = new WauzInventoryHolder(this);
-		Inventory menu = Bukkit.createInventory(holder, 18, ChatColor.BLACK + "" + ChatColor.BOLD + "Select Tabard " + colorType + " Color");
+		Inventory menu = Bukkit.createInventory(holder, 18, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Select Tabard " + colorType + " Color"));
 		
 		menu.setItem(0, new ItemStack(Material.WHITE_BANNER));
 		menu.setItem(1, new ItemStack(Material.ORANGE_BANNER));
@@ -346,14 +347,14 @@ public class TabardBuilder implements WauzInventory {
 	 */
 	public void openPatternSelection(Player player, DyeColor color) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(this);
-		Inventory menu = Bukkit.createInventory(holder, 45, ChatColor.BLACK + "" + ChatColor.BOLD + "Select Tabard Layer Pattern");
+		Inventory menu = Bukkit.createInventory(holder, 45, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Select Tabard Layer Pattern"));
 		
 		page = "layer-pattern";
 		
 		for(int iterator = 0; iterator < PatternType.values().length; iterator++) {
 			ItemStack tabd = new ItemStack(color == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
 			BannerMeta bm = (BannerMeta) tabd.getItemMeta();
-			bm.setDisplayName(ChatColor.WHITE + "Republic Wauzland");
+			bm.displayName(Component.text(ChatColor.WHITE + "Republic Wauzland"));
 			bm.setPatterns(Collections.singletonList(new Pattern(color, PatternType.values()[iterator])));
 			tabd.setItemMeta(bm);
 			menu.setItem(iterator, tabd);

@@ -26,6 +26,7 @@ import eu.wauz.wauzcore.skills.Castable;
 import eu.wauz.wauzcore.skills.SkillQuickSlots;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -77,7 +78,7 @@ public class SkillAssignMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new SkillAssignMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Abilities");
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Abilities"));
 		
 		menu.setItem(0, getQuickSlotInfoItemStack());
 		MenuUtils.setMenuItem(menu, 1, GenericIconHeads.getNumber1Item(), ChatColor.RED + "Quick Slot 1", SkillQuickSlots.getCastableInfo(player, 1));
@@ -101,7 +102,7 @@ public class SkillAssignMenu implements WauzInventory {
 	public static ItemStack getQuickSlotInfoItemStack() {
 		ItemStack infoItemStack = GenericIconHeads.getUnknownItem();
 		ItemMeta infoItemMeta = infoItemStack.getItemMeta();
-		infoItemMeta.setDisplayName(ChatColor.GOLD + "About Quick Slots");
+		infoItemMeta.displayName(Component.text(ChatColor.GOLD + "About Quick Slots"));
 		List<String> infoLores = new ArrayList<String>();
 		infoLores.add(ChatColor.YELLOW + "How to learn Abilities?");
 		infoLores.add(ChatColor.GRAY + "You can unlock new combat skills,");
@@ -139,7 +140,7 @@ public class SkillAssignMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(this);
 		List<Castable> unlockedCastables = WauzPlayerDataPool.getPlayer(player).getSkills().getUnlockedCastables();
 		int size = MenuUtils.roundInventorySize(unlockedCastables.size() + 2);
-		Inventory menu = Bukkit.createInventory(holder, size, ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Ability to Slot " + slot);
+		Inventory menu = Bukkit.createInventory(holder, size, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Ability to Slot " + slot));
 		page = "choose-skill";
 		
 		menu.setItem(0, getQuickSlotInfoItemStack());

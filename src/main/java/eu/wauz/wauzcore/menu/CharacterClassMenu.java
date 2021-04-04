@@ -25,6 +25,7 @@ import eu.wauz.wauzcore.players.classes.WauzPlayerClassStats;
 import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -56,7 +57,7 @@ public class CharacterClassMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterClassMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Class!");
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Class!"));
 		
 		List<WauzPlayerClass> characterClasses = WauzPlayerClassPool.getAllClasses();
 		for(int index = 0; index < characterClasses.size(); index++) {
@@ -65,7 +66,7 @@ public class CharacterClassMenu implements WauzInventory {
 			
 			ItemStack classItemStack = characterClass.getClassItemStack();
 			ItemMeta classItemMeta = classItemStack.getItemMeta();
-			classItemMeta.setDisplayName(characterClass.getClassColor() + "" + ChatColor.BOLD + characterClass.getClassName());
+			classItemMeta.displayName(Component.text(characterClass.getClassColor() + "" + ChatColor.BOLD + characterClass.getClassName()));
 			
 			List<String> classLores = new ArrayList<>();
 			for(String textPart : UnicodeUtils.wrapText(characterClass.getClassDescription())) {

@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -86,7 +87,7 @@ public class GuildApplicationMenu implements WauzInventory {
 		}
 		
 		WauzInventoryHolder holder = new WauzInventoryHolder(new GuildApplicationMenu());
-		Inventory menu = Bukkit.createInventory(holder, 27, ChatColor.BLACK + "" + ChatColor.BOLD + "Guild Applications");
+		Inventory menu = Bukkit.createInventory(holder, 27, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Guild Applications"));
 		
 		List<OfflinePlayer> applicants = playerGuild.getApplicantUuidStrings().stream()
 				.map(uuid -> Bukkit.getOfflinePlayer(UUID.fromString(uuid)))
@@ -97,7 +98,7 @@ public class GuildApplicationMenu implements WauzInventory {
 			OfflinePlayer applicant = applicants.get(slot);
 			ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
 			SkullMeta sm = (SkullMeta) skull.getItemMeta();
-			sm.setDisplayName(ChatColor.LIGHT_PURPLE + applicant.getName() + " [Applicant]");
+			sm.displayName(Component.text(ChatColor.LIGHT_PURPLE + applicant.getName() + " [Applicant]"));
 			sm.setOwningPlayer(applicant);
 			List<String> slores = new ArrayList<String>();
 			slores.add(ChatColor.GRAY + "Left Click to Accept, "

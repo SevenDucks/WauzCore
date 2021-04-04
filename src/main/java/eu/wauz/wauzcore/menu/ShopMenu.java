@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.economy.WauzShopActions;
 import eu.wauz.wauzcore.system.economy.WauzShopDiscount;
 import eu.wauz.wauzcore.system.economy.WauzShopItem;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -69,7 +70,7 @@ public class ShopMenu implements WauzInventory {
 		WauzShopDiscount shopDiscount = new WauzShopDiscount(player, citizenName);
 		ShopMenu shopMenu = new ShopMenu(shop, shopDiscount);
 		WauzInventoryHolder holder = new WauzInventoryHolder(shopMenu);
-		Inventory menu = Bukkit.createInventory(holder, 27, ChatColor.BLACK + "" + ChatColor.BOLD + shop.getShopDisplayName());
+		Inventory menu = Bukkit.createInventory(holder, 27, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + shop.getShopDisplayName()));
 		
 		if(shop.isGlobal()) {
 			MenuUtils.setGlobalCurrencyDisplay(menu, player, 0);
@@ -87,7 +88,7 @@ public class ShopMenu implements WauzInventory {
 			
 			ItemStack repairItemStack = new ItemStack(Material.ANVIL);
 			ItemMeta repairItemMeta = repairItemStack.getItemMeta();
-			repairItemMeta.setDisplayName(ChatColor.BLUE + "Repair Items");
+			repairItemMeta.displayName(Component.text(ChatColor.BLUE + "Repair Items"));
 			List<String> repairLores = new ArrayList<String>();
 			repairLores.add(ChatColor.GRAY + "Drag Items here to repair them.");
 			repairItemMeta.setLore(repairLores);
@@ -96,7 +97,7 @@ public class ShopMenu implements WauzInventory {
 			
 			ItemStack sellItemStack = new ItemStack(Material.BARRIER, 1);
 			ItemMeta sellItemMeta = sellItemStack.getItemMeta();
-			sellItemMeta.setDisplayName(ChatColor.RED + "Sell Items");
+			sellItemMeta.displayName(Component.text(ChatColor.RED + "Sell Items"));
 			List<String> sellLores = new ArrayList<String>();
 			sellLores.add(ChatColor.GRAY + "Drag Items here to sell them.");
 			sellItemMeta.setLore(sellLores);

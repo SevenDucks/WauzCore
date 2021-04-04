@@ -32,6 +32,7 @@ import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -82,7 +83,7 @@ public class TitleMenu implements WauzInventory {
 		List<WauzTitle> titles = WauzTitle.getAllTitles();
 		int inventorySize = MenuUtils.roundInventorySize(titles.size() + 18);
 		WauzInventoryHolder holder = new WauzInventoryHolder(new TitleMenu());
-		Inventory menu = Bukkit.createInventory(holder, inventorySize, ChatColor.BLACK + "" + ChatColor.BOLD + "Title Collection");
+		Inventory menu = Bukkit.createInventory(holder, inventorySize, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Title Collection"));
 		
 		List<String> unlockedTitles = PlayerConfigurator.getCharacterTitleList(player);
 		String currentTitle = PlayerConfigurator.getCharacterTitle(player);
@@ -129,7 +130,7 @@ public class TitleMenu implements WauzInventory {
 	private static ItemStack getTitleItemStack(String titleName, String displayName, int level, int cost, boolean unlocked, boolean selected) {
 		ItemStack titleItemStack = unlocked ? MenuIconHeads.getTitlesItem() : GenericIconHeads.getDeclineItem();
 		ItemMeta titleItemMeta = titleItemStack.getItemMeta();
-		titleItemMeta.setDisplayName(unlocked ? ChatColor.GREEN + "Unlocked" : ChatColor.RED + "Locked");
+		titleItemMeta.displayName(Component.text(unlocked ? ChatColor.GREEN + "Unlocked" : ChatColor.RED + "Locked"));
 		List<String> titleLores = new ArrayList<>();
 		titleLores.add(ChatColor.YELLOW + "Title: " + displayName);
 		titleLores.add(ChatColor.GRAY + "Title-ID: " + titleName);

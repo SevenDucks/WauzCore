@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.util.Chance;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -42,7 +43,7 @@ public class LootContainer implements WauzInventory {
 	public static void open(Player player, List<ItemStack> lootItemStacks) {
 		LootContainer lootContainer = new LootContainer();
 		WauzInventoryHolder holder = new WauzInventoryHolder(lootContainer);
-		Inventory menu = Bukkit.createInventory(holder, 27, ChatColor.BLACK + "" + ChatColor.BOLD + "Loot Chest");
+		Inventory menu = Bukkit.createInventory(holder, 27, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Loot Chest"));
 		lootContainer.setLootChest(menu);
 		
 		List<Integer> freeSlots = new ArrayList<>();

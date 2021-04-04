@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerTrade;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -70,28 +71,28 @@ public class TradeMenu implements WauzInventory {
 	public static void open(Player requestingPlayer, Player requestedPlayer) {
 		TradeMenu tradeMenu = new TradeMenu(requestingPlayer, requestedPlayer);
 		WauzInventoryHolder holder = new WauzInventoryHolder(tradeMenu);
-		Inventory menu = Bukkit.createInventory(holder, 36, ChatColor.BLACK + "" + ChatColor.BOLD + "Player Trading");
+		Inventory menu = Bukkit.createInventory(holder, 36, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Player Trading"));
 		tradeMenu.setMenuInventory(menu);
 		tradeMenu.setReadyStatus(true, false);
 		tradeMenu.setReadyStatus(false, false);
 		
 		ItemStack requestingPlayerHead = new ItemStack(Material.PLAYER_HEAD);
 		SkullMeta requestingPlayerHeadMeta = (SkullMeta) requestingPlayerHead.getItemMeta();
-		requestingPlayerHeadMeta.setDisplayName(ChatColor.WHITE + "" + ChatColor.BOLD + requestingPlayer.getName());
+		requestingPlayerHeadMeta.displayName(Component.text(ChatColor.WHITE + "" + ChatColor.BOLD + requestingPlayer.getName()));
 		requestingPlayerHeadMeta.setOwningPlayer(requestingPlayer);
 		requestingPlayerHead.setItemMeta(requestingPlayerHeadMeta);
 		menu.setItem(1, requestingPlayerHead);
 		
 		ItemStack requestedPlayerHead = new ItemStack(Material.PLAYER_HEAD);
 		SkullMeta requestedPlayerHeadMeta = (SkullMeta) requestedPlayerHead.getItemMeta();
-		requestedPlayerHeadMeta.setDisplayName(ChatColor.WHITE + "" + ChatColor.BOLD + requestedPlayer.getName());
+		requestedPlayerHeadMeta.displayName(Component.text(ChatColor.WHITE + "" + ChatColor.BOLD + requestedPlayer.getName()));
 		requestedPlayerHeadMeta.setOwningPlayer(requestedPlayer);
 		requestedPlayerHead.setItemMeta(requestedPlayerHeadMeta);
 		menu.setItem(7, requestedPlayerHead);
 		
 		ItemStack cancelButton = GenericIconHeads.getDeclineItem();
 		ItemMeta cancelButtonName = cancelButton.getItemMeta();
-		cancelButtonName.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "CANCEL TRADE");
+		cancelButtonName.displayName(Component.text(ChatColor.RED + "" + ChatColor.BOLD + "CANCEL TRADE"));
 		cancelButton.setItemMeta(cancelButtonName);
 		menu.setItem(30, cancelButton);
 		menu.setItem(32, cancelButton);

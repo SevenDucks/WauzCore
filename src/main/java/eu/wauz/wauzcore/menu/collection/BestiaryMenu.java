@@ -27,6 +27,7 @@ import eu.wauz.wauzcore.mobs.bestiary.WauzBestiarySpecies;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -76,7 +77,7 @@ public class BestiaryMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		WauzInventoryHolder holder = new WauzInventoryHolder(new BestiaryMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - Categories");
+		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - Categories"));
 		
 		int slot = 1;
 		for(WauzBestiaryCategory category : WauzBestiaryCategory.values()) {
@@ -103,7 +104,7 @@ public class BestiaryMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(this);
 		List<WauzBestiarySpecies> categorySpecies = WauzBestiarySpecies.getSpecies(category);
 		int size = MenuUtils.roundInventorySize(categorySpecies.size() + 1);
-		Inventory menu = Bukkit.createInventory(holder, size, ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - " + category.toString());
+		Inventory menu = Bukkit.createInventory(holder, size, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - " + category.toString()));
 		page = "species";
 		
 		ItemStack categoriesItemStack = new ItemStack(Material.BOOKSHELF);
@@ -140,7 +141,7 @@ public class BestiaryMenu implements WauzInventory {
 		WauzInventoryHolder holder = new WauzInventoryHolder(this);
 		List<WauzBestiaryEntry> speciesEntries = species.getEntries();
 		int size = MenuUtils.roundInventorySize(speciesEntries.size() + 2);
-		Inventory menu = Bukkit.createInventory(holder, size, ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - " + species.getSpeciesName());
+		Inventory menu = Bukkit.createInventory(holder, size, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - " + species.getSpeciesName()));
 		page = "entries";
 		
 		ItemStack categoriesItemStack = new ItemStack(Material.BOOKSHELF);
@@ -179,7 +180,7 @@ public class BestiaryMenu implements WauzInventory {
 		ObservationRank currentRank = ObservationRank.getObservationRank(mobKills, entry.isBoss());
 		ItemStack entryItemStack = currentRank.getIconItemStack();
 		ItemMeta entryItemMeta = entryItemStack.getItemMeta();
-		entryItemMeta.setDisplayName(entry.getEntryMobDisplayName());
+		entryItemMeta.displayName(Component.text(entry.getEntryMobDisplayName()));
 		List<String> entryLores = new ArrayList<>();
 		
 		for(int index = 1; index < ObservationRank.values().length; index++) {

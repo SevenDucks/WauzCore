@@ -32,6 +32,7 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzWaypoint;
 import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
+import net.kyori.adventure.text.Component;
 
 /**
  * The interaction options of a citizen.
@@ -122,7 +123,7 @@ public class WauzCitizenInteractions {
 	 */
 	public Inventory createInteractionMenuBase(InventoryHolder holder, String title) {
 		int size = (int) Math.ceil((double) interactionItemStacks.size() / (double) 5) * 9;
-		Inventory menu = Bukkit.createInventory(holder, size, title);
+		Inventory menu = Bukkit.createInventory(holder, size, Component.text(title));
 		int row = 0;
 		int column = 0;
 		for(ItemStack interactionItemStack : interactionItemStacks) {
