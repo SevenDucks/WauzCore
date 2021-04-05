@@ -48,7 +48,7 @@ public class WauzLogFilter implements Filter {
 		String coreVersion = "Running WauzCore v" + WauzCore.getInstance().getDescription().getVersion();
 		String coreVersionDisplay = System.lineSeparator() + ":nazar_amulet: " + coreVersion;
 		String embeddedMessage = ":speaker: Activated logging for " + WauzCore.getServerKey() + " " + coreVersionDisplay;
-		WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(null, embeddedMessage, null, Color.BLUE, true);
+		WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(null, embeddedMessage, null, Color.BLUE, true);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class WauzLogFilter implements Filter {
 		
 		String date = dateFormat.format(logEvent.getTimeMillis());
 		String level = " [" + logEvent.getLevel().name() + "] ";
-		WauzDiscord.getShiroDiscordBot().sendMessageFromMinecraft(date + level + message, true);
+		WauzCore.getShiroDiscordBot().sendMessageFromMinecraft(date + level + message, true);
 		return null;
 	}
 

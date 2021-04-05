@@ -68,6 +68,18 @@
 			<url>https://oss.sonatype.org/content/groups/public/</url>
 		</repository>
 
+		<!-- Discord -->
+		<repository>
+			<id>jcenter</id>
+			<url>https://jcenter.bintray.com</url>
+		</repository>
+
+		<!-- Rule 34 -->
+		<repository>
+			<id>kodehawa</id>
+			<url>https://dl.bintray.com/kodehawa/maven</url>
+		</repository>
+
 	</repositories>
 
 

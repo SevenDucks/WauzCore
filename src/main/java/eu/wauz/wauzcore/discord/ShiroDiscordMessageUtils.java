@@ -64,7 +64,7 @@ public class ShiroDiscordMessageUtils {
 	public static String executeCommand(String message) {
 		try {
 			String command = StringUtils.substringAfter(message, "shiro command " + WauzCore.IP_AND_PORT + " ");
-			Bukkit.getScheduler().callSyncMethod(WauzDiscord.getInstance(),
+			Bukkit.getScheduler().callSyncMethod(WauzCore.getInstance(),
 					() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
 			
 			return "Your command was executed on " + WauzCore.IP_AND_PORT + ", my master!";
