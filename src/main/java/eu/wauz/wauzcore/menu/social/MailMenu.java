@@ -28,7 +28,6 @@ import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -87,7 +86,7 @@ public class MailMenu implements WauzInventory {
 		
 		ItemStack inboxItemStack = GenericIconHeads.getAchievementIdentifiesItem();
 		ItemMeta inboxItemMeta = inboxItemStack.getItemMeta();
-		inboxItemMeta.displayName(Component.text(ChatColor.LIGHT_PURPLE + "Inbox"));
+		Components.displayName(inboxItemMeta, ChatColor.LIGHT_PURPLE + "Inbox");
 		List<String> inboxLores = new ArrayList<>();
 		inboxLores.add(ChatColor.DARK_PURPLE + "Showing " + ChatColor.YELLOW
 				+ visibleMailAmount + ChatColor.DARK_PURPLE + " out of " + ChatColor.YELLOW
@@ -102,7 +101,7 @@ public class MailMenu implements WauzInventory {
 		
 		ItemStack sendItemStack = GenericIconHeads.getCitizenCommandItem();
 		ItemMeta sendItemMeta = sendItemStack.getItemMeta();
-		sendItemMeta.displayName(Component.text(ChatColor.LIGHT_PURPLE + "Send Mails"));
+		Components.displayName(sendItemMeta, ChatColor.LIGHT_PURPLE + "Send Mails");
 		List<String> sendLores = new ArrayList<>();
 		sendLores.add(ChatColor.DARK_PURPLE + "Sent Today: " + ChatColor.YELLOW
 				+ WauzPlayerMail.getMailsSentToday(player) + " / " + WauzPlayerMail.MAX_MAILS_PER_DAY);
@@ -125,7 +124,7 @@ public class MailMenu implements WauzInventory {
 			
 			ItemStack mailItemStack = MenuIconHeads.getMailItem();
 			ItemMeta mailItemMeta = mailItemStack.getItemMeta();
-			mailItemMeta.displayName(Component.text(ChatColor.YELLOW + "Mail from " + sender));
+			Components.displayName(mailItemMeta, ChatColor.YELLOW + "Mail from " + sender);
 			List<String> mailLores = new ArrayList<>();
 			mailLores.add(ChatColor.GRAY + "Received " + WauzDateUtils.formatTimeSince(timestamp) + " ago");
 			mailLores.add(ChatColor.GRAY + "Click to Claim");

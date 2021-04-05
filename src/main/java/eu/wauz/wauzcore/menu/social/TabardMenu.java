@@ -24,7 +24,6 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -136,7 +135,7 @@ public class TabardMenu implements WauzInventory {
 		else {
 			ItemMeta bannerItemMeta = bannerItemStack.getItemMeta();
 			String tabardDisplay = ChatColor.stripColor(bannerItemMeta.getDisplayName());
-			bannerItemMeta.displayName(Component.text(ChatColor.RESET + "Cosmetic Item [" + tabardDisplay + "]"));
+			Components.displayName(bannerItemMeta, ChatColor.RESET + "Cosmetic Item [" + tabardDisplay + "]");
 			bannerItemStack.setItemMeta(bannerItemMeta);
 		}
 		player.getEquipment().setHelmet(bannerItemStack);
@@ -164,7 +163,7 @@ public class TabardMenu implements WauzInventory {
 				return null;
 			bannerItemStack = playerGuild.getGuildTabard();
 			bannerMeta = (BannerMeta) bannerItemStack.getItemMeta();
-			bannerMeta.displayName(Component.text(ChatColor.WHITE + "Guild Tabard"));
+			Components.displayName(bannerMeta, ChatColor.WHITE + "Guild Tabard");
 			lores = new ArrayList<String>();
 			lores.add("");
 			lores.add(ChatColor.GREEN + "Guild: " + playerGuild.getGuildName());
@@ -177,7 +176,7 @@ public class TabardMenu implements WauzInventory {
 		case "Republic Wauzland":
 			bannerItemStack = new ItemStack(Material.WHITE_BANNER);
 			bannerMeta = (BannerMeta) bannerItemStack.getItemMeta();
-			bannerMeta.displayName(Component.text(ChatColor.WHITE + "Republic Wauzland"));
+			Components.displayName(bannerMeta, ChatColor.WHITE + "Republic Wauzland");
 			lores = new ArrayList<String>();
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
@@ -194,7 +193,7 @@ public class TabardMenu implements WauzInventory {
 		case "Eternal Empire":
 			bannerItemStack = new ItemStack(Material.YELLOW_BANNER);
 			bannerMeta = (BannerMeta) bannerItemStack.getItemMeta();
-			bannerMeta.displayName(Component.text(ChatColor.WHITE + "Eternal Empire"));
+			Components.displayName(bannerMeta, ChatColor.WHITE + "Eternal Empire");
 			lores = new ArrayList<String>();
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
@@ -213,7 +212,7 @@ public class TabardMenu implements WauzInventory {
 		case "Dark Legion":
 			bannerItemStack = new ItemStack(Material.BLUE_BANNER);
 			bannerMeta = (BannerMeta) bannerItemStack.getItemMeta();
-			bannerMeta.displayName(Component.text(ChatColor.WHITE + "Dark Legion"));
+			Components.displayName(bannerMeta, ChatColor.WHITE + "Dark Legion");
 			lores = new ArrayList<String>();
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
@@ -232,7 +231,7 @@ public class TabardMenu implements WauzInventory {
 		default:
 			bannerItemStack = new ItemStack(Material.BARRIER);
 			ItemMeta bannerItemMeta = bannerItemStack.getItemMeta();
-			bannerItemMeta.displayName(Component.text(ChatColor.WHITE + "No Tabard"));
+			Components.displayName(bannerItemMeta, ChatColor.WHITE + "No Tabard");
 			lores = new ArrayList<String>();
 			lores.add(ChatColor.GRAY + "Unequips Current Tabard");
 			lores.add("");

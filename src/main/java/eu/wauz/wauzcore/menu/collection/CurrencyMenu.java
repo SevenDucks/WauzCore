@@ -20,7 +20,6 @@ import eu.wauz.wauzcore.system.economy.WauzCurrencyCategory;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -100,7 +99,7 @@ public class CurrencyMenu implements WauzInventory {
 		}
 		ItemStack currencyItemStack = new ItemStack(Material.EMERALD);
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
-		currencyItemMeta.displayName(Component.text(ChatColor.GREEN + category.getCurrencyCategoryDisplayName()));
+		Components.displayName(currencyItemMeta, ChatColor.GREEN + category.getCurrencyCategoryDisplayName());
 		List<String> lores = new ArrayList<String>();
 		for(WauzCurrency currency : category.getCurrencies()) {
 			lores.add(ChatColor.GOLD + Formatters.INT.format(currency.getCurrencyAmount(player))

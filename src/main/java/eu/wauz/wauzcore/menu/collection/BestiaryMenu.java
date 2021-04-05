@@ -26,7 +26,6 @@ import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -179,7 +178,7 @@ public class BestiaryMenu implements WauzInventory {
 		ObservationRank currentRank = ObservationRank.getObservationRank(mobKills, entry.isBoss());
 		ItemStack entryItemStack = currentRank.getIconItemStack();
 		ItemMeta entryItemMeta = entryItemStack.getItemMeta();
-		entryItemMeta.displayName(Component.text(entry.getEntryMobDisplayName()));
+		Components.displayName(entryItemMeta, entry.getEntryMobDisplayName());
 		List<String> entryLores = new ArrayList<>();
 		
 		for(int index = 1; index < ObservationRank.values().length; index++) {

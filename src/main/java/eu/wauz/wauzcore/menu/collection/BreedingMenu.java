@@ -39,7 +39,6 @@ import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -98,7 +97,7 @@ public class BreedingMenu implements WauzInventory {
 		
 		ItemStack levelItemStack = MenuIconHeads.getTamesItem();
 		ItemMeta levelItemMeta = levelItemStack.getItemMeta();
-		levelItemMeta.displayName(Component.text(ChatColor.YELLOW + "Breeding Times for Current Level"));
+		Components.displayName(levelItemMeta, ChatColor.YELLOW + "Breeding Times for Current Level");
 		List<String> levelLores = new ArrayList<>();
 		for(WauzPetRarity rarity : WauzPetRarity.values()) {
 			int time = breedingMenu.getLevel().getTime(rarity);
@@ -129,7 +128,7 @@ public class BreedingMenu implements WauzInventory {
 		if(!WauzModules.isPetsModuleStandalone()) {
 			ItemStack abilityItemStack = GenericIconHeads.getColorCubeItem();
 			ItemMeta abilityItemMeta = abilityItemStack.getItemMeta();
-			abilityItemMeta.displayName(Component.text(ChatColor.YELLOW + "Possible Abilities for Current Level"));
+			Components.displayName(abilityItemMeta, ChatColor.YELLOW + "Possible Abilities for Current Level");
 			List<String> abilityLores = new ArrayList<>();
 			List<WauzPetAbility> abilities = WauzPetAbilities.getAbilitiesForLevel(currentLevel);
 			if(abilities.isEmpty()) {
@@ -267,7 +266,7 @@ public class BreedingMenu implements WauzInventory {
 	public void updateBreedButton() {
 		updatePetCompatibility(menu.getItem(3), menu.getItem(5));
 		ItemMeta breedItemMeta = breedItemStack.getItemMeta();
-		breedItemMeta.displayName(Component.text(ChatColor.YELLOW + "Click to Breed Pets"));
+		Components.displayName(breedItemMeta, ChatColor.YELLOW + "Click to Breed Pets");
 		List<String> breedLores = new ArrayList<>();
 		breedLores.add(breedStatusText);
 		breedLores.add("");

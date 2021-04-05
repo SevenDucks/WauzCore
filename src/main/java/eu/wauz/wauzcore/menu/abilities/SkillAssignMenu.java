@@ -25,7 +25,6 @@ import eu.wauz.wauzcore.skills.SkillQuickSlots;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -101,7 +100,7 @@ public class SkillAssignMenu implements WauzInventory {
 	public static ItemStack getQuickSlotInfoItemStack() {
 		ItemStack infoItemStack = GenericIconHeads.getUnknownItem();
 		ItemMeta infoItemMeta = infoItemStack.getItemMeta();
-		infoItemMeta.displayName(Component.text(ChatColor.GOLD + "About Quick Slots"));
+		Components.displayName(infoItemMeta, ChatColor.GOLD + "About Quick Slots");
 		List<String> infoLores = new ArrayList<String>();
 		infoLores.add(ChatColor.YELLOW + "How to learn Abilities?");
 		infoLores.add(ChatColor.GRAY + "You can unlock new combat skills,");

@@ -19,7 +19,6 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Components;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -65,7 +64,7 @@ public class AchievementsMenuPage implements WauzInventory {
 			boolean completed = awarded.contains(achievement.getKey());
 			ItemStack achievementItemStack = completed ? GenericIconHeads.getConfirmItem() : GenericIconHeads.getDeclineItem();
 			ItemMeta achievementItemMeta = achievementItemStack.getItemMeta();
-			achievementItemMeta.displayName(Component.text(ChatColor.YELLOW + achievement.getName()));
+			Components.displayName(achievementItemMeta, ChatColor.YELLOW + achievement.getName());
 			List<String> achievementLores = new ArrayList<>();
 			String status = completed ? (ChatColor.GOLD + "COMPLETED") : (ChatColor.RED + "UNCOMPLETED");
 			String goal = " \"" + achievement.getGoalString() + "\"";

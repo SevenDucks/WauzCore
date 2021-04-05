@@ -29,7 +29,6 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -87,7 +86,7 @@ public class TabardBuilder implements WauzInventory {
 		
 		ItemStack bannerItemStack = new ItemStack(Material.WHITE_BANNER);
 		ItemMeta bannerItemMeta = bannerItemStack.getItemMeta();
-		bannerItemMeta.setDisplayName(ChatColor.GREEN + playerGuild.getGuildName() + " Tabard");
+		Components.displayName(bannerItemMeta, ChatColor.GREEN + playerGuild.getGuildName() + " Tabard");
 		bannerItemStack.setItemMeta(bannerItemMeta);
 		open(player, new TabardBuilder(bannerItemStack, playerGuild.getGuildUuidString()));
 	}
@@ -110,14 +109,14 @@ public class TabardBuilder implements WauzInventory {
 		
 		ItemStack saveItemStack = GenericIconHeads.getConfirmItem();
 		ItemMeta saveItemMeta = saveItemStack.getItemMeta();
-		saveItemMeta.displayName(Component.text(ChatColor.GREEN + "Save Guild Tabard"));
+		Components.displayName(saveItemMeta, ChatColor.GREEN + "Save Guild Tabard");
 		saveItemStack.setItemMeta(saveItemMeta);
 		menu.setItem(0, saveItemStack);
 		
 		if(tabardBuilder.getLayers() < 10) {
 			ItemStack layerItemStack = new ItemStack(Material.DRIED_KELP);
 			ItemMeta layerItemMeta = layerItemStack.getItemMeta();
-			layerItemMeta.displayName(Component.text(ChatColor.GOLD + "Add New Layer"));
+			Components.displayName(layerItemMeta, ChatColor.GOLD + "Add New Layer");
 			layerItemStack.setItemMeta(layerItemMeta);
 			menu.setItem(3, layerItemStack);
 		}
@@ -127,14 +126,14 @@ public class TabardBuilder implements WauzInventory {
 		if(tabardBuilder.getLayers() < 10) {
 			ItemStack colorItemStack = new ItemStack(Material.CYAN_DYE);
 			ItemMeta colorItemMeta = colorItemStack.getItemMeta();
-			colorItemMeta.displayName(Component.text(ChatColor.AQUA + "Change Base Color"));
+			Components.displayName(colorItemMeta, ChatColor.AQUA + "Change Base Color");
 			colorItemStack.setItemMeta(colorItemMeta);
 			menu.setItem(5, colorItemStack);
 		}
 		
 		ItemStack closeItemStack = GenericIconHeads.getDeclineItem();
 		ItemMeta closeItemMeta = closeItemStack.getItemMeta();
-		closeItemMeta.displayName(Component.text(ChatColor.RED + "Close Tabard Builder"));
+		Components.displayName(closeItemMeta, ChatColor.RED + "Close Tabard Builder");
 		closeItemStack.setItemMeta(closeItemMeta);
 		menu.setItem(8, closeItemStack);
 		
@@ -349,12 +348,11 @@ public class TabardBuilder implements WauzInventory {
 		page = "layer-pattern";
 		
 		for(int iterator = 0; iterator < PatternType.values().length; iterator++) {
-			ItemStack tabd = new ItemStack(color == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
-			BannerMeta bm = (BannerMeta) tabd.getItemMeta();
-			bm.displayName(Component.text(ChatColor.WHITE + "Republic Wauzland"));
-			bm.setPatterns(Collections.singletonList(new Pattern(color, PatternType.values()[iterator])));
-			tabd.setItemMeta(bm);
-			menu.setItem(iterator, tabd);
+			ItemStack tabardItemStack = new ItemStack(color == DyeColor.WHITE ? Material.BLACK_BANNER : Material.WHITE_BANNER);
+			BannerMeta tabardItemMeta = (BannerMeta) tabardItemStack.getItemMeta();
+			tabardItemMeta.setPatterns(Collections.singletonList(new Pattern(color, PatternType.values()[iterator])));
+			tabardItemStack.setItemMeta(tabardItemMeta);
+			menu.setItem(iterator, tabardItemStack);
 		}
 		
 		MenuUtils.setBorders(menu);

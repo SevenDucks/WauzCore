@@ -24,7 +24,6 @@ import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -95,10 +94,10 @@ public class GuildApplicationMenu implements WauzInventory {
 		
 		for(int slot = 0; slot < 27 && slot < applicants.size(); slot++) {
 			OfflinePlayer applicant = applicants.get(slot);
-			ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-			SkullMeta sm = (SkullMeta) skull.getItemMeta();
-			sm.displayName(Component.text(ChatColor.LIGHT_PURPLE + applicant.getName() + " [Applicant]"));
-			sm.setOwningPlayer(applicant);
+			ItemStack skullItemStack = new ItemStack(Material.PLAYER_HEAD);
+			SkullMeta skullItemMeta = (SkullMeta) skullItemStack.getItemMeta();
+			Components.displayName(skullItemMeta, ChatColor.LIGHT_PURPLE + applicant.getName() + " [Applicant]");
+			skullItemMeta.setOwningPlayer(applicant);
 			List<String> slores = new ArrayList<String>();
 			slores.add(ChatColor.GRAY + "Left Click to Accept, "
 					+ "Free Slots: " + (playerGuild.getMaxMemberAmount() - playerGuild.getMemberAmount()));
@@ -124,9 +123,9 @@ public class GuildApplicationMenu implements WauzInventory {
 			slores.add("");
 			slores.add(ChatColor.DARK_PURPLE + "Survival Score: ");
 			slores.add(ChatColor.WHITE + Formatters.INT.format(PlayerConfigurator.getSurvivalScore(applicant)));
-			sm.setLore(slores);
-			skull.setItemMeta(sm);
-			menu.setItem(slot, skull);
+			skullItemMeta.setLore(slores);
+			skullItemStack.setItemMeta(skullItemMeta);
+			menu.setItem(slot, skullItemStack);
 		}
 		
 		MenuUtils.setBorders(menu);

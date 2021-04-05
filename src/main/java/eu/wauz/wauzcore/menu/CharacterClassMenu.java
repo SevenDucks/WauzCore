@@ -24,7 +24,6 @@ import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -65,7 +64,7 @@ public class CharacterClassMenu implements WauzInventory {
 			
 			ItemStack classItemStack = characterClass.getClassItemStack();
 			ItemMeta classItemMeta = classItemStack.getItemMeta();
-			classItemMeta.displayName(Component.text(characterClass.getClassColor() + "" + ChatColor.BOLD + characterClass.getClassName()));
+			Components.displayName(classItemMeta, characterClass.getClassColor() + "" + ChatColor.BOLD + characterClass.getClassName());
 			
 			List<String> classLores = new ArrayList<>();
 			for(String textPart : UnicodeUtils.wrapText(characterClass.getClassDescription())) {

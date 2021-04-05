@@ -30,7 +30,6 @@ import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -84,23 +83,23 @@ public class FriendsMenu implements WauzInventory {
 		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Friends List";
 		Inventory menu = Components.inventory(new FriendsMenu(), menuTitle, 18);
 		
-		ItemStack sendItemStack = MenuIconHeads.getFriendsItem();
-		ItemMeta sendItemMeta = sendItemStack.getItemMeta();
-		sendItemMeta.displayName(Component.text(ChatColor.LIGHT_PURPLE + "Your Friends"));
-		List<String> sendLores = new ArrayList<>();
-		sendLores.add(ChatColor.GRAY + "Being Friends allows you to:");
-		sendLores.add(ChatColor.GRAY + "1. See your Friends Characters in this Menu");
-		sendLores.add(ChatColor.GRAY + "2. Always have their Status in your Tablist");
-		sendLores.add("");
-		sendLores.add(ChatColor.DARK_PURPLE + "Commands:");
-		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "friend [player] " + ChatColor.GRAY + "Send a Friend Request to a Player");
-		sendItemMeta.setLore(sendLores);
-		sendItemStack.setItemMeta(sendItemMeta);
-		menu.setItem(1, sendItemStack);
+		ItemStack friendsItemStack = MenuIconHeads.getFriendsItem();
+		ItemMeta friendsItemMeta = friendsItemStack.getItemMeta();
+		Components.displayName(friendsItemMeta, ChatColor.LIGHT_PURPLE + "Your Friends");
+		List<String> friendsLores = new ArrayList<>();
+		friendsLores.add(ChatColor.GRAY + "Being Friends allows you to:");
+		friendsLores.add(ChatColor.GRAY + "1. See your Friends Characters in this Menu");
+		friendsLores.add(ChatColor.GRAY + "2. Always have their Status in your Tablist");
+		friendsLores.add("");
+		friendsLores.add(ChatColor.DARK_PURPLE + "Commands:");
+		friendsLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "friend [player] " + ChatColor.GRAY + "Send a Friend Request to a Player");
+		friendsItemMeta.setLore(friendsLores);
+		friendsItemStack.setItemMeta(friendsItemMeta);
+		menu.setItem(1, friendsItemStack);
 		
 		ItemStack freeSlotItemStack = MenuIconHeads.getSocialItem();
 		ItemMeta freeSlotItemMeta = freeSlotItemStack.getItemMeta();
-		freeSlotItemMeta.displayName(Component.text(ChatColor.YELLOW + "Free Slot"));
+		Components.displayName(freeSlotItemMeta, ChatColor.YELLOW + "Free Slot");
 		freeSlotItemStack.setItemMeta(freeSlotItemMeta);
 		
 		int friendNumber = 0;
@@ -117,7 +116,7 @@ public class FriendsMenu implements WauzInventory {
 			OfflinePlayer friend = Bukkit.getOfflinePlayer(friendUuid);
 			ItemStack skullItemStack = new ItemStack(Material.PLAYER_HEAD);
 			SkullMeta skullItemMeta = (SkullMeta) skullItemStack.getItemMeta();
-			skullItemMeta.displayName(Component.text(ChatColor.GREEN + friend.getName()));
+			Components.displayName(skullItemMeta, ChatColor.GREEN + friend.getName());
 			skullItemMeta.setOwningPlayer(friend);
 			List<String> skullLores = new ArrayList<String>();
 			StatisticsFetcher statistics = new StatisticsFetcher(friend);

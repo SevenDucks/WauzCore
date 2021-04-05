@@ -35,7 +35,6 @@ import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -152,7 +151,7 @@ public class QuestMenu implements WauzInventory {
 		
 		ItemStack questFinderItemStack = new ItemStack(Material.BOOKSHELF);
 		ItemMeta questFinderItemMeta = questFinderItemStack.getItemMeta();
-		questFinderItemMeta.displayName(Component.text(ChatColor.BLUE + "Quest Finder"));
+		Components.displayName(questFinderItemMeta, ChatColor.BLUE + "Quest Finder");
 		List<String> questFinderLores = new ArrayList<String>();
 		questFinderLores.add(ChatColor.GRAY + "Find quests near your location.");
 		questFinderItemMeta.setLore(questFinderLores);
@@ -162,7 +161,7 @@ public class QuestMenu implements WauzInventory {
 		boolean hideSpecialQuests = PlayerConfigurator.getHideSpecialQuestsForCharacter(player);
 		ItemStack hideSpecialQuestsItemStack = new ItemStack(hideSpecialQuests ? Material.GREEN_CONCRETE : Material.RED_CONCRETE);
 		ItemMeta hideSpecialQuestsItemMeta = hideSpecialQuestsItemStack.getItemMeta();
-		hideSpecialQuestsItemMeta.displayName(Component.text(ChatColor.GREEN + "Hide Special Quests"));
+		Components.displayName(hideSpecialQuestsItemMeta, ChatColor.GREEN + "Hide Special Quests");
 		List<String> hideSpecialQuestLores = new ArrayList<String>();
 		hideSpecialQuestLores.add(hideSpecialQuests ?
 			ChatColor.GREEN + "ON " + ChatColor.GRAY + "Only Daily-Quests are shown in the sidebar!" :
@@ -174,7 +173,7 @@ public class QuestMenu implements WauzInventory {
 		boolean hideCompletedQuests = PlayerConfigurator.getHideCompletedQuestsForCharacter(player);
 		ItemStack hideCompletedQuestsItemStack = new ItemStack(hideCompletedQuests ? Material.GREEN_CONCRETE : Material.RED_CONCRETE);
 		ItemMeta hideComletedQuestsItemMeta = hideCompletedQuestsItemStack.getItemMeta();
-		hideComletedQuestsItemMeta.displayName(Component.text(ChatColor.GREEN + "Hide Completed Quests"));
+		Components.displayName(hideComletedQuestsItemMeta, ChatColor.GREEN + "Hide Completed Quests");
 		List<String> hideCompletedQuestsLores = new ArrayList<String>();
 		hideCompletedQuestsLores.add(hideCompletedQuests ?
 			ChatColor.GREEN + "ON " + ChatColor.GRAY + "Completed Quests are hidden in the sidebar!" :

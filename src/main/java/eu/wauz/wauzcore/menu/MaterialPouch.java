@@ -31,7 +31,6 @@ import eu.wauz.wauzcore.system.economy.WauzShopActions;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -101,7 +100,7 @@ public class MaterialPouch implements WauzInventory {
 		
 		ItemStack emptyItemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
 		ItemMeta emptyItemMeta = emptyItemStack.getItemMeta();
-		emptyItemMeta.displayName(Component.text(" "));
+		Components.displayName(emptyItemMeta, " ");
 		emptyItemStack.setItemMeta(emptyItemMeta);
 		
 		int index = 0;

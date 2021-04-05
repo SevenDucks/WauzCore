@@ -24,7 +24,6 @@ import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -117,7 +116,7 @@ public class CharacterSlotMenu implements WauzInventory {
 		
 		ItemStack slotItemStack = new ItemStack(Material.TOTEM_OF_UNDYING);
 		ItemMeta slotItemMeta = slotItemStack.getItemMeta();
-		slotItemMeta.displayName(Component.text((characterExists ? ChatColor.GOLD : ChatColor.RED) + "Slot " + slotId));
+		Components.displayName(slotItemMeta, (characterExists ? ChatColor.GOLD : ChatColor.RED) + "Slot " + slotId);
 		List<String> lores = new ArrayList<String>();
 		
 		if(characterExists) {

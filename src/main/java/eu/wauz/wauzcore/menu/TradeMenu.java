@@ -24,7 +24,6 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.players.WauzPlayerTrade;
 import eu.wauz.wauzcore.system.util.Components;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -78,24 +77,24 @@ public class TradeMenu implements WauzInventory {
 		
 		ItemStack requestingPlayerHead = new ItemStack(Material.PLAYER_HEAD);
 		SkullMeta requestingPlayerHeadMeta = (SkullMeta) requestingPlayerHead.getItemMeta();
-		requestingPlayerHeadMeta.displayName(Component.text(ChatColor.WHITE + "" + ChatColor.BOLD + requestingPlayer.getName()));
+		Components.displayName(requestingPlayerHeadMeta, ChatColor.WHITE + "" + ChatColor.BOLD + requestingPlayer.getName());
 		requestingPlayerHeadMeta.setOwningPlayer(requestingPlayer);
 		requestingPlayerHead.setItemMeta(requestingPlayerHeadMeta);
 		menu.setItem(1, requestingPlayerHead);
 		
 		ItemStack requestedPlayerHead = new ItemStack(Material.PLAYER_HEAD);
 		SkullMeta requestedPlayerHeadMeta = (SkullMeta) requestedPlayerHead.getItemMeta();
-		requestedPlayerHeadMeta.displayName(Component.text(ChatColor.WHITE + "" + ChatColor.BOLD + requestedPlayer.getName()));
+		Components.displayName(requestedPlayerHeadMeta, ChatColor.WHITE + "" + ChatColor.BOLD + requestedPlayer.getName());
 		requestedPlayerHeadMeta.setOwningPlayer(requestedPlayer);
 		requestedPlayerHead.setItemMeta(requestedPlayerHeadMeta);
 		menu.setItem(7, requestedPlayerHead);
 		
-		ItemStack cancelButton = GenericIconHeads.getDeclineItem();
-		ItemMeta cancelButtonName = cancelButton.getItemMeta();
-		cancelButtonName.displayName(Component.text(ChatColor.RED + "" + ChatColor.BOLD + "CANCEL TRADE"));
-		cancelButton.setItemMeta(cancelButtonName);
-		menu.setItem(30, cancelButton);
-		menu.setItem(32, cancelButton);
+		ItemStack cancelButtonItemStack = GenericIconHeads.getDeclineItem();
+		ItemMeta cancelButtonItemMeta = cancelButtonItemStack.getItemMeta();
+		Components.displayName(cancelButtonItemMeta, ChatColor.RED + "" + ChatColor.BOLD + "CANCEL TRADE");
+		cancelButtonItemStack.setItemMeta(cancelButtonItemMeta);
+		menu.setItem(30, cancelButtonItemStack);
+		menu.setItem(32, cancelButtonItemStack);
 		
 		MenuUtils.setBorders(menu);
 		for(int leftSlot : leftSlots) {

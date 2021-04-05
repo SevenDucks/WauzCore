@@ -26,7 +26,6 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -106,7 +105,7 @@ public class ArrowMenu implements WauzInventory {
 	private static ItemStack getArrowType(Player player, String selectedArrowType, String arrowType, Material material) {
 		ItemStack arrowItemStack = new ItemStack(material);
 		ItemMeta arrowItemMeta = arrowItemStack.getItemMeta();
-		arrowItemMeta.displayName(Component.text(ChatColor.WHITE + StringUtils.capitalize(arrowType) + " Arrows"));
+		Components.displayName(arrowItemMeta, ChatColor.WHITE + StringUtils.capitalize(arrowType) + " Arrows");
 		List<String> lores = new ArrayList<String>();
 		lores.add(getArrowDescription(arrowType));
 		lores.add("");

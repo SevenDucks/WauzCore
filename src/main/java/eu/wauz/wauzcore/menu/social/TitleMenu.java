@@ -31,7 +31,6 @@ import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -129,7 +128,7 @@ public class TitleMenu implements WauzInventory {
 	private static ItemStack getTitleItemStack(String titleName, String displayName, int level, int cost, boolean unlocked, boolean selected) {
 		ItemStack titleItemStack = unlocked ? MenuIconHeads.getTitlesItem() : GenericIconHeads.getDeclineItem();
 		ItemMeta titleItemMeta = titleItemStack.getItemMeta();
-		titleItemMeta.displayName(Component.text(unlocked ? ChatColor.GREEN + "Unlocked" : ChatColor.RED + "Locked"));
+		Components.displayName(titleItemMeta, unlocked ? ChatColor.GREEN + "Unlocked" : ChatColor.RED + "Locked");
 		List<String> titleLores = new ArrayList<>();
 		titleLores.add(ChatColor.YELLOW + "Title: " + displayName);
 		titleLores.add(ChatColor.GRAY + "Title-ID: " + titleName);

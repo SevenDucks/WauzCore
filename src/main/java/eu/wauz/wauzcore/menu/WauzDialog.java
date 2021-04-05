@@ -15,7 +15,6 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.util.Components;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -67,13 +66,13 @@ public class WauzDialog implements WauzInventory {
 		
 		ItemStack confirmItemStack = GenericIconHeads.getConfirmItem();
 		ItemMeta confirmItemMeta = confirmItemStack.getItemMeta();
-		confirmItemMeta.displayName(Component.text(ChatColor.GREEN + "CONFIRM"));
+		Components.displayName(confirmItemMeta, ChatColor.GREEN + "CONFIRM");
 		confirmItemStack.setItemMeta(confirmItemMeta);
 		menu.setItem(0, confirmItemStack);
 		
 		ItemStack declineItemStack = GenericIconHeads.getDeclineItem();
 		ItemMeta declineItemMeta = declineItemStack.getItemMeta();
-		declineItemMeta.displayName(Component.text(ChatColor.RED + "DECLINE"));
+		Components.displayName(declineItemMeta, ChatColor.RED + "DECLINE");
 		declineItemStack.setItemMeta(declineItemMeta);
 		menu.setItem(8, declineItemStack);
 		

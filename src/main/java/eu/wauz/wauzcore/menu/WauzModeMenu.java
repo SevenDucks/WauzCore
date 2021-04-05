@@ -13,7 +13,6 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -47,19 +46,19 @@ public class WauzModeMenu implements WauzInventory {
 		
 		ItemStack modeDropGuysItemStack = new ItemStack(Material.HOPPER);
 		ItemMeta modeDropGuysItemMeta = modeDropGuysItemStack.getItemMeta();
-		modeDropGuysItemMeta.displayName(Component.text(ChatColor.DARK_RED + "ALPHA " + ChatColor.RED + "DropGuys"));
+		Components.displayName(modeDropGuysItemMeta, ChatColor.DARK_RED + "ALPHA " + ChatColor.RED + "DropGuys");
 		modeDropGuysItemStack.setItemMeta(modeDropGuysItemMeta);
 		menu.setItem(2, modeDropGuysItemStack);
 		
 		ItemStack modeMmoRpgItemStack = new ItemStack(Material.DRAGON_HEAD);
 		ItemMeta modeMmoRpgItemMeta = modeMmoRpgItemStack.getItemMeta();
-		modeMmoRpgItemMeta.displayName(Component.text(ChatColor.DARK_RED + "ALPHA " + ChatColor.DARK_PURPLE + "MMORPG"));
+		Components.displayName(modeMmoRpgItemMeta, ChatColor.DARK_RED + "ALPHA " + ChatColor.DARK_PURPLE + "MMORPG");
 		modeMmoRpgItemStack.setItemMeta(modeMmoRpgItemMeta);
 		menu.setItem(4, modeMmoRpgItemStack);
 		
 		ItemStack modeOneBlockItemStack = new ItemStack(Material.GRASS_BLOCK);
 		ItemMeta modeOneBlockItemMeta = modeOneBlockItemStack.getItemMeta();
-		modeOneBlockItemMeta.displayName(Component.text(ChatColor.GOLD + "OneBlock and Survival"));
+		Components.displayName(modeOneBlockItemMeta, ChatColor.GOLD + "OneBlock and Survival");
 		modeOneBlockItemStack.setItemMeta(modeOneBlockItemMeta);
 		menu.setItem(6, modeOneBlockItemStack);
 		
