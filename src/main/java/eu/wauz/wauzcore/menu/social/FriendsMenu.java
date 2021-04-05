@@ -23,12 +23,12 @@ import eu.wauz.wauzcore.menu.WauzDialog;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerFriends;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
 
@@ -81,8 +81,8 @@ public class FriendsMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new FriendsMenu());
-		Inventory menu = Bukkit.createInventory(holder, 18, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Friends List"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Friends List";
+		Inventory menu = Components.inventory(new FriendsMenu(), menuTitle, 18);
 		
 		ItemStack sendItemStack = MenuIconHeads.getFriendsItem();
 		ItemMeta sendItemMeta = sendItemStack.getItemMeta();

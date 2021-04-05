@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -20,8 +19,8 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.skills.passive.PassiveWeight;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -86,7 +85,8 @@ public class Backpack implements WauzInventory {
 	public static Inventory getBackpack(Player player) {
 		Inventory backpack = backpackMap.get(player);
 		if(backpack == null) {
-			backpack = Bukkit.createInventory(null, 36, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Backpack"));
+			String backpackTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Backpack";
+			backpack = Components.inventory(null, backpackTitle, 36);
 			backpack.setContents(PlayerCollectionConfigurator.getCharacterInventoryContents(player, "backpack"));
 			backpackMap.put(player, backpack);
 			updateLockedSlots(player);

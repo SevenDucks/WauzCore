@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.menu;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -13,9 +12,9 @@ import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.system.util.Components;
 import net.kyori.adventure.text.Component;
 
 /**
@@ -61,10 +60,10 @@ public class WauzDialog implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player, ItemStack infoItemStack) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzDialog());
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Confirm: "
-				+ playerData.getSelections().getWauzPlayerEventName()));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Confirm: "
+				+ playerData.getSelections().getWauzPlayerEventName();
+		Inventory menu = Components.inventory(new WauzDialog(), menuTitle, 9);
 		
 		ItemStack confirmItemStack = GenericIconHeads.getConfirmItem();
 		ItemMeta confirmItemMeta = confirmItemStack.getItemMeta();

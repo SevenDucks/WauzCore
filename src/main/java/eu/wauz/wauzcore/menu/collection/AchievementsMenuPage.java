@@ -3,7 +3,6 @@ package eu.wauz.wauzcore.menu.collection;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -17,9 +16,9 @@ import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.util.Components;
 import net.kyori.adventure.text.Component;
 
 /**
@@ -53,9 +52,9 @@ public class AchievementsMenuPage implements WauzInventory {
 	public static void open(Player player, WauzAchievementType type) {
 		List<WauzAchievement> achievements = WauzAchievement.getAchievementsOfType(type);
 		List<String> awarded = PlayerCollectionConfigurator.getCharacterAchievementList(player, type);
-		WauzInventoryHolder holder = new WauzInventoryHolder(new AchievementsMenuPage());
 		int size = MenuUtils.roundInventorySize(achievements.size() + 1);
-		Inventory menu = Bukkit.createInventory(holder, size, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Achievements"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Achievements";
+		Inventory menu = Components.inventory(new AchievementsMenuPage(), menuTitle, size);
 		
 		ItemStack overviewItemStack = MenuIconHeads.getAchievementsItem();
 		MenuUtils.setItemDisplayName(overviewItemStack, ChatColor.GOLD + "Back to Overview");

@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,12 +18,12 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.skills.Castable;
 import eu.wauz.wauzcore.skills.SkillQuickSlots;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
 
@@ -77,8 +76,8 @@ public class SkillAssignMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new SkillAssignMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Abilities"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Abilities";
+		Inventory menu = Components.inventory(new SkillAssignMenu(), menuTitle, 9);
 		
 		menu.setItem(0, getQuickSlotInfoItemStack());
 		MenuUtils.setMenuItem(menu, 1, GenericIconHeads.getNumber1Item(), ChatColor.RED + "Quick Slot 1", SkillQuickSlots.getCastableInfo(player, 1));
@@ -137,10 +136,10 @@ public class SkillAssignMenu implements WauzInventory {
 		if(!Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8).contains(slot)) {
 			return;
 		}
-		WauzInventoryHolder holder = new WauzInventoryHolder(this);
 		List<Castable> unlockedCastables = WauzPlayerDataPool.getPlayer(player).getSkills().getUnlockedCastables();
 		int size = MenuUtils.roundInventorySize(unlockedCastables.size() + 2);
-		Inventory menu = Bukkit.createInventory(holder, size, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Ability to Slot " + slot));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Assign Ability to Slot " + slot;
+		Inventory menu = Components.inventory(this, menuTitle, size);
 		page = "choose-skill";
 		
 		menu.setItem(0, getQuickSlotInfoItemStack());

@@ -3,7 +3,6 @@ package eu.wauz.wauzcore.menu;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -18,11 +17,10 @@ import eu.wauz.wauzcore.menu.collection.CollectionMenuParts;
 import eu.wauz.wauzcore.menu.social.SocialMenuParts;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.annotations.Item;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
-import net.kyori.adventure.text.Component;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -100,8 +98,8 @@ public class WauzMenu implements WauzInventory, CustomItem {
 			WauzModeMenu.open(player);
 			return;
 		}
-		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzMenu());
-		Inventory menu = Bukkit.createInventory(holder, 18, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Main Menu"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Main Menu";
+		Inventory menu = Components.inventory(new WauzMenu(), menuTitle, 18);
 		
 		SocialMenuParts.addMenuParts(player, menu, 0);
 		CollectionMenuParts.addMenuParts(player, menu, 3);

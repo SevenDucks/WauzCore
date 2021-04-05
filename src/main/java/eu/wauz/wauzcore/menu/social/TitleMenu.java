@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.enchantments.Enchantment;
@@ -25,12 +24,12 @@ import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
 
@@ -81,9 +80,9 @@ public class TitleMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		List<WauzTitle> titles = WauzTitle.getAllTitles();
-		int inventorySize = MenuUtils.roundInventorySize(titles.size() + 18);
-		WauzInventoryHolder holder = new WauzInventoryHolder(new TitleMenu());
-		Inventory menu = Bukkit.createInventory(holder, inventorySize, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Title Collection"));
+		int size = MenuUtils.roundInventorySize(titles.size() + 18);
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Title Collection";
+		Inventory menu = Components.inventory(new TitleMenu(), menuTitle, size);
 		
 		List<String> unlockedTitles = PlayerConfigurator.getCharacterTitleList(player);
 		String currentTitle = PlayerConfigurator.getCharacterTitle(player);
@@ -96,7 +95,7 @@ public class TitleMenu implements WauzInventory {
 		
 		int titleNumber = 9;
 		for(WauzTitle title : titles) {
-			if(titleNumber + 9 >= inventorySize) {
+			if(titleNumber + 9 >= size) {
 				break;
 			}
 			

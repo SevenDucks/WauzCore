@@ -60,10 +60,9 @@ public class CitizenInteractionMenu implements WauzInventory {
 			return;
 		}
 		
-		WauzInventoryHolder holder = new WauzInventoryHolder(new CitizenInteractionMenu(citizen));
 		String displayName = citizen.getDisplayName();
-		Inventory menu = citizen.getInteractions().createInteractionMenuBase(holder,
-				ChatColor.BLACK + "" + ChatColor.BOLD + displayName);
+		String menutTitle = ChatColor.BLACK + "" + ChatColor.BOLD + displayName;
+		Inventory menu = citizen.getInteractions().createInteractionMenuBase(new CitizenInteractionMenu(citizen), menutTitle);
 		
 		ItemStack citizenItemStack = GenericIconHeads.getCitizenRelationItem();
 		ItemMeta citizenItemMeta = citizenItemStack.getItemMeta();

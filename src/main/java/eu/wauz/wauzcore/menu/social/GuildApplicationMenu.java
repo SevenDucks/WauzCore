@@ -19,9 +19,9 @@ import org.bukkit.inventory.meta.SkullMeta;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
@@ -85,9 +85,8 @@ public class GuildApplicationMenu implements WauzInventory {
 		if(!GuildOverviewMenu.validateOfficerAccess(player, playerGuild)) {
 			return;
 		}
-		
-		WauzInventoryHolder holder = new WauzInventoryHolder(new GuildApplicationMenu());
-		Inventory menu = Bukkit.createInventory(holder, 27, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Guild Applications"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Guild Applications";
+		Inventory menu = Components.inventory(new GuildApplicationMenu(), menuTitle, 27);
 		
 		List<OfflinePlayer> applicants = playerGuild.getApplicantUuidStrings().stream()
 				.map(uuid -> Bukkit.getOfflinePlayer(UUID.fromString(uuid)))

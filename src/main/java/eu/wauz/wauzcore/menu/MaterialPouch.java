@@ -23,13 +23,13 @@ import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.skills.passive.PassiveWeight;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.economy.WauzShopActions;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
 
@@ -95,9 +95,9 @@ public class MaterialPouch implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player, String inventoryName) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new MaterialPouch(inventoryName));
 		String displayName = inventoryName.equals("materials") ? "Materials" : "Quest Items";
-		Inventory menu = Bukkit.createInventory(holder, 36, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + displayName));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + displayName;
+		Inventory menu = Components.inventory(new MaterialPouch(inventoryName), menuTitle, 36);
 		
 		ItemStack emptyItemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
 		ItemMeta emptyItemMeta = emptyItemStack.getItemMeta();

@@ -41,6 +41,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
@@ -106,102 +107,170 @@ public class GuildOverviewMenu implements WauzInventory {
 	 * @see GuildOverviewMenu#loadGuildList(Player, WauzInventoryHolder)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new GuildOverviewMenu());
-		Inventory menu = Bukkit.createInventory(holder, 54, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Guild Overview"));
 		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
+		if(playerGuild == null) {
+			openGuildList(player);
+			return;
+		}
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Guild Overview";
+		Inventory menu = Components.inventory(new GuildOverviewMenu(), menuTitle, 54);
 		
-		if(playerGuild != null) {
-			ItemStack guildItemStack = MenuIconHeads.getGuildItem();
+		ItemStack guildItemStack = MenuIconHeads.getGuildItem();
+		ItemMeta guildItemMeta = guildItemStack.getItemMeta();
+		guildItemMeta.displayName(Component.text(ChatColor.GREEN + playerGuild.getGuildName()));
+		List<String> guildLores = new ArrayList<String>();
+		guildLores.add(ChatColor.DARK_PURPLE + "Leader: " + ChatColor.YELLOW
+				+ Bukkit.getOfflinePlayer(UUID.fromString(playerGuild.getAdminUuidString())).getName());
+		guildLores.add(ChatColor.DARK_PURPLE + "Players: " + ChatColor.YELLOW
+				+ playerGuild.getMemberAmount() + " / " + playerGuild.getMaxMemberAmount());
+		guildLores.add("");
+		for(String lore : playerGuild.getWrappedGuildDescription()) {
+			guildLores.add(ChatColor.GRAY + lore);
+		}
+		guildLores.add("");
+		guildLores.add(ChatColor.DARK_PURPLE + "Commands:");
+		guildLores.add(ChatColor.GREEN + "/" + ChatColor.WHITE + "gld [text] " + ChatColor.GRAY + "Send Message in Guild Chat");
+		guildLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "motd [text] " + ChatColor.GRAY + "Set the Guild Message of the Day");
+		guildLores.add("");
+		guildLores.add(ChatColor.DARK_GRAY + "UUID: " + playerGuild.getGuildUuidString());
+		guildItemMeta.setLore(guildLores);
+		guildItemStack.setItemMeta(guildItemMeta);
+		menu.setItem(0, guildItemStack);
+		
+		ItemStack bannerItemStack = playerGuild.getGuildTabard();
+		ItemMeta bannerItemMeta = bannerItemStack.getItemMeta();
+		bannerItemMeta.displayName(Component.text(ChatColor.YELLOW + "Select (Guild) Tabard"));
+		List<String> bannerLores = new ArrayList<String>();
+		if(((BannerMeta) bannerItemMeta).getPatterns().size() > 1)
+			bannerLores.add("");
+		bannerLores.add(ChatColor.GRAY + "Right Click to Edit (Officers Only)");
+		bannerItemMeta.setLore(bannerLores);
+		bannerItemStack.setItemMeta(bannerItemMeta);
+		menu.setItem(1, bannerItemStack);
+		
+		loadGuildBuildings(menu, playerGuild);
+		
+		ItemStack applicationsItemStack = playerGuild.getGuildTabard();
+		ItemMeta applicationsItemMeta = applicationsItemStack.getItemMeta();
+		applicationsItemMeta.displayName(Component.text(ChatColor.YELLOW + "View Applications"));
+		List<String> applicationsLores = new ArrayList<String>();
+		if(((BannerMeta) applicationsItemMeta).getPatterns().size() > 1)
+			applicationsLores.add("");
+		applicationsLores.add(ChatColor.GRAY + "Click to view "
+			+ ChatColor.LIGHT_PURPLE + playerGuild.getApplicationCount()
+			+ ChatColor.GRAY + " Applicants (Officers Only)");
+		applicationsItemMeta.setLore(applicationsLores);
+		applicationsItemStack.setItemMeta(applicationsItemMeta);
+		menu.setItem(7, applicationsItemStack);
+		
+		ItemStack leaveItemStack = new ItemStack(Material.BARRIER);
+		ItemMeta leaveItemMeta = leaveItemStack.getItemMeta();
+		leaveItemMeta.displayName(Component.text(ChatColor.RED + "Leave Guild"));
+		leaveItemStack.setItemMeta(leaveItemMeta);
+		menu.setItem(8, leaveItemStack);
+		
+		List<OfflinePlayer> members = playerGuild.getMemberUuidStrings().stream()
+				.map(uuid -> Bukkit.getOfflinePlayer(UUID.fromString(uuid)))
+				.filter(offlinePlayer -> offlinePlayer != null)
+				.collect(Collectors.toList());
+		
+		ItemStack freeSlotItemStack = GenericIconHeads.getConfirmItem();
+		ItemMeta freeSlotItemMeta = freeSlotItemStack.getItemMeta();
+		freeSlotItemMeta.displayName(Component.text(ChatColor.DARK_GREEN + "Free Slot"));
+		freeSlotItemStack.setItemMeta(freeSlotItemMeta);
+		
+		ItemStack lockedSlotItemStack = GenericIconHeads.getDeclineItem();
+		ItemMeta lockedSlotItemMeta = lockedSlotItemStack.getItemMeta();
+		lockedSlotItemMeta.displayName(Component.text(ChatColor.DARK_RED + "Locked Slot"));
+		lockedSlotItemStack.setItemMeta(lockedSlotItemMeta);
+		
+		int memberNumber = 0;
+		for(int slot = 19; slot < 44; slot++) {
+			if(StringUtils.equalsAny("" + slot, "26", "27", "35", "36")) {
+				continue;
+			}
+			else if(memberNumber + 1 > playerGuild.getMaxMemberAmount()) {
+				menu.setItem(slot, lockedSlotItemStack);
+				memberNumber++;
+				continue;
+			}
+			else if(memberNumber + 1 > playerGuild.getMemberAmount()) {
+				menu.setItem(slot, freeSlotItemStack);
+				memberNumber++;
+				continue;
+			}
+			OfflinePlayer member = members.get(memberNumber);
+			menu.setItem(slot, getGuildMemberItemStack(player, playerGuild, member));
+			memberNumber++;
+		}
+		
+		MenuUtils.setBorders(menu);
+		player.openInventory(menu);
+	}
+	
+	/**
+	 * Opens the guild list for the given player.
+	 * Shows an overview of random guilds and an instruction on how to create your own.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	private static void openGuildList(Player player) {
+		List<WauzPlayerGuild> playerGuilds = WauzPlayerGuild.getGuilds();
+		int size = MenuUtils.roundInventorySize(playerGuilds.size() + 2);
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Guild List";
+		Inventory menu = Components.inventory(new GuildOverviewMenu(), menuTitle, size);
+		
+		ItemStack createItemStack = MenuIconHeads.getGuildItem();
+		ItemMeta createItemMeta = createItemStack.getItemMeta();
+		createItemMeta.displayName(Component.text(ChatColor.BLUE + "Create New Guild"));
+		List<String> createLores = new ArrayList<String>();
+		createLores.add(ChatColor.GRAY + "Type this Command in Chat to create a Guild!");
+		createLores.add(ChatColor.GRAY + "This will cost 300 Tokens! You have: "
+				+ Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)) + " Tokens.");
+		createLores.add("");
+		createLores.add(ChatColor.BLUE + "/" + ChatColor.WHITE + "guild [guildName]");
+		createLores.add("");
+		createLores.add(ChatColor.GRAY + "You can't change the name later, so pick wisely!");
+		createLores.add(ChatColor.GRAY + "Example: /guild Burning Crusade");
+		createItemMeta.setLore(createLores);
+		createItemStack.setItemMeta(createItemMeta);
+		menu.setItem(0, createItemStack);
+		
+		ItemStack bannerItemStack = new ItemStack(Material.ORANGE_BANNER);
+		ItemMeta bannerItemMeta = bannerItemStack.getItemMeta();
+		bannerItemMeta.displayName(Component.text(ChatColor.YELLOW + "Select (Guild) Tabard"));
+		bannerItemStack.setItemMeta(bannerItemMeta);
+		menu.setItem(1, bannerItemStack);
+		
+		int guildNumber = 2;
+		for(WauzPlayerGuild listedGuild : playerGuilds) {
+			if(guildNumber >= size) {
+				break;
+			}
+			ItemStack guildItemStack = listedGuild.getGuildTabard();
 			ItemMeta guildItemMeta = guildItemStack.getItemMeta();
-			guildItemMeta.displayName(Component.text(ChatColor.GREEN + playerGuild.getGuildName()));
+			guildItemMeta.displayName(Component.text(ChatColor.GREEN + listedGuild.getGuildName()));
 			List<String> guildLores = new ArrayList<String>();
-			guildLores.add(ChatColor.DARK_PURPLE + "Leader: " + ChatColor.YELLOW
-					+ Bukkit.getOfflinePlayer(UUID.fromString(playerGuild.getAdminUuidString())).getName());
-			guildLores.add(ChatColor.DARK_PURPLE + "Players: " + ChatColor.YELLOW
-					+ playerGuild.getMemberAmount() + " / " + playerGuild.getMaxMemberAmount());
+			if(((BannerMeta) guildItemMeta).getPatterns().size() > 1) {
+				guildLores.add("");
+			}
+			guildLores.add(ChatColor.GRAY + "Click to apply or type this in Chat!");
+			guildLores.add(ChatColor.GREEN + "/" + ChatColor.WHITE + "apply " + listedGuild.getGuildName());
 			guildLores.add("");
-			for(String lore : playerGuild.getWrappedGuildDescription()) {
+			guildLores.add(ChatColor.DARK_PURPLE + "Leader: " + ChatColor.YELLOW
+					+ Bukkit.getOfflinePlayer(UUID.fromString(listedGuild.getAdminUuidString())).getName());
+			guildLores.add(ChatColor.DARK_PURPLE + "Players: " + ChatColor.YELLOW
+					+ listedGuild.getMemberAmount() + " / " + listedGuild.getMaxMemberAmount());
+			guildLores.add("");
+			for(String lore : listedGuild.getWrappedGuildDescription()) {
 				guildLores.add(ChatColor.GRAY + lore);
 			}
 			guildLores.add("");
-			guildLores.add(ChatColor.DARK_PURPLE + "Commands:");
-			guildLores.add(ChatColor.GREEN + "/" + ChatColor.WHITE + "gld [text] " + ChatColor.GRAY + "Send Message in Guild Chat");
-			guildLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "motd [text] " + ChatColor.GRAY + "Set the Guild Message of the Day");
-			guildLores.add("");
-			guildLores.add(ChatColor.DARK_GRAY + "UUID: " + playerGuild.getGuildUuidString());
+			guildLores.add(ChatColor.DARK_GRAY + "UUID: " + listedGuild.getGuildUuidString());
 			guildItemMeta.setLore(guildLores);
 			guildItemStack.setItemMeta(guildItemMeta);
-			menu.setItem(0, guildItemStack);
-			
-			ItemStack bannerItemStack = playerGuild.getGuildTabard();
-			ItemMeta bannerItemMeta = bannerItemStack.getItemMeta();
-			bannerItemMeta.displayName(Component.text(ChatColor.YELLOW + "Select (Guild) Tabard"));
-			List<String> bannerLores = new ArrayList<String>();
-			if(((BannerMeta) bannerItemMeta).getPatterns().size() > 1)
-				bannerLores.add("");
-			bannerLores.add(ChatColor.GRAY + "Right Click to Edit (Officers Only)");
-			bannerItemMeta.setLore(bannerLores);
-			bannerItemStack.setItemMeta(bannerItemMeta);
-			menu.setItem(1, bannerItemStack);
-			
-			loadGuildBuildings(menu, playerGuild);
-			
-			ItemStack applicationsItemStack = playerGuild.getGuildTabard();
-			ItemMeta applicationsItemMeta = applicationsItemStack.getItemMeta();
-			applicationsItemMeta.displayName(Component.text(ChatColor.YELLOW + "View Applications"));
-			List<String> applicationsLores = new ArrayList<String>();
-			if(((BannerMeta) applicationsItemMeta).getPatterns().size() > 1)
-				applicationsLores.add("");
-			applicationsLores.add(ChatColor.GRAY + "Click to view "
-				+ ChatColor.LIGHT_PURPLE + playerGuild.getApplicationCount()
-				+ ChatColor.GRAY + " Applicants (Officers Only)");
-			applicationsItemMeta.setLore(applicationsLores);
-			applicationsItemStack.setItemMeta(applicationsItemMeta);
-			menu.setItem(7, applicationsItemStack);
-			
-			ItemStack leaveItemStack = new ItemStack(Material.BARRIER);
-			ItemMeta leaveItemMeta = leaveItemStack.getItemMeta();
-			leaveItemMeta.displayName(Component.text(ChatColor.RED + "Leave Guild"));
-			leaveItemStack.setItemMeta(leaveItemMeta);
-			menu.setItem(8, leaveItemStack);
-			
-			List<OfflinePlayer> members = playerGuild.getMemberUuidStrings().stream()
-					.map(uuid -> Bukkit.getOfflinePlayer(UUID.fromString(uuid)))
-					.filter(offlinePlayer -> offlinePlayer != null)
-					.collect(Collectors.toList());
-			
-			ItemStack freeSlotItemStack = GenericIconHeads.getConfirmItem();
-			ItemMeta freeSlotItemMeta = freeSlotItemStack.getItemMeta();
-			freeSlotItemMeta.displayName(Component.text(ChatColor.DARK_GREEN + "Free Slot"));
-			freeSlotItemStack.setItemMeta(freeSlotItemMeta);
-			
-			ItemStack lockedSlotItemStack = GenericIconHeads.getDeclineItem();
-			ItemMeta lockedSlotItemMeta = lockedSlotItemStack.getItemMeta();
-			lockedSlotItemMeta.displayName(Component.text(ChatColor.DARK_RED + "Locked Slot"));
-			lockedSlotItemStack.setItemMeta(lockedSlotItemMeta);
-			
-			int memberNumber = 0;
-			for(int slot = 19; slot < 44; slot++) {
-				if(StringUtils.equalsAny("" + slot, "26", "27", "35", "36")) {
-					continue;
-				}
-				else if(memberNumber + 1 > playerGuild.getMaxMemberAmount()) {
-					menu.setItem(slot, lockedSlotItemStack);
-					memberNumber++;
-					continue;
-				}
-				else if(memberNumber + 1 > playerGuild.getMemberAmount()) {
-					menu.setItem(slot, freeSlotItemStack);
-					memberNumber++;
-					continue;
-				}
-				OfflinePlayer member = members.get(memberNumber);
-				menu.setItem(slot, getGuildMemberItemStack(player, playerGuild, member));
-				memberNumber++;
-			}
-		}
-		else {
-			menu = loadGuildList(player, holder);
+			menu.setItem(guildNumber, guildItemStack);
+			guildNumber++;
 		}
 		
 		MenuUtils.setBorders(menu);
@@ -289,74 +358,6 @@ public class GuildOverviewMenu implements WauzInventory {
 		MenuUtils.setComingSoon(menu, "Building: ???", 4);
 		MenuUtils.setComingSoon(menu, "Building: ???", 5);
 		MenuUtils.setComingSoon(menu, "Building: ???", 6);
-	}
-	
-	/**
-	 * Fills a new guild menu with an overview of random guilds and an instruction to create your own.
-	 * 
-	 * @param player The player, viewing the list.
-	 * @param holder The inventory holder.
-	 * 
-	 * @return The filled inventory.
-	 */
-	private static Inventory loadGuildList(Player player, WauzInventoryHolder holder) {
-		List<WauzPlayerGuild> playerGuilds = WauzPlayerGuild.getGuilds();
-		int inventorySize = MenuUtils.roundInventorySize(playerGuilds.size() + 2);
-		Inventory menu = Bukkit.createInventory(holder, inventorySize, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Guild List"));
-		
-		ItemStack createItemStack = MenuIconHeads.getGuildItem();
-		ItemMeta createItemMeta = createItemStack.getItemMeta();
-		createItemMeta.displayName(Component.text(ChatColor.BLUE + "Create New Guild"));
-		List<String> createLores = new ArrayList<String>();
-		createLores.add(ChatColor.GRAY + "Type this Command in Chat to create a Guild!");
-		createLores.add(ChatColor.GRAY + "This will cost 300 Tokens! You have: "
-				+ Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)) + " Tokens.");
-		createLores.add("");
-		createLores.add(ChatColor.BLUE + "/" + ChatColor.WHITE + "guild [guildName]");
-		createLores.add("");
-		createLores.add(ChatColor.GRAY + "You can't change the name later, so pick wisely!");
-		createLores.add(ChatColor.GRAY + "Example: /guild Burning Crusade");
-		createItemMeta.setLore(createLores);
-		createItemStack.setItemMeta(createItemMeta);
-		menu.setItem(0, createItemStack);
-		
-		ItemStack bannerItemStack = new ItemStack(Material.ORANGE_BANNER);
-		ItemMeta bannerItemMeta = bannerItemStack.getItemMeta();
-		bannerItemMeta.displayName(Component.text(ChatColor.YELLOW + "Select (Guild) Tabard"));
-		bannerItemStack.setItemMeta(bannerItemMeta);
-		menu.setItem(1, bannerItemStack);
-		
-		int guildNumber = 2;
-		for(WauzPlayerGuild listedGuild : playerGuilds) {
-			if(guildNumber >= inventorySize) {
-				break;
-			}
-			ItemStack guildItemStack = listedGuild.getGuildTabard();
-			ItemMeta guildItemMeta = guildItemStack.getItemMeta();
-			guildItemMeta.displayName(Component.text(ChatColor.GREEN + listedGuild.getGuildName()));
-			List<String> guildLores = new ArrayList<String>();
-			if(((BannerMeta) guildItemMeta).getPatterns().size() > 1) {
-				guildLores.add("");
-			}
-			guildLores.add(ChatColor.GRAY + "Click to apply or type this in Chat!");
-			guildLores.add(ChatColor.GREEN + "/" + ChatColor.WHITE + "apply " + listedGuild.getGuildName());
-			guildLores.add("");
-			guildLores.add(ChatColor.DARK_PURPLE + "Leader: " + ChatColor.YELLOW
-					+ Bukkit.getOfflinePlayer(UUID.fromString(listedGuild.getAdminUuidString())).getName());
-			guildLores.add(ChatColor.DARK_PURPLE + "Players: " + ChatColor.YELLOW
-					+ listedGuild.getMemberAmount() + " / " + listedGuild.getMaxMemberAmount());
-			guildLores.add("");
-			for(String lore : listedGuild.getWrappedGuildDescription()) {
-				guildLores.add(ChatColor.GRAY + lore);
-			}
-			guildLores.add("");
-			guildLores.add(ChatColor.DARK_GRAY + "UUID: " + listedGuild.getGuildUuidString());
-			guildItemMeta.setLore(guildLores);
-			guildItemStack.setItemMeta(guildItemMeta);
-			menu.setItem(guildNumber, guildItemStack);
-			guildNumber++;
-		}
-		return menu;
 	}
 	
 	/**

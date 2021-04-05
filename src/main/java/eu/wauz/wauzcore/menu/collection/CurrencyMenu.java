@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,10 +14,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.economy.WauzCurrency;
 import eu.wauz.wauzcore.system.economy.WauzCurrencyCategory;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
@@ -72,9 +71,9 @@ public class CurrencyMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		List<WauzCurrencyCategory> categories = WauzCurrency.getCurrencyCategories();
-		int inventorySize = MenuUtils.roundInventorySize(categories.size());
-		WauzInventoryHolder holder = new WauzInventoryHolder(new CurrencyMenu());
-		Inventory menu = Bukkit.createInventory(holder, inventorySize, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Currencies"));
+		int size = MenuUtils.roundInventorySize(categories.size());
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Currencies";
+		Inventory menu = Components.inventory(new CurrencyMenu(), menuTitle, size);
 		
 		for(int index = 0; index < categories.size(); index++) {
 			setCurrencyCategoryDisplay(menu, player, categories.get(index), index);

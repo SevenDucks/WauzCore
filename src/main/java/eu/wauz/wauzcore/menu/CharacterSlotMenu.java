@@ -3,7 +3,6 @@ package eu.wauz.wauzcore.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,13 +15,13 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventCharacterDelete;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
@@ -64,8 +63,8 @@ public class CharacterSlotMenu implements WauzInventory {
 				return;
 			}
 		}
-		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterSlotMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Slot!"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Slot!";
+		Inventory menu = Components.inventory(new CharacterSlotMenu(), menuTitle, 9);
 
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			for(int slotId = 1; slotId <= 3; slotId++) {

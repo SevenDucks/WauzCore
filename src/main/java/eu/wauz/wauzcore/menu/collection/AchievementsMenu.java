@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -15,11 +14,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
 
@@ -71,8 +70,8 @@ public class AchievementsMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new AchievementsMenu());
-		Inventory menu = Bukkit.createInventory(holder, 18, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Achievements"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Achievements";
+		Inventory menu = Components.inventory(new AchievementsMenu(), menuTitle, 18);
 		
 		ItemStack killsItemStack = GenericIconHeads.getAchievementKillsItem();
 		ItemMeta killsItemMeta = killsItemStack.getItemMeta();

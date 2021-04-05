@@ -8,7 +8,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,7 +26,6 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzDialog;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
@@ -35,6 +33,7 @@ import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.quests.QuestMenuItems;
 import eu.wauz.wauzcore.system.quests.QuestRequirementChecker;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
 
@@ -92,8 +91,8 @@ public class QuestMenu implements WauzInventory {
 	 * @see PlayerConfigurator#getHideCompletedQuestsForCharacter(Player)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new QuestMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Questlog"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Questlog";
+		Inventory menu = Components.inventory(new QuestMenu(), menuTitle, 9);
 		
 		String slotm = PlayerConfigurator.getCharacterRunningMainQuest(player);
 		String cmpn1 = PlayerConfigurator.getCharacterRunningCampaignQuest1(player);
@@ -199,10 +198,8 @@ public class QuestMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void find(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new QuestMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Quests near "
-				+ player.getName()));
-		
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Quests near " + player.getName();
+		Inventory menu = Components.inventory(new QuestMenu(), menuTitle, 9);
 		int currentSlot = 0;
 		
 		Location playerLocation = player.getLocation();

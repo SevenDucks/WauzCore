@@ -22,8 +22,8 @@ import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerTrade;
+import eu.wauz.wauzcore.system.util.Components;
 import net.kyori.adventure.text.Component;
 
 /**
@@ -70,8 +70,8 @@ public class TradeMenu implements WauzInventory {
 	 */
 	public static void open(Player requestingPlayer, Player requestedPlayer) {
 		TradeMenu tradeMenu = new TradeMenu(requestingPlayer, requestedPlayer);
-		WauzInventoryHolder holder = new WauzInventoryHolder(tradeMenu);
-		Inventory menu = Bukkit.createInventory(holder, 36, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Player Trading"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Player Trading";
+		Inventory menu = Components.inventory(tradeMenu, menuTitle, 36);
 		tradeMenu.setMenuInventory(menu);
 		tradeMenu.setReadyStatus(true, false);
 		tradeMenu.setReadyStatus(false, false);

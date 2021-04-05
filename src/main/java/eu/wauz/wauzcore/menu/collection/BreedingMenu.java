@@ -26,15 +26,15 @@ import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
-import eu.wauz.wauzcore.mobs.pets.WauzPetAbility;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
+import eu.wauz.wauzcore.mobs.pets.WauzPetAbility;
 import eu.wauz.wauzcore.mobs.pets.WauzPetBreedingLevel;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.mobs.pets.WauzPetRarity;
 import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -91,9 +91,9 @@ public class BreedingMenu implements WauzInventory {
 	 */
 	public static void open(Player player, int exp) {
 		BreedingMenu breedingMenu = new BreedingMenu(exp);
-		WauzInventoryHolder holder = new WauzInventoryHolder(breedingMenu);
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Breeding Menu" +
-				ChatColor.DARK_RED + ChatColor.BOLD + " Level " + breedingMenu.getLevel().getLevel()));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Breeding Menu" +
+				ChatColor.DARK_RED + ChatColor.BOLD + " Level " + breedingMenu.getLevel().getLevel();
+		Inventory menu = Components.inventory(breedingMenu, menuTitle, 9);
 		breedingMenu.setMenu(menu);
 		
 		ItemStack levelItemStack = MenuIconHeads.getTamesItem();

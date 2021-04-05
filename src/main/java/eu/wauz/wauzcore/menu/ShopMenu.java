@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,11 +18,11 @@ import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.economy.WauzShopActions;
 import eu.wauz.wauzcore.system.economy.WauzShopDiscount;
 import eu.wauz.wauzcore.system.economy.WauzShopItem;
+import eu.wauz.wauzcore.system.util.Components;
 import net.kyori.adventure.text.Component;
 
 /**
@@ -69,8 +68,8 @@ public class ShopMenu implements WauzInventory {
 		WauzShop shop = WauzShop.getShop(shopName);
 		WauzShopDiscount shopDiscount = new WauzShopDiscount(player, citizenName);
 		ShopMenu shopMenu = new ShopMenu(shop, shopDiscount);
-		WauzInventoryHolder holder = new WauzInventoryHolder(shopMenu);
-		Inventory menu = Bukkit.createInventory(holder, 27, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + shop.getShopDisplayName()));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + shop.getShopDisplayName();
+		Inventory menu = Components.inventory(shopMenu, menuTitle, 27);
 		
 		if(shop.isGlobal()) {
 			MenuUtils.setGlobalCurrencyDisplay(menu, player, 0);

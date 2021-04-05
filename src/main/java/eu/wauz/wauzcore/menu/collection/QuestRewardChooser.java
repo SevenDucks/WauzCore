@@ -3,7 +3,6 @@ package eu.wauz.wauzcore.menu.collection;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -20,9 +19,9 @@ import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.quests.QuestMenuItems;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
+import eu.wauz.wauzcore.system.util.Components;
 import net.kyori.adventure.text.Component;
 
 /**
@@ -54,8 +53,8 @@ public class QuestRewardChooser implements WauzInventory {
 	 */
 	public static void open(Player player, WauzQuest quest, WauzPlayerEventQuestComplete completeEvent) {
 		QuestRewardChooser rewardChooser = new QuestRewardChooser(quest, completeEvent);
-		WauzInventoryHolder holder = new WauzInventoryHolder(rewardChooser);
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Complete Quest"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Complete Quest";
+		Inventory menu = Components.inventory(rewardChooser, menuTitle, 9);
 		rewardChooser.setChoiceDialog(menu);
 		
 		ItemStack completeItemStack = GenericIconHeads.getConfirmItem();

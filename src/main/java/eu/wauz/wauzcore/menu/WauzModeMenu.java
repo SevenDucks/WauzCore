@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.menu;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,7 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
 
@@ -43,8 +42,8 @@ public class WauzModeMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new WauzModeMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Select a Gamemode!"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Select a Gamemode!";
+		Inventory menu = Components.inventory(new WauzModeMenu(), menuTitle, 9);
 		
 		ItemStack modeDropGuysItemStack = new ItemStack(Material.HOPPER);
 		ItemMeta modeDropGuysItemMeta = modeDropGuysItemStack.getItemMeta();

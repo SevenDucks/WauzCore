@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -18,13 +17,13 @@ import eu.wauz.wauzcore.data.players.PlayerBestiaryConfigurator;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.mobs.bestiary.ObservationRank;
 import eu.wauz.wauzcore.mobs.bestiary.ObservationTracker;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryCategory;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiaryEntry;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiarySpecies;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
@@ -76,8 +75,8 @@ public class BestiaryMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new BestiaryMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - Categories"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - Categories";
+		Inventory menu = Components.inventory(new BestiaryMenu(), menuTitle, 9);
 		
 		int slot = 1;
 		for(WauzBestiaryCategory category : WauzBestiaryCategory.values()) {
@@ -101,10 +100,10 @@ public class BestiaryMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public void showCategorySpecies(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(this);
 		List<WauzBestiarySpecies> categorySpecies = WauzBestiarySpecies.getSpecies(category);
 		int size = MenuUtils.roundInventorySize(categorySpecies.size() + 1);
-		Inventory menu = Bukkit.createInventory(holder, size, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - " + category.toString()));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - " + category.toString();
+		Inventory menu = Components.inventory(this, menuTitle, size);
 		page = "species";
 		
 		ItemStack categoriesItemStack = new ItemStack(Material.BOOKSHELF);
@@ -138,10 +137,10 @@ public class BestiaryMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public void showSpeciesEntries(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(this);
 		List<WauzBestiaryEntry> speciesEntries = species.getEntries();
 		int size = MenuUtils.roundInventorySize(speciesEntries.size() + 2);
-		Inventory menu = Bukkit.createInventory(holder, size, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - " + species.getSpeciesName()));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Bestiary - " + species.getSpeciesName();
+		Inventory menu = Components.inventory(this, menuTitle, size);
 		page = "entries";
 		
 		ItemStack categoriesItemStack = new ItemStack(Material.BOOKSHELF);

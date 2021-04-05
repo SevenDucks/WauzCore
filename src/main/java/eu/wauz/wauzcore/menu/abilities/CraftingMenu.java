@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
@@ -27,13 +26,13 @@ import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
 
@@ -92,10 +91,10 @@ public class CraftingMenu implements WauzInventory {
 	 * @param player The player that should view the inventory.
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new CraftingMenu());
 		Integer playerCraftingLevel = PlayerSkillConfigurator.getCraftingSkill(player);
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Crafting Menu" +
-				ChatColor.DARK_RED + ChatColor.BOLD + " Level " + playerCraftingLevel));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Crafting Menu" +
+				ChatColor.DARK_RED + ChatColor.BOLD + " Level " + playerCraftingLevel;
+		Inventory menu = Components.inventory(new CraftingMenu(), menuTitle, 9);
 		
 		for(int index = 1; index <= MAX_PAGE; index++) {
 			ItemStack pageItemStack = new ItemStack(Material.FLINT_AND_STEEL);
@@ -122,10 +121,10 @@ public class CraftingMenu implements WauzInventory {
 	 * @see CraftingMenu#generateRecipe(Inventory, Player, Integer, int, int)
 	 */
 	public static void listRecipes(Player player, int page) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new CraftingMenu());
 		Integer playerCraftingLevel = PlayerSkillConfigurator.getCraftingSkill(player);
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Crafting Page "
-				+ page + " " + ChatColor.DARK_RED + ChatColor.BOLD + " Level " + playerCraftingLevel));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Crafting Page "
+				+ page + " " + ChatColor.DARK_RED + ChatColor.BOLD + " Level " + playerCraftingLevel;
+		Inventory menu = Components.inventory(new CraftingMenu(), menuTitle, 9);
 		
 		for(int index = 0; index < 6; index++) {
 			generateRecipe(menu, player, playerCraftingLevel, index + ((page - 1) * 6), index);

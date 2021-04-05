@@ -3,7 +3,6 @@ package eu.wauz.wauzcore.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,7 +14,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -23,6 +21,7 @@ import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassStats;
 import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
@@ -56,8 +55,8 @@ public class CharacterClassMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new CharacterClassMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Class!"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Class!";
+		Inventory menu = Components.inventory(new CharacterClassMenu(), menuTitle, 9);
 		
 		List<WauzPlayerClass> characterClasses = WauzPlayerClassPool.getAllClasses();
 		for(int index = 0; index < characterClasses.size(); index++) {

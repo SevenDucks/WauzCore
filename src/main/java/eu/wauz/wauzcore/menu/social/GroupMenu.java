@@ -22,7 +22,6 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
@@ -30,6 +29,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
 
@@ -85,11 +85,12 @@ public class GroupMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new GroupMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Group Overview"));
+		Inventory menu;
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
 		if(playerData.getSelections().isInGroup()) {
+			String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Group Overview";
+			menu = Components.inventory(new GroupMenu(), menuTitle, 9);
 			WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getSelections().getGroupUuidString());
 			
 			ItemStack groupItemStack = MenuIconHeads.getGroupItem();
@@ -139,9 +140,9 @@ public class GroupMenu implements WauzInventory {
 		}
 		else {
 			List<WauzPlayerGroup> groups = WauzPlayerGroupPool.getGroups();
-			int inventorySize = MenuUtils.roundInventorySize(groups.size() + 2);
-			
-			menu = Bukkit.createInventory(holder, inventorySize, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Group List"));
+			int size = MenuUtils.roundInventorySize(groups.size() + 2);
+			String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Group List";
+			menu = Components.inventory(new GroupMenu(), menuTitle, size);
 			
 			ItemStack createItemStack = new ItemStack(Material.LIGHT_BLUE_CONCRETE);
 			ItemMeta createItemMeta = createItemStack.getItemMeta();
@@ -159,7 +160,7 @@ public class GroupMenu implements WauzInventory {
 			
 			int groupNumber = 2;
 			for(WauzPlayerGroup playerGroup : groups) {
-				if(groupNumber >= inventorySize) {
+				if(groupNumber >= size) {
 					break;
 				}
 				
@@ -233,9 +234,9 @@ public class GroupMenu implements WauzInventory {
 	 * @param passwordString The incomplete password.
 	 */
 	public static void passwordInput(Player player, String groupUuidString, String passwordString) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new GroupMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Group Password: "
-				+ ChatColor.DARK_RED + passwordString));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Group Password: "
+				+ ChatColor.DARK_RED + passwordString;
+		Inventory menu = Components.inventory(new GroupMenu(), menuTitle, 9);
 		
 		int slot = 0;
 		while(slot < 9) {
@@ -267,9 +268,9 @@ public class GroupMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void playerSelection(Player player, boolean promote) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new GroupMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Group: "
-				+ (promote ? "Promote" : "Kick")));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Group: "
+				+ (promote ? "Promote" : "Kick");
+		Inventory menu = Components.inventory(new GroupMenu(), menuTitle, 9);
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		WauzPlayerGroup playerGroup = WauzPlayerGroupPool.getGroup(playerData.getSelections().getGroupUuidString());

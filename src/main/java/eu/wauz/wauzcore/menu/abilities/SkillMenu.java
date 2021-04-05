@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,7 +21,6 @@ import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.SkillIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.classes.Learnable;
@@ -33,6 +31,7 @@ import eu.wauz.wauzcore.skills.passive.PassiveBreath;
 import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
 import eu.wauz.wauzcore.skills.passive.PassiveWeight;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -96,12 +95,12 @@ public class SkillMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		SkillMenu skillMenu = new SkillMenu(player);
-		WauzInventoryHolder holder = new WauzInventoryHolder(skillMenu);
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		int pts = PlayerSkillConfigurator.getUnusedStatpoints(player);
 		int spent;
-		Inventory menu = Bukkit.createInventory(holder, 18, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Passive Skills "
-				+ ChatColor.DARK_RED + ChatColor.BOLD + pts + " Points"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Passive Skills "
+				+ ChatColor.DARK_RED + ChatColor.BOLD + pts + " Points";
+		Inventory menu = Components.inventory(skillMenu, menuTitle, 18);
 		
 		spent = PlayerSkillConfigurator.getHealthStatpoints(player);
 		ItemStack skillHealthItemStack = SkillIconHeads.getSkillHealthItem(spent);			

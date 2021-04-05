@@ -6,13 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.CitizenConfigurator;
@@ -26,13 +24,14 @@ import eu.wauz.wauzcore.events.WauzPlayerEventCitizenShop;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTalk;
 import eu.wauz.wauzcore.events.WauzPlayerEventCitizenTravel;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.CitizenInteractionMenu;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzWaypoint;
 import eu.wauz.wauzcore.system.economy.WauzShop;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
-import net.kyori.adventure.text.Component;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * The interaction options of a citizen.
@@ -116,14 +115,14 @@ public class WauzCitizenInteractions {
 	/**
 	 * Creates an inventory menu, containing all interaction item stacks.
 	 * 
-	 * @param holder The holder of the inventory menu.
-	 * @param title The title of the menu.
+	 * @param interactionMenu The menu to create the base for.
+	 * @param menuTitle The title of the menu.
 	 * 
 	 * @return The created inventory menu.
 	 */
-	public Inventory createInteractionMenuBase(InventoryHolder holder, String title) {
+	public Inventory createInteractionMenuBase(CitizenInteractionMenu interactionMenu, String menuTitle) {
 		int size = (int) Math.ceil((double) interactionItemStacks.size() / (double) 5) * 9;
-		Inventory menu = Bukkit.createInventory(holder, size, Component.text(title));
+		Inventory menu = Components.inventory(interactionMenu, menuTitle, size);
 		int row = 0;
 		int column = 0;
 		for(ItemStack interactionItemStack : interactionItemStacks) {

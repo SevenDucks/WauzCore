@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -21,9 +20,9 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
 
@@ -74,33 +73,14 @@ public class TabardMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(new TabardMenu());
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Tabard!"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Choose your Tabard!";
+		Inventory menu = Components.inventory(new TabardMenu(), menuTitle, 9);
 		
-		{
-			ItemStack tabd = getTabardByName(player, "No Tabard");
-			menu.setItem(0, tabd);
-		}
-		
-		{
-			ItemStack tabd = getTabardByName(player, "Guild Tabard");
-			menu.setItem(1, tabd);
-		}
-		
-		{
-			ItemStack tabd = getTabardByName(player, "Republic Wauzland");
-			menu.setItem(2, tabd);
-		}
-		
-		{
-			ItemStack tabd = getTabardByName(player, "Eternal Empire");
-			menu.setItem(3, tabd);
-		}
-		
-		{
-			ItemStack tabd = getTabardByName(player, "Dark Legion");
-			menu.setItem(4, tabd);
-		}
+		menu.setItem(0, getTabardByName(player, "No Tabard"));
+		menu.setItem(1, getTabardByName(player, "Guild Tabard"));
+		menu.setItem(2, getTabardByName(player, "Republic Wauzland"));
+		menu.setItem(3, getTabardByName(player, "Eternal Empire"));
+		menu.setItem(4, getTabardByName(player, "Dark Legion"));
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);

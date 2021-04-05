@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -26,9 +25,9 @@ import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import net.kyori.adventure.text.Component;
 
@@ -105,9 +104,8 @@ public class TabardBuilder implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player, TabardBuilder tabardBuilder) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(tabardBuilder);
-		Inventory menu = Bukkit.createInventory(holder, 9, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Tabard Builder"));
-		
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Tabard Builder";
+		Inventory menu = Components.inventory(tabardBuilder, menuTitle, 9);
 		tabardBuilder.page = "overview";
 		
 		ItemStack saveItemStack = GenericIconHeads.getConfirmItem();
@@ -312,8 +310,8 @@ public class TabardBuilder implements WauzInventory {
 	 */
 	public void openColorSelection(Player player) {
 		String colorType = page.contains("layer") ? "Layer" : "Base";
-		WauzInventoryHolder holder = new WauzInventoryHolder(this);
-		Inventory menu = Bukkit.createInventory(holder, 18, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Select Tabard " + colorType + " Color"));
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Select Tabard " + colorType + " Color";
+		Inventory menu = Components.inventory(this, menuTitle, 18);
 		
 		menu.setItem(0, new ItemStack(Material.WHITE_BANNER));
 		menu.setItem(1, new ItemStack(Material.ORANGE_BANNER));
@@ -346,9 +344,8 @@ public class TabardBuilder implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public void openPatternSelection(Player player, DyeColor color) {
-		WauzInventoryHolder holder = new WauzInventoryHolder(this);
-		Inventory menu = Bukkit.createInventory(holder, 45, Component.text(ChatColor.BLACK + "" + ChatColor.BOLD + "Select Tabard Layer Pattern"));
-		
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Select Tabard Layer Pattern";
+		Inventory menu = Components.inventory(this, menuTitle, 45);
 		page = "layer-pattern";
 		
 		for(int iterator = 0; iterator < PatternType.values().length; iterator++) {
