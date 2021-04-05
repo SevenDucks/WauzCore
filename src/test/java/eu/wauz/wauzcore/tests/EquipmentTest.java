@@ -1,4 +1,4 @@
-package eu.wauz.wauzunit;
+package eu.wauz.wauzcore.tests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -12,7 +12,7 @@ import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
-import eu.wauz.wauzunit.abstracts.AbstractCoreTest;
+import eu.wauz.wauzcore.tests.abstracts.AbstractCoreTest;
 
 /**
  * Tests the equipment generation and functionality from WauzCore.

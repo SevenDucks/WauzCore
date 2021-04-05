@@ -30,7 +30,7 @@ public class WauzCitizenCache {
 	
 	/**
 	 * Updates the look directions of all cached citizens.
-	 * Has a one in 16 chance per citizen to let them say a random message. 
+	 * Has a one in 12 chance per citizen to let them say a random message. 
 	 * 
 	 * @see WauzCitizenCache#showRandomMessage(WauzCitizen, List)
 	 */
@@ -38,7 +38,7 @@ public class WauzCitizenCache {
 		for(NPC npc : citizenViewersMap.keySet()) {
 			List<Player> nearbyPlayers = new ArrayList<>(npc.getLocation().getNearbyPlayers(4));
 			if(!nearbyPlayers.isEmpty()) {
-				if(Chance.oneIn(16)) {
+				if(Chance.oneIn(12)) {
 					showRandomMessage(WauzCitizenSpawner.getCitizen(npc), nearbyPlayers);
 				}
 				npc.lookAt(nearbyPlayers.get(Chance.randomInt(nearbyPlayers.size())).getLocation());

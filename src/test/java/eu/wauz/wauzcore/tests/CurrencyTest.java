@@ -1,4 +1,4 @@
-package eu.wauz.wauzunit;
+package eu.wauz.wauzcore.tests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,7 @@ import org.bukkit.ChatColor;
 import org.junit.Test;
 
 import eu.wauz.wauzcore.system.util.Formatters;
-import eu.wauz.wauzunit.abstracts.AbstractCoreTest;
+import eu.wauz.wauzcore.tests.abstracts.AbstractCoreTest;
 
 /**
  * Tests the currency mechanics from WauzCore.

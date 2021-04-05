@@ -1,13 +1,13 @@
-package eu.wauz.wauzunit.suites;
+package eu.wauz.wauzcore.tests.suites;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import eu.wauz.wauzunit.CurrencyTest;
-import eu.wauz.wauzunit.EquipmentTest;
-import eu.wauz.wauzunit.LevelingTest;
-import eu.wauz.wauzunit.OneBlockTest;
+import eu.wauz.wauzcore.tests.CurrencyTest;
+import eu.wauz.wauzcore.tests.EquipmentTest;
+import eu.wauz.wauzcore.tests.LevelingTest;
+import eu.wauz.wauzcore.tests.OneBlockTest;
 
 /**
  * This suite executes all unit tests.

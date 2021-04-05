@@ -1,11 +1,11 @@
-package eu.wauz.wauzunit;
+package eu.wauz.wauzcore.tests;
 
 import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
 import eu.wauz.wauzcore.oneblock.OnePlotCalculator;
-import eu.wauz.wauzunit.abstracts.AbstractCoreTest;
+import eu.wauz.wauzcore.tests.abstracts.AbstractCoreTest;
 
 /**
  * Tests the one-block gamemodes from WauzCore.

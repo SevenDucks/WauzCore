@@ -1,4 +1,4 @@
-package eu.wauz.wauzunit.abstracts;
+package eu.wauz.wauzcore.tests.abstracts;
 
 import org.bukkit.Material;
 import org.junit.AfterClass;
