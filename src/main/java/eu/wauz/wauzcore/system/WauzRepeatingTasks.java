@@ -188,6 +188,8 @@ public class WauzRepeatingTasks {
 				for(Player player : Bukkit.getServer().getOnlinePlayers()) {
 					WauzPlayerNotifier.execute(player);
 				}
+				WauzCore.getShiroDiscordBot().updateGeneralChannelServerStats();
+				WauzCore.getShiroDiscordBot().updateLoggingChannelServerStats();
 			}
 			
 		};

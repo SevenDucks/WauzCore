@@ -1,6 +1,6 @@
-package eu.wauz.wauzdiscord;
+package eu.wauz.wauzcore.discord;
 
-import eu.wauz.wauzdiscord.data.DiscordConfigurator;
+import eu.wauz.wauzcore.data.DiscordConfigurator;
 
 /**
  * The configuration values of the Discord bot.

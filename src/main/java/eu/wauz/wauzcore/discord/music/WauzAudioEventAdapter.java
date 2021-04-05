@@ -1,4 +1,4 @@
-package eu.wauz.wauzdiscord.music;
+package eu.wauz.wauzcore.discord.music;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;

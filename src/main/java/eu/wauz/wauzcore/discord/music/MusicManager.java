@@ -1,4 +1,4 @@
-package eu.wauz.wauzdiscord.music;
+package eu.wauz.wauzcore.discord.music;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
-import eu.wauz.wauzdiscord.data.DiscordConfigurator;
+import eu.wauz.wauzcore.data.DiscordConfigurator;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;

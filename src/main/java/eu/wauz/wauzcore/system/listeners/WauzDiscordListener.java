@@ -1,4 +1,4 @@
-package eu.wauz.wauzdiscord;
+package eu.wauz.wauzcore.system.listeners;
 
 import java.awt.Color;
 
@@ -14,10 +14,11 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.DiscordConfigurator;
 import eu.wauz.wauzcore.events.ShareItemEvent;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
-import eu.wauz.wauzdiscord.data.DiscordConfigurator;
 
 /**
  * This class listens to Bukkit events, to send messages to Discord.
@@ -40,7 +41,7 @@ public class WauzDiscordListener implements Listener {
         }
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
-			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Join] " + player.getName()
+			WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Join] " + player.getName()
 					+ " joined the game!", null, Color.CYAN, false);
 		}
 	}
@@ -56,7 +57,7 @@ public class WauzDiscordListener implements Listener {
 	public void onLogout(PlayerQuitEvent event) {
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
-			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Leave] " + player.getName()
+			WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Leave] " + player.getName()
 					+ " left the game!", null, Color.ORANGE, false);
 		}
 	}
@@ -72,7 +73,7 @@ public class WauzDiscordListener implements Listener {
 	public void onDeath(PlayerDeathEvent event) {
 		if(DiscordConfigurator.showDeathNotification()) {
 			Player player = event.getEntity();
-			WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Death] " + event.getDeathMessage()
+			WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Death] " + event.getDeathMessage()
 					+ "!", null, Color.BLACK, false);
 		}
 	}
@@ -93,7 +94,7 @@ public class WauzDiscordListener implements Listener {
 				description += System.lineSeparator() + ChatColor.stripColor(descriptionLine);
 			}
 		}
-		WauzDiscord.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Item] " + player.getName()
+		WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Item] " + player.getName()
 				+ " shared an item in chat!", description, null, false);
 	}
 	

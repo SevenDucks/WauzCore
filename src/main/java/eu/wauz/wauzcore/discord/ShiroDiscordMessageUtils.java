@@ -1,4 +1,4 @@
-package eu.wauz.wauzdiscord;
+package eu.wauz.wauzcore.discord;
 
 import java.awt.Color;
 import java.util.List;

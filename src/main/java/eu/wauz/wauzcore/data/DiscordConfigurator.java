@@ -1,4 +1,4 @@
-package eu.wauz.wauzdiscord.data;
+package eu.wauz.wauzcore.data;
 
 import java.util.List;
 

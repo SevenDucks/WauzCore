@@ -39,9 +39,8 @@ public class ChatFormatter {
 				ChatColor.AQUA  + gamemodeSuffix + ChatColor.WHITE + ")] " +
 				ChatColor.GRAY + event.getMessage();
 		
-		if(Bukkit.getPluginManager().isPluginEnabled("WauzDiscord")) {
-			Bukkit.getScheduler().callSyncMethod(WauzCore.getInstance(),
-					() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "discord " + msg));
+		if(WauzModules.isMainModuleActive()) {
+			WauzCore.getShiroDiscordBot().sendMessageFromMinecraft(msg, false);
 		}
 		return msg;
 	}

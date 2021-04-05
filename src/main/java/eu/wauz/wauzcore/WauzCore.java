@@ -1,8 +1,10 @@
 package eu.wauz.wauzcore;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -15,7 +17,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.data.ConfigurationLoader;
+import eu.wauz.wauzcore.data.DiscordConfigurator;
 import eu.wauz.wauzcore.data.ServerConfigurator;
+import eu.wauz.wauzcore.discord.ShiroDiscordBot;
+import eu.wauz.wauzcore.discord.WauzLogFilter;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.system.WauzModules;
@@ -34,6 +39,7 @@ import eu.wauz.wauzcore.system.listeners.PlayerAmbientListener;
 import eu.wauz.wauzcore.system.listeners.PlayerCombatListener;
 import eu.wauz.wauzcore.system.listeners.PlayerInteractionListener;
 import eu.wauz.wauzcore.system.listeners.ProjectileMovementListener;
+import eu.wauz.wauzcore.system.listeners.WauzDiscordListener;
 
 /**
  * The main class of the plugin and holder of system information.
@@ -80,23 +86,36 @@ public class WauzCore extends JavaPlugin {
 	private static WauzCore instance;
 	
 	/**
+	 * The Discord bot running on the server.
+	 */
+	private static ShiroDiscordBot shiroDiscordBot;
+	
+	/**
+	 * The filter used to listen to log records from Bukkit.
+	 */
+	private WauzLogFilter logFilter;
+	
+	/**
 	 * The WebServerManager used for the web based API.
 	 */
 	private static WebServerManager webServerManager;
 	
 	/**
 	 * Gets called when the server is started.
-	 * 1. Initializes the loader to load all the static data.
-	 * 2. Registers the event listeners.
-	 * 3. Sets up the web based API.
-	 * 4. And finally starts all repeating tasks.
-	 * 
-	 * @see ConfigurationLoader
-	 * @see WebServerManager
 	 */
 	@Override
 	public void onEnable() {
 		instance = this;
+		PluginManager pluginManager = getServer().getPluginManager();
+		boolean isMainModuleActive = WauzModules.isMainModuleActive();
+		if(isMainModuleActive) {
+			shiroDiscordBot = new ShiroDiscordBot();
+			logFilter = new WauzLogFilter();
+			pluginManager.registerEvents(new WauzDiscordListener(), this);
+			((org.apache.logging.log4j.core.Logger) LogManager.getRootLogger()).addFilter(logFilter);
+			getLogger().info("Enabled Discord Integration!");
+		}
+		
 		getLogger().info("O~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-O");
 		getLogger().info(" _    _                                           ");
 		getLogger().info("| |  | | WauzCore v" + getDescription().getVersion());
@@ -107,8 +126,7 @@ public class WauzCore extends JavaPlugin {
 		getLogger().info("");
 		getLogger().info("O-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~O");
 		
-		PluginManager pluginManager = getServer().getPluginManager();
-		if(WauzModules.isMainModuleActive()) {
+		if(isMainModuleActive) {
 			ConfigurationLoader.init();
 			getLogger().info("Finished Loading Data from Files!");
 			
@@ -132,6 +150,11 @@ public class WauzCore extends JavaPlugin {
 			
 			WauzRepeatingTasks.schedule(this);
 			getLogger().info("Scheduled Repeating Tasks!");
+			
+			if(DiscordConfigurator.showStartStopNotification()) {
+				shiroDiscordBot.sendEmbedFromMinecraft(null, ":white_check_mark: " + WauzCore.getServerKey()
+						+ " has been started!", null, Color.GREEN, false);
+			}
 		}
 		else {
 			pluginManager.registerEvents(new BaseModuleListener(), this);
@@ -143,16 +166,18 @@ public class WauzCore extends JavaPlugin {
 
 	/**
 	 * Gets called when the server is stopped.
-	 * 1. Closes the web based API.
-	 * 2. Logs out all players.
-	 * 3. And closes all active instances.
-	 * 
-	 * @see WauzPlayerRegistrator#logout(Player)
-	 * @see InstanceManager#closeInstance(World)
 	 */
 	@Override
 	public void onDisable() {
 		if(WauzModules.isMainModuleActive()) {
+			if(DiscordConfigurator.showStartStopNotification()) {
+				shiroDiscordBot.sendEmbedFromMinecraft(null, ":octagonal_sign: " + WauzCore.getServerKey()
+						+ " has been stopped!", null, Color.RED, false);
+			}
+			logFilter.close();
+			shiroDiscordBot.stop();
+			getLogger().info("Shiro's taking a nap!");
+			
 			webServerManager.stop();
 			getLogger().info("Stopped WebServerManager!");
 			
@@ -184,6 +209,13 @@ public class WauzCore extends JavaPlugin {
 	 */
 	public static WauzCore getInstance() {
 		return instance;
+	}
+	
+	/**
+	 * @return The Discord bot running on this server.
+	 */
+	public static ShiroDiscordBot getShiroDiscordBot() {
+		return shiroDiscordBot;
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package eu.wauz.wauzdiscord;
+package eu.wauz.wauzcore.discord;
 
 import java.awt.Color;
 import java.text.SimpleDateFormat;
@@ -14,7 +14,7 @@ import org.apache.logging.log4j.message.Message;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzdiscord.data.DiscordConfigurator;
+import eu.wauz.wauzcore.data.DiscordConfigurator;
 
 /**
  * Listens to log records from Bukkit, to forward them to Discord.

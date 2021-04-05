@@ -1,4 +1,4 @@
-package eu.wauz.wauzdiscord;
+package eu.wauz.wauzcore.discord;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -10,10 +10,10 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.DiscordConfigurator;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.SystemAnalytics;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzdiscord.data.DiscordConfigurator;
 import eu.wauz.wauzdiscord.music.MusicManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
