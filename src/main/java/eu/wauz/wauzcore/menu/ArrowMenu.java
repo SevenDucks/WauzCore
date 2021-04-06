@@ -110,7 +110,7 @@ public class ArrowMenu implements WauzInventory {
 		lores.add(getArrowDescription(arrowType));
 		lores.add("");
 		lores.add(ChatColor.GRAY + "Amount Left: " + PlayerConfigurator.getArrowAmount(player, arrowType) + " Arrows");
-		arrowItemMeta.setLore(lores);
+		Components.lore(arrowItemMeta, lores);
 		if(selectedArrowType.equals(arrowType)) {
 			arrowItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
 			arrowItemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);

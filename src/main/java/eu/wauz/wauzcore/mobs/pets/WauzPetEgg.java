@@ -77,7 +77,7 @@ public class WauzPetEgg {
 		lores.add(ChatColor.DARK_GRAY + "Owner-ID: " + owner.getUniqueId().toString());
 		lores.add(ChatColor.DARK_GRAY + "Hatch Time: " + hatchTime);
 		
-		itemMeta.setLore(lores);	
+		Components.lore(itemMeta, lores);
 		itemStack.setItemMeta(itemMeta);
 		return itemStack;
 	}

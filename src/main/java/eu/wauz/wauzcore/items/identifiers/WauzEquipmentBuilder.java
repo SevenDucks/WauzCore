@@ -320,7 +320,7 @@ public class WauzEquipmentBuilder {
 			applyCustomItemProperties(lores, EventMapper.getCustomItem(itemStack.getType()), rarity);
 		}
 		
-		itemMeta.setLore(lores);
+		Components.lore(itemMeta, lores);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		itemStack.setItemMeta(itemMeta);
 		

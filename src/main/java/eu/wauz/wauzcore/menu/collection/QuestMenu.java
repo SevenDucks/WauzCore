@@ -154,7 +154,7 @@ public class QuestMenu implements WauzInventory {
 		Components.displayName(questFinderItemMeta, ChatColor.BLUE + "Quest Finder");
 		List<String> questFinderLores = new ArrayList<String>();
 		questFinderLores.add(ChatColor.GRAY + "Find quests near your location.");
-		questFinderItemMeta.setLore(questFinderLores);
+		Components.lore(questFinderItemMeta, questFinderLores);
 		questFinderItemStack.setItemMeta(questFinderItemMeta);
 		menu.setItem(6, questFinderItemStack);
 		
@@ -166,7 +166,7 @@ public class QuestMenu implements WauzInventory {
 		hideSpecialQuestLores.add(hideSpecialQuests ?
 			ChatColor.GREEN + "ON " + ChatColor.GRAY + "Only Daily-Quests are shown in the sidebar!" :
 			ChatColor.RED + "OFF " + ChatColor.GRAY + "All Quest-Types are shown in the sidebar!");
-		hideSpecialQuestsItemMeta.setLore(hideSpecialQuestLores);
+		Components.lore(hideSpecialQuestsItemMeta, hideSpecialQuestLores);
 		hideSpecialQuestsItemStack.setItemMeta(hideSpecialQuestsItemMeta);
 		menu.setItem(7, hideSpecialQuestsItemStack);
 		
@@ -178,7 +178,7 @@ public class QuestMenu implements WauzInventory {
 		hideCompletedQuestsLores.add(hideCompletedQuests ?
 			ChatColor.GREEN + "ON " + ChatColor.GRAY + "Completed Quests are hidden in the sidebar!" :
 			ChatColor.RED + "OFF " + ChatColor.GRAY + "Completed Quests are shown in the sidebar!");
-		hideComletedQuestsItemMeta.setLore(hideCompletedQuestsLores);
+		Components.lore(hideComletedQuestsItemMeta, hideCompletedQuestsLores);
 		hideCompletedQuestsItemStack.setItemMeta(hideComletedQuestsItemMeta);
 		menu.setItem(8, hideCompletedQuestsItemStack);
 		

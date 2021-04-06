@@ -169,7 +169,7 @@ public class TabardMenu implements WauzInventory {
 			lores.add(ChatColor.GREEN + "Guild: " + playerGuild.getGuildName());
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
-			bannerMeta.setLore(lores);
+			Components.lore(bannerMeta, lores);
 			bannerItemStack.setItemMeta(bannerMeta);
 			return bannerItemStack;
 			
@@ -180,7 +180,7 @@ public class TabardMenu implements WauzInventory {
 			lores = new ArrayList<String>();
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
-			bannerMeta.setLore(lores);
+			Components.lore(bannerMeta, lores);
 			patterns = new ArrayList<Pattern>();
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.TRIANGLE_BOTTOM));
 			patterns.add(new Pattern(DyeColor.WHITE, PatternType.TRIANGLES_BOTTOM));
@@ -197,7 +197,7 @@ public class TabardMenu implements WauzInventory {
 			lores = new ArrayList<String>();
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
-			bannerMeta.setLore(lores);
+			Components.lore(bannerMeta, lores);
 			patterns = new ArrayList<Pattern>();
 			patterns.add(new Pattern(DyeColor.YELLOW, PatternType.HALF_HORIZONTAL));
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.TRIANGLE_TOP));
@@ -216,7 +216,7 @@ public class TabardMenu implements WauzInventory {
 			lores = new ArrayList<String>();
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
-			bannerMeta.setLore(lores);
+			Components.lore(bannerMeta, lores);
 			patterns = new ArrayList<Pattern>();
 			patterns.add(new Pattern(DyeColor.BLACK, PatternType.STRIPE_SMALL));
 			patterns.add(new Pattern(DyeColor.BLUE, PatternType.CURLY_BORDER));
@@ -236,7 +236,7 @@ public class TabardMenu implements WauzInventory {
 			lores.add(ChatColor.GRAY + "Unequips Current Tabard");
 			lores.add("");
 			lores.add(ChatColor.YELLOW + "Click to select!");
-			bannerItemMeta.setLore(lores);
+			Components.lore(bannerItemMeta, lores);
 			bannerItemStack.setItemMeta(bannerItemMeta);
 			return bannerItemStack;
 		}

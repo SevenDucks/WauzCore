@@ -12,6 +12,7 @@ import eu.wauz.wauzcore.items.identifiers.WauzSkillgemIdentifier;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A helper class for inserting skillgems into items.
@@ -47,7 +48,7 @@ public class WauzSkillgemInserter {
 				}
 				newLores.add(lore);
 			}
-			itemMeta.setLore(newLores);
+			Components.lore(itemMeta, newLores);
 			equipmentItemStack.setItemMeta(itemMeta);
 			return true;
 		}

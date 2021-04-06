@@ -99,7 +99,7 @@ public class WauzRuneBuilder {
 		lores.add(ChatColor.GRAY + "Can be inserted into Equipment,");
 		lores.add(ChatColor.GRAY + "which possesses an empty Rune Slot.");
 		
-		itemMeta.setLore(lores);	
+		Components.lore(itemMeta, lores);
 		itemStack.setItemMeta(itemMeta);
 		return itemStack;
 	}

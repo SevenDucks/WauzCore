@@ -113,7 +113,7 @@ public class SkillMenu implements WauzInventory {
 		skillHealthLores.add("");
 		skillHealthLores.add(ChatColor.WHITE + "Maximum Base HP: " + ChatColor.RED
 				+ PlayerSkillConfigurator.getHealth(player));
-		skillHealthItemMeta.setLore(skillHealthLores);
+		Components.lore(skillHealthItemMeta, skillHealthLores);
 		skillHealthItemStack.setItemMeta(skillHealthItemMeta);
 		menu.setItem(0, skillHealthItemStack);
 		
@@ -129,7 +129,7 @@ public class SkillMenu implements WauzInventory {
 		skillTradingLores.add("");
 		skillTradingLores.add(ChatColor.WHITE + "Coin Multiplier: " + ChatColor.GOLD
 				+ PlayerSkillConfigurator.getTrading(player) + "%");
-		skillTradingItemMeta.setLore(skillTradingLores);
+		Components.lore(skillTradingItemMeta, skillTradingLores);
 		skillTradingItemStack.setItemMeta(skillTradingItemMeta);
 		menu.setItem(1, skillTradingItemStack);
 		
@@ -145,7 +145,7 @@ public class SkillMenu implements WauzInventory {
 		skillLuckLores.add("");
 		skillLuckLores.add(ChatColor.WHITE + "Enhance-Rate: " + ChatColor.YELLOW
 				+ PlayerSkillConfigurator.getLuck(player) + "%");
-		skillLuckItemMeta.setLore(skillLuckLores);
+		Components.lore(skillLuckItemMeta, skillLuckLores);
 		skillLuckItemStack.setItemMeta(skillLuckItemMeta);
 		menu.setItem(2, skillLuckItemStack);
 		
@@ -162,7 +162,7 @@ public class SkillMenu implements WauzInventory {
 		skillMagicLores.add(ChatColor.WHITE + "Maximum MP: " + ChatColor.LIGHT_PURPLE
 				+ PlayerSkillConfigurator.getMana(player)
 				+ ChatColor.GRAY + " (Max: 50)");
-		skillMagicItemMeta.setLore(skillMagicLores);
+		Components.lore(skillMagicItemMeta, skillMagicLores);
 		skillMagicItemStack.setItemMeta(skillMagicItemMeta);
 		menu.setItem(3, skillMagicItemStack);
 		
@@ -179,7 +179,7 @@ public class SkillMenu implements WauzInventory {
 		skillStrengthLores.add(ChatColor.WHITE + "Defense Multiplier: " + ChatColor.BLUE
 				+ PlayerSkillConfigurator.getStrength(player) + "%"
 				+ ChatColor.GRAY + " (Max: 300%)");
-		skillStrengthItemMeta.setLore(skillStrengthLores);
+		Components.lore(skillStrengthItemMeta, skillStrengthLores);
 		skillStrengthItemStack.setItemMeta(skillStrengthItemMeta);
 		menu.setItem(4, skillStrengthItemStack);
 		
@@ -196,7 +196,7 @@ public class SkillMenu implements WauzInventory {
 		skillAgilityLores.add(ChatColor.WHITE + "Evasion/Crit-Chance: " + ChatColor.AQUA
 				+ PlayerSkillConfigurator.getAgility(player) + "%"
 				+ ChatColor.GRAY + " (Max: 40%)");
-		skillAgilityItemMeta.setLore(skillAgilityLores);
+		Components.lore(skillAgilityItemMeta, skillAgilityLores);
 		skillAgilityItemStack.setItemMeta(skillAgilityItemMeta);
 		menu.setItem(5, skillAgilityItemStack);
 		
@@ -223,7 +223,7 @@ public class SkillMenu implements WauzInventory {
 		skillWeaponStaffLores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
 		skillWeaponStaffLores.add(ChatColor.GRAY + "will increase your skill and thus");
 		skillWeaponStaffLores.add(ChatColor.GRAY + "the damage dealt with them.");
-		skillWeaponStaffItemMeta.setLore(skillWeaponStaffLores);
+		Components.lore(skillWeaponStaffItemMeta, skillWeaponStaffLores);
 		skillWeaponStaffItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillWeaponStaffItemStack.setItemMeta(skillWeaponStaffItemMeta);
 		menu.setItem(6, skillWeaponStaffItemStack);
@@ -242,7 +242,7 @@ public class SkillMenu implements WauzInventory {
 		skillWeaponAxeLores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
 		skillWeaponAxeLores.add(ChatColor.GRAY + "will increase your skill and thus");
 		skillWeaponAxeLores.add(ChatColor.GRAY + "the damage dealt with them.");
-		skillWeaponAxeItemMeta.setLore(skillWeaponAxeLores);
+		Components.lore(skillWeaponAxeItemMeta, skillWeaponAxeLores);
 		skillWeaponAxeItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillWeaponAxeItemStack.setItemMeta(skillWeaponAxeItemMeta);
 		menu.setItem(7, skillWeaponAxeItemStack);
@@ -261,7 +261,7 @@ public class SkillMenu implements WauzInventory {
 		skillWeaponSwordLores.add(ChatColor.GRAY + "Fighting with Weapons from this Type");
 		skillWeaponSwordLores.add(ChatColor.GRAY + "will increase your skill and thus");
 		skillWeaponSwordLores.add(ChatColor.GRAY + "the damage dealt with them.");
-		skillWeaponSwordItemMeta.setLore(skillWeaponSwordLores);
+		Components.lore(skillWeaponSwordItemMeta, skillWeaponSwordLores);
 		skillWeaponSwordItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillWeaponSwordItemStack.setItemMeta(skillWeaponSwordItemMeta);
 		menu.setItem(8, skillWeaponSwordItemStack);
@@ -280,7 +280,7 @@ public class SkillMenu implements WauzInventory {
 		skillBreathLores.add(ChatColor.WHITE + "Additional Speed: " + ChatColor.BLUE
 				+ breathSkill.getLevel() + "%");
 		skillBreathLores.addAll(skillMenu.getPassiveProgressLores(breathSkill));
-		skillBreathItemMeta.setLore(skillBreathLores);
+		Components.lore(skillBreathItemMeta, skillBreathLores);
 		skillBreathItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillBreathItemStack.setItemMeta(skillBreathItemMeta);
 		menu.setItem(15, skillBreathItemStack);
@@ -299,7 +299,7 @@ public class SkillMenu implements WauzInventory {
 		skillNutritionLores.add(ChatColor.WHITE + "Additional HP: " + ChatColor.BLUE
 				+ (nutritionSkill.getLevel() * 2));
 		skillNutritionLores.addAll(skillMenu.getPassiveProgressLores(nutritionSkill));
-		skillNutritionItemMeta.setLore(skillNutritionLores);
+		Components.lore(skillNutritionItemMeta, skillNutritionLores);
 		skillNutritionItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillNutritionItemStack.setItemMeta(skillNutritionItemMeta);
 		menu.setItem(16, skillNutritionItemStack);
@@ -318,7 +318,7 @@ public class SkillMenu implements WauzInventory {
 		skillWeightLores.add(ChatColor.WHITE + "Backpack Slots: " + ChatColor.BLUE
 				+ (weightSkill.getLevel() + Backpack.BASE_SIZE));
 		skillWeightLores.addAll(skillMenu.getPassiveProgressLores(weightSkill));
-		skillWeightItemMeta.setLore(skillWeightLores);
+		Components.lore(skillWeightItemMeta, skillWeightLores);
 		skillWeightItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillWeightItemStack.setItemMeta(skillWeightItemMeta);
 		menu.setItem(17, skillWeightItemStack);
@@ -397,7 +397,7 @@ public class SkillMenu implements WauzInventory {
 		else {
 			masteryLores.add(ChatColor.WHITE + "ALL SKILLS UNLOCKED");
 		}
-		masteryItemMeta.setLore(masteryLores);
+		Components.lore(masteryItemMeta, masteryLores);
 		masteryItemStack.setItemMeta(masteryItemMeta);
 		return masteryItemStack;
 	}

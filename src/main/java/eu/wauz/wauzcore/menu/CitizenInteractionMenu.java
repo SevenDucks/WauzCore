@@ -67,7 +67,7 @@ public class CitizenInteractionMenu implements WauzInventory {
 		ItemStack citizenItemStack = GenericIconHeads.getCitizenRelationItem();
 		ItemMeta citizenItemMeta = citizenItemStack.getItemMeta();
 		Components.displayName(citizenItemMeta, ChatColor.YELLOW + displayName);
-		citizenItemMeta.setLore(RelationTracker.generateProgressLore(player, displayName));
+		Components.lore(citizenItemMeta, RelationTracker.generateProgressLore(player, displayName));
 		citizenItemStack.setItemMeta(citizenItemMeta);
 		menu.setItem(0, citizenItemStack);
 		

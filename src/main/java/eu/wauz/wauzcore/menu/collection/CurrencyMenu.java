@@ -105,7 +105,7 @@ public class CurrencyMenu implements WauzInventory {
 			lores.add(ChatColor.GOLD + Formatters.INT.format(currency.getCurrencyAmount(player))
 				+ ChatColor.YELLOW + " " + currency.getCurrencyDisplayName());
 		}
-		currencyItemMeta.setLore(lores);
+		Components.lore(currencyItemMeta, lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
 		currencyItemStack.setAmount(index);
 		menu.setItem(index, currencyItemStack);

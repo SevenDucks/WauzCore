@@ -98,32 +98,32 @@ public class GuildApplicationMenu implements WauzInventory {
 			SkullMeta skullItemMeta = (SkullMeta) skullItemStack.getItemMeta();
 			Components.displayName(skullItemMeta, ChatColor.LIGHT_PURPLE + applicant.getName() + " [Applicant]");
 			skullItemMeta.setOwningPlayer(applicant);
-			List<String> slores = new ArrayList<String>();
-			slores.add(ChatColor.GRAY + "Left Click to Accept, "
+			List<String> skullLores = new ArrayList<String>();
+			skullLores.add(ChatColor.GRAY + "Left Click to Accept, "
 					+ "Free Slots: " + (playerGuild.getMaxMemberAmount() - playerGuild.getMemberAmount()));
-			slores.add(ChatColor.GRAY + "Right Click to Reject");
-			slores.add("");
-			slores.add(ChatColor.GRAY + "Last Online: " + (applicant.isOnline()
+			skullLores.add(ChatColor.GRAY + "Right Click to Reject");
+			skullLores.add("");
+			skullLores.add(ChatColor.GRAY + "Last Online: " + (applicant.isOnline()
 					? ChatColor.GREEN + "Now"
 					: ChatColor.BLUE + PlayerConfigurator.getLastPlayed(player) + " ago"));
-			slores.add("");
-			slores.add(ChatColor.DARK_PURPLE + "MMORPG Characters: ");
+			skullLores.add("");
+			skullLores.add(ChatColor.DARK_PURPLE + "MMORPG Characters: ");
 			for(int character = 1; character <= 3; character++) {
 				String slotId = "MMORPG-" + character;
 				if(PlayerConfigurator.doesCharacterExist(applicant, slotId)) {
-					slores.add(ChatColor.WHITE 
+					skullLores.add(ChatColor.WHITE 
 							+ PlayerConfigurator.getClassString(applicant, slotId) + ", "
 							+ PlayerConfigurator.getWorldString(applicant, slotId) + ", "
 							+ PlayerConfigurator.getLevelString(applicant, slotId));
 				}
 				else {
-					slores.add(ChatColor.GRAY + "Empty");
+					skullLores.add(ChatColor.GRAY + "Empty");
 				}
 			}
-			slores.add("");
-			slores.add(ChatColor.DARK_PURPLE + "Survival Score: ");
-			slores.add(ChatColor.WHITE + Formatters.INT.format(PlayerConfigurator.getSurvivalScore(applicant)));
-			skullItemMeta.setLore(slores);
+			skullLores.add("");
+			skullLores.add(ChatColor.DARK_PURPLE + "Survival Score: ");
+			skullLores.add(ChatColor.WHITE + Formatters.INT.format(PlayerConfigurator.getSurvivalScore(applicant)));
+			Components.lore(skullItemMeta, skullLores);
 			skullItemStack.setItemMeta(skullItemMeta);
 			menu.setItem(slot, skullItemStack);
 		}

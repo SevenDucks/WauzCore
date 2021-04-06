@@ -132,7 +132,7 @@ public class GuildOverviewMenu implements WauzInventory {
 		guildLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "motd [text] " + ChatColor.GRAY + "Set the Guild Message of the Day");
 		guildLores.add("");
 		guildLores.add(ChatColor.DARK_GRAY + "UUID: " + playerGuild.getGuildUuidString());
-		guildItemMeta.setLore(guildLores);
+		Components.lore(guildItemMeta, guildLores);
 		guildItemStack.setItemMeta(guildItemMeta);
 		menu.setItem(0, guildItemStack);
 		
@@ -143,7 +143,7 @@ public class GuildOverviewMenu implements WauzInventory {
 		if(((BannerMeta) bannerItemMeta).getPatterns().size() > 1)
 			bannerLores.add("");
 		bannerLores.add(ChatColor.GRAY + "Right Click to Edit (Officers Only)");
-		bannerItemMeta.setLore(bannerLores);
+		Components.lore(bannerItemMeta, bannerLores);
 		bannerItemStack.setItemMeta(bannerItemMeta);
 		menu.setItem(1, bannerItemStack);
 		
@@ -158,7 +158,7 @@ public class GuildOverviewMenu implements WauzInventory {
 		applicationsLores.add(ChatColor.GRAY + "Click to view "
 			+ ChatColor.LIGHT_PURPLE + playerGuild.getApplicationCount()
 			+ ChatColor.GRAY + " Applicants (Officers Only)");
-		applicationsItemMeta.setLore(applicationsLores);
+		Components.lore(applicationsItemMeta, applicationsLores);
 		applicationsItemStack.setItemMeta(applicationsItemMeta);
 		menu.setItem(7, applicationsItemStack);
 		
@@ -231,7 +231,7 @@ public class GuildOverviewMenu implements WauzInventory {
 		createLores.add("");
 		createLores.add(ChatColor.GRAY + "You can't change the name later, so pick wisely!");
 		createLores.add(ChatColor.GRAY + "Example: /guild Burning Crusade");
-		createItemMeta.setLore(createLores);
+		Components.lore(createItemMeta, createLores);
 		createItemStack.setItemMeta(createItemMeta);
 		menu.setItem(0, createItemStack);
 		
@@ -266,7 +266,7 @@ public class GuildOverviewMenu implements WauzInventory {
 			}
 			guildLores.add("");
 			guildLores.add(ChatColor.DARK_GRAY + "UUID: " + listedGuild.getGuildUuidString());
-			guildItemMeta.setLore(guildLores);
+			Components.lore(guildItemMeta, guildLores);
 			guildItemStack.setItemMeta(guildItemMeta);
 			menu.setItem(guildNumber, guildItemStack);
 			guildNumber++;
@@ -325,7 +325,7 @@ public class GuildOverviewMenu implements WauzInventory {
 		}
 		StatisticsFetcher statistics = new StatisticsFetcher(member);
 		statistics.addCharacterLores(skullLores);
-		skullItemMeta.setLore(skullLores);
+		Components.lore(skullItemMeta, skullLores);
 		skullItemStack.setItemMeta(skullItemMeta);
 		return skullItemStack;
 	}
@@ -349,7 +349,7 @@ public class GuildOverviewMenu implements WauzInventory {
 		buildingGuildhallLores.add(ChatColor.WHITE + "Maximum Members: " + ChatColor.GOLD
 				+ (5 + playerGuild.getUpgradeAdditionalSlots())
 				+ ChatColor.GRAY + " (Max: 21)");
-		buildingGuildhallItemMeta.setLore(buildingGuildhallLores);
+		Components.lore(buildingGuildhallItemMeta, buildingGuildhallLores);
 		buildingGuildhallItemStack.setItemMeta(buildingGuildhallItemMeta);
 		menu.setItem(2, buildingGuildhallItemStack);
 		

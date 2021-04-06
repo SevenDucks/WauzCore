@@ -121,7 +121,7 @@ public class BreedingMenu implements WauzInventory {
 		else {
 			levelLores.add(ChatColor.WHITE + "Experience: " + ChatColor.GREEN + expString);
 		}
-		levelItemMeta.setLore(levelLores);
+		Components.lore(levelItemMeta, levelLores);
 		levelItemStack.setItemMeta(levelItemMeta);
 		menu.setItem(1, levelItemStack);
 		
@@ -140,7 +140,7 @@ public class BreedingMenu implements WauzInventory {
 			}
 			abilityLores.add(ChatColor.GRAY + "Bred Pets can have special Abilities");
 			abilityLores.add(ChatColor.GRAY + "which they will use once a minute!");
-			abilityItemMeta.setLore(abilityLores);
+			Components.lore(abilityItemMeta, abilityLores);
 			abilityItemStack.setItemMeta(abilityItemMeta);
 			menu.setItem(7, abilityItemStack);
 		}
@@ -274,7 +274,7 @@ public class BreedingMenu implements WauzInventory {
 		breedLores.add(ChatColor.GRAY + "They need to be of same Type and Rarity.");
 		breedLores.add(ChatColor.GRAY + "The maximum Rarity depends on your Level.");
 		breedLores.add(ChatColor.GRAY + "New Pets can be better, worse or equal.");
-		breedItemMeta.setLore(breedLores);
+		Components.lore(breedItemMeta, breedLores);
 		breedItemStack.setItemMeta(breedItemMeta);
 		menu.setItem(4, breedItemStack);
 	}

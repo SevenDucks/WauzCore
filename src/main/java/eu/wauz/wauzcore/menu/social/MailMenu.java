@@ -95,7 +95,7 @@ public class MailMenu implements WauzInventory {
 		inboxLores.add(ChatColor.GRAY + "You can view 16 Mails at a time.");
 		inboxLores.add(ChatColor.GRAY + "Claimed mails will be removed.");
 		inboxLores.add(ChatColor.GRAY + "To view more, claim the existing ones.");
-		inboxItemMeta.setLore(inboxLores);
+		Components.lore(inboxItemMeta, inboxLores);
 		inboxItemStack.setItemMeta(inboxItemMeta);
 		menu.setItem(0, inboxItemStack);
 		
@@ -113,7 +113,7 @@ public class MailMenu implements WauzInventory {
 		sendLores.add(ChatColor.GRAY + "Send your Hand Item to a Player");
 		sendLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "send.coins [player] [amount] [text]");
 		sendLores.add(ChatColor.GRAY + "Send Coins to a Player");
-		sendItemMeta.setLore(sendLores);
+		Components.lore(sendItemMeta, sendLores);
 		sendItemStack.setItemMeta(sendItemMeta);
 		menu.setItem(1, sendItemStack);
 		
@@ -130,7 +130,7 @@ public class MailMenu implements WauzInventory {
 			mailLores.add(ChatColor.GRAY + "Click to Claim");
 			mailLores.add("");
 			mailLores.add(ChatColor.DARK_GRAY + "UUID: " + mailName);
-			mailItemMeta.setLore(mailLores);
+			Components.lore(mailItemMeta, mailLores);
 			mailItemStack.setItemMeta(mailItemMeta);
 			menu.setItem(index + 2, mailItemStack);
 		}

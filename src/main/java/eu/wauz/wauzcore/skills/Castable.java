@@ -64,7 +64,7 @@ public class Castable {
 			ItemStack skillItemStack = iconItemStack.clone();
 			ItemMeta skillItemMeta = skillItemStack.getItemMeta();
 			Components.displayName(skillItemMeta, ChatColor.DARK_AQUA + "Assign Skill");
-			skillItemMeta.setLore(SkillQuickSlots.getSkillInfo(skill));
+			Components.lore(skillItemMeta, SkillQuickSlots.getSkillInfo(skill));
 			skillItemStack.setItemMeta(skillItemMeta);
 			return skillItemStack;
 		}

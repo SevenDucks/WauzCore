@@ -84,7 +84,7 @@ public class TravellingMenu implements WauzInventory {
 		List<String> portNexusLores = new ArrayList<>();
 		portNexusLores.add(ChatColor.GRAY + "Sends you back to the Nexus Hub,");
 		portNexusLores.add(ChatColor.GRAY + "where you can select your characters.");
-		portNexusItemMeta.setLore(portNexusLores);
+		Components.lore(portNexusItemMeta, portNexusLores);
 		portNexusItemStack.setItemMeta(portNexusItemMeta);
 		menu.setItem(1, portNexusItemStack);
 		
@@ -94,7 +94,7 @@ public class TravellingMenu implements WauzInventory {
 		List<String> portSpawnLores = new ArrayList<>();
 		portSpawnLores.add(ChatColor.GRAY + "Sends you to your Overworld Spawn.");
 		portSpawnLores.add(ChatColor.GRAY + "Use it when stuck or for quick-travel.");
-		portSpawnItemMeta.setLore(portSpawnLores);
+		Components.lore(portSpawnItemMeta, portSpawnLores);
 		portSpawnItemStack.setItemMeta(portSpawnItemMeta);
 		menu.setItem(2, portSpawnItemStack);
 		
@@ -106,7 +106,7 @@ public class TravellingMenu implements WauzInventory {
 		region = StringUtils.isNotBlank(region) ? ChatColor.GREEN + region : ChatColor.DARK_GRAY + "(None)";
 		portHomeLores.add(ChatColor.GRAY + "Sends you to your home: " + region);
 		portHomeLores.add(ChatColor.GRAY + "Speak to an Innkeeper to change it.");
-		portHomeItemMeta.setLore(portHomeLores);
+		Components.lore(portHomeItemMeta, portHomeLores);
 		portHomeItemStack.setItemMeta(portHomeItemMeta);
 		menu.setItem(3, portHomeItemStack);
 		
@@ -117,7 +117,7 @@ public class TravellingMenu implements WauzInventory {
 		List<String> portInstanceExitLore = new ArrayList<>();
 		portInstanceExitLore.add(ChatColor.GRAY + "Leave the instance and return to the");
 		portInstanceExitLore.add(ChatColor.GRAY + "place, from where you entered it.");
-		portInstanceExitItemMeta.setLore(portInstanceExitLore);
+		Components.lore(portInstanceExitItemMeta, portInstanceExitLore);
 		portInstanceExitItemStack.setItemMeta(portInstanceExitItemMeta);
 		menu.setItem(5, portInstanceExitItemStack);
 		
@@ -127,7 +127,7 @@ public class TravellingMenu implements WauzInventory {
 		List<String> mapLores = new ArrayList<>();
 		mapLores.add(ChatColor.GRAY + "Sends a link in chat to the Overview Map,");
 		mapLores.add(ChatColor.GRAY + "where you can see your position.");
-		mapItemMeta.setLore(mapLores);
+		Components.lore(mapItemMeta, mapLores);
 		mapItemStack.setItemMeta(mapItemMeta);
 		menu.setItem(7, mapItemStack);
 		

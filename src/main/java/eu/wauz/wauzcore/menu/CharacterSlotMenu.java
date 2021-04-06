@@ -139,7 +139,7 @@ public class CharacterSlotMenu implements WauzInventory {
 			lores.add(ChatColor.GRAY + "Empty");
 		}
 		
-		slotItemMeta.setLore(lores);
+		Components.lore(slotItemMeta, lores);
 		slotItemStack.setItemMeta(slotItemMeta);
 		return slotItemStack;
 	}

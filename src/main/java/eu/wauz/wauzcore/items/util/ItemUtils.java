@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
@@ -474,7 +475,7 @@ public class ItemUtils {
 			}
 			newLores.add(lore);
 		}
-		itemMeta.setLore(newLores);
+		Components.lore(itemMeta, newLores);
 		itemStack.setItemMeta(itemMeta);
 		return replaced;
 	}
@@ -504,7 +505,7 @@ public class ItemUtils {
 			}
 			newLores.add(lore);
 		}
-		itemMeta.setLore(newLores);
+		Components.lore(itemMeta, lores);
 		itemStack.setItemMeta(itemMeta);
 		return replaced;
 	}

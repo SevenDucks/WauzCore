@@ -71,7 +71,7 @@ public class MenuUtils {
 			+ ChatColor.YELLOW + " Medals");
 		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player))
 			+ ChatColor.YELLOW + " Tokens");
-		currencyItemMeta.setLore(lores);
+		Components.lore(currencyItemMeta, lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
 		menu.setItem(index, currencyItemStack);
 	}
@@ -90,7 +90,7 @@ public class MenuUtils {
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player))
 			+ ChatColor.YELLOW + " Tokens");
-		currencyItemMeta.setLore(lores);
+		Components.lore(currencyItemMeta, lores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
 		menu.setItem(index, currencyItemStack);
 	}
@@ -107,7 +107,7 @@ public class MenuUtils {
 		Components.displayName(trashcanItemMeta, ChatColor.RED + "Trashcan");
 		List<String> trashcanLores = new ArrayList<String>();
 		trashcanLores.add(ChatColor.GRAY + "Drag Items here to destroy them...");
-		trashcanItemMeta.setLore(trashcanLores);
+		Components.lore(trashcanItemMeta, trashcanLores);
 		trashcanItemStack.setItemMeta(trashcanItemMeta);
 		menu.setItem(index, trashcanItemStack);
 	}
@@ -124,7 +124,7 @@ public class MenuUtils {
 		Components.displayName(materialsItemMeta, ChatColor.YELLOW + "Materials");
 		List<String> materialsLores = new ArrayList<String>();
 		materialsLores.add(ChatColor.GRAY + "Click to view Materials and Quest Items...");
-		materialsItemMeta.setLore(materialsLores);
+		Components.lore(materialsItemMeta, materialsLores);
 		materialsItemStack.setItemMeta(materialsItemMeta);
 		menu.setItem(index, materialsItemStack);
 	}
@@ -141,7 +141,7 @@ public class MenuUtils {
 		Components.displayName(backpackItemMeta, ChatColor.DARK_GREEN + "Backpack");
 		List<String> backpackLores = new ArrayList<String>();
 		backpackLores.add(ChatColor.GRAY + "Click to manage Backpack Contents...");
-		backpackItemMeta.setLore(backpackLores);
+		Components.lore(backpackItemMeta, backpackLores);
 		backpackItemStack.setItemMeta(backpackItemMeta);
 		menu.setItem(index, backpackItemStack);
 	}
@@ -160,7 +160,7 @@ public class MenuUtils {
 		if(StringUtils.isNotBlank(lore)) {
 			List<String> lores = new ArrayList<String>();
 			lores.add(lore);
-			soonItemMeta.setLore(lores);
+			Components.lore(soonItemMeta, lores);
 		}
 		soonItemStack.setItemMeta(soonItemMeta);
 		menu.setItem(index, soonItemStack);
@@ -195,7 +195,7 @@ public class MenuUtils {
 	public static void setMenuItem(Inventory menu, int slot, ItemStack itemStack, String displayName, List<String> lores) {
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		Components.displayName(itemMeta, displayName);
-		itemMeta.setLore(lores);
+		Components.lore(itemMeta, lores);
 		itemStack.setItemMeta(itemMeta);
 		menu.setItem(slot, itemStack);
 	}
@@ -229,7 +229,7 @@ public class MenuUtils {
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		List<String> lores = (replaceAll || !itemMeta.hasLore()) ? new ArrayList<>() : itemMeta.getLore();
 		lores.add(loreLine);
-		itemMeta.setLore(lores);
+		Components.lore(itemMeta, lores);
 		itemStack.setItemMeta(itemMeta);
 	}
 	

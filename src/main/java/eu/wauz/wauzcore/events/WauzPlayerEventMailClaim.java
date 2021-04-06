@@ -75,7 +75,7 @@ public class WauzPlayerEventMailClaim implements WauzPlayerEvent {
 		for(String textPart : UnicodeUtils.wrapText(text)) {
 			mailLores.add(ChatColor.GRAY + textPart);
 		}
-		mailItemMeta.setLore(mailLores);
+		Components.lore(mailItemMeta, mailLores);
 		mailItemStack.setItemMeta(mailItemMeta);
 	}
 	

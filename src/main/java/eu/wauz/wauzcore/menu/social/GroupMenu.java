@@ -107,9 +107,9 @@ public class GroupMenu implements WauzInventory {
 				SkullMeta skullItemMeta = (SkullMeta) skullItemStack.getItemMeta();
 				Components.displayName(skullItemMeta, name);
 				skullItemMeta.setOwningPlayer(member);
-				List<String> slores = new ArrayList<String>();
-				slores.add(ChatColor.GRAY + "Click to teleport!");
-				skullItemMeta.setLore(slores);
+				List<String> skullLores = new ArrayList<String>();
+				skullLores.add(ChatColor.GRAY + "Click to teleport!");
+				Components.lore(skullItemMeta, skullLores);
 				skullItemStack.setItemMeta(skullItemMeta);
 				menu.setItem(playerNumber, skullItemStack);
 				playerNumber++;
@@ -220,7 +220,7 @@ public class GroupMenu implements WauzInventory {
 		}
 		lores.add("");
 		lores.add(ChatColor.DARK_GRAY + "UUID: " + playerGroup.getGroupUuidString());
-		groupItemMeta.setLore(lores);
+		Components.lore(groupItemMeta, lores);
 		groupItemStack.setItemMeta(groupItemMeta);
 	}
 	
@@ -246,7 +246,7 @@ public class GroupMenu implements WauzInventory {
 				List<String> lores = new ArrayList<String>();
 				lores.add("");
 				lores.add(ChatColor.DARK_GRAY + "UUID: " + groupUuidString);
-				passwordNumberItemMeta.setLore(lores);
+				Components.lore(passwordNumberItemMeta, lores);
 			}
 			passwordNumberItemStack.setItemMeta(passwordNumberItemMeta);
 			menu.setItem(slot, passwordNumberItemStack);

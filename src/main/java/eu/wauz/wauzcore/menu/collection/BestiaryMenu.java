@@ -112,12 +112,14 @@ public class BestiaryMenu implements WauzInventory {
 		int slot = 1;
 		for(WauzBestiarySpecies species : categorySpecies) {
 			ItemStack speciesItemStack = new ItemStack(Material.BOOK);
-			MenuUtils.setItemDisplayName(speciesItemStack, ChatColor.YELLOW + "Species: " + species.getSpeciesName());
+			ItemMeta speciesItemMeta = speciesItemStack.getItemMeta();
+			Components.displayName(speciesItemMeta, ChatColor.YELLOW + "Species: " + species.getSpeciesName());
 			List<String> speciesLores = new ArrayList<>();
 			for(String textPart : UnicodeUtils.wrapText(species.getSpeciesDescription())) {
 				speciesLores.add(ChatColor.WHITE + textPart);
 			}
-			speciesItemStack.setLore(speciesLores);
+			Components.lore(speciesItemMeta, speciesLores);
+			speciesItemStack.setItemMeta(speciesItemMeta);
 			menu.setItem(slot, speciesItemStack);
 			slot++;
 		}
@@ -192,7 +194,7 @@ public class BestiaryMenu implements WauzInventory {
 			entryLores.add("");
 		}
 		entryLores.addAll(ObservationTracker.generateProgressLore(player, entry));
-		entryItemMeta.setLore(entryLores);
+		Components.lore(entryItemMeta, entryLores);
 		entryItemStack.setItemMeta(entryItemMeta);
 		return entryItemStack;
 	}

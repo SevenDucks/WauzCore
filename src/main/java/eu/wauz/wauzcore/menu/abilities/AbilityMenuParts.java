@@ -54,7 +54,7 @@ public class AbilityMenuParts {
 		craftingLores.add("");
 		craftingLores.add(ChatColor.GRAY + "Make new Items out of Materials.");
 		craftingLores.add(ChatColor.GRAY + "Craft Items to learn new Recipes.");
-		craftingItemMeta.setLore(craftingLores);
+		Components.lore(craftingItemMeta, craftingLores);
 		craftingItemStack.setItemMeta(craftingItemMeta);
 		menu.setItem(startIndex, craftingItemStack);
 		
@@ -68,7 +68,7 @@ public class AbilityMenuParts {
 		skillsLores.add("");
 		skillsLores.add(ChatColor.GRAY + "Spend Points to improve your Stats.");
 		skillsLores.add(ChatColor.GRAY + "You gain 2 Points per Level-Up!");
-		skillsItemMeta.setLore(skillsLores);
+		Components.lore(skillsItemMeta, skillsLores);
 		if(PlayerSkillConfigurator.getUnusedStatpoints(player) > 0) {
 			WauzDebugger.log(player, "Detected Unused Skillpoints");
 			skillsItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
@@ -93,7 +93,7 @@ public class AbilityMenuParts {
 		travellingLores.add("");
 		travellingLores.add(ChatColor.GRAY + "Teleport yourself to other Locations");
 		travellingLores.add(ChatColor.GRAY + "or view the Lore of visited Regions.");
-		travellingItemMeta.setLore(travellingLores);
+		Components.lore(travellingItemMeta, travellingLores);
 		travellingItemStack.setItemMeta(travellingItemMeta);
 		menu.setItem(startIndex + 9, travellingItemStack);
 		

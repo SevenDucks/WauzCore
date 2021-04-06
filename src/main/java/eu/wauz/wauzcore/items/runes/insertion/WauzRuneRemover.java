@@ -12,6 +12,7 @@ import eu.wauz.wauzcore.items.identifiers.WauzEquipmentBuilder;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A helper class for removing runes and skillgems from items.
@@ -77,7 +78,7 @@ public class WauzRuneRemover {
 		}
 		
 		if(valid) {
-			itemMeta.setLore(newLores);
+			Components.lore(itemMeta, newLores);
 			equipmentItemStack.setItemMeta(itemMeta);
 			player.getWorld().playEffect(player.getLocation(), Effect.EXTINGUISH, 0);
 		}

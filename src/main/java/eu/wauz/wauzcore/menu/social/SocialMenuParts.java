@@ -50,7 +50,7 @@ public class SocialMenuParts {
 		mailLores.add("");
 		mailLores.add(ChatColor.GRAY + "View your Mails and claim the Attachments");
 		mailLores.add(ChatColor.GRAY + "or find out how to send Mails yourself.");
-		mailItemMeta.setLore(mailLores);
+		Components.lore(mailItemMeta, mailLores);
 		mailItemStack.setItemMeta(mailItemMeta);
 		menu.setItem(startIndex, mailItemStack);
 		
@@ -63,7 +63,7 @@ public class SocialMenuParts {
 		groupLores.add("");
 		groupLores.add(ChatColor.GRAY + "Group up with other Players");
 		groupLores.add(ChatColor.GRAY + "and enter their Instances together!");
-		groupItemMeta.setLore(groupLores);
+		Components.lore(groupItemMeta, groupLores);
 		groupItemStack.setItemMeta(groupItemMeta);
 		menu.setItem(startIndex + 1, groupItemStack);
 		
@@ -76,7 +76,7 @@ public class SocialMenuParts {
 		friendsLores.add("");
 		friendsLores.add(ChatColor.GRAY + "View and Manage your list of Friends.");
 		friendsLores.add(ChatColor.GRAY + "Use /friend [player] to add new Friends.");
-		friendsItemMeta.setLore(friendsLores);
+		Components.lore(friendsItemMeta, friendsLores);
 		friendsItemStack.setItemMeta(friendsItemMeta);
 		menu.setItem(startIndex + 9, friendsItemStack);
 		
@@ -90,7 +90,7 @@ public class SocialMenuParts {
 		guildLores.add("");
 		guildLores.add(ChatColor.GRAY + "Join a Guild to get Bonuses, Tabards");
 		guildLores.add(ChatColor.GRAY + "and Guildhall Access for all your Chars!");
-		guildItemMeta.setLore(guildLores);
+		Components.lore(guildItemMeta, guildLores);
 		guildItemStack.setItemMeta(guildItemMeta);
 		menu.setItem(startIndex + 10, guildItemStack);
 	}

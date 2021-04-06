@@ -115,7 +115,7 @@ public class SkillAssignMenu implements WauzInventory {
 		infoLores.add("");
 		infoLores.add(ChatColor.GRAY + "Tip: Most combat skills' damage output");
 		infoLores.add(ChatColor.GRAY + "is determined by the item in the slot.");
-		infoItemMeta.setLore(infoLores);
+		Components.lore(infoItemMeta, infoLores);
 		infoItemStack.setItemMeta(infoItemMeta);
 		return infoItemStack;
 	}

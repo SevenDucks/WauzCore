@@ -147,7 +147,7 @@ public class TitleMenu implements WauzInventory {
 		else {
 			titleLores.add(ChatColor.GRAY + "Click to Buy for " + cost + " Soulstones");
 		}
-		titleItemMeta.setLore(titleLores);
+		Components.lore(titleItemMeta, titleLores);
 		titleItemStack.setItemMeta(titleItemMeta);
 		return titleItemStack;
 	}

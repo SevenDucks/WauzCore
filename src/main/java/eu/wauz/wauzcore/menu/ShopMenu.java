@@ -89,7 +89,7 @@ public class ShopMenu implements WauzInventory {
 			Components.displayName(repairItemMeta, ChatColor.BLUE + "Repair Items");
 			List<String> repairLores = new ArrayList<String>();
 			repairLores.add(ChatColor.GRAY + "Drag Items here to repair them.");
-			repairItemMeta.setLore(repairLores);
+			Components.lore(repairItemMeta, repairLores);
 			repairItemStack.setItemMeta(repairItemMeta);
 			menu.setItem(8, repairItemStack);
 			
@@ -98,7 +98,7 @@ public class ShopMenu implements WauzInventory {
 			Components.displayName(sellItemMeta, ChatColor.RED + "Sell Items");
 			List<String> sellLores = new ArrayList<String>();
 			sellLores.add(ChatColor.GRAY + "Drag Items here to sell them.");
-			sellItemMeta.setLore(sellLores);
+			Components.lore(sellItemMeta, sellLores);
 			sellItemStack.setItemMeta(sellItemMeta);
 			menu.setItem(17, sellItemStack);
 		}

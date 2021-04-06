@@ -93,7 +93,7 @@ public class FriendsMenu implements WauzInventory {
 		friendsLores.add("");
 		friendsLores.add(ChatColor.DARK_PURPLE + "Commands:");
 		friendsLores.add(ChatColor.YELLOW + "/" + ChatColor.WHITE + "friend [player] " + ChatColor.GRAY + "Send a Friend Request to a Player");
-		friendsItemMeta.setLore(friendsLores);
+		Components.lore(friendsItemMeta, friendsLores);
 		friendsItemStack.setItemMeta(friendsItemMeta);
 		menu.setItem(1, friendsItemStack);
 		
@@ -121,7 +121,7 @@ public class FriendsMenu implements WauzInventory {
 			List<String> skullLores = new ArrayList<String>();
 			StatisticsFetcher statistics = new StatisticsFetcher(friend);
 			statistics.addCharacterLores(skullLores);
-			skullItemMeta.setLore(skullLores);
+			Components.lore(skullItemMeta, skullLores);
 			skullItemStack.setItemMeta(skullItemMeta);
 			menu.setItem(slot, skullItemStack);
 			friendNumber++;

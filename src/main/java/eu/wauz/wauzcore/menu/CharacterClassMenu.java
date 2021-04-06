@@ -89,7 +89,7 @@ public class CharacterClassMenu implements WauzInventory {
 			int swordSkill = (int) Math.ceil(stats.getSwordSkill() / 1000);
 			classLores.add(ChatColor.RED + "" + swordSkill + ChatColor.GOLD + " Sword Skill");
 			
-			classItemMeta.setLore(classLores);
+			Components.lore(classItemMeta, classLores);
 			classItemStack.setItemMeta(classItemMeta);
 			menu.setItem(index * 2 + 1, classItemStack);
 		}

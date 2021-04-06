@@ -55,7 +55,7 @@ public class CollectionMenuParts {
 		questlogLores.add("");
 		questlogLores.add(ChatColor.GRAY + "View or Cancel your running Quests.");
 		questlogLores.add(ChatColor.GRAY + "Use the Questfinder to locate Questgivers.");
-		questlogItemMeta.setLore(questlogLores);
+		Components.lore(questlogItemMeta, questlogLores);
 		questlogItemStack.setItemMeta(questlogItemMeta);
 		menu.setItem(startIndex, questlogItemStack);
 		
@@ -68,7 +68,7 @@ public class CollectionMenuParts {
 		achievementsLores.add("");
 		achievementsLores.add(ChatColor.GRAY + "Collect Achievements in many Categories,");
 		achievementsLores.add(ChatColor.GRAY + "to earn a lot of precious Tokens.");
-		achievementsItemMeta.setLore(achievementsLores);
+		Components.lore(achievementsItemMeta, achievementsLores);
 		achievementsItemStack.setItemMeta(achievementsItemMeta);
 		menu.setItem(startIndex + 1, achievementsItemStack);
 		
@@ -82,7 +82,7 @@ public class CollectionMenuParts {
 		petsLores.add("");
 		petsLores.add(ChatColor.GRAY + "Breed your collected Pets");
 		petsLores.add(ChatColor.GRAY + "and obtain stronger Offsprings.");
-		petsItemMeta.setLore(petsLores);
+		Components.lore(petsItemMeta, petsLores);
 		petsItemStack.setItemMeta(petsItemMeta);
 		menu.setItem(startIndex + 2, petsItemStack);
 		
@@ -95,7 +95,7 @@ public class CollectionMenuParts {
 		currencyLores.add("");
 		currencyLores.add(ChatColor.GRAY + "View all of your collected Currencies");
 		currencyLores.add(ChatColor.GRAY + "and Faction Reputation (Favor Points).");
-		currencyItemMeta.setLore(currencyLores);
+		Components.lore(currencyItemMeta, currencyLores);
 		currencyItemStack.setItemMeta(currencyItemMeta);
 		menu.setItem(startIndex + 9, currencyItemStack);
 		
@@ -108,7 +108,7 @@ public class CollectionMenuParts {
 		titlesLores.add("");
 		titlesLores.add(ChatColor.GRAY + "View and select your Chat Titles");
 		titlesLores.add(ChatColor.GRAY + "or buy new ones with your Soulstones.");
-		titlesItemMeta.setLore(titlesLores);
+		Components.lore(titlesItemMeta, titlesLores);
 		titlesItemStack.setItemMeta(titlesItemMeta);
 		menu.setItem(startIndex + 10, titlesItemStack);
 		
@@ -121,7 +121,7 @@ public class CollectionMenuParts {
 		bestiaryLores.add("");
 		bestiaryLores.add(ChatColor.GRAY + "View your Collection of Defeated Enemies.");
 		bestiaryLores.add(ChatColor.GRAY + "Unlock Information based on Kill Count.");
-		bestiaryItemMeta.setLore(bestiaryLores);
+		Components.lore(bestiaryItemMeta, bestiaryLores);
 		bestiaryItemStack.setItemMeta(bestiaryItemMeta);
 		menu.setItem(startIndex + 11, bestiaryItemStack);
 	}

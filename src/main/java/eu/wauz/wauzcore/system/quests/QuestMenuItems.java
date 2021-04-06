@@ -70,7 +70,7 @@ public class QuestMenuItems {
 			questLores.add(ChatColor.GRAY + "Right Click to Cancel");
 		}
 		
-		questItemMeta.setLore(questLores);
+		Components.lore(questItemMeta, questLores);
 		questItemStack.setItemMeta(questItemMeta);
 		return questItemStack;
 	}
@@ -128,7 +128,7 @@ public class QuestMenuItems {
 			unacceptedQuestLores.add(ChatColor.GRAY + "Left Click to Track Objective");
 		}
 		
-		unacceptedQuestItemMeta.setLore(unacceptedQuestLores);
+		Components.lore(unacceptedQuestItemMeta, unacceptedQuestLores);
 		unacceptedQuestItemStack.setItemMeta(unacceptedQuestItemMeta);
 		return unacceptedQuestItemStack;
 	}
@@ -159,7 +159,7 @@ public class QuestMenuItems {
 		
 		completedQuestLores.addAll(getRewardSection(player, quest));
 		
-		completedQuestItemMeta.setLore(completedQuestLores);
+		Components.lore(completedQuestItemMeta, completedQuestLores);
 		completedQuestItemStack.setItemMeta(completedQuestItemMeta);
 		return completedQuestItemStack;
 	}

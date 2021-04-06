@@ -115,7 +115,7 @@ public class WauzShopDiscount {
 		discountLores.add(ChatColor.GOLD + "" + totalDiscount + "%"
 				+ ChatColor.YELLOW + " Total" + ChatColor.GRAY + " (Max: 80%)");
 		
-		discountItemMeta.setLore(discountLores);
+		Components.lore(discountItemMeta, discountLores);
 		discountItemStack.setItemMeta(discountItemMeta);
 		return discountItemStack;
 	}

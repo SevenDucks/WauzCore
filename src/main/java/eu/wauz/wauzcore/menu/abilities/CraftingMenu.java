@@ -212,7 +212,7 @@ public class CraftingMenu implements WauzInventory {
 		ItemStack recipeItemStack = new ItemStack(Material.getMaterial(material), amount);
 		ItemMeta recipeItemMeta = recipeItemStack.getItemMeta();
 		Components.displayName(recipeItemMeta, name);
-		recipeItemMeta.setLore(lores);
+		Components.lore(recipeItemMeta, lores);
 		if(recipeItemMeta instanceof PotionMeta) {
 			PotionEffectType potionType  = CraftingConfigurator.getPotionType(itemIndex);
 			int potionLevel = CraftingConfigurator.getPotionLevel(itemIndex);
@@ -240,7 +240,7 @@ public class CraftingMenu implements WauzInventory {
 		lores.add(ChatColor.YELLOW + "Required Crafting Level: " + level);
 		lores.add("");
 		lores.add(ChatColor.DARK_GRAY + "Index: " + itemIndex);
-		lockedItemMeta.setLore(lores);
+		Components.lore(lockedItemMeta, lores);
 		lockedItemStack.setItemMeta(lockedItemMeta);
 		menu.setItem(baseIndex, lockedItemStack);
 	}
@@ -346,7 +346,7 @@ public class CraftingMenu implements WauzInventory {
 		ItemStack itemStack = new ItemStack(clicked.getType(), clicked.getAmount());
 		ItemMeta itemMeta = clicked.getItemMeta();
 		Components.displayName(itemMeta, clicked.getItemMeta().getDisplayName());
-		itemMeta.setLore(CraftingConfigurator.getItemLores(itemIndex));
+		Components.lore(itemMeta, CraftingConfigurator.getItemLores(itemIndex));
 		itemStack.setItemMeta(itemMeta);
 		
 		if(!ItemUtils.fitsInInventory(player.getInventory(), itemStack)) {

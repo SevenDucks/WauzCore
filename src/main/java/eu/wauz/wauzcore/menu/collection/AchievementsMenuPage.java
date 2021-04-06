@@ -74,7 +74,7 @@ public class AchievementsMenuPage implements WauzInventory {
 			if(!completed) {
 				achievementLores.add(ChatColor.YELLOW + "Reward: " + achievement.getReward() + " Soulstones");
 			}
-			achievementItemMeta.setLore(achievementLores);
+			Components.lore(achievementItemMeta, achievementLores);
 			achievementItemStack.setItemMeta(achievementItemMeta);
 			menu.setItem(slot, achievementItemStack);
 			slot++;
