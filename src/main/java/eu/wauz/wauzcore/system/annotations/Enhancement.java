@@ -35,7 +35,7 @@ public @interface Enhancement {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(Enhancement.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				WauzEquipmentEnhancer.registerEnhancement((WauzEnhancement) object);
 				count++;
 			}

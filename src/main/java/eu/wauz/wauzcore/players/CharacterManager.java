@@ -49,6 +49,7 @@ import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.quests.QuestProcessor;
 import eu.wauz.wauzcore.system.quests.QuestSlot;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzFileUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -441,14 +442,14 @@ public class CharacterManager {
 	public static void equipCharacterItems(Player player) {
 		ItemStack mapItemStack = new ItemStack(Material.FILLED_MAP);
 		ItemMeta mapItemMeta = mapItemStack.getItemMeta();
-		mapItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Map of the Grand Explorer");
+		Components.displayName(mapItemMeta, ChatColor.DARK_AQUA + "Map of the Grand Explorer");
 		mapItemStack.setItemMeta(mapItemMeta);
 		player.getInventory().setItem(6, mapItemStack);
 		WauzNmsMinimap.init(player);
 		
 		ItemStack trackerItemStack = new ItemStack(Material.COMPASS);
 		ItemMeta trackerItemMeta = trackerItemStack.getItemMeta();
-		trackerItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getTrackerDestinationName(player));
+		Components.displayName(trackerItemMeta, ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getTrackerDestinationName(player));
 		trackerItemStack.setItemMeta(trackerItemMeta);
 		player.getInventory().setItem(7, trackerItemStack);
 		MenuUtils.setMainMenuOpener(player.getInventory(), 8);

@@ -35,7 +35,7 @@ public @interface PassiveSkill {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(PassiveSkill.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				AbstractPassiveSkillPool.registerPassive((AbstractPassiveSkill) object);
 				count++;
 			}

@@ -12,6 +12,7 @@ import eu.wauz.wauzcore.data.QuestConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.Components;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.items.ItemManager;
 import io.lumine.xikage.mythicmobs.items.MythicItem;
@@ -96,7 +97,7 @@ public class WauzQuestLoot {
 				ItemStack rewardItemStack = WauzNmsClient.nmsSerialize(mythicMobs.getItemStack(canonicalName));
 				if(StringUtils.isNotBlank(displayNameSuffix) && ItemUtils.hasDisplayName(rewardItemStack)) {
 					ItemMeta rewardItemMeta = rewardItemStack.getItemMeta();
-					rewardItemMeta.setDisplayName(rewardItemMeta.getDisplayName() + displayNameSuffix);
+					Components.displayName(rewardItemMeta, rewardItemMeta.getDisplayName() + displayNameSuffix);
 					rewardItemStack.setItemMeta(rewardItemMeta);
 				}
 				itemStacks.add(rewardItemStack);

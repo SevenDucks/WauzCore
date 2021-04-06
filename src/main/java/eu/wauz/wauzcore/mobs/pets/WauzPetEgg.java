@@ -18,6 +18,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.system.nms.NmsEntityHorseMount;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
@@ -50,7 +51,7 @@ public class WauzPetEgg {
 		boolean isHorse = pet.isHorse();
 		ItemStack itemStack = new ItemStack(rarity.getMaterial());
 		ItemMeta itemMeta = itemStack.getItemMeta();
-		itemMeta.setDisplayName(rarity.getColor() + pet.getKey());
+		Components.displayName(itemMeta, rarity.getColor() + pet.getKey());
 		
 		List<String> lores = new ArrayList<>();
 		lores.add(ChatColor.WHITE + rarity.getName() + " Pet Egg " + ChatColor.LIGHT_PURPLE + rarity.getStars());

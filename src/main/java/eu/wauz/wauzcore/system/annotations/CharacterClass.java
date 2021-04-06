@@ -35,7 +35,7 @@ public @interface CharacterClass {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(CharacterClass.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				WauzPlayerClassPool.registerClass((WauzPlayerClass) object);
 				count++;
 			}

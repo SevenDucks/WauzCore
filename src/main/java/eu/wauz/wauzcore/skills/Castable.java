@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
@@ -62,7 +63,7 @@ public class Castable {
 		if(skill != null) {
 			ItemStack skillItemStack = iconItemStack.clone();
 			ItemMeta skillItemMeta = skillItemStack.getItemMeta();
-			skillItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Assign Skill");
+			Components.displayName(skillItemMeta, ChatColor.DARK_AQUA + "Assign Skill");
 			skillItemMeta.setLore(SkillQuickSlots.getSkillInfo(skill));
 			skillItemStack.setItemMeta(skillItemMeta);
 			return skillItemStack;

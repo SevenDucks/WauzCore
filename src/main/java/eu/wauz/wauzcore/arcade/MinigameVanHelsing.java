@@ -30,6 +30,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.annotations.Minigame;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A hunt minigame, where you have to fastly kill vampire bats.
@@ -134,7 +135,7 @@ public class MinigameVanHelsing implements ArcadeMinigame {
 		ItemStack arrowItemStack = new ItemStack(Material.ARROW);
 		ItemStack bowItemStack = new ItemStack(Material.BOW);
 		ItemMeta bowItemMeta = bowItemStack.getItemMeta();
-		bowItemMeta.setDisplayName(ChatColor.RED + "Longbow");
+		Components.displayName(bowItemMeta, ChatColor.RED + "Longbow");
 		bowItemMeta.setUnbreakable(true);
 		bowItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
 		bowItemStack.setItemMeta(bowItemMeta);

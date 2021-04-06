@@ -35,7 +35,7 @@ public @interface Scroll {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(Scroll.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				WauzScrolls.registerScroll((InventoryScroll) object);
 				count++;
 			}

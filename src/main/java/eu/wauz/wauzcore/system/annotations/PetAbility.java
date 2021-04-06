@@ -35,7 +35,7 @@ public @interface PetAbility {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(PetAbility.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				WauzPetAbilities.registerAbility((WauzPetAbility) object);
 				count++;
 			}

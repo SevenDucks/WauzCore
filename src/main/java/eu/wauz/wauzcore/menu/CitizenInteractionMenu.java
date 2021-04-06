@@ -17,6 +17,7 @@ import eu.wauz.wauzcore.mobs.citizens.RelationTracker;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenInteractions;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizenSpawner;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -65,7 +66,7 @@ public class CitizenInteractionMenu implements WauzInventory {
 		
 		ItemStack citizenItemStack = GenericIconHeads.getCitizenRelationItem();
 		ItemMeta citizenItemMeta = citizenItemStack.getItemMeta();
-		citizenItemMeta.setDisplayName(ChatColor.YELLOW + displayName);
+		Components.displayName(citizenItemMeta, ChatColor.YELLOW + displayName);
 		citizenItemMeta.setLore(RelationTracker.generateProgressLore(player, displayName));
 		citizenItemStack.setItemMeta(citizenItemMeta);
 		menu.setItem(0, citizenItemStack);

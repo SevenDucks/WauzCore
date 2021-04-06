@@ -13,6 +13,7 @@ import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerRelationConfigurator;
 import eu.wauz.wauzcore.mobs.citizens.RelationLevel;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * Used to create quest related menu items for different menus.
@@ -40,7 +41,7 @@ public class QuestMenuItems {
 		
 		ItemStack questItemStack = new ItemStack(colorMaterial);
 		ItemMeta questItemMeta = questItemStack.getItemMeta();
-		questItemMeta.setDisplayName(ChatColor.GOLD + quest.getDisplayName());
+		Components.displayName(questItemMeta, ChatColor.GOLD + quest.getDisplayName());
 		
 		List<String> questLores = new ArrayList<String>();
 		
@@ -85,7 +86,7 @@ public class QuestMenuItems {
 	public static ItemStack generateEmptyQust(String type) {
 		ItemStack emptyQuestItemStack = new ItemStack(Material.WHITE_CONCRETE);
 		ItemMeta emptyQuestItemMeta = emptyQuestItemStack.getItemMeta();
-		emptyQuestItemMeta.setDisplayName(ChatColor.DARK_GRAY + "No " + type + "-Quest in progress...");
+		Components.displayName(emptyQuestItemMeta, ChatColor.DARK_GRAY + "No " + type + "-Quest in progress...");
 		emptyQuestItemStack.setItemMeta(emptyQuestItemMeta);
 		return emptyQuestItemStack;
 	}
@@ -107,7 +108,7 @@ public class QuestMenuItems {
 	public static ItemStack generateUnacceptedQuest(Player player, WauzQuest quest, int phase, boolean trackable) {
 		ItemStack unacceptedQuestItemStack = new ItemStack(Material.WRITABLE_BOOK);
 		ItemMeta unacceptedQuestItemMeta = unacceptedQuestItemStack.getItemMeta();
-		unacceptedQuestItemMeta.setDisplayName(ChatColor.GOLD + quest.getDisplayName());
+		Components.displayName(unacceptedQuestItemMeta, ChatColor.GOLD + quest.getDisplayName());
 		
 		List<String> unacceptedQuestLores = new ArrayList<String>();
 		
@@ -144,7 +145,7 @@ public class QuestMenuItems {
 	public static ItemStack generateCompletedQuest(Player player, WauzQuest quest) {
 		ItemStack completedQuestItemStack = new ItemStack(Material.WRITABLE_BOOK);
 		ItemMeta completedQuestItemMeta = completedQuestItemStack.getItemMeta();
-		completedQuestItemMeta.setDisplayName(ChatColor.GOLD + quest.getDisplayName() + " (Completed)");
+		Components.displayName(completedQuestItemMeta, ChatColor.GOLD + quest.getDisplayName() + " (Completed)");
 		
 		List<String> completedQuestLores = new ArrayList<String>();
 		

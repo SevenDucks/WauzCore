@@ -35,7 +35,7 @@ public @interface Skill {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(Skill.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				WauzPlayerSkillExecutor.registerSkill((WauzPlayerSkill) object, false);
 				count++;
 			}

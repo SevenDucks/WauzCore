@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 public class WauzRuneBuilder {
@@ -83,7 +84,7 @@ public class WauzRuneBuilder {
 	 */
 	public ItemStack generate(Tier tier, Rarity rarity) {
 		String identifiedItemName = rarity.getColor() + "Rune of " + rune.getRuneId();
-		itemMeta.setDisplayName(identifiedItemName);
+		Components.displayName(itemMeta, identifiedItemName);
 		
 		List<String> lores = new ArrayList<String>();
 		int sellValue = (int) (mightStat * (Math.random() + 0.5) * 3 + 1);

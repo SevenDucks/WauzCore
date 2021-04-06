@@ -50,7 +50,7 @@ public @interface Command {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(Command.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				WauzCommandExecutor.registerCommand((WauzCommand) object);
 				count++;
 			}

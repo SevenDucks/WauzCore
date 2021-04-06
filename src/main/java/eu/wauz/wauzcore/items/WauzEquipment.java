@@ -27,6 +27,7 @@ import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A class that represents a base type of equipment.
@@ -202,7 +203,7 @@ public class WauzEquipment {
 	public static ItemStack getCosmeticItem(Material material, Color color) {
 		ItemStack itemStack = new ItemStack(material);
 		ItemMeta itemMeta = itemStack.getItemMeta();
-		itemMeta.setDisplayName(ChatColor.RESET + "Cosmetic Item");
+		Components.displayName(itemMeta, ChatColor.RESET + "Cosmetic Item");
 		itemMeta.setUnbreakable(true);
 		itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

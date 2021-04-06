@@ -1,5 +1,8 @@
 package eu.wauz.wauzcore.system.util;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -37,6 +40,18 @@ public class Components {
 	 */
 	public static void displayName(ItemMeta itemMeta, String displayName) {
 		itemMeta.displayName(toComponent(displayName));
+	}
+	
+	/**
+	 * Sets the lore of the given item meta.
+	 * 
+	 * @param itemMeta The item meta to set the lore for.
+	 * @param loreLines The lore to set.
+	 */
+	public static void lore(ItemMeta itemMeta, List<String> loreLines) {
+		itemMeta.lore(loreLines.stream()
+				.map(lore -> toComponent(lore))
+				.collect(Collectors.toList()));
 	}
 	
 	/**

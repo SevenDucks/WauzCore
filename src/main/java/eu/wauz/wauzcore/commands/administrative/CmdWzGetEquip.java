@@ -16,6 +16,7 @@ import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -63,7 +64,7 @@ public class CmdWzGetEquip implements WauzCommand {
 		
 		ItemStack equipmentItemStack = new ItemStack(Material.SHEARS);
 		ItemMeta equipmentItemMeta = equipmentItemStack.getItemMeta();
-		equipmentItemMeta.setDisplayName(ChatColor.GRAY + "Unidentified " + tier + " Item : " + type);
+		Components.displayName(equipmentItemMeta, ChatColor.GRAY + "Unidentified " + tier + " Item : " + type);
 		equipmentItemStack.setItemMeta(equipmentItemMeta);
 		
 		new WauzEquipmentIdentifier().identifyItem(player, equipmentItemStack);

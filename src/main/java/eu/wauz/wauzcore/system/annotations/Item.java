@@ -35,7 +35,7 @@ public @interface Item {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(Item.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				EventMapper.registerCustomItem((CustomItem) object);
 				count++;
 			}

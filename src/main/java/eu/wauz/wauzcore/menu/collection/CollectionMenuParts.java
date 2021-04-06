@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.menu.social.TitleMenu;
 import eu.wauz.wauzcore.mobs.pets.WauzPetBreedingLevel;
 import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
@@ -47,7 +48,7 @@ public class CollectionMenuParts {
 	public static void addMenuParts(Player player, Inventory menu, int startIndex) {
 		ItemStack questlogItemStack = MenuIconHeads.getQuestItem();
 		ItemMeta questlogItemMeta = questlogItemStack.getItemMeta();
-		questlogItemMeta.setDisplayName(ChatColor.GOLD + "Questlog");
+		Components.displayName(questlogItemMeta, ChatColor.GOLD + "Questlog");
 		List<String> questlogLores = new ArrayList<String>();
 		questlogLores.add(ChatColor.DARK_PURPLE + "Completed Quests: " + ChatColor.YELLOW
 			+ Formatters.INT.format(PlayerCollectionConfigurator.getCharacterAchievementProgress(player, WauzAchievementType.COMPLETE_QUESTS)));
@@ -60,7 +61,7 @@ public class CollectionMenuParts {
 		
 		ItemStack achievementsItemStack = MenuIconHeads.getAchievementsItem();
 		ItemMeta achievementsItemMeta = achievementsItemStack.getItemMeta();
-		achievementsItemMeta.setDisplayName(ChatColor.GOLD + "Achievements");
+		Components.displayName(achievementsItemMeta, ChatColor.GOLD + "Achievements");
 		List<String> achievementsLores = new ArrayList<>();
 		achievementsLores.add(ChatColor.DARK_PURPLE + "Collected Achievements: " + ChatColor.YELLOW
 				+ Formatters.INT.format(PlayerCollectionConfigurator.getCharacterCompletedAchievements(player)));
@@ -73,7 +74,7 @@ public class CollectionMenuParts {
 		
 		ItemStack petsItemStack = MenuIconHeads.getTamesItem();
 		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
-		petsItemMeta.setDisplayName(ChatColor.GOLD + "Breeding");
+		Components.displayName(petsItemMeta, ChatColor.GOLD + "Breeding");
 		List<String> petsLores = new ArrayList<>();
 		int breedingExp = PlayerSkillConfigurator.getTamingSkill(player);
 		petsLores.add(ChatColor.DARK_PURPLE + "Breeding Level: " + ChatColor.YELLOW
@@ -87,7 +88,7 @@ public class CollectionMenuParts {
 		
 		ItemStack currencyItemStack = MenuIconHeads.getMoneyItem();
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
-		currencyItemMeta.setDisplayName(ChatColor.GOLD + "Currencies");
+		Components.displayName(currencyItemMeta, ChatColor.GOLD + "Currencies");
 		List<String> currencyLores = new ArrayList<>();
 		currencyLores.add(ChatColor.DARK_PURPLE + "Total Coins: " + ChatColor.YELLOW
 			+ Formatters.formatCoins(PlayerCollectionConfigurator.getCharacterCoins(player)));
@@ -100,7 +101,7 @@ public class CollectionMenuParts {
 		
 		ItemStack titlesItemStack = MenuIconHeads.getTitlesItem();
 		ItemMeta titlesItemMeta = titlesItemStack.getItemMeta();
-		titlesItemMeta.setDisplayName(ChatColor.GOLD + "Titles");
+		Components.displayName(titlesItemMeta, ChatColor.GOLD + "Titles");
 		List<String> titlesLores = new ArrayList<>();
 		titlesLores.add(ChatColor.DARK_PURPLE + "Unlocked Titles: " + ChatColor.YELLOW
 				+ PlayerConfigurator.getCharacterTitleList(player).size() + " / " + WauzTitle.getTitleCount());
@@ -113,7 +114,7 @@ public class CollectionMenuParts {
 		
 		ItemStack bestiaryItemStack = MenuIconHeads.getBeastsItem();
 		ItemMeta bestiaryItemMeta = bestiaryItemStack.getItemMeta();
-		bestiaryItemMeta.setDisplayName(ChatColor.GOLD + "Bestiary");
+		Components.displayName(bestiaryItemMeta, ChatColor.GOLD + "Bestiary");
 		List<String> bestiaryLores = new ArrayList<>();
 		bestiaryLores.add(ChatColor.DARK_PURPLE + "Killed Enemies: " + ChatColor.YELLOW
 			+ Formatters.INT.format(PlayerCollectionConfigurator.getCharacterAchievementProgress(player, WauzAchievementType.KILL_ENEMIES)));

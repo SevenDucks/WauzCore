@@ -35,7 +35,7 @@ public @interface Rune {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(Rune.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				WauzRuneInserter.registerRune((WauzRune) object);
 				count++;
 			}

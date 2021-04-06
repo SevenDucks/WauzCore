@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.building.ShapeHexagon;
 import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.system.annotations.Minigame;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A survival minigame, where you have to shoot players off the breaking floor.
@@ -198,7 +199,7 @@ public class MinigameThinIce extends MinigameTemplateBreakingFloor {
 	private ItemStack getSnowballItemStack(int amount) {
 		ItemStack snowballItemStack = new ItemStack(Material.SNOWBALL, amount);
 		ItemMeta snowballItemMeta = snowballItemStack.getItemMeta();
-		snowballItemMeta.setDisplayName(ChatColor.RED + "Snowball");
+		Components.displayName(snowballItemMeta, ChatColor.RED + "Snowball");
 		snowballItemMeta.setUnbreakable(true);
 		snowballItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
 		snowballItemStack.setItemMeta(snowballItemMeta);

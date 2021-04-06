@@ -13,6 +13,7 @@ import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.LootContainer;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -61,7 +62,7 @@ public class WauzPlayerEventMailClaim implements WauzPlayerEvent {
 		
 		mailItemStack = new ItemStack(Material.GLOBE_BANNER_PATTERN);
 		ItemMeta mailItemMeta = mailItemStack.getItemMeta();
-		mailItemMeta.setDisplayName(ChatColor.YELLOW + "Mail from " + sender);
+		Components.displayName(mailItemMeta, ChatColor.YELLOW + "Mail from " + sender);
 		List<String> mailLores = new ArrayList<>();
 		mailLores.add(ChatColor.GRAY + "Received " + WauzDateUtils.formatTime(time));
 		if(coinAttachment > 0) {

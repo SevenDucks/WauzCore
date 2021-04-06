@@ -35,7 +35,7 @@ public @interface Tower {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(Tower.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				WauzTowers.registerTower((DefenseTower) object);
 				count++;
 			}

@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * Typed identifier, used for identifying skillgem items.
@@ -54,7 +55,7 @@ public class WauzSkillgemIdentifier {
 	public static ItemStack createSkillgem(ItemStack skillgemItemStack, WauzPlayerSkill skill) {
 		ItemStack itemStack = new ItemStack(Material.REDSTONE);
 		ItemMeta itemMeta = itemStack.getItemMeta();
-		itemMeta.setDisplayName(ChatColor.DARK_RED + "Skillgem: " + ChatColor.LIGHT_PURPLE + skill.getSkillId());
+		Components.displayName(itemMeta, ChatColor.DARK_RED + "Skillgem: " + ChatColor.LIGHT_PURPLE + skill.getSkillId());
 		
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.GRAY + "Can be inserted into a Weapon,");

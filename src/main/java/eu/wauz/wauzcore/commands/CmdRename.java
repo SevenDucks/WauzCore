@@ -15,6 +15,7 @@ import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.system.annotations.Command;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A command, that can be executed by a player with fitting permissions.</br>
@@ -71,7 +72,7 @@ public class CmdRename implements WauzCommand {
 		WauzActivePet.tryToUnsummon(player, true);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		String petName = itemMeta.getDisplayName();
-		itemMeta.setDisplayName(petName.replace(ChatColor.stripColor(petName), newName));
+		Components.displayName(itemMeta, petName.replace(ChatColor.stripColor(petName), newName));
 		itemStack.setItemMeta(itemMeta);
 		player.sendMessage(ChatColor.GREEN + "Your pet was renamed to " + newName + "!");
 		return true;

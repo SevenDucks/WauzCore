@@ -27,6 +27,7 @@ import eu.wauz.wauzcore.items.weapons.CustomWeaponShield;
 import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
@@ -271,7 +272,7 @@ public class WauzEquipmentBuilder {
 		if(StringUtils.isNotBlank(enhancementSuffix)) {
 			identifiedItemName += enhancementSuffix;
 		}
-		itemMeta.setDisplayName(identifiedItemName);
+		Components.displayName(itemMeta, identifiedItemName);
 		
 		List<String> lores = new ArrayList<>();
 		String rarityName = rarityNamePrefix + rarity.getName() + " ";

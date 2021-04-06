@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.InventoryItemRemover;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
@@ -160,7 +161,7 @@ public abstract class QuestRequirementChecker {
 			
 			ItemStack trackerItemStack = new ItemStack(Material.COMPASS);
 			ItemMeta trackerItemMeta = trackerItemStack.getItemMeta();
-			trackerItemMeta.setDisplayName(ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getTrackerDestinationName(player));
+			Components.displayName(trackerItemMeta, ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getTrackerDestinationName(player));
 			trackerItemMeta.setUnbreakable(true);
 			trackerItemStack.setItemMeta(trackerItemMeta);
 			player.getInventory().setItem(7, trackerItemStack);

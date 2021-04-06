@@ -21,6 +21,7 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
@@ -45,7 +46,7 @@ public class MenuUtils {
 	public static void setMainMenuOpener(Inventory menu, int index) {
 		ItemStack mainMenuItemStack = new ItemStack(Material.NETHER_STAR);
 		ItemMeta mainMenuItemMeta = mainMenuItemStack.getItemMeta();
-		mainMenuItemMeta.setDisplayName(ChatColor.GOLD + "Open Main Menu");
+		Components.displayName(mainMenuItemMeta, ChatColor.GOLD + "Open Main Menu");
 		mainMenuItemStack.setItemMeta(mainMenuItemMeta);
 		menu.setItem(index, mainMenuItemStack);
 	}
@@ -60,7 +61,7 @@ public class MenuUtils {
 	public static void setCurrencyDisplay(Inventory menu, Player player, int index) {
 		ItemStack currencyItemStack = MenuIconHeads.getMoneyItem();
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
-		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Common Currency");
+		Components.displayName(currencyItemMeta, ChatColor.GREEN + "Common Currency");
 		List<String> lores = new ArrayList<String>();
 		lores.add(Formatters.formatCoins(PlayerCollectionConfigurator.getCharacterCoins(player))
 			+ ChatColor.YELLOW + " Coins");
@@ -85,7 +86,7 @@ public class MenuUtils {
 	public static void setGlobalCurrencyDisplay(Inventory menu, Player player, int index) {
 		ItemStack currencyItemStack = MenuIconHeads.getMoneyItem();
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
-		currencyItemMeta.setDisplayName(ChatColor.GREEN + "Global Currency");
+		Components.displayName(currencyItemMeta, ChatColor.GREEN + "Global Currency");
 		List<String> lores = new ArrayList<String>();
 		lores.add(ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player))
 			+ ChatColor.YELLOW + " Tokens");
@@ -103,7 +104,7 @@ public class MenuUtils {
 	public static void setTrashcan(Inventory menu, int index) {
 		ItemStack trashcanItemStack = MenuIconHeads.getTrashItem();
 		ItemMeta trashcanItemMeta = trashcanItemStack.getItemMeta();
-		trashcanItemMeta.setDisplayName(ChatColor.RED + "Trashcan");
+		Components.displayName(trashcanItemMeta, ChatColor.RED + "Trashcan");
 		List<String> trashcanLores = new ArrayList<String>();
 		trashcanLores.add(ChatColor.GRAY + "Drag Items here to destroy them...");
 		trashcanItemMeta.setLore(trashcanLores);
@@ -118,14 +119,14 @@ public class MenuUtils {
 	 * @param indexes The slot to use in the inventory.
 	 */
 	public static void setMaterials(Inventory menu, int index) {
-		ItemStack trashcanItemStack = MenuIconHeads.getBagItem();
-		ItemMeta trashcanItemMeta = trashcanItemStack.getItemMeta();
-		trashcanItemMeta.setDisplayName(ChatColor.YELLOW + "Materials");
-		List<String> trashcanLores = new ArrayList<String>();
-		trashcanLores.add(ChatColor.GRAY + "Click to view Materials and Quest Items...");
-		trashcanItemMeta.setLore(trashcanLores);
-		trashcanItemStack.setItemMeta(trashcanItemMeta);
-		menu.setItem(index, trashcanItemStack);
+		ItemStack materialsItemStack = MenuIconHeads.getBagItem();
+		ItemMeta materialsItemMeta = materialsItemStack.getItemMeta();
+		Components.displayName(materialsItemMeta, ChatColor.YELLOW + "Materials");
+		List<String> materialsLores = new ArrayList<String>();
+		materialsLores.add(ChatColor.GRAY + "Click to view Materials and Quest Items...");
+		materialsItemMeta.setLore(materialsLores);
+		materialsItemStack.setItemMeta(materialsItemMeta);
+		menu.setItem(index, materialsItemStack);
 	}
 	
 	/**
@@ -135,14 +136,14 @@ public class MenuUtils {
 	 * @param indexes The slot to use in the inventory.
 	 */
 	public static void setBackpack(Inventory menu, int index) {
-		ItemStack trashcanItemStack = MenuIconHeads.getBackpackItem();
-		ItemMeta trashcanItemMeta = trashcanItemStack.getItemMeta();
-		trashcanItemMeta.setDisplayName(ChatColor.DARK_GREEN + "Backpack");
-		List<String> trashcanLores = new ArrayList<String>();
-		trashcanLores.add(ChatColor.GRAY + "Click to manage Backpack Contents...");
-		trashcanItemMeta.setLore(trashcanLores);
-		trashcanItemStack.setItemMeta(trashcanItemMeta);
-		menu.setItem(index, trashcanItemStack);
+		ItemStack backpackItemStack = MenuIconHeads.getBackpackItem();
+		ItemMeta backpackItemMeta = backpackItemStack.getItemMeta();
+		Components.displayName(backpackItemMeta, ChatColor.DARK_GREEN + "Backpack");
+		List<String> backpackLores = new ArrayList<String>();
+		backpackLores.add(ChatColor.GRAY + "Click to manage Backpack Contents...");
+		backpackItemMeta.setLore(backpackLores);
+		backpackItemStack.setItemMeta(backpackItemMeta);
+		menu.setItem(index, backpackItemStack);
 	}
 	
 	/**
@@ -155,7 +156,7 @@ public class MenuUtils {
 	public static void setComingSoon(Inventory menu, String lore, int index) {
 		ItemStack soonItemStack = new ItemStack(Material.OAK_SIGN);
 		ItemMeta soonItemMeta = soonItemStack.getItemMeta();
-		soonItemMeta.setDisplayName(ChatColor.RED + "Coming Soon");
+		Components.displayName(soonItemMeta, ChatColor.RED + "Coming Soon");
 		if(StringUtils.isNotBlank(lore)) {
 			List<String> lores = new ArrayList<String>();
 			lores.add(lore);
@@ -173,7 +174,7 @@ public class MenuUtils {
 	public static void setBorders(Inventory menu) {
 		ItemStack borderItemStack = new ItemStack(Material.IRON_BARS);
 		ItemMeta borderItemMeta = borderItemStack.getItemMeta();
-		borderItemMeta.setDisplayName(" ");
+		Components.displayName(borderItemMeta, " ");
 		borderItemStack.setItemMeta(borderItemMeta);
 		
 		for(int slot = 0; slot < menu.getSize(); slot++) {
@@ -193,7 +194,7 @@ public class MenuUtils {
 	 */
 	public static void setMenuItem(Inventory menu, int slot, ItemStack itemStack, String displayName, List<String> lores) {
 		ItemMeta itemMeta = itemStack.getItemMeta();
-		itemMeta.setDisplayName(displayName);
+		Components.displayName(itemMeta, displayName);
 		itemMeta.setLore(lores);
 		itemStack.setItemMeta(itemMeta);
 		menu.setItem(slot, itemStack);
@@ -210,7 +211,7 @@ public class MenuUtils {
 			return;
 		}
 		ItemMeta itemMeta = itemStack.getItemMeta();
-		itemMeta.setDisplayName(displayName);
+		Components.displayName(itemMeta, displayName);
 		itemStack.setItemMeta(itemMeta);
 	}
 	

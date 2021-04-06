@@ -17,6 +17,7 @@ import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.players.WauzPlayerFriends;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
@@ -42,7 +43,7 @@ public class SocialMenuParts {
 	public static void addMenuParts(Player player, Inventory menu, int startIndex) {
 		ItemStack mailItemStack = MenuIconHeads.getMailItem();
 		ItemMeta mailItemMeta = mailItemStack.getItemMeta();
-		mailItemMeta.setDisplayName(ChatColor.GOLD + "Mailbox");
+		Components.displayName(mailItemMeta, ChatColor.GOLD + "Mailbox");
 		List<String> mailLores = new ArrayList<>();
 		mailLores.add(ChatColor.DARK_PURPLE + "Unread Mails: " + ChatColor.YELLOW
 				+ Formatters.INT.format(PlayerMailConfigurator.getPlayerMailNameList(player).size()));
@@ -55,7 +56,7 @@ public class SocialMenuParts {
 		
 		ItemStack groupItemStack = MenuIconHeads.getGroupItem();
 		ItemMeta groupItemMeta = groupItemStack.getItemMeta();
-		groupItemMeta.setDisplayName(ChatColor.GOLD + "Group");
+		Components.displayName(groupItemMeta, ChatColor.GOLD + "Group");
 		List<String> groupLores = new ArrayList<>();
 		groupLores.add(ChatColor.DARK_PURPLE + "Listed Groups: " + ChatColor.YELLOW
 				+ WauzPlayerGroupPool.getGroups().size());
@@ -68,7 +69,7 @@ public class SocialMenuParts {
 		
 		ItemStack friendsItemStack = MenuIconHeads.getFriendsItem();
 		ItemMeta friendsItemMeta = friendsItemStack.getItemMeta();
-		friendsItemMeta.setDisplayName(ChatColor.GOLD + "Friends");
+		Components.displayName(friendsItemMeta, ChatColor.GOLD + "Friends");
 		List<String> friendsLores = new ArrayList<>();
 		friendsLores.add(ChatColor.DARK_PURPLE + "Friend Count: " + ChatColor.YELLOW
 				+ WauzPlayerFriends.getFriendCount(player) + " / " + WauzPlayerFriends.MAX_FRIEND_AMOUNT);
@@ -81,7 +82,7 @@ public class SocialMenuParts {
 		
 		ItemStack guildItemStack = MenuIconHeads.getGuildItem();
 		ItemMeta guildItemMeta = guildItemStack.getItemMeta();
-		guildItemMeta.setDisplayName(ChatColor.GOLD + "Guild");
+		Components.displayName(guildItemMeta, ChatColor.GOLD + "Guild");
 		List<String> guildLores = new ArrayList<>();
 		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);
 		guildLores.add(ChatColor.DARK_PURPLE + "Your Guild: " + ChatColor.YELLOW

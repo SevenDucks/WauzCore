@@ -22,6 +22,7 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * An util to add ability sub menus to the main menu.
@@ -46,7 +47,7 @@ public class AbilityMenuParts {
 	public static void addMenuParts(Player player, Inventory menu, int startIndex) {
 		ItemStack craftingItemStack = MenuIconHeads.getCraftItem();
 		ItemMeta craftingItemMeta = craftingItemStack.getItemMeta();
-		craftingItemMeta.setDisplayName(ChatColor.GOLD + "Crafting");
+		Components.displayName(craftingItemMeta, ChatColor.GOLD + "Crafting");
 		List<String> craftingLores = new ArrayList<String>();
 		craftingLores.add(ChatColor.DARK_PURPLE + "Crafting Level: " + ChatColor.YELLOW
 			+ PlayerSkillConfigurator.getCraftingSkill(player) + " / " + WauzCore.MAX_CRAFTING_SKILL);
@@ -59,7 +60,7 @@ public class AbilityMenuParts {
 		
 		ItemStack skillsItemStack = MenuIconHeads.getSkillItem();
 		ItemMeta skillsItemMeta = skillsItemStack.getItemMeta();
-		skillsItemMeta.setDisplayName(ChatColor.GOLD + "Skills");
+		Components.displayName(skillsItemMeta, ChatColor.GOLD + "Skills");
 		List<String> skillsLores = new ArrayList<String>();
 		skillsLores.add(ChatColor.DARK_PURPLE + "Spent Skillpoints: " + ChatColor.YELLOW
 				+ PlayerSkillConfigurator.getSpentStatpoints(player) + " / "
@@ -78,7 +79,7 @@ public class AbilityMenuParts {
 		
 		ItemStack travellingItemStack = MenuIconHeads.getPortsItem();
 		ItemMeta travellingItemMeta = travellingItemStack.getItemMeta();
-		travellingItemMeta.setDisplayName(ChatColor.GOLD + "Travelling");
+		Components.displayName(travellingItemMeta, ChatColor.GOLD + "Travelling");
 		List<String> travellingLores = new ArrayList<String>();
 		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(player);
 		if(instance != null) {

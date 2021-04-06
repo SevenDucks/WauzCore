@@ -35,7 +35,7 @@ public @interface Minigame {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(Minigame.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				ArcadeLobby.registerMinigame((ArcadeMinigame) object);
 				count++;
 			}

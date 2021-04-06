@@ -13,6 +13,7 @@ import eu.wauz.wauzcore.data.players.PlayerRelationConfigurator;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.mobs.citizens.RelationLevel;
 import eu.wauz.wauzcore.system.WauzRank;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A discount granted to a player for a certain shop.
@@ -98,7 +99,7 @@ public class WauzShopDiscount {
 	public ItemStack generateDiscountDisplay() {
 		ItemStack discountItemStack = GenericIconHeads.getCitizenShopItem();
 		ItemMeta discountItemMeta = discountItemStack.getItemMeta();
-		discountItemMeta.setDisplayName(ChatColor.GREEN + "Shop Discount");
+		Components.displayName(discountItemMeta, ChatColor.GREEN + "Shop Discount");
 		List<String> discountLores = new ArrayList<String>();
 		
 		int relationDiscount = (int) Math.ceil(this.relationDiscount * 100.0);

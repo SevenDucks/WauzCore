@@ -35,7 +35,7 @@ public @interface PublicMenu {
 		public static void init(AnnotationLoader loader) throws Exception {
 			int count = 0;
 			for(Class<?> clazz : loader.getAnnotatedClasses(PublicMenu.class)) {
-				Object object = clazz.newInstance();
+				Object object = clazz.getDeclaredConstructor().newInstance();
 				MenuRegister.registerInventory((WauzInventory) object);
 				count++;
 			}
