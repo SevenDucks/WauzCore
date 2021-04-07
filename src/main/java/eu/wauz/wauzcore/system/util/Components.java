@@ -43,6 +43,17 @@ public class Components {
 	}
 	
 	/**
+	 * Gets the display name of the given item meta.
+	 * 
+	 * @param itemMeta The item meta to get the display name from.
+	 * 
+	 * @return The display name.
+	 */
+	public static String displayName(ItemMeta itemMeta) {
+		return fromComponent(itemMeta.displayName());
+	}
+	
+	/**
 	 * Sets the lore of the given item meta.
 	 * 
 	 * @param itemMeta The item meta to set the lore for.
@@ -55,12 +66,41 @@ public class Components {
 	}
 	
 	/**
+	 * Gets the lore of the given item meta.
+	 * 
+	 * @param itemMeta The item meta to get the lore from.
+	 * 
+	 * @return The lore.
+	 */
+	public static List<String> lore(ItemMeta itemMeta) {
+		return itemMeta.lore().stream()
+				.map(lore -> fromComponent(lore))
+				.collect(Collectors.toList());
+	}
+	
+	/**
 	 * Converts the given text to a component.
 	 * 
 	 * @param text The text to convert.
+	 * 
+	 * @return The created component.
 	 */
-	public static TextComponent toComponent(String text) {
+	private static TextComponent toComponent(String text) {
 		return Component.text(text);
+	}
+	
+	/**
+	 * Converts the given component to text.
+	 * 
+	 * @param component The component to convert.
+	 * 
+	 * @return The created text.
+	 */
+	private static String fromComponent(Component component) {
+		if(component instanceof TextComponent) {
+			return ((TextComponent) component).content();
+		}
+		return null;
 	}
 	
 }
