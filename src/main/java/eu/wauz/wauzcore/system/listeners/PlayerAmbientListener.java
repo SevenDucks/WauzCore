@@ -52,6 +52,7 @@ import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -326,7 +327,7 @@ public class PlayerAmbientListener implements Listener {
 		Item item = event.getEntity();
 		ItemStack itemStack = item.getItemStack();
 		if(ItemUtils.hasDisplayName(itemStack)) {
-			item.setCustomName(itemStack.getItemMeta().getDisplayName());
+			item.setCustomName(Components.displayName(itemStack.getItemMeta()));
 			item.setCustomNameVisible(true);
 		}
 		Location location = event.getLocation();

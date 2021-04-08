@@ -114,7 +114,7 @@ public class WauzPetEgg {
 				return;
 			}
 			
-			String petName = ChatColor.stripColor(itemStack.getItemMeta().getDisplayName());
+			String petName = ChatColor.stripColor(Components.displayName(itemStack.getItemMeta()));
 			if(pet.isHorse()) {
 				Horse horse = NmsEntityHorseMount.create(player.getLocation(), pet.getHorseColor(), petType);
 				horse.setCustomName(ChatColor.GREEN + petName);

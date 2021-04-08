@@ -14,9 +14,9 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Toggle Flying Debug Mode</b></br>
- * - Usage: <b>/wzDebug.flying [player]</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Toggle Flying Debug Mode</b><br/>
+ * - Usage: <b>/wzDebug.flying [player]</b><br/>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

@@ -14,9 +14,9 @@ import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Gain Experience Points</b></br>
- * - Usage: <b>/wzExp [player] [tier] [amount]</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Gain Experience Points</b><br/>
+ * - Usage: <b>/wzExp [player] [tier] [amount]</b><br/>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

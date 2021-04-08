@@ -54,11 +54,11 @@ public enum Rarity {
 	
 	/**
 	 * Determines a random equipment rarity with a multiplier of 1-3 on a scale of 1-5 stars.
-	 * Contains rarity name, color, multiplier and the star string.</br>
-	 * 70% Chance for Normal</br>
-	 * 25% Chance for Magic</br>
-	 * 4% Chance for Rare</br>
-	 * 0.95% Chance for Epic</br>
+	 * Contains rarity name, color, multiplier and the star string.<br/>
+	 * 70% Chance for Normal<br/>
+	 * 25% Chance for Magic<br/>
+	 * 4% Chance for Rare<br/>
+	 * 0.95% Chance for Epic<br/>
 	 * 0.05% Chance for Unique
 	 * 
 	 * @return The random rarity.
@@ -86,9 +86,9 @@ public enum Rarity {
 	
 	/**
 	 * Determines a random rune rarity with a multiplier of 1-2 on a scale of 1-3 stars.
-	 * Contains rarity name, color, multiplier and the star string.</br>
-	 * 80% Chance for Whispering</br>
-	 * 17.5% Chance for Screaming</br>
+	 * Contains rarity name, color, multiplier and the star string.<br/>
+	 * 80% Chance for Whispering<br/>
+	 * 17.5% Chance for Screaming<br/>
 	 * 2.5% Chance for Deafening
 	 * 
 	 * @return The random rarity.

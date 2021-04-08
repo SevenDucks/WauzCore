@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * Typed identifier, used for identifying equipment items.
@@ -155,7 +156,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	public void identifyItem(Player player, ItemStack equipmentItemStack) {
 		this.player = player;
 		this.equipmentItemStack = equipmentItemStack;
-		itemName = equipmentItemStack.getItemMeta().getDisplayName();
+		itemName = Components.displayName(equipmentItemStack.getItemMeta());
 		
 		if(itemName.contains(" : ")) {
 			equipmentType = equipTypes.get(StringUtils.substringAfter(itemName, " : "));
@@ -258,9 +259,9 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	 * Adds an optional enhancement to the lore and equipment name.
 	 * Only works if it is not typed tool, otherwise it does nothing.
 	 * The base chance is 1 in 3, with the enhancement level based on the luck stat.
-	 * Each 100% enhance-rate will be a guaranteed level.</br>
-	 * Example 1: 50% = 50% chance for a lvl 1 enhancement, 50% chance for nothing at all.</br>
-	 * Example 3: 200% = 100% chance for a lvl 2 enhancement</br>
+	 * Each 100% enhance-rate will be a guaranteed level.<br/>
+	 * Example 1: 50% = 50% chance for a lvl 1 enhancement, 50% chance for nothing at all.<br/>
+	 * Example 3: 200% = 100% chance for a lvl 2 enhancement<br/>
 	 * Example 2: 350% = 100% chance for a lvl 3 enhancement + additional 50% chance for lvl 4.
 	 * 
 	 * @see PlayerSkillConfigurator#getLuck(Player)

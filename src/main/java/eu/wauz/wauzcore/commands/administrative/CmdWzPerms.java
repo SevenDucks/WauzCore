@@ -14,9 +14,9 @@ import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Show Permissions</b></br>
- * - Usage: <b>/wzPerms [filter]</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Show Permissions</b><br/>
+ * - Usage: <b>/wzPerms [filter]</b><br/>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

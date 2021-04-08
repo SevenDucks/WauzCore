@@ -231,7 +231,7 @@ public class BestiaryMenu implements WauzInventory {
 			return;
 		}
 		else if(page.equals("categories") && slot > 0 && slot < 8) {
-			String clickedName = clicked.getItemMeta().getDisplayName();
+			String clickedName = Components.displayName(clicked.getItemMeta());
 			String categoryName = StringUtils.substringAfter(clickedName, "Category: ");
 			category = WauzBestiaryCategory.valueOf(categoryName.toUpperCase());
 			showCategorySpecies(player);

@@ -30,10 +30,10 @@ import eu.wauz.wauzcore.system.util.Formatters;
 public class SocialMenuParts {
 	
 	/**
-	 * Fills the given main menu with sub menu icons.</br>
-	 * Row 1, Slot 1: The mail menu + unread mail count display.</br>
-	 * Row 1, Slot 2: The group menu + total active groups display.</br>
-	 * Row 2, Slot 1: The friends menu + friend count display.</br>
+	 * Fills the given main menu with sub menu icons.<br/>
+	 * Row 1, Slot 1: The mail menu + unread mail count display.<br/>
+	 * Row 1, Slot 2: The group menu + total active groups display.<br/>
+	 * Row 2, Slot 1: The friends menu + friend count display.<br/>
 	 * Row 2, Slot 2: The guild menu + guild name display.
 	 * 
 	 * @param player The player that should view the inventory.

@@ -12,9 +12,9 @@ import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Sit Down</b></br>
- * - Usage: <b>/sit</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Sit Down</b><br/>
+ * - Usage: <b>/sit</b><br/>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Eddshine

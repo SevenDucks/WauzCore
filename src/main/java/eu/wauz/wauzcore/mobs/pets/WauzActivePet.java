@@ -17,6 +17,7 @@ import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzModules;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A cached pet, currently summoned by a player.
@@ -188,7 +189,7 @@ public class WauzActivePet {
 		this.owner = owner;
 		this.petEntity = petEntity;
 		this.petType = petType;
-		this.petName = ChatColor.stripColor(eggItemStack.getItemMeta().getDisplayName());
+		this.petName = ChatColor.stripColor(Components.displayName(eggItemStack.getItemMeta()));
 		this.petAbility = PetEggUtils.getPetAbility(eggItemStack);
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
 			petStatMap.put(stat, PetEggUtils.getPetStat(eggItemStack, stat));

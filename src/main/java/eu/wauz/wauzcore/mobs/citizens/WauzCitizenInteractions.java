@@ -93,7 +93,7 @@ public class WauzCitizenInteractions {
 	public boolean checkForValidInteractions(Player player, ItemStack clickedItemStack) {
 		WauzPlayerEvent event = null;
 		for(ItemStack interactionItemStack : interactionEventMap.keySet()) {
-			if(ItemUtils.isSpecificItem(clickedItemStack, interactionItemStack.getItemMeta().getDisplayName())) {
+			if(ItemUtils.isSpecificItem(clickedItemStack, Components.displayName(interactionItemStack.getItemMeta()))) {
 				int relationLevel = RelationLevel.getRelationLevel(PlayerRelationConfigurator.getRelationProgress(player, displayName)).getRelationTier();
 				int requiredLevel = Integer.parseInt(ItemUtils.getStringFromLore(interactionItemStack, "Required Relation Level", 3));
 				if(relationLevel < requiredLevel) {

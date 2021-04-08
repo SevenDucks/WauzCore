@@ -32,7 +32,7 @@ public class ClimateCalculator {
 	 * If it is night a value of 3 is subtracted from the base value.
 	 * The temperature displayed to the player is randomized,
 	 * by a value of plus/minus 2, to simulate temperature fluctuation.
-	 * After that the timers for heat/cold resistances are decreased.</br></br>
+	 * After that the timers for heat/cold resistances are decreased.<br/><br/>
 	 * 
 	 * If the temperature is above 8 and the player has no heat resistance,
 	 * the player receives 2 damage and gets a hunger III effect.

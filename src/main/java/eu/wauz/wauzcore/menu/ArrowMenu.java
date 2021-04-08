@@ -191,7 +191,7 @@ public class ArrowMenu implements WauzInventory {
 			return;
 		}
 		
-		String displayName = ChatColor.stripColor(clicked.getItemMeta().getDisplayName());
+		String displayName = ChatColor.stripColor(Components.displayName(clicked.getItemMeta()));
 		PlayerConfigurator.setSelectedArrowType(player, displayName.split(" ")[0].toLowerCase());
 		player.sendMessage(ChatColor.YELLOW + "You switched to " + displayName + "!");
 		player.closeInventory();

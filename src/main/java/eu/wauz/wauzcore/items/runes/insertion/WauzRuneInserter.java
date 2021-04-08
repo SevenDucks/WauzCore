@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A helper class for registering runes and inserting them into items.
@@ -117,7 +118,7 @@ public class WauzRuneInserter {
 		
 		int successChance = EquipmentUtils.getRuneSuccessChance(runeItemStack);
 		if(!Chance.percent(successChance != 0 ? successChance : 50)) {
-			String displayName = equipmentItemStack.getItemMeta().getDisplayName();
+			String displayName = Components.displayName(equipmentItemStack.getItemMeta());
 			equipmentItemStack.setAmount(0);
 			player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_BREAK, 0);
 			player.sendMessage(ChatColor.RED + "Your " + displayName + ChatColor.RED + " just broke due to an unstable rune!");
@@ -148,7 +149,7 @@ public class WauzRuneInserter {
 	 * @return If the might is greater than zero.
 	 */
 	private boolean TryToDetermineRuneType() {
-		runeType = runeItemStack.getItemMeta().getDisplayName().split(" ")[2];
+		runeType = Components.displayName(runeItemStack.getItemMeta()).split(" ")[2];
 		WauzDebugger.log(player, "Rune-Type: " + runeType);
 		int runeMight = EquipmentUtils.getRuneMight(runeItemStack);
 		if(runeMight <= 0) {

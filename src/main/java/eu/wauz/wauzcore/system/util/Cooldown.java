@@ -42,7 +42,7 @@ public class Cooldown {
 			return true;
 		}
 		WauzDebugger.log(player, "Reset Attack Cooldown");
-		String itemName = itemStack.getItemMeta().getDisplayName();
+		String itemName = Components.displayName(itemStack.getItemMeta());
 		long cooldown = (long) (player.getCooldownPeriod() * 50);
 		return getAndUpdateCooldownFromCache(player, "WEAPON_USE :: " + itemName, cooldown, true);
 	}

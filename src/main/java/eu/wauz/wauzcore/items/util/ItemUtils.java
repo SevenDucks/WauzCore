@@ -107,7 +107,7 @@ public class ItemUtils {
 	public static int countSpecificStackableItems(Inventory inventory, ItemStack itemStack) {
 		int itemAmount = 0;
 		for(ItemStack inventoryItemStack : inventory.getContents()) {			
-			if(isSpecificItem(inventoryItemStack, itemStack.getItemMeta().getDisplayName()) && hasEqualLore(itemStack, inventoryItemStack)) {
+			if(isSpecificItem(inventoryItemStack, Components.displayName(itemStack.getItemMeta())) && hasEqualLore(itemStack, inventoryItemStack)) {
 				itemAmount += inventoryItemStack.getAmount();
 			}
 		}
@@ -124,7 +124,7 @@ public class ItemUtils {
 	 * @return
 	 */
 	public static boolean isSpecificItem(ItemStack itemStack, String itemName) {
-		return hasDisplayName(itemStack) && ChatColor.stripColor(itemStack.getItemMeta().getDisplayName()).equals(ChatColor.stripColor(itemName));
+		return hasDisplayName(itemStack) && ChatColor.stripColor(Components.displayName(itemStack.getItemMeta())).equals(ChatColor.stripColor(itemName));
 	}
 	
 	/**
@@ -261,7 +261,7 @@ public class ItemUtils {
 	 * @return If the color is contained in the name.
 	 */
 	public static boolean hasColoredName(ItemStack itemStack, ChatColor chatColor) {
-		return hasDisplayName(itemStack) && itemStack.getItemMeta().getDisplayName().contains(String.valueOf(chatColor));
+		return hasDisplayName(itemStack) && Components.displayName(itemStack.getItemMeta()).contains(String.valueOf(chatColor));
 	}
 	
 	/**
@@ -285,7 +285,7 @@ public class ItemUtils {
 	 * @return The name of the item.
 	 */
 	public static String getDisplayName(ItemStack itemStack) {
-		return hasDisplayName(itemStack) ? itemStack.getItemMeta().getDisplayName() : itemStack.getI18NDisplayName();
+		return hasDisplayName(itemStack) ? Components.displayName(itemStack.getItemMeta()) : itemStack.getI18NDisplayName();
 	}
 	
 	/**
@@ -310,7 +310,7 @@ public class ItemUtils {
 	 * @return If the items have equal lore.
 	 */
 	public static boolean hasEqualLore(ItemStack itemStackA, ItemStack itemStackB) {
-		return hasLore(itemStackA) && hasLore(itemStackB) && itemStackA.getItemMeta().getLore().equals(itemStackB.getItemMeta().getLore());
+		return hasLore(itemStackA) && hasLore(itemStackB) && Components.lore(itemStackA.getItemMeta()).equals(Components.lore(itemStackB.getItemMeta()));
 	}
 	
 	/**
@@ -323,8 +323,7 @@ public class ItemUtils {
 	 * @return If the string was found.
 	 */
 	public static boolean doesLoreContain(ItemStack itemStack, String content) {
-		List<String> lores = itemStack.getItemMeta().getLore();
-		for(String lore : lores) {
+		for(String lore : Components.lore(itemStack.getItemMeta())) {
 			if(lore.contains(content)) {
 				return true;
 			}
@@ -343,8 +342,7 @@ public class ItemUtils {
 	 * @return The string on the found line, with the given word index.
 	 */
 	public static String getStringFromLore(ItemStack itemStack, String content, int index) {
-		List<String> lores = itemStack.getItemMeta().getLore();
-		for(String lore : lores) {
+		for(String lore : Components.lore(itemStack.getItemMeta())) {
 			if(lore.contains(content)) {
 				return lore.split(" ")[index];
 			}
@@ -363,8 +361,7 @@ public class ItemUtils {
 	 * @return The string between the other strings.
 	 */
 	public static String getStringBetweenFromLore(ItemStack itemStack, String before, String after) {
-		List<String> lores = itemStack.getItemMeta().getLore();
-		for(String lore: lores) {
+		for(String lore: Components.lore(itemStack.getItemMeta())) {
 			if(lore.contains(before) && lore.contains(after)) {
 				return StringUtils.substringBetween(lore, before, after);
 			}
@@ -383,8 +380,7 @@ public class ItemUtils {
 	 * @return The int on the found line, with the given word index.
 	 */
 	public static int getIntegerFromLore(ItemStack itemStack, String content, int index) {
-		List<String> lores = itemStack.getItemMeta().getLore();
-		for(String lore : lores) {
+		for(String lore : Components.lore(itemStack.getItemMeta())) {
 			if(lore.contains(content)) {
 				return Integer.parseInt(lore.split(" ")[index]);
 			}
@@ -403,8 +399,7 @@ public class ItemUtils {
 	 * @return The int between the other strings.
 	 */
 	public static int getIntegerBetweenFromLore(ItemStack itemStack, String before, String after) {
-		List<String> lores = itemStack.getItemMeta().getLore();
-		for(String lore: lores) {
+		for(String lore: Components.lore(itemStack.getItemMeta())) {
 			if(lore.contains(before) && lore.contains(after)) {
 				return Integer.parseInt(StringUtils.substringBetween(lore, before, after));
 			}
@@ -424,8 +419,7 @@ public class ItemUtils {
 	 */
 	public static int getIntegerSumBetweenFromLore(ItemStack itemStack, String before, String after) {
 		int integerSum = 0;
-		List<String> lores = itemStack.getItemMeta().getLore();
-		for(String lore: lores) {
+		for(String lore: Components.lore(itemStack.getItemMeta())) {
 			if(lore.contains(before) && lore.contains(after)) {
 				integerSum += Integer.parseInt(StringUtils.substringBetween(lore, before, after));
 			}
@@ -444,8 +438,7 @@ public class ItemUtils {
 	 * @return The long on the found line, with the given word index.
 	 */
 	public static long getLongFromLore(ItemStack itemStack, String content, int index) {
-		List<String> lores = itemStack.getItemMeta().getLore();
-		for(String lore : lores) {
+		for(String lore : Components.lore(itemStack.getItemMeta())) {
 			if(lore.contains(content)) {
 				return Long.parseLong(lore.split(" ")[index]);
 			}
@@ -465,7 +458,7 @@ public class ItemUtils {
 	 */
 	public static boolean replaceStringFromLore(ItemStack itemStack, String content, String replacement) {
 		ItemMeta itemMeta = itemStack.getItemMeta();
-		List<String> lores = itemMeta.getLore();
+		List<String> lores = Components.lore(itemMeta);
 		List<String> newLores = new ArrayList<>();
 		boolean replaced = false;
 		for(String lore : lores) {
@@ -493,7 +486,7 @@ public class ItemUtils {
 	 */
 	public static boolean replaceStringFromLore(ItemStack itemStack, String content, int index, String replacement) {
 		ItemMeta itemMeta = itemStack.getItemMeta();
-		List<String> lores = itemMeta.getLore();
+		List<String> lores = Components.lore(itemMeta);
 		List<String> newLores = new ArrayList<>();
 		boolean replaced = false;
 		for(String lore : lores) {

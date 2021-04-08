@@ -16,6 +16,7 @@ import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Cooldown;
 
 /**
@@ -41,7 +42,7 @@ public class FoodCalculator {
 	public static void tryToConsume(Player player, ItemStack itemStack) {
 		WauzDebugger.log(player, "Try to consume Food Item");
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		String foodId = itemStack.getItemMeta().getDisplayName();
+		String foodId = Components.displayName(itemStack.getItemMeta());
 		if(!Cooldown.playerFoodConsume(player) || !playerData.getSkills().isFoodReady(foodId)) {
 			return;
 		}

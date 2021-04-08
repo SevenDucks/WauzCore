@@ -33,14 +33,14 @@ public class WauzSkillgemInserter {
 	 * @return If the action was successful.
 	 */
 	public boolean insertSkillgem(ItemStack equipmentItemStack, ItemStack skillgemItemStack) {
-		String skillName = skillgemItemStack.getItemMeta().getDisplayName();
+		String skillName = Components.displayName(skillgemItemStack.getItemMeta());
 		skillName = StringUtils.substringAfter(skillName, ": " + ChatColor.LIGHT_PURPLE);
 		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillName);
 		
 		if(skill != null && EquipmentUtils.hasSkillgemSocket(equipmentItemStack)) {
 			ItemMeta itemMeta = equipmentItemStack.getItemMeta();
 			List<String> newLores = new ArrayList<>();
-			for(String lore : itemMeta.getLore()) {
+			for(String lore : Components.lore(itemMeta)) {
 				if(lore.contains(ChatColor.DARK_RED + "Empty")) {
 					newLores.add(ChatColor.WHITE + "Skillgem (" + ChatColor.RED + skill.getSkillId() + ChatColor.WHITE + ")");
 					newLores.add(ChatColor.WHITE + skill.getSkillDescription());

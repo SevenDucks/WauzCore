@@ -25,6 +25,7 @@ import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
+import eu.wauz.wauzcore.system.util.Components;
 import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
 import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDespawnEvent;
 
@@ -61,7 +62,7 @@ public class PetModuleListener implements Listener {
 			event.setCancelled(true);
 		}
 		else if(ItemUtils.isSpecificItem(itemStack, "Scroll of Summoning")) {
-			WauzPet newPet = WauzPet.getPet(ChatColor.stripColor(itemStack.getLore().get(0)));
+			WauzPet newPet = WauzPet.getPet(ChatColor.stripColor(Components.lore(itemStack.getItemMeta()).get(0)));
 			if(newPet == null) {
 				player.sendMessage(ChatColor.RED + "Your scroll is invalid or outdated!");
 				return;

@@ -412,7 +412,7 @@ public class GuildOverviewMenu implements WauzInventory {
 			WauzDialog.open(player);
 		}
 		else if(clicked.getType().toString().endsWith("_BANNER") && ItemUtils.hasDisplayName(clicked)) {
-			WauzPlayerGuild.applyForGuild(player, ChatColor.stripColor(clicked.getItemMeta().getDisplayName()));
+			WauzPlayerGuild.applyForGuild(player, ChatColor.stripColor(Components.displayName(clicked.getItemMeta())));
 			player.closeInventory();
 		}
 		else if(clicked.getType().equals(Material.PLAYER_HEAD)) {

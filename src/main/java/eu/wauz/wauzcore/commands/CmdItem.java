@@ -17,9 +17,9 @@ import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Send Item in Chat</b></br>
- * - Usage: <b>/item</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Send Item in Chat</b><br/>
+ * - Usage: <b>/item</b><br/>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

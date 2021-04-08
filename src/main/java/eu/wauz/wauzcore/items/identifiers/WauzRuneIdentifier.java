@@ -12,6 +12,7 @@ import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * Typed identifier, used for identifying rune items.
@@ -36,7 +37,7 @@ public class WauzRuneIdentifier {
 	 * @see WauzRuneBuilder#generate(Tier, Rarity)
 	 */
 	public void identifyRune(Player player, ItemStack runeItemStack) {
-		String itemName = runeItemStack.getItemMeta().getDisplayName();
+		String itemName = Components.displayName(runeItemStack.getItemMeta());
 		Rarity rarity = Rarity.getRandomRuneRarity();
 		Tier tier = Tier.getRuneTier(itemName);
 		

@@ -181,10 +181,10 @@ public class CharacterSlotMenu implements WauzInventory {
 		else if(!type.equals(Material.TOTEM_OF_UNDYING) && !clicked.getType().equals(Material.BARRIER)) {
 			return;
 		}
-		String slotId = clicked.getItemMeta().getDisplayName().split(" ")[1];
+		String clickedName = Components.displayName(clicked.getItemMeta());
+		String slotId = clickedName.split(" ")[1];
 		playerData.getSelections().setSelectedCharacterSlot("char" + slotId);		
 		
-		String clickedName = clicked.getItemMeta().getDisplayName();
 		if(clickedName.contains("" + ChatColor.RED)) {
 			if(slotId.contains("Survival")) {
 				playerData.getSelections().setSelectedCharacterWorld(slotId.startsWith("OneBlock") ? "SurvivalOneBlock" : "Survival");

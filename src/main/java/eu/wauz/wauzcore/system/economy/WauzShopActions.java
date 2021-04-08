@@ -22,6 +22,7 @@ import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A collection of actions, executable from a shop.
@@ -64,7 +65,7 @@ public class WauzShopActions {
 		
 		ItemStack boughtItem = itemToBuy.getInstance(player, discount, true);
 		if(ItemUtils.isAmmoItem(boughtItem)) {
-			String displayName = ChatColor.stripColor(boughtItem.getItemMeta().getDisplayName());
+			String displayName = ChatColor.stripColor(Components.displayName(boughtItem.getItemMeta()));
 			String arrowType = displayName.split(" ")[0].toLowerCase();
 			int arrowAmount = PlayerConfigurator.getArrowAmount(player, arrowType) + boughtItem.getAmount();
 			arrowAmount = arrowAmount > 999 ? 999 : arrowAmount;
@@ -130,7 +131,7 @@ public class WauzShopActions {
 		long priceOld = price;
 		price = (int) ((float) price * (float) PlayerSkillConfigurator.getTradingFloat(player));
 		WauzDebugger.log(player, "Item-Price: " + price + " (" + priceOld + ")");
-		String displayName = ItemUtils.hasDisplayName(itemToSell) ? itemToSell.getItemMeta().getDisplayName() : "Item";
+		String displayName = ItemUtils.getDisplayName(itemToSell);
 		
 		PlayerCollectionConfigurator.setCharacterCoins(player, money + price);
 		AchievementTracker.addProgress(player, WauzAchievementType.EARN_COINS, price);

@@ -14,9 +14,9 @@ import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Open the Group Menu</b></br>
- * - Usage: <b>/group</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Open the Group Menu</b><br/>
+ * - Usage: <b>/group</b><br/>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

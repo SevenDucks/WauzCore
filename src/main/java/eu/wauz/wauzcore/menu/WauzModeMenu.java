@@ -84,7 +84,7 @@ public class WauzModeMenu implements WauzInventory {
 			return;
 		}
 		
-		String modeName = ChatColor.stripColor(clicked.getItemMeta().getDisplayName());
+		String modeName = ChatColor.stripColor(Components.displayName(clicked.getItemMeta()));
 		selectMode((Player) event.getWhoClicked(), modeName);
 	}
 	

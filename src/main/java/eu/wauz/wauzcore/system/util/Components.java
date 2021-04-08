@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 
@@ -33,6 +36,28 @@ public class Components {
 	}
 	
 	/**
+	 * Gets the display name of the given item meta.
+	 * 
+	 * @param itemMeta The item meta to get the display name from.
+	 * 
+	 * @return The display name.
+	 */
+	public static String displayName(ItemMeta itemMeta) {
+		return fromComponent(itemMeta.displayName());
+	}
+	
+	/**
+	 * Gets the display name of the given player.
+	 * 
+	 * @param player The player to get the display name from.
+	 * 
+	 * @return The display name.
+	 */
+	public static String displayName(Player player) {
+		return fromComponent(player.displayName());
+	}
+	
+	/**
 	 * Sets the display name of the given item meta.
 	 * 
 	 * @param itemMeta The item meta to set the display name for.
@@ -43,14 +68,16 @@ public class Components {
 	}
 	
 	/**
-	 * Gets the display name of the given item meta.
+	 * Gets the lore of the given item meta.
 	 * 
-	 * @param itemMeta The item meta to get the display name from.
+	 * @param itemMeta The item meta to get the lore from.
 	 * 
-	 * @return The display name.
+	 * @return The lore.
 	 */
-	public static String displayName(ItemMeta itemMeta) {
-		return fromComponent(itemMeta.displayName());
+	public static List<String> lore(ItemMeta itemMeta) {
+		return itemMeta.lore().stream()
+				.map(lore -> fromComponent(lore))
+				.collect(Collectors.toList());
 	}
 	
 	/**
@@ -66,16 +93,34 @@ public class Components {
 	}
 	
 	/**
-	 * Gets the lore of the given item meta.
+	 * Sets the modt of the given ping event.
 	 * 
-	 * @param itemMeta The item meta to get the lore from.
-	 * 
-	 * @return The lore.
+	 * @param event The ping event to set the motd for.
+	 * @param motd The motd to set.
 	 */
-	public static List<String> lore(ItemMeta itemMeta) {
-		return itemMeta.lore().stream()
-				.map(lore -> fromComponent(lore))
-				.collect(Collectors.toList());
+	public static void motd(ServerListPingEvent event, String motd) {
+		event.motd(toComponent(motd));
+	}
+	
+	/**
+	 * Gets the message of the given chat event.
+	 * 
+	 * @param event The chat event to get the message from.
+	 * 
+	 * @return The message.
+	 */
+	public static String message(AsyncChatEvent event) {
+		return fromComponent(event.message());
+	}
+	
+	/**
+	 * Sets the message of the given chat event.
+	 * 
+	 * @param event The chat event to set the message for.
+	 * @param message The message to set.
+	 */
+	public static void message(AsyncChatEvent event, String message) {
+		event.message(toComponent(message));
 	}
 	
 	/**

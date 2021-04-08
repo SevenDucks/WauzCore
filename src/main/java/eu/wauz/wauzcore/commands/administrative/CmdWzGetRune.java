@@ -14,9 +14,9 @@ import eu.wauz.wauzcore.items.identifiers.WauzEquipmentHelper;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Get Rune from String</b></br>
- * - Usage: <b>/wzGetRune [runename] [player]</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Get Rune from String</b><br/>
+ * - Usage: <b>/wzGetRune [runename] [player]</b><br/>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

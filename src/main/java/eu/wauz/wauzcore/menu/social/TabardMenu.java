@@ -110,7 +110,7 @@ public class TabardMenu implements WauzInventory {
 			}
 		}
 		
-		String tabardDisplay = ChatColor.stripColor(clicked.getItemMeta().getDisplayName());
+		String tabardDisplay = ChatColor.stripColor(Components.displayName(clicked.getItemMeta()));
 		PlayerConfigurator.setCharacterTabard(player, tabardDisplay);
 		equipSelectedTabard(player);
 		player.sendMessage(ChatColor.GREEN + "Equipped Tabard: " + tabardDisplay);
@@ -134,7 +134,7 @@ public class TabardMenu implements WauzInventory {
 		}
 		else {
 			ItemMeta bannerItemMeta = bannerItemStack.getItemMeta();
-			String tabardDisplay = ChatColor.stripColor(bannerItemMeta.getDisplayName());
+			String tabardDisplay = ChatColor.stripColor(Components.displayName(bannerItemMeta));
 			Components.displayName(bannerItemMeta, ChatColor.RESET + "Cosmetic Item [" + tabardDisplay + "]");
 			bannerItemStack.setItemMeta(bannerItemMeta);
 		}

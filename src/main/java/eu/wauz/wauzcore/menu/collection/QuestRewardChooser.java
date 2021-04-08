@@ -110,7 +110,7 @@ public class QuestRewardChooser implements WauzInventory {
 	 */
 	private static ItemStack makeRewardChoice(ItemStack choiceItemStack) {
 		ItemMeta choiceItemMeta = choiceItemStack.getItemMeta();
-		Components.displayName(choiceItemMeta, ChatColor.GREEN + "Reward Choice: " + choiceItemMeta.getDisplayName());
+		Components.displayName(choiceItemMeta, ChatColor.GREEN + "Reward Choice: " + Components.displayName(choiceItemMeta));
 		choiceItemStack.setItemMeta(choiceItemMeta);
 		return choiceItemStack;
 	}
@@ -126,7 +126,7 @@ public class QuestRewardChooser implements WauzInventory {
 		if(!ItemUtils.hasDisplayName(itemStack)) {
 			return false;
 		}
-		return itemStack.getItemMeta().getDisplayName().startsWith(ChatColor.GREEN + "Reward Choice: ");
+		return Components.displayName(itemStack.getItemMeta()).startsWith(ChatColor.GREEN + "Reward Choice: ");
 	}
 	
 	/**

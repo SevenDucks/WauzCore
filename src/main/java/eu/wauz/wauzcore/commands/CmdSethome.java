@@ -12,9 +12,9 @@ import eu.wauz.wauzcore.events.WauzPlayerEventHomeChange;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Set Home Location</b></br>
- * - Usage: <b>/sethome</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Set Home Location</b><br/>
+ * - Usage: <b>/sethome</b><br/>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

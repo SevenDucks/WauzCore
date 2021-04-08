@@ -227,7 +227,7 @@ public class MenuUtils {
 			return;
 		}
 		ItemMeta itemMeta = itemStack.getItemMeta();
-		List<String> lores = (replaceAll || !itemMeta.hasLore()) ? new ArrayList<>() : itemMeta.getLore();
+		List<String> lores = (replaceAll || !itemMeta.hasLore()) ? new ArrayList<>() : Components.lore(itemMeta);
 		lores.add(loreLine);
 		Components.lore(itemMeta, lores);
 		itemStack.setItemMeta(itemMeta);
@@ -284,7 +284,7 @@ public class MenuUtils {
 			event.setCancelled(true);
 			return;
 		}
-		String itemName = ItemUtils.hasDisplayName(itemStack) ? itemStack.getItemMeta().getDisplayName() : "";
+		String itemName = ItemUtils.hasDisplayName(itemStack) ? Components.displayName(itemStack.getItemMeta()) : "";
 		if(itemName.contains("Cosmetic Item")) {
 			event.setCancelled(true);
 			return;
@@ -308,7 +308,7 @@ public class MenuUtils {
 				event.setCancelled(true);
 				return false;
 			}
-			String itemName = ItemUtils.hasDisplayName(itemStack) ? itemStack.getItemMeta().getDisplayName() : "";
+			String itemName = ItemUtils.hasDisplayName(itemStack) ? Components.displayName(itemStack.getItemMeta()) : "";
 			if(itemName.contains("Cosmetic Item")) {
 				event.setCancelled(true);
 				return false;

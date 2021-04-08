@@ -30,10 +30,10 @@ public enum OneChestType {
 	MYTHIC("mythic");
 	
 	/**
-	 * Determines a random chest type, based on rarity rates.</br>
-	 * 55% Chance for Common</br>
-	 * 30% Chance for Rare</br>
-	 * 12% Chance for Epic</br>
+	 * Determines a random chest type, based on rarity rates.<br/>
+	 * 55% Chance for Common<br/>
+	 * 30% Chance for Rare<br/>
+	 * 12% Chance for Epic<br/>
 	 * 3% Chance for Mythic
 	 * 
 	 * @return The random chest type.

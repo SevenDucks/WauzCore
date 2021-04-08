@@ -267,7 +267,7 @@ public class QuestMenu implements WauzInventory {
 			return;
 		}
 
-		String displayName = clicked.getItemMeta().getDisplayName();
+		String displayName = Components.displayName(clicked.getItemMeta());
 		Material material = clicked.getType();
 		
 		if(material.equals(Material.BOOKSHELF)) {

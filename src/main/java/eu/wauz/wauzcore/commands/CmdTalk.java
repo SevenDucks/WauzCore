@@ -14,9 +14,9 @@ import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Talk to Nearest Citizen</b></br>
- * - Usage: <b>/talk</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Talk to Nearest Citizen</b><br/>
+ * - Usage: <b>/talk</b><br/>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

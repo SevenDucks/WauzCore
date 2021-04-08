@@ -12,9 +12,9 @@ import eu.wauz.wauzcore.mobs.pets.WauzPetAbilities;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Force Pet to Use Ability</b></br>
- * - Usage: <b>/wzPetAbility</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Force Pet to Use Ability</b><br/>
+ * - Usage: <b>/wzPetAbility</b><br/>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

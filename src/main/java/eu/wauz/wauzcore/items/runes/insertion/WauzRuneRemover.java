@@ -58,7 +58,7 @@ public class WauzRuneRemover {
 		
 		ItemMeta itemMeta = equipmentItemStack.getItemMeta();
 		List<String> newLores = new ArrayList<>();
-		for(String lore : itemMeta.getLore()) {
+		for(String lore : Components.lore(itemMeta)) {
 			if(skipLines > 0) {
 				skipLines--;
 				continue;

@@ -272,7 +272,7 @@ public class CraftingMenu implements WauzInventory {
 			return;
 		}
 		if(clicked.getType().equals(Material.FLINT_AND_STEEL)) {
-			String clickedName = clicked.getItemMeta().getDisplayName();
+			String clickedName = Components.displayName(clicked.getItemMeta());
 			if(clickedName.contains("Page ")) {
 				int page = Integer.parseInt(StringUtils.substringAfter(clickedName, "Page "));
 				listRecipes(player, page);
@@ -314,7 +314,7 @@ public class CraftingMenu implements WauzInventory {
 		boolean increasesLevel = false;
 		boolean missingMaterial = false;
 		
-		List<String> lores = clicked.getItemMeta().getLore();
+		List<String> lores = Components.lore(clicked.getItemMeta());
 		for(String lore : lores) {
 			if(lore.contains("Index")) {
 				String[] val = lore.split(" ");
@@ -332,7 +332,7 @@ public class CraftingMenu implements WauzInventory {
 		if(!valid) {
 			return;
 		}
-		if(clicked.getItemMeta().getDisplayName().contains(ChatColor.RED + "Recipe Locked")) {
+		if(Components.displayName(clicked.getItemMeta()).contains(ChatColor.RED + "Recipe Locked")) {
 			player.sendMessage(ChatColor.RED + "You haven't unlocked this recipe yet!");
 			player.closeInventory();
 			return;
@@ -345,7 +345,7 @@ public class CraftingMenu implements WauzInventory {
 		
 		ItemStack itemStack = new ItemStack(clicked.getType(), clicked.getAmount());
 		ItemMeta itemMeta = clicked.getItemMeta();
-		Components.displayName(itemMeta, clicked.getItemMeta().getDisplayName());
+		Components.displayName(itemMeta, Components.displayName(clicked.getItemMeta()));
 		Components.lore(itemMeta, CraftingConfigurator.getItemLores(itemIndex));
 		itemStack.setItemMeta(itemMeta);
 		

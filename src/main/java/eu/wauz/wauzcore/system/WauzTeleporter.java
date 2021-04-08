@@ -13,6 +13,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
@@ -23,6 +24,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -78,8 +80,9 @@ public class WauzTeleporter {
 	 */
 	public static void enterInstanceTeleportManual(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
+		ItemStack itemStack = event.getItem();
 		
-		if(!ItemUtils.isInstanceMap(event.getItem())) {
+		if(!ItemUtils.isInstanceMap(itemStack)) {
 			return;
 		}
 		if(player.isInsideVehicle()) {
@@ -90,9 +93,9 @@ public class WauzTeleporter {
 			player.sendMessage(ChatColor.RED + "You can't enter Maps inside an instance!");
 			return;
 		}	
-		String type = ItemUtils.getInstanceMapType(event.getItem());
-		String name = ChatColor.stripColor(event.getItem().getItemMeta().getDisplayName());
-		event.getItem().setAmount(event.getItem().getAmount() - 1);
+		String type = ItemUtils.getInstanceMapType(itemStack);
+		String name = ChatColor.stripColor(Components.displayName(itemStack.getItemMeta()));
+		itemStack.setAmount(itemStack.getAmount() - 1);
 		
 		if(type.contains("Survival")) {
 			InstanceManager.enter(player, type);

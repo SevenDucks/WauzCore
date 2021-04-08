@@ -15,9 +15,9 @@ import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Toggle Night Vision</b></br>
- * - Usage: <b>/wzNightvision [player]</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Toggle Night Vision</b><br/>
+ * - Usage: <b>/wzNightvision [player]</b><br/>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

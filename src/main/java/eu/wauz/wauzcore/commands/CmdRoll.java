@@ -14,9 +14,9 @@ import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.Chance;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Roll a Random Number</b></br>
- * - Usage: <b>/roll [maximum]</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Roll a Random Number</b><br/>
+ * - Usage: <b>/roll [maximum]</b><br/>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

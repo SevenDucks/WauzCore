@@ -48,9 +48,7 @@ public class DurabilityCalculator {
 		int oldDurability = EquipmentUtils.getCurrentDurability(itemToDamage);
 		int newDurability = oldDurability - damage;
 		
-		String displayName = ItemUtils.hasDisplayName(itemToDamage)
-				? itemToDamage.getItemMeta().getDisplayName()
-				: itemToDamage.getType().toString();
+		String displayName = ItemUtils.getDisplayName(itemToDamage);
 		
 		if(newDurability <= 0) {
 			itemToDamage.setAmount(0);

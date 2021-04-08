@@ -174,7 +174,7 @@ public class MaterialPouch implements WauzInventory {
 	public static boolean addItem(Player player, ItemStack itemStack, String inventoryName) {
 		Inventory inventory = MaterialPouch.getInventory(player, inventoryName);
 		if(inventory.addItem(WauzNmsClient.nmsSerialize(itemStack)).isEmpty()) {
-			String displayName = itemStack.getItemMeta().getDisplayName();
+			String displayName = Components.displayName(itemStack.getItemMeta());
 			String message = ChatColor.AQUA + "Found Material: " + displayName;
 			player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
 			player.sendTitle("", message, 2, 14, 4);

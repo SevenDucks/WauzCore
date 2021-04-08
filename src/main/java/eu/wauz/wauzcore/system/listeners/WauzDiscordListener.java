@@ -18,6 +18,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.DiscordConfigurator;
 import eu.wauz.wauzcore.events.ShareItemEvent;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
@@ -34,7 +35,7 @@ public class WauzDiscordListener implements Listener {
 	 * 
 	 * @see DiscordConfigurator#showJoinLeaveNotification()
 	 */
-	@EventHandler(priority = EventPriority.LOW)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onLogin(PlayerLoginEvent event) throws Exception {
 		if(!event.getResult().equals(Result.ALLOWED)) {
             return;
@@ -53,7 +54,7 @@ public class WauzDiscordListener implements Listener {
 	 * 
 	 * @see DiscordConfigurator#showJoinLeaveNotification()
 	 */
-	@EventHandler(priority = EventPriority.LOW)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onLogout(PlayerQuitEvent event) {
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
@@ -69,7 +70,7 @@ public class WauzDiscordListener implements Listener {
 	 * 
 	 * @see DiscordConfigurator#showDeathNotification()
 	 */
-	@EventHandler(priority = EventPriority.LOW)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onDeath(PlayerDeathEvent event) {
 		if(DiscordConfigurator.showDeathNotification()) {
 			Player player = event.getEntity();
@@ -83,13 +84,13 @@ public class WauzDiscordListener implements Listener {
 	 * 
 	 * @param event The event for creating the message.
 	 */
-	@EventHandler(priority = EventPriority.LOW)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onItem(ShareItemEvent event) {
 		Player player = event.getPlayer();
 		ItemStack itemStack = event.getItemStack();
 		String description = "**" + ChatColor.stripColor(ItemUtils.getDisplayName(itemStack)) + "**";
 		if(ItemUtils.hasLore(itemStack)) {
-			for(String lore : itemStack.getLore()) {
+			for(String lore : Components.lore(itemStack.getItemMeta())) {
 				String descriptionLine = StringUtils.substringBeforeLast(lore, ChatColor.GRAY + UnicodeUtils.ICON_DIAMOND);
 				description += System.lineSeparator() + ChatColor.stripColor(descriptionLine);
 			}

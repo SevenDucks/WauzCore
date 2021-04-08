@@ -18,9 +18,9 @@ import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Change Rank of a Player</b></br>
- * - Usage: <b>/wzRank [rank] [player]</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Change Rank of a Player</b><br/>
+ * - Usage: <b>/wzRank [rank] [player]</b><br/>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

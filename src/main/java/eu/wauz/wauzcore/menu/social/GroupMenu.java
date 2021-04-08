@@ -322,7 +322,7 @@ public class GroupMenu implements WauzInventory {
 		
 		// Create Group
 		else if(clicked.getType().equals(Material.LIGHT_BLUE_CONCRETE)) {
-			if(clicked.getItemMeta().getDisplayName().contains("Open")) {
+			if(Components.displayName(clicked.getItemMeta()).contains("Open")) {
 				WauzPlayerGroup playerGroup = new WauzPlayerGroup(player);
 				WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 				playerData.getSelections().setGroupUuidString(playerGroup.getGroupUuidString());
@@ -354,7 +354,7 @@ public class GroupMenu implements WauzInventory {
 		// Password Input
 		else if(clicked.getType().equals(Material.GRAY_CONCRETE)) {
 			String passwordString = player.getOpenInventory().getTitle().split(" ")[2].replace("" + ChatColor.DARK_RED, "");
-			passwordString += clicked.getItemMeta().getDisplayName().replace("" + ChatColor.RESET, "");
+			passwordString += Components.displayName(clicked.getItemMeta()).replace("" + ChatColor.RESET, "");
 			
 			if(ItemUtils.hasLore(clicked)) {
 				String groupUuidString = ItemUtils.getStringFromLore(clicked, "UUID", 1);

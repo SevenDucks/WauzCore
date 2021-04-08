@@ -28,10 +28,10 @@ public class WauzPlayerActionBar {
 	public static final String SEPERATOR = " " + ChatColor.WHITE + "|" + ChatColor.RESET + " ";
 	
 	/**
-	 * Updates the player's action bar, depending on the gamemode.</br>
-	 * Hub: DOUBLE-JUMP-MESSAGE</br>
-	 * Survival: LOCATION</br>
-	 * MMORPG: HEALTH | MANA | RAGE | HEAT | LOCATION</br>
+	 * Updates the player's action bar, depending on the gamemode.<br/>
+	 * Hub: DOUBLE-JUMP-MESSAGE<br/>
+	 * Survival: LOCATION<br/>
+	 * MMORPG: HEALTH | MANA | RAGE | HEAT | LOCATION<br/>
 	 * MMORPG-Casting: ABILITY-DISPLAY
 	 * 
 	 * @param player The player whose action bar should be updated.

@@ -11,9 +11,9 @@ import eu.wauz.wauzcore.system.SystemAnalytics;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Print System Analytics</b></br>
- * - Usage: <b>/wzSystem</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Print System Analytics</b><br/>
+ * - Usage: <b>/wzSystem</b><br/>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

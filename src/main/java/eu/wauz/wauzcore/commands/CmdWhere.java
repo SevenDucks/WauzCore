@@ -14,9 +14,9 @@ import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Get the Location of a Player</b></br>
- * - Usage: <b>/where [player]</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Get the Location of a Player</b><br/>
+ * - Usage: <b>/where [player]</b><br/>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

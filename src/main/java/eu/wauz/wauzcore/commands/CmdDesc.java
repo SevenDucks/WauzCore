@@ -15,9 +15,9 @@ import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.</br>
- * - Description: <b>Set the Group Description</b></br>
- * - Usage: <b>/desc [text]</b></br>
+ * A command, that can be executed by a player with fitting permissions.<br/>
+ * - Description: <b>Set the Group Description</b><br/>
+ * - Usage: <b>/desc [text]</b><br/>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

@@ -20,7 +20,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
@@ -57,7 +56,9 @@ import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import io.papermc.paper.event.player.AsyncChatEvent;
 
 /**
  * A listener to catch events, related to interactions between the player and the server or other entities.
@@ -95,7 +96,7 @@ public class PlayerInteractionListener implements Listener {
 	@EventHandler
 	public void onPing(ServerListPingEvent event) {
 		String playerName = getNameFromAddress(event.getAddress());
-		event.setMotd(ServerConfigurator.getServerMotd(playerName));
+		Components.motd(event, ServerConfigurator.getServerMotd(playerName));;
 	}
 
 	/**
@@ -167,11 +168,11 @@ public class PlayerInteractionListener implements Listener {
 	 * 
 	 * @param event The chat event.
 	 * 
-	 * @see ChatFormatter#global(AsyncPlayerChatEvent)
+	 * @see ChatFormatter#global(AsyncChatEvent)
 	 */
 	@EventHandler
-	public void onChat(AsyncPlayerChatEvent event) {
-		event.setFormat(ChatFormatter.global(event).replace("%", "%%"));
+	public void onChat(AsyncChatEvent event) {
+		Components.message(event, ChatFormatter.global(event));
 	}
 	
 	/**
@@ -268,7 +269,7 @@ public class PlayerInteractionListener implements Listener {
 			}
 			
 			if(ItemUtils.hasDisplayName(itemStack)) {
-				String displayName = itemStack.getItemMeta().getDisplayName();
+				String displayName = Components.displayName(itemStack.getItemMeta());
 				AchievementTracker.checkForAchievement(player, WauzAchievementType.COLLECT_ARTIFACTS, displayName);
 			}
 		}

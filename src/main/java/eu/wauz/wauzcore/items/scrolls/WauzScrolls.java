@@ -25,6 +25,7 @@ import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.mobs.towers.WauzTowers;
 import eu.wauz.wauzcore.system.annotations.Item;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A class for handling the usage of scrolls and socketable items.
@@ -115,12 +116,12 @@ public class WauzScrolls implements CustomItem {
 			return;
 		}
 		
-		String scrollName = scroll.getItemMeta().getDisplayName();
+		String scrollName = Components.displayName(scroll.getItemMeta());
 		if(scrollName.contains("Scroll of Comfort")) {
 			new WauzPlayerEventHomeChange(player.getLocation(), scroll).execute(player);
 		}
 		else if(scrollName.contains("Scroll of Summoning")) {
-			WauzPet newPet = WauzPet.getPet(ChatColor.stripColor(scroll.getLore().get(0)));
+			WauzPet newPet = WauzPet.getPet(ChatColor.stripColor(Components.lore(scroll.getItemMeta()).get(0)));
 			if(newPet == null) {
 				player.sendMessage(ChatColor.RED + "Your scroll is invalid or outdated!");
 				return;
@@ -155,7 +156,7 @@ public class WauzScrolls implements CustomItem {
 			return;
 		}
 		
-		String scrollName = scrollItemStack.getItemMeta().getDisplayName();
+		String scrollName = Components.displayName(scrollItemStack.getItemMeta());
 		InventoryScroll scroll = getScroll(ChatColor.stripColor(scrollName));
 		if(scroll != null && scroll.use(event, itemName)) {
 			scrollItemStack.setAmount(scrollItemStack.getAmount() - 1);

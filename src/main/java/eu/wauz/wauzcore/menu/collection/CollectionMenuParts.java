@@ -33,12 +33,12 @@ import eu.wauz.wauzcore.system.util.Formatters;
 public class CollectionMenuParts {
 	
 	/**
-	 * Fills the given main menu with sub menu icons.</br>
-	 * Row 1, Slot 1: The quest menu + completed quest count display.</br>
-	 * Row 1, Slot 2: The achievement menu + achievement count display.</br>
-	 * Row 1, Slot 3: The pet menu + used pet slots display.</br>
-	 * Row 2, Slot 1: The currency menu + coin amount display.</br>
-	 * Row 2, Slot 2: The titles menu + unlocked title count display.</br>
+	 * Fills the given main menu with sub menu icons.<br/>
+	 * Row 1, Slot 1: The quest menu + completed quest count display.<br/>
+	 * Row 1, Slot 2: The achievement menu + achievement count display.<br/>
+	 * Row 1, Slot 3: The pet menu + used pet slots display.<br/>
+	 * Row 2, Slot 1: The currency menu + coin amount display.<br/>
+	 * Row 2, Slot 2: The titles menu + unlocked title count display.<br/>
 	 * Row 2, Slot 3: The bestiary menu + killed enemy count display.
 	 * 
 	 * @param player The player that should view the inventory.

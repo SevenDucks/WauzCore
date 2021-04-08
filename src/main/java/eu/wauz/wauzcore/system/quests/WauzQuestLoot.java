@@ -97,7 +97,7 @@ public class WauzQuestLoot {
 				ItemStack rewardItemStack = WauzNmsClient.nmsSerialize(mythicMobs.getItemStack(canonicalName));
 				if(StringUtils.isNotBlank(displayNameSuffix) && ItemUtils.hasDisplayName(rewardItemStack)) {
 					ItemMeta rewardItemMeta = rewardItemStack.getItemMeta();
-					Components.displayName(rewardItemMeta, rewardItemMeta.getDisplayName() + displayNameSuffix);
+					Components.displayName(rewardItemMeta, Components.displayName(rewardItemMeta) + displayNameSuffix);
 					rewardItemStack.setItemMeta(rewardItemMeta);
 				}
 				itemStacks.add(rewardItemStack);
