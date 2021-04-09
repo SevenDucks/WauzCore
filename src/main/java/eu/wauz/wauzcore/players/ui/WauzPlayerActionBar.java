@@ -12,6 +12,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerDataSectionStats;
 import eu.wauz.wauzcore.skills.Castable;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -49,7 +50,7 @@ public class WauzPlayerActionBar {
 		
 		if(WauzMode.inHub(player)) {
 			String actionBarMessage = ChatColor.LIGHT_PURPLE + "Try to Double-Jump!";
-			player.sendActionBar(actionBarMessage);
+			Components.actionBar(player, actionBarMessage);
 			return;
 		}
 		
@@ -61,7 +62,7 @@ public class WauzPlayerActionBar {
 		
 		if(WauzMode.isSurvival(player)) {
 			String actionBarMessage = locationString;
-			player.sendActionBar(actionBarMessage);
+			Components.actionBar(player, actionBarMessage);
 			return;
 		}
 		
@@ -75,7 +76,7 @@ public class WauzPlayerActionBar {
 			String rageString = ChatColor.GOLD + "" + stats.getRage() + " / " + stats.getMaxRage() + " " + UnicodeUtils.ICON_SUN + SEPERATOR;
 			String heatString = ChatColor.GREEN + "" + ((stats.getHeat()* 5 - 10) + stats.getHeatRandomizer()) + " " + UnicodeUtils.ICON_DEGREES + "C" + SEPERATOR;
 			String actionBarMessage = healthString + manaString + rageString + heatString + locationString;
-			player.sendActionBar(actionBarMessage);
+			Components.actionBar(player, actionBarMessage);
 			return;
 		}
 	}
@@ -97,7 +98,7 @@ public class WauzPlayerActionBar {
 		for(int slot = startSlot; slot <= startSlot + 3; slot++) {
 			actionBarMessage += getQuickSlot(playerData, selectedCastables, slot) + SEPERATOR;
 		}
-		player.sendActionBar(actionBarMessage + "(F) " + ChatColor.AQUA + "Next");
+		Components.actionBar(player, actionBarMessage + "(F) " + ChatColor.AQUA + "Next");
 	}
 	
 	/**

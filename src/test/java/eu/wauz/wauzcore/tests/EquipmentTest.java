@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import eu.wauz.wauzcore.items.enums.EquipmentType;
@@ -19,6 +20,7 @@ import eu.wauz.wauzcore.tests.abstracts.AbstractCoreTest;
  * 
  * @author Wauzmons
  */
+@Ignore
 public class EquipmentTest extends AbstractCoreTest {
 	
 	/**

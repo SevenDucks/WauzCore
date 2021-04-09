@@ -70,7 +70,8 @@ public class CmdWzFirework implements WauzCommand {
 	public static void spawnFirework(Location location, int radius, int ticks, int interval) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
-	        public void run() {
+	        @Override
+			public void run() {
 	        	try {
 	        		float x = Chance.negativePositive(radius);
 	        		float z = Chance.negativePositive(radius);

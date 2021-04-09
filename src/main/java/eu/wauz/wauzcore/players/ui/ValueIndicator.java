@@ -94,7 +94,8 @@ public class ValueIndicator {
 		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
-            public void run() {
+            @Override
+			public void run() {
             	spawnIndicator(location, ChatColor.LIGHT_PURPLE + "" + exp + " EXP");
             }
             
@@ -135,6 +136,7 @@ public class ValueIndicator {
 	private static void queueIndicatorDespawn(final Entity dmgIndicator) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
             
+			@Override
 			public void run() {
             	dmgIndicator.remove();
             }

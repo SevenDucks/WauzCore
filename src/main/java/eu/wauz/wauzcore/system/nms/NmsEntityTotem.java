@@ -7,7 +7,6 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import eu.wauz.wauzcore.system.util.Components;
 import net.minecraft.server.v1_16_R3.ChatMessage;
 import net.minecraft.server.v1_16_R3.EntityArmorStand;
 import net.minecraft.server.v1_16_R3.WorldServer;
@@ -33,7 +32,7 @@ public class NmsEntityTotem extends EntityArmorStand {
 		double x = location.getX();
 		double y = location.getY();
 		double z = location.getZ();
-		String display = ChatColor.GREEN + Components.displayName(player) + "'s Totem";
+		String display = ChatColor.GREEN + player.getName() + "'s Totem";
 		
 		return new NmsEntityTotem(worldServer, x, y, z, display, headItemStack, null).getBukkitEntity();
 	}
@@ -53,7 +52,7 @@ public class NmsEntityTotem extends EntityArmorStand {
 		double x = location.getX();
 		double y = location.getY();
 		double z = location.getZ();
-		String display = ChatColor.GREEN + Components.displayName(player) + "'s Tower";
+		String display = ChatColor.GREEN + player.getName() + "'s Tower";
 		
 		return new NmsEntityTotem(worldServer, x, y, z, display, headItemStack, bodyItemStack).getBukkitEntity();
 	}

@@ -10,6 +10,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A listener to catch events, when the core module is inactive.
@@ -29,7 +30,7 @@ public class BaseModuleListener implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
-		String inventoryName = ChatColor.stripColor(player.getOpenInventory().getTitle());
+		String inventoryName = ChatColor.stripColor(Components.title(player.getOpenInventory()));
 		String inventoryType = event.getInventory().getType().toString();
 		WauzDebugger.log(player, "You clicked in Inventory: " + inventoryName + " " + inventoryType);
 		
@@ -52,7 +53,7 @@ public class BaseModuleListener implements Listener {
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent event) {
 		Player player = (Player) event.getPlayer();
-		String inventoryName = ChatColor.stripColor(player.getOpenInventory().getTitle());
+		String inventoryName = ChatColor.stripColor(Components.title(player.getOpenInventory()));
 		String inventoryType = event.getInventory().getType().toString();
 		WauzDebugger.log(player, "You closed the Inventory: " + inventoryName + " " + inventoryType);
 		

@@ -33,6 +33,7 @@ import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzFileUtils;
 
 /**
@@ -260,8 +261,8 @@ public class InstanceManager {
 		org.bukkit.block.data.type.Sign signData = (org.bukkit.block.data.type.Sign) sign.getBlockData();
 		signData.setRotation(blockFace);
 		sign.setBlockData(signData);
-		sign.setLine(1, WauzSigns.EXIT_DOOR_TEXT);
-		sign.setLine(2, WauzSigns.EXIT_DOOR_LEAVE_TEXT);
+		Components.line(sign, 1, WauzSigns.EXIT_DOOR_TEXT);
+		Components.line(sign, 2, WauzSigns.EXIT_DOOR_LEAVE_TEXT);
 		sign.update();
 	}
 	

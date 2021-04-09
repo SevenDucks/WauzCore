@@ -3,15 +3,17 @@ package eu.wauz.wauzcore.commands;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A command, that can be executed by a player with fitting permissions.<br/>
@@ -60,7 +62,11 @@ public class CmdRoll implements WauzCommand {
 		}
 		
 		int value = Chance.minMax(1, maximum);
-		Bukkit.broadcastMessage(player.getName() + " rolls " + value + " (1-" + maximum + ")");
+		String result = player.getName() + " rolls " + value + " (1-" + maximum + ")";
+		Components.broadcast(result);
+		if(WauzModules.isMainModuleActive()) {
+			WauzCore.getShiroDiscordBot().sendMessageFromMinecraft(result, false);
+		}
 		return true;
 	}
 

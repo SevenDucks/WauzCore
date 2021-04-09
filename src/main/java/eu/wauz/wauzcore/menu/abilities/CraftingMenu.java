@@ -380,7 +380,7 @@ public class CraftingMenu implements WauzInventory {
 	 * @return The page index.
 	 */
 	private static int getIndex(InventoryView inventory) {
-		return Integer.parseInt(StringUtils.substringBetween(inventory.getTitle(), "Page ", " "));
+		return Integer.parseInt(StringUtils.substringBetween(Components.title(inventory), "Page ", " "));
 	}
 	
 }

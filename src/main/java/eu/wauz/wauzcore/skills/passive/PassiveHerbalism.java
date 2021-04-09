@@ -38,6 +38,7 @@ public class PassiveHerbalism extends AbstractPassiveJobSkill {
 	 * 
 	 * @return The created instance.
 	 */
+	@Override
 	public AbstractPassiveSkill getInstance(long exp) {
 		return new PassiveHerbalism(exp);
 	}

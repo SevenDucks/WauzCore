@@ -91,10 +91,12 @@ public class WauzPlayerEnemyBossBar extends WauzPlayerBossBar {
 	 * 
 	 * @see WauzPlayerBossBar#destroy()
 	 */
+	@Override
 	protected void doPlayerChecks() {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
-	        public void run() {
+	        @Override
+			public void run() {
 	        	try {
 	        		if(damageable == null || !damageable.isValid()) {
 	        			destroy();
@@ -126,6 +128,7 @@ public class WauzPlayerEnemyBossBar extends WauzPlayerBossBar {
 	/**
 	 * @return The name of the object, this bar belongs to.
 	 */
+	@Override
 	protected String getName() {
 		return damageable.getName();
 	}
@@ -133,6 +136,7 @@ public class WauzPlayerEnemyBossBar extends WauzPlayerBossBar {
 	/**
 	 * @return The health of the object, this bar belongs to.
 	 */
+	@Override
 	protected double getHealth() {
 		return damageable.getHealth();
 	}

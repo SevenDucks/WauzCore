@@ -180,7 +180,8 @@ public class CustomWeaponBow implements CustomWeapon {
 	public static void spawnArrowTrail(Arrow arrow, Color color) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
-	        public void run() {
+	        @Override
+			public void run() {
 	        	try {
 	        		if(arrow != null && !arrow.isOnGround() && arrow.isValid()) {
 	        			new SkillParticle(color).spawn(arrow.getLocation(), 1);

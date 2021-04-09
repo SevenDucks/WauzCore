@@ -127,11 +127,12 @@ public class ShiroDiscordBot extends ListenerAdapter {
 	 * @param inLogChannel If the message should be send to the log channel.
 	 */
 	public void sendMessageFromMinecraft(String message, boolean inLogChannel) {
+		String formattedMessage = ChatColor.stripColor(message).replace("`", "");
 		if(inLogChannel) {
-			loggingChannel.sendMessage("`" + ChatColor.stripColor(message) + "`").queue();
+			loggingChannel.sendMessage("`" + formattedMessage + "`").queue();
 		}
 		else {
-			generalChannel.sendMessage("**Minecraft**: `" + ChatColor.stripColor(message) + "`").queue();
+			generalChannel.sendMessage("**Minecraft**: `" + formattedMessage + "`").queue();
 		}
 	}
 	

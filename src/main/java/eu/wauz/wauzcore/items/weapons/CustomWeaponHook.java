@@ -84,10 +84,13 @@ public class CustomWeaponHook implements CustomWeapon {
 		DurabilityCalculator.damageItem(player, player.getEquipment().getItemInMainHand(), 12, false);
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
-            public void run() {
+			
+            @Override
+			public void run() {
             	player.setVelocity(vector);
             	event.getEntity().remove();
             }
+            
 		}, 10);
 	}
 
@@ -150,7 +153,8 @@ public class CustomWeaponHook implements CustomWeapon {
 					DurabilityCalculator.damageItem(player, player.getEquipment().getItemInMainHand(), false);
 					
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
-			            public void run() {
+			            @Override
+						public void run() {
 			            	entity.setVelocity(SkillUtils.getVectorForPoints(entity.getLocation(), player.getLocation()));
 			            	event.getEntity().remove();
 			            }

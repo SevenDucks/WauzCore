@@ -105,7 +105,8 @@ public class SkillTheStar implements WauzPlayerSkill {
 				final int finalIterator = iterator;
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 					
-		            public void run() {
+		            @Override
+					public void run() {
 		            	try {
 		            		if(target == null || !target.isValid())
 		            			return;

@@ -4,16 +4,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
+import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
+import eu.wauz.wauzcore.skills.particles.Colors;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 /**
  * Util class for interacting with adventure components.
@@ -21,6 +35,17 @@ import net.kyori.adventure.text.TextComponent;
  * @author Wauzmons
  */
 public class Components {
+	
+	/**
+	 * Gets the title of the given inventory.
+	 * 
+	 * @param inventory The inventory to get the title from.
+	 * 
+	 * @return The title.
+	 */
+	public static String title(InventoryView inventory) {
+		return fromComponent(inventory.title());
+	}
 
 	/**
 	 * Creates a custom inventory instance.
@@ -36,6 +61,63 @@ public class Components {
 	}
 	
 	/**
+	 * Kicks a player and shows them the given message.
+	 * 
+	 * @param player The player to kick.
+	 * @param message The message to show to the player.
+	 */
+	public static void kick(Player player, String message) {
+		player.kick(toComponent(message));
+	}
+	
+	/**
+	 * Sets the action bar of the given player.
+	 * 
+	 * @param player The player to set the action bar for.
+	 * @param actionBar The action bar to set.
+	 */
+	public static void actionBar(Player player, String actionBar) {
+		player.sendActionBar(toComponent(actionBar));
+	}
+	
+	/**
+	 * Sets the player list header and footer for the given player.
+	 * 
+	 * @param player The player to set the player list header and footer for.
+	 * @param header The header to set.
+	 * @param footer The footer to set.
+	 */
+	public static void playerListHeaderAndFooter(Player player, String header, String footer) {
+		player.sendPlayerListHeaderAndFooter(toComponent(header), toComponent(footer));
+	}
+	
+	/**
+	 * Sets the team prefix and color for the given team.
+	 * 
+	 * @param team The team to set the team prefix and color for.
+	 * @param prefix The prefix to set.
+	 * @param color The color to set.
+	 */
+	public static void teamPrefixAndColor(Team team, String prefix, ChatColor color) {
+		team.prefix(toComponent(prefix));
+		team.color(Colors.getByChatColor(color));
+	}
+	
+	/**
+	 * Registers a new objective on the given scoreboard.
+	 * 
+	 * @param scoreboard The scoreboard to register the objective on.
+	 * @param name The name of the objective.
+	 * @param criteria The criteria of the objective.
+	 * @param displayName The display name of the objective.
+	 * 
+	 * @return The created objective.
+	 */
+	public static Objective objective(Scoreboard scoreboard, String name, String criteria, String displayName) {
+		return scoreboard.registerNewObjective(name, criteria, toComponent(displayName));
+	}
+	
+	/**
 	 * Gets the display name of the given item meta.
 	 * 
 	 * @param itemMeta The item meta to get the display name from.
@@ -44,17 +126,6 @@ public class Components {
 	 */
 	public static String displayName(ItemMeta itemMeta) {
 		return fromComponent(itemMeta.displayName());
-	}
-	
-	/**
-	 * Gets the display name of the given player.
-	 * 
-	 * @param player The player to get the display name from.
-	 * 
-	 * @return The display name.
-	 */
-	public static String displayName(Player player) {
-		return fromComponent(player.displayName());
 	}
 	
 	/**
@@ -93,6 +164,54 @@ public class Components {
 	}
 	
 	/**
+	 * Gets the line of the given sign.
+	 * 
+	 * @param sign The sign to get the line from.
+	 * @param index The index of the line.
+	 * 
+	 * @return The line.
+	 */
+	public static String line(Sign sign, int index) {
+		return fromComponent(sign.line(index));
+	}
+	
+	/**
+	 * Sets the line of the given sign.
+	 * 
+	 * @param sign The sign to set the line for.
+	 * @param index The index of the line.
+	 * @param line The line to set.
+	 */
+	public static void line(Sign sign, int index, String line) {
+		sign.line(index, toComponent(line));
+	}
+	
+	/**
+	 * Gets the lines of the given sign event.
+	 * 
+	 * @param event The sign event to get the lines from.
+	 * 
+	 * @return The lines.
+	 */
+	public static List<String> lines(SignChangeEvent event) {
+		return event.lines().stream()
+				.map(line -> fromComponent(line))
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Sets the lines of the given sign event.
+	 * 
+	 * @param event The sign event to set the lines for.
+	 * @param lines The lines to set.
+	 */
+	public static void lines(SignChangeEvent event, List<String> lines) {
+		for(int index = 0; index < lines.size(); index++) {
+			event.line(index, toComponent(lines.get(index)));
+		}
+	}
+	
+	/**
 	 * Sets the modt of the given ping event.
 	 * 
 	 * @param event The ping event to set the motd for.
@@ -114,13 +233,65 @@ public class Components {
 	}
 	
 	/**
-	 * Sets the message of the given chat event.
+	 * Creates an item component from the given values.
 	 * 
-	 * @param event The chat event to set the message for.
-	 * @param message The message to set.
+	 * @param message The message that should be shown.
+	 * @param itemStack The item stack that should be shown.
+	 * 
+	 * @return The created component.
 	 */
-	public static void message(AsyncChatEvent event, String message) {
-		event.message(toComponent(message));
+	public static TextComponent itemComponent(String message, ItemStack itemStack) {
+		return toComponent(message)
+				.append(toComponent(ChatColor.WHITE + " " + ItemUtils.getDisplayName(itemStack))
+				.hoverEvent(itemStack));
+	}
+	
+	/**
+	 * Creates a command component from the given values.
+	 * 
+	 * @param message The message that should be shown.
+	 * @param command The command that should be executed on click.
+	 * 
+	 * @return The created component.
+	 */
+	public static TextComponent commandComponent(String message, String command) {
+		return toComponent(message)
+				.append(toComponent(ChatColor.AQUA + " Click Here")
+				.hoverEvent(HoverEvent.showText(toComponent("Run Command")))
+				.clickEvent(ClickEvent.runCommand("/" + command)));
+	}
+	
+	/**
+	 * Creates a hyperlink component from the given values.
+	 * 
+	 * @param message The message that should be shown.
+	 * @param url The url that should be opened on click.
+	 * 
+	 * @return The created component.
+	 */
+	public static TextComponent hyperlinkComponent(String message, String url) {
+		return toComponent(message)
+				.append(toComponent(ChatColor.AQUA + " Click Here")
+				.hoverEvent(HoverEvent.showText(toComponent("Open URL")))
+				.clickEvent(ClickEvent.openUrl(url)));
+	}
+	
+	/**
+	 * Sends a message to everyone.
+	 * 
+	 * @param message The message to send.
+	 */
+	public static void broadcast(String message) {
+		broadcast(toComponent(message));
+	}
+	
+	/**
+	 * Sends a component to everyone.
+	 * 
+	 * @param component The component to send.
+	 */
+	public static void broadcast(Component component) {
+		WauzCore.getAudiences().all().sendMessage(component);
 	}
 	
 	/**
@@ -142,10 +313,7 @@ public class Components {
 	 * @return The created text.
 	 */
 	private static String fromComponent(Component component) {
-		if(component instanceof TextComponent) {
-			return ((TextComponent) component).content();
-		}
-		return null;
+		return LegacyComponentSerializer.legacySection().serializeOrNull(component);
 	}
 	
 }

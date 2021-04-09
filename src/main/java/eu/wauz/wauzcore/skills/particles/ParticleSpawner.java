@@ -124,6 +124,7 @@ public class ParticleSpawner {
 			
 			private double t = Math.PI / 4;
 			
+			@Override
 			public void run(){
 				t = t + 0.1 * Math.PI;
 				for (double theta = 0; theta <= 2 * Math.PI; theta = theta + Math.PI / 8) {
@@ -154,6 +155,7 @@ public class ParticleSpawner {
 			
 			private double phi = 0;
 			
+			@Override
 			public void run() {
 				phi += Math.PI / 10;
 				for(double theta = 0; theta <= 2 * Math.PI; theta += Math.PI / 20) {

@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 
 import eu.wauz.wauzcore.system.util.Chance;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 /**
  * A collection of default dye colors.
@@ -17,9 +19,14 @@ import eu.wauz.wauzcore.system.util.Chance;
 public class Colors {
 	
 	/**
+	 * A map of all named component colors, indexed by chat colors.
+	 */
+	private static final Map<ChatColor, NamedTextColor> COMPONENT_COLOR_MAP = new HashMap<>();
+	
+	/**
 	 * A map of all default dye colors.
 	 */
-	private static final Map<String, Color> COLOR_MAP = new HashMap<String, Color>();
+	private static final Map<String, Color> COLOR_MAP = new HashMap<>();
 	
 	/**
 	 * A list of all default dye colors.
@@ -27,9 +34,26 @@ public class Colors {
 	private static final List<Color> COLORS = new ArrayList<>();
 	
 	/**
-	 * Initializes the color map and list.
+	 * Initializes the color maps and list.
 	 */
 	static {
+		COMPONENT_COLOR_MAP.put(ChatColor.AQUA, NamedTextColor.AQUA);
+		COMPONENT_COLOR_MAP.put(ChatColor.BLACK, NamedTextColor.BLACK);
+		COMPONENT_COLOR_MAP.put(ChatColor.BLUE, NamedTextColor.BLUE);
+		COMPONENT_COLOR_MAP.put(ChatColor.DARK_AQUA, NamedTextColor.DARK_AQUA);
+		COMPONENT_COLOR_MAP.put(ChatColor.DARK_BLUE, NamedTextColor.DARK_BLUE);
+		COMPONENT_COLOR_MAP.put(ChatColor.DARK_GRAY, NamedTextColor.DARK_GRAY);
+		COMPONENT_COLOR_MAP.put(ChatColor.DARK_GREEN, NamedTextColor.DARK_GREEN);
+		COMPONENT_COLOR_MAP.put(ChatColor.DARK_PURPLE, NamedTextColor.DARK_PURPLE);
+		COMPONENT_COLOR_MAP.put(ChatColor.DARK_RED, NamedTextColor.DARK_RED);
+		COMPONENT_COLOR_MAP.put(ChatColor.GOLD, NamedTextColor.GOLD);
+		COMPONENT_COLOR_MAP.put(ChatColor.GRAY, NamedTextColor.GRAY);
+		COMPONENT_COLOR_MAP.put(ChatColor.GREEN, NamedTextColor.GREEN);
+		COMPONENT_COLOR_MAP.put(ChatColor.LIGHT_PURPLE, NamedTextColor.LIGHT_PURPLE);
+		COMPONENT_COLOR_MAP.put(ChatColor.RED, NamedTextColor.RED);
+		COMPONENT_COLOR_MAP.put(ChatColor.WHITE, NamedTextColor.WHITE);
+		COMPONENT_COLOR_MAP.put(ChatColor.YELLOW, NamedTextColor.YELLOW);
+		
 		COLOR_MAP.put("AQUA", Color.AQUA);
 		COLOR_MAP.put("BLACK", Color.BLACK);
 		COLOR_MAP.put("BLUE", Color.BLUE);
@@ -48,6 +72,17 @@ public class Colors {
 		COLOR_MAP.put("WHITE", Color.WHITE);
 		COLOR_MAP.put("YELLOW", Color.YELLOW);
 		COLORS.addAll(COLOR_MAP.values());
+	}
+	
+	/**
+	 * Gets the named component color for the given chat color.
+	 * 
+	 * @param color The associated chat color.
+	 * 
+	 * @return The component color.
+	 */
+	public static NamedTextColor getByChatColor(ChatColor color) {
+		return COMPONENT_COLOR_MAP.get(color);
 	}
 	
 	/**

@@ -172,7 +172,8 @@ public class PlayerInteractionListener implements Listener {
 	 */
 	@EventHandler
 	public void onChat(AsyncChatEvent event) {
-		Components.message(event, ChatFormatter.global(event));
+		event.setCancelled(true);
+		ChatFormatter.global(event);
 	}
 	
 	/**

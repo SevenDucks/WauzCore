@@ -139,7 +139,8 @@ public class CustomWeaponGlider implements CustomWeapon {
 		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
-	        public void run() {
+	        @Override
+			public void run() {
 	        	if(chicken != null && chicken.isValid()) {
         			SkillUtils.createExplosion(chicken.getLocation(), 5);
         			for(Entity target : SkillUtils.getTargetsInRadius(origin, 4)) {
@@ -287,7 +288,8 @@ public class CustomWeaponGlider implements CustomWeapon {
 		Entity chicken = NmsEntityChickoon.create(location);
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
-	        public void run() {
+	        @Override
+			public void run() {
 	        	if(chicken != null && chicken.isValid()) {
         			chicken.remove();
         		}

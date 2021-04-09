@@ -75,6 +75,7 @@ public class WauzMenu implements WauzInventory, CustomItem {
 	 * 
 	 * @return The list of materials.
 	 */
+	@Override
 	public List<Material> getCustomItemMaterials() {
 		return Arrays.asList(Material.NETHER_STAR);
 	}

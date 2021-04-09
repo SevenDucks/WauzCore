@@ -85,6 +85,7 @@ public class WauzPlayerRegistrator {
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
             
+			@Override
 			public void run() {
         		player.setHealth(20);
         		player.setFoodLevel(20);
@@ -149,6 +150,7 @@ public class WauzPlayerRegistrator {
 		final boolean characterSelected = WauzPlayerDataPool.isCharacterSelected(player);
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(core, new Runnable() {
 			
+			@Override
 			public void run() {
 				if(respawnInCurrentWorld) {
 					Location spawnLocation = player.getBedSpawnLocation();

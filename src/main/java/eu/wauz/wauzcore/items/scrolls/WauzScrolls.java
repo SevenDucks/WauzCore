@@ -92,6 +92,7 @@ public class WauzScrolls implements CustomItem {
 	 * 
 	 * @return The list of materials.
 	 */
+	@Override
 	public List<Material> getCustomItemMaterials() {
 		return Arrays.asList(Material.NAME_TAG);
 	}

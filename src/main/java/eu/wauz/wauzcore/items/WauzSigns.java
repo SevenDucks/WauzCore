@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.items;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -18,6 +19,7 @@ import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.instances.WauzInstanceKeyStatus;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -80,7 +82,7 @@ public class WauzSigns {
 	 * @param event The sign event.
 	 */
 	public static void create(SignChangeEvent event) {	
-		String[] lines = event.getLines();
+		String[] lines = Components.lines(event).toArray(new String[0]);
 		
 		if(StringUtils.isBlank(lines[1])) {
 			return;
@@ -97,6 +99,8 @@ public class WauzSigns {
 			lines[1] = TRAVEL_TEXT;
 			lines[2] = TRAVEL_LOCATION_TEXT + lines[2];
 		}
+		
+		Components.lines(event, Arrays.asList(lines));
 	}
 	
 	/**
@@ -111,7 +115,7 @@ public class WauzSigns {
 	 */
 	public static void interact(Player player, Block block) {
 		Sign sign = (Sign) block.getState();
-		String signType = sign.getLine(1);
+		String signType = Components.line(sign, 1);
 		
 		if(StringUtils.isBlank(signType) || !signType.contains(UnicodeUtils.ICON_PARAGRAPH)) {
 			return;
@@ -141,7 +145,7 @@ public class WauzSigns {
 	 */
 	private static void tryToOpenDoor(Player player, Sign sign) {
 		WauzDebugger.log(player, "Try to Open Door");
-		String keyId = StringUtils.substringAfterLast(sign.getLine(2), " ");
+		String keyId = StringUtils.substringAfterLast(Components.line(sign, 2), " ");
 		WauzDebugger.log(player, "Key ID: " + keyId);
 		
 		boolean hasAccess = false;
@@ -201,7 +205,7 @@ public class WauzSigns {
 	 */
 	private static void tryToTravel(Player player, Sign sign) {
 		WauzDebugger.log(player, "Try to Travel");
-		String waypointKey = StringUtils.substringAfterLast(sign.getLine(2), TRAVEL_LOCATION_TEXT);
+		String waypointKey = StringUtils.substringAfterLast(Components.line(sign, 2), TRAVEL_LOCATION_TEXT);
 		WauzDebugger.log(player, "Waypoint ID: " + waypointKey);
 		
 		WauzTeleporter.waypointTeleport(player, waypointKey);

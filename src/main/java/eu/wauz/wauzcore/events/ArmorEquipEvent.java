@@ -90,6 +90,7 @@ public class ArmorEquipEvent extends PlayerEvent implements Cancellable {
 	/**
 	 * @param cancelled If the event has been cancelled now.
 	 */
+	@Override
 	public final void setCancelled(final boolean cancelled) {
 		this.cancelled = cancelled;
 	}
@@ -97,6 +98,7 @@ public class ArmorEquipEvent extends PlayerEvent implements Cancellable {
 	/**
 	 * @return If the event has been cancelled.
 	 */
+	@Override
 	public final boolean isCancelled() {
 		return cancelled;
 	}

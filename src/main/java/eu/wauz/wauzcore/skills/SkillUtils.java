@@ -248,7 +248,8 @@ public class SkillUtils {
 	public static void callPlayerDamageOverTimeEvent(Player player, Entity entity, Color color, int damage, int ticks, int interval) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
-	        public void run() {
+	        @Override
+			public void run() {
 	        	try {
 	        		if(player != null && player.isValid() && entity != null && entity.isValid()) {
 	        			ParticleSpawner.spawnParticleHelix(entity.getLocation(), new SkillParticle(color), 0.5, 2.5);
@@ -308,7 +309,8 @@ public class SkillUtils {
 	private static void callTotemEvent(Entity totem, TotemRunnable runnable, int ticks, int interval) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
-	        public void run() {
+	        @Override
+			public void run() {
 	        	try {
 	        		if(totem != null && totem.isValid()) {
 	        			runnable.run(totem);
@@ -364,6 +366,7 @@ public class SkillUtils {
 			
 			private int runs = 0;
 			
+			@Override
 			public void run() {
 				if(runs++ >= 10 || !entity.isValid()) {
 					this.cancel();

@@ -240,9 +240,10 @@ public class WauzEquipment {
 	 * @see WauzSkillgemInserter#insertSkillgem(ItemStack, ItemStack)
 	 */
 	public static boolean insertSkillgem(InventoryClickEvent event) {
+		Player player = (Player) event.getWhoClicked();
 		ItemStack equipmentItemStack = event.getCurrentItem();
 		ItemStack skillgemItemStack = event.getWhoClicked().getItemOnCursor();
-		return new WauzSkillgemInserter().insertSkillgem(equipmentItemStack, skillgemItemStack);
+		return new WauzSkillgemInserter().insertSkillgem(player, equipmentItemStack, skillgemItemStack);
 	}
 	
 	/**

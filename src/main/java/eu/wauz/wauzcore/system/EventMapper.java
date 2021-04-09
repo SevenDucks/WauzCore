@@ -35,6 +35,7 @@ import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
 import eu.wauz.wauzcore.professions.WauzResource;
 import eu.wauz.wauzcore.skills.SkillQuickSlots;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -239,7 +240,7 @@ public class EventMapper {
 		if(player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
-		String inventoryName = ChatColor.stripColor(player.getOpenInventory().getTitle());
+		String inventoryName = ChatColor.stripColor(Components.title(player.getOpenInventory()));
 		String inventoryType = event.getInventory().getType().toString();
 		WauzDebugger.log(player, "You clicked in Inventory: " + inventoryName + " " + inventoryType);
 		
@@ -283,7 +284,7 @@ public class EventMapper {
 		if(player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
-		String inventoryName = ChatColor.stripColor(player.getOpenInventory().getTitle());
+		String inventoryName = ChatColor.stripColor(Components.title(player.getOpenInventory()));
 		String inventoryType = event.getInventory().getType().toString();
 		WauzDebugger.log(player, "You closed the Inventory: " + inventoryName + " " + inventoryType);
 		

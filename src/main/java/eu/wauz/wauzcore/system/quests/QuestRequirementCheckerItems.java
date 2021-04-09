@@ -32,6 +32,7 @@ public class QuestRequirementCheckerItems extends QuestRequirementChecker {
 	/**
 	 * Initializes configuration values for the requirements, if any are needed.
 	 */
+	@Override
 	public void initRequirements() {
 		// Nothing to do here...
 	}
@@ -41,6 +42,7 @@ public class QuestRequirementCheckerItems extends QuestRequirementChecker {
 	 * 
 	 * @return If the requirements were fulfilled.
 	 */
+	@Override
 	public boolean checkRequirements() {
 		return execute(false);
 	}
@@ -48,6 +50,7 @@ public class QuestRequirementCheckerItems extends QuestRequirementChecker {
 	/**
 	 * Hands in quest related items, if any were needed.
 	 */
+	@Override
 	public void handInItems() {
 		execute(false);
 		itemRemover.execute();
@@ -60,6 +63,7 @@ public class QuestRequirementCheckerItems extends QuestRequirementChecker {
 	 * 
 	 * @return If the quest phase is completed.
 	 */
+	@Override
 	protected boolean execute(boolean onlyObjectives) {
 		int requirementAmount = quest.getRequirementAmount(phase);
 		int fulfilledAmount = 0;

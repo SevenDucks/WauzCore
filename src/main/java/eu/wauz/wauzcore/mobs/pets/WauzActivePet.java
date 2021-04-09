@@ -134,6 +134,7 @@ public class WauzActivePet {
 			event.setCancelled(true);
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 	            
+				@Override
 				public void run() {
 	            	try {
 	            		((Wolf) entity).setSitting(false);

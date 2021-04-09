@@ -74,8 +74,8 @@ public class WauzDiscordListener implements Listener {
 	public void onDeath(PlayerDeathEvent event) {
 		if(DiscordConfigurator.showDeathNotification()) {
 			Player player = event.getEntity();
-			WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Death] " + event.getDeathMessage()
-					+ "!", null, Color.BLACK, false);
+			WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Death] " + player.getName()
+					+ " died!", null, Color.BLACK, false);
 		}
 	}
 	

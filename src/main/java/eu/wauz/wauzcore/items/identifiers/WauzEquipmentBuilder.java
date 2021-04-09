@@ -327,7 +327,7 @@ public class WauzEquipmentBuilder {
 		if(skillgem != null) {
 			ItemStack skillgemItemStack = new ItemStack(Material.REDSTONE);
 			WauzSkillgemIdentifier.createSkillgem(skillgemItemStack, skillgem);
-			new WauzSkillgemInserter().insertSkillgem(itemStack, skillgemItemStack);
+			new WauzSkillgemInserter().insertSkillgem(null, itemStack, skillgemItemStack);
 		}
 		return itemStack;
 	}

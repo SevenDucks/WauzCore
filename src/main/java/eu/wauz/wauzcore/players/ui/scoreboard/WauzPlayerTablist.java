@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.WauzTitle;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -83,7 +84,7 @@ public class WauzPlayerTablist {
 	 * @return The created objective.
 	 */
 	private Objective registerHealthObjective(String name, DisplaySlot slot) {
-		Objective healthObjective = scoreboard.registerNewObjective(name, "health", ChatColor.RED + UnicodeUtils.ICON_HEART);
+		Objective healthObjective = Components.objective(scoreboard, name, "health", ChatColor.RED + UnicodeUtils.ICON_HEART);
 		healthObjective.setDisplaySlot(slot);
 		healthObjective.setRenderType(RenderType.HEARTS);
 		return healthObjective;
@@ -106,8 +107,9 @@ public class WauzPlayerTablist {
 		addFriendsEntries();
 		addRemainingEntries();
 		WauzPlayerEffects effects = WauzPlayerDataPool.getPlayer(player).getStats().getEffects();
-		player.setPlayerListHeader(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Delseyria" + ChatColor.DARK_AQUA + ChatColor.BOLD + "Reborn");
-		player.setPlayerListFooter(ChatColor.AQUA + "----------" + WauzDateUtils.getServerTime() + "----------" + effects);
+		String header = ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Delseyria" + ChatColor.DARK_AQUA + ChatColor.BOLD + "Reborn";
+		String footer = ChatColor.AQUA + "----------" + WauzDateUtils.getServerTime() + "----------" + effects;
+		Components.playerListHeaderAndFooter(player, header, footer);
 		player.setScoreboard(scoreboard);
 	}
 	
@@ -226,8 +228,7 @@ public class WauzPlayerTablist {
 		else {
 			rankPrefix = StringUtils.isBlank(rank.getRankPrefix()) ? "" : rank.getRankPrefix() + " ";
 		}
-		team.setPrefix(teamPrefix + rankPrefix);
-		team.setColor(rank.getRankColor());
+		Components.teamPrefixAndColor(team, teamPrefix + rankPrefix, rank.getRankColor());
 	}
 	
 	/**

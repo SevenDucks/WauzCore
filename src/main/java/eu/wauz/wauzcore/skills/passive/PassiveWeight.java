@@ -69,6 +69,7 @@ public class PassiveWeight extends AbstractPassiveSkill {
 	 * 
 	 * @return The created instance.
 	 */
+	@Override
 	public AbstractPassiveSkill getInstance(long exp) {
 		return new PassiveWeight(exp);
 	}

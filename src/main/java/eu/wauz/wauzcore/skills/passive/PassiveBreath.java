@@ -70,6 +70,7 @@ public class PassiveBreath extends AbstractPassiveSkill {
 	 * 
 	 * @return The created instance.
 	 */
+	@Override
 	public AbstractPassiveSkill getInstance(long exp) {
 		return new PassiveBreath(exp);
 	}

@@ -70,6 +70,7 @@ public class PassiveNutrition extends AbstractPassiveSkill {
 	 * 
 	 * @return The created instance.
 	 */
+	@Override
 	public AbstractPassiveSkill getInstance(long exp) {
 		return new PassiveNutrition(exp);
 	}

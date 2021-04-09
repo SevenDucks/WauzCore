@@ -227,6 +227,7 @@ public class BreedingMenu implements WauzInventory {
 		else if(slot == 3 || slot == 5 || event.getClick().toString().contains("SHIFT")) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 				
+				@Override
 				public void run() {
 					updateBreedButton();
 				}

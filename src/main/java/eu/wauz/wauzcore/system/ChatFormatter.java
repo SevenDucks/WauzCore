@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.system;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
@@ -25,25 +24,25 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 public class ChatFormatter {
 	
 	/**
-	 * Formats a message from an chat event for the global chat.
+	 * Formats and sends a message from an chat event to the global chat.
 	 * 
 	 * @param event The received PlayerChatEvent.
 	 * 
 	 * @return The formatted message.
 	 */
-	public static String global(AsyncChatEvent event) {
+	public static void global(AsyncChatEvent event) {
 		Player player = event.getPlayer();
 		
 		String rankPrefix = getRankPrefix(player);
 		String gamemodeSuffix = getGamemodeSuffix(player);
-		String msg = ChatColor.WHITE + "[" + rankPrefix + Components.displayName(player) + ChatColor.WHITE + " (" +
+		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getName() + ChatColor.WHITE + " (" +
 				ChatColor.AQUA  + gamemodeSuffix + ChatColor.WHITE + ")] " +
 				ChatColor.GRAY + Components.message(event);
 		
+		Components.broadcast(msg);
 		if(WauzModules.isMainModuleActive()) {
 			WauzCore.getShiroDiscordBot().sendMessageFromMinecraft(msg, false);
 		}
-		return msg.replace("%", "%%");
 	}
 	
 	/**
@@ -57,7 +56,7 @@ public class ChatFormatter {
 	public static void share(Player player, ItemStack itemStack) {
 		String rankPrefix = getRankPrefix(player);
 		String gamemodeSuffix = getGamemodeSuffix(player);
-		String msg = ChatColor.WHITE + "[" + rankPrefix + Components.displayName(player) + ChatColor.WHITE + " (" +
+		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getName() + ChatColor.WHITE + " (" +
 				ChatColor.AQUA  + gamemodeSuffix + ChatColor.WHITE + ") (" +
 				ChatColor.GRAY + "Showcase" + ChatColor.WHITE + ")]";
 		
@@ -78,7 +77,7 @@ public class ChatFormatter {
 		
 		String rankPrefix = getRankPrefix(player);
 		String gamemodeSuffix = getGamemodeSuffix(player);
-		String msg = ChatColor.WHITE + "[" + rankPrefix + Components.displayName(player) + ChatColor.WHITE + " (" +
+		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getName() + ChatColor.WHITE + " (" +
 				ChatColor.AQUA  + gamemodeSuffix + ChatColor.WHITE + ") (" +
 				ChatColor.BLUE + "Group" + ChatColor.WHITE + ")] " +
 				ChatColor.GRAY + message;
@@ -102,7 +101,7 @@ public class ChatFormatter {
 		
 		String rankPrefix = getRankPrefix(player);
 		String gamemodeSuffix = getGamemodeSuffix(player);
-		String msg = ChatColor.WHITE + "[" + rankPrefix + Components.displayName(player) + ChatColor.WHITE + " (" +
+		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getName() + ChatColor.WHITE + " (" +
 				ChatColor.AQUA  + gamemodeSuffix + ChatColor.WHITE + ") (" +
 				ChatColor.GREEN + "Guild" + ChatColor.WHITE + ")] " +
 				ChatColor.GRAY + message;
@@ -121,7 +120,7 @@ public class ChatFormatter {
 				ChatColor.DARK_AQUA  + "Discord" + ChatColor.WHITE + ")] " +
 				ChatColor.GRAY + message;
 		
-		Bukkit.broadcastMessage(msg);
+		Components.broadcast(msg);
 	}
 	
 	/**

@@ -55,10 +55,12 @@ public class WauzPlayerResourceBossBar extends WauzPlayerBossBar {
 	 * 
 	 * @see WauzPlayerBossBar#destroy()
 	 */
+	@Override
 	protected void doPlayerChecks() {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
-	        public void run() {
+	        @Override
+			public void run() {
 	        	try {
         			for(Player player : bossBar.getPlayers()) {
         				if(!inDistance(player, resource.getResourceSpawn().getLocation())) {
@@ -80,6 +82,7 @@ public class WauzPlayerResourceBossBar extends WauzPlayerBossBar {
 	/**
 	 * @return The name of the object, this bar belongs to.
 	 */
+	@Override
 	protected String getName() {
 		return resource.getResourceSpawn().getResource().getNodeName();
 	}
@@ -87,6 +90,7 @@ public class WauzPlayerResourceBossBar extends WauzPlayerBossBar {
 	/**
 	 * @return The health of the object, this bar belongs to.
 	 */
+	@Override
 	protected double getHealth() {
 		return resource.getHealth();
 	}

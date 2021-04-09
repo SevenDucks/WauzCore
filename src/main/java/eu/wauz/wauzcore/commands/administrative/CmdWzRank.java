@@ -16,6 +16,7 @@ import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.annotations.Command;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A command, that can be executed by a player with fitting permissions.<br/>
@@ -92,7 +93,7 @@ public class CmdWzRank implements WauzCommand {
 		sender.sendMessage(ChatColor.GREEN + "Changed the rank of " + player.getName() + " to " + newRank.getRankName() + "!");
 		Player onlinePlayer = player.getPlayer();
 		if(onlinePlayer != null) {
-			onlinePlayer.kickPlayer("Your rank was updated! Please re-join the game!");
+			Components.kick(onlinePlayer, "Your rank was updated! Please re-join the game!");
 		}
 		return true;
 	}

@@ -11,6 +11,8 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
+import eu.wauz.wauzcore.system.util.Components;
+
 /**
  * The abstract base for all scoreboard classes.
  * 
@@ -36,10 +38,8 @@ public abstract class BaseScoreboard {
 	public BaseScoreboard(Player player) {
 		ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 		scoreboard = scoreboardManager.getNewScoreboard();
-		Objective objective = scoreboard.registerNewObjective("row", "dummy", "displayName");
-		
+		Objective objective = Components.objective(scoreboard, "row", "dummy", "-*-*-*-" + getTitleText() + "-*-*-*-");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		objective.setDisplayName("-*-*-*-" + getTitleText() + "-*-*-*-");
 		rowStrings = new ArrayList<>();
 		fillScoreboard(player);
 		

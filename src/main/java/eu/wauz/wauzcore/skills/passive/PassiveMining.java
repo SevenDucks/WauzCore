@@ -38,6 +38,7 @@ public class PassiveMining extends AbstractPassiveJobSkill {
 	 * 
 	 * @return The created instance.
 	 */
+	@Override
 	public AbstractPassiveSkill getInstance(long exp) {
 		return new PassiveMining(exp);
 	}

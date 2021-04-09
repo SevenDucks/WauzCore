@@ -3,19 +3,10 @@ package eu.wauz.wauzcore.system.util;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.hover.content.Item;
-import net.md_5.bungee.api.chat.hover.content.Text;
 
 /**
  * An util class for stuff like unicode icons.
@@ -145,16 +136,11 @@ public class UnicodeUtils {
 	/**
 	 * Sends a hoverable message of an item stack to all players.
 	 * 
-	 * @param itemStack The item that should be shown.
+	 * @param itemStack The item stack that should be shown.
 	 * @param message The message that should be shown.
 	 */
 	public static void shareChatItem(ItemStack itemStack, String message) {
-		String itemKey = itemStack.getType().getKey().toString();
-		Item item = new Item(itemKey, itemStack.getAmount(), WauzNmsClient.getTagFromItem(itemStack));
-		Bukkit.getServer().broadcast(new ComponentBuilder(message)
-				.append(ChatColor.WHITE + " " + ItemUtils.getDisplayName(itemStack))
-				.event(new HoverEvent(HoverEvent.Action.SHOW_ITEM, item))
-				.create());
+		Components.broadcast(Components.itemComponent(message, itemStack));
 	}
 
 	/**
@@ -170,11 +156,7 @@ public class UnicodeUtils {
 			player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 		}
 		
-		player.spigot().sendMessage(new ComponentBuilder(message)
-				.append(ChatColor.AQUA + " Click Here")
-				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Run Command")))
-				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + command))
-				.create());
+		player.sendMessage(Components.commandComponent(message, command));
 	    
 	    if(border) {
 	    	player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
@@ -194,11 +176,7 @@ public class UnicodeUtils {
 			player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 		}
 		
-		player.spigot().sendMessage(new ComponentBuilder(message)
-				.append(ChatColor.AQUA + " Click Here")
-				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Open URL")))
-				.event(new ClickEvent(ClickEvent.Action.OPEN_URL, url))
-				.create());
+		player.sendMessage(Components.hyperlinkComponent(message, url));
 	    
 	    if(border) {
 	    	player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");

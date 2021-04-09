@@ -40,6 +40,7 @@ import eu.wauz.wauzcore.system.listeners.PlayerCombatListener;
 import eu.wauz.wauzcore.system.listeners.PlayerInteractionListener;
 import eu.wauz.wauzcore.system.listeners.ProjectileMovementListener;
 import eu.wauz.wauzcore.system.listeners.WauzDiscordListener;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 /**
  * The main class of the plugin and holder of system information.
@@ -86,6 +87,11 @@ public class WauzCore extends JavaPlugin {
 	private static WauzCore instance;
 	
 	/**
+	 * The audience provider for adventure components.
+	 */
+	private static BukkitAudiences audiences;
+	
+	/**
 	 * The Discord bot running on the server.
 	 */
 	private static ShiroDiscordBot shiroDiscordBot;
@@ -93,7 +99,7 @@ public class WauzCore extends JavaPlugin {
 	/**
 	 * The filter used to listen to log records from Bukkit.
 	 */
-	private WauzLogFilter logFilter;
+	private static WauzLogFilter logFilter;
 	
 	/**
 	 * The WebServerManager used for the web based API.
@@ -106,15 +112,8 @@ public class WauzCore extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
-		PluginManager pluginManager = getServer().getPluginManager();
-		boolean isMainModuleActive = WauzModules.isMainModuleActive();
-		if(isMainModuleActive) {
-			shiroDiscordBot = new ShiroDiscordBot();
-			logFilter = new WauzLogFilter();
-			pluginManager.registerEvents(new WauzDiscordListener(), this);
-			((org.apache.logging.log4j.core.Logger) LogManager.getRootLogger()).addFilter(logFilter);
-			getLogger().info("Enabled Discord Integration!");
-		}
+		audiences = BukkitAudiences.create(this);
+		PluginManager pluginManager = getServer().getPluginManager(); 
 		
 		getLogger().info("O~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-O");
 		getLogger().info(" _    _                                           ");
@@ -126,7 +125,7 @@ public class WauzCore extends JavaPlugin {
 		getLogger().info("");
 		getLogger().info("O-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~O");
 		
-		if(isMainModuleActive) {
+		if(WauzModules.isMainModuleActive()) {
 			ConfigurationLoader.init();
 			getLogger().info("Finished Loading Data from Files!");
 			
@@ -143,6 +142,12 @@ public class WauzCore extends JavaPlugin {
 			pluginManager.registerEvents(new PlayerInteractionListener(), this);
 			pluginManager.registerEvents(new ProjectileMovementListener(), this);
 			getLogger().info("Registered EventListeners!");
+			
+			shiroDiscordBot = new ShiroDiscordBot();
+			logFilter = new WauzLogFilter();
+			pluginManager.registerEvents(new WauzDiscordListener(), this);
+			((org.apache.logging.log4j.core.Logger) LogManager.getRootLogger()).addFilter(logFilter);
+			getLogger().info("Enabled Discord Integration!");
 			
 			int port = getWebApiPort();
 			webServerManager = new WebServerManager(port);
@@ -211,6 +216,13 @@ public class WauzCore extends JavaPlugin {
 		return instance;
 	}
 	
+	/**
+	 * @return The audience provider for adventure components.
+	 */
+	public static BukkitAudiences getAudiences() {
+		return audiences;
+	}
+
 	/**
 	 * @return The Discord bot running on this server.
 	 */

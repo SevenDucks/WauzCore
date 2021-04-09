@@ -33,7 +33,8 @@ public class WauzPlayerScoreboard {
 	public static void scheduleScoreboardRefresh(final Player player) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
-            public void run() {
+            @Override
+			public void run() {
             	if(player == null || !player.isValid() || WauzPlayerDataPool.getPlayer(player) == null) {
             		return;
             	}

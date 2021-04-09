@@ -111,7 +111,8 @@ public class WauzPlayerSit {
 		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 			
-            public void run() {
+            @Override
+			public void run() {
             	try {
             		event.getDismounted().remove();
             		player.teleport(playerLocation);
