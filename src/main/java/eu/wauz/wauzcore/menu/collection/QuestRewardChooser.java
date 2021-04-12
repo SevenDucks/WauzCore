@@ -106,7 +106,9 @@ public class QuestRewardChooser implements WauzInventory {
 	/**
 	 * Transforms an item stack into a reward choice, by adding a prefix to it.
 	 * 
-	 * @param choiceItemStack The item check to transform.
+	 * @param choiceItemStack The item stack to transform.
+	 * 
+	 * @return The transformed item stack;
 	 */
 	private static ItemStack makeRewardChoice(ItemStack choiceItemStack) {
 		ItemMeta choiceItemMeta = choiceItemStack.getItemMeta();

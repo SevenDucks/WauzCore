@@ -57,9 +57,6 @@ public class WauzDiscordBot extends ListenerAdapter {
 	
 	/**
 	 * Creates and logs in a new bot and loads all channels.
-	 * Also initializes the audio player.
-	 * 
-	 * @see WauzDiscordBot#setupAudioPlayer()
 	 */
 	public WauzDiscordBot() {
 		List<GatewayIntent> intents = new ArrayList<>();
@@ -185,8 +182,6 @@ public class WauzDiscordBot extends ListenerAdapter {
 	 * Also sends it to the Minecraft chat.
 	 * 
 	 * @param event The message event.
-	 * 
-	 * @see WauzDiscordBot#checkForGlobalCommands(String, MessageChannel, boolean)
 	 */
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {

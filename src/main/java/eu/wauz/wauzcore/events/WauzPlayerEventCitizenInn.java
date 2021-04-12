@@ -29,7 +29,7 @@ public class WauzPlayerEventCitizenInn implements WauzPlayerEvent {
 	 * Creates an event to sleep in the inn of the given citizen.
 	 * 
 	 * @param citizenName The name of the citizen to interact with.
-	 * @param command The location of the inn to sleep in.
+	 * @param location The location of the inn to sleep in.
 	 */
 	public WauzPlayerEventCitizenInn(String citizenName, Location location) {
 		this.citizenName = citizenName;

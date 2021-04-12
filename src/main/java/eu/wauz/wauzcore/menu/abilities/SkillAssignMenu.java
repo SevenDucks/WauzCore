@@ -18,8 +18,8 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionSkills;
 import eu.wauz.wauzcore.skills.Castable;
 import eu.wauz.wauzcore.skills.SkillQuickSlots;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
@@ -126,7 +126,7 @@ public class SkillAssignMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 * 
-	 * @see WauzPlayerData#getUnlockedCastables()
+	 * @see WauzPlayerDataSectionSkills#getUnlockedCastables()
 	 * @see SkillAssignMenu#getQuickSlotInfoItemStack()
 	 * @see Castable#getAssignmentItem()
 	 * @see MenuUtils#setBorders(Inventory)

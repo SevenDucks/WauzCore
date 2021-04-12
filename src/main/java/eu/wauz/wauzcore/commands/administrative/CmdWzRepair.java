@@ -15,9 +15,9 @@ import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Repair Equipment of Player</b><br/>
- * - Usage: <b>/wzRepair [player]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Repair Equipment of Player</b><br>
+ * - Usage: <b>/wzRepair [player]</b><br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

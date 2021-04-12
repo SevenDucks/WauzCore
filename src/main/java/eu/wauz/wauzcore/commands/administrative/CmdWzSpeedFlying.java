@@ -14,9 +14,9 @@ import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Change Flying Speed</b><br/>
- * - Usage: <b>/wzSpeed.flying [speed (1-10)] [player]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Change Flying Speed</b><br>
+ * - Usage: <b>/wzSpeed.flying [speed (1-10)] [player]</b><br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

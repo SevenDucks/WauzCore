@@ -199,7 +199,6 @@ public class WauzPlayerTablist {
 	 * @param player The player to add as entry.
 	 * 
 	 * @see WauzPlayerTablist#generatePrefix(Team, Player)
-	 * @see WauzPlayerTablist#generateSuffix(Team, Player)
 	 */
 	private void addEntry(Player player) {
 		Team team = scoreboard.registerNewTeam(getNextTeamId());

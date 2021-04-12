@@ -47,7 +47,7 @@ public class WauzPlayerEventHomeChange implements WauzPlayerEvent {
 	 * Creates an event to set the new home location of a player,
 	 * to the position of an innkeeper.
 	 * 
-	 * @param innkeeper The location of the innkeeper (in this case likely the player himself), to set the home to.
+	 * @param innkeeperLocation The location of the innkeeper (in this case likely the player himself), to set the home to.
 	 * @param scroll The scroll that triggered the event.
 	 */
 	public WauzPlayerEventHomeChange(Location innkeeperLocation, ItemStack scroll) {

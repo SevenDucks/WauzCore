@@ -19,7 +19,7 @@ public class ArcadeScoreboard extends BaseScoreboard {
 	/**
 	 * Initializes the scoreboard and fills it with data.
 	 * 
-	 * @param The player who should receive the scoreboard.
+	 * @param player The player who should receive the scoreboard.
 	 */
 	public ArcadeScoreboard(Player player) {
 		super(player);
@@ -36,7 +36,7 @@ public class ArcadeScoreboard extends BaseScoreboard {
 	/**
 	 * Fills the scoreboard with entries for the given player
 	 * 
-	 * @param The player who should receive the scoreboard.
+	 * @param player The player who should receive the scoreboard.
 	 */
 	@Override
 	public void fillScoreboard(Player player) {

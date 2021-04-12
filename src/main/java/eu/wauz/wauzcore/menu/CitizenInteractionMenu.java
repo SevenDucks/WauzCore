@@ -48,7 +48,7 @@ public class CitizenInteractionMenu implements WauzInventory {
 	 * @param player The player that should view the inventory.
 	 * @param citizen The citizen that should be interacted with.
 	 * 
-	 * @see WauzCitizenInteractions#createInteractionMenuBase(org.bukkit.inventory.InventoryHolder, String)
+	 * @see WauzCitizenInteractions#createInteractionMenuBase(CitizenInteractionMenu, String)
 	 * @see WauzCitizenInteractions#getModeSelection()
 	 * @see WauzModeMenu#selectMenuPoint(InventoryClickEvent)
 	 * @see MenuUtils#setBorders(Inventory)

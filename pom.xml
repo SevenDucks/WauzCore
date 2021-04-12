@@ -50,6 +50,12 @@
 			<url>https://papermc.io/repo/repository/maven-public/</url>
 		</repository>
 
+		<!-- Needed for Kyori Adventure -->
+		<repository>
+			<id>sonatype-oss-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+
 		<!-- Needed for MythicMobsAPI -->
 		<repository>
 			<id>lumine-repo</id>

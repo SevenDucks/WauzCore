@@ -139,7 +139,7 @@ public class FoodUtils {
 	 * 
 	 * @return The heat resistance value.
 	 * 
-	 * @see FoodUtils#containsTemperatureModifier(ItemStack)
+	 * @see FoodUtils#containsHeatResistanceModifier(ItemStack)
 	 */
 	public static int getHeatResistance(ItemStack itemStack) {
 		return ItemUtils.getIntegerFromLore(itemStack, "Heat Resistance:" + ChatColor.DARK_RED, 2);
@@ -166,7 +166,7 @@ public class FoodUtils {
 	 * 
 	 * @return The cold resistance value.
 	 * 
-	 * @see FoodUtils#containsTemperatureModifier(ItemStack)
+	 * @see FoodUtils#containsColdResistanceModifier(ItemStack)
 	 */
 	public static int getColdResistance(ItemStack itemStack) {
 		return ItemUtils.getIntegerFromLore(itemStack, "Cold Resistance:" + ChatColor.DARK_AQUA, 2);

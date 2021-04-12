@@ -81,6 +81,8 @@ public class Backpack implements WauzInventory {
 	 * Gets or creates / loads the backpack of the given player.
 	 * 
 	 * @param player The player who owns the backpack.
+	 * 
+	 * @return The backpack.
 	 */
 	public static Inventory getBackpack(Player player) {
 		Inventory backpack = backpackMap.get(player);

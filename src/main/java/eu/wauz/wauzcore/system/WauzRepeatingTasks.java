@@ -34,7 +34,7 @@ public class WauzRepeatingTasks {
 	/**
 	 * Schedules all predefined repeating tasks.
 	 * 
-	 * @param The plugin core.
+	 * @param core The plugin core.
 	 */
 	public static void schedule(WauzCore core) {
 		BukkitScheduler scheduler = core.getServer().getScheduler();

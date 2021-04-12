@@ -69,7 +69,7 @@ public class WauzPlayerSit {
 	 * 
 	 * @param player The player that should sit down.
 	 * 
-	 * @see WauzPlayerSit#canSitDown(Player)
+	 * @see WauzPlayerSit#canSitDown(Player, boolean)
 	 */
 	public static void sit(Player player) {
 		if(!canSitDown(player, true)) {
@@ -87,7 +87,7 @@ public class WauzPlayerSit {
 	 * @param player The player that should sit down.
 	 * @param block The block to sit on.
 	 * 
-	 * @see WauzPlayerSit#canSitDown(Player)
+	 * @see WauzPlayerSit#canSitDown(Player, boolean)
 	 */
 	public static void sit(Player player, Block block) {
 		Stairs stairs = ((Stairs) block.getState().getBlockData());

@@ -12,9 +12,9 @@ import eu.wauz.wauzcore.players.WauzPlayerMail;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Send a Text Mail to a Player</b><br/>
- * - Usage: <b>/send [player] [text]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Send a Text Mail to a Player</b><br>
+ * - Usage: <b>/send [player] [text]</b><br>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

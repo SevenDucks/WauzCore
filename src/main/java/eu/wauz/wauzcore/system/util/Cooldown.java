@@ -52,7 +52,7 @@ public class Cooldown {
 	 * Cooldown lasts 2.8 seconds for each weapon skill. Resets it, if it is ready.
 	 * 
 	 * @param player The player who owns the player data.
-	 * @param skillName
+	 * @param skillName The name of the skill.
 	 * 
 	 * @return If the cooldown is ready.
 	 */

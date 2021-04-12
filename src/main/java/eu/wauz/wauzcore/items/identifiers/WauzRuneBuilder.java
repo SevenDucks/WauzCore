@@ -45,7 +45,7 @@ public class WauzRuneBuilder {
 	/**
 	 * Constructs a builder for creating a new rune item.
 	 * 
-	 * @param material The material of the equipment item.
+	 * @param rune The type of the rune to create.
 	 */
 	public WauzRuneBuilder(WauzRune rune) {
 		this.rune = rune;

@@ -23,13 +23,12 @@ public class MenacingMobsSpawner {
 	 * Spawns a mob and configures its metadata according to the generated config.
 	 * This includes menacing modifiers, boss bars, aswell as exp and key drops.
 	 * 
-	 * @param entity
-	 * @param mythicMob
+	 * @param entity The spawning mob.
+	 * @param mythicMob The type of the spawning mob.
 	 * 
 	 * @see MenacingMobsConfig
 	 * @see MobMetadataUtils#setBestiaryEntry(Entity, String)
-	 * @see MenacingMobsSpawner#possibleModifiers
-	 * @see MobMetadataUtils#setMenacingModifier(Entity, String)
+	 * @see MobMetadataUtils#setMenacingModifier(Entity, MenacingModifier)
 	 * @see MobMetadataUtils#setRaidBoss(Entity, boolean)
 	 * @see MobMetadataUtils#setExpDrop(Entity, int, double)
 	 * @see MobMetadataUtils#setKeyDrop(Entity, String)
@@ -63,8 +62,6 @@ public class MenacingMobsSpawner {
 	 * @param amount How many modifiers should be returned.
 	 * 
 	 * @return A list of unique menacing modifiers.
-	 * 
-	 * @see MenacingMobsSpawner#possibleModifiers
 	 */
 	public static List<MenacingModifier> getRandomModifiers(int amount) {
 		List<MenacingModifier> modifiers = new ArrayList<>();

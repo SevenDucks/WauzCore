@@ -67,7 +67,7 @@ public class SeasonalSurvivalUtils {
 	 * @param block The block that should be an ender chest.
 	 * @param blockFace The direction the chest should be facing.
 	 * 
-	 * @see SeasonalSurvivalManager#createSpawnCircle(World, Location)
+	 * @see SeasonalSurvivalUtils#createSpawnCircle(World, Location)
 	 */
 	public static void placeEnderChest(Block block, BlockFace blockFace) {
 		block.setType(Material.ENDER_CHEST);

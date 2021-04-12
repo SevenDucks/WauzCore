@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionSkills;
 import eu.wauz.wauzcore.players.WauzPlayerDataSectionStats;
 import eu.wauz.wauzcore.skills.Castable;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -29,16 +29,15 @@ public class WauzPlayerActionBar {
 	public static final String SEPERATOR = " " + ChatColor.WHITE + "|" + ChatColor.RESET + " ";
 	
 	/**
-	 * Updates the player's action bar, depending on the gamemode.<br/>
-	 * Hub: DOUBLE-JUMP-MESSAGE<br/>
-	 * Survival: LOCATION<br/>
-	 * MMORPG: HEALTH | MANA | RAGE | HEAT | LOCATION<br/>
+	 * Updates the player's action bar, depending on the gamemode.<br>
+	 * Hub: DOUBLE-JUMP-MESSAGE<br>
+	 * Survival: LOCATION<br>
+	 * MMORPG: HEALTH | MANA | RAGE | HEAT | LOCATION<br>
 	 * MMORPG-Casting: ABILITY-DISPLAY
 	 * 
 	 * @param player The player whose action bar should be updated.
 	 * 
 	 * @see WauzMode
-	 * @see WauzNmsClient#nmsActionBar(Player, String)
 	 * @see WauzPlayerActionBar#showCastingBar(Player, WauzPlayerData)
 	 */
 	public static void update(Player player) {
@@ -87,9 +86,8 @@ public class WauzPlayerActionBar {
 	 * @param player The player viewing the casting bar.
 	 * @param playerData The data of the player.
 	 * 
-	 * @see WauzPlayerData#getSelectedCastables()
+	 * @see WauzPlayerDataSectionSkills#getSelectedCastables()
 	 * @see WauzPlayerActionBar#getQuickSlot(WauzPlayerData, List, int)
-	 * @see WauzNmsClient#nmsActionBar(Player, String)
 	 */
 	private static void showCastingBar(Player player, WauzPlayerData playerData) {
 		String actionBarMessage = "";

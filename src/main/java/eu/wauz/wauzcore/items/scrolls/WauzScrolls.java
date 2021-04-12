@@ -105,7 +105,6 @@ public class WauzScrolls implements CustomItem {
 	 * @param event The interaction event.
 	 * 
 	 * @see WauzScrolls#onScrollItemInteract(InventoryClickEvent, String) For item interactive scrolls...
-	 * @see PetOverviewMenu#addPet(PlayerInteractEvent)
 	 * @see WauzPlayerEventHomeChange
 	 * @see PetObtainEvent#call(Player, WauzPet)
 	 * @see WauzTowers#tryToConstruct(Player, String)

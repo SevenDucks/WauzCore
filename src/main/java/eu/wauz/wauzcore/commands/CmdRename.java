@@ -18,9 +18,9 @@ import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.Components;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Rename Pet</b><br/>
- * - Usage: <b>/rename [name]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Rename Pet</b><br>
+ * - Usage: <b>/rename [name]</b><br>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

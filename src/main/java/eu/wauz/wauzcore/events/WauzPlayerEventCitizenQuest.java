@@ -3,7 +3,6 @@ package eu.wauz.wauzcore.events;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.menu.collection.QuestMenu;
 import eu.wauz.wauzcore.system.quests.QuestProcessor;
 
 /**
@@ -41,7 +40,7 @@ public class WauzPlayerEventCitizenQuest implements WauzPlayerEvent {
 	 * 
 	 * @return If the event was executed successfully.
 	 * 
-	 * @see QuestMenu#accept(Player, String)
+	 * @see QuestProcessor#processQuest(Player, String)
 	 */
 	@Override
 	public boolean execute(Player player) {

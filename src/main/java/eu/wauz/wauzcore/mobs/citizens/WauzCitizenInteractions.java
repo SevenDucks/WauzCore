@@ -66,6 +66,7 @@ public class WauzCitizenInteractions {
 	 * Constructs a set of interactions for the citizen with the given name.
 	 * 
 	 * @param citizenName The canonical name of the citizen.
+	 * @param displayName The display name of the citizen.
 	 * 
 	 * @see CitizenConfigurator#getModeSelection(String)
 	 * @see WauzCitizenInteractions#createInteractionItemStack(String, String)

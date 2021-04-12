@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionSelections;
 import eu.wauz.wauzcore.system.util.Components;
 
 /**
@@ -55,7 +56,7 @@ public class WauzDialog implements WauzInventory {
 	 * @param player The player that should view the inventory.
 	 * @param infoItemStack An optional item stack, that can old additional information about the event.
 	 * 
-	 * @see WauzPlayerData#getWauzPlayerEventName()
+	 * @see WauzPlayerDataSectionSelections#getWauzPlayerEventName()
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player, ItemStack infoItemStack) {
@@ -92,7 +93,7 @@ public class WauzDialog implements WauzInventory {
 	 * 
 	 * @param event The inventory click event.
 	 * 
-	 * @see WauzPlayerData#getWauzPlayerEvent()
+	 * @see WauzPlayerDataSectionSelections#getWauzPlayerEvent()
 	 * @see WauzPlayerEvent#execute(Player)
 	 */
 	@Override

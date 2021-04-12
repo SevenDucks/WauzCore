@@ -36,7 +36,7 @@ public class WauzDiscordListener implements Listener {
 	 * @see DiscordConfigurator#showJoinLeaveNotification()
 	 */
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void onLogin(PlayerLoginEvent event) throws Exception {
+	public void onLogin(PlayerLoginEvent event) {
 		if(!event.getResult().equals(Result.ALLOWED)) {
             return;
         }

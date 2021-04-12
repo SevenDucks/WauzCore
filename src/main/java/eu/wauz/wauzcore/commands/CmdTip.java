@@ -12,9 +12,9 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerNotifier;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Print a Tip in Chat</b><br/>
- * - Usage: <b>/tip</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Print a Tip in Chat</b><br>
+ * - Usage: <b>/tip</b><br>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

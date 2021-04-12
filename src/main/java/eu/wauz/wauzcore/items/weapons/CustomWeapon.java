@@ -17,6 +17,8 @@ public interface CustomWeapon extends CustomItem {
 	 * Gets the lores to show on an instance of the custom weapon.
 	 * 
 	 * @param hasSkillSlot If the weapon has a skillgem slot.
+	 * 
+	 * @return The list of lores.
 	 */
 	public List<String> getCustomWeaponLores(boolean hasSkillSlot);
 

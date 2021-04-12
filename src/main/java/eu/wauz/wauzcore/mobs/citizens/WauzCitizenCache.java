@@ -50,7 +50,7 @@ public class WauzCitizenCache {
 	 * Shows a random citizen message to the given players, if possible.
 	 * 
 	 * @param citizen The citizen to send the message.
-	 * @param player The players who should receive the message.
+	 * @param players The players who should receive the message.
 	 */
 	public static void showRandomMessage(WauzCitizen citizen, List<Player> players) {
 		if(citizen == null) {

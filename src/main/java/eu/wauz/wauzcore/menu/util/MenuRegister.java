@@ -10,7 +10,7 @@ import java.util.Map;
  * 
  * @author Wauzmons
  * 
- * @see MenuRegisterEntry
+ * @see WauzInventory
  */
 public class MenuRegister {
 	

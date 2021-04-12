@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.mobs.MobSpawn;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 
@@ -158,7 +157,7 @@ public class InstanceMobArena {
 	/**
 	 * Give every player in the arena a medal for completing the current wave.
 	 * 
-	 * @see PlayerConfigurator#setCharacterMedals(Player, long)
+	 * @see PlayerCollectionConfigurator#setCharacterMedals(Player, long)
 	 */
 	public void handOutMedals() {
 		for(Player player : world.getPlayers()) {

@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionSkills;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
@@ -33,7 +34,7 @@ public class CombatMapper {
 	 * 
 	 * @param event The swap event.
 	 * 
-	 * @see WauzPlayerData#setActionBar(int)
+	 * @see WauzPlayerDataSectionSkills#setActionBar(int)
 	 */
 	public static void handleSwapEvent(PlayerSwapHandItemsEvent event) {
 		event.setCancelled(true);

@@ -97,7 +97,7 @@ public class TabardBuilder implements WauzInventory {
 	 * The tabard can also be saved or discarded from this menu.
 	 * 
 	 * @param player The player that should view the inventory.
-	 * @param tabardBuilder
+	 * @param tabardBuilder The active tabard builder.
 	 * 
 	 * @see TabardBuilder#getTabard()
 	 * @see MenuUtils#setBorders(Inventory)

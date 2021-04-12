@@ -12,9 +12,9 @@ import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Teleport to Hub</b><br/>
- * - Usage: <b>/hub</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Teleport to Hub</b><br>
+ * - Usage: <b>/hub</b><br>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

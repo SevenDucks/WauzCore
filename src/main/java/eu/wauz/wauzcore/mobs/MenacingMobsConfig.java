@@ -65,7 +65,7 @@ public class MenacingMobsConfig {
 	 * GrantExp (level) (percent) = It will drop exp up to a specific level.
 	 * GrantKey (name) = It will drop the named key.
 	 * 
-	 * @param mythicConfig
+	 * @param mythicConfig The mythic mobs config.
 	 */
 	public MenacingMobsConfig(MythicConfig mythicConfig) {
 		List<String> modifiers = mythicConfig.getStringList("WauzMods");

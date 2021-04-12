@@ -15,9 +15,9 @@ import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.instances.WauzInstanceType;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Start Next 5 Arena Waves</b><br/>
- * - Usage: <b>/nextwave</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Start Next 5 Arena Waves</b><br>
+ * - Usage: <b>/nextwave</b><br>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

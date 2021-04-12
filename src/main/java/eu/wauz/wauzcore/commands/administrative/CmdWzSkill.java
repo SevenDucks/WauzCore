@@ -13,9 +13,9 @@ import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Execute Skill</b><br/>
- * - Usage: <b>/wzSkill [skillname]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Execute Skill</b><br>
+ * - Usage: <b>/wzSkill [skillname]</b><br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

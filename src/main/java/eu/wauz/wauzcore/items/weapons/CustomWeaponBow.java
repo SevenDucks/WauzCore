@@ -229,13 +229,13 @@ public class CustomWeaponBow implements CustomWeapon {
 	
 	/**
 	 * Applies damage and effects from an arrow shot by a custom bow.
-	 * Arrow type and bow damage are transported as metadata on the arrow entity.<br/>
-	 * Normal: <b>Weapon Damage x1.0</b><br/>
-	 * Reinforced: <b>Weapon Damage x2.0</b><br/>
-	 * Fire: <b>Normal + x0.5 every 1s for 5s</b><br/>
-	 * Ice: <b>Normal + Slowness for 5s</b><br/>
-	 * Shock: <b>Normal + optional Fall Damage</b><br/>
-	 * Bomb: <b>Normal in radius of 2.5 blocks</b><br/>
+	 * Arrow type and bow damage are transported as metadata on the arrow entity.<br>
+	 * Normal: <b>Weapon Damage x1.0</b><br>
+	 * Reinforced: <b>Weapon Damage x2.0</b><br>
+	 * Fire: <b>Normal + x0.5 every 1s for 5s</b><br>
+	 * Ice: <b>Normal + Slowness for 5s</b><br>
+	 * Shock: <b>Normal + optional Fall Damage</b><br>
+	 * Bomb: <b>Normal in radius of 2.5 blocks</b><br>
 	 * 
 	 * @param player The player that shot the arrow.
 	 * @param entity The entity that got hit by the arrow.

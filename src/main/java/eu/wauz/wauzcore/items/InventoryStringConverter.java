@@ -18,6 +18,7 @@ import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.oneblock.OneBlockProgression;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionSelections;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
@@ -43,7 +44,7 @@ public class InventoryStringConverter {
 	 * 
 	 * @param player The player whose inventory should be serialized.
 	 * 
-	 * @see WauzPlayerData#getSelectedCharacterSlot()
+	 * @see WauzPlayerDataSectionSelections#getSelectedCharacterSlot()
 	 */
     public static void saveInventory(Player player) {
     	WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
@@ -89,7 +90,7 @@ public class InventoryStringConverter {
 	 * 
 	 * @param player The player whose inventory should be deserialized.
 	 * 
-	 * @see WauzPlayerData#getSelectedCharacterSlot()
+	 * @see WauzPlayerDataSectionSelections#getSelectedCharacterSlot()
 	 */
     public static void loadInventory(Player player) {
     	WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);

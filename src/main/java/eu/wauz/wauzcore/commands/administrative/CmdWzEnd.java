@@ -14,9 +14,9 @@ import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>End Arcade Game</b><br/>
- * - Usage: <b>/wzEnd</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>End Arcade Game</b><br>
+ * - Usage: <b>/wzEnd</b><br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

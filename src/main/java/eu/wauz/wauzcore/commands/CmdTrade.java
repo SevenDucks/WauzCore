@@ -11,9 +11,9 @@ import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.players.WauzPlayerTrade;
 import eu.wauz.wauzcore.system.annotations.Command;
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Send a Trade Request to a Player</b><br/>
- * - Usage: <b>/trade [player]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Send a Trade Request to a Player</b><br>
+ * - Usage: <b>/trade [player]</b><br>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Eddshine

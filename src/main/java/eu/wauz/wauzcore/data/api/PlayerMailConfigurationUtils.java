@@ -46,7 +46,8 @@ public class PlayerMailConfigurationUtils {
 	/**
 	 * Deletes the player mail config file with given name.
 	 * 
-	 * @param guild The name of the player mail config file.
+	 * @param player The The player that owns the config file.
+	 * @param mail The name of the mail.
 	 */
 	protected static void deletePlayerMail(Player player, String mail) {
 		File mailDataFile = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/mail/" + mail + ".yml");

@@ -47,7 +47,7 @@ public class WauzPlayerRegistrator {
 	 * 
 	 * @param player The player that joined.
 	 * 
-	 * @throws Exception
+	 * @throws Exception Error on login.
 	 * 
 	 * @see WauzPlayerDataPool#regPlayer(Player)
 	 * @see CharacterManager#equipHubItems(Player)

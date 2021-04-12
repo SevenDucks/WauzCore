@@ -18,9 +18,9 @@ import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Get Ability Pet from String</b><br/>
- * - Usage: <b>/wzGetPet.abilty [petname] [ability] [player]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Get Ability Pet from String</b><br>
+ * - Usage: <b>/wzGetPet.abilty [petname] [ability] [player]</b><br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

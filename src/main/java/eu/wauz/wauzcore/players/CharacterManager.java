@@ -78,7 +78,7 @@ public class CharacterManager {
 	 * @param player The player that selected the character.
 	 * @param wauzMode The mode of the character.
 	 * 
-	 * @see WauzPlayerData#getSelectedCharacterSlot()
+	 * @see WauzPlayerDataSectionSelections#getSelectedCharacterSlot()
 	 * @see InventoryStringConverter#loadInventory(Player)
 	 * @see CharacterManager#equipCharacterItems(Player)
 	 */

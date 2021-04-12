@@ -15,8 +15,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionSelections;
 
 /**
  * Collection of methods for reading and writing data in player config files.
@@ -39,7 +39,7 @@ public class PlayerConfigurationUtils {
 	 * 
 	 * @return The player config file.
 	 * 
-	 * @see WauzPlayerData#getSelectedCharacterSlot()
+	 * @see WauzPlayerDataSectionSelections#getSelectedCharacterSlot()
 	 */
 	private static File getPlayerDataFile(Player player, String path, Boolean characterSpecific) {
 		String characterSlot;

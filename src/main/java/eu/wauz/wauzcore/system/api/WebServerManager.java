@@ -22,7 +22,7 @@ import eu.wauz.wauzcore.system.quests.WauzQuest;
 /**
  * Starts a HTTP server, that can deliver game information over an api.
  * Suppresses restriction warnings from sun httpserver classes.
- * List of valid requests:<br/>
+ * List of valid requests:<br>
  * /get/stats <b>General gameplay statistics</b>
  * 
  * @author Wauzmons
@@ -175,10 +175,10 @@ public class WebServerManager implements HttpHandler {
 		try {
 			String response = "";
 			response += "<html><head></head><body>";
-			response += "<a href=\"/get/resourcepack\">/get/resourcepack<a/><br/>";
-			response += "<a href=\"/get/system\">/get/system<a/><br/>";
-			response += "<a href=\"/get/stats\">/get/stats<a/><br/>";
-			response += "<a href=\"/get/staff\">/get/staff<a/><br/>";
+			response += "<a href=\"/get/resourcepack\">/get/resourcepack<a/><br>";
+			response += "<a href=\"/get/system\">/get/system<a/><br>";
+			response += "<a href=\"/get/stats\">/get/stats<a/><br>";
+			response += "<a href=\"/get/staff\">/get/staff<a/><br>";
 			response += "</body></html>";
 			sendTextResponse(httpExchange, response, true);
 		}

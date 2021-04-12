@@ -62,21 +62,21 @@ public class WauzSigns {
 	
 	/**
 	 * Tries to format a sign, to be a special event sign, if the valid keywords were found.
-	 * List of valid formats, were --- stands for empty rows:<br/><br/>
+	 * List of valid formats, were --- stands for empty rows:<br><br>
 	 * 
-	 * --------------------<br/>
-	 * [Leave]<br/>
-	 * --------------------<br/>
-	 * --------------------<br/><br/>
+	 * --------------------<br>
+	 * [Leave]<br>
+	 * --------------------<br>
+	 * --------------------<br><br>
 	 * 
-	 * --------------------<br/>
-	 * [Locked Door]<br/>
-	 * Key: KeyName<br/>
-	 * --------------------<br/><br/>
+	 * --------------------<br>
+	 * [Locked Door]<br>
+	 * Key: KeyName<br>
+	 * --------------------<br><br>
 	 * 
-	 * --------------------<br/>
-	 * [Fast Travel]<br/>
-	 * WaypointName<br/>
+	 * --------------------<br>
+	 * [Fast Travel]<br>
+	 * WaypointName<br>
 	 * --------------------
 	 * 
 	 * @param event The sign event.

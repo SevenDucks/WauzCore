@@ -114,7 +114,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 // Blocks
 	
 	/**
-	 * @param The key of the phase.
+	 * @param phaseKey The key of the phase.
 	 * @param levelKey The key of the phase's level.
 	 * 
 	 * @return How many blocks need to be mined, to proceed to the next level.
@@ -124,7 +124,7 @@ public class OneBlockConfigurator extends GlobalConfigurationUtils {
 	}
 	
 	/**
-	 * @param The key of the phase.
+	 * @param phaseKey The key of the phase.
 	 * @param levelKey The key of the phase's level.
 	 * 
 	 * @return A list of strings, representing the possible blocks spawning in the level.

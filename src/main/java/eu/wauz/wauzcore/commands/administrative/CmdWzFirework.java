@@ -23,9 +23,9 @@ import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.Chance;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Create Firework Show</b><br/>
- * - Usage: <b>/wzFirework</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Create Firework Show</b><br>
+ * - Usage: <b>/wzFirework</b><br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

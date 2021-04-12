@@ -292,6 +292,8 @@ public class StatisticsFetcher {
 	
 	/**
 	 * @return A string, showing the player's playtime in hours, from their statistics file.
+	 * 
+	 * @param file The statistics file.
 	 */
 	private static long getPlayedHoursFromStatistics(File file) {
 		long playedHours = 0;
@@ -317,6 +319,8 @@ public class StatisticsFetcher {
 	
 	/**
 	 * @return A string, showing the player's killed mobs, from their statistics file.
+	 * 
+	 * @param file The statistics file.
 	 */
 	private static long getKilledMobsFromStatistics(File file) {
 		long killedMobs = 0;
@@ -341,6 +345,8 @@ public class StatisticsFetcher {
 	
 	/**
 	 * @return A string, showing the player's walked metres, from their statistics file.
+	 * 
+	 * @param file The statistics file.
 	 */
 	private static long getWalkedMetresFromStatistics(File file) {
 		long walkedMetres = 0;

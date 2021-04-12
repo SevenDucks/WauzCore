@@ -151,8 +151,8 @@ public class EventMapper {
 	 * 
 	 * @param event The interact event.
 	 * 
+	 * @see WauzResource#tryToInteractWithResource(Player, Block)
 	 * @see WauzSigns#interact(Player, Block)
-	 * @see WauzResources#tryToMine(Player, Block)
 	 * @see WauzPlayerSit#sit(Player, Block)
 	 */
 	public static void handleBlockInteraction(PlayerInteractEvent event) {

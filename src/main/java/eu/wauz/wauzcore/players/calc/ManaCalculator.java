@@ -17,7 +17,7 @@ import eu.wauz.wauzcore.system.util.Chance;
  * 
  * @author Wauzmons
  * 
- * @see WauzPlayerData#getMana()
+ * @see WauzPlayerDataSectionStats#getMana()
  */
 public class ManaCalculator {
 	
@@ -45,8 +45,8 @@ public class ManaCalculator {
 	 * @param player The player who should receive mana.
 	 * @param amount The amount of mana to give.
 	 * 
-	 * @see WauzPlayerData#setMana(int)
-	 * @see WauzPlayerData#getMaxMana()
+	 * @see WauzPlayerDataSectionStats#setMana(int)
+	 * @see WauzPlayerDataSectionStats#getMaxMana()
 	 * @see WauzPlayerActionBar#update(Player)
 	 */
 	public static void regenerateMana(Player player, int amount) {
@@ -75,7 +75,7 @@ public class ManaCalculator {
 	 * 
 	 * @return If the player had enough mana.
 	 * 
-	 * @see WauzPlayerData#getMana()
+	 * @see WauzPlayerDataSectionStats#getMana()
 	 * @see WauzPlayerActionBar#update(Player)
 	 */
 	public static boolean useMana(Player player, int amount) {

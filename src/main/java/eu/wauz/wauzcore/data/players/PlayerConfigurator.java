@@ -194,7 +194,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	/**
 	 * @param player The player that owns the config file.
 	 * 
-	 * @param tabardName The new title name of the selected character.
+	 * @param titleName The new title name of the selected character.
 	 */
 	public static void setCharacterTitle(Player player, String titleName) {
 		playerConfigSet(player, "options.title", titleName, true);
@@ -211,8 +211,7 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	
 	/**
 	 * @param player The player that owns the config file.
-	 * 
-	 * @param tabardName The new choosable titles of the selected character.
+	 * @param titleList The new choosable titles of the selected character.
 	 */
 	public static void setCharacterTitleList(Player player, List<String> titleList) {
 		playerConfigSet(player, "options.titlelist", titleList, true);

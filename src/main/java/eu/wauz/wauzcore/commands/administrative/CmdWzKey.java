@@ -16,9 +16,9 @@ import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.instances.WauzInstanceKeyStatus;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Change Dungeon Key Status</b><br/>
- * - Usage: <b>/wzKey [world (this)] [keyId] [status (0, 1, 2)]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Change Dungeon Key Status</b><br>
+ * - Usage: <b>/wzKey [world (this)] [keyId] [status (0, 1, 2)]</b><br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

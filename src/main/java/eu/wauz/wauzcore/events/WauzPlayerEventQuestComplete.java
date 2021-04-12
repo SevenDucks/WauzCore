@@ -53,7 +53,6 @@ public class WauzPlayerEventQuestComplete implements WauzPlayerEvent {
 	 * 
 	 * @param quest The quest to complete.
 	 * @param questSlot The slot this quest is saved in.
-	 * @param questLoot The loot item stacks handed out to the player.
 	 */
 	public WauzPlayerEventQuestComplete(WauzQuest quest, String questSlot) {
 		this.quest = quest;

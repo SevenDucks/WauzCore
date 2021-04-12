@@ -99,7 +99,7 @@ public class MenuUtils {
 	 * Sets a trashcan to an inventory slot.
 	 * 
 	 * @param menu The menu inventory.
-	 * @param indexes The slot to use in the inventory.
+	 * @param index The slot to use in the inventory.
 	 */
 	public static void setTrashcan(Inventory menu, int index) {
 		ItemStack trashcanItemStack = MenuIconHeads.getTrashItem();
@@ -116,7 +116,7 @@ public class MenuUtils {
 	 * Sets a material bag to an inventory slot.
 	 * 
 	 * @param menu The menu inventory.
-	 * @param indexes The slot to use in the inventory.
+	 * @param index The slot to use in the inventory.
 	 */
 	public static void setMaterials(Inventory menu, int index) {
 		ItemStack materialsItemStack = MenuIconHeads.getBagItem();
@@ -133,7 +133,7 @@ public class MenuUtils {
 	 * Sets a backpack to an inventory slot.
 	 * 
 	 * @param menu The menu inventory.
-	 * @param indexes The slot to use in the inventory.
+	 * @param index The slot to use in the inventory.
 	 */
 	public static void setBackpack(Inventory menu, int index) {
 		ItemStack backpackItemStack = MenuIconHeads.getBackpackItem();

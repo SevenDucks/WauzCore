@@ -57,10 +57,11 @@ public class ShopMenu implements WauzInventory {
 	 * 
 	 * @param player The player that should view the inventory.
 	 * @param shopName The name of the shop to load.
+	 * @param citizenName The name of the citizen who owns the shop.
 	 * 
 	 * @see WauzShop#getShop(String)
 	 * @see WauzShop#getShopItems()
-	 * @see WauzShopItem#getInstance(Player)
+	 * @see WauzShopItem#getInstance(Player, WauzShopDiscount, boolean)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player, String shopName, String citizenName) {
@@ -129,7 +130,7 @@ public class ShopMenu implements WauzInventory {
 	private WauzShop shop;
 	
 	/**
-	 * The name of the citizen who owns the shop. Can be null.
+	 * The discount of the shop.
 	 */
 	private WauzShopDiscount shopDiscount;
 	
@@ -137,7 +138,7 @@ public class ShopMenu implements WauzInventory {
 	 * Creates a new shop menu instance.
 	 * 
 	 * @param shop The shop displayed in the menu.
-	 * @param citizenName The name of the citizen who owns the shop. Can be null.
+	 * @param shopDiscount The discount of the shop.
 	 */
 	private ShopMenu(WauzShop shop, WauzShopDiscount shopDiscount) {
 		this.shop = shop;
@@ -151,7 +152,7 @@ public class ShopMenu implements WauzInventory {
 	 * 
 	 * @param event The inventory click event.
 	 * 
-	 * @see WauzShopActions#buy(Player, WauzShopItem, String)
+	 * @see WauzShopActions#buy(Player, WauzShopItem, WauzShopDiscount)
 	 * @see WauzShopActions#sell(Player, ItemStack, boolean)
 	 * @see WauzShopActions#repair(Player, ItemStack, boolean)
 	 */

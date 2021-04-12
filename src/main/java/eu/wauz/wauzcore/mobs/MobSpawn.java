@@ -49,7 +49,7 @@ public class MobSpawn {
 	/**
 	 * Creates a new mythic mob spawn trigger.
 	 * 
-	 * @param citizenString The string to parse the mob from: "name x y z".
+	 * @param mobString The string to parse the mob from: "name x y z".
 	 */
 	public MobSpawn(String mobString) {
 		String[] mobSpawnParams = mobString.split(" ");

@@ -16,6 +16,7 @@ import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionSkills;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.players.calc.RageCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
@@ -161,7 +162,7 @@ public class WauzPlayerSkillExecutor {
 	 * 
 	 * @return If the execution was successful.
 	 * 
-	 * @see WauzPlayerData#isSkillReady(Player, String)
+	 * @see WauzPlayerDataSectionSkills#isSkillReady(String)
 	 * @see ManaCalculator#useMana(Player, int)
 	 * @see RageCalculator#useRage(Player, int)
 	 * @see WauzPlayerSkill#executeSkill(Player, ItemStack)

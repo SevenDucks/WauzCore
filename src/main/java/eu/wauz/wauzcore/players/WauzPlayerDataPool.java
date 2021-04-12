@@ -63,7 +63,7 @@ public class WauzPlayerDataPool {
 	 * 
 	 * @return If a character is selected.
 	 * 
-	 * @see WauzPlayerData#isCharacterSelected()
+	 * @see WauzPlayerDataSectionSelections#isCharacterSelected()
 	 */
 	public static boolean isCharacterSelected(Player player) {
 		WauzPlayerData playerData = getPlayer(player);

@@ -121,7 +121,7 @@ public class ItemUtils {
 	 * @param itemStack The item stack to check.
 	 * @param itemName The item name to check for.
 	 * 
-	 * @return
+	 * @return If the item has exactly the specified name.
 	 */
 	public static boolean isSpecificItem(ItemStack itemStack, String itemName) {
 		return hasDisplayName(itemStack) && ChatColor.stripColor(Components.displayName(itemStack.getItemMeta())).equals(ChatColor.stripColor(itemName));

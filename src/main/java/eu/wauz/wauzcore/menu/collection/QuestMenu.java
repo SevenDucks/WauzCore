@@ -84,8 +84,8 @@ public class QuestMenu implements WauzInventory {
 	 * @param player The player that should view the inventory.
 	 * 
 	 * @see PlayerConfigurator#getCharacterRunningMainQuest(Player)
-	 * @see QuestMenu#generateQuest(Player, String, int, Material)
-	 * @see QuestMenu#generateEmptyQust(String)
+	 * @see QuestMenuItems#generateQuest(Player, String, int, Material)
+	 * @see QuestMenuItems#generateEmptyQuest(String)
 	 * @see PlayerConfigurator#getHideSpecialQuestsForCharacter(Player)
 	 * @see PlayerConfigurator#getHideCompletedQuestsForCharacter(Player)
 	 */
@@ -105,7 +105,7 @@ public class QuestMenu implements WauzInventory {
 			menu.setItem(0, QuestMenuItems.generateQuest(player, slotm, phase, Material.MAGENTA_CONCRETE));
 		}
 		else {
-			menu.setItem(0, QuestMenuItems.generateEmptyQust("Main"));
+			menu.setItem(0, QuestMenuItems.generateEmptyQuest("Main"));
 		}
 		
 		if(!cmpn1.equals("none")) {
@@ -113,7 +113,7 @@ public class QuestMenu implements WauzInventory {
 			menu.setItem(1, QuestMenuItems.generateQuest(player, cmpn1, phase, Material.LIGHT_BLUE_CONCRETE));
 		}
 		else {
-			menu.setItem(1, QuestMenuItems.generateEmptyQust("Campaign"));
+			menu.setItem(1, QuestMenuItems.generateEmptyQuest("Campaign"));
 		}
 		
 		if(!cmpn2.equals("none")) {
@@ -121,7 +121,7 @@ public class QuestMenu implements WauzInventory {
 			menu.setItem(2, QuestMenuItems.generateQuest(player, cmpn2, phase, Material.LIGHT_BLUE_CONCRETE));
 		}
 		else {
-			menu.setItem(2, QuestMenuItems.generateEmptyQust("Campaign"));
+			menu.setItem(2, QuestMenuItems.generateEmptyQuest("Campaign"));
 		}
 		
 		
@@ -130,7 +130,7 @@ public class QuestMenu implements WauzInventory {
 			menu.setItem(3, QuestMenuItems.generateQuest(player, slot1, phase, Material.YELLOW_CONCRETE));
 		}
 		else {
-			menu.setItem(3, QuestMenuItems.generateEmptyQust("Daily"));	
+			menu.setItem(3, QuestMenuItems.generateEmptyQuest("Daily"));	
 		}
 		
 		if(!slot2.equals("none")) {
@@ -138,7 +138,7 @@ public class QuestMenu implements WauzInventory {
 			menu.setItem(4, QuestMenuItems.generateQuest(player, slot2, phase, Material.YELLOW_CONCRETE));
 		}
 		else {
-			menu.setItem(4, QuestMenuItems.generateEmptyQust("Daily"));
+			menu.setItem(4, QuestMenuItems.generateEmptyQuest("Daily"));
 		}
 		
 		if(!slot3.equals("none")) {
@@ -146,7 +146,7 @@ public class QuestMenu implements WauzInventory {
 			menu.setItem(5, QuestMenuItems.generateQuest(player, slot3, phase, Material.YELLOW_CONCRETE));
 		}
 		else {
-			menu.setItem(5, QuestMenuItems.generateEmptyQust("Daily"));
+			menu.setItem(5, QuestMenuItems.generateEmptyQuest("Daily"));
 		}
 		
 		ItemStack questFinderItemStack = new ItemStack(Material.BOOKSHELF);
@@ -193,7 +193,7 @@ public class QuestMenu implements WauzInventory {
 	 * @param player The player that should view the inventory.
 	 * 
 	 * @see WauzQuest#getQuestsForLevel(int)
-	 * @see QuestMenu#generateUnacceptedQuest(Player, WauzQuest, int, boolean)
+	 * @see QuestMenuItems#generateUnacceptedQuest(Player, WauzQuest, int, boolean)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void find(Player player) {

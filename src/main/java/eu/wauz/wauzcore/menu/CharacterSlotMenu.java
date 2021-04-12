@@ -18,6 +18,7 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionSelections;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
@@ -31,7 +32,6 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * 
  * @author Wauzmons
  * 
- * @see CharacterWorldMenu
  * @see CharacterClassMenu
  */
 public class CharacterSlotMenu implements WauzInventory {
@@ -156,8 +156,8 @@ public class CharacterSlotMenu implements WauzInventory {
 	 * @param event The inventory click event.
 	 * 
 	 * @see InstanceManager#enterArcade(Player)
-	 * @see WauzPlayerData#setSelectedCharacterSlot(String)
-	 * @see CharacterWorldMenu#open(Player)
+	 * @see WauzPlayerDataSectionSelections#setSelectedCharacterSlot(String)
+	 * @see CharacterClassMenu#open(Player)
 	 * @see CharacterManager#createCharacter(Player, WauzMode)
 	 * @see CharacterManager#loginCharacter(Player, WauzMode)
 	 * @see WauzPlayerEventCharacterDelete

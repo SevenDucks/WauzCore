@@ -14,7 +14,7 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
  * 
  * @author Wauzmons
  * 
- * @see WauzPlayerData#getRage()
+ * @see WauzPlayerDataSectionStats#getRage()
  */
 public class RageCalculator {
 	
@@ -42,8 +42,8 @@ public class RageCalculator {
 	 * @param player The player who should receive rage.
 	 * @param amount The amount of rage to give.
 	 * 
-	 * @see WauzPlayerData#setRage(int)
-	 * @see WauzPlayerData#getMaxRage()
+	 * @see WauzPlayerDataSectionStats#setRage(int)
+	 * @see WauzPlayerDataSectionStats#getMaxRage()
 	 * @see WauzPlayerActionBar#update(Player)
 	 */
 	public static void generateRage(Player player, int amount) {
@@ -68,7 +68,7 @@ public class RageCalculator {
 	 * 
 	 * @param player The player who should lose rage.
 	 * 
-	 * @see WauzPlayerData#setRage(int)
+	 * @see WauzPlayerDataSectionStats#setRage(int)
 	 * @see WauzPlayerActionBar#update(Player)
 	 */
 	public static void degenerateRage(Player player) {
@@ -96,7 +96,7 @@ public class RageCalculator {
 	 * 
 	 * @return If the player had enough rage.
 	 * 
-	 * @see WauzPlayerData#getRage()
+	 * @see WauzPlayerDataSectionStats#getRage()
 	 * @see WauzPlayerActionBar#update(Player)
 	 */
 	public static boolean useRage(Player player, int amount) {

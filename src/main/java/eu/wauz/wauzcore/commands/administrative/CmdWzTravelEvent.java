@@ -15,9 +15,9 @@ import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Event-Travel to Location per UUID</b><br/>
- * - Usage: <b>/wzTravelEvent [uuid]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Event-Travel to Location per UUID</b><br>
+ * - Usage: <b>/wzTravelEvent [uuid]</b><br>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

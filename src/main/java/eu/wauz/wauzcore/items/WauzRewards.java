@@ -28,7 +28,7 @@ public class WauzRewards {
 	 * 
 	 * @see Cooldown#characterDailyReward(Player)
 	 * @see PlayerConfigurator#getRank(org.bukkit.OfflinePlayer)
-	 * @see PlayerConfigurator#setCharacterCoins(Player, long)
+	 * @see PlayerCollectionConfigurator#setCharacterCoins(Player, long)
 	 */
 	public static void earnDailyReward(final Player player) {
 		if(!Cooldown.characterDailyReward(player)) {

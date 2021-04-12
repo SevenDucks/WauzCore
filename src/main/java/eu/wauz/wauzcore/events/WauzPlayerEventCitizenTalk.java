@@ -44,7 +44,7 @@ public class WauzPlayerEventCitizenTalk implements WauzPlayerEvent {
 	 * 
 	 * @return If the event was executed successfully.
 	 * 
-	 * @see WauzPlayerEventCitizenTalk#printDialog(Player, List)
+	 * @see WauzPlayerEventCitizenTalk#printDialog(Player, List, int)
 	 */
 	@Override
 	public boolean execute(Player player) {

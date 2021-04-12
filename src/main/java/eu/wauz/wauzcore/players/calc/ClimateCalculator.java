@@ -8,6 +8,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionStats;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -22,7 +23,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * @author Wauzmons
  * 
  * @see WauzRegion#getTemperature()
- * @see WauzPlayerData#getHeat()
+ * @see WauzPlayerDataSectionStats#getHeat()
  */
 public class ClimateCalculator {
 	
@@ -32,7 +33,7 @@ public class ClimateCalculator {
 	 * If it is night a value of 3 is subtracted from the base value.
 	 * The temperature displayed to the player is randomized,
 	 * by a value of plus/minus 2, to simulate temperature fluctuation.
-	 * After that the timers for heat/cold resistances are decreased.<br/><br/>
+	 * After that the timers for heat/cold resistances are decreased.<br><br>
 	 * 
 	 * If the temperature is above 8 and the player has no heat resistance,
 	 * the player receives 2 damage and gets a hunger III effect.
@@ -43,11 +44,9 @@ public class ClimateCalculator {
 	 * @param player The player whose temperature should be updated.
 	 * 
 	 * @see WauzRegion#getTemperature()
-	 * @see WauzPlayerData#setHeat(Byte)
-	 * @see WauzPlayerData#setHeatRandomizer(Byte)
-	 * @see WauzPlayerData#getResistanceHeat()
-	 * @see WauzPlayerData#getResistanceCold()
-	 * @see WauzPlayerData#decreaseTemperatureResistance()
+	 * @see WauzPlayerDataSectionStats#setHeat(byte)
+	 * @see WauzPlayerDataSectionStats#setHeatRandomizer(byte)
+	 * @see WauzPlayerDataSectionStats#getEffects()
 	 */
 	public static void updateTemperature(Player player) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);

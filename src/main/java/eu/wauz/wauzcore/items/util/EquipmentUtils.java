@@ -224,8 +224,6 @@ public class EquipmentUtils {
 	 * @param itemStack The item stack to check.
 	 * 
 	 * @return The current swiftness of the item.
-	 * 
-	 * @see EquipmentUtils#setSwiftness(ItemStack, int)
 	 */
 	public static int getSwiftness(ItemStack itemStack) {
 		return ItemUtils.hasLore(itemStack) ? ItemUtils.getIntegerFromLore(itemStack, "Swiftness:" + ChatColor.BLUE, 2) : 0;

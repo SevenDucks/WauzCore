@@ -14,9 +14,9 @@ import eu.wauz.wauzcore.events.WauzPlayerEventCitizenRest;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Heal and Feed Player</b><br/>
- * - Usage: <b>/wzHeal [player]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Heal and Feed Player</b><br>
+ * - Usage: <b>/wzHeal [player]</b><br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

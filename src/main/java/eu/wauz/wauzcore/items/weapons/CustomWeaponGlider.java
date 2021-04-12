@@ -113,7 +113,7 @@ public class CustomWeaponGlider implements CustomWeapon {
 	 * @param player The player who is shooting the chicken.
 	 * 
 	 * @see Cooldown#playerProjectileShoot(Player)
-	 * @see WauzNmsClient#nmsCustomEntityChickoon(Location)
+	 * @see NmsEntityChickoon
 	 * @see CustomWeaponGlider#spawnTemporaryChicken(Location, int)
 	 * @see SkillUtils#createExplosion(Location, float)
 	 * @see SkillUtils#callPlayerFixedDamageEvent(Player, Entity, double)
@@ -212,7 +212,7 @@ public class CustomWeaponGlider implements CustomWeapon {
 	 * 
 	 * @param event The move event.
 	 * 
-	 * @see WauzNmsClient#nmsCustomEntityChickoon(Location)
+	 * @see NmsEntityChickoon
 	 */
 	public static void glide(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
@@ -282,7 +282,7 @@ public class CustomWeaponGlider implements CustomWeapon {
 	 * 
 	 * @return The temporary chicken entity.
 	 * 
-	 * @see WauzNmsClient#nmsCustomEntityChickoon(Location)
+	 * @see NmsEntityChickoon
 	 */
 	private static Entity spawnTemporaryChicken(Location location, int duration) {
 		Entity chicken = NmsEntityChickoon.create(location);

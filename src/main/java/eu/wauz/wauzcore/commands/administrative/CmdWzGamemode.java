@@ -15,9 +15,9 @@ import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Toggle Creative Mode</b><br/>
- * - Usage: <b>/wzGamemode [player]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Toggle Creative Mode</b><br>
+ * - Usage: <b>/wzGamemode [player]</b><br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

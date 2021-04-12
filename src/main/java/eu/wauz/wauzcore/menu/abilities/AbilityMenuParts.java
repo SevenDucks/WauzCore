@@ -34,10 +34,10 @@ import eu.wauz.wauzcore.system.util.Components;
 public class AbilityMenuParts {
 	
 	/**
-	 * Fills the given main menu with sub menu icons.<br/>
-	 * Row 1, Slot 1: The crafting menu + crafting level display.<br/>
-	 * Row 1, Slot 2: The skill menu + spent skill points display.<br/>
-	 * Row 2, Slot 1: The travelling menu + current region display.<br/>
+	 * Fills the given main menu with sub menu icons.<br>
+	 * Row 1, Slot 1: The crafting menu + crafting level display.<br>
+	 * Row 1, Slot 2: The skill menu + spent skill points display.<br>
+	 * Row 2, Slot 1: The travelling menu + current region display.<br>
 	 * Row 2, Slot 2: CS - Paragon
 	 * 
 	 * @param player The player that should view the inventory.

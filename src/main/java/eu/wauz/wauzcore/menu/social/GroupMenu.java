@@ -24,6 +24,7 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionSelections;
 import eu.wauz.wauzcore.players.WauzPlayerGroup;
 import eu.wauz.wauzcore.players.WauzPlayerGroupPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -305,7 +306,7 @@ public class GroupMenu implements WauzInventory {
 	 * @param event The inventory click event.
 	 * 
 	 * @see WauzPlayerGroup
-	 * @see WauzPlayerData#setGroupUuidString(String)
+	 * @see WauzPlayerDataSectionSelections#setGroupUuidString(String)
 	 * @see WauzPlayerGroupPool#regGroup(WauzPlayerGroup)
 	 * @see GroupMenu#passwordInput(Player, String, String)
 	 * @see GroupMenu#handlePlayerInteractions(Player, ItemStack)

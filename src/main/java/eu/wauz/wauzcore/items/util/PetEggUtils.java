@@ -111,7 +111,7 @@ public class PetEggUtils {
 	 * @return The stat value of the item.
 	 * 
 	 * @see PetEggUtils#getMaxPetStat(ItemStack, WauzPetStat)
-	 * @see PetEggUtils#setPetStat(ItemStack, WauzPetStat, int)
+	 * @see PetEggUtils#setPetStat(ItemStack, WauzPetStat, int, int)
 	 */
 	public static int getPetStat(ItemStack itemStack, WauzPetStat stat) {
 		return ItemUtils.getIntegerFromLore(itemStack, stat.getName() + ":" + ChatColor.GREEN, 1);

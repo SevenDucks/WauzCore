@@ -10,6 +10,7 @@ import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.menu.abilities.SkillAssignMenu;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionSkills;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Cooldown;
@@ -32,8 +33,8 @@ public class SkillQuickSlots {
 	 * @return If the usage was successful.
 	 * 
 	 * @see Cooldown#playerQuickSlotUse(Player)
-	 * @see WauzPlayerData#getActionBar()
-	 * @see WauzPlayerData#getSelectedCastables()
+	 * @see WauzPlayerDataSectionSkills#getActionBar()
+	 * @see WauzPlayerDataSectionSkills#getSelectedCastables()
 	 * @see Castable#cast(Player)
 	 * @see SkillAssignMenu#open(Player)
 	 */

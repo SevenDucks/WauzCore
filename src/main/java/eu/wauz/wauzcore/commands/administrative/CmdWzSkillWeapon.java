@@ -12,9 +12,9 @@ import eu.wauz.wauzcore.items.identifiers.WauzEquipmentHelper;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Get Weapon with Skillgem</b><br/>
- * - Usage: <b>/wzSkill.weapon [skillname]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Get Weapon with Skillgem</b><br>
+ * - Usage: <b>/wzSkill.weapon [skillname]</b><br>
  * - Permission: <b>wauz.system</b>
  * 
  * @author Wauzmons

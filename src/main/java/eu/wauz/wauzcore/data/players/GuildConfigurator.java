@@ -166,7 +166,7 @@ public class GuildConfigurator extends GuildConfigurationUtils {
 	
 	/**
 	 * @param guild The uuid of the guild.
-	 * @param tabard The new slots upgrade level of the guild.
+	 * @param tier The new slots upgrade level of the guild.
 	 */
 	public static void setUpgradeAdditionalSlots(String guild, int tier) {
 		guildConfigSet(guild, "upgrades.slots", tier);

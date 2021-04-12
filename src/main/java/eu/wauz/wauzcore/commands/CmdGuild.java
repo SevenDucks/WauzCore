@@ -13,9 +13,9 @@ import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.annotations.Command;
 
 /**
- * A command, that can be executed by a player with fitting permissions.<br/>
- * - Description: <b>Create a Guild</b><br/>
- * - Usage: <b>/guild [guildName]</b><br/>
+ * A command, that can be executed by a player with fitting permissions.<br>
+ * - Description: <b>Create a Guild</b><br>
+ * - Usage: <b>/guild [guildName]</b><br>
  * - Permission: <b>wauz.normal</b>
  * 
  * @author Wauzmons

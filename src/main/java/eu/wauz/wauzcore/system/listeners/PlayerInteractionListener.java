@@ -107,6 +107,8 @@ public class PlayerInteractionListener implements Listener {
 	 * @param event The login event.
 	 * 
 	 * @see WauzPlayerRegistrator#login(Player)
+	 * 
+	 * @throws Exception Error on login.
 	 */
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event) throws Exception {

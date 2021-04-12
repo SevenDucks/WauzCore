@@ -19,6 +19,8 @@ public class PlayerMailConfigurator extends PlayerMailConfigurationUtils {
 // Mail Files
 
 	/**
+	 * @param player The player that owns the config file.
+	 * 
 	 * @return The list of all player mail names.
 	 */
 	public static List<String> getPlayerMailNameList(Player player) {

@@ -139,6 +139,8 @@ public class MaterialPouch implements WauzInventory {
 	 * 
 	 * @param player The player who owns the pouch that contains the inventory.
 	 * @param inventoryName The name of the inventory.
+	 * 
+	 * @return The inventory.
 	 */
 	public static Inventory getInventory(Player player, String inventoryName) {
 		String inventoryKey = player.getUniqueId() + "::" + inventoryName;

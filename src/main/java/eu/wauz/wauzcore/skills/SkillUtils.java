@@ -207,7 +207,7 @@ public class SkillUtils {
 	 * Calls a damage event, that will not receive attack bonuses, hittting multiple enemies.
 	 * 
 	 * @param player The player who casted the attack.
-	 * @param entity The entity that got hit by the attack.
+	 * @param entities The entities that got hit by the attack.
 	 * @param damage The fixed damage value.
 	 * 
 	 * @see SkillUtils#callPlayerFixedDamageEvent(Player, Entity, double)

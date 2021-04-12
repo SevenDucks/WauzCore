@@ -31,8 +31,6 @@ import eu.wauz.wauzcore.system.util.Cooldown;
  * Also handles stuff like damage boni, reflection, leech and PvP-potions.
  * 
  * @author Wauzmons
- * 
- * @see WauzPlayerData#getHealth()
  */
 public class DamageCalculator {
 	

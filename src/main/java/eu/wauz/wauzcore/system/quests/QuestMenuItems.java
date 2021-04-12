@@ -83,7 +83,7 @@ public class QuestMenuItems {
 	 * 
 	 * @return The quest item stack.
 	 */
-	public static ItemStack generateEmptyQust(String type) {
+	public static ItemStack generateEmptyQuest(String type) {
 		ItemStack emptyQuestItemStack = new ItemStack(Material.WHITE_CONCRETE);
 		ItemMeta emptyQuestItemMeta = emptyQuestItemStack.getItemMeta();
 		Components.displayName(emptyQuestItemMeta, ChatColor.DARK_GRAY + "No " + type + "-Quest in progress...");

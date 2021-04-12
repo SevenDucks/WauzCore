@@ -34,7 +34,6 @@ import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.heads.SkillIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
@@ -103,7 +102,6 @@ public class GuildOverviewMenu implements WauzInventory {
 	 * @see WauzPlayerGuild#getGuildTabard()
 	 * @see GuildOverviewMenu#getGuildMemberItemStack(Player, WauzPlayerGuild, OfflinePlayer)
 	 * @see GuildOverviewMenu#loadGuildBuildings(Inventory, WauzPlayerGuild)
-	 * @see GuildOverviewMenu#loadGuildList(Player, WauzInventoryHolder)
 	 */
 	public static void open(Player player) {
 		WauzPlayerGuild playerGuild = PlayerConfigurator.getGuild(player);

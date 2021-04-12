@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.entity.Player;
@@ -35,7 +34,7 @@ public class QuestProcessor {
 	 * @param player The player who is doing the quest.
 	 * @param questName The name of the quest.
 	 * 
-	 * @see QuestProcessor#run(Player, String, String, Location) The internal logic.
+	 * @see QuestProcessor#run() The internal logic.
 	 */
 	public static void processQuest(Player player, String questName) {
 		new QuestProcessor(player, questName).run();
@@ -201,7 +200,7 @@ public class QuestProcessor {
 	 * 
 	 * @return If all quest objectives are fulfilled.
 	 * 
-	 * @see QuestRequirementChecker#tryToHandInQuest()
+	 * @see QuestRequirementChecker#checkRequirements()
 	 * @see WauzQuest#getUncompletedMessage(int)
 	 */
 	private boolean checkQuestObjectives() {

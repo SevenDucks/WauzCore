@@ -119,7 +119,7 @@ public class WauzEquipmentEnhancer {
 	 * @param identifier The equipment identifier, receiving the enhancement.
 	 * @param enhancementLevel The level the enhancement should have.
 	 * 
-	 * @see WauzEquipmentEnhancer#enhanceEquipment(WauzEnhancement, WauzEnhancementParameters)
+	 * @see WauzEquipmentEnhancer#enhanceEquipment(WauzEquipmentBuilder, WauzEnhancement, WauzEnhancementParameters)
 	 */
 	public static void enhanceEquipment(WauzEquipmentIdentifier identifier, int enhancementLevel) {
 		WauzEnhancementParameters parameters = new WauzEnhancementParameters(enhancementLevel);

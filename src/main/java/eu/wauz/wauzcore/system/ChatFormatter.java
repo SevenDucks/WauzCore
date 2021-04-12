@@ -27,8 +27,6 @@ public class ChatFormatter {
 	 * Formats and sends a message from an chat event to the global chat.
 	 * 
 	 * @param event The received PlayerChatEvent.
-	 * 
-	 * @return The formatted message.
 	 */
 	public static void global(AsyncChatEvent event) {
 		Player player = event.getPlayer();

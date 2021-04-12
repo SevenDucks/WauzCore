@@ -90,6 +90,7 @@ public class WauzBestiarySpecies {
 	/**
 	 * Constructs a species including entries, based on the bestiary file in the /WauzCore/BestiaryData/Category folder.
 	 * 
+	 * @param speciesCategory The category of the species.
 	 * @param speciesName The name of the species.
 	 */
 	public WauzBestiarySpecies(WauzBestiaryCategory speciesCategory, String speciesName) {

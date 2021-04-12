@@ -73,9 +73,9 @@ public class GuildApplicationMenu implements WauzInventory {
 	 * @see GuildOverviewMenu#validateOfficerAccess(Player, WauzPlayerGuild)
 	 * @see WauzPlayerGuild#getApplicantUuidStrings()
 	 * @see PlayerConfigurator#getLastPlayed(OfflinePlayer)
-	 * @see PlayerConfigurator#getClassString(OfflinePlayer, int)
-	 * @see PlayerConfigurator#getWorldString(OfflinePlayer, int)
-	 * @see PlayerConfigurator#getLevelString(OfflinePlayer, int)
+	 * @see PlayerConfigurator#getClassString(OfflinePlayer, String)
+	 * @see PlayerConfigurator#getWorldString(OfflinePlayer, String)
+	 * @see PlayerConfigurator#getLevelString(OfflinePlayer, String)
 	 * @see PlayerConfigurator#getSurvivalScore(OfflinePlayer)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
