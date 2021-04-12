@@ -41,7 +41,7 @@ public class ChatFormatter {
 		
 		Components.broadcast(msg);
 		if(WauzModules.isMainModuleActive()) {
-			WauzCore.getShiroDiscordBot().sendMessageFromMinecraft(msg, false);
+			WauzCore.getDiscordBot().sendMessageFromMinecraft(msg, false);
 		}
 	}
 	

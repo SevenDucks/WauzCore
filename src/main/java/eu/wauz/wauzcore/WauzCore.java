@@ -19,10 +19,10 @@ import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.data.ConfigurationLoader;
 import eu.wauz.wauzcore.data.DiscordConfigurator;
 import eu.wauz.wauzcore.data.ServerConfigurator;
-import eu.wauz.wauzcore.discord.ShiroDiscordBot;
-import eu.wauz.wauzcore.discord.WauzLogFilter;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
+import eu.wauz.wauzcore.system.WauzDiscordBot;
+import eu.wauz.wauzcore.system.WauzDiscordLogFilter;
 import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.WauzRepeatingTasks;
 import eu.wauz.wauzcore.system.annotations.AnnotationLoader;
@@ -72,16 +72,6 @@ public class WauzCore extends JavaPlugin {
 	public static final int MAX_BREEDING_SKILL = 10;
 	
 	/**
-	 * The public IP address of the Minecraft server.
-	 */
-	public static final String IP = Bukkit.getServer().getIp();
-	
-	/**
-	 * The public IP address and port of the Minecraft server.
-	 */
-	public static final String IP_AND_PORT = Bukkit.getServer().getIp() + ":" + Bukkit.getServer().getPort();
-	
-	/**
 	 * The instance of this class, that is created by the Minecraft server.
 	 */
 	private static WauzCore instance;
@@ -94,12 +84,12 @@ public class WauzCore extends JavaPlugin {
 	/**
 	 * The Discord bot running on the server.
 	 */
-	private static ShiroDiscordBot shiroDiscordBot;
+	private static WauzDiscordBot discordBot;
 	
 	/**
 	 * The filter used to listen to log records from Bukkit.
 	 */
-	private static WauzLogFilter logFilter;
+	private static WauzDiscordLogFilter discordLogFilter;
 	
 	/**
 	 * The WebServerManager used for the web based API.
@@ -143,10 +133,10 @@ public class WauzCore extends JavaPlugin {
 			pluginManager.registerEvents(new ProjectileMovementListener(), this);
 			getLogger().info("Registered EventListeners!");
 			
-			shiroDiscordBot = new ShiroDiscordBot();
-			logFilter = new WauzLogFilter();
+			discordBot = new WauzDiscordBot();
+			discordLogFilter = new WauzDiscordLogFilter();
 			pluginManager.registerEvents(new WauzDiscordListener(), this);
-			((org.apache.logging.log4j.core.Logger) LogManager.getRootLogger()).addFilter(logFilter);
+			((org.apache.logging.log4j.core.Logger) LogManager.getRootLogger()).addFilter(discordLogFilter);
 			getLogger().info("Enabled Discord Integration!");
 			
 			int port = getWebApiPort();
@@ -157,7 +147,7 @@ public class WauzCore extends JavaPlugin {
 			getLogger().info("Scheduled Repeating Tasks!");
 			
 			if(DiscordConfigurator.showStartStopNotification()) {
-				shiroDiscordBot.sendEmbedFromMinecraft(null, ":white_check_mark: " + WauzCore.getServerKey()
+				discordBot.sendEmbedFromMinecraft(null, ":white_check_mark: " + WauzCore.getServerKey()
 						+ " has been started!", null, Color.GREEN, false);
 			}
 		}
@@ -176,12 +166,12 @@ public class WauzCore extends JavaPlugin {
 	public void onDisable() {
 		if(WauzModules.isMainModuleActive()) {
 			if(DiscordConfigurator.showStartStopNotification()) {
-				shiroDiscordBot.sendEmbedFromMinecraft(null, ":octagonal_sign: " + WauzCore.getServerKey()
+				discordBot.sendEmbedFromMinecraft(null, ":octagonal_sign: " + WauzCore.getServerKey()
 						+ " has been stopped!", null, Color.RED, false);
 			}
-			logFilter.close();
-			shiroDiscordBot.stop();
-			getLogger().info("Shiro's taking a nap!");
+			discordLogFilter.close();
+			discordBot.stop();
+			getLogger().info("Disabled Discord Integration!");
 			
 			webServerManager.stop();
 			getLogger().info("Stopped WebServerManager!");
@@ -226,8 +216,8 @@ public class WauzCore extends JavaPlugin {
 	/**
 	 * @return The Discord bot running on this server.
 	 */
-	public static ShiroDiscordBot getShiroDiscordBot() {
-		return shiroDiscordBot;
+	public static WauzDiscordBot getDiscordBot() {
+		return discordBot;
 	}
 
 	/**

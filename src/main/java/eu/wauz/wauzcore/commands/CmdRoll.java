@@ -65,7 +65,7 @@ public class CmdRoll implements WauzCommand {
 		String result = player.getName() + " rolls " + value + " (1-" + maximum + ")";
 		Components.broadcast(result);
 		if(WauzModules.isMainModuleActive()) {
-			WauzCore.getShiroDiscordBot().sendMessageFromMinecraft(result, false);
+			WauzCore.getDiscordBot().sendMessageFromMinecraft(result, false);
 		}
 		return true;
 	}

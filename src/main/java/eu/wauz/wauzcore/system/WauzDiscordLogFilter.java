@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.discord;
+package eu.wauz.wauzcore.system;
 
 import java.awt.Color;
 import java.text.SimpleDateFormat;
@@ -21,7 +21,7 @@ import eu.wauz.wauzcore.data.DiscordConfigurator;
  * 
  * @author Wauzmons
  */
-public class WauzLogFilter implements Filter {
+public class WauzDiscordLogFilter implements Filter {
 
 	/**
 	 * If the filter should accept log records.
@@ -42,13 +42,13 @@ public class WauzLogFilter implements Filter {
 	 * Creates a log filter for all levels above trace.
 	 * Sends a notification to the log channel.
 	 */
-	public WauzLogFilter() {
+	public WauzDiscordLogFilter() {
 		ignoredMessages = DiscordConfigurator.getIgnoredLogMessages();
 		
 		String coreVersion = "Running WauzCore v" + WauzCore.getInstance().getDescription().getVersion();
 		String coreVersionDisplay = System.lineSeparator() + ":nazar_amulet: " + coreVersion;
 		String embeddedMessage = ":speaker: Activated logging for " + WauzCore.getServerKey() + " " + coreVersionDisplay;
-		WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(null, embeddedMessage, null, Color.BLUE, true);
+		WauzCore.getDiscordBot().sendEmbedFromMinecraft(null, embeddedMessage, null, Color.BLUE, true);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class WauzLogFilter implements Filter {
 		
 		String date = dateFormat.format(logEvent.getTimeMillis());
 		String level = " [" + logEvent.getLevel().name() + "] ";
-		WauzCore.getShiroDiscordBot().sendMessageFromMinecraft(date + level + message, true);
+		WauzCore.getDiscordBot().sendMessageFromMinecraft(date + level + message, true);
 		return null;
 	}
 

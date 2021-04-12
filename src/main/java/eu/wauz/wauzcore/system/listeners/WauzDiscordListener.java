@@ -42,7 +42,7 @@ public class WauzDiscordListener implements Listener {
         }
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
-			WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Join] " + player.getName()
+			WauzCore.getDiscordBot().sendEmbedFromMinecraft(player, "[Join] " + player.getName()
 					+ " joined the game!", null, Color.CYAN, false);
 		}
 	}
@@ -58,7 +58,7 @@ public class WauzDiscordListener implements Listener {
 	public void onLogout(PlayerQuitEvent event) {
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
-			WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Leave] " + player.getName()
+			WauzCore.getDiscordBot().sendEmbedFromMinecraft(player, "[Leave] " + player.getName()
 					+ " left the game!", null, Color.ORANGE, false);
 		}
 	}
@@ -74,7 +74,7 @@ public class WauzDiscordListener implements Listener {
 	public void onDeath(PlayerDeathEvent event) {
 		if(DiscordConfigurator.showDeathNotification()) {
 			Player player = event.getEntity();
-			WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Death] " + player.getName()
+			WauzCore.getDiscordBot().sendEmbedFromMinecraft(player, "[Death] " + player.getName()
 					+ " died!", null, Color.BLACK, false);
 		}
 	}
@@ -95,7 +95,7 @@ public class WauzDiscordListener implements Listener {
 				description += System.lineSeparator() + ChatColor.stripColor(descriptionLine);
 			}
 		}
-		WauzCore.getShiroDiscordBot().sendEmbedFromMinecraft(player, "[Item] " + player.getName()
+		WauzCore.getDiscordBot().sendEmbedFromMinecraft(player, "[Item] " + player.getName()
 				+ " shared an item in chat!", description, null, false);
 	}
 	

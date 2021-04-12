@@ -32,52 +32,46 @@
 
 	<repositories>
 
-		<!-- Bukkit -->
+		<!-- Needed for Bukkit -->
 		<repository>
 			<id>bukkit-repo</id>
 			<url>http://repo.bukkit.org/content/groups/public/</url>
 		</repository>
 
-		<!-- Spigot -->
+		<!-- Needed for Spigot -->
 		<repository>
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
 
-		<!-- Paper -->
+		<!-- Needed for Paper -->
 		<repository>
 			<id>papermc</id>
 			<url>https://papermc.io/repo/repository/maven-public/</url>
 		</repository>
 
-		<!-- MythicMobsAPI -->
+		<!-- Needed for MythicMobsAPI -->
 		<repository>
 			<id>lumine-repo</id>
 			<url>http://mvn.lumine.io/repository/maven-snapshots/</url>
 		</repository>
 
-		<!-- NoteBlockAPI -->
+		<!-- Needed for NoteBlockAPI -->
 		<repository>
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
 
-		<!-- NPCLib -->
+		<!-- Needed for NPCLib -->
 		<repository>
 			<id>ossrh</id>
 			<url>https://oss.sonatype.org/content/groups/public/</url>
 		</repository>
 
-		<!-- Discord -->
+		<!-- Needed for Discord -->
 		<repository>
 			<id>jcenter</id>
 			<url>https://jcenter.bintray.com</url>
-		</repository>
-
-		<!-- Rule 34 -->
-		<repository>
-			<id>kodehawa</id>
-			<url>https://dl.bintray.com/kodehawa/maven</url>
 		</repository>
 
 	</repositories>
@@ -147,25 +141,11 @@
 			<version>0.9.12</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>net.dv8tion</groupId>
 			<artifactId>JDA</artifactId>
 			<version>4.2.0_214</version>
 			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.sedmelluq</groupId>
-			<artifactId>lavaplayer</artifactId>
-			<version>1.3.73</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>net.kodehawa</groupId>
-			<artifactId>imageboard-api</artifactId>
-			<version>2.1</version>
 		</dependency>
 
 
@@ -193,13 +173,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
+				<version>3.8.1</version>
 			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.3</version>
+				<version>3.2.4</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -216,6 +196,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M5</version>
 				<configuration>
 					<classpathDependencyExcludes>
 						<classpathDependencyExclude>com.destroystokyo.paper:paper-api</classpathDependencyExclude>

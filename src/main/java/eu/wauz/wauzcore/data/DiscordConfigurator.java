@@ -21,41 +21,13 @@ public class DiscordConfigurator extends GlobalConfigurationUtils {
 	}
 	
 	/**
-	 * @return The Discord ID of the admin user.
-	 */
-	public static String getAdminUserId() {
-		return mainConfigGetString("Discord", "admin");
-	}
-	
-	/**
-	 * @return The IP of the server that should handle bot commands.
-	 */
-	public static String getMainServerIp() {
-		return mainConfigGetString("Discord", "mainserver");
-	}
-	
-	/**
 	 * @return The text shown under the bot in the Discord user list.
 	 */
 	public static String getPlaysMessage() {
 		return mainConfigGetString("Discord", "playsmsg");
 	}
 	
-	/**
-	 * @return The Discord message when an error occurs.
-	 */
-	public static String getErrorMessage() {
-		return mainConfigGetString("Discord", "errormsg");
-	}
-	
 // Channel IDs
-	
-	/**
-	 * @return The ID of the Discord server.
-	 */
-	public static long getGuildId() {
-		return mainConfigGetLong("Discord", "guild");
-	}
 	
 	/**
 	 * @return The ID of the general channel for the chat.
@@ -69,20 +41,6 @@ public class DiscordConfigurator extends GlobalConfigurationUtils {
 	 */
 	public static long getLoggingChannelId() {
 		return mainConfigGetLong("Discord", "channels.logging");
-	}
-	
-	/**
-	 * @return The ID of the bots channel for commands.
-	 */
-	public static long getBotsChannelId() {
-		return mainConfigGetLong("Discord", "channels.bots");
-	}
-	
-	/**
-	 * @return The ID of the audio channel for playing songs.
-	 */
-	public static long getAudioChannelId() {
-		return mainConfigGetLong("Discord", "channels.audio");
 	}
 	
 // Notifications

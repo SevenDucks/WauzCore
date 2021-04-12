@@ -1,14 +1,8 @@
 token: I probably shouldn't share my token in a public repo.
-admin: 271386371950772224
-mainserver: 89.163.144.236:25565
 playsmsg: "with Lord Wauzmons"
-errormsg: "Oopsy! Shiro thinks something went wrong. :/"
-guild: 212147184999596032
 channels:
   general: 212147184999596032
   logging: 664755383855742986
-  bots: 492095196641624066
-  audio: 685470426293600280
 notifications:
   startstop: true
   joinleave: true
