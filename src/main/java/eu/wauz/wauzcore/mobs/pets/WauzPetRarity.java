@@ -1,42 +1,46 @@
 package eu.wauz.wauzcore.mobs.pets;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.data.PetConfigurator;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
- * The rarity of a pet, containing name, color and max stat multiplier.
+ * A pet rarity, generated from the pet config file.
  * 
  * @author Wauzmons
  */
-public enum WauzPetRarity {
+public class WauzPetRarity {
 	
 	/**
-	 * The first rarity for pets "Normal", in green, with a max stat multiplier of 1.
+	 * A list of all pet rarities.
 	 */
-	NORMAL("Normal", 1, ChatColor.GREEN, Material.SLIME_SPAWN_EGG),
+	private static List<WauzPetRarity> petRarities = new ArrayList<>();
 	
 	/**
-	 * The second rarity for pets "Magic", in blue, with a max stat multiplier of 2.
+	 * A map of all pet rarities, indexed by key.
 	 */
-	MAGIC("Magic", 2, ChatColor.BLUE, Material.SQUID_SPAWN_EGG),
+	private static Map<String, WauzPetRarity> petRarityMap = new HashMap<>();
 	
 	/**
-	 * The third rarity for pets "Rare", in gold, with a max stat multiplier of 3.
+	 * Initializes all pet rarities and fills the internal pet rarity map.
+	 * 
+	 * @see PetConfigurator#getPetRarityKeys()
 	 */
-	RARE("Rare", 3, ChatColor.GOLD, Material.BLAZE_SPAWN_EGG),
-	
-	/**
-	 * The fourth rarity for pets "Epic", in dark purple, with max stat a multiplier of 4.
-	 */
-	EPIC("Epic", 4, ChatColor.DARK_PURPLE, Material.SHULKER_SPAWN_EGG),
-	
-	/**
-	 * The fifth rarity for pets "Unique", in dark red, with a max stat multiplier of 5.
-	 */
-	UNIQUE("Unique", 5, ChatColor.DARK_RED, Material.MOOSHROOM_SPAWN_EGG);
+	public static void init() {
+		for(String key : PetConfigurator.getPetRarityKeys()) {
+			WauzPetRarity rarity = new WauzPetRarity(key);
+			petRarities.add(rarity);
+			petRarityMap.put(key, rarity);
+		}
+	}
 	
 	/**
 	 * Determines the pet rarity of the given item stack's material. 
@@ -47,13 +51,48 @@ public enum WauzPetRarity {
 	 */
 	public static WauzPetRarity determineRarity(ItemStack itemStack) {
 		Material material = itemStack.getType();
-		for(WauzPetRarity rarity : values()) {
+		for(WauzPetRarity rarity : petRarities) {
 			if(rarity.getMaterial().equals(material)) {
 				return rarity;
 			}
 		}
-		return NORMAL;
+		return petRarities.get(0);
 	}
+	
+	/**
+	 * @param petRarityKey A pet rarity key.
+	 * 
+	 * @return The pet rarity with that key.
+	 */
+	public static WauzPetRarity getPetRarity(String petRarityKey) {
+		return petRarityMap.get(petRarityKey);
+	}
+	
+	/**
+	 * @return A list of all pet rarity keys.
+	 */
+	public static List<String> getAllPetRariryKeys() {
+		return new ArrayList<>(petRarityMap.keySet());
+	}
+	
+	/**
+	 * @return A list of all pet rarities.
+	 */
+	public static List<WauzPetRarity> getAllPetRarities() {
+		return new ArrayList<>(petRarities);
+	}
+	
+	/**
+	 * @return The count of all pet rarities.
+	 */
+	public static int getPetRarityCount() {
+		return petRarities.size();
+	}
+	
+	/**
+	 * The key of the pet rarity.
+	 */
+	private final String key;
 	
 	/**
 	 * The name of the pet rarity.
@@ -81,16 +120,14 @@ public enum WauzPetRarity {
 	private final Material material;
 	
 	/**
-	 * Creates a new pet rarity with given values.
+	 * Constructor for a new pet rarity.
 	 * 
-	 * @param name The name of the pet rarity.
-	 * @param multiplier The max stat multiplier of the pet rarity. Also acts as star count.
-	 * @param color The color of the pet rarity.
-	 * @param material The spawn egg material of the pet rarity.
+	 * @param key The key of the pet rarity.
 	 */
-	WauzPetRarity(String name, int multiplier, ChatColor color, Material material) {
-		this.name = name;
-		this.multiplier = multiplier;
+	WauzPetRarity(String key) {
+		this.key = key;
+		this.name = PetConfigurator.getPetRarityName(key);
+		this.multiplier = PetConfigurator.getPetRarityMultiplier(key);
 		String rarityStars = "";
 		for(int index = 0; index < 5; index++) {
 			rarityStars += UnicodeUtils.ICON_DIAMOND;
@@ -99,8 +136,15 @@ public enum WauzPetRarity {
 			}
 		}
 		this.rarityStars = rarityStars;
-		this.color = color;
-		this.material = material;
+		this.color = PetConfigurator.getPetRarityColor(key);
+		this.material = PetConfigurator.getPetRarityMaterial(key);
+	}
+
+	/**
+	 * @return The key of the pet rarity.
+	 */
+	final String getKey() {
+		return key;
 	}
 
 	/**

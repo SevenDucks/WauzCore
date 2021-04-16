@@ -31,6 +31,7 @@ public class WauzPet {
 	 */
 	public static void init() {
 		WauzPetStat.init();
+		WauzPetRarity.init();
 		WauzPetBreedingLevel.init();
 		
 		for(String key : PetConfigurator.getPetKeys()) {
@@ -109,11 +110,11 @@ public class WauzPet {
 	 */
 	private static WauzPet getHigherRarityOffspring(WauzPetRarity rarity, String category) {
 		int oldRarityNumber = rarity.getMultiplier();
-		if(oldRarityNumber >= WauzPetRarity.values().length) {
+		if(oldRarityNumber >= WauzPetRarity.getPetRarityCount()) {
 			return getSameRarityOffspring(rarity, category);
 		}
 		
-		WauzPetRarity newRarity = WauzPetRarity.values()[oldRarityNumber];
+		WauzPetRarity newRarity = WauzPetRarity.getAllPetRarities().get(oldRarityNumber);
 		List<WauzPet> pets = getMatchingPets(newRarity, category);
 		if(pets.isEmpty()) {
 			return getSameRarityOffspring(rarity, category);
@@ -136,7 +137,7 @@ public class WauzPet {
 			return getSameRarityOffspring(rarity, category);
 		}
 		
-		WauzPetRarity newRarity = WauzPetRarity.values()[oldRarityNumber - 2];
+		WauzPetRarity newRarity = WauzPetRarity.getAllPetRarities().get(oldRarityNumber - 2);
 		List<WauzPet> pets = getMatchingPets(newRarity, category);
 		if(pets.isEmpty()) {
 			return getSameRarityOffspring(rarity, category);

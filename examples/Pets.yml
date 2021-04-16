@@ -19,6 +19,32 @@ stats:
     - 'Farm'
     - 'Exotic'
     - 'Monster'
+rarities:
+  NORMAL:
+    name: 'Normal'
+    tier: 1
+    color: GREEN
+    material: SLIME_SPAWN_EGG
+  MAGIC:
+    name: 'Magic'
+    tier: 2
+    color: BLUE
+    material: SQUID_SPAWN_EGG
+  RARE:
+    name: 'Rare'
+    tier: 3
+    color: GOLD
+    material: BLAZE_SPAWN_EGG
+  EPIC:
+    name: 'Epic'
+    tier: 4
+    color: DARK_PURPLE
+    material: SHULKER_SPAWN_EGG
+  UNIQUE:
+    name: 'Unique'
+    tier: 5
+    color: DARK_RED
+    material: MOOSHROOM_SPAWN_EGG
 levels:
   1:
     exp: 1

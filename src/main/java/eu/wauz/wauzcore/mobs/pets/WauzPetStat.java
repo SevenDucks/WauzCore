@@ -64,27 +64,27 @@ public class WauzPetStat {
 	/**
 	 * The key of the pet stat.
 	 */
-	private String key;
+	private final String key;
 	
 	/**
 	 * The short display name of the pet stat.
 	 */
-	private String name;
+	private final String name;
 	
 	/**
 	 * The effect description of the pet stat.
 	 */
-	private String description;
+	private final String description;
 	
 	/**
 	 * The pet categories of the pet stat.
 	 */
-	private List<String> categories;
+	private final List<String> categories;
 	
 	/**
 	 * If the stat is a horse stat.
 	 */
-	private boolean horse;
+	private final boolean horse;
 	
 	/**
 	 * Constructor for a new (non horse) pet stat.

@@ -3,6 +3,9 @@ package eu.wauz.wauzcore.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzPetRarity;
 
@@ -46,7 +49,7 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	 * @return The rarity of the pet.
 	 */
 	public static WauzPetRarity getRarity(String petKey) {
-		return WauzPetRarity.valueOf(mainConfigGetString("Pets", "pets." + petKey + ".rarity"));
+		return WauzPetRarity.getPetRarity(mainConfigGetString("Pets", "pets." + petKey + ".rarity"));
 	}
 	
 	/**
@@ -92,6 +95,51 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	 */
 	public static List<String> getStatCategories(String stat) {
 		return mainConfigGetStringList("Pets", "stats." + stat + ".categories");
+	}
+	
+// Pet Rarities
+	
+	/**
+	 * @return The keys of all pet rarities.
+	 */
+	public static List<String> getPetRarityKeys() {
+		return new ArrayList<>(mainConfigGetKeys("Pets", "rarities"));
+	}
+	
+	/**
+	 * @param rarity The key of the pet rarity.
+	 * 
+	 * @return The name of the pet rarity.
+	 */
+	public static String getPetRarityName(String rarity) {
+		return mainConfigGetString("Pets", "rarities." + rarity + ".name");
+	}
+	
+	/**
+	 * @param rarity The key of the pet rarity.
+	 * 
+	 * @return The max stat multiplier of the pet rarity. Also acts as star count.
+	 */
+	public static int getPetRarityMultiplier(String rarity) {
+		return mainConfigGetInt("Pets", "rarities." + rarity + ".tier");
+	}
+	
+	/**
+	 * @param rarity The key of the pet rarity.
+	 * 
+	 * @return The color of the pet rarity.
+	 */
+	public static ChatColor getPetRarityColor(String rarity) {
+		return ChatColor.valueOf(mainConfigGetString("Pets", "rarities." + rarity + ".color"));
+	}
+	
+	/**
+	 * @param rarity The key of the pet rarity.
+	 * 
+	 * @return The spawn egg material of the pet rarity.
+	 */
+	public static Material getPetRarityMaterial(String rarity) {
+		return Material.valueOf(mainConfigGetString("Pets", "rarities." + rarity + ".material"));
 	}
 	
 // Breeding Levels

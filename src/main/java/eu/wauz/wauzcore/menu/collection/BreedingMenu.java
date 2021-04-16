@@ -99,7 +99,7 @@ public class BreedingMenu implements WauzInventory {
 		ItemMeta levelItemMeta = levelItemStack.getItemMeta();
 		Components.displayName(levelItemMeta, ChatColor.YELLOW + "Breeding Times for Current Level");
 		List<String> levelLores = new ArrayList<>();
-		for(WauzPetRarity rarity : WauzPetRarity.values()) {
+		for(WauzPetRarity rarity : WauzPetRarity.getAllPetRarities()) {
 			int time = breedingMenu.getLevel().getTime(rarity);
 			if(time > 0) {
 				String timeString = WauzDateUtils.formatHoursMins(time * 1000);

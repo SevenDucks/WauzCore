@@ -69,7 +69,7 @@ public class WauzPetBreedingLevel {
 	private WauzPetBreedingLevel(int level) {
 		this.level = level;
 		this.exp = PetConfigurator.getBreedingLevelExp(level);
-		for(WauzPetRarity rarity : WauzPetRarity.values()) {
+		for(WauzPetRarity rarity : WauzPetRarity.getAllPetRarities()) {
 			rarityTimeMap.put(rarity, PetConfigurator.getBreedingLevelTime(level, rarity));
 		}
 	}
