@@ -18,13 +18,15 @@
 	<distributionManagement>
 
 		<repository>
-			<id>packagecloud</id>
-			<url>packagecloud+https://packagecloud.io/Wauzmons/WauzCore</url>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/octocat/hello-world</url>
 		</repository>
 
 		<snapshotRepository>
-			<id>packagecloud</id>
-			<url>packagecloud+https://packagecloud.io/Wauzmons/WauzCore</url>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/octocat/hello-world</url>
 		</snapshotRepository>
 
 	</distributionManagement>
@@ -211,16 +213,6 @@
 			</plugin>
 
 		</plugins>
-
-		<extensions>
-
-			<extension>
-				<groupId>io.packagecloud.maven.wagon</groupId>
-				<artifactId>maven-packagecloud-wagon</artifactId>
-				<version>0.0.4</version>
-			</extension>
-
-		</extensions>
 
 	</build>
 

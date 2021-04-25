@@ -1,5 +1,5 @@
 # WauzCore - Heart of Delseyria
-[![Build Status](https://travis-ci.com/SevenDucks/WauzCore.svg?branch=master)](https://travis-ci.com/SevenDucks/WauzCore)
+[![Build Status](https://github.com/SevenDucks/WauzCore/actions/workflows/maven.yml/badge.svg)](https://github.com/SevenDucks/WauzCore/actions/workflows/maven.yml)
 [![Discord](https://img.shields.io/discord/212147184999596032)](https://discord.gg/dhHJp5a)
 [![CodeFactor](https://www.codefactor.io/repository/github/sevenducks/wauzcore/badge)](https://www.codefactor.io/repository/github/sevenducks/wauzcore)
 [![Codebeat](https://codebeat.co/badges/ddcb8361-5bb9-4988-b3c7-51f34db15f21)](https://codebeat.co/projects/github-com-sevenducks-wauzcore-master)
