@@ -19,13 +19,11 @@
 
 		<repository>
 			<id>github</id>
-			<name>GitHub Packages</name>
 			<url>https://maven.pkg.github.com/SevenDucks/WauzCore</url>
 		</repository>
 
 		<snapshotRepository>
 			<id>github</id>
-			<name>GitHub Packages</name>
 			<url>https://maven.pkg.github.com/SevenDucks/WauzCore</url>
 		</snapshotRepository>
 
@@ -206,6 +204,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0-M5</version>
 				<configuration>
+					<excludes>
+						<exclude>**/suites/**</exclude>
+					</excludes>
 					<classpathDependencyExcludes>
 						<classpathDependencyExclude>com.destroystokyo.paper:paper-api</classpathDependencyExclude>
 					</classpathDependencyExcludes>
