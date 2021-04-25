@@ -36,8 +36,6 @@ jobs:
         cd ../WauzStarter
         mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
         cd ..
-        mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
-    - name: Publish Package
-      run: mvn --batch-mode -Dmaven.install.skip=true -Dmaven.test.skip=true deploy
+        mvn deploy -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
