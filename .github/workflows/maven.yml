@@ -37,7 +37,6 @@ jobs:
         mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
         cd ..
         mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
-        mvn -B -V deploy
     - name: Publish Package
       run: mvn --batch-mode deploy
       env:
