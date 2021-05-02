@@ -35,7 +35,7 @@ public class WauzDiscordListener implements Listener {
 	 * 
 	 * @see DiscordConfigurator#showJoinLeaveNotification()
 	 */
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onLogin(PlayerLoginEvent event) {
 		if(!event.getResult().equals(Result.ALLOWED)) {
             return;
@@ -54,7 +54,7 @@ public class WauzDiscordListener implements Listener {
 	 * 
 	 * @see DiscordConfigurator#showJoinLeaveNotification()
 	 */
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onLogout(PlayerQuitEvent event) {
 		if(DiscordConfigurator.showJoinLeaveNotification()) {
 			Player player = event.getPlayer();
@@ -70,7 +70,7 @@ public class WauzDiscordListener implements Listener {
 	 * 
 	 * @see DiscordConfigurator#showDeathNotification()
 	 */
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onDeath(PlayerDeathEvent event) {
 		if(DiscordConfigurator.showDeathNotification()) {
 			Player player = event.getEntity();
@@ -84,7 +84,7 @@ public class WauzDiscordListener implements Listener {
 	 * 
 	 * @param event The event for creating the message.
 	 */
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onItem(ShareItemEvent event) {
 		Player player = event.getPlayer();
 		ItemStack itemStack = event.getItemStack();

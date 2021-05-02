@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.commands.CmdRename;
 import eu.wauz.wauzcore.commands.administrative.CmdWzGetPet;
 import eu.wauz.wauzcore.commands.completion.TabCompleterPets;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
@@ -41,6 +42,7 @@ public class PetModuleListener implements Listener {
 	 */
 	public PetModuleListener() {
 		WauzPet.init();
+		WauzCommandExecutor.registerCommand(new CmdRename());
 		WauzCommandExecutor.registerCommand(new CmdWzGetPet());
 		Bukkit.getPluginCommand("wzGetPet").setTabCompleter(new TabCompleterPets());
 		WauzCore.getInstance().getLogger().info("Loaded Standalone Pet Module!");

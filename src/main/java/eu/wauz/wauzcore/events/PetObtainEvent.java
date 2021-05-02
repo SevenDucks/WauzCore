@@ -53,6 +53,7 @@ public class PetObtainEvent extends Event {
 	 * @param pet The pet that was obtained.
 	 */
 	private PetObtainEvent(Player player, WauzPet pet) {
+		super();
 		this.player = player;
 		this.pet = pet;
 	}

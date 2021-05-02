@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
@@ -20,18 +21,16 @@ public class ShareItemEvent extends PlayerEvent {
 	/**
 	 * The item to be shared.
 	 */
-	private ItemStack itemStack;
+	private final ItemStack itemStack;
 	
 	/**
-	 * Creates a new armor equip event with given values.
+	 * Creates and calls a new instance of the event.
 	 * 
 	 * @param player The player that shared the item.
 	 * @param itemStack The item to be shared.
 	 */
-	public ShareItemEvent(Player player, ItemStack itemStack) {
-		super(player);
-		
-		this.itemStack = itemStack;
+	public static void call(Player player, ItemStack itemStack) {
+		Bukkit.getServer().getPluginManager().callEvent(new ShareItemEvent(player, itemStack));
 	}
 	
 	/**
@@ -39,6 +38,17 @@ public class ShareItemEvent extends PlayerEvent {
 	 */
 	public final static HandlerList getHandlerList() {
 		return HANDLERS;
+	}
+	
+	/**
+	 * Creates a new armor equip event with given values.
+	 * 
+	 * @param player The player that shared the item.
+	 * @param itemStack The item to be shared.
+	 */
+	private ShareItemEvent(Player player, ItemStack itemStack) {
+		super(player);
+		this.itemStack = itemStack;
 	}
 	
 	/**
@@ -52,7 +62,7 @@ public class ShareItemEvent extends PlayerEvent {
 	/**
 	 * @return The item to be shared.
 	 */
-	public ItemStack getItemStack() {
+	public final ItemStack getItemStack() {
 		return itemStack;
 	}
 	

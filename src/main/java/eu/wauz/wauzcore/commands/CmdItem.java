@@ -3,7 +3,6 @@ package eu.wauz.wauzcore.commands;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -55,8 +54,7 @@ public class CmdItem implements WauzCommand {
 			return true;
 		}
 		ChatFormatter.share(player, itemStack);
-		ShareItemEvent event = new ShareItemEvent(player, itemStack);
-		Bukkit.getServer().getPluginManager().callEvent(event);
+		ShareItemEvent.call(player, itemStack);
 		return true;
 	}
 
