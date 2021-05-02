@@ -6,7 +6,7 @@ import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 import eu.wauz.wauzcore.system.util.Chance;
 
 /**
- * Configurator to fetch or modify data from the Crafting.yml.
+ * Configurator to fetch or modify data from the Server.yml.
  * 
  * @author Wauzmons
  */
@@ -23,7 +23,7 @@ public class ServerConfigurator extends GlobalConfigurationUtils {
 	private static String motdGoodbye;
 	
 	/**
-	 * Randomized message parts for the message of the day.
+	 * All possible randomized message parts for the message of the day.
 	 */
 	private static List<String> motdRandomMessages;
 	
@@ -82,7 +82,7 @@ public class ServerConfigurator extends GlobalConfigurationUtils {
 			motdGoodbye = mainConfigGetString("Server", "motd.goodbye");
 		}
 		if(motdRandomMessages == null) {
-			motdRandomMessages = mainConfigGetStringList("Server", "motd.random");
+			motdRandomMessages = RandomMessageConfiguration.getMotds();
 		}
 	}
 

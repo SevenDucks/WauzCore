@@ -1,7 +1,6 @@
 package eu.wauz.wauzcore.items.identifiers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.data.RandomMessageConfiguration;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.EquipmentParameters;
@@ -70,17 +70,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	/**
 	 * All possible equipment prefixes.
 	 */
-	private static List<String> equipPrefixes = Arrays.asList(
-			"Adamantite", "Ancient", "Alloyed", "Barbarian", "Blessed",
-			"Broken", "Ceremonial", "Cobalt", "Colossal", "Corrupted",
-			"Cruel", "Cursed", "Damaged", "Dragonbone", "Enchanted",
-			"Fallen", "Fierce", "Flaming", "Forgotten", "Forsaken",
-			"Frozen", "Gay", "Giant", "Goddess", "Guardian",
-			"Hellforged", "Holy", "Lightforged", "Lost", "Majestic",
-			"Malevolent", "Merciful", "Mighty", "Mythril", "Outlandish",
-			"Plain", "Polished", "Robust", "Royal", "Ruined",
-			"Rusty", "Savage", "Soldier", "Spiked", "Stained",
-			"Timeworn", "Warforged", "Weakened", "Weathered", "Worthless");
+	private static List<String> equipPrefixes = RandomMessageConfiguration.getEquipPrefixes();
 	
 	/**
 	 * The player who identifies the item.

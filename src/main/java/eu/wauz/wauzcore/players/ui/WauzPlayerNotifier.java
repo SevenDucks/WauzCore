@@ -1,12 +1,11 @@
 package eu.wauz.wauzcore.players.ui;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.data.RandomMessageConfiguration;
 import eu.wauz.wauzcore.data.players.PlayerMailConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.system.util.Chance;
@@ -21,14 +20,9 @@ import eu.wauz.wauzcore.system.util.WauzMode;
 public class WauzPlayerNotifier {
 	
 	/**
-	 * A list of all tip messages.
+	 * All possible tip messages.
 	 */
-	private static List<String> tipMessages = new ArrayList<>(Arrays.asList(
-			"You can type /hub to return to the Nexus.",
-			"We are reachable under dev@wauz.eu",
-			"Got lost? Open map.wauz.eu in your browser!",
-			"The game was originally made by a single dev!",
-			"Gabor Gehrig is ill today."));
+	private static List<String> tipMessages = RandomMessageConfiguration.getTips();
 	
 	/**
 	 * Shows a tip message to the given player.

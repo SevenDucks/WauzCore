@@ -91,9 +91,18 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	/**
 	 * @param stat The key of the pet stat
 	 * 
+	 * @return The max stat growth per tier of the pet. 
+	 */
+	public static int getPetStatGrowth(String stat) {
+		return mainConfigGetInt("Pets", "stats." + stat + ".statgrowth");
+	}
+	
+	/**
+	 * @param stat The key of the pet stat
+	 * 
 	 * @return The pet categories of the pet stat.
 	 */
-	public static List<String> getStatCategories(String stat) {
+	public static List<String> getPetStatCategories(String stat) {
 		return mainConfigGetStringList("Pets", "stats." + stat + ".categories");
 	}
 	

@@ -77,6 +77,11 @@ public class WauzPetStat {
 	private final String description;
 	
 	/**
+	 * The max stat growth per tier of the pet.
+	 */
+	private final int statGrowth;
+	
+	/**
 	 * The pet categories of the pet stat.
 	 */
 	private final List<String> categories;
@@ -95,7 +100,8 @@ public class WauzPetStat {
 		this.key = key;
 		this.name = PetConfigurator.getPetStatName(key);
 		this.description = PetConfigurator.getPetStatDescription(key);
-		this.categories = PetConfigurator.getStatCategories(key);
+		this.statGrowth = PetConfigurator.getPetStatGrowth(key);
+		this.categories = PetConfigurator.getPetStatCategories(key);
 		this.horse = false;
 	}
 	
@@ -111,6 +117,7 @@ public class WauzPetStat {
 		this.key = key;
 		this.name = name;
 		this.description = description;
+		this.statGrowth = 20;
 		this.categories = new ArrayList<>();
 		this.horse = horse;
 		petStats.add(this);
@@ -136,6 +143,13 @@ public class WauzPetStat {
 	 */
 	public String getDescription() {
 		return description;
+	}
+
+	/**
+	 * @return The max stat growth per tier of the pet.
+	 */
+	public int getStatGrowth() {
+		return statGrowth;
 	}
 
 	/**

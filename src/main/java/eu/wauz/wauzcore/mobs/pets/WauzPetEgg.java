@@ -62,8 +62,8 @@ public class WauzPetEgg {
 			String description = ChatColor.GRAY + ability.getAbilityDescription();
 			lores.add(ChatColor.WHITE + "Ability:" + ChatColor.GREEN + " " + ability.getAbilityName() + " " + description);
 		}
-		int maxStat = 20 * rarity.getMultiplier();
 		for(WauzPetStat stat : WauzPetStat.getAllPetStats()) {
+			int maxStat = stat.getStatGrowth() * rarity.getMultiplier();
 			if((isHorse && stat.isHorse()) || stat.getCategories().contains(pet.getCategory())) {
 				String description = " " + ChatColor.GRAY + stat.getDescription();
 				lores.add(ChatColor.WHITE + stat.getName() + ":" + ChatColor.GREEN + " " + 0 + " / " + maxStat + description);
