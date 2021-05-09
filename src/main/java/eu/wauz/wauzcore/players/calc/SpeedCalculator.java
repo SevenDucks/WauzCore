@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetStat;
-import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveBreath;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
@@ -31,7 +31,7 @@ public class SpeedCalculator {
 		int petDex = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Dexterity"));
 		bonusSpeed += (float) petDex * 0.0006;
 		if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
-			bonusSpeed += WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(PassiveBreath.PASSIVE_NAME).getLevel() * 0.002;
+			bonusSpeed += AbstractPassiveSkillPool.getPassive(player, PassiveBreath.PASSIVE_NAME).getLevel() * 0.002;
 			bonusSpeed += EquipmentUtils.getSwiftness(player.getEquipment().getChestplate()) * 0.002;
 		}
 		player.setWalkSpeed(0.2f + bonusSpeed);

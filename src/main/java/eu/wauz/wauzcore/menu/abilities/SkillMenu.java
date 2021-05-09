@@ -279,7 +279,7 @@ public class SkillMenu implements WauzInventory {
 		skillBreathLores.add("");
 		skillBreathLores.add(ChatColor.WHITE + "Additional Speed: " + ChatColor.BLUE
 				+ breathSkill.getLevel() + "%");
-		skillBreathLores.addAll(skillMenu.getPassiveProgressLores(breathSkill));
+		skillBreathLores.addAll(breathSkill.getProgressLores());
 		Components.lore(skillBreathItemMeta, skillBreathLores);
 		skillBreathItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillBreathItemStack.setItemMeta(skillBreathItemMeta);
@@ -298,7 +298,7 @@ public class SkillMenu implements WauzInventory {
 		skillNutritionLores.add("");
 		skillNutritionLores.add(ChatColor.WHITE + "Additional HP: " + ChatColor.BLUE
 				+ (nutritionSkill.getLevel() * 2));
-		skillNutritionLores.addAll(skillMenu.getPassiveProgressLores(nutritionSkill));
+		skillNutritionLores.addAll(nutritionSkill.getProgressLores());
 		Components.lore(skillNutritionItemMeta, skillNutritionLores);
 		skillNutritionItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillNutritionItemStack.setItemMeta(skillNutritionItemMeta);
@@ -317,7 +317,7 @@ public class SkillMenu implements WauzInventory {
 		skillWeightLores.add("");
 		skillWeightLores.add(ChatColor.WHITE + "Backpack Slots: " + ChatColor.BLUE
 				+ (weightSkill.getLevel() + Backpack.BASE_SIZE));
-		skillWeightLores.addAll(skillMenu.getPassiveProgressLores(weightSkill));
+		skillWeightLores.addAll(weightSkill.getProgressLores());
 		Components.lore(skillWeightItemMeta, skillWeightLores);
 		skillWeightItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillWeightItemStack.setItemMeta(skillWeightItemMeta);
@@ -400,29 +400,6 @@ public class SkillMenu implements WauzInventory {
 		Components.lore(masteryItemMeta, masteryLores);
 		masteryItemStack.setItemMeta(masteryItemMeta);
 		return masteryItemStack;
-	}
-	
-	/**
-	 * Generates a list of lores to display the progress for a given passive skill.
-	 * 
-	 * @param passiveSkill The passive to get the progress for.
-	 * 
-	 * @return The list of progress lores.
-	 */
-	public List<String> getPassiveProgressLores(AbstractPassiveSkill passiveSkill) {
-		List<String> lores = new ArrayList<>();
-		long progress = passiveSkill.getExp();
-		String progressString = Formatters.INT.format(progress);
-		Long nextMilestone = passiveSkill.getNextMilestone();
-		if(nextMilestone != null) {
-			String nextGoalString = Formatters.INT.format(nextMilestone);
-			lores.add(ChatColor.WHITE + "Progress: " + progressString + " / " + nextGoalString);
-			lores.add(UnicodeUtils.createProgressBar(progress, nextMilestone, 50, ChatColor.DARK_BLUE));
-		}
-		else {
-			lores.add(ChatColor.WHITE + "Progress: " + progressString);
-		}
-		return lores;
 	}
 	
 	/**

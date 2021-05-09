@@ -43,11 +43,11 @@ import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
-import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveBreath;
 import eu.wauz.wauzcore.system.ChatFormatter;
 import eu.wauz.wauzcore.system.EventMapper;
@@ -354,7 +354,7 @@ public class PlayerInteractionListener implements Listener {
 		}
 		else if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
 			long sprintedMillis = System.currentTimeMillis() - playerSprintMap.get(player);
-			WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(PassiveBreath.PASSIVE_NAME).grantExperience(player, sprintedMillis);
+			AbstractPassiveSkillPool.getPassive(player, PassiveBreath.PASSIVE_NAME).grantExperience(player, sprintedMillis);
 		}
 	}
 	

@@ -25,6 +25,7 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveWeight;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.economy.WauzShopActions;
@@ -180,7 +181,7 @@ public class MaterialPouch implements WauzInventory {
 			String message = ChatColor.AQUA + "Found Material: " + displayName;
 			player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
 			player.sendTitle("", message, 2, 14, 4);
-			WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(PassiveWeight.PASSIVE_NAME).grantExperience(player, 1);
+			AbstractPassiveSkillPool.getPassive(player, PassiveWeight.PASSIVE_NAME).grantExperience(player, 1);
 			return true;
 		}
 		else {

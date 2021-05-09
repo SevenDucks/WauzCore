@@ -32,7 +32,6 @@ import org.bukkit.inventory.ItemStack;
 import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.events.PetObtainEvent;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
@@ -42,6 +41,8 @@ import eu.wauz.wauzcore.oneblock.OneBlock;
 import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
+import eu.wauz.wauzcore.skills.passive.PassiveBreeding;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
@@ -261,7 +262,7 @@ public class PlayerAmbientListener implements Listener {
 		Player player = event.getPlayer();
 		WauzPet pet = event.getPet();
 		int exp = pet.getRarity().getMultiplier();
-		PlayerSkillConfigurator.increaseTamingSkill(player, exp);
+		AbstractPassiveSkillPool.getPassive(player, PassiveBreeding.PASSIVE_NAME).grantExperience(player, exp);
 		player.sendMessage(ChatColor.GREEN + "You earned " + exp + " breeding exp by obtaining " + pet.getKey() + "!");
 		AchievementTracker.addProgress(player, WauzAchievementType.COLLECT_PETS, 1);
 	}

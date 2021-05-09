@@ -7,8 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
-import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveHerbalism;
 import eu.wauz.wauzcore.skills.passive.PassiveMining;
 
@@ -97,7 +97,7 @@ public enum WauzResourceNodeType {
 		}
 		AbstractPassiveSkill skill = getSkill(player);
 		int currentSkillLevel = skill.getLevel();
-		int neededSkillLevel = ((toolTier - 1) * 5) + 1;
+		int neededSkillLevel = (toolTier - 1) * 5;
 		if(currentSkillLevel < neededSkillLevel) {
 			player.sendMessage(ChatColor.RED + "Your " + skill.getPassiveName() + " Skill (" + currentSkillLevel + ") needs to be "
 					+ neededSkillLevel + " or higher to use this tool! Gather lower tier resources to increase it!");
@@ -129,7 +129,7 @@ public enum WauzResourceNodeType {
 	 * @return The skill needed to to gather the resource.
 	 */
 	public AbstractPassiveSkill getSkill(Player player) {
-		return WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(skillString);
+		return AbstractPassiveSkillPool.getPassive(player, skillString);
 	}
 	
 	/**

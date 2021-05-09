@@ -16,36 +16,36 @@ public abstract class AbstractPassiveJobSkill extends AbstractPassiveSkill {
 	 * The static list of experience milestones.
 	 */
 	private static final List<Long> MILESTONES = Arrays.asList(
-			0L, // 01
-			5L, // 02
-			15L, // 03
-			30L, // 04
-			50L, // 05
-			75L, // 06
-			105L, // 07
-			140L, // 08
-			180L, // 09
-			225L, // 10
-			275L, // 11
-			330L, // 12
-			390L, // 13
-			455L, // 14
-			525L, // 15
-			600L, // 16
-			680L, // 17
-			765L, // 18
-			855L, // 19
-			950L, // 20
-			1050L, // 21
-			1155L, // 22
-			1265L, // 23
-			1380L, // 24
-			1500L, // 25
-			1625L, // 26
-			1755L, // 27
-			1990L, // 28
-			2130L, // 29
-			2275L); // 30
+			5L, // 01
+			15L, // 02
+			30L, // 03
+			50L, // 04
+			75L, // 05
+			105L, // 06
+			140L, // 07
+			180L, // 08
+			225L, // 09
+			275L, // 10
+			330L, // 11
+			390L, // 12
+			455L, // 13
+			525L, // 14
+			600L, // 15
+			680L, // 16
+			765L, // 17
+			855L, // 18
+			950L, // 19
+			1050L, // 20
+			1155L, // 21
+			1265L, // 22
+			1380L, // 23
+			1500L, // 24
+			1625L, // 25
+			1755L, // 26
+			1990L, // 27
+			2130L, // 28
+			2275L, // 29
+			2425L); // 30
 	
 	/**
 	 * Creates an empty instance of this passive skill.

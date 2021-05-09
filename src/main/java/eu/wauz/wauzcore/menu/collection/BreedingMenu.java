@@ -1,7 +1,6 @@
 package eu.wauz.wauzcore.menu.collection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,13 +31,11 @@ import eu.wauz.wauzcore.mobs.pets.WauzPetAbility;
 import eu.wauz.wauzcore.mobs.pets.WauzPetBreedingLevel;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.mobs.pets.WauzPetRarity;
+import eu.wauz.wauzcore.skills.passive.PassiveBreeding;
 import eu.wauz.wauzcore.system.WauzModules;
-import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
-import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
-import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.
@@ -48,7 +45,6 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  *
  * @see WauzPetEgg
  */
-@PublicMenu
 public class BreedingMenu implements WauzInventory {
 
 	/**
@@ -60,44 +56,38 @@ public class BreedingMenu implements WauzInventory {
 	}
 	
 	/**
-	 * @return The modes in which the inventory can be opened.
-	 */
-	@Override
-	public List<WauzMode> getGamemodes() {
-		return Arrays.asList(WauzMode.MMORPG);
-	}
-
-	/**
-	 * Opens a new inventory of this type for the given player.
+	 * Opens the menu for the given player.
 	 * 
 	 * @param player The player that should view the inventory.
+	 * @param exp The breeding experience of the player.
+	 * 
+	 * @see BreedingMenu#open(Player, PassiveBreeding)
 	 */
-	@Override
-	public void openInstance(Player player) {
-		throw new RuntimeException("Inventory cannot be opened directly!");
+	public static void open(Player player, int exp) {
+		open(player, new PassiveBreeding(exp));
 	}
 	
 	/**
 	 * Opens the menu for the given player.
-	 * Shows an interface to breed pets and display breeding skill progression.
+	 * Shows an interface to breed pets and displays breeding skill progression.
 	 * 
 	 * @param player The player that should view the inventory.
-	 * @param exp The breeding experience of the player.
+	 * @param breedingSkill The breeding skill of the player.
 	 * 
 	 * @see UnicodeUtils#createProgressBar(double, double, int, ChatColor)
 	 * @see MenuUtils#setBorders(Inventory)
 	 * @see BreedingMenu#updateBreedButton()
 	 */
-	public static void open(Player player, int exp) {
-		BreedingMenu breedingMenu = new BreedingMenu(exp);
-		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Breeding Menu" +
-				ChatColor.DARK_RED + ChatColor.BOLD + " Level " + breedingMenu.getLevel().getLevel();
+	public static void open(Player player, PassiveBreeding breedingSkill) {
+		BreedingMenu breedingMenu = new BreedingMenu(breedingSkill);
+		String levelText = ChatColor.DARK_RED + "" + ChatColor.BOLD + " Level " + breedingSkill.getLevel();
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Breeding Menu" + levelText;
 		Inventory menu = Components.inventory(breedingMenu, menuTitle, 9);
 		breedingMenu.setMenu(menu);
 		
 		ItemStack levelItemStack = MenuIconHeads.getTamesItem();
 		ItemMeta levelItemMeta = levelItemStack.getItemMeta();
-		Components.displayName(levelItemMeta, ChatColor.YELLOW + "Breeding Times for Current Level");
+		Components.displayName(levelItemMeta, ChatColor.YELLOW + "Breeding Times for " + levelText);
 		List<String> levelLores = new ArrayList<>();
 		for(WauzPetRarity rarity : WauzPetRarity.getAllPetRarities()) {
 			int time = breedingMenu.getLevel().getTime(rarity);
@@ -108,19 +98,8 @@ public class BreedingMenu implements WauzInventory {
 		}
 		levelLores.add(ChatColor.GRAY + "Tame more Pets to gain Experience");
 		levelLores.add(ChatColor.GRAY + "and unlock more breedable Rarities!");
-		String expString = Formatters.INT.format(exp);
-		WauzPetBreedingLevel currentLevel = breedingMenu.getLevel();
-		WauzPetBreedingLevel nextLevel = currentLevel.getNextLevel();
 		levelLores.add("");
-		levelLores.add(ChatColor.WHITE + "Breeding Level: " + ChatColor.GREEN + currentLevel.getLevel());
-		if(nextLevel != null) {
-			String nextString = Formatters.INT.format(nextLevel.getExp());
-			levelLores.add(ChatColor.WHITE + "Experience: " + ChatColor.GREEN + expString + " / " + nextString + ChatColor.WHITE + " to next Level");
-			levelLores.add(UnicodeUtils.createProgressBar(exp, nextLevel.getExp(), 50, ChatColor.GREEN));
-		}
-		else {
-			levelLores.add(ChatColor.WHITE + "Experience: " + ChatColor.GREEN + expString);
-		}
+		levelLores.addAll(breedingSkill.getProgressLores());
 		Components.lore(levelItemMeta, levelLores);
 		levelItemStack.setItemMeta(levelItemMeta);
 		menu.setItem(1, levelItemStack);
@@ -130,7 +109,7 @@ public class BreedingMenu implements WauzInventory {
 			ItemMeta abilityItemMeta = abilityItemStack.getItemMeta();
 			Components.displayName(abilityItemMeta, ChatColor.YELLOW + "Possible Abilities for Current Level");
 			List<String> abilityLores = new ArrayList<>();
-			List<WauzPetAbility> abilities = WauzPetAbilities.getAbilitiesForLevel(currentLevel);
+			List<WauzPetAbility> abilities = WauzPetAbilities.getAbilitiesForLevel(breedingMenu.getLevel());
 			if(abilities.isEmpty()) {
 				abilityLores.add(ChatColor.GREEN + "None yet...");
 			}
@@ -193,19 +172,12 @@ public class BreedingMenu implements WauzInventory {
 	private int newPetSeconds;
 	
 	/**
-	 * Constructs an empty breeding menu instance.
-	 */
-	public BreedingMenu() {
-		this.level = WauzPetBreedingLevel.getBreedingLevel(0);
-	}
-	
-	/**
 	 * Constructs a new breeding menu instance.
 	 * 
-	 * @param exp The breeding experience of the player.
+	 * @param breedingSkill The breeding skill of the player.
 	 */
-	private BreedingMenu(int exp) {
-		this.level = WauzPetBreedingLevel.getBreedingLevel(exp);
+	private BreedingMenu(PassiveBreeding breedingSkill) {
+		this.level = breedingSkill.getBreedingLevel();
 	}
 
 	/**

@@ -16,7 +16,7 @@ import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
-import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveWeight;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
@@ -105,7 +105,7 @@ public class Backpack implements WauzInventory {
 		Inventory backpack = getBackpack(player);
 		ItemStack lockedItemStack = new ItemStack(Material.BARRIER);
 		MenuUtils.setItemDisplayName(lockedItemStack, ChatColor.RED + "Slot Locked");
-		int slotCount = BASE_SIZE + WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(PassiveWeight.PASSIVE_NAME).getLevel();
+		int slotCount = BASE_SIZE + AbstractPassiveSkillPool.getPassive(player, PassiveWeight.PASSIVE_NAME).getLevel();
 		for(int slot = 0; slot < backpack.getSize(); slot++) {
 			if(slot >= slotCount) {
 				backpack.setItem(slot, lockedItemStack);

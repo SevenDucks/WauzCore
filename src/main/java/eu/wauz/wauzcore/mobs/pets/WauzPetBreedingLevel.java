@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.PetConfigurator;
@@ -21,7 +22,7 @@ public class WauzPetBreedingLevel {
 	private static List<WauzPetBreedingLevel> petBreedingLevels = new ArrayList<>();
 	
 	/**
-	 * Initializes all pet breeding levels from 1-10 and fills the internal pet breeding level list.
+	 * Initializes all pet breeding levels from 0 to Max and fills the internal pet breeding level list.
 	 */
 	public static void init() {
 		for(int level = 0; level <= WauzCore.MAX_BREEDING_SKILL; level++) {
@@ -30,20 +31,25 @@ public class WauzPetBreedingLevel {
 	}
 	
 	/**
-	 * Determines the breeding level, based on the amount of experience.
+	 * Gets the breeding level with the given index or null, if it exceeds the maximum.
 	 * 
-	 * @param breedingExp The experience to determine the level for.
+	 * @param level The level to get.
 	 * 
-	 * @return The current breeding level.
+	 * @return The breeding level.
 	 */
-	public static WauzPetBreedingLevel getBreedingLevel(int breedingExp) {
-		WauzPetBreedingLevel currentLevel = null;
-		for(WauzPetBreedingLevel breedingLevel : petBreedingLevels) {
-			if(breedingExp >= breedingLevel.getExp()) {
-				currentLevel = breedingLevel;
-			}
-		}
-		return currentLevel;
+	public static WauzPetBreedingLevel getBreedingLevel(int level) {
+		return level >= petBreedingLevels.size() ? null : petBreedingLevels.get(level);
+	}
+	
+	/**
+	 * Gets the list of experience milestones for the breeding skill.
+	 * 
+	 * @return The list of milestones.
+	 */
+	public static List<Long> getExperienceMilestones() {
+		return petBreedingLevels.stream()
+				.map(level -> Long.valueOf(level.getExp()))
+				.collect(Collectors.toList());
 	}
 	
 	/**
@@ -86,13 +92,6 @@ public class WauzPetBreedingLevel {
 	 */
 	public int getExp() {
 		return exp;
-	}
-	
-	/**
-	 * @return The following breeding level.
-	 */
-	public WauzPetBreedingLevel getNextLevel() {
-		return level + 1 >= petBreedingLevels.size() ? null : petBreedingLevels.get(level + 1);
 	}
 	
 	/**

@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffectSource;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Components;
@@ -50,7 +51,7 @@ public class FoodCalculator {
 		playerData.getSkills().updateFoodCooldown(foodId, foodCooldown);
 		
 		applyItemEffects(player, itemStack);
-		WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(PassiveNutrition.PASSIVE_NAME).grantExperience(player, 1);
+		AbstractPassiveSkillPool.getPassive(player, PassiveNutrition.PASSIVE_NAME).grantExperience(player, 1);
 		itemStack.setAmount(itemStack.getAmount() - 1);
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
 	}

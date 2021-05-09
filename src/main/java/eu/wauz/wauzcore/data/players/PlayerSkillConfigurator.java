@@ -345,28 +345,6 @@ public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 		playerConfigSet(player, "skills.crafting", characterCraftingSkill + 1, true);
 	}
 	
-// Taming Skill
-	
-	/**
-	 * @param player The player that owns the config file.
-	 * 
-	 * @return The level of the taming skill.
-	 */
-	public static Integer getTamingSkill(Player player) {
-		return playerConfigGetInt(player, "skills.taming", true);
-	}
-	
-	/**
-	 * Increases the level of the taming skill by a given amount.
-	 * 
-	 * @param player The player that owns the config file.
-	 * @param exp The amount of experience to add to the skill.
-	 */
-	public static void increaseTamingSkill(Player player, int exp) {
-		Integer characterTamingSkill = getTamingSkill(player);
-		playerConfigSet(player, "skills.taming", characterTamingSkill + exp, true);
-	}
-	
 // Weapon Skill - Sword
 	
 	/**

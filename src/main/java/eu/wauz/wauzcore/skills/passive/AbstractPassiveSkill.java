@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.skills.passive;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -7,6 +8,8 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Formatters;
+import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
  * An abstract passive skill, that can be leveled.
@@ -96,6 +99,27 @@ public abstract class AbstractPassiveSkill {
 			player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 			onLevelUp(player);
 		}
+	}
+	
+	/**
+	 * Generates a list of lores to display the progress of this skill.
+	 * 
+	 * @return The list of progress lores.
+	 */
+	public List<String> getProgressLores() {
+		List<String> lores = new ArrayList<>();
+		long progress = getExp();
+		String progressString = Formatters.INT.format(progress);
+		Long nextMilestone = getNextMilestone();
+		if(nextMilestone != null) {
+			String nextGoalString = Formatters.INT.format(nextMilestone);
+			lores.add(ChatColor.WHITE + "Progress: " + progressString + " / " + nextGoalString);
+			lores.add(UnicodeUtils.createProgressBar(progress, nextMilestone, 50, ChatColor.DARK_BLUE));
+		}
+		else {
+			lores.add(ChatColor.WHITE + "Progress: " + progressString);
+		}
+		return lores;
 	}
 	
 	/**

@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.players;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -141,7 +142,7 @@ public class WauzPlayerDataSectionStats {
 		int bonusHealth = 0;
 		Player player = playerData.getPlayer();
 		if(WauzMode.isMMORPG(player) && !WauzMode.inHub(player)) {
-			bonusHealth += playerData.getSkills().getCachedPassive(PassiveNutrition.PASSIVE_NAME).getLevel() * 2;
+			bonusHealth += AbstractPassiveSkillPool.getPassive(player, PassiveNutrition.PASSIVE_NAME).getLevel() * 2;
 		}
 		return maxHealth + bonusHealth;
 	}

@@ -12,12 +12,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.social.TitleMenu;
-import eu.wauz.wauzcore.mobs.pets.WauzPetBreedingLevel;
+import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
+import eu.wauz.wauzcore.skills.passive.PassiveBreeding;
 import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Components;
@@ -76,9 +76,9 @@ public class CollectionMenuParts {
 		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
 		Components.displayName(petsItemMeta, ChatColor.GOLD + "Breeding");
 		List<String> petsLores = new ArrayList<>();
-		int breedingExp = PlayerSkillConfigurator.getTamingSkill(player);
+		int breedingLevel = AbstractPassiveSkillPool.getPassive(player, PassiveBreeding.PASSIVE_NAME).getLevel();
 		petsLores.add(ChatColor.DARK_PURPLE + "Breeding Level: " + ChatColor.YELLOW
-				+ WauzPetBreedingLevel.getBreedingLevel(breedingExp).getLevel() + " / " + WauzCore.MAX_BREEDING_SKILL);
+				+ breedingLevel + " / " + WauzCore.MAX_BREEDING_SKILL);
 		petsLores.add("");
 		petsLores.add(ChatColor.GRAY + "Breed your collected Pets");
 		petsLores.add(ChatColor.GRAY + "and obtain stronger Offsprings.");
@@ -151,7 +151,7 @@ public class CollectionMenuParts {
 			return true;
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Breeding")) {
-			BreedingMenu.open(player, PlayerSkillConfigurator.getTamingSkill(player));
+			BreedingMenu.open(player, (PassiveBreeding) AbstractPassiveSkillPool.getPassive(player, PassiveBreeding.PASSIVE_NAME));
 			return true;
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Currencies")) {

@@ -3,6 +3,10 @@ package eu.wauz.wauzcore.skills.passive;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.entity.Player;
+
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+
 /**
  * This class is used to store all abstract passive skills.
  * 
@@ -18,7 +22,21 @@ public class AbstractPassiveSkillPool {
 	private static List<AbstractPassiveSkill> passives = new ArrayList<>();
 	
 	/**
-	 * @return A list of all registered passives.
+	 * Gets a passive by name for the given player.
+	 * 
+	 * @param player The player to get the passive for.
+	 * @param skillName The name of the passive.
+	 * 
+	 * @return The passive.
+	 */
+	public static AbstractPassiveSkill getPassive(Player player, String skillName) {
+		return WauzPlayerDataPool.getPlayer(player).getSkills().getCachedPassive(skillName);
+	}
+	
+	/**
+	 * Gets a list of all registered passives.
+	 * 
+	 * @return All registered passives.
 	 */
 	public static List<AbstractPassiveSkill> getPassives() {
 		return new ArrayList<>(passives);
