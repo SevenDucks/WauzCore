@@ -67,11 +67,6 @@ public class WauzCore extends JavaPlugin {
 	public static final int MAX_CRAFTING_SKILL = 40;
 	
 	/**
-	 * The maximum breeding skill a player can reach in MMORPG mode.
-	 */
-	public static final int MAX_BREEDING_SKILL = 10;
-	
-	/**
 	 * The instance of this class, that is created by the Minecraft server.
 	 */
 	private static WauzCore instance;

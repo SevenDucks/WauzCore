@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.PetConfigurator;
 
 /**
@@ -25,7 +24,7 @@ public class WauzPetBreedingLevel {
 	 * Initializes all pet breeding levels from 0 to Max and fills the internal pet breeding level list.
 	 */
 	public static void init() {
-		for(int level = 0; level <= WauzCore.MAX_BREEDING_SKILL; level++) {
+		for(int level = 0; level <= PetConfigurator.getBreedingLevelCount(); level++) {
 			petBreedingLevels.add(new WauzPetBreedingLevel(level));
 		}
 	}

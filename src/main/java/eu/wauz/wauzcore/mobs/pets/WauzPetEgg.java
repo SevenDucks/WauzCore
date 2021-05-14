@@ -41,7 +41,7 @@ public class WauzPetEgg {
 	 * 
 	 * @param owner The owner of the pet.
 	 * @param pet The pet to get an egg item of.
-	 * @param ability The ability of the pet.
+	 * @param ability The ability of the pet. Can be null.
 	 * @param hatchTime The timestamp when the pet can hatch.
 	 * 
 	 * @return The generated egg item stack.
@@ -93,11 +93,21 @@ public class WauzPetEgg {
 		if(!event.getAction().toString().contains("RIGHT")) {
 			return;
 		}
+		tryToSummon(player, itemStack);
+	}
+	
+	/**
+	 * Tries to spawn a pet by interacting with its egg item stack.
+	 * 
+	 * @param player The player interacting with the pet.
+	 * @param eggItemStack The pet egg item stack that is being interacted with.
+	 */
+	public static void tryToSummon(Player player, ItemStack eggItemStack) {
 		try {
 			if(WauzActivePet.tryToUnsummon(player, true)) {
 				return;
 			}
-			String petType = PetEggUtils.getPetType(itemStack);
+			String petType = PetEggUtils.getPetType(eggItemStack);
 			WauzPet pet = WauzPet.getPet(petType);
 			MythicMob mob = null;
 			if(pet != null && !pet.isHorse()) {
@@ -107,18 +117,18 @@ public class WauzPetEgg {
 				player.sendMessage(ChatColor.RED + "Your pet is invalid or outdated!");
 				return;
 			}
-			long hatchTime = PetEggUtils.getPetHatchTime(itemStack);
+			long hatchTime = PetEggUtils.getPetHatchTime(eggItemStack);
 			if(hatchTime > System.currentTimeMillis()) {
 				String time = WauzDateUtils.formatHoursMins(hatchTime - System.currentTimeMillis() + 60000);
 				player.sendMessage(ChatColor.RED + "You have to wait " + time + " before the pet is hatched!");
 				return;
 			}
 			
-			String petName = ChatColor.stripColor(Components.displayName(itemStack.getItemMeta()));
+			String petName = ChatColor.stripColor(Components.displayName(eggItemStack.getItemMeta()));
 			if(pet.isHorse()) {
 				Horse horse = NmsEntityHorseMount.create(player.getLocation(), pet.getHorseColor(), petType);
 				horse.setCustomName(ChatColor.GREEN + petName);
-				WauzActivePet.setOwner(player, horse, pet, itemStack);
+				WauzActivePet.setOwner(player, horse, pet, eggItemStack);
 				int petSpd = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Speed"));
 				horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.2 + (float) petSpd * 0.003f);
 				horse.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
@@ -129,7 +139,7 @@ public class WauzPetEgg {
 			else {
 				Entity entity = mythicMobs.spawnMythicMob(mob, player.getLocation(), 1);
 				entity.setCustomName(ChatColor.GREEN + petName);
-				WauzActivePet.setOwner(player, entity, pet, itemStack);
+				WauzActivePet.setOwner(player, entity, pet, eggItemStack);
 			}
 			player.sendMessage(ChatColor.GREEN + petName + " was summoned!");
 			WauzActivePet.getPet(player).showRandomMessage();
@@ -152,12 +162,42 @@ public class WauzPetEgg {
 		ItemStack foodItemStack = event.getCursor();
 		if(PetEggUtils.isEggItem(eggItemStack) && PetEggUtils.isFoodItem(foodItemStack)) {
 			event.setCancelled(true);
-			if(new WauzPetFoodStats(foodItemStack).tryToApply(eggItemStack)) {
-				WauzActivePet.tryToUnsummon(player, true);
-				foodItemStack.setAmount(foodItemStack.getAmount() - 1);
-				player.playSound(player.getLocation(), Sound.ENTITY_FOX_EAT, 1, 1);
-				return true;
-			}
+			return tryToFeedInternal(player, eggItemStack, foodItemStack);
+		}
+		return false;
+	}
+	
+	/**
+	 * Tries to feed a pet by dragging food on its egg item stack.
+	 * 
+	 * @param player The player interacting with the pet.
+	 * @param eggItemStack The pet egg item stack that is being interacted with.
+	 * @param foodItemStack The food that is being fed to the pet.
+	 * 
+	 * @return If the pet and food items were valid.
+	 */
+	public static boolean tryToFeed(Player player, ItemStack eggItemStack, ItemStack foodItemStack) {
+		if(PetEggUtils.isEggItem(eggItemStack) && PetEggUtils.isFoodItem(foodItemStack)) {
+			return tryToFeedInternal(player, eggItemStack, foodItemStack);
+		}
+		return false;
+	}
+	
+	/**
+	 * Tries to feed a pet by dragging food on its egg item stack.
+	 * 
+	 * @param player The player interacting with the pet.
+	 * @param eggItemStack The pet egg item stack that is being interacted with.
+	 * @param foodItemStack The food that is being fed to the pet.
+	 * 
+	 * @return If the food was consumed by the pet.
+	 */
+	private static boolean tryToFeedInternal(Player player, ItemStack eggItemStack, ItemStack foodItemStack) {
+		if(new WauzPetFoodStats(foodItemStack).tryToApply(eggItemStack)) {
+			WauzActivePet.tryToUnsummon(player, true);
+			foodItemStack.setAmount(foodItemStack.getAmount() - 1);
+			player.playSound(player.getLocation(), Sound.ENTITY_FOX_EAT, 1, 1);
+			return true;
 		}
 		return false;
 	}

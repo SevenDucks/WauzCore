@@ -30,6 +30,11 @@ public class WauzPetRarity {
 	private static Map<String, WauzPetRarity> petRarityMap = new HashMap<>();
 	
 	/**
+	 * The tier number of the next rarity.
+	 */
+	private static int nextRarity = 1;
+	
+	/**
 	 * Initializes all pet rarities and fills the internal pet rarity map.
 	 * 
 	 * @see PetConfigurator#getPetRarityKeys()
@@ -127,7 +132,7 @@ public class WauzPetRarity {
 	WauzPetRarity(String key) {
 		this.key = key;
 		this.name = PetConfigurator.getPetRarityName(key);
-		this.multiplier = PetConfigurator.getPetRarityMultiplier(key);
+		this.multiplier = nextRarity++;
 		String rarityStars = "";
 		for(int index = 0; index < 5; index++) {
 			rarityStars += UnicodeUtils.ICON_DIAMOND;

@@ -127,15 +127,6 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	/**
 	 * @param rarity The key of the pet rarity.
 	 * 
-	 * @return The max stat multiplier of the pet rarity. Also acts as star count.
-	 */
-	public static int getPetRarityMultiplier(String rarity) {
-		return mainConfigGetInt("Pets", "rarities." + rarity + ".tier");
-	}
-	
-	/**
-	 * @param rarity The key of the pet rarity.
-	 * 
 	 * @return The color of the pet rarity.
 	 */
 	public static ChatColor getPetRarityColor(String rarity) {
@@ -152,6 +143,13 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	}
 	
 // Breeding Levels
+	
+	/**
+	 * @return The count of breeding levels.
+	 */
+	public static int getBreedingLevelCount() {
+		return mainConfigGetKeys("Pets", "levels").size();
+	}
 	
 	/**
 	 * @param level The breeding level.
