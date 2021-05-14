@@ -32,18 +32,6 @@
 
 	<repositories>
 
-		<!-- Needed for Bukkit -->
-		<repository>
-			<id>bukkit-repo</id>
-			<url>http://repo.bukkit.org/content/groups/public/</url>
-		</repository>
-
-		<!-- Needed for Spigot -->
-		<repository>
-			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-		</repository>
-
 		<!-- Needed for Paper -->
 		<repository>
 			<id>papermc</id>
@@ -59,7 +47,7 @@
 		<!-- Needed for MythicMobsAPI -->
 		<repository>
 			<id>lumine-repo</id>
-			<url>http://mvn.lumine.io/repository/maven-snapshots/</url>
+			<url>https://mvn.lumine.io/repository/maven-snapshots/</url>
 		</repository>
 
 		<!-- Needed for NoteBlockAPI -->

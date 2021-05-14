@@ -9,7 +9,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
@@ -76,9 +75,9 @@ public class CollectionMenuParts {
 		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
 		Components.displayName(petsItemMeta, ChatColor.GOLD + "Breeding");
 		List<String> petsLores = new ArrayList<>();
-		int breedingLevel = AbstractPassiveSkillPool.getPassive(player, PassiveBreeding.PASSIVE_NAME).getLevel();
-		petsLores.add(ChatColor.DARK_PURPLE + "Breeding Level: " + ChatColor.YELLOW
-				+ breedingLevel + " / " + WauzCore.MAX_BREEDING_SKILL);
+//		int breedingLevel = AbstractPassiveSkillPool.getPassive(player, PassiveBreeding.PASSIVE_NAME).getLevel();
+//		petsLores.add(ChatColor.DARK_PURPLE + "Breeding Level: " + ChatColor.YELLOW
+//				+ breedingLevel + " / " + WauzCore.MAX_BREEDING_SKILL);
 		petsLores.add("");
 		petsLores.add(ChatColor.GRAY + "Breed your collected Pets");
 		petsLores.add(ChatColor.GRAY + "and obtain stronger Offsprings.");
