@@ -98,7 +98,8 @@ public class PetEggUtils {
 	 * @return The stat value of the item.
 	 */
 	public static int getPetFoodStat(ItemStack itemStack, WauzPetStat stat) {
-		return ItemUtils.getIntegerFromLore(itemStack, "Pet " + stat.getName() + ":", 2);
+		int index = stat.getName().split(" ").length + 1;
+		return ItemUtils.getIntegerFromLore(itemStack, "Pet " + stat.getName() + ":", index);
 	}
 	
 	/**
@@ -114,7 +115,8 @@ public class PetEggUtils {
 	 * @see PetEggUtils#setPetStat(ItemStack, WauzPetStat, int, int)
 	 */
 	public static int getPetStat(ItemStack itemStack, WauzPetStat stat) {
-		return ItemUtils.getIntegerFromLore(itemStack, stat.getName() + ":" + ChatColor.GREEN, 1);
+		int index = stat.getName().split(" ").length;
+		return ItemUtils.getIntegerFromLore(itemStack, stat.getName() + ":" + ChatColor.GREEN, index);
 	}
 	
 	/**

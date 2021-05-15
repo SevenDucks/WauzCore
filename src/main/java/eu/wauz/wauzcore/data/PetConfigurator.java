@@ -167,7 +167,7 @@ public class PetConfigurator extends GlobalConfigurationUtils {
 	 * @return The breeding time in seconds.
 	 */
 	public static int getBreedingLevelTime(int level, WauzPetRarity rarity) {
-		return mainConfigGetInt("Pets", "levels." + level + ".breedtime." + rarity.toString());
+		return mainConfigGetInt("Pets", "levels." + level + ".breedtime." + rarity.getKey());
 	}
 
 }

@@ -40,9 +40,6 @@ import eu.wauz.wauzcore.players.effects.WauzPlayerEffectSource;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
-import eu.wauz.wauzcore.skills.passive.PassiveBreath;
-import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
-import eu.wauz.wauzcore.skills.passive.PassiveWeight;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
@@ -302,17 +299,12 @@ public class CharacterManager {
 			playerDataConfig.set("stats.agility", 0);
 			playerDataConfig.set("stats.agilitypts", 0);
 			
-			playerDataConfig.set("skills.crafting", 1);
-			playerDataConfig.set("skills.taming", 0);
 			playerDataConfig.set("skills.sword", startingStats.getSwordSkill());
 			playerDataConfig.set("skills.swordmax", startingStats.getSwordSkillMax());
 			playerDataConfig.set("skills.axe", startingStats.getAxeSkill());
 			playerDataConfig.set("skills.axemax", startingStats.getAxeSkillMax());
 			playerDataConfig.set("skills.staff", startingStats.getStaffSkill());
 			playerDataConfig.set("skills.staffmax", startingStats.getStaffSkillMax());
-			playerDataConfig.set("skills." + PassiveBreath.PASSIVE_NAME, 0);
-			playerDataConfig.set("skills." + PassiveNutrition.PASSIVE_NAME, 0);
-			playerDataConfig.set("skills." + PassiveWeight.PASSIVE_NAME, 0);
 			
 			playerDataConfig.set("skills.active.1", "none");
 			playerDataConfig.set("skills.active.2", "none");

@@ -80,8 +80,8 @@ public class BreedingMenu implements WauzInventory {
 	 */
 	public static void open(Player player, PassiveBreeding breedingSkill) {
 		BreedingMenu breedingMenu = new BreedingMenu(breedingSkill);
-		String levelText = ChatColor.DARK_RED + "" + ChatColor.BOLD + " Level " + breedingSkill.getLevel();
-		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Breeding Menu" + levelText;
+		String levelText = ChatColor.DARK_RED + "" + ChatColor.BOLD + "Level " + breedingSkill.getLevel();
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Breeding Menu " + levelText;
 		Inventory menu = Components.inventory(breedingMenu, menuTitle, 9);
 		breedingMenu.setMenu(menu);
 		
@@ -93,7 +93,7 @@ public class BreedingMenu implements WauzInventory {
 			int time = breedingMenu.getLevel().getTime(rarity);
 			if(time > 0) {
 				String timeString = WauzDateUtils.formatHoursMins(time * 1000);
-				levelLores.add(rarity.getColor() + rarity.toString() + ChatColor.YELLOW + ": " + timeString);
+				levelLores.add(rarity.getColor() + rarity.getName() + ChatColor.YELLOW + " " + timeString);
 			}
 		}
 		levelLores.add(ChatColor.GRAY + "Tame more Pets to gain Experience");
@@ -117,8 +117,8 @@ public class BreedingMenu implements WauzInventory {
 				String description = ChatColor.YELLOW + ability.getAbilityDescription();
 				abilityLores.add(ChatColor.GREEN + ability.getAbilityName() + " " + description);
 			}
-			abilityLores.add(ChatColor.GRAY + "Bred Pets can have special Abilities");
-			abilityLores.add(ChatColor.GRAY + "which they will use once a minute!");
+			abilityLores.add(ChatColor.GRAY + "Hatched Pets can have special Abilities");
+			abilityLores.add(ChatColor.GRAY + "which they will use once a minute.");
 			Components.lore(abilityItemMeta, abilityLores);
 			abilityItemStack.setItemMeta(abilityItemMeta);
 			menu.setItem(7, abilityItemStack);
@@ -280,7 +280,7 @@ public class BreedingMenu implements WauzInventory {
 		}
 		newPetRarity = leftPetRarity;
 		newPetSeconds = level.getTime(newPetRarity);
-		if(newPetSeconds <= 0) {
+		if(newPetSeconds == 0) {
 			breedStatusText = ChatColor.RED + "Breeding Level too low for Rarity!";
 			return;
 		}

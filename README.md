@@ -12,14 +12,18 @@
 ## :crown: Advanced Minecraft MMORPG Engine
 Equipment, Skills, Quests, Shops, Dungeons, Bosses, Pets, Achievements and much more!
 
-It is highly discouraged to compile the plugin and use it for your server. It currently still has many hardcoded variables for the test.wauz.eu server and could even damage your files. However, if you are an experienced plugin developer yourself, feel free to use parts of the code for your own plugins, as long as you retain license and copyright notice.
+It is highly discouraged to compile the plugin and use it for your server. It currently still has many hardcoded variables for the test server and could even damage your files. But with the new module system, you can implement partial features of the engine in your own plugins. It requires you to run the same server version as the engine and at least moderate programming skills.
 
-## :sunrise_over_mountains: Delseyria Reborn
+To get started, download the newest package from GitHub and put the .jar in your server's plugin folder and in the dependencies of your own plugin. Create a [Server Configuration](./examples/Server.yml) under plugins/WauzCore/Server.yml and remove the "main" and any other module you don't want to use from the list. With the main module disabled, you can savely remove any configuration option below the modules section and don't have to worry about your server trying to connect to Delseyria. The documentation of all usable modules can be found below.
+
+:orange_book: Javadoc: https://sevenducks.github.io/WauzCore/
+
+:hamster: Pet Module: [modules/PETS.md (configKey = pets)](./modules/PETS.md)
+
+## :sunrise_over_mountains: Delseyria Reborn - The future of Minecraft RPGs
 Delve into a fascinating world, full of dark dungeons, vicious monsters and mythical treasures!
 
 There is currently a demo in development. The test server is not publicly accessible though. [Seven Ducks](https://github.com/SevenDucks) plans to create a full [MMORPG experience in Minecraft](https://seven-ducks.com/delseyria.html) by 2022, all without the need for mods or data packs. Unlike Wynncraft it will be completely open source and provide APIs to add your own Skills or Equipment, so we hope it's worth the wait. All content will be released on the DelseyriaRPG Minecraft server, as soon as the first stable build is ready.
-
-:orange_book: Javadoc: https://sevenducks.github.io/WauzCore/
 
 :european_castle: Join the Delseyria Discord and chat with the Devs: https://discord.gg/dhHJp5a
 

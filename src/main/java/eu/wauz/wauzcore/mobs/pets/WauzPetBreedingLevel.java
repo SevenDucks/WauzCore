@@ -47,6 +47,7 @@ public class WauzPetBreedingLevel {
 	 */
 	public static List<Long> getExperienceMilestones() {
 		return petBreedingLevels.stream()
+				.filter(level -> level.getLevel() > 0)
 				.map(level -> Long.valueOf(level.getExp()))
 				.collect(Collectors.toList());
 	}

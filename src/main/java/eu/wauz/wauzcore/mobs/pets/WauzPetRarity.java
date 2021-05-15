@@ -148,7 +148,7 @@ public class WauzPetRarity {
 	/**
 	 * @return The key of the pet rarity.
 	 */
-	final String getKey() {
+	public String getKey() {
 		return key;
 	}
 

@@ -23,7 +23,7 @@ The WauzPetRarity class provides a static API to get all rarities as list, by na
 ### Skill Progression
 The levels section in the configuration allows you to create a skill progression. This doesn't refer to leveling single pets, but to the player's taming / breeding skill. With these levels, you can gate the breeding of pet rarities behind an experience value. Each level has the following properties:
 - exp = The amount of experience needed for this level.
-- breedtime = A list of breedable rarities at this level. The number implies how many seconds a freshly bred pet needs to hatch, before you can summon it. If you don't want this, simply set it to 0.
+- breedtime = A list of breedable rarities at this level. The number implies how many seconds an offspring needs to hatch, before you can summon it. If you don't want this, simply set it to -1.
 
 You are responsible to handle how experience is obtained and stored. The most simple way would be awarding exp on the PetObtainEvent and storing it inside a config file or database. If you don't want a progression system at all, you could just configure a single level, that requires 0 exp and has all pet rarities listed in it.
 
@@ -62,4 +62,12 @@ If an item is seen as pet food, is determined by its lore. It needs to contain t
 When using a custom implementation you can feed a pet by calling the static WauzPetEgg.tryToFeed method.
 
 ### Breeding Pets
-ToDo
+Breeding allows you to fuse two pets of the same rarity and category together, to obtain an offspring of the same category, that has a chance to be one rarity higher than its parents. The BreedingMenu is the default implementation of this feature, providing a GUI that lets the player breed their pet ItemStacks.
+
+If you are creating your own implementation, you can recreate all the checks the menu does, with the provided API:
+- PetEggUtils.isEggItem is true for both parent pet ItemStacks
+- PetEggUtils.getPetCategory is equal for both
+- WauzPetRarity.determineRarity is equal for both
+- WauzPetBreedingLevel#getTime is not 0 for the rarity of the parent pets
+
+And finally you can get an offspring pet type, by using the static methods of the WauzPet class.
