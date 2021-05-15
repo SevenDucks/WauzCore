@@ -2,8 +2,8 @@
 The pet module provides a system to collect, summon and upgrade pets, based on MythicMobs and LibsDisguises (or a similar plugin that works with MM). In the default implementation, pets are stored as ItemStacks, that can be interacted with and bred through a breeding menu. However you aren't forced to use this system and can just build a wrapper around the provided API, to make your custom implementation work. It is advised to look at the [Example Configuration](../examples/Pets.yml) while reading this guide, to better understand how to setup the module properly.
 
 ### Pet Stats
-Stats are levelable values on pets, that can be retrieved through the API. An example usecase would be to apply buffs to the player, based on their currently active pet's stats. While the system is designed to have multiple stats, that can be levelled seperately, you could also just have a generic global stat like "level" or "experience". Stats have the following properties:
-- name = The display name of the stat. Must be a **single** word.
+Stats are levelable values on pets, that can be retrieved through the API. An example usecase would be to apply buffs to the player, based on their currently active pet's stats. While the system is designed to have multiple stats, that can be leveled seperately, you could also just have a generic global stat like "level" or "experience". Stats have the following properties:
+- name = The display name of the stat.
 - description = The description of the stat on the pet ItemStacks.
 - statgrowth = When multiplied with the pet rarity index, the maximum level of the skill is formed. 
 - categories = Only pets in the listed categories will have the stat. A category can be any unique string.
