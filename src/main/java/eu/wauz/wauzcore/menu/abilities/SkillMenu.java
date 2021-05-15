@@ -23,6 +23,7 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
+import eu.wauz.wauzcore.players.WauzPlayerDataSectionSkills;
 import eu.wauz.wauzcore.players.classes.Learnable;
 import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
@@ -90,6 +91,7 @@ public class SkillMenu implements WauzInventory {
 	 * @see PlayerSkillConfigurator#getStaffSkill(Player)
 	 * @see PlayerSkillConfigurator#getAxeSkill(Player)
 	 * @see PlayerSkillConfigurator#getSwordSkill(Player)
+	 * @see WauzPlayerDataSectionSkills#getCachedPassive(String)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {

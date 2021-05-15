@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
+import eu.wauz.wauzcore.menu.heads.SkillIconHeads;
 import eu.wauz.wauzcore.menu.social.TitleMenu;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveBreeding;
@@ -71,7 +72,7 @@ public class CollectionMenuParts {
 		achievementsItemStack.setItemMeta(achievementsItemMeta);
 		menu.setItem(startIndex + 1, achievementsItemStack);
 		
-		ItemStack petsItemStack = MenuIconHeads.getTamesItem();
+		ItemStack petsItemStack = SkillIconHeads.getTamesItem();
 		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
 		Components.displayName(petsItemMeta, ChatColor.GOLD + "Breeding");
 		List<String> petsLores = new ArrayList<>();

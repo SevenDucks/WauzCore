@@ -125,6 +125,57 @@ public class SkillIconHeads {
 		return skillItem;
 	}
 	
+// Job Skill Icons
+	
+	/**
+	 * @return An item stack representing an ore.
+	 */
+	public static ItemStack getMiningItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjNkNjM2YjA0Zjk1N2ExZGVhMmJhYzRhNzgzOTVmNzFhNTM4ZmJlMTMxMDgyNDdiMWU4YWI4YmQwYmE0YTlkNyJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a bush.
+	 */
+	public static ItemStack getHerbalismItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2E4ZDE0Zjk0NTIyNDMyOTM0MWVhMGI5OTQ1NmJmN2ExNDRiODdmODJhZDZhODhkYmViMjdhMTAyNWFkMTEifX19");
+	}
+	
+	/**
+	 * @return An item stack representing a fish.
+	 */
+	public static ItemStack getFishingItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDBjZDcxZmJiYmJiNjZjN2JhZjc4ODFmNDE1YzY0ZmE4NGY2NTA0OTU4YTU3Y2NkYjg1ODkyNTI2NDdlYSJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a little bird.
+	 */
+	public static ItemStack getTamesItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWVhNzU5Zjk3OWI5YjhlYTgzMWNhN2UyZDY2ZGYxNDgyOTNmMWE1MTQ3OTgzYjUyYzQ4ZWZlMmMzMTVlIn19fQ==");
+	}
+	
+	/**
+	 * @return An item stack representing a smithing table.
+	 */
+	public static ItemStack getSmithingItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjcyZDFiZTQ4OGQyNjdlY2JlY2Y3ZmJjMzE0MzkwNjM2ZTk0MmI2NDYwNjI4YjAyMTA0YTgzODE4NGI3ZTczNyJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing a plate of bread.
+	 */
+	public static ItemStack getCookingItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTllZDk1MzY3MTBmZDY0N2VjMzU4OTgxMWUzMDg2YjJkNjY3MzU0YTgxNGEyZTQzODM2MTAyOTQyYzk2Mzc3YyJ9fX0=");
+	}
+	
+	/**
+	 * @return An item stack representing an enchantment table.
+	 */
+	public static ItemStack getInscriptionItem() {
+		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTc2MmExNWIwNDY5MmEyZTRiM2ZiMzY2M2JkNGI3ODQzNGRjZTE3MzJiOGViMWM3YTlmN2MwZmJmNmYifX19");
+	}
+	
 // Guild Skill Icons
 	
 	/**

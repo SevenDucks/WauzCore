@@ -95,13 +95,6 @@ public class MenuIconHeads {
 	}
 	
 	/**
-	 * @return An item stack representing a little bird.
-	 */
-	public static ItemStack getTamesItem() {
-		return HeadUtils.getPlayerHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWVhNzU5Zjk3OWI5YjhlYTgzMWNhN2UyZDY2ZGYxNDgyOTNmMWE1MTQ3OTgzYjUyYzQ4ZWZlMmMzMTVlIn19fQ==");
-	}
-	
-	/**
 	 * @return An item stack representing a money bag.
 	 */
 	public static ItemStack getMoneyItem() {

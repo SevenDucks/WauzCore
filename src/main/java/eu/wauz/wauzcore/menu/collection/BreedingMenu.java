@@ -22,7 +22,7 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.menu.LootContainer;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
-import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
+import eu.wauz.wauzcore.menu.heads.SkillIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
@@ -85,7 +85,7 @@ public class BreedingMenu implements WauzInventory {
 		Inventory menu = Components.inventory(breedingMenu, menuTitle, 9);
 		breedingMenu.setMenu(menu);
 		
-		ItemStack levelItemStack = MenuIconHeads.getTamesItem();
+		ItemStack levelItemStack = SkillIconHeads.getTamesItem();
 		ItemMeta levelItemMeta = levelItemStack.getItemMeta();
 		Components.displayName(levelItemMeta, ChatColor.YELLOW + "Breeding Times for " + levelText);
 		List<String> levelLores = new ArrayList<>();
