@@ -278,7 +278,7 @@ public class SkillMenu implements WauzInventory {
 		skillBreathLores.add(ChatColor.GRAY + "will increase your skill and slowly");
 		skillBreathLores.add(ChatColor.GRAY + "improve your walking speed.");
 		skillBreathLores.add("");
-		skillBreathLores.add(ChatColor.WHITE + "Additional Speed: " + ChatColor.BLUE
+		skillBreathLores.add(ChatColor.WHITE + "Additional Speed: " + ChatColor.DARK_BLUE
 				+ breathSkill.getLevel() + "%");
 		skillBreathLores.addAll(breathSkill.getProgressLores(ChatColor.DARK_BLUE));
 		Components.lore(skillBreathItemMeta, skillBreathLores);
@@ -297,7 +297,7 @@ public class SkillMenu implements WauzInventory {
 		skillNutritionLores.add(ChatColor.GRAY + "will increase your skill and slowly");
 		skillNutritionLores.add(ChatColor.GRAY + "improve your maximum health.");
 		skillNutritionLores.add("");
-		skillNutritionLores.add(ChatColor.WHITE + "Additional HP: " + ChatColor.BLUE
+		skillNutritionLores.add(ChatColor.WHITE + "Additional HP: " + ChatColor.DARK_BLUE
 				+ (nutritionSkill.getLevel() * 2));
 		skillNutritionLores.addAll(nutritionSkill.getProgressLores(ChatColor.DARK_BLUE));
 		Components.lore(skillNutritionItemMeta, skillNutritionLores);
@@ -316,7 +316,7 @@ public class SkillMenu implements WauzInventory {
 		skillWeightLores.add(ChatColor.GRAY + "will increase your skill and slowly");
 		skillWeightLores.add(ChatColor.GRAY + "improve your backpack size.");
 		skillWeightLores.add("");
-		skillWeightLores.add(ChatColor.WHITE + "Backpack Slots: " + ChatColor.BLUE
+		skillWeightLores.add(ChatColor.WHITE + "Backpack Slots: " + ChatColor.DARK_BLUE
 				+ (weightSkill.getLevel() + Backpack.BASE_SIZE));
 		skillWeightLores.addAll(weightSkill.getProgressLores(ChatColor.DARK_BLUE));
 		Components.lore(skillWeightItemMeta, skillWeightLores);

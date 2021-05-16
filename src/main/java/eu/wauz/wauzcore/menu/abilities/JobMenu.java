@@ -73,7 +73,7 @@ public class JobMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Job Skills";
-		Inventory menu = Components.inventory(new JobMenu(), menuTitle, 18);
+		Inventory menu = Components.inventory(new JobMenu(), menuTitle, 9);
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
 		AbstractPassiveSkill miningSkill = playerData.getSkills().getCachedPassive(PassiveMining.PASSIVE_NAME);

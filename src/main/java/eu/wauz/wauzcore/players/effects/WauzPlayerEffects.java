@@ -164,7 +164,9 @@ public class WauzPlayerEffects {
 		for(WauzPlayerEffect effect : effects.getEffectList()) {
 			if(effect.reduceDuration()) {
 				effects.removeEffect(effect);
-				player.sendMessage(ChatColor.YELLOW + "Effect expired: " + effect.toString());
+				if(effect.getInitialDuration() > 10) {
+					player.sendMessage(ChatColor.YELLOW + "Effect expired: " + effect.toString());
+				}
 			}
 			else if(effect.getDuration() == 15) {
 				player.sendMessage(ChatColor.YELLOW + "Effect expires soon: " + effect.toString());

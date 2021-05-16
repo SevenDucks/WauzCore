@@ -22,6 +22,11 @@ public class WauzPlayerEffect {
 	private final WauzPlayerEffectSource source;
 	
 	/**
+	 * The initial duration of the effect in seconds.
+	 */
+	private int initialDuration;
+	
+	/**
 	 * The remaining duration of the effect in seconds.
 	 */
 	private int duration;
@@ -42,6 +47,7 @@ public class WauzPlayerEffect {
 	public WauzPlayerEffect(WauzPlayerEffectType type, WauzPlayerEffectSource source, int duration, int power) {
 		this.type = type;
 		this.source = source;
+		this.initialDuration = duration;
 		this.duration = duration;
 		this.power = power;
 	}
@@ -68,6 +74,13 @@ public class WauzPlayerEffect {
 	 */
 	public WauzPlayerEffectSource getSource() {
 		return source;
+	}
+
+	/**
+	 * @return The initial duration of the effect in seconds.
+	 */
+	final int getInitialDuration() {
+		return initialDuration;
 	}
 
 	/**

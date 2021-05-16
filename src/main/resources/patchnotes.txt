@@ -2,11 +2,30 @@ Patch 7XX: Kingdom Siege
 
 Patch 7XX: Content Extension
 
-Patch 7XX: Survival Ascended
+Patch 614: Survival Ascended
 
-Patch 612: Cosmetic Chaos
+Patch 613: Cosmetic Chaos
 
-Patch 611: Powerful Professions
+Patch 612: Powerful Professions
+
+Patch 611: Things and Stuff
+	Minecraft Update
+	  - Server now runs on Paper 1.16.5
+	  - Preparations for Waterfall Integration
+	  
+	Discord
+	  - Removed Unused Feature Bloat
+	  - Added Player Join/Leave/Death Embeds
+	  - Added /item Displays
+	  
+	Miscellaneous
+	  - Updated Javadoc
+	  - Preparations for Profession Update
+	  - Lots of Bugfixes
+	  - Added Random Citizen and Pet Messages
+	  - Added Custom Pet Names with /rename
+	  - Added New Configuration Options
+	  - Added Equipment Stat Icons
 
 Patch 610: Gathering Goods
 	New Feature: Resource and Chest Spawns

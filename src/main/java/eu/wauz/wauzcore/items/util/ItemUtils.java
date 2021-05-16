@@ -498,7 +498,7 @@ public class ItemUtils {
 			}
 			newLores.add(lore);
 		}
-		Components.lore(itemMeta, lores);
+		Components.lore(itemMeta, newLores);
 		itemStack.setItemMeta(itemMeta);
 		return replaced;
 	}
