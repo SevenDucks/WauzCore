@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
@@ -20,9 +20,11 @@ import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.util.Components;
+import eu.wauz.wauzcore.system.util.Formatters;
 
 /**
  * An util to add ability sub menus to the main menu.
@@ -35,7 +37,7 @@ public class AbilityMenuParts {
 	
 	/**
 	 * Fills the given main menu with sub menu icons.<br>
-	 * Row 1, Slot 1: The crafting menu + crafting level display.<br>
+	 * Row 1, Slot 1: The job menu + crafted item count display.<br>
 	 * Row 1, Slot 2: The skill menu + spent skill points display.<br>
 	 * Row 2, Slot 1: The travelling menu + current region display.<br>
 	 * Row 2, Slot 2: CS - Paragon
@@ -47,13 +49,13 @@ public class AbilityMenuParts {
 	public static void addMenuParts(Player player, Inventory menu, int startIndex) {
 		ItemStack craftingItemStack = MenuIconHeads.getCraftItem();
 		ItemMeta craftingItemMeta = craftingItemStack.getItemMeta();
-		Components.displayName(craftingItemMeta, ChatColor.GOLD + "Crafting");
+		Components.displayName(craftingItemMeta, ChatColor.GOLD + "Jobs");
 		List<String> craftingLores = new ArrayList<String>();
-		craftingLores.add(ChatColor.DARK_PURPLE + "Crafting Level: " + ChatColor.YELLOW
-			+ PlayerSkillConfigurator.getCraftingSkill(player) + " / " + WauzCore.MAX_CRAFTING_SKILL);
+		craftingLores.add(ChatColor.DARK_PURPLE + "Crafted Items: " + ChatColor.YELLOW
+				+ Formatters.INT.format(PlayerCollectionConfigurator.getCharacterAchievementProgress(player, WauzAchievementType.CRAFT_ITEMS)));
 		craftingLores.add("");
-		craftingLores.add(ChatColor.GRAY + "Make new Items out of Materials.");
-		craftingLores.add(ChatColor.GRAY + "Craft Items to learn new Recipes.");
+		craftingLores.add(ChatColor.GRAY + "View your Job Skill Progression");
+		craftingLores.add(ChatColor.GRAY + "and Craft Items out of Materials.");
 		Components.lore(craftingItemMeta, craftingLores);
 		craftingItemStack.setItemMeta(craftingItemMeta);
 		menu.setItem(startIndex, craftingItemStack);
@@ -113,8 +115,8 @@ public class AbilityMenuParts {
 	 * @see TravellingMenu#open(Player)
 	 */
 	public static boolean check(Player player, ItemStack clicked) {
-		if(HeadUtils.isHeadMenuItem(clicked, "Crafting")) {
-			CraftingMenu.open(player);
+		if(HeadUtils.isHeadMenuItem(clicked, "Jobs")) {
+			JobMenu.open(player);
 			return true;
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Skills")) {

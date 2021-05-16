@@ -104,9 +104,11 @@ public abstract class AbstractPassiveSkill {
 	/**
 	 * Generates a list of lores to display the progress of this skill.
 	 * 
+	 * @param color The color of the progress bar.
+	 * 
 	 * @return The list of progress lores.
 	 */
-	public List<String> getProgressLores() {
+	public List<String> getProgressLores(ChatColor color) {
 		List<String> lores = new ArrayList<>();
 		long progress = getExp();
 		String progressString = Formatters.INT.format(progress);
@@ -114,7 +116,7 @@ public abstract class AbstractPassiveSkill {
 		if(nextMilestone != null) {
 			String nextGoalString = Formatters.INT.format(nextMilestone);
 			lores.add(ChatColor.WHITE + "Progress: " + progressString + " / " + nextGoalString);
-			lores.add(UnicodeUtils.createProgressBar(progress, nextMilestone, 50, ChatColor.DARK_BLUE));
+			lores.add(UnicodeUtils.createProgressBar(progress, nextMilestone, 50, color));
 		}
 		else {
 			lores.add(ChatColor.WHITE + "Progress: " + progressString);

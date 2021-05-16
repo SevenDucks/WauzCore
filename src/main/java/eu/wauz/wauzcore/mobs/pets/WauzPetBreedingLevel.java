@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.bukkit.ChatColor;
+
 import eu.wauz.wauzcore.data.PetConfigurator;
 
 /**
@@ -101,6 +103,18 @@ public class WauzPetBreedingLevel {
 	 */
 	public int getTime(WauzPetRarity rarity) {
 		return rarityTimeMap.get(rarity);
+	}
+	
+	/**
+	 * @return The display name of the highest breedable rarity.
+	 */
+	public String getHighestRarityString() {
+		for(WauzPetRarity rarity : WauzPetRarity.getAllPetRarities()) {
+			if(getTime(rarity) > 0) {
+				return rarity.getColor() + rarity.getName();
+			}
+		}
+		return ChatColor.GRAY + "None";
 	}
 
 }

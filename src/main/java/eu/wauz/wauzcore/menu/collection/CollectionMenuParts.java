@@ -14,10 +14,7 @@ import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.menu.WauzMenu;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
-import eu.wauz.wauzcore.menu.heads.SkillIconHeads;
 import eu.wauz.wauzcore.menu.social.TitleMenu;
-import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
-import eu.wauz.wauzcore.skills.passive.PassiveBreeding;
 import eu.wauz.wauzcore.system.WauzTitle;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Components;
@@ -36,7 +33,6 @@ public class CollectionMenuParts {
 	 * Fills the given main menu with sub menu icons.<br>
 	 * Row 1, Slot 1: The quest menu + completed quest count display.<br>
 	 * Row 1, Slot 2: The achievement menu + achievement count display.<br>
-	 * Row 1, Slot 3: The pet menu + used pet slots display.<br>
 	 * Row 2, Slot 1: The currency menu + coin amount display.<br>
 	 * Row 2, Slot 2: The titles menu + unlocked title count display.<br>
 	 * Row 2, Slot 3: The bestiary menu + killed enemy count display.
@@ -71,20 +67,6 @@ public class CollectionMenuParts {
 		Components.lore(achievementsItemMeta, achievementsLores);
 		achievementsItemStack.setItemMeta(achievementsItemMeta);
 		menu.setItem(startIndex + 1, achievementsItemStack);
-		
-		ItemStack petsItemStack = SkillIconHeads.getTamesItem();
-		ItemMeta petsItemMeta = petsItemStack.getItemMeta();
-		Components.displayName(petsItemMeta, ChatColor.GOLD + "Breeding");
-		List<String> petsLores = new ArrayList<>();
-//		int breedingLevel = AbstractPassiveSkillPool.getPassive(player, PassiveBreeding.PASSIVE_NAME).getLevel();
-//		petsLores.add(ChatColor.DARK_PURPLE + "Breeding Level: " + ChatColor.YELLOW
-//				+ breedingLevel + " / " + WauzCore.MAX_BREEDING_SKILL);
-		petsLores.add("");
-		petsLores.add(ChatColor.GRAY + "Breed your collected Pets");
-		petsLores.add(ChatColor.GRAY + "and obtain stronger Offsprings.");
-		Components.lore(petsItemMeta, petsLores);
-		petsItemStack.setItemMeta(petsItemMeta);
-		menu.setItem(startIndex + 2, petsItemStack);
 		
 		ItemStack currencyItemStack = MenuIconHeads.getMoneyItem();
 		ItemMeta currencyItemMeta = currencyItemStack.getItemMeta();
@@ -148,10 +130,6 @@ public class CollectionMenuParts {
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Achievements")) {
 			AchievementsMenu.open(player);
-			return true;
-		}
-		else if(HeadUtils.isHeadMenuItem(clicked, "Breeding")) {
-			BreedingMenu.open(player, (PassiveBreeding) AbstractPassiveSkillPool.getPassive(player, PassiveBreeding.PASSIVE_NAME));
 			return true;
 		}
 		else if(HeadUtils.isHeadMenuItem(clicked, "Currencies")) {

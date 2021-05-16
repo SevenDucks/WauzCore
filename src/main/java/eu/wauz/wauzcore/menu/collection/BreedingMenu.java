@@ -87,19 +87,22 @@ public class BreedingMenu implements WauzInventory {
 		
 		ItemStack levelItemStack = SkillIconHeads.getTamesItem();
 		ItemMeta levelItemMeta = levelItemStack.getItemMeta();
-		Components.displayName(levelItemMeta, ChatColor.YELLOW + "Breeding Times for " + levelText);
+		Components.displayName(levelItemMeta, ChatColor.YELLOW + "Breeding Times");
 		List<String> levelLores = new ArrayList<>();
+		boolean canBreed = false;
 		for(WauzPetRarity rarity : WauzPetRarity.getAllPetRarities()) {
 			int time = breedingMenu.getLevel().getTime(rarity);
 			if(time > 0) {
 				String timeString = WauzDateUtils.formatHoursMins(time * 1000);
 				levelLores.add(rarity.getColor() + rarity.getName() + ChatColor.YELLOW + " " + timeString);
+				canBreed = true;
 			}
+		}
+		if(!canBreed) {
+			levelLores.add(ChatColor.GREEN + "None yet...");
 		}
 		levelLores.add(ChatColor.GRAY + "Tame more Pets to gain Experience");
 		levelLores.add(ChatColor.GRAY + "and unlock more breedable Rarities!");
-		levelLores.add("");
-		levelLores.addAll(breedingSkill.getProgressLores());
 		Components.lore(levelItemMeta, levelLores);
 		levelItemStack.setItemMeta(levelItemMeta);
 		menu.setItem(1, levelItemStack);
@@ -107,7 +110,7 @@ public class BreedingMenu implements WauzInventory {
 		if(!WauzModules.isPetsModuleStandalone()) {
 			ItemStack abilityItemStack = GenericIconHeads.getColorCubeItem();
 			ItemMeta abilityItemMeta = abilityItemStack.getItemMeta();
-			Components.displayName(abilityItemMeta, ChatColor.YELLOW + "Possible Abilities for Current Level");
+			Components.displayName(abilityItemMeta, ChatColor.YELLOW + "Obtainable Abilities");
 			List<String> abilityLores = new ArrayList<>();
 			List<WauzPetAbility> abilities = WauzPetAbilities.getAbilitiesForLevel(breedingMenu.getLevel());
 			if(abilities.isEmpty()) {

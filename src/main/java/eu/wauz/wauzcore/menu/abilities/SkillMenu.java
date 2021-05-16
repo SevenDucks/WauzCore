@@ -98,12 +98,11 @@ public class SkillMenu implements WauzInventory {
 		SkillMenu skillMenu = new SkillMenu(player);
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		int pts = PlayerSkillConfigurator.getUnusedStatpoints(player);
-		int spent;
-		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Passive Skills "
-				+ ChatColor.DARK_RED + ChatColor.BOLD + pts + " Points";
+		String pointsText = ChatColor.DARK_RED + "" + ChatColor.BOLD + pts + " Points";
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Passive Skills " + pointsText;
 		Inventory menu = Components.inventory(skillMenu, menuTitle, 18);
 		
-		spent = PlayerSkillConfigurator.getHealthStatpoints(player);
+		int spent = PlayerSkillConfigurator.getHealthStatpoints(player);
 		ItemStack skillHealthItemStack = SkillIconHeads.getSkillHealthItem(spent);			
 		ItemMeta skillHealthItemMeta = skillHealthItemStack.getItemMeta();
 		Components.displayName(skillHealthItemMeta, ChatColor.DARK_GREEN + "Health");
@@ -281,7 +280,7 @@ public class SkillMenu implements WauzInventory {
 		skillBreathLores.add("");
 		skillBreathLores.add(ChatColor.WHITE + "Additional Speed: " + ChatColor.BLUE
 				+ breathSkill.getLevel() + "%");
-		skillBreathLores.addAll(breathSkill.getProgressLores());
+		skillBreathLores.addAll(breathSkill.getProgressLores(ChatColor.DARK_BLUE));
 		Components.lore(skillBreathItemMeta, skillBreathLores);
 		skillBreathItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillBreathItemStack.setItemMeta(skillBreathItemMeta);
@@ -300,7 +299,7 @@ public class SkillMenu implements WauzInventory {
 		skillNutritionLores.add("");
 		skillNutritionLores.add(ChatColor.WHITE + "Additional HP: " + ChatColor.BLUE
 				+ (nutritionSkill.getLevel() * 2));
-		skillNutritionLores.addAll(nutritionSkill.getProgressLores());
+		skillNutritionLores.addAll(nutritionSkill.getProgressLores(ChatColor.DARK_BLUE));
 		Components.lore(skillNutritionItemMeta, skillNutritionLores);
 		skillNutritionItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillNutritionItemStack.setItemMeta(skillNutritionItemMeta);
@@ -319,7 +318,7 @@ public class SkillMenu implements WauzInventory {
 		skillWeightLores.add("");
 		skillWeightLores.add(ChatColor.WHITE + "Backpack Slots: " + ChatColor.BLUE
 				+ (weightSkill.getLevel() + Backpack.BASE_SIZE));
-		skillWeightLores.addAll(weightSkill.getProgressLores());
+		skillWeightLores.addAll(weightSkill.getProgressLores(ChatColor.DARK_BLUE));
 		Components.lore(skillWeightItemMeta, skillWeightLores);
 		skillWeightItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		skillWeightItemStack.setItemMeta(skillWeightItemMeta);
