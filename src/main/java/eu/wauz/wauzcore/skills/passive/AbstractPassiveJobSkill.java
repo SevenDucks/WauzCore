@@ -74,13 +74,13 @@ public abstract class AbstractPassiveJobSkill extends AbstractPassiveSkill {
 	}
 
 	/**
-	 * Method that gets called when a new milestone has been reached.
+	 * Method that gets called when skill experience is gained.
 	 * 
-	 * @param player The player who reached the milestone.
+	 * @param player The player who earned the experience.
 	 */
 	@Override
-	protected void onLevelUp(Player player) {
-		
+	protected void onExperienceGain(Player player) {
+		player.sendTitle("", getProgressString(), 2, 32, 4);
 	}
 
 }

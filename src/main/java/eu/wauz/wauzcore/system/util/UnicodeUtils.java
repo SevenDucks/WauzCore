@@ -46,6 +46,11 @@ public class UnicodeUtils {
 	public static final String ICON_DIAMETER = "\u2300";
 	
 	/**
+	 * A full block in unicode.
+	 */
+	public static final String ICON_FULL_BLOCK = "\u2588";
+	
+	/**
 	 * A bullseye icon in unicode.
 	 */
 	public static final String ICON_BULLSEYE = "\u25CE";
@@ -123,14 +128,41 @@ public class UnicodeUtils {
 		int barPercentage = (int) (progress * lines / goal);
 		
 		String progressBar = String.valueOf(color);
-		for(int bar = 1; barPercentage >= bar; bar++) {
+		for(int bar = 0; bar < barPercentage; bar++) {
 			progressBar += "|";
 		}
-		progressBar += String.valueOf(ChatColor.GRAY);
+		progressBar += ChatColor.GRAY;
 		for(int bar = barPercentage; bar < lines; bar++) {
 			progressBar += "|";
 		}
 		return progressBar + " " + ChatColor.WHITE + ((int) precisePercantage) + "%";
+	}
+	
+	/**
+	 * Creates a progress bar, with the advancement written on it.
+	 * 
+	 * @param progress The current value.
+	 * @param goal The maximum value.
+	 * @param color The color of the bar.
+	 * 
+	 * @return The progress bar string.
+	 */
+	public static String createNumberedProgressBar(long progress, long goal, ChatColor color) {
+		String progressString = Formatters.INT.format(progress);
+		String goalString = Formatters.INT.format(goal);
+		String text = ICON_FULL_BLOCK + progressString + "/" + goalString + ICON_FULL_BLOCK;
+		int characters = text.length();
+		int barPercentage = (int) (progress * characters / goal);
+		
+		String progressBar = String.valueOf(color);
+		for(int bar = 0; bar < barPercentage; bar++) {
+			progressBar += text.charAt(bar);
+		}
+		progressBar += ChatColor.GRAY;
+		for(int bar = barPercentage; bar < characters; bar++) {
+			progressBar += text.charAt(bar);
+		}
+		return progressBar;
 	}
 	
 	/**

@@ -1,4 +1,4 @@
-# WauzCore - Heart of Delseyria
+# WauzCore
 [![Build Status](https://github.com/SevenDucks/WauzCore/actions/workflows/maven.yml/badge.svg)](https://github.com/SevenDucks/WauzCore/actions/workflows/maven.yml)
 [![Discord](https://img.shields.io/discord/212147184999596032)](https://discord.gg/dhHJp5a)
 [![CodeFactor](https://www.codefactor.io/repository/github/sevenducks/wauzcore/badge)](https://www.codefactor.io/repository/github/sevenducks/wauzcore)
@@ -9,17 +9,6 @@
 
 <a href="https://seven-ducks.com/delseyria.html"><img src="https://seven-ducks.com/assets/images/banner-delseyria.png"/></a> 
 
-## :crown: Advanced Minecraft MMORPG Engine
-Equipment, Skills, Quests, Shops, Dungeons, Bosses, Pets, Achievements and much more!
-
-It is highly discouraged to compile the plugin and use it for your server. It currently still has many hardcoded variables for the test server and could even damage your files. But with the new module system, you can implement partial features of the engine in your own plugins. It requires you to run the same server version as the engine and at least moderate programming skills.
-
-To get started, download the newest package from GitHub and put the .jar in your server's plugin folder and in the dependencies of your own plugin. Create a [Server Configuration](./examples/Server.yml) under plugins/WauzCore/Server.yml and remove the "main" and any other module you don't want to use from the list. With the main module disabled, you can savely remove any configuration option below the modules section and don't have to worry about your server trying to connect to Delseyria. The documentation of all usable modules can be found below.
-
-:orange_book: Javadoc: https://sevenducks.github.io/WauzCore/
-
-:hamster: Pet Module: [modules/PETS.md (configKey = pets)](./modules/PETS.md)
-
 ## :sunrise_over_mountains: Delseyria Reborn - The future of Minecraft RPGs
 Delve into a fascinating world, full of dark dungeons, vicious monsters and mythical treasures!
 
@@ -28,3 +17,14 @@ There is currently a demo in development. The test server is not publicly access
 :european_castle: Join the Delseyria Discord and chat with the Devs: https://discord.gg/dhHJp5a
 
 :bird: Keep up to date on Twitter: https://twitter.com/wauzmons
+
+## :crown: Advanced Minecraft MMORPG Engine
+Equipment, Skills, Quests, Shops, Dungeons, Bosses, Pets, Achievements and much more!
+
+There currently isn't a full stable version for your own server, but with the new module system, you can implement partial features of the engine in your own plugins. It requires you to run the same server version as the engine and at least moderate programming skills.
+
+To get started, download the newest package from GitHub and put the .jar in your server's plugin folder and in the dependencies of your own plugin. Create a [Server Configuration](./examples/Server.yml) under plugins/WauzCore/Server.yml and remove the "main" and any other module you don't want to use from the list. With the main module disabled, you can savely remove any configuration option below the modules section and don't have to worry about your server trying to connect to Delseyria. The documentation of all usable modules can be found below.
+
+:hamster: Pet Module: [modules/PETS.md (configKey = pets)](./modules/PETS.md)
+
+:orange_book: Javadoc: https://sevenducks.github.io/WauzCore/

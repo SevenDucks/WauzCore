@@ -180,14 +180,14 @@ public class MaterialPouch implements WauzInventory {
 			String displayName = Components.displayName(itemStack.getItemMeta());
 			String message = ChatColor.AQUA + "Found Material: " + displayName;
 			player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
-			player.sendTitle("", message, 2, 14, 4);
+			player.sendTitle("", message, 2, 16, 4);
 			AbstractPassiveSkillPool.getPassive(player, PassiveWeight.PASSIVE_NAME).grantExperience(player, 1);
 			return true;
 		}
 		else {
 			String message = ChatColor.RED + "Material Bag is full!";
 			player.playSound(player.getLocation(), Sound.BLOCK_LADDER_BREAK, 1, 1);
-			player.sendTitle("", message, 2, 14, 4);
+			player.sendTitle("", message, 2, 16, 4);
 			return false;
 		}
 	}

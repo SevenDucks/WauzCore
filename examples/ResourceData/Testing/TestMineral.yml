@@ -2,7 +2,7 @@ type: NODE
 nodetype: MINERAL
 nodename: Test Mineral
 nodetier: 1
-nodehealth: 100
+nodehealth: 80
 droptable: ChestDropsT1
 respawnmins: 1
 locations:

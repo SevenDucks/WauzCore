@@ -2,8 +2,6 @@ package eu.wauz.wauzcore.skills.passive;
 
 import java.util.List;
 
-import org.bukkit.entity.Player;
-
 import eu.wauz.wauzcore.mobs.pets.WauzPetBreedingLevel;
 import eu.wauz.wauzcore.system.annotations.PassiveSkill;
 
@@ -71,16 +69,6 @@ public class PassiveBreeding extends AbstractPassiveSkill {
 	@Override
 	protected List<Long> getMilestones() {
 		return MILESTONES;
-	}
-	
-	/**
-	 * Method that gets called when a new milestone has been reached.
-	 * 
-	 * @param player The player who reached the milestone.
-	 */
-	@Override
-	protected void onLevelUp(Player player) {
-		
 	}
 	
 	/**

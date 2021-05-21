@@ -93,11 +93,17 @@ public abstract class AbstractPassiveSkill {
 	public void grantExperience(Player player, long earned) {
 		exp += earned;
 		WauzDebugger.log(player, "You earned " + earned + " " + getPassiveName() + " experience!");
+		boolean leveledUp = false;
 		while(hasReachedMilestone()) {
 			level++;
+			leveledUp = true;
+			player.sendMessage(ChatColor.DARK_AQUA + getPassiveName() + " Up! Your skill reached " + level + "!");
 			player.sendTitle(ChatColor.YELLOW + getPassiveName() + " Up!", "Your skill reached " + level + "!", 10, 70, 20);
 			player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 			onLevelUp(player);
+		}
+		if(!leveledUp) {
+			onExperienceGain(player);
 		}
 	}
 	
@@ -125,7 +131,36 @@ public abstract class AbstractPassiveSkill {
 	}
 	
 	/**
-	 * @return The following milestone.
+	 * Generates a string to display the progress of this skill.
+	 * 
+	 * @return The progress string.
+	 */
+	public String getProgressString() {
+		String progressString = ChatColor.YELLOW + getPassiveName();
+		Long thisMilestone = getThisMilestone();
+		Long nextMilestone = getNextMilestone();
+		if(nextMilestone != null) {
+			long current = getExp() - thisMilestone;
+			long goal = nextMilestone - thisMilestone;
+			progressString += " " + ChatColor.GOLD + getLevel();
+			progressString += " " + UnicodeUtils.createNumberedProgressBar(current, goal, ChatColor.AQUA);
+			progressString += " " + ChatColor.GOLD + (getLevel() + 1);
+		}
+		else {
+			progressString += " " + ChatColor.GOLD + "MAX " + ChatColor.AQUA + Formatters.INT.format(getExp());
+		}
+		return progressString;
+	}
+	
+	/**
+	 * @return The current milestone or 0.
+	 */
+	public Long getThisMilestone() {
+		return level <= 0 ? 0 : getMilestones().get(level - 1);
+	}
+	
+	/**
+	 * @return The following milestone or null.
 	 */
 	public Long getNextMilestone() {
 		return level >= getMilestones().size() ? null : getMilestones().get(level);
@@ -151,6 +186,17 @@ public abstract class AbstractPassiveSkill {
 	 * 
 	 * @param player The player who reached the milestone.
 	 */
-	protected abstract void onLevelUp(Player player);
+	protected void onLevelUp(Player player) {
+		// No default implementation.
+	}
+	
+	/**
+	 * Method that gets called when skill experience is gained.
+	 * 
+	 * @param player The player who earned the experience.
+	 */
+	protected void onExperienceGain(Player player) {
+		// No default implementation.
+	}
 
 }
