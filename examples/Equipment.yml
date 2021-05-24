@@ -1,5 +1,6 @@
 Shortsword:
   type: WEAPON
+  subtype: Sword
   material: WOODEN_SWORD
   name: Shortsword
   mainstat: 1.50
@@ -7,6 +8,7 @@ Shortsword:
   durabilitystat: 128
 Rapier:
   type: WEAPON
+  subtype: Sword
   material: GOLDEN_SWORD
   name: Rapier
   mainstat: 1.55
@@ -14,6 +16,7 @@ Rapier:
   durabilitystat: 256
 Longsword:
   type: WEAPON
+  subtype: Sword
   material: STONE_SWORD
   name: Longsword
   mainstat: 1.60
@@ -21,6 +24,7 @@ Longsword:
   durabilitystat: 512
 Claymore:
   type: WEAPON
+  subtype: Sword
   material: IRON_SWORD
   name: Claymore
   mainstat: 1.65
@@ -28,6 +32,7 @@ Claymore:
   durabilitystat: 768
 Excalibur:
   type: WEAPON
+  subtype: Sword
   material: DIAMOND_SWORD
   name: Excalibur
   mainstat: 1.70
@@ -35,6 +40,7 @@ Excalibur:
   durabilitystat: 1024
 Dragonslayer:
   type: WEAPON
+  subtype: Sword
   material: NETHERITE_SWORD
   name: Dragonslayer
   mainstat: 1.75
@@ -42,6 +48,7 @@ Dragonslayer:
   durabilitystat: 1536
 Hatchet:
   type: WEAPON
+  subtype: Axe
   material: WOODEN_AXE
   name: Hatchet
   mainstat: 1.70
@@ -49,6 +56,7 @@ Hatchet:
   durabilitystat: 128
 Halberd:
   type: WEAPON
+  subtype: Axe
   material: GOLDEN_AXE
   name: Halberd
   mainstat: 1.75
@@ -56,6 +64,7 @@ Halberd:
   durabilitystat: 256
 Waraxe:
   type: WEAPON
+  subtype: Axe
   material: STONE_AXE
   name: Waraxe
   mainstat: 1.80
@@ -63,6 +72,7 @@ Waraxe:
   durabilitystat: 512
 Greataxe:
   type: WEAPON
+  subtype: Axe
   material: IRON_AXE
   name: Greataxe
   mainstat: 1.85
@@ -70,6 +80,7 @@ Greataxe:
   durabilitystat: 768
 Mjölnir:
   type: WEAPON
+  subtype: Axe
   material: DIAMOND_AXE
   name: Mjölnir
   mainstat: 1.90
@@ -77,6 +88,7 @@ Mjölnir:
   durabilitystat: 1024
 Worldbreaker:
   type: WEAPON
+  subtype: Axe
   material: NETHERITE_AXE
   name: Worldbreaker
   mainstat: 1.95
@@ -84,6 +96,7 @@ Worldbreaker:
   durabilitystat: 1536
 Staff:
   type: WEAPON
+  subtype: Staff
   material: WOODEN_HOE
   name: Staff
   mainstat: 1.30
@@ -91,6 +104,7 @@ Staff:
   durabilitystat: 128
 Pole:
   type: WEAPON
+  subtype: Staff
   material: GOLDEN_HOE
   name: Pole
   mainstat: 1.35
@@ -98,6 +112,7 @@ Pole:
   durabilitystat: 256
 Mace:
   type: WEAPON
+  subtype: Staff
   material: STONE_HOE
   name: Mace
   mainstat: 1.40
@@ -105,6 +120,7 @@ Mace:
   durabilitystat: 512
 Sceptre:
   type: WEAPON
+  subtype: Staff
   material: IRON_HOE
   name: Sceptre
   mainstat: 1.45
@@ -112,6 +128,7 @@ Sceptre:
   durabilitystat: 768
 Rhongomyniad:
   type: WEAPON
+  subtype: Staff
   material: DIAMOND_HOE
   name: Rhongomyniad
   mainstat: 1.50
@@ -119,6 +136,7 @@ Rhongomyniad:
   durabilitystat: 1024
 Soulreaver:
   type: WEAPON
+  subtype: Staff
   material: NETHERITE_HOE
   name: Soulreaver
   mainstat: 1.55
@@ -126,6 +144,7 @@ Soulreaver:
   durabilitystat: 1536
 Crude_Bow:
   type: WEAPON
+  subtype: Secondary Weapon
   material: BOW
   name: Crude Bow
   mainstat: 0.60
@@ -133,6 +152,7 @@ Crude_Bow:
   durabilitystat: 256
 Recurve_Bow:
   type: WEAPON
+  subtype: Secondary Weapon
   material: BOW
   name: Recurve Bow
   mainstat: 0.90
@@ -140,6 +160,7 @@ Recurve_Bow:
   durabilitystat: 512
 Infractem_Bow:
   type: WEAPON
+  subtype: Secondary Weapon
   material: BOW
   name: Infractem Bow
   mainstat: 1.20
@@ -147,6 +168,7 @@ Infractem_Bow:
   durabilitystat: 768
 Lance:
   type: WEAPON
+  subtype: Secondary Weapon
   material: TRIDENT
   name: Lance
   mainstat: 0.40
@@ -154,6 +176,7 @@ Lance:
   durabilitystat: 144
 Trident:
   type: WEAPON
+  subtype: Secondary Weapon
   material: TRIDENT
   name: Trident
   mainstat: 0.75
@@ -161,6 +184,7 @@ Trident:
   durabilitystat: 288
 Buckler:
   type: WEAPON
+  subtype: Secondary Weapon
   material: SHIELD
   name: Buckler
   mainstat: 0.60
@@ -168,27 +192,31 @@ Buckler:
   durabilitystat: 144
 Shield:
   type: WEAPON
+  subtype: Secondary Weapon
   material: SHIELD
   name: Shield
   mainstat: 0.95
   speedstat: 0.80
   durabilitystat: 288
-Grappling_Hook:
+Hookshot:
   type: WEAPON
+  subtype: Secondary Weapon
   material: FISHING_ROD
-  name: Grappling Hook
+  name: Hookshot
   mainstat: 0.50
   speedstat: 1.10
   durabilitystat: 144
-Dual_Hook:
+Longshot:
   type: WEAPON
+  subtype: Secondary Weapon
   material: FISHING_ROD
-  name: Dual Hook
+  name: Longshot
   mainstat: 0.85
   speedstat: 1.10
   durabilitystat: 288
 Chicken_Wings:
   type: WEAPON
+  subtype: Secondary Weapon
   material: FEATHER
   name: Chicken Wings
   mainstat: 0.30
@@ -196,6 +224,7 @@ Chicken_Wings:
   durabilitystat: 144
 Chicken_Glider:
   type: WEAPON
+  subtype: Secondary Weapon
   material: FEATHER
   name: Chicken Glider
   mainstat: 0.45
@@ -203,54 +232,63 @@ Chicken_Glider:
   durabilitystat: 288
 Novice_Pickaxe:
   type: TOOL
+  subtype: Gathering Tool
   material: STONE_PICKAXE
   name: Novice Pickaxe
   mainstat: 1.00
   durabilitystat: 256
 Adept_Pickaxe:
   type: TOOL
+  subtype: Gathering Tool
   material: IRON_PICKAXE
   name: Adept Pickaxe
   mainstat: 1.20
   durabilitystat: 384
 Expert_Pickaxe:
   type: TOOL
+  subtype: Gathering Tool
   material: DIAMOND_PICKAXE
   name: Expert Pickaxe
   mainstat: 1.40
   durabilitystat: 512
 Master_Pickaxe:
   type: TOOL
+  subtype: Gathering Tool
   material: NETHERITE_PICKAXE
   name: Master Pickaxe
   mainstat: 1.60
   durabilitystat: 640
 Novice_Spade:
   type: TOOL
+  subtype: Gathering Tool
   material: STONE_SHOVEL
   name: Novice Spade
   mainstat: 1.00
   durabilitystat: 256
 Adept_Spade:
   type: TOOL
+  subtype: Gathering Tool
   material: IRON_SHOVEL
   name: Adept Spade
   mainstat: 1.20
   durabilitystat: 384
 Expert_Spade:
   type: TOOL
+  subtype: Gathering Tool
   material: DIAMOND_SHOVEL
   name: Expert Spade
   mainstat: 1.40
   durabilitystat: 512
 Master_Spade:
   type: TOOL
+  subtype: Gathering Tool
   material: NETHERITE_SHOVEL
   name: Master Spade
   mainstat: 1.60
   durabilitystat: 640
 Cloth:
   type: ARMOR
+  subtype: Armor Piece
   material: LEATHER_CHESTPLATE
   name: Cloth
   mainstat: 1.15
@@ -260,6 +298,7 @@ Cloth:
   leatherdye: MAROON
 Robe:
   type: ARMOR
+  subtype: Armor Piece
   material: LEATHER_CHESTPLATE
   name: Robe
   mainstat: 1.30
@@ -269,6 +308,7 @@ Robe:
   leatherdye: PURPLE
 Tunic:
   type: ARMOR
+  subtype: Armor Piece
   material: LEATHER_CHESTPLATE
   name: Tunic
   mainstat: 1.45
@@ -278,22 +318,25 @@ Tunic:
   leatherdye: GREEN
 Vest:
   type: ARMOR
+  subtype: Armor Piece
   material: LEATHER_CHESTPLATE
   name: Vest
   mainstat: 1.30
   durabilitystat: 512
   swiftnessstat: -20
   category: MEDIUM
-Mail:
+Chainmail:
   type: ARMOR
+  subtype: Armor Piece
   material: CHAINMAIL_CHESTPLATE
-  name: Mail
+  name: Chainmail
   mainstat: 1.45
   durabilitystat: 1024
   swiftnessstat: -22
   category: MEDIUM
 Guard:
   type: ARMOR
+  subtype: Armor Piece
   material: GOLDEN_CHESTPLATE
   name: Guard
   mainstat: 1.60
@@ -302,24 +345,27 @@ Guard:
   category: MEDIUM
 Plate:
   type: ARMOR
+  subtype: Armor Piece
   material: IRON_CHESTPLATE
   name: Plate
   mainstat: 1.45
   durabilitystat: 512
   swiftnessstat: -30
   category: HEAVY
-Herogarb:
+Hero_Garb:
   type: ARMOR
+  subtype: Armor Piece
   material: DIAMOND_CHESTPLATE
-  name: Herogarb
+  name: Hero Garb
   mainstat: 1.60
   durabilitystat: 1024
   swiftnessstat: -32
   category: HEAVY
-Dragonbones:
+Blackplate:
   type: ARMOR
+  subtype: Armor Piece
   material: NETHERITE_CHESTPLATE
-  name: Dragonbones
+  name: Blackplate
   mainstat: 1.75
   durabilitystat: 2048
   swiftnessstat: -35
