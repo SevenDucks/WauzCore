@@ -46,10 +46,11 @@ public class WauzEquipment {
 	public static void init() {
 		for(String equipmentKey : EquipmentConfigurator.getEquipmentKeys()) {
 			EquipmentType type = EquipmentConfigurator.getEquipmentType(equipmentKey);
+			String subtype = EquipmentConfigurator.getEquipmentSubtype(equipmentKey);
 			Material material = EquipmentConfigurator.getMaterial(equipmentKey);
 			String name = EquipmentConfigurator.getName(equipmentKey);
 			
-			WauzEquipment equipment = new WauzEquipment(type, material, name);
+			WauzEquipment equipment = new WauzEquipment(type, subtype, material, name);
 			equipment.withMainStat(EquipmentConfigurator.getMainStat(equipmentKey));
 			equipment.withSpeedStat(EquipmentConfigurator.getSpeedStat(equipmentKey));
 			equipment.withSwiftnessStat(EquipmentConfigurator.getSwiftnessStat(equipmentKey));
@@ -267,6 +268,11 @@ public class WauzEquipment {
 	private EquipmentType type;
 	
 	/**
+	 * The general subtype of the equipment.
+	 */
+	private String subtype;
+	
+	/**
 	 * The material of the equipment.
 	 */
 	private Material material;
@@ -310,11 +316,13 @@ public class WauzEquipment {
 	 * Creates a new base equipment type.
 	 * 
 	 * @param type The general type of the equipment.
+	 * @param subtype The general subtype of the equipment.
 	 * @param material The material of the equipment.
 	 * @param name The name of the equipment.
 	 */
-	public WauzEquipment(EquipmentType type, Material material, String name) {
+	public WauzEquipment(EquipmentType type, String subtype, Material material, String name) {
 		this.type = type;
+		this.subtype = subtype;
 		this.material = material;
 		this.name = name;
 		
@@ -326,6 +334,13 @@ public class WauzEquipment {
 	 */
 	public EquipmentType getType() {
 		return type;
+	}
+
+	/**
+	 * @return The general subtype of the equipment.
+	 */
+	public String getSubtype() {
+		return subtype;
 	}
 
 	/**

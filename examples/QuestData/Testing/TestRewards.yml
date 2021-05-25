@@ -14,9 +14,9 @@ reward:
   - 'BerryForest'
   - 'BerryForest'
   choice:
-  - 'EquipT1; : Claymore'
-  - 'EquipT1; : Greataxe'
-  - 'EquipT1; : Sceptre'
+  - 'EquipT1; : Sword'
+  - 'EquipT1; : Axe'
+  - 'EquipT1; : Staff'
 phases:
   1:
     lores:

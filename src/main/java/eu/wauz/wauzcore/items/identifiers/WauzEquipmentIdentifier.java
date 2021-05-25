@@ -41,12 +41,23 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	private static Map<String, WauzEquipment> equipTypes = new HashMap<>();
 	
 	/**
+	 * A map of lists of all possible equipment types, by their subtype.
+	 */
+	private static Map<String, List<WauzEquipment>> equipSubtypes = new HashMap<>();
+	
+	/**
 	 * Adds a new equipment type.
 	 * 
 	 * @param equip The equipment type to add.
 	 */
 	public static void addEquipType(WauzEquipment equip) {
 		equipTypes.put(equip.getName(), equip);
+		List<WauzEquipment> sameSubtypeTypes = equipSubtypes.get(equip.getSubtype());
+		if(sameSubtypeTypes == null) {
+			sameSubtypeTypes = new ArrayList<>();
+		}
+		sameSubtypeTypes.add(equip);
+		equipSubtypes.put(equip.getSubtype(), sameSubtypeTypes);
 	}
 	
 	/**
@@ -149,7 +160,14 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 		itemName = Components.displayName(equipmentItemStack.getItemMeta());
 		
 		if(itemName.contains(" : ")) {
-			equipmentType = equipTypes.get(StringUtils.substringAfter(itemName, " : "));
+			String typeString = StringUtils.substringAfter(itemName, " : ");
+			List<WauzEquipment> typesBySubtype = equipSubtypes.get(typeString);
+			if(typesBySubtype != null) {
+				equipmentType = typesBySubtype.get(Chance.randomInt(typesBySubtype.size()));
+			}
+			else {
+				equipmentType = equipTypes.get(typeString);
+			}
 		}
 		if(equipmentType == null) {
 			equipmentType = new ArrayList<>(equipTypes.values()).get(Chance.randomInt(equipTypes.size()));

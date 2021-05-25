@@ -94,11 +94,11 @@ Worldbreaker:
   mainstat: 1.95
   speedstat: 1.10
   durabilitystat: 1536
-Staff:
+Rod:
   type: WEAPON
   subtype: Staff
   material: WOODEN_HOE
-  name: Staff
+  name: Rod
   mainstat: 1.30
   speedstat: 1.50
   durabilitystat: 128

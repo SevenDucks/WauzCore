@@ -41,6 +41,15 @@ public class EquipmentConfigurator extends GlobalConfigurationUtils {
 	/**
 	 * @param equipment The name of the equipment base type.
 	 * 
+	 * @return The general subtype of the equipment.
+	 */
+	public static String getEquipmentSubtype(String equipment) {
+		return mainConfigGetString("Equipment", equipment + ".subtype");
+	}
+	
+	/**
+	 * @param equipment The name of the equipment base type.
+	 * 
 	 * @return The material of the equipment.
 	 */
 	public static Material getMaterial(String equipment) {
