@@ -40,6 +40,7 @@ import eu.wauz.wauzcore.system.listeners.PlayerCombatListener;
 import eu.wauz.wauzcore.system.listeners.PlayerInteractionListener;
 import eu.wauz.wauzcore.system.listeners.ProjectileMovementListener;
 import eu.wauz.wauzcore.system.listeners.WauzDiscordListener;
+import eu.wauz.wauzcore.system.util.BungeeUtils;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 /**
@@ -117,6 +118,7 @@ public class WauzCore extends JavaPlugin {
 			AnnotationLoader.init();
 			getLogger().info("Finished Loading Data from Predefined Classes!");
 			
+			getServer().getMessenger().registerOutgoingPluginChannel(this, BungeeUtils.BUNGEE_CHANNEL);
 			pluginManager.registerEvents(new ArmorEquipEventListener(), this);
 			pluginManager.registerEvents(new BlockProtectionListener(), this);
 			pluginManager.registerEvents(new CitizenListener(), this);

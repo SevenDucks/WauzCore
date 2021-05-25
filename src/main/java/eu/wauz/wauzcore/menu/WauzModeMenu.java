@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
+import eu.wauz.wauzcore.system.util.BungeeUtils;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -48,19 +49,25 @@ public class WauzModeMenu implements WauzInventory {
 		ItemMeta modeDropGuysItemMeta = modeDropGuysItemStack.getItemMeta();
 		Components.displayName(modeDropGuysItemMeta, ChatColor.DARK_RED + "ALPHA " + ChatColor.RED + "DropGuys");
 		modeDropGuysItemStack.setItemMeta(modeDropGuysItemMeta);
-		menu.setItem(2, modeDropGuysItemStack);
+		menu.setItem(1, modeDropGuysItemStack);
 		
 		ItemStack modeMmoRpgItemStack = new ItemStack(Material.DRAGON_HEAD);
 		ItemMeta modeMmoRpgItemMeta = modeMmoRpgItemStack.getItemMeta();
 		Components.displayName(modeMmoRpgItemMeta, ChatColor.DARK_RED + "ALPHA " + ChatColor.DARK_PURPLE + "MMORPG");
 		modeMmoRpgItemStack.setItemMeta(modeMmoRpgItemMeta);
-		menu.setItem(4, modeMmoRpgItemStack);
+		menu.setItem(3, modeMmoRpgItemStack);
 		
 		ItemStack modeOneBlockItemStack = new ItemStack(Material.GRASS_BLOCK);
 		ItemMeta modeOneBlockItemMeta = modeOneBlockItemStack.getItemMeta();
 		Components.displayName(modeOneBlockItemMeta, ChatColor.GOLD + "OneBlock and Survival");
 		modeOneBlockItemStack.setItemMeta(modeOneBlockItemMeta);
-		menu.setItem(6, modeOneBlockItemStack);
+		menu.setItem(5, modeOneBlockItemStack);
+		
+		ItemStack modeEyiorielItemStack = new ItemStack(Material.END_PORTAL_FRAME);
+		ItemMeta modeEyiorielItemMeta = modeEyiorielItemStack.getItemMeta();
+		Components.displayName(modeEyiorielItemMeta, ChatColor.GOLD + "Connection Test");
+		modeEyiorielItemStack.setItemMeta(modeEyiorielItemMeta);
+		menu.setItem(7, modeEyiorielItemStack);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -110,6 +117,9 @@ public class WauzModeMenu implements WauzInventory {
 		}
 		else if(modeName.equals("DropGuys")) {
 			CharacterSlotMenu.open(player, WauzMode.ARCADE);
+		}
+		else if(modeName.equals("Connection Test")) {
+			BungeeUtils.connect(player, "test");
 		}
 	}
 
