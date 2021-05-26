@@ -277,21 +277,41 @@ public class Components {
 	}
 	
 	/**
-	 * Sends a message to everyone.
+	 * Sends a message to everyone on the server.
 	 * 
 	 * @param message The message to send.
 	 */
-	public static void broadcast(String message) {
-		broadcast(toComponent(message));
+	public static void broadcastLocally(String message) {
+		broadcastLocally(toComponent(message));
 	}
 	
 	/**
-	 * Sends a component to everyone.
+	 * Sends a component to everyone on the server.
 	 * 
 	 * @param component The component to send.
 	 */
-	public static void broadcast(Component component) {
+	public static void broadcastLocally(Component component) {
 		WauzCore.getAudiences().all().sendMessage(component);
+	}
+	
+	/**
+	 * Sends a message to everyone on the network.
+	 * 
+	 * @param player The player to send the message.
+	 * @param message The message to send.
+	 */
+	public static void broadcastGlobally(Player player, String message) {
+		broadcastGlobally(player, toComponent(message));
+	}
+	
+	/**
+	 * Sends a component to everyone on the network.
+	 * 
+	 * @param player The player to send the message.
+	 * @param component The component to send.
+	 */
+	public static void broadcastGlobally(Player player, Component component) {
+		BungeeUtils.broadcast(player, component);
 	}
 	
 	/**

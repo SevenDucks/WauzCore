@@ -63,7 +63,7 @@ public class CmdRoll implements WauzCommand {
 		
 		int value = Chance.minMax(1, maximum);
 		String result = player.getName() + " rolls " + value + " (1-" + maximum + ")";
-		Components.broadcast(result);
+		Components.broadcastGlobally(player, result);
 		if(WauzModules.isMainModuleActive()) {
 			WauzCore.getDiscordBot().sendMessageFromMinecraft(result, false);
 		}

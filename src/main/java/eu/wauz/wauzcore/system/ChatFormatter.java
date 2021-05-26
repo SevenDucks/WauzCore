@@ -37,7 +37,7 @@ public class ChatFormatter {
 				ChatColor.AQUA  + gamemodeSuffix + ChatColor.WHITE + ")] " +
 				ChatColor.GRAY + Components.message(event);
 		
-		Components.broadcast(msg);
+		Components.broadcastGlobally(player, msg);
 		if(WauzModules.isMainModuleActive()) {
 			WauzCore.getDiscordBot().sendMessageFromMinecraft(msg, false);
 		}
@@ -56,9 +56,9 @@ public class ChatFormatter {
 		String gamemodeSuffix = getGamemodeSuffix(player);
 		String msg = ChatColor.WHITE + "[" + rankPrefix + player.getName() + ChatColor.WHITE + " (" +
 				ChatColor.AQUA  + gamemodeSuffix + ChatColor.WHITE + ") (" +
-				ChatColor.GRAY + "Showcase" + ChatColor.WHITE + ")]";
+				ChatColor.GRAY + "Item" + ChatColor.WHITE + ")]";
 		
-		UnicodeUtils.shareChatItem(itemStack, msg);
+		UnicodeUtils.shareChatItem(player, itemStack, msg);
 	}
 	
 	/**
@@ -118,7 +118,7 @@ public class ChatFormatter {
 				ChatColor.DARK_AQUA  + "Discord" + ChatColor.WHITE + ")] " +
 				ChatColor.GRAY + message;
 		
-		Components.broadcast(msg);
+		Components.broadcastLocally(msg);
 	}
 	
 	/**

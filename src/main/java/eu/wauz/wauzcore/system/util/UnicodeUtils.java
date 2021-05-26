@@ -168,11 +168,12 @@ public class UnicodeUtils {
 	/**
 	 * Sends a hoverable message of an item stack to all players.
 	 * 
+	 * @param player The player to send the message.
 	 * @param itemStack The item stack that should be shown.
 	 * @param message The message that should be shown.
 	 */
-	public static void shareChatItem(ItemStack itemStack, String message) {
-		Components.broadcast(Components.itemComponent(message, itemStack));
+	public static void shareChatItem(Player player, ItemStack itemStack, String message) {
+		Components.broadcastGlobally(player, Components.itemComponent(message, itemStack));
 	}
 
 	/**
