@@ -1,3 +1,15 @@
+smithing:
+  1:
+    type:
+    amount: 1
+    level:
+    identify: true
+    cost:
+    - ''
+    - ''
+cooking:
+inscription:
+
 #// PAGE ONE
 
 0:
