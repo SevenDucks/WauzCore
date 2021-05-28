@@ -3,7 +3,7 @@ package eu.wauz.wauzcore.skills.passive;
 import eu.wauz.wauzcore.system.annotations.PassiveSkill;
 
 /**
- * A passive skill, that increases mining efficiency, leveled through mining.
+ * A passive skill, that increases mining efficiency, leveled through collecting ore.
  * 
  * @author Wauzmons
  */
