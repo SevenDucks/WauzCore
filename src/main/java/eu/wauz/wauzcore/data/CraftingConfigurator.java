@@ -1,10 +1,10 @@
 package eu.wauz.wauzcore.data;
 
 import java.util.List;
-
-import org.bukkit.potion.PotionEffectType;
+import java.util.stream.Collectors;
 
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
+import eu.wauz.wauzcore.professions.crafting.WauzCraftingRequirement;
 
 /**
  * Configurator to fetch or modify data from the Crafting.yml.
@@ -16,108 +16,55 @@ public class CraftingConfigurator extends GlobalConfigurationUtils {
 // General Parameters
 	
 	/**
-	 * @param itemIndex The number of the craftable item.
+	 * @param craftingCategory The category of the crafting item.
+	 * @param itemIndex The number of the crafting item.
 	 * 
-	 * @return The material name of the craftable item.
+	 * @return The type of the crafting item.
 	 */
-	public static String getItemMaterial(int itemIndex) {
-		return mainConfigGetString("Crafting", itemIndex + ".type");
+	public static String getItemType(String craftingCategory, int itemIndex) {
+		return mainConfigGetString("Crafting", craftingCategory + "." + itemIndex + ".type");
 	}
 	
 	/**
-	 * @param itemIndex The number of the craftable item.
+	 * @param craftingCategory The category of the crafting item.
+	 * @param itemIndex The number of the crafting item.
 	 * 
-	 * @return The amount of the craftable item.
+	 * @return The amount of the crafting item.
 	 */
-	public static int getItemAmount(int itemIndex) {
-		return mainConfigGetInt("Crafting", itemIndex + ".amount");
+	public static int getItemAmount(String craftingCategory, int itemIndex) {
+		return mainConfigGetInt("Crafting", craftingCategory + "." + itemIndex + ".amount");
 	}
 	
 	/**
-	 * @param itemIndex The number of the craftable item.
+	 * @param craftingCategory The category of the crafting item.
+	 * @param itemIndex The number of the crafting item.
 	 * 
-	 * @return The name of the craftable item.
+	 * @return The level of the crafting item.
 	 */
-	public static String getItemName(int itemIndex) {
-		return mainConfigGetString("Crafting", itemIndex + ".name");
+	public static int getItemLevel(String craftingCategory, int itemIndex) {
+		return mainConfigGetInt("Crafting", craftingCategory + "." + itemIndex + ".level");
 	}
 	
 	/**
-	 * @param itemIndex The number of the craftable item.
+	 * @param craftingCategory The category of the crafting item.
+	 * @param itemIndex The number of the crafting item.
 	 * 
-	 * @return The lores of the craftable item.
+	 * @return If the item should be automatically identified when crafted.
 	 */
-	public static List<String> getItemLores(int itemIndex) {
-		return mainConfigGetStringList("Crafting", itemIndex + ".lores");
+	public static boolean shouldIdentifyItem(String craftingCategory, int itemIndex) {
+		return mainConfigGetBoolean("Crafting", craftingCategory + "." + itemIndex + ".identify");
 	}
 	
 	/**
-	 * @param itemIndex The number of the craftable item.
+	 * @param craftingCategory The category of the crafting item.
+	 * @param itemIndex The number of the crafting item.
 	 * 
-	 * @return The level of the craftable item.
+	 * @return The material requirements to craft the item.
 	 */
-	public static int getItemLevel(int itemIndex) {
-		return mainConfigGetInt("Crafting", itemIndex + ".level");
-	}
-	
-	/**
-	 * @param itemIndex The number of the craftable item.
-	 * 
-	 * @return The amount of requirements to craft the item.
-	 */
-	public static int getItemCraftingCostsAmount(int itemIndex) {
-		return mainConfigGetInt("Crafting", itemIndex + ".cost.amount");
-	}
-	
-// Potions
-	
-	/**
-	 * @param itemIndex The number of the craftable item.
-	 * 
-	 * @return The effect type of the craftable potion.
-	 */
-	public static PotionEffectType getPotionType(int itemIndex) {
-		return PotionEffectType.getByName(mainConfigGetString("Crafting", itemIndex + ".effect.type"));
-	}
-	
-	/**
-	 * @param itemIndex The number of the craftable item.
-	 * 
-	 * @return The effect duration of the craftable potion.
-	 */
-	public static int getPotionDuration(int itemIndex) {
-		return mainConfigGetInt("Crafting", itemIndex + ".effect.duration");
-	}
-	
-	/**
-	 * @param itemIndex The number of the craftable item.
-	 * 
-	 * @return The effect level of the craftable potion.
-	 */
-	public static int getPotionLevel(int itemIndex) {
-		return mainConfigGetInt("Crafting", itemIndex + ".effect.level");
-	}
-	
-// Crafting Costs
-	
-	/**
-	 * @param itemIndex The number of the craftable item.
-	 * @param requirementIndex The requirement number of the craftable item.
-	 * 
-	 * @return The name of the required material.
-	 */
-	public static String getCraftingCostItemString(int itemIndex, int requirementIndex) {
-		return mainConfigGetString("Crafting", itemIndex + ".cost." + requirementIndex + "." + "item");
-	}
-	
-	/**
-	 * @param itemIndex The number of the craftable item.
-	 * @param requirementIndex The reuirement number of the craftable item.
-	 * 
-	 * @return The amount of the required material.
-	 */
-	public static int getCraftingCostItemAmount(int itemIndex, int requirementIndex) {
-		return mainConfigGetInt("Crafting", itemIndex + ".cost." + requirementIndex + "." + "amount");
+	public static List<WauzCraftingRequirement> getItemRequirements(String craftingCategory, int itemIndex) {
+		return mainConfigGetStringList("Crafting", craftingCategory + "." + itemIndex + ".cost").stream()
+				.map(materialString -> new WauzCraftingRequirement(materialString))
+				.collect(Collectors.toList());
 	}
 
 }
