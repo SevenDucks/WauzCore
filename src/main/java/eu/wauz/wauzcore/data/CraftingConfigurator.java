@@ -16,6 +16,15 @@ public class CraftingConfigurator extends GlobalConfigurationUtils {
 // General Parameters
 	
 	/**
+	 * @param craftingCategory The category of crafting items.
+	 * 
+	 * @return The amount of items in the category.
+	 */
+	public static int getItemCount(String craftingCategory) {
+		return mainConfigGetKeys("Crafting", craftingCategory).size();
+	}
+	
+	/**
 	 * @param craftingCategory The category of the crafting item.
 	 * @param itemIndex The number of the crafting item.
 	 * 
