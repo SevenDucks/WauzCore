@@ -10,6 +10,8 @@ import eu.wauz.wauzcore.data.CraftingConfigurator;
  * Collections of recipes for craftable items.
  * 
  * @author Wauzmons
+ * 
+ * @see WauzCraftingItem
  */
 public class WauzCraftingRecipes {
 	

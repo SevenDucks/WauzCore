@@ -13,6 +13,8 @@ import io.lumine.xikage.mythicmobs.items.ItemManager;
  * A craftable item.
  * 
  * @author Wauzmons
+ * 
+ * @see WauzCraftingRecipes
  */
 public class WauzCraftingItem {
 	
