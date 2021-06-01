@@ -18,11 +18,16 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerDataSectionSkills;
+import eu.wauz.wauzcore.professions.crafting.WauzCraftingItem;
+import eu.wauz.wauzcore.professions.crafting.WauzCraftingRecipes;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveBreeding;
+import eu.wauz.wauzcore.skills.passive.PassiveCooking;
 import eu.wauz.wauzcore.skills.passive.PassiveHerbalism;
+import eu.wauz.wauzcore.skills.passive.PassiveInscription;
 import eu.wauz.wauzcore.skills.passive.PassiveMining;
+import eu.wauz.wauzcore.skills.passive.PassiveSmithing;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -69,6 +74,7 @@ public class JobMenu implements WauzInventory {
 	 * @param player The player that should view the inventory.
 	 * 
 	 * @see WauzPlayerDataSectionSkills#getCachedPassive(String)
+	 * @see JobMenu#getRecipeCountString(List, int)
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
@@ -80,7 +86,7 @@ public class JobMenu implements WauzInventory {
 		ItemStack skillMiningItemStack = SkillIconHeads.getMiningItem();
 		ItemMeta skillMiningItemMeta = skillMiningItemStack.getItemMeta();
 		Components.displayName(skillMiningItemMeta, ChatColor.YELLOW + "Mining");
-		List<String> skillMiningLores = new ArrayList<String>();
+		List<String> skillMiningLores = new ArrayList<>();
 		skillMiningLores.add(ChatColor.WHITE + "Current Level: " + ChatColor.GOLD + miningSkill.getLevel());
 		skillMiningLores.add("");
 		skillMiningLores.add(ChatColor.GRAY + "Mine Ores with Pickaxes");
@@ -88,7 +94,7 @@ public class JobMenu implements WauzInventory {
 		skillMiningLores.add(ChatColor.GRAY + "This Job has no Menu.");
 		skillMiningLores.add("");
 		skillMiningLores.add(ChatColor.WHITE + "Highest Pickaxe Tier: " + ChatColor.YELLOW
-				+ (Math.min(6, (int) ((miningSkill.getLevel() / 5) + 1))));
+				+ (Math.min(6, (int) ((miningSkill.getLevel() / 5) + 1))) + "/ 6");
 		skillMiningLores.addAll(miningSkill.getProgressLores(ChatColor.YELLOW));
 		Components.lore(skillMiningItemMeta, skillMiningLores);
 		skillMiningItemStack.setItemMeta(skillMiningItemMeta);
@@ -98,7 +104,7 @@ public class JobMenu implements WauzInventory {
 		ItemStack skillHerbalismItemStack = SkillIconHeads.getHerbalismItem();
 		ItemMeta skillHerbalismItemMeta = skillHerbalismItemStack.getItemMeta();
 		Components.displayName(skillHerbalismItemMeta, ChatColor.YELLOW + "Herbalism");
-		List<String> skillHerbalismLores = new ArrayList<String>();
+		List<String> skillHerbalismLores = new ArrayList<>();
 		skillHerbalismLores.add(ChatColor.WHITE + "Current Level: " + ChatColor.GOLD + herbalismSkill.getLevel());
 		skillHerbalismLores.add("");
 		skillHerbalismLores.add(ChatColor.GRAY + "Gather Herbs with Spades");
@@ -106,7 +112,7 @@ public class JobMenu implements WauzInventory {
 		skillHerbalismLores.add(ChatColor.GRAY + "This Job has no Menu.");
 		skillHerbalismLores.add("");
 		skillHerbalismLores.add(ChatColor.WHITE + "Highest Spade Tier: " + ChatColor.YELLOW
-				+ (Math.min(6, (int) ((herbalismSkill.getLevel() / 5) + 1))));
+				+ (Math.min(6, (int) ((herbalismSkill.getLevel() / 5) + 1))) + " / 6");
 		skillHerbalismLores.addAll(herbalismSkill.getProgressLores(ChatColor.YELLOW));
 		Components.lore(skillHerbalismItemMeta, skillHerbalismLores);
 		skillHerbalismItemStack.setItemMeta(skillHerbalismItemMeta);
@@ -118,7 +124,7 @@ public class JobMenu implements WauzInventory {
 		ItemStack skillBreedingItemStack = SkillIconHeads.getTamesItem();
 		ItemMeta skillBreedingItemMeta = skillBreedingItemStack.getItemMeta();
 		Components.displayName(skillBreedingItemMeta, ChatColor.YELLOW + "Breeding");
-		List<String> skillBreedingLores = new ArrayList<String>();
+		List<String> skillBreedingLores = new ArrayList<>();
 		skillBreedingLores.add(ChatColor.WHITE + "Current Level: " + ChatColor.GOLD + breedingSkill.getLevel());
 		skillBreedingLores.add("");
 		skillBreedingLores.add(ChatColor.GRAY + "Breed your collected Pets");
@@ -132,12 +138,81 @@ public class JobMenu implements WauzInventory {
 		skillBreedingItemStack.setItemMeta(skillBreedingItemMeta);
 		menu.setItem(4, skillBreedingItemStack);
 		
-		MenuUtils.setComingSoon(menu, "Smithing", 5);
-		MenuUtils.setComingSoon(menu, "Cooking", 6);
-		MenuUtils.setComingSoon(menu, "Inscription", 7);
+		AbstractPassiveSkill smithingSkill = playerData.getSkills().getCachedPassive(PassiveSmithing.PASSIVE_NAME);
+		ItemStack skillSmithingItemStack = SkillIconHeads.getSmithingItem();
+		ItemMeta skillSmithingItemMeta = skillSmithingItemStack.getItemMeta();
+		Components.displayName(skillSmithingItemMeta, ChatColor.YELLOW + "Smithing");
+		List<String> skillSmithingLores = new ArrayList<>();
+		skillSmithingLores.add(ChatColor.WHITE + "Current Level: " + ChatColor.GOLD + smithingSkill.getLevel());
+		skillSmithingLores.add("");
+		skillSmithingLores.add(ChatColor.GRAY + "Craft Equipment and Gems");
+		skillSmithingLores.add(ChatColor.GRAY + "to unlock more Crafting Recipes.");
+		skillSmithingLores.add(ChatColor.GRAY + "Click to Open Crafting Menu.");
+		skillSmithingLores.add("");
+		skillSmithingLores.add(ChatColor.WHITE + "Unlocked Smithing Recipes: " + ChatColor.YELLOW
+				+ getRecipeCountString(WauzCraftingRecipes.getSmithingRecipes(), smithingSkill.getLevel()));
+		skillSmithingLores.addAll(smithingSkill.getProgressLores(ChatColor.YELLOW));
+		Components.lore(skillSmithingItemMeta, skillSmithingLores);
+		skillSmithingItemStack.setItemMeta(skillSmithingItemMeta);
+		menu.setItem(5, skillSmithingItemStack);
+		
+		AbstractPassiveSkill cookingSkill = playerData.getSkills().getCachedPassive(PassiveCooking.PASSIVE_NAME);
+		ItemStack skillCookingItemStack = SkillIconHeads.getCookingItem();
+		ItemMeta skillCookingItemMeta = skillCookingItemStack.getItemMeta();
+		Components.displayName(skillCookingItemMeta, ChatColor.YELLOW + "Cooking");
+		List<String> skillCookingLores = new ArrayList<>();
+		skillCookingLores.add(ChatColor.WHITE + "Current Level: " + ChatColor.GOLD + cookingSkill.getLevel());
+		skillCookingLores.add("");
+		skillCookingLores.add(ChatColor.GRAY + "Craft Food and Potions");
+		skillCookingLores.add(ChatColor.GRAY + "to unlock more Crafting Recipes.");
+		skillCookingLores.add(ChatColor.GRAY + "Click to Open Crafting Menu.");
+		skillCookingLores.add("");
+		skillCookingLores.add(ChatColor.WHITE + "Unlocked Cooking Recipes: " + ChatColor.YELLOW
+				+ getRecipeCountString(WauzCraftingRecipes.getCookingRecipes(), cookingSkill.getLevel()));
+		skillCookingLores.addAll(cookingSkill.getProgressLores(ChatColor.YELLOW));
+		Components.lore(skillCookingItemMeta, skillCookingLores);
+		skillCookingItemStack.setItemMeta(skillCookingItemMeta);
+		menu.setItem(6, skillCookingItemStack);
+		
+		AbstractPassiveSkill inscriptionSkill = playerData.getSkills().getCachedPassive(PassiveInscription.PASSIVE_NAME);
+		ItemStack skillInscriptionItemStack = SkillIconHeads.getInscriptionItem();
+		ItemMeta skillInscriptionItemMeta = skillInscriptionItemStack.getItemMeta();
+		Components.displayName(skillInscriptionItemMeta, ChatColor.YELLOW + "Inscription");
+		List<String> skillInscriptionLores = new ArrayList<>();
+		skillInscriptionLores.add(ChatColor.WHITE + "Current Level: " + ChatColor.GOLD + inscriptionSkill.getLevel());
+		skillInscriptionLores.add("");
+		skillInscriptionLores.add(ChatColor.GRAY + "Craft Scrolls and Runes");
+		skillInscriptionLores.add(ChatColor.GRAY + "to unlock more Crafting Recipes.");
+		skillInscriptionLores.add(ChatColor.GRAY + "Click to Open Crafting Menu.");
+		skillInscriptionLores.add("");
+		skillInscriptionLores.add(ChatColor.WHITE + "Unlocked Inscription Recipes: " + ChatColor.YELLOW
+				+ getRecipeCountString(WauzCraftingRecipes.getInscriptionRecipes(), inscriptionSkill.getLevel()));
+		skillInscriptionLores.addAll(inscriptionSkill.getProgressLores(ChatColor.YELLOW));
+		Components.lore(skillInscriptionItemMeta, skillInscriptionLores);
+		skillInscriptionItemStack.setItemMeta(skillInscriptionItemMeta);
+		menu.setItem(7, skillInscriptionItemStack);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
+	}
+	
+	/**
+	 * Generates a string to display how many recipes have been unlocked.
+	 * 
+	 * @param recipes The list of recipes.
+	 * @param level The crafting level.
+	 * 
+	 * @return The recipe count string.
+	 */
+	private static String getRecipeCountString(List<WauzCraftingItem> recipes, int level) {
+		int unlocked = 0;
+		for(WauzCraftingItem recipe : recipes) {
+			if(level < recipe.getCraftingItemLevel()) {
+				break;
+			}
+			unlocked++;
+		}
+		return unlocked + " / " + recipes.size();
 	}
 	
 	/**
@@ -156,13 +231,16 @@ public class JobMenu implements WauzInventory {
 			BreedingMenu.open(player, (PassiveBreeding) AbstractPassiveSkillPool.getPassive(player, PassiveBreeding.PASSIVE_NAME));
 		}
 		else if(slot == 5) {
-			
+			AbstractPassiveSkill skill = AbstractPassiveSkillPool.getPassive(player, PassiveSmithing.PASSIVE_NAME);
+			CraftingMenu.open(player, skill, WauzCraftingRecipes.getSmithingRecipes(), 0);
 		}
 		else if(slot == 6) {
-			
+			AbstractPassiveSkill skill = AbstractPassiveSkillPool.getPassive(player, PassiveCooking.PASSIVE_NAME);
+			CraftingMenu.open(player, skill, WauzCraftingRecipes.getCookingRecipes(), 0);
 		}
 		else if(slot == 7) {
-			
+			AbstractPassiveSkill skill = AbstractPassiveSkillPool.getPassive(player, PassiveInscription.PASSIVE_NAME);
+			CraftingMenu.open(player, skill, WauzCraftingRecipes.getInscriptionRecipes(), 0);
 		}
 	}
 	

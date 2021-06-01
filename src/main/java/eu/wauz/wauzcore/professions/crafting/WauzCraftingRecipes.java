@@ -81,21 +81,21 @@ public class WauzCraftingRecipes {
 	/**
 	 * @return A list of all smithing recipes.
 	 */
-	static final List<WauzCraftingItem> getSmithingRecipes() {
+	public static final List<WauzCraftingItem> getSmithingRecipes() {
 		return smithingRecipes;
 	}
 
 	/**
 	 * @return A list of all cooking recipes.
 	 */
-	static final List<WauzCraftingItem> getCookingRecipes() {
+	public static final List<WauzCraftingItem> getCookingRecipes() {
 		return cookingRecipes;
 	}
 
 	/**
 	 * @return A list of all inscription recipes.
 	 */
-	static final List<WauzCraftingItem> getInscriptionRecipes() {
+	public static final List<WauzCraftingItem> getInscriptionRecipes() {
 		return inscriptionRecipes;
 	}
 
