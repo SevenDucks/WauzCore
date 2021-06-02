@@ -26,6 +26,7 @@ import eu.wauz.wauzcore.system.WauzDiscordLogFilter;
 import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.WauzRepeatingTasks;
 import eu.wauz.wauzcore.system.annotations.AnnotationLoader;
+import eu.wauz.wauzcore.system.api.FtpServerManager;
 import eu.wauz.wauzcore.system.api.WebServerManager;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
@@ -93,6 +94,11 @@ public class WauzCore extends JavaPlugin {
 	private static WebServerManager webServerManager;
 	
 	/**
+	 * The FtpServerManager used for tranfering data.
+	 */
+	private static FtpServerManager ftpServerManager;
+	
+	/**
 	 * Gets called when the server is started.
 	 */
 	@Override
@@ -136,9 +142,13 @@ public class WauzCore extends JavaPlugin {
 			((org.apache.logging.log4j.core.Logger) LogManager.getRootLogger()).addFilter(discordLogFilter);
 			getLogger().info("Enabled Discord Integration!");
 			
-			int port = getWebApiPort();
-			webServerManager = new WebServerManager(port);
-			getLogger().info("Started WebServerManager on port " + port + "!");
+			int apiPort = ServerConfigurator.getServerApiPort();
+			webServerManager = new WebServerManager(apiPort);
+			getLogger().info("Started WebServerManager on port " + apiPort + "!");
+			
+			int ftpPort = ServerConfigurator.getServerFtpPort();
+			ftpServerManager = new FtpServerManager(ftpPort);
+			getLogger().info("Started FtpServerManager on port " + ftpPort + "!");
 			
 			WauzRepeatingTasks.schedule(this);
 			getLogger().info("Scheduled Repeating Tasks!");
@@ -172,6 +182,9 @@ public class WauzCore extends JavaPlugin {
 			
 			webServerManager.stop();
 			getLogger().info("Stopped WebServerManager!");
+			
+			ftpServerManager.stop();
+			getLogger().info("Stopped FtpServerManager!");
 			
 			for(Player player : Bukkit.getServer().getOnlinePlayers()) {
 				WauzPlayerRegistrator.logout(player);
@@ -217,13 +230,6 @@ public class WauzCore extends JavaPlugin {
 		return discordBot;
 	}
 
-	/**
-	 * @return The WebServerManager used for the web based API.
-	 */
-	public static WebServerManager getWebServerManager() {
-		return webServerManager;
-	}
-	
 	/**
 	 * @return The location of the hub, where players start their adventures.
 	 */
@@ -284,13 +290,6 @@ public class WauzCore extends JavaPlugin {
 	 */
 	public static String getServerKey() {
 		return ServerConfigurator.getServerKey();
-	}
-	
-	/**
-	 * @return The port of the web api, defined in the .yml configuration.
-	 */
-	public static int getWebApiPort() {
-		return ServerConfigurator.getServerApiPort();
 	}
 	
 }

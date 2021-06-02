@@ -20,10 +20,8 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
 
 /**
- * Starts a HTTP server, that can deliver game information over an api.
+ * Manages an embedded HTTP server to deliver game information.
  * Suppresses restriction warnings from sun httpserver classes.
- * List of valid requests:<br>
- * /get/stats <b>General gameplay statistics</b>
  * 
  * @author Wauzmons
  */
@@ -36,7 +34,7 @@ public class WebServerManager implements HttpHandler {
 	private HttpServer server;
 	
 	/**
-	 * Creates and starts the web server on given port.
+	 * Creates and starts the web server on the given port.
 	 * 
 	 * @param port The port for web requests.
 	 */
@@ -50,7 +48,8 @@ public class WebServerManager implements HttpHandler {
 			server.createContext("/", this);
 			server.setExecutor(null);
 			server.start();
-		} catch(Exception e) {
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 		}
 	}

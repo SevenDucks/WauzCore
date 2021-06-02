@@ -1,6 +1,14 @@
 key: DelseyriaReborn
 modules: [main, pets]
 apiport: 7069
+ftpport: 7070
+ftpusers:
+  admin:
+    pass: "admin"
+    path: "/"
+  dev:
+    pass: "dev"
+    path: "/plugins/"
 motd:
   base: "§f»§f§m---§b§m---§a§m---§a»§r §6§l< §2§lDelseyria§3§lReborn §6§l> §a«§a§m---§b§m---§f§m---§f«§r §3§lwauz.eu§f§l: §6%random%"
   goodbye: "The Realm needs you, %player%!"

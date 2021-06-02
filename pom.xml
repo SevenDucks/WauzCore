@@ -113,6 +113,7 @@
 			<groupId>com.github.koca2000</groupId>
 			<artifactId>NoteBlockAPI</artifactId>
 			<version>-SNAPSHOT</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -130,9 +131,17 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.apache.ftpserver</groupId>
+			<artifactId>ftpserver-core</artifactId>
+			<version>1.1.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
 			<version>0.9.12</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
