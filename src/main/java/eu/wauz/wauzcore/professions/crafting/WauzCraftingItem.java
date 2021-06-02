@@ -2,10 +2,17 @@ package eu.wauz.wauzcore.professions.crafting;
 
 import java.util.List;
 
+import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.CraftingConfigurator;
+import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.Components;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.items.ItemManager;
 
@@ -56,7 +63,15 @@ public class WauzCraftingItem {
 	 */
 	public WauzCraftingItem(String craftingCategory, int itemIndex) {
 		String craftingItemType = CraftingConfigurator.getItemType(craftingCategory, itemIndex);
-		this.craftingItemStack = WauzNmsClient.nmsSerialize(mythicMobs.getItemStack(craftingItemType));
+		String[] nameParts = craftingItemType.split(";");
+		String canonicalName = nameParts[0];
+		String displayNameSuffix = nameParts.length > 1 ? nameParts[1] : null;
+		this.craftingItemStack = WauzNmsClient.nmsSerialize(mythicMobs.getItemStack(canonicalName));
+		if(StringUtils.isNotBlank(displayNameSuffix) && ItemUtils.hasDisplayName(craftingItemStack)) {
+			ItemMeta craftingItemMeta = craftingItemStack.getItemMeta();
+			Components.displayName(craftingItemMeta, Components.displayName(craftingItemMeta) + displayNameSuffix);
+			craftingItemStack.setItemMeta(craftingItemMeta);
+		}
 		this.craftingItemAmount = CraftingConfigurator.getItemAmount(craftingCategory, itemIndex);
 		this.craftingItemLevel = CraftingConfigurator.getItemLevel(craftingCategory, itemIndex);
 		this.shouldIdentify = CraftingConfigurator.shouldIdentifyItem(craftingCategory, itemIndex);
@@ -96,6 +111,23 @@ public class WauzCraftingItem {
 	 */
 	public List<WauzCraftingRequirement> getRequirements() {
 		return requirements;
+	}
+	
+	public ItemStack getInstance(Player player, boolean crafted) {
+		ItemStack itemStack = craftingItemStack.clone();
+		if(shouldIdentify) {
+			
+		}
+		
+		MenuUtils.addItemLore(itemStack, "", false);
+		if(crafted) {
+			MenuUtils.addItemLore(itemStack, ChatColor.GRAY + "Crafted by " + player.getName(), false);
+		}
+		else {
+			
+		}
+		itemStack.setAmount(craftingItemAmount);
+		return itemStack;
 	}
 
 }

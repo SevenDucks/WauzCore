@@ -1,12 +1,16 @@
 package eu.wauz.wauzcore.system.economy;
 
 import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.ShopConfigurator;
+import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.items.ItemManager;
@@ -58,7 +62,15 @@ public class WauzShopItem {
 	 */
 	public WauzShopItem(String shopName, int itemIndex) {
 		String shopItemType = ShopConfigurator.getItemType(shopName, itemIndex);
-		this.shopItemStack = WauzNmsClient.nmsSerialize(mythicMobs.getItemStack(shopItemType));
+		String[] nameParts = shopItemType.split(";");
+		String canonicalName = nameParts[0];
+		String displayNameSuffix = nameParts.length > 1 ? nameParts[1] : null;
+		this.shopItemStack = WauzNmsClient.nmsSerialize(mythicMobs.getItemStack(canonicalName));
+		if(StringUtils.isNotBlank(displayNameSuffix) && ItemUtils.hasDisplayName(shopItemStack)) {
+			ItemMeta shopItemMeta = shopItemStack.getItemMeta();
+			Components.displayName(shopItemMeta, Components.displayName(shopItemMeta) + displayNameSuffix);
+			shopItemStack.setItemMeta(shopItemMeta);
+		}
 		this.shopItemAmount = ShopConfigurator.getItemAmount(shopName, itemIndex);
 		this.shopItemPrice = ShopConfigurator.getItemPrice(shopName, itemIndex);
 		this.shopItemCurrency = ShopConfigurator.getItemCurrency(shopName, itemIndex);
