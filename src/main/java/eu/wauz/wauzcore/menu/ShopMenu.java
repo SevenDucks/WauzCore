@@ -13,8 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.items.util.ItemUtils;
-import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
-import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
@@ -105,8 +103,8 @@ public class ShopMenu implements WauzInventory {
 		}
 		menu.setItem(9, shopDiscount.generateDiscountDisplay());
 		
-		ItemStack soldItemStack = GenericIconHeads.getDeclineItem();
-		MenuUtils.setItemDisplayName(soldItemStack, ChatColor.DARK_GRAY + "SOLD OUT");
+		ItemStack emptyItemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+		MenuUtils.setItemDisplayName(emptyItemStack, " ");
 		
 		List<WauzShopItem> shopItems = shop.getShopItems();
 		for(int index = 0; index < offerSlots.size(); index++) {
@@ -116,7 +114,7 @@ public class ShopMenu implements WauzInventory {
 				menu.setItem(indexSlot, shopItem.getInstance(player, shopDiscount, false));
 			}
 			else {
-				menu.setItem(indexSlot, soldItemStack);
+				menu.setItem(indexSlot, emptyItemStack);
 			}
 		}
 		
@@ -168,9 +166,11 @@ public class ShopMenu implements WauzInventory {
 		}
 		
 		boolean actionSuccess = false;
-		if(offerSlots.contains(slot) && !HeadUtils.isHeadMenuItem(clicked, "SOLD OUT")) {
+		if(offerSlots.contains(slot)) {
 			int itemIndex = offerSlots.indexOf(slot);
-			actionSuccess = WauzShopActions.buy(player, shop.getShopItems().get(itemIndex), shopDiscount);
+			if(itemIndex < shop.getShopItems().size()) {
+				actionSuccess = WauzShopActions.buy(player, shop.getShopItems().get(itemIndex), shopDiscount);
+			}
 		}
 		else if(!ItemUtils.isNotAir(clicked)) {
 			return;

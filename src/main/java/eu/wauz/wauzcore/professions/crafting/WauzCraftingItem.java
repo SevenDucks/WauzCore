@@ -117,6 +117,14 @@ public class WauzCraftingItem {
 		return requirements;
 	}
 	
+	/**
+	 * Generates a player specific instance of the crafting item stack.
+	 * 
+	 * @param player The player who can craft the item.
+	 * @param crafted If the item was crafted.
+	 * 
+	 * @return A stack of the crafting item.
+	 */
 	public ItemStack getInstance(Player player, boolean crafted) {
 		ItemStack itemStack = craftingItemStack.clone();
 		if(shouldIdentify) {

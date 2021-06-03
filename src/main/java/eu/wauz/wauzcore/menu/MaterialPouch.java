@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventMaterialsSell;
@@ -100,9 +99,7 @@ public class MaterialPouch implements WauzInventory {
 		Inventory menu = Components.inventory(new MaterialPouch(inventoryName), menuTitle, 36);
 		
 		ItemStack emptyItemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
-		ItemMeta emptyItemMeta = emptyItemStack.getItemMeta();
-		Components.displayName(emptyItemMeta, " ");
-		emptyItemStack.setItemMeta(emptyItemMeta);
+		MenuUtils.setItemDisplayName(emptyItemStack, " ");
 		
 		int index = 0;
 		for(ItemStack itemStack : getInventory(player, inventoryName).getContents()) {

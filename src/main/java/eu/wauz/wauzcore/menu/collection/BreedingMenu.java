@@ -193,13 +193,7 @@ public class BreedingMenu implements WauzInventory {
 	public void selectMenuPoint(InventoryClickEvent event) {
 		int slot = event.getRawSlot();
 		
-		if(slot < 0) {
-			return;
-		}
-		else if(slot == 4) {
-			tryToBreed(event);
-		}
-		else if(slot == 3 || slot == 5 || event.getClick().toString().contains("SHIFT")) {
+		if(slot == 3 || slot == 5) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 				
 				@Override
@@ -208,9 +202,15 @@ public class BreedingMenu implements WauzInventory {
 				}
 				
 			}, 1);
+			return;
 		}
-		else if(slot < 9) {
+		
+		if(slot < 9) {
 			event.setCancelled(true);
+		}
+		
+		if(slot == 4) {
+			tryToBreed(event);
 		}
 	}
 	

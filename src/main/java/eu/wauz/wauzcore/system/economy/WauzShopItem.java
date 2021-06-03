@@ -117,7 +117,7 @@ public class WauzShopItem {
 	 * 
 	 * @param player The player who can buy the item.
 	 * @param discount The discount on the price of the item.
-	 * @param bought If the item was bought and therefore has no price anymore.
+	 * @param bought If the item was bought.
 	 * 
 	 * @return A stack of the shop item.
 	 */
