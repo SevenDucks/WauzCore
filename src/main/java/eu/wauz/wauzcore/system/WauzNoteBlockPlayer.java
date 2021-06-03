@@ -2,10 +2,12 @@ package eu.wauz.wauzcore.system;
 
 import java.io.File;
 
+import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.StringUtils;
 import org.bukkit.entity.Player;
 
 import com.xxmicloxx.NoteBlockAPI.model.RepeatMode;
 import com.xxmicloxx.NoteBlockAPI.model.Song;
+import com.xxmicloxx.NoteBlockAPI.model.SoundCategory;
 import com.xxmicloxx.NoteBlockAPI.songplayer.RadioSongPlayer;
 import com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer;
 import com.xxmicloxx.NoteBlockAPI.utils.NBSDecoder;
@@ -65,6 +67,10 @@ public class WauzNoteBlockPlayer {
 		
 		SongPlayer currentSongPlayer = playerData.getSelections().getSongPlayer();
 		if(currentSongPlayer != null) {
+			File currentFile = currentSongPlayer.getSong().getPath();
+			if(StringUtils.equals(currentFile.getAbsolutePath(), soundtrackFile.getAbsolutePath())) {
+				return;
+			}
 			currentSongPlayer.destroy();
 		}
 		
@@ -73,6 +79,7 @@ public class WauzNoteBlockPlayer {
 			SongPlayer songPlayer = new RadioSongPlayer(song);
 			songPlayer.setAutoDestroy(true);
 			songPlayer.setRepeatMode(RepeatMode.ALL);
+			songPlayer.setCategory(SoundCategory.RECORDS);
 			songPlayer.setVolume((byte) 30);
 			songPlayer.addPlayer(player);
 			songPlayer.setPlaying(true);

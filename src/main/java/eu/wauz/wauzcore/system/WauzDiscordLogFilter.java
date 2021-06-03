@@ -75,6 +75,10 @@ public class WauzDiscordLogFilter implements Filter {
 			}
 		}
 		
+		if(logEvent.getLoggerName().contains("org.apache.ftpserver")) {
+			return Result.DENY;
+		}
+		
 		String date = dateFormat.format(logEvent.getTimeMillis());
 		String level = " [" + logEvent.getLevel().name() + "] ";
 		WauzCore.getDiscordBot().sendMessageFromMinecraft(date + level + message, true);

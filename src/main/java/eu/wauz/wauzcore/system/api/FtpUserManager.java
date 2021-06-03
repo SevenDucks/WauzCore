@@ -1,6 +1,6 @@
 package eu.wauz.wauzcore.system.api;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +11,7 @@ import org.apache.ftpserver.ftplet.User;
 import org.apache.ftpserver.ftplet.UserManager;
 import org.apache.ftpserver.usermanager.UsernamePasswordAuthentication;
 import org.apache.ftpserver.usermanager.impl.BaseUser;
+import org.apache.ftpserver.usermanager.impl.ConcurrentLoginPermission;
 import org.apache.ftpserver.usermanager.impl.WritePermission;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.StringUtils;
@@ -49,7 +50,7 @@ public class FtpUserManager implements UserManager {
 			user.setName(username);
 			user.setEnabled(true);
 			user.setMaxIdleTime(1800);
-			user.setAuthorities(Collections.singletonList(new WritePermission()));
+			user.setAuthorities(Arrays.asList(new WritePermission(), new ConcurrentLoginPermission(3, 3)));
 			user.setPassword(ServerConfigurator.getFtpUserPassword(username));
 			user.setHomeDirectory(BASE_DIR + ServerConfigurator.getFtpUserHomePath(username));
 			userMap.put(username, user);
