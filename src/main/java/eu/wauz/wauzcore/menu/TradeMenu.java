@@ -172,11 +172,13 @@ public class TradeMenu implements WauzInventory {
 			event.setCancelled(true);
 			return;
 		}
+		
 		int slot = event.getRawSlot();
-        if(slot > 35) {
+        if(slot >= 36) {
         	return;
         }
         
+        event.setCancelled(true);
         Player player = (Player) event.getWhoClicked();
         boolean anyoneReady = leftPlayerReady || rightPlayerReady;
         if(player.equals(leftPlayer)) {
@@ -203,7 +205,6 @@ public class TradeMenu implements WauzInventory {
         		player.closeInventory();
         	}
         }
-        event.setCancelled(true);
 	}
 	
 	/**

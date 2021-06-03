@@ -15,6 +15,7 @@ import eu.wauz.wauzcore.items.InventoryItemRemover;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.professions.crafting.WauzCraftingItem;
@@ -22,6 +23,8 @@ import eu.wauz.wauzcore.professions.crafting.WauzCraftingRecipes;
 import eu.wauz.wauzcore.professions.crafting.WauzCraftingRequirement;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.system.WauzPermission;
+import eu.wauz.wauzcore.system.achievements.AchievementTracker;
+import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Components;
 
@@ -66,6 +69,15 @@ public class CraftingMenu implements WauzInventory {
 		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + skill.getPassiveName() + " " + levelText;
 		Inventory menu = Components.inventory(craftingMenu, menuTitle, 27);
 		
+		ItemStack backItemStack = MenuIconHeads.getCraftItem();
+		MenuUtils.setItemDisplayName(backItemStack, ChatColor.YELLOW + "Back to Jobs");
+		menu.setItem(0, backItemStack);
+		
+		ItemStack nextItemStack = GenericIconHeads.getNextItem();
+		String pageCount = (page + 1) + " / " + craftingMenu.pageCount;
+		MenuUtils.setItemDisplayName(nextItemStack, ChatColor.YELLOW + "Switch Page (" + pageCount + ")");
+		menu.setItem(8, nextItemStack);
+		
 		ItemStack lockedItemStack = GenericIconHeads.getUnknownItem();
 		MenuUtils.setItemDisplayName(lockedItemStack, ChatColor.GRAY + "Locked Recipe");
 		
@@ -105,6 +117,11 @@ public class CraftingMenu implements WauzInventory {
 	private int page;
 	
 	/**
+	 * The count of recipe pages.
+	 */
+	private int pageCount;
+	
+	/**
 	 * Creates a new crafting menu instance.
 	 * 
 	 * @param skill The crafting skill of the player.
@@ -115,6 +132,7 @@ public class CraftingMenu implements WauzInventory {
 		this.skill = skill;
 		this.recipes = recipes;
 		this.page = page;
+		this.pageCount = (int) Math.ceil((float) recipes.size() / recipeSlots.size());
 	}
 
 	/**
@@ -122,16 +140,25 @@ public class CraftingMenu implements WauzInventory {
 	 * Cancels the event and tries to craft the clicked item.
 	 * 
 	 * @param event The inventory click event.
+	 * 
+	 * @see CraftingMenu#tryToCraft(Player, WauzCraftingItem)
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
-		final Player player = (Player) event.getWhoClicked();
 		int slot = event.getRawSlot();
-		
-		if(slot < 27) {
-			event.setCancelled(true);
+		if(slot >= 27) {
+			return;
 		}
 		
+		event.setCancelled(true);
+		final Player player = (Player) event.getWhoClicked();
+		if(slot == 0) {
+			JobMenu.open(player);
+		}
+		if(slot == 8) {
+			int nextPage = page + 1 < pageCount ? page + 1 : 0;
+			open(player, skill, recipes, nextPage);
+		}
 		if(recipeSlots.contains(slot)) {
 			int indexWithOffset = recipeSlots.indexOf(slot) + (page * recipeSlots.size());
 			if(indexWithOffset < recipes.size() && tryToCraft(player, recipes.get(indexWithOffset))) {
@@ -149,26 +176,27 @@ public class CraftingMenu implements WauzInventory {
 	 * @return If the crafting was successful.
 	 */
 	public boolean tryToCraft(Player player, WauzCraftingItem itemToCraft) {
+		if(skill.getLevel() < itemToCraft.getCraftingItemLevel()) {
+			return false;
+		}
 		Inventory inventory = MaterialPouch.getInventory(player, "questitems");
 		InventoryItemRemover itemRemover = new InventoryItemRemover(inventory);
 		
-		if(player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString())) {
-			// TODO
-		}
-		
-		for(WauzCraftingRequirement requirement : itemToCraft.getRequirements()) {
-			int materialAmount = 0;
-			String materialName = requirement.getMaterial();
-			itemRemover.addItemNameToRemove(materialName, itemToCraft.getCraftingItemAmount());
-			for(ItemStack materialItemStack : inventory.getContents()) {
-				if(materialItemStack != null && ItemUtils.isSpecificItem(materialItemStack, materialName)) {
-					materialAmount += materialItemStack.getAmount();
+		if(!player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString())) {
+			for(WauzCraftingRequirement requirement : itemToCraft.getRequirements()) {
+				int materialAmount = 0;
+				String materialName = requirement.getMaterial();
+				itemRemover.addItemNameToRemove(materialName, itemToCraft.getCraftingItemAmount());
+				for(ItemStack materialItemStack : inventory.getContents()) {
+					if(materialItemStack != null && ItemUtils.isSpecificItem(materialItemStack, materialName)) {
+						materialAmount += materialItemStack.getAmount();
+					}
 				}
-			}
-			if(materialAmount < itemToCraft.getCraftingItemAmount()) {
-				player.sendMessage(ChatColor.RED + "You don't have enough materials!");
-				player.closeInventory();
-				return false;
+				if(materialAmount < itemToCraft.getCraftingItemAmount()) {
+					player.sendMessage(ChatColor.RED + "You don't have enough materials!");
+					player.closeInventory();
+					return false;
+				}
 			}
 		}
 		
@@ -181,8 +209,14 @@ public class CraftingMenu implements WauzInventory {
 		
 		itemRemover.execute();
 		player.getInventory().addItem(WauzNmsClient.nmsSerialize(craftedItem));
-		player.sendMessage(ChatColor.GREEN + "Your purchase was successful!");
-		// TODO exp
+		AchievementTracker.addProgress(player, WauzAchievementType.CRAFT_ITEMS, 1);
+		if(skill.getLevel() < itemToCraft.getCraftingItemLevel() + 5) {
+			skill.grantExperience(player, 1);
+			player.sendMessage(ChatColor.DARK_AQUA + "You earned 1 " + skill.getPassiveName() + " exp!");
+		}
+		else {
+			player.sendMessage(ChatColor.YELLOW + "You can't earn exp from this low tier recipe anymore!");
+		}
 		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 1, 1);
 		return true;
 	}

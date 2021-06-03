@@ -156,15 +156,15 @@ public class ShopMenu implements WauzInventory {
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
+		int slot = event.getRawSlot();
+		if(slot >= 27) {
+			return;
+		}
+		
+		event.setCancelled(true);
 		final Player player = (Player) event.getWhoClicked();
 		ItemStack clicked = event.getCurrentItem();
 		ItemStack itemOnCursor = player.getItemOnCursor();
-		int slot = event.getRawSlot();
-		
-		if(slot < 27) {
-			event.setCancelled(true);
-		}
-		
 		boolean actionSuccess = false;
 		if(offerSlots.contains(slot)) {
 			int itemIndex = offerSlots.indexOf(slot);

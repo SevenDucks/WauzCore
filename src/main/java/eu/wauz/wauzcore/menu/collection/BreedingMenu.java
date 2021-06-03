@@ -21,7 +21,9 @@ import eu.wauz.wauzcore.events.PetObtainEvent;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.menu.LootContainer;
+import eu.wauz.wauzcore.menu.abilities.JobMenu;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
+import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
 import eu.wauz.wauzcore.menu.heads.SkillIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
@@ -105,9 +107,13 @@ public class BreedingMenu implements WauzInventory {
 		levelLores.add(ChatColor.GRAY + "and unlock more breedable Rarities!");
 		Components.lore(levelItemMeta, levelLores);
 		levelItemStack.setItemMeta(levelItemMeta);
-		menu.setItem(1, levelItemStack);
+		menu.setItem(2, levelItemStack);
 		
 		if(!WauzModules.isPetsModuleStandalone()) {
+			ItemStack backItemStack = MenuIconHeads.getCraftItem();
+			MenuUtils.setItemDisplayName(backItemStack, ChatColor.YELLOW + "Back to Jobs");
+			menu.setItem(0, backItemStack);
+			
 			ItemStack abilityItemStack = GenericIconHeads.getColorCubeItem();
 			ItemMeta abilityItemMeta = abilityItemStack.getItemMeta();
 			Components.displayName(abilityItemMeta, ChatColor.YELLOW + "Obtainable Abilities");
@@ -124,12 +130,12 @@ public class BreedingMenu implements WauzInventory {
 			abilityLores.add(ChatColor.GRAY + "which they will use once a minute.");
 			Components.lore(abilityItemMeta, abilityLores);
 			abilityItemStack.setItemMeta(abilityItemMeta);
-			menu.setItem(7, abilityItemStack);
+			menu.setItem(8, abilityItemStack);
 		}
 		
 		MenuUtils.setBorders(menu);
-		menu.setItem(3, null);
-		menu.setItem(5, null);
+		menu.setItem(4, null);
+		menu.setItem(6, null);
 		breedingMenu.updateBreedButton();
 		player.openInventory(menu);
 	}
@@ -191,9 +197,18 @@ public class BreedingMenu implements WauzInventory {
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
-		int slot = event.getRawSlot();
+		String clickType = event.getClick().toString();
+		if(clickType.contains("SHIFT")) {
+			event.setCancelled(true);
+			return;
+		}
 		
-		if(slot == 3 || slot == 5) {
+		int slot = event.getRawSlot();
+		if(slot >= 9) {
+			return;
+		}
+		
+		if(slot == 4 || slot == 6) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
 				
 				@Override
@@ -205,11 +220,11 @@ public class BreedingMenu implements WauzInventory {
 			return;
 		}
 		
-		if(slot < 9) {
-			event.setCancelled(true);
+		event.setCancelled(true);
+		if(slot == 0) {
+			JobMenu.open((Player) event.getWhoClicked());
 		}
-		
-		if(slot == 4) {
+		else if(slot == 5) {
 			tryToBreed(event);
 		}
 	}
@@ -223,8 +238,8 @@ public class BreedingMenu implements WauzInventory {
 	@Override
 	public void destroyInventory(InventoryCloseEvent event) {
 		Location dropLocation = event.getPlayer().getLocation();
-		ItemStack leftPetItemStack = menu.getItem(3);
-		ItemStack rightPetItemStack = menu.getItem(5);
+		ItemStack leftPetItemStack = menu.getItem(4);
+		ItemStack rightPetItemStack = menu.getItem(6);
 		if(ItemUtils.isNotAir(leftPetItemStack)) {
 			dropLocation.getWorld().dropItemNaturally(dropLocation, leftPetItemStack);
 		}
@@ -240,7 +255,7 @@ public class BreedingMenu implements WauzInventory {
 	 * @see BreedingMenu#updatePetCompatibility(ItemStack, ItemStack)
 	 */
 	public void updateBreedButton() {
-		updatePetCompatibility(menu.getItem(3), menu.getItem(5));
+		updatePetCompatibility(menu.getItem(4), menu.getItem(6));
 		ItemMeta breedItemMeta = breedItemStack.getItemMeta();
 		Components.displayName(breedItemMeta, ChatColor.YELLOW + "Click to Breed Pets");
 		List<String> breedLores = new ArrayList<>();
@@ -252,7 +267,7 @@ public class BreedingMenu implements WauzInventory {
 		breedLores.add(ChatColor.GRAY + "New Pets can be better, worse or equal.");
 		Components.lore(breedItemMeta, breedLores);
 		breedItemStack.setItemMeta(breedItemMeta);
-		menu.setItem(4, breedItemStack);
+		menu.setItem(5, breedItemStack);
 	}
 	
 	/**
@@ -304,8 +319,8 @@ public class BreedingMenu implements WauzInventory {
 		event.setCancelled(true);
 		Player player = (Player) event.getWhoClicked();
 		if(breedStatusValid) {
-			menu.setItem(3, null);
-			menu.setItem(5, null);
+			menu.setItem(4, null);
+			menu.setItem(6, null);
 			WauzPet newPet = WauzPet.getOffspring(newPetRarity, newPetType);
 			if(newPet == null) {
 				player.sendMessage(ChatColor.RED + "Your pets were invalid or outdated!");
