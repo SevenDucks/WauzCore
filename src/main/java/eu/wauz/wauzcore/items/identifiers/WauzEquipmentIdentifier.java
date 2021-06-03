@@ -89,6 +89,11 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	private Player player;
 	
 	/**
+	 * If the identification was triggered manually.
+	 */
+	private boolean manual;
+	
+	/**
 	 * The builder to generate the equipment item.
 	 */
 	private WauzEquipmentBuilder builder;
@@ -148,15 +153,17 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 	 * 
 	 * @param player The player who identifies the item.
 	 * @param equipmentItemStack The equipment item stack, that is getting identified.
+	 * @param manual If the identification was triggered manually.
 	 * 
 	 * @see WauzEquipmentIdentifier#determineBaseMultiplier()
 	 * @see Rarity#getRandomEquipmentRarity()
 	 * @see Tier#getEquipmentTier(String)
 	 * @see WauzEquipmentIdentifier#generateIdentifiedEquipment()
 	 */
-	public void identifyItem(Player player, ItemStack equipmentItemStack) {
+	public void identifyItem(Player player, ItemStack equipmentItemStack, boolean manual) {
 		this.player = player;
 		this.equipmentItemStack = equipmentItemStack;
+		this.manual = manual;
 		itemName = Components.displayName(equipmentItemStack.getItemMeta());
 		
 		if(itemName.contains(" : ")) {
@@ -212,7 +219,10 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 		ItemStack generatedItemStack = WauzNmsClient.nmsSerialize(builder.generate(tier, rarity, equipmentType.getType(), name));
 		equipmentItemStack.setType(generatedItemStack.getType());
 		equipmentItemStack.setItemMeta(generatedItemStack.getItemMeta());
-		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
+		
+		if(manual) {
+			player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
+		}
 	}
 	
 	/**

@@ -5,14 +5,18 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.CraftingConfigurator;
+import eu.wauz.wauzcore.items.identifiers.WauzIdentifier;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Components;
+import eu.wauz.wauzcore.system.util.Formatters;
 import io.lumine.xikage.mythicmobs.MythicMobs;
 import io.lumine.xikage.mythicmobs.items.ItemManager;
 
@@ -116,15 +120,31 @@ public class WauzCraftingItem {
 	public ItemStack getInstance(Player player, boolean crafted) {
 		ItemStack itemStack = craftingItemStack.clone();
 		if(shouldIdentify) {
-			
+			WauzIdentifier.identify(player, itemStack, ItemUtils.getDisplayName(itemStack), false);
 		}
-		
 		MenuUtils.addItemLore(itemStack, "", false);
+		
 		if(crafted) {
 			MenuUtils.addItemLore(itemStack, ChatColor.GRAY + "Crafted by " + player.getName(), false);
 		}
 		else {
-			
+			Inventory inventory = MaterialPouch.getInventory(player, "materials");
+			for(WauzCraftingRequirement requirement : requirements) {
+				int materialCost = requirement.getAmount();
+				int materialAmount = 0;
+				String materialName = requirement.getMaterial();
+				for(ItemStack materialItemStack : inventory.getContents()) {
+					if(materialItemStack != null && ItemUtils.isSpecificItem(materialItemStack, materialName)) {
+						materialAmount += materialItemStack.getAmount();
+					}
+				}
+				ChatColor materialAmountColor = materialAmount >= materialCost ? ChatColor.GREEN : ChatColor.RED;
+				
+				String materialCostString = ChatColor.GOLD + Formatters.INT.format(materialCost);
+				String materialAmountString = materialAmountColor + Formatters.INT.format(materialAmount);
+				String priceString = materialCostString + " (" + materialAmountString + ChatColor.GOLD + ") ";
+				MenuUtils.addItemLore(itemStack, priceString + materialName, false);
+			}
 		}
 		itemStack.setAmount(craftingItemAmount);
 		return itemStack;

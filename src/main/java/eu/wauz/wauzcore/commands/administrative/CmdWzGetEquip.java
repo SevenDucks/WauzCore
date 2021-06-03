@@ -67,7 +67,7 @@ public class CmdWzGetEquip implements WauzCommand {
 		Components.displayName(equipmentItemMeta, ChatColor.GRAY + "Unidentified " + tier + " Item : " + type);
 		equipmentItemStack.setItemMeta(equipmentItemMeta);
 		
-		new WauzEquipmentIdentifier().identifyItem(player, equipmentItemStack);
+		new WauzEquipmentIdentifier().identifyItem(player, equipmentItemStack, true);
 		player.getInventory().addItem(WauzNmsClient.nmsSerialize(equipmentItemStack));
 		return true;
 	}

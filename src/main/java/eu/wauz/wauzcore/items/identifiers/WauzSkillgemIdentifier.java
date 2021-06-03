@@ -33,15 +33,18 @@ public class WauzSkillgemIdentifier {
 	 * 
 	 * @param player The player who identifies the item.
 	 * @param skillgemItemStack The skillgem item stack, that is getting identified.
+	 * @param manual If the identification was triggered manually.
 	 */
-	public void identifySkillgem(Player player, ItemStack skillgemItemStack) {
+	public void identifySkillgem(Player player, ItemStack skillgemItemStack, boolean manual) {
 		List<String> skills = WauzPlayerSkillExecutor.getAllSkillgemIds();
 		String skillgemName = skills.get(Chance.randomInt(skills.size()));
 		
 		WauzPlayerSkill skill = WauzPlayerSkillExecutor.getSkill(skillgemName);
 		createSkillgem(skillgemItemStack, skill);
 		
-		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
+		if(manual) {
+			player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
+		}
 	}
 	
 	/**

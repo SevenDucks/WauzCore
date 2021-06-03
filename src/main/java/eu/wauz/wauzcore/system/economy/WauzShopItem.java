@@ -124,6 +124,7 @@ public class WauzShopItem {
 	public ItemStack getInstance(Player player, WauzShopDiscount discount, boolean bought) {
 		ItemStack itemStack = shopItemStack.clone();
 		MenuUtils.addItemLore(itemStack, "", false);
+		
 		if(bought) {
 			MenuUtils.addItemLore(itemStack, ChatColor.DARK_GRAY + "Bought (Worthless)", false);
 		}

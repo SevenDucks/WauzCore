@@ -31,12 +31,13 @@ public class WauzRuneIdentifier {
 	 * 
 	 * @param player The player who identifies the item.
 	 * @param runeItemStack The rune item stack, that is getting identified.
+	 * @param manual If the identification was triggered manually.
 	 * 
 	 * @see Rarity#getRandomRuneRarity()
 	 * @see Tier#getRuneTier(String)
 	 * @see WauzRuneBuilder#generate(Tier, Rarity)
 	 */
-	public void identifyRune(Player player, ItemStack runeItemStack) {
+	public void identifyRune(Player player, ItemStack runeItemStack, boolean manual) {
 		String itemName = Components.displayName(runeItemStack.getItemMeta());
 		Rarity rarity = Rarity.getRandomRuneRarity();
 		Tier tier = Tier.getRuneTier(itemName);
@@ -51,7 +52,10 @@ public class WauzRuneIdentifier {
 		ItemStack generatedItemStack = WauzNmsClient.nmsSerialize(builder.generate(tier, rarity));
 		runeItemStack.setType(generatedItemStack.getType());
 		runeItemStack.setItemMeta(generatedItemStack.getItemMeta());
-		player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
+		
+		if(manual) {
+			player.getWorld().playEffect(player.getLocation(), Effect.ANVIL_USE, 0);
+		}
 	}
 
 }

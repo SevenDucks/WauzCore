@@ -39,7 +39,7 @@ public class ScrollWisdom implements InventoryScroll {
 	@Override
 	public boolean use(InventoryClickEvent event, String itemName) {
 		if(itemName.contains("Unidentified")) {
-			WauzIdentifier.identify(event, itemName);
+			WauzIdentifier.identify(event, itemName, true);
 			AchievementTracker.addProgress((Player) event.getWhoClicked(), WauzAchievementType.IDENTIFY_ITEMS, 1);
 			return true;
 		}

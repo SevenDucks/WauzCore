@@ -75,13 +75,13 @@ public class BreedingMenu implements WauzInventory {
 	 * @param breedingSkill The breeding skill of the player.
 	 * 
 	 * @see UnicodeUtils#createProgressBar(double, double, int, ChatColor)
-	 * @see MenuUtils#setBorders(Inventory)
 	 * @see BreedingMenu#updateBreedButton()
+	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player, PassiveBreeding breedingSkill) {
 		BreedingMenu breedingMenu = new BreedingMenu(breedingSkill);
 		String levelText = ChatColor.DARK_RED + "" + ChatColor.BOLD + "Level " + breedingSkill.getLevel();
-		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Breeding Menu " + levelText;
+		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Breeding " + levelText;
 		Inventory menu = Components.inventory(breedingMenu, menuTitle, 9);
 		breedingMenu.setMenu(menu);
 		
