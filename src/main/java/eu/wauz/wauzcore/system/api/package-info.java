@@ -1,4 +1,4 @@
 /**
- * This package contains an api for communicating infos to the web.
+ * This package contains apis for different protocols and services.
  */
 package eu.wauz.wauzcore.system.api;

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.bukkit.Bukkit;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -17,6 +18,17 @@ import org.bukkit.inventory.ItemStack;
  */
 @SuppressWarnings("deprecation")
 public class DeprecatedUtils {
+	
+	/**
+	 * Checks if the given player interact event was cancelled.
+	 * 
+	 * @param event The interact event.
+	 * 
+	 * @return If it was cancelled.
+	 */
+	public static boolean isPlayerInteractionCancelled(PlayerInteractEvent event) {
+		return event.isCancelled();
+	}
 	
 	/**
 	 * Removes the Minecraft damage modifiers from an event.

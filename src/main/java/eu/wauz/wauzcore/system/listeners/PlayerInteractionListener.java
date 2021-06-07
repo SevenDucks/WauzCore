@@ -96,7 +96,7 @@ public class PlayerInteractionListener implements Listener {
 	@EventHandler
 	public void onPing(ServerListPingEvent event) {
 		String playerName = getNameFromAddress(event.getAddress());
-		Components.motd(event, ServerConfigurator.getServerMotd(playerName));;
+		Components.motd(event, ServerConfigurator.getServerMotd(playerName));
 	}
 
 	/**

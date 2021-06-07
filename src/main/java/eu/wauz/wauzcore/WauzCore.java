@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -21,12 +20,11 @@ import eu.wauz.wauzcore.data.DiscordConfigurator;
 import eu.wauz.wauzcore.data.ServerConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
-import eu.wauz.wauzcore.system.WauzDiscordBot;
-import eu.wauz.wauzcore.system.WauzDiscordLogFilter;
 import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.WauzRepeatingTasks;
 import eu.wauz.wauzcore.system.annotations.AnnotationLoader;
 import eu.wauz.wauzcore.system.api.FtpServerManager;
+import eu.wauz.wauzcore.system.api.WauzDiscordBot;
 import eu.wauz.wauzcore.system.api.WebServerManager;
 import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
@@ -41,6 +39,7 @@ import eu.wauz.wauzcore.system.listeners.PlayerCombatListener;
 import eu.wauz.wauzcore.system.listeners.PlayerInteractionListener;
 import eu.wauz.wauzcore.system.listeners.ProjectileMovementListener;
 import eu.wauz.wauzcore.system.listeners.WauzDiscordListener;
+import eu.wauz.wauzcore.system.logging.LogFilterManager;
 import eu.wauz.wauzcore.system.util.BungeeUtils;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
@@ -84,11 +83,6 @@ public class WauzCore extends JavaPlugin {
 	private static WauzDiscordBot discordBot;
 	
 	/**
-	 * The filter used to listen to log records from Bukkit.
-	 */
-	private static WauzDiscordLogFilter discordLogFilter;
-	
-	/**
 	 * The WebServerManager used for the web based API.
 	 */
 	private static WebServerManager webServerManager;
@@ -105,7 +99,8 @@ public class WauzCore extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		audiences = BukkitAudiences.create(this);
-		PluginManager pluginManager = getServer().getPluginManager(); 
+		PluginManager pluginManager = getServer().getPluginManager();
+		LogFilterManager.enableGeneralFilter();
 		
 		getLogger().info("O~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-O");
 		getLogger().info(" _    _                                           ");
@@ -137,9 +132,8 @@ public class WauzCore extends JavaPlugin {
 			getLogger().info("Registered EventListeners!");
 			
 			discordBot = new WauzDiscordBot();
-			discordLogFilter = new WauzDiscordLogFilter();
+			LogFilterManager.enableDiscordFilter();
 			pluginManager.registerEvents(new WauzDiscordListener(), this);
-			((org.apache.logging.log4j.core.Logger) LogManager.getRootLogger()).addFilter(discordLogFilter);
 			getLogger().info("Enabled Discord Integration!");
 			
 			int apiPort = ServerConfigurator.getServerApiPort();
@@ -176,7 +170,7 @@ public class WauzCore extends JavaPlugin {
 				discordBot.sendEmbedFromMinecraft(null, ":octagonal_sign: " + WauzCore.getServerKey()
 						+ " has been stopped!", null, Color.RED, false);
 			}
-			discordLogFilter.close();
+			LogFilterManager.disableDiscordFilter();
 			discordBot.stop();
 			getLogger().info("Disabled Discord Integration!");
 			
@@ -196,6 +190,7 @@ public class WauzCore extends JavaPlugin {
 			}
 			getLogger().info("Closed Active Instances!");
 		}
+		LogFilterManager.disableGeneralFilter();
 	}
 
 	/**

@@ -26,6 +26,7 @@ import eu.wauz.wauzcore.events.ArmorEquipEvent;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.ArmorType;
 import eu.wauz.wauzcore.events.ArmorEquipEvent.EquipMethod;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.system.util.DeprecatedUtils;
 
 /**
  * A listener to create armor equip events from normal Bukkit events.
@@ -203,7 +204,7 @@ public class ArmorEquipEventListener implements Listener {
 	 */
 	@EventHandler(priority = EventPriority.HIGH)
 	public void playerInteractEvent(PlayerInteractEvent event) {
-		if(event.isCancelled()) {
+		if(DeprecatedUtils.isPlayerInteractionCancelled(event)) {
 			return;
 		}
 		

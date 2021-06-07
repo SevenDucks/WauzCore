@@ -57,31 +57,79 @@ public class FtpUserManager implements UserManager {
 		}
 	}
 
+	/**
+	 * Gets the user with the given name.
+	 * 
+	 * @param username The name of the user.
+	 * 
+	 * @return The user or null, if the name is unkown.
+	 * 
+	 * @throws FtpException Error in the user manager.
+	 */
 	@Override
 	public User getUserByName(String username) throws FtpException {
 		return userMap.get(username);
 	}
 
+	/**
+	 * Gets the names of all users.
+	 * 
+	 * @return All usernames.
+	 * 
+	 * @throws FtpException Error in the user manager.
+	 */
 	@Override
 	public String[] getAllUserNames() throws FtpException {
 		return (String[]) userMap.keySet().toArray();
 	}
 
+	/**
+	 * Tries to delete the given user.
+	 * 
+	 * @param username The name of the user.
+	 * 
+	 * @throws FtpException Always thrown, since the virtual users can't be edited.
+	 */
 	@Override
 	public void delete(String username) throws FtpException {
 		throw new FtpException("Can't edit virtual users!");
 	}
 
+	/**
+	 * Tries to save the given user.
+	 * 
+	 * @param user The user.
+	 * 
+	 * @throws FtpException Always thrown, since the virtual users can't be edited.
+	 */
 	@Override
 	public void save(User user) throws FtpException {
 		throw new FtpException("Can't edit virtual users!");
 	}
 
+	/**
+	 * Checks if the given username exists.
+	 * 
+	 * @param username The name of the user.
+	 * 
+	 * @return If the user exists.
+	 * 
+	 * @throws FtpException Error in the user manager.
+	 */
 	@Override
 	public boolean doesExist(String username) throws FtpException {
 		return userMap.containsKey(username);
 	}
 
+	/**
+	 * Tries to authenticate an user.
+	 * 
+	 * @param authentication The authentication to process.
+	 * 
+	 * @return The authenticated user.
+	 * 
+	 * @throws AuthenticationFailedException Failed to authenticate.
+	 */
 	@Override
 	public User authenticate(Authentication authentication) throws AuthenticationFailedException {
 		if(!(authentication instanceof UsernamePasswordAuthentication)) {
@@ -98,11 +146,27 @@ public class FtpUserManager implements UserManager {
 		return user;
 	}
 
+	/**
+	 * Gets the username of the admin.
+	 * 
+	 * @return Always null, since there is no admin.
+	 * 
+	 * @throws FtpException Error in the user manager.
+	 */
 	@Override
 	public String getAdminName() throws FtpException {
 		return null;
 	}
 
+	/**
+	 * Checks if the given username belongs to the admin.
+	 * 
+	 * @param username The name of the user.
+	 * 
+	 * @return Always false, since there is no admin.
+	 * 
+	 * @throws FtpException Error in the user manager.
+	 */
 	@Override
 	public boolean isAdmin(String username) throws FtpException {
 		return false;
