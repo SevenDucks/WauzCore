@@ -179,20 +179,21 @@ public class CraftingMenu implements WauzInventory {
 		if(skill.getLevel() < itemToCraft.getCraftingItemLevel()) {
 			return false;
 		}
-		Inventory inventory = MaterialPouch.getInventory(player, "questitems");
+		Inventory inventory = MaterialPouch.getInventory(player, "materials");
 		InventoryItemRemover itemRemover = new InventoryItemRemover(inventory);
 		
 		if(!player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString())) {
 			for(WauzCraftingRequirement requirement : itemToCraft.getRequirements()) {
 				int materialAmount = 0;
+				int neededMaterialAmount = requirement.getAmount();
 				String materialName = requirement.getMaterial();
-				itemRemover.addItemNameToRemove(materialName, itemToCraft.getCraftingItemAmount());
+				itemRemover.addItemNameToRemove(materialName, neededMaterialAmount);
 				for(ItemStack materialItemStack : inventory.getContents()) {
 					if(materialItemStack != null && ItemUtils.isSpecificItem(materialItemStack, materialName)) {
 						materialAmount += materialItemStack.getAmount();
 					}
 				}
-				if(materialAmount < itemToCraft.getCraftingItemAmount()) {
+				if(materialAmount < neededMaterialAmount) {
 					player.sendMessage(ChatColor.RED + "You don't have enough materials!");
 					player.closeInventory();
 					return false;

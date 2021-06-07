@@ -63,10 +63,10 @@ public class WauzCraftingItem {
 	 * Constructs a crafting item, based on the Crafting.yml file.
 	 * 
 	 * @param craftingCategory The category of the crafting item.
-	 * @param itemIndex The number of the crafting item.
+	 * @param itemName The name of the crafting item.
 	 */
-	public WauzCraftingItem(String craftingCategory, int itemIndex) {
-		String craftingItemType = CraftingConfigurator.getItemType(craftingCategory, itemIndex);
+	public WauzCraftingItem(String craftingCategory, String itemName) {
+		String craftingItemType = CraftingConfigurator.getItemType(craftingCategory, itemName);
 		String[] nameParts = craftingItemType.split(";");
 		String canonicalName = nameParts[0];
 		String displayNameSuffix = nameParts.length > 1 ? nameParts[1] : null;
@@ -76,10 +76,10 @@ public class WauzCraftingItem {
 			Components.displayName(craftingItemMeta, Components.displayName(craftingItemMeta) + displayNameSuffix);
 			craftingItemStack.setItemMeta(craftingItemMeta);
 		}
-		this.craftingItemAmount = CraftingConfigurator.getItemAmount(craftingCategory, itemIndex);
-		this.craftingItemLevel = CraftingConfigurator.getItemLevel(craftingCategory, itemIndex);
-		this.shouldIdentify = CraftingConfigurator.shouldIdentifyItem(craftingCategory, itemIndex);
-		this.requirements = CraftingConfigurator.getItemRequirements(craftingCategory, itemIndex);
+		this.craftingItemAmount = CraftingConfigurator.getItemAmount(craftingCategory, itemName);
+		this.craftingItemLevel = CraftingConfigurator.getItemLevel(craftingCategory, itemName);
+		this.shouldIdentify = CraftingConfigurator.shouldIdentifyItem(craftingCategory, itemName);
+		this.requirements = CraftingConfigurator.getItemRequirements(craftingCategory, itemName);
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class WauzCraftingItem {
 	 */
 	public ItemStack getInstance(Player player, boolean crafted) {
 		ItemStack itemStack = craftingItemStack.clone();
-		if(shouldIdentify) {
+		if(crafted && shouldIdentify) {
 			WauzIdentifier.identify(player, itemStack, ItemUtils.getDisplayName(itemStack), false);
 		}
 		MenuUtils.addItemLore(itemStack, "", false);

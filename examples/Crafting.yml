@@ -1,11 +1,404 @@
 smithing:
-  1:
-    type:
+  # Test Tier
+  Test1:
+    type: 'EquipT1'
     amount: 1
-    level:
+    level: 0
     identify: true
     cost:
-    - ''
-    - ''
+    - 'Wauzleaf;3'
+    - 'Duckroot;3'
+  Test2:
+    type: 'EquipT1; : Sword'
+    amount: 1
+    level: 1
+    identify: true
+    cost:
+    - 'Wauzleaf;3'
+    - 'Duckroot;3'
+  # Tier 1
+  1:
+    type: 'EquipT1'
+    amount: 1
+    level: 0
+    identify: true
+    cost:
+    - 'Copper;5'
+    - 'Light Leather;3'
+  2:
+    type: 'EquipT1; : Sword'
+    amount: 1
+    level: 2
+    identify: true
+    cost:
+    - 'Copper;9'
+    - 'Light Leather;2'
+  3:
+    type: 'EquipT1; : Axe'
+    amount: 1
+    level: 2
+    identify: true
+    cost:
+    - 'Copper;9'
+    - 'Light Leather;2'
+  4:
+    type: 'EquipT1; : Staff'
+    amount: 1
+    level: 2
+    identify: true
+    cost:
+    - 'Copper;9'
+    - 'Light Leather;2'
+  5:
+    type: 'EquipT1; : Secondary Weapon'
+    amount: 1
+    level: 3
+    identify: true
+    cost:
+    - 'Copper;7'
+    - 'Light Leather;4'
+  6:
+    type: 'EquipT1; : Gathering Tool'
+    amount: 1
+    level: 3
+    identify: true
+    cost:
+    - 'Copper;8'
+    - 'Light Leather;3'
+  7:
+    type: 'EquipT1; : Armor Piece'
+    amount: 1
+    level: 4
+    identify: true
+    cost:
+    - 'Copper;10'
+    - 'Light Leather;5'
+  8:
+    type: 'SkillGem'
+    amount: 1
+    level: 5
+    identify: true
+    cost:
+    - 'Copper;25'
+  # Tier 2
+  9:
+    type: 'EquipT2'
+    amount: 1
+    level: 5
+    identify: true
+    cost:
+    - 'Iron;5'
+    - 'Medium Leather;3'
+  10:
+    type: 'EquipT2; : Sword'
+    amount: 1
+    level: 7
+    identify: true
+    cost:
+    - 'Iron;9'
+    - 'Medium Leather;2'
+  11:
+    type: 'EquipT2; : Axe'
+    amount: 1
+    level: 7
+    identify: true
+    cost:
+    - 'Iron;9'
+    - 'Medium Leather;2'
+  12:
+    type: 'EquipT2; : Staff'
+    amount: 1
+    level: 7
+    identify: true
+    cost:
+    - 'Iron;9'
+    - 'Medium Leather;2'
+  13:
+    type: 'EquipT2; : Secondary Weapon'
+    amount: 1
+    level: 8
+    identify: true
+    cost:
+    - 'Iron;7'
+    - 'Medium Leather;4'
+  14:
+    type: 'EquipT2; : Gathering Tool'
+    amount: 1
+    level: 8
+    identify: true
+    cost:
+    - 'Iron;8'
+    - 'Medium Leather;3'
+  15:
+    type: 'EquipT2; : Armor Piece'
+    amount: 1
+    level: 9
+    identify: true
+    cost:
+    - 'Iron;10'
+    - 'Medium Leather;5'
+  16:
+    type: 'SkillGem'
+    amount: 1
+    level: 10
+    identify: true
+    cost:
+    - 'Iron;23'
+  # Tier 3
+  17:
+    type: 'EquipT3'
+    amount: 1
+    level: 10
+    identify: true
+    cost:
+    - 'Gold;5'
+    - 'Heavy Leather;3'
+  18:
+    type: 'EquipT3; : Sword'
+    amount: 1
+    level: 12
+    identify: true
+    cost:
+    - 'Gold;9'
+    - 'Heavy Leather;2'
+  19:
+    type: 'EquipT3; : Axe'
+    amount: 1
+    level: 12
+    identify: true
+    cost:
+    - 'Gold;9'
+    - 'Heavy Leather;2'
+  20:
+    type: 'EquipT3; : Staff'
+    amount: 1
+    level: 12
+    identify: true
+    cost:
+    - 'Gold;9'
+    - 'Heavy Leather;2'
+  21:
+    type: 'EquipT3; : Secondary Weapon'
+    amount: 1
+    level: 13
+    identify: true
+    cost:
+    - 'Gold;7'
+    - 'Heavy Leather;4'
+  22:
+    type: 'EquipT3; : Gathering Tool'
+    amount: 1
+    level: 13
+    identify: true
+    cost:
+    - 'Gold;8'
+    - 'Heavy Leather;3'
+  23:
+    type: 'EquipT3; : Armor Piece'
+    amount: 1
+    level: 14
+    identify: true
+    cost:
+    - 'Gold;10'
+    - 'Heavy Leather;5'
+  24:
+    type: 'SkillGem'
+    amount: 1
+    level: 15
+    identify: true
+    cost:
+    - 'Gold;21'
+  # Tier 4
+  25:
+    type: 'EquipT4'
+    amount: 1
+    level: 15
+    identify: true
+    cost:
+    - 'Jade;5'
+    - 'Thick Leather;3'
+  26:
+    type: 'EquipT4; : Sword'
+    amount: 1
+    level: 17
+    identify: true
+    cost:
+    - 'Jade;9'
+    - 'Thick Leather;2'
+  27:
+    type: 'EquipT4; : Axe'
+    amount: 1
+    level: 17
+    identify: true
+    cost:
+    - 'Jade;9'
+    - 'Thick Leather;2'
+  28:
+    type: 'EquipT4; : Staff'
+    amount: 1
+    level: 17
+    identify: true
+    cost:
+    - 'Jade;9'
+    - 'Thick Leather;2'
+  29:
+    type: 'EquipT4; : Secondary Weapon'
+    amount: 1
+    level: 18
+    identify: true
+    cost:
+    - 'Jade;7'
+    - 'Thick Leather;4'
+  30:
+    type: 'EquipT4; : Gathering Tool'
+    amount: 1
+    level: 18
+    identify: true
+    cost:
+    - 'Jade;8'
+    - 'Thick Leather;3'
+  31:
+    type: 'EquipT4; : Armor Piece'
+    amount: 1
+    level: 19
+    identify: true
+    cost:
+    - 'Jade;10'
+    - 'Thick Leather;5'
+  32:
+    type: 'SkillGem'
+    amount: 1
+    level: 20
+    identify: true
+    cost:
+    - 'Jade;19'
+  # Tier 5
+  33:
+    type: 'EquipT5'
+    amount: 1
+    level: 20
+    identify: true
+    cost:
+    - 'Diamond;5'
+    - 'Rugged Leather;3'
+  34:
+    type: 'EquipT5; : Sword'
+    amount: 1
+    level: 22
+    identify: true
+    cost:
+    - 'Diamond;9'
+    - 'Rugged Leather;2'
+  35:
+    type: 'EquipT5; : Axe'
+    amount: 1
+    level: 22
+    identify: true
+    cost:
+    - 'Diamond;9'
+    - 'Rugged Leather;2'
+  36:
+    type: 'EquipT5; : Staff'
+    amount: 1
+    level: 22
+    identify: true
+    cost:
+    - 'Diamond;9'
+    - 'Rugged Leather;2'
+  37:
+    type: 'EquipT5; : Secondary Weapon'
+    amount: 1
+    level: 23
+    identify: true
+    cost:
+    - 'Diamond;7'
+    - 'Rugged Leather;4'
+  38:
+    type: 'EquipT5; : Gathering Tool'
+    amount: 1
+    level: 23
+    identify: true
+    cost:
+    - 'Diamond;8'
+    - 'Rugged Leather;3'
+  39:
+    type: 'EquipT5; : Armor Piece'
+    amount: 1
+    level: 24
+    identify: true
+    cost:
+    - 'Diamond;10'
+    - 'Rugged Leather;5'
+  40:
+    type: 'SkillGem'
+    amount: 1
+    level: 25
+    identify: true
+    cost:
+    - 'Diamond;17'
+  # Tier 6
+  41:
+    type: 'EquipT6'
+    amount: 1
+    level: 25
+    identify: true
+    cost:
+    - 'Calamitite;5'
+    - 'Demonic Leather;3'
+  42:
+    type: 'EquipT6; : Sword'
+    amount: 1
+    level: 27
+    identify: true
+    cost:
+    - 'Calamitite;9'
+    - 'Demonic Leather;2'
+  43:
+    type: 'EquipT6; : Axe'
+    amount: 1
+    level: 27
+    identify: true
+    cost:
+    - 'Calamitite;9'
+    - 'Demonic Leather;2'
+  44:
+    type: 'EquipT6; : Staff'
+    amount: 1
+    level: 27
+    identify: true
+    cost:
+    - 'Calamitite;9'
+    - 'Demonic Leather;2'
+  45:
+    type: 'EquipT6; : Secondary Weapon'
+    amount: 1
+    level: 28
+    identify: true
+    cost:
+    - 'Calamitite;7'
+    - 'Demonic Leather;4'
+  46:
+    type: 'EquipT6; : Gathering Tool'
+    amount: 1
+    level: 28
+    identify: true
+    cost:
+    - 'Calamitite;8'
+    - 'Demonic Leather;3'
+  47:
+    type: 'EquipT6; : Armor Piece'
+    amount: 1
+    level: 29
+    identify: true
+    cost:
+    - 'Calamitite;10'
+    - 'Demonic Leather;5'
+  48:
+    type: 'SkillGem'
+    amount: 1
+    level: 30
+    identify: true
+    cost:
+    - 'Calamitite;15'
 cooking:
 inscription:

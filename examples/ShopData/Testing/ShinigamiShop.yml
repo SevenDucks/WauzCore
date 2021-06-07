@@ -1,6 +1,6 @@
 name: Shinigami Shop
 type: Normal
-amount: 5
+amount: 6
 items:
   1:
     type: FoodSoulsteak
@@ -32,3 +32,9 @@ items:
     price: 50
     currency: coins
     relation: 5
+  6:
+    type: 'EquipT1; : Axe'
+    amount: 1
+    price: 25
+    currency: coins
+    relation: 2

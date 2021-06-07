@@ -70,10 +70,9 @@ public class WauzCraftingRecipes {
 	 */
 	private static List<WauzCraftingItem> getCraftingItems(String craftingCategory) {
 		List<WauzCraftingItem> items = new ArrayList<>();
-		int count = CraftingConfigurator.getItemCount(craftingCategory);
-		recipeCount += count;
-		for(int index = 1; index <= count; index++) {
-			items.add(new WauzCraftingItem(craftingCategory, index));
+		for(String itemName : CraftingConfigurator.getItemNames(craftingCategory)) {
+			items.add(new WauzCraftingItem(craftingCategory, itemName));
+			recipeCount++;
 		}
 		return items;
 	}

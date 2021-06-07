@@ -94,7 +94,7 @@ public class JobMenu implements WauzInventory {
 		skillMiningLores.add(ChatColor.GRAY + "This Job has no Menu.");
 		skillMiningLores.add("");
 		skillMiningLores.add(ChatColor.WHITE + "Highest Pickaxe Tier: " + ChatColor.YELLOW
-				+ (Math.min(6, (int) ((miningSkill.getLevel() / 5) + 1))) + "/ 6");
+				+ (Math.min(6, (int) ((miningSkill.getLevel() / 5) + 1))) + " / 6");
 		skillMiningLores.addAll(miningSkill.getProgressLores(ChatColor.YELLOW));
 		Components.lore(skillMiningItemMeta, skillMiningLores);
 		skillMiningItemStack.setItemMeta(skillMiningItemMeta);
