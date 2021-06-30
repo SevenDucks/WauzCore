@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.system.instances;
+package eu.wauz.wauzcore.worlds.instances;
 
 import java.util.HashMap;
 

@@ -1,6 +1,5 @@
 package eu.wauz.wauzcore.data;
 
-import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiarySpecies;
 import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
@@ -17,23 +16,20 @@ import eu.wauz.wauzcore.system.achievements.WauzAchievement;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
 import eu.wauz.wauzcore.system.economy.WauzCurrency;
 import eu.wauz.wauzcore.system.economy.WauzShop;
-import eu.wauz.wauzcore.system.instances.InstanceManager;
-import eu.wauz.wauzcore.system.instances.WauzInstance;
 import eu.wauz.wauzcore.system.quests.WauzQuest;
+import eu.wauz.wauzcore.worlds.instances.InstanceManager;
+import eu.wauz.wauzcore.worlds.instances.WauzInstance;
 
 /**
- * Used by the main class to load all static data from files.
+ * Used to load all static data from files.
  * 
  * @author Wauzmons
- * 
- * @see WauzCore
  */
 public class ConfigurationLoader {
 	
 	/**
 	 * Calls all other methods for loading and initializing data.
-	 * Also cleans data from last run by recalculating the statistics
-	 * and removing inactive instances.
+	 * Also recalculates statistics and removes inactive instances.
 	 * Only called once per server run.
 	 * 
 	 * @see InstanceManager#removeInactiveInstances()

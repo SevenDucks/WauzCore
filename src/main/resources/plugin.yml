@@ -1,12 +1,12 @@
 name: WauzCore
-description: Advanced Minecraft MMORPG Engine - Main Module
+description: Advanced Minecraft MMORPG Engine
 main: eu.wauz.wauzcore.WauzCore
 website: http://wauz.eu/
 version: Behelit.12-SNAPSHOT
 api-version: 1.16
-author: Nikolas Keller
-depend: [MythicMobs]
-softdepend: [NoteBlockAPI]
+author: Wauzmons (Nikolas Keller)
+softdepend: [BKCommonLib, dynmap, HeadDatabase, LibsDisguises, LightCleaner, NoteBlockAPI, ProtocolLib]
+loadbefore: [MythicMobs]
 commands:
   hub:
     description: Teleport to Hub

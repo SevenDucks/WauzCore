@@ -49,12 +49,12 @@ import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstancePool;
 
 /**
  * A listener to catch events, related to interactions between the environment and the player.

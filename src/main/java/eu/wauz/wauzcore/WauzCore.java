@@ -11,6 +11,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,11 +23,11 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.WauzRepeatingTasks;
+import eu.wauz.wauzcore.system.WauzRestartScheduler;
 import eu.wauz.wauzcore.system.annotations.AnnotationLoader;
 import eu.wauz.wauzcore.system.api.FtpServerManager;
 import eu.wauz.wauzcore.system.api.WauzDiscordBot;
 import eu.wauz.wauzcore.system.api.WebServerManager;
-import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
 import eu.wauz.wauzcore.system.listeners.BaseModuleListener;
 import eu.wauz.wauzcore.system.listeners.BlockProtectionListener;
@@ -41,6 +42,8 @@ import eu.wauz.wauzcore.system.listeners.ProjectileMovementListener;
 import eu.wauz.wauzcore.system.listeners.WauzDiscordListener;
 import eu.wauz.wauzcore.system.logging.LogFilterManager;
 import eu.wauz.wauzcore.system.util.BungeeUtils;
+import eu.wauz.wauzcore.worlds.WorldLoader;
+import eu.wauz.wauzcore.worlds.instances.InstanceManager;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 /**
@@ -113,6 +116,13 @@ public class WauzCore extends JavaPlugin {
 		getLogger().info("O-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~O");
 		
 		if(WauzModules.isMainModuleActive()) {
+			WorldLoader.init();
+			getLogger().info("Finished Loading World Saves!");
+			
+			PluginManager manager = getServer().getPluginManager();
+			Plugin mythicMobs = manager.getPlugin("MythicMobs");
+			manager.enablePlugin(mythicMobs);
+			
 			ConfigurationLoader.init();
 			getLogger().info("Finished Loading Data from Files!");
 			
@@ -146,6 +156,9 @@ public class WauzCore extends JavaPlugin {
 			
 			WauzRepeatingTasks.schedule(this);
 			getLogger().info("Scheduled Repeating Tasks!");
+			
+			WauzRestartScheduler.schedule(this);
+			getLogger().info("Scheduled Next Restart!");
 			
 			if(DiscordConfigurator.showStartStopNotification()) {
 				discordBot.sendEmbedFromMinecraft(null, ":white_check_mark: " + WauzCore.getServerKey()

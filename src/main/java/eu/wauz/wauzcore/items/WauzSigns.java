@@ -16,12 +16,12 @@ import org.bukkit.event.block.SignChangeEvent;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzTeleporter;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
-import eu.wauz.wauzcore.system.instances.WauzInstanceKeyStatus;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.worlds.instances.WauzInstanceKeyStatus;
 
 /**
  * A class for handling the usage of event signs.

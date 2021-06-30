@@ -18,7 +18,8 @@ public class AnnotationLoader {
 	private Reflections reflections;
 	
 	/**
-	 * Initializes and runs the loader.
+	 * Initializes and runs the loader for all annotations.
+	 * Only called once per server run.
 	 */
 	public static void init() {
 		try {

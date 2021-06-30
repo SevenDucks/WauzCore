@@ -15,8 +15,8 @@ import com.xxmicloxx.NoteBlockAPI.utils.NBSDecoder;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstancePool;
 
 /**
  * Used for playing note block studio background songs to players.

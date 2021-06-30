@@ -10,9 +10,9 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.system.annotations.Command;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
-import eu.wauz.wauzcore.system.instances.WauzInstanceType;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.worlds.instances.WauzInstanceType;
 
 /**
  * A command, that can be executed by a player with fitting permissions.<br>

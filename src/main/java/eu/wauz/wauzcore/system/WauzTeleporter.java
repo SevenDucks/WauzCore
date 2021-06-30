@@ -21,11 +21,11 @@ import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
-import eu.wauz.wauzcore.system.instances.InstanceManager;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import eu.wauz.wauzcore.worlds.instances.InstanceManager;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstancePool;
 
 /**
  * Used to handle different types of teleportation of players.

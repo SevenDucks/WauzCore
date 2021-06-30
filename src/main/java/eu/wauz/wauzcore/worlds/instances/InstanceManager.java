@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.system.instances;
+package eu.wauz.wauzcore.worlds.instances;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,26 +14,19 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.WorldCreator;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.Sign;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.arcade.ArcadeLobby;
-import eu.wauz.wauzcore.building.ShapeCircle;
+import eu.wauz.wauzcore.building.WorldSpawnGenerator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
-import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.players.CharacterManager;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
-import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzFileUtils;
 
 /**
@@ -202,68 +195,18 @@ public class InstanceManager {
 		
 		World instanceWorld = core.getServer().createWorld(worldCreator);
 		Location spawnLocation = instanceWorld.getSpawnLocation().clone().add(0.5, 0, 0.5);
-		createSpawnCircle(instanceWorld, spawnLocation.clone().add(0, -1, 0));
+		WorldSpawnGenerator.createInstanceSpawnCircle(instanceWorld, spawnLocation.clone().add(0, -1, 0));
 		
 		WauzActiveInstance activeInstance = new WauzActiveInstance(instanceWorld, "Survival");
 		activeInstance.setDisplayTitle(worldType);
 		activeInstance.setDisplaySubtitle("Survival Pocket Realm");
 		WauzActiveInstancePool.registerInstance(activeInstance);
 		
-		WauzDebugger.log(player, "Spawn Location: "
-				+ spawnLocation.getX() + " "
-				+ spawnLocation.getY() + " "
-				+ spawnLocation.getZ());
-		
 		player.teleport(spawnLocation);
 		player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 		player.sendMessage(ChatColor.YELLOW
-				+ "Welcome! Type /spawn to leave the instance, but be aware that you can't return, "
+				+ "Welcome! Type /leave to exit the instance, but be aware that you can't return, "
 				+ "unless one of your group members stays in this world!");
-	}
-	
-	/**
-	 * Creates a circle out of obsidian and glowstone at the given location.
-	 * Exit signs are placed on the circle edges.
-	 * Used for survival instance spawns.
-	 * 
-	 * @param world The world on which the circle should be created.
-	 * @param location The center location of the circle.
-	 * 
-	 * @see InstanceManager#placeExitSign(Block, BlockFace)
-	 */
-	private static void createSpawnCircle(World world, Location location) {
-		new ShapeCircle(location, 7, false).create(Material.OBSIDIAN);
-		new ShapeCircle(location, 7, true).create(Material.GLOWSTONE);
-		new ShapeCircle(location.clone().add(0, 1, 0), 7, false).create(Material.AIR);
-		new ShapeCircle(location.clone().add(0, 1, 0), 7, false).create(Material.AIR);
-		new ShapeCircle(location.clone().add(0, 1, 0), 7, false).create(Material.AIR);
-		location.getBlock().setType(Material.BEDROCK);
-		location.getBlock().getRelative(BlockFace.NORTH).setType(Material.GLOWSTONE);
-		location.getBlock().getRelative(BlockFace.SOUTH).setType(Material.GLOWSTONE);
-		location.getBlock().getRelative(BlockFace.EAST).setType(Material.GLOWSTONE);
-		location.getBlock().getRelative(BlockFace.WEST).setType(Material.GLOWSTONE);
-		placeExitSign(location.clone().add(0, 1, +5).getBlock(), BlockFace.NORTH);
-		placeExitSign(location.clone().add(0, 1, -5).getBlock(), BlockFace.SOUTH);
-		placeExitSign(location.clone().add(-5, 1, 0).getBlock(), BlockFace.EAST);
-		placeExitSign(location.clone().add(+5, 1, 0).getBlock(), BlockFace.WEST);
-	}
-	
-	/**
-	 * Places a exit sign on the given block.
-	 * Used for instance exits.
-	 * 
-	 * @param block The block where the sign should be placed.
-	 * @param blockFace The direction thr sign should face.
-	 */
-	private static void placeExitSign(Block block, BlockFace blockFace) {
-		block.setType(Material.OAK_SIGN);
-		Sign sign = (Sign) block.getState();
-		org.bukkit.block.data.type.Sign signData = (org.bukkit.block.data.type.Sign) sign.getBlockData();
-		signData.setRotation(blockFace);
-		sign.setBlockData(signData);
-		Components.line(sign, 1, WauzSigns.EXIT_DOOR_TEXT);
-		Components.line(sign, 2, WauzSigns.EXIT_DOOR_LEAVE_TEXT);
-		sign.update();
 	}
 	
 // Instance Lifecycle

@@ -1,4 +1,4 @@
-package eu.wauz.wauzstarter;
+package eu.wauz.wauzcore.worlds;
 
 import java.util.Random;
 

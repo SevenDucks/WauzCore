@@ -21,10 +21,10 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstancePool;
 
 /**
  * An util to add ability sub menus to the main menu.

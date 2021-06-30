@@ -4,11 +4,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
-import eu.wauz.wauzcore.system.instances.InstanceMobArena;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
-import eu.wauz.wauzcore.system.instances.WauzInstanceType;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
+import eu.wauz.wauzcore.worlds.instances.InstanceMobArena;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.worlds.instances.WauzInstanceType;
 
 /**
  * A scoreboard to show the name and status of their instance to a player.

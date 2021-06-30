@@ -39,10 +39,10 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.api.StatisticsFetcher;
-import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import eu.wauz.wauzcore.worlds.instances.InstanceManager;
 
 /**
  * An inventory that can be used as menu or for other custom interaction mechanics.

@@ -3,7 +3,7 @@ package eu.wauz.wauzcore.data;
 import java.util.List;
 
 import eu.wauz.wauzcore.data.api.InstanceConfigurationUtils;
-import eu.wauz.wauzcore.system.instances.WauzInstanceType;
+import eu.wauz.wauzcore.worlds.instances.WauzInstanceType;
 
 /**
  * Configurator to fetch or modify data from the Instance.yml files.

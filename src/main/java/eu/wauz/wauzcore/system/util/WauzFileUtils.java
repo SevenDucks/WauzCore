@@ -45,12 +45,12 @@ public class WauzFileUtils {
 	public static boolean removeFilesRecursive(File folder) {
 		if(folder.exists()) {
 		    File files[] = folder.listFiles();
-		    for(int i = 0; i < files.length; i++) {
-		        if(files[i].isDirectory()) {
-		            removeFilesRecursive(files[i]);
+		    for(int index = 0; index < files.length; index++) {
+		        if(files[index].isDirectory()) {
+		            removeFilesRecursive(files[index]);
 		        }
 		        else {
-		            files[i].delete();
+		            files[index].delete();
 		        }
 		    }
 		    return folder.delete();

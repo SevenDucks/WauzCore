@@ -22,11 +22,11 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRank;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
 import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstancePool;
 
 /**
  * The player registrator is used to initially create/remove/update player information.

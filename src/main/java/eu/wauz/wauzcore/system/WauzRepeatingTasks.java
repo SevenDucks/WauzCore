@@ -21,8 +21,8 @@ import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.professions.WauzResource;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
-import eu.wauz.wauzcore.system.instances.InstanceManager;
 import eu.wauz.wauzcore.system.util.WauzMode;
+import eu.wauz.wauzcore.worlds.instances.InstanceManager;
 
 /**
  * Used to load different types of repeating tasks.

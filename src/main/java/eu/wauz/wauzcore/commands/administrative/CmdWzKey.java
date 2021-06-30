@@ -11,9 +11,9 @@ import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.annotations.Command;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstance;
-import eu.wauz.wauzcore.system.instances.WauzActiveInstancePool;
-import eu.wauz.wauzcore.system.instances.WauzInstanceKeyStatus;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
+import eu.wauz.wauzcore.worlds.instances.WauzActiveInstancePool;
+import eu.wauz.wauzcore.worlds.instances.WauzInstanceKeyStatus;
 
 /**
  * A command, that can be executed by a player with fitting permissions.<br>
