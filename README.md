@@ -14,9 +14,9 @@ Delve into a fascinating world, full of dark dungeons, vicious monsters and myth
 
 There currently is a demo in development. The test server is not publicly accessible though. [Seven Ducks](https://github.com/SevenDucks) plans to create a full [MMORPG experience in Minecraft](https://seven-ducks.com/delseyria.html) by 2022, all without the need for mods or data packs. Unlike Wynncraft it will be completely open source and provide APIs to add your own Skills or Equipment, so we hope it's worth the wait. All content will be released on the DelseyriaRPG Minecraft server, as soon as the first stable build is ready.
 
-:european_castle: Join the Delseyria Discord and chat with the Devs: https://discord.gg/dhHJp5a
+:speech_balloon: Developer Discord: https://discord.gg/dhHJp5a
 
-:bird: Keep up to date on Twitter: https://twitter.com/wauzmons
+:bird: Developer Twitter: https://twitter.com/wauzmons
 
 ## :crown: Advanced Minecraft MMORPG Engine
 Equipment, Skills, Quests, Shops, Dungeons, Bosses, Pets, Achievements and much more!

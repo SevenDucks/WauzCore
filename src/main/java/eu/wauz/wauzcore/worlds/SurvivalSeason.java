@@ -81,8 +81,9 @@ public class SurvivalSeason {
 				WauzFileUtils.removeFilesRecursive(new File(filePath.replace(worldName, worldName + "_the_end")));
 			}
 		}
+		worldCreator.createWorld();
+		
 		try {
-			worldCreator.createWorld();
 			initWorld();
 		}
 		catch (Exception e) {

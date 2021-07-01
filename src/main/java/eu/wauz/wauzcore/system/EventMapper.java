@@ -16,6 +16,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.CustomItem;
@@ -107,9 +108,10 @@ public class EventMapper {
 			}
 			return;
 		}
-		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+		if(player.getGameMode().equals(GameMode.CREATIVE) || event.getHand() == EquipmentSlot.OFF_HAND) {
 			return;
 		}
+		
 		if(event.getAction().toString().contains("CLICK") && !WauzMode.inHub(player) && SkillQuickSlots.tryToUse(player)) {
 			event.setCancelled(true);
 			return;
@@ -191,11 +193,13 @@ public class EventMapper {
 	 */
 	public static void handleSurvivalItemInteraction(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+		if(event.getAction() == Action.PHYSICAL) {
+			if(event.getClickedBlock().getType().equals(Material.FARMLAND)) {
+				event.setCancelled(true);
+			}
 			return;
 		}
-		if(event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.FARMLAND)) {
-			event.setCancelled(true);
+		if(player.getGameMode().equals(GameMode.CREATIVE) || event.getHand() == EquipmentSlot.OFF_HAND) {
 			return;
 		}
 		

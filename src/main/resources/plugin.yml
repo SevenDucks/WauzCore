@@ -4,8 +4,8 @@ main: eu.wauz.wauzcore.WauzCore
 website: http://wauz.eu/
 version: Behelit.12-SNAPSHOT
 api-version: 1.16
-author: Wauzmons (Nikolas Keller)
-softdepend: [BKCommonLib, dynmap, HeadDatabase, LibsDisguises, LightCleaner, NoteBlockAPI, ProtocolLib]
+author: Wauzmons
+softdepend: [NoteBlockAPI]
 loadbefore: [MythicMobs]
 commands:
   hub:
