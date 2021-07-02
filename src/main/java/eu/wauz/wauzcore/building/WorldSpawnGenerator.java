@@ -29,7 +29,7 @@ public class WorldSpawnGenerator {
 	public static void createMainSpawnCircle(World world, Location location) {
 		new ShapeCircle(location, 10, false).create(Material.CHISELED_QUARTZ_BLOCK);
 		new ShapeCircle(location, 10, true).create(Material.GOLD_BLOCK);
-		for(int y = location.getBlockY() + 1; y < world.getMaxHeight(); y++) {
+		for(int y = 1; y < world.getMaxHeight() - location.getBlockY(); y++) {
 			new ShapeCircle(location.clone().add(0, y, 0), 10, false).create(Material.AIR);
 		}
 		location.getBlock().setType(Material.DIAMOND_BLOCK);
@@ -53,7 +53,7 @@ public class WorldSpawnGenerator {
 	public static void createInstanceSpawnCircle(World world, Location location) {
 		new ShapeCircle(location, 7, false).create(Material.OBSIDIAN);
 		new ShapeCircle(location, 7, true).create(Material.GLOWSTONE);
-		for(int y = location.getBlockY() + 1; y < location.getBlockY() + 4; y++) {
+		for(int y = 1; y <= 3; y++) {
 			new ShapeCircle(location.clone().add(0, y, 0), 7, false).create(Material.AIR);
 		}
 		location.getBlock().setType(Material.BEDROCK);
