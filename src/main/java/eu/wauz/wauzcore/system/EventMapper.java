@@ -16,7 +16,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.CustomItem;
@@ -108,7 +107,7 @@ public class EventMapper {
 			}
 			return;
 		}
-		if(player.getGameMode().equals(GameMode.CREATIVE) || event.getHand() == EquipmentSlot.OFF_HAND) {
+		if(player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
 		
@@ -199,7 +198,7 @@ public class EventMapper {
 			}
 			return;
 		}
-		if(player.getGameMode().equals(GameMode.CREATIVE) || event.getHand() == EquipmentSlot.OFF_HAND) {
+		if(player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
 		

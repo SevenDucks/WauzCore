@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -68,6 +69,16 @@ public class Components {
 	 */
 	public static void kick(Player player, String message) {
 		player.kick(toComponent(message));
+	}
+	
+	/**
+	 * Sets the kick message of the given async login event.
+	 * 
+	 * @param event The login event.
+	 * @param message The kick message to set.
+	 */
+	public static void kickMessage(AsyncPlayerPreLoginEvent event, String message) {
+		event.kickMessage(toComponent(message));
 	}
 	
 	/**

@@ -37,6 +37,7 @@ import eu.wauz.wauzcore.system.listeners.PetModuleListener;
 import eu.wauz.wauzcore.system.listeners.PlayerAmbientListener;
 import eu.wauz.wauzcore.system.listeners.PlayerCombatListener;
 import eu.wauz.wauzcore.system.listeners.PlayerInteractionListener;
+import eu.wauz.wauzcore.system.listeners.PreJoinListener;
 import eu.wauz.wauzcore.system.listeners.ProjectileMovementListener;
 import eu.wauz.wauzcore.system.listeners.WauzDiscordListener;
 import eu.wauz.wauzcore.system.logging.LogFilterManager;
@@ -75,6 +76,11 @@ public class WauzCore extends JavaPlugin {
 	private static WauzCore instance;
 	
 	/**
+	 * If the core is started.
+	 */
+	private static boolean isStarted;
+	
+	/**
 	 * The audience provider for adventure components.
 	 */
 	private static BukkitAudiences audiences;
@@ -100,6 +106,7 @@ public class WauzCore extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
+		isStarted = false;
 		audiences = BukkitAudiences.create(this);
 		LogFilterManager.enableGeneralFilter();
 		
@@ -117,7 +124,8 @@ public class WauzCore extends JavaPlugin {
 			WorldLoader.init();
 			getLogger().info("Finished Loading World Saves!");
 		}
-		getServer().getScheduler().scheduleSyncDelayedTask(this, instance::setupModules, 1);
+		getServer().getPluginManager().registerEvents(new PreJoinListener(), this);
+		getServer().getScheduler().scheduleSyncDelayedTask(this, instance::setupModules);
 	}
 	
 	/**
@@ -174,6 +182,7 @@ public class WauzCore extends JavaPlugin {
 				pluginManager.registerEvents(new PetModuleListener(), this);
 			}
 		}
+		isStarted = true;
 	}
 
 	/**
@@ -181,6 +190,7 @@ public class WauzCore extends JavaPlugin {
 	 */
 	@Override
 	public void onDisable() {
+		isStarted = false;
 		if(WauzModules.isMainModuleActive()) {
 			if(DiscordConfigurator.showStartStopNotification()) {
 				discordBot.sendEmbedFromMinecraft(null, ":octagonal_sign: " + WauzCore.getServerKey()
@@ -227,6 +237,13 @@ public class WauzCore extends JavaPlugin {
 		return instance;
 	}
 	
+	/**
+	 * @return If the core is started.
+	 */
+	public static boolean isStarted() {
+		return isStarted;
+	}
+
 	/**
 	 * @return The audience provider for adventure components.
 	 */
