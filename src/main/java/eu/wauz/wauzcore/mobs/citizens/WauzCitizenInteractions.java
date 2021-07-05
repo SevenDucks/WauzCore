@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.mobs.citizens;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -43,6 +45,11 @@ import eu.wauz.wauzcore.system.util.Components;
 public class WauzCitizenInteractions {
 	
 	/**
+	 * Item slots for the interactions in the citizen menu.
+	 */
+	private static List<Integer> interactionSlots = Arrays.asList(2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 20, 21, 22, 23, 24);
+	
+	/**
 	 * The name of the citizen, as shown in chat.
 	 */
 	private String displayName;
@@ -58,9 +65,9 @@ public class WauzCitizenInteractions {
 	private List<ItemStack> interactionItemStacks = new ArrayList<>();
 	
 	/**
-	 * A map of interaction events, indexed by the triggering item stacks.
+	 * A map of interaction events, indexed by interaction name.
 	 */
-	private Map<ItemStack, WauzPlayerEvent> interactionEventMap = new HashMap<>();
+	private Map<String, WauzPlayerEvent> interactionEventMap = new HashMap<>();
 	
 	/**
 	 * Constructs a set of interactions for the citizen with the given name.
@@ -92,25 +99,23 @@ public class WauzCitizenInteractions {
 	 * @return If a successful interaction was made.
 	 */
 	public boolean checkForValidInteractions(Player player, ItemStack clickedItemStack) {
-		WauzPlayerEvent event = null;
-		for(ItemStack interactionItemStack : interactionEventMap.keySet()) {
-			if(ItemUtils.isSpecificItem(clickedItemStack, Components.displayName(interactionItemStack.getItemMeta()))) {
-				int relationLevel = RelationLevel.getRelationLevel(PlayerRelationConfigurator.getRelationProgress(player, displayName)).getRelationTier();
-				int requiredLevel = Integer.parseInt(ItemUtils.getStringFromLore(interactionItemStack, "Required Relation Level", 3));
-				if(relationLevel < requiredLevel) {
-					player.sendMessage(ChatColor.RED + "Your relation with this citizen is not good enough to do that!");
-					player.closeInventory();
-					return false;
-				}
-				event = interactionEventMap.get(interactionItemStack);
-				break;
-			}
+		if(clickedItemStack == null) {
+			return false;
 		}
-		if(event != null) {
+		String interactionName = ItemUtils.getDisplayName(clickedItemStack);
+		WauzPlayerEvent event = interactionEventMap.get(interactionName);
+		if(event == null) {
+			return false;
+		}
+		int relationLevel = RelationLevel.getRelationLevel(PlayerRelationConfigurator.getRelationProgress(player, displayName)).getRelationTier();
+		int requiredLevel = Integer.parseInt(ItemUtils.getStringFromLore(clickedItemStack, "Required Relation Level", 3));
+		if(relationLevel < requiredLevel) {
+			player.sendMessage(ChatColor.RED + "Your relation with this citizen is not good enough to do that!");
 			player.closeInventory();
-			return event.execute(player);
+			return false;
 		}
-		return false;
+		player.closeInventory();
+		return event.execute(player);
 	}
 	
 	/**
@@ -122,18 +127,19 @@ public class WauzCitizenInteractions {
 	 * @return The created inventory menu.
 	 */
 	public Inventory createInteractionMenuBase(CitizenInteractionMenu interactionMenu, String menuTitle) {
-		int size = (int) Math.ceil((double) interactionItemStacks.size() / (double) 5) * 9;
-		Inventory menu = Components.inventory(interactionMenu, menuTitle, size);
-		int row = 0;
-		int column = 0;
-		for(ItemStack interactionItemStack : interactionItemStacks) {
-			if(column >= 5) {
-				row++;
-				column = 0;
+		Inventory menu = Components.inventory(interactionMenu, menuTitle, 27);
+		
+		ItemStack emptyItemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+		MenuUtils.setItemDisplayName(emptyItemStack, " ");
+		
+		for(int index = 0; index < interactionSlots.size(); index++) {
+			int indexSlot = interactionSlots.get(index);
+			if(index < interactionItemStacks.size()) {
+				menu.setItem(indexSlot, interactionItemStacks.get(index));
 			}
-			int index = column + 2 + (row * 9);
-			menu.setItem(index, interactionItemStack);
-			column++;
+			else {
+				menu.setItem(indexSlot, emptyItemStack);
+			}
 		}
 		return menu;
 	}
@@ -200,7 +206,7 @@ public class WauzCitizenInteractions {
 		}
 		MenuUtils.addItemLore(interactionItemStack, ChatColor.GRAY + "Required Relation Level:" + ChatColor.YELLOW + " " + level, false);
 		interactionItemStacks.add(interactionItemStack);
-		interactionEventMap.put(interactionItemStack, event);
+		interactionEventMap.put(Components.displayName(interactionItemStack.getItemMeta()), event);
 	}
 
 	/**

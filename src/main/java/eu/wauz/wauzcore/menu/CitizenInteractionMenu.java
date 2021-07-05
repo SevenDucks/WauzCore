@@ -1,7 +1,6 @@
 package eu.wauz.wauzcore.menu;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -10,7 +9,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
-import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.mobs.citizens.RelationTracker;
@@ -103,18 +101,18 @@ public class CitizenInteractionMenu implements WauzInventory {
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
-		event.setCancelled(true);
-		ItemStack clicked = event.getCurrentItem();
-		Player player = (Player) event.getWhoClicked();
-		
-		if(clicked == null || !clicked.getType().equals(Material.PLAYER_HEAD)) {
+		int slot = event.getRawSlot();
+		if(slot >= 27) {
 			return;
 		}
-		else if(HeadUtils.isHeadMenuItem(clicked, "Goodbye")) {
+		
+		event.setCancelled(true);
+		final Player player = (Player) event.getWhoClicked();
+		if(slot == 8) {
 			player.closeInventory();
 		}
 		else {
-			citizen.getInteractions().checkForValidInteractions(player, clicked);
+			citizen.getInteractions().checkForValidInteractions(player, event.getCurrentItem());
 		}
 	}
 

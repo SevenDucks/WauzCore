@@ -72,7 +72,7 @@ public class TravellingMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Travelling Menu";
-		Inventory menu = Components.inventory(new TravellingMenu(), menuTitle, 9);
+		Inventory menu = Components.inventory(new TravellingMenu(), menuTitle, 27);
 		
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		if(playerData == null)
@@ -86,7 +86,7 @@ public class TravellingMenu implements WauzInventory {
 		portNexusLores.add(ChatColor.GRAY + "where you can select your characters.");
 		Components.lore(portNexusItemMeta, portNexusLores);
 		portNexusItemStack.setItemMeta(portNexusItemMeta);
-		menu.setItem(1, portNexusItemStack);
+		menu.setItem(10, portNexusItemStack);
 		
 		ItemStack portSpawnItemStack = new ItemStack(Material.ENDER_PEARL);
 		ItemMeta portSpawnItemMeta = portSpawnItemStack.getItemMeta();
@@ -96,7 +96,7 @@ public class TravellingMenu implements WauzInventory {
 		portSpawnLores.add(ChatColor.GRAY + "Use it when stuck or for quick-travel.");
 		Components.lore(portSpawnItemMeta, portSpawnLores);
 		portSpawnItemStack.setItemMeta(portSpawnItemMeta);
-		menu.setItem(2, portSpawnItemStack);
+		menu.setItem(11, portSpawnItemStack);
 		
 		ItemStack portHomeItemStack = new ItemStack(Material.MAGMA_CREAM);
 		ItemMeta portHomeItemMeta = portHomeItemStack.getItemMeta();
@@ -108,7 +108,7 @@ public class TravellingMenu implements WauzInventory {
 		portHomeLores.add(ChatColor.GRAY + "Speak to an Innkeeper to change it.");
 		Components.lore(portHomeItemMeta, portHomeLores);
 		portHomeItemStack.setItemMeta(portHomeItemMeta);
-		menu.setItem(3, portHomeItemStack);
+		menu.setItem(12, portHomeItemStack);
 		
 		boolean inInstance = WauzPlayerDataPool.isCharacterSelected(player) && !StringUtils.equals(player.getWorld().getName(), PlayerConfigurator.getCharacterWorldString(player));
 		ItemStack portInstanceExitItemStack = new ItemStack(inInstance ? Material.OAK_DOOR : Material.IRON_DOOR);
@@ -119,7 +119,7 @@ public class TravellingMenu implements WauzInventory {
 		portInstanceExitLore.add(ChatColor.GRAY + "place, from where you entered it.");
 		Components.lore(portInstanceExitItemMeta, portInstanceExitLore);
 		portInstanceExitItemStack.setItemMeta(portInstanceExitItemMeta);
-		menu.setItem(5, portInstanceExitItemStack);
+		menu.setItem(14, portInstanceExitItemStack);
 		
 		ItemStack mapItemStack = new ItemStack(Material.MAP);
 		ItemMeta mapItemMeta = mapItemStack.getItemMeta();
@@ -129,7 +129,7 @@ public class TravellingMenu implements WauzInventory {
 		mapLores.add(ChatColor.GRAY + "where you can see your position.");
 		Components.lore(mapItemMeta, mapLores);
 		mapItemStack.setItemMeta(mapItemMeta);
-		menu.setItem(7, mapItemStack);
+		menu.setItem(16, mapItemStack);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -149,26 +149,26 @@ public class TravellingMenu implements WauzInventory {
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
-		event.setCancelled(true);
-		ItemStack clicked = event.getCurrentItem();
-		final Player player = (Player) event.getWhoClicked();
-		
-		if(clicked == null) {
+		int slot = event.getRawSlot();
+		if(slot >= 27) {
 			return;
 		}
-		else if(clicked.getType().equals(Material.ENDER_EYE)) {
+		
+		event.setCancelled(true);
+		Player player = (Player) event.getWhoClicked();
+		if(slot == 10) {
 			WauzTeleporter.hubTeleportManual(player);
 		}
-		else if(clicked.getType().equals(Material.ENDER_PEARL)) {
+		else if(slot == 11) {
 			WauzTeleporter.spawnTeleportManual(player);
 		}
-		else if(clicked.getType().equals(Material.MAGMA_CREAM)) {
+		else if(slot == 12) {
 			WauzTeleporter.hearthstoneTeleport(player);
 		}
-		else if(clicked.getType().equals(Material.OAK_DOOR)) {
+		else if(slot == 14) {
 			WauzTeleporter.exitInstanceTeleportManual(player);
 		}
-		else if(clicked.getType().equals(Material.MAP)) {
+		else if(slot == 16) {
 			UnicodeUtils.sendChatHyperlink(player, "http://map.wauz.eu",
 					ChatColor.YELLOW + "To open the Overview Map:", true);
 			player.closeInventory();

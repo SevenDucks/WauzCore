@@ -64,42 +64,31 @@ public class CraftingMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player, AbstractPassiveSkill skill, List<WauzCraftingItem> recipes, int page) {
-		CraftingMenu craftingMenu = new CraftingMenu(skill, recipes, page);
+		CraftingMenu craftingMenu = new CraftingMenu(player, skill, recipes, page);
 		String levelText = ChatColor.DARK_RED + "" + ChatColor.BOLD + "Level " + skill.getLevel();
 		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + skill.getPassiveName() + " " + levelText;
 		Inventory menu = Components.inventory(craftingMenu, menuTitle, 27);
+		craftingMenu.setMenu(menu);
 		
 		ItemStack backItemStack = MenuIconHeads.getCraftItem();
 		MenuUtils.setItemDisplayName(backItemStack, ChatColor.YELLOW + "Back to Jobs");
 		menu.setItem(0, backItemStack);
 		
-		ItemStack nextItemStack = GenericIconHeads.getNextItem();
-		String pageCount = (page + 1) + " / " + craftingMenu.pageCount;
-		MenuUtils.setItemDisplayName(nextItemStack, ChatColor.YELLOW + "Switch Page (" + pageCount + ")");
-		menu.setItem(8, nextItemStack);
-		
-		ItemStack lockedItemStack = GenericIconHeads.getUnknownItem();
-		MenuUtils.setItemDisplayName(lockedItemStack, ChatColor.GRAY + "Locked Recipe");
-		
-		ItemStack emptyItemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
-		MenuUtils.setItemDisplayName(emptyItemStack, " ");
-		
-		for(int index = 0; index < recipeSlots.size(); index++) {
-			int indexSlot = recipeSlots.get(index);
-			int indexWithOffset = index + (page * recipeSlots.size());
-			if(indexWithOffset < recipes.size()) {
-				WauzCraftingItem craftingItem = recipes.get(indexWithOffset);
-				boolean unlocked = skill.getLevel() >= craftingItem.getCraftingItemLevel();
-				menu.setItem(indexSlot, unlocked ? craftingItem.getInstance(player, false) : lockedItemStack);
-			}
-			else {
-				menu.setItem(indexSlot, emptyItemStack);
-			}
-		}
+		craftingMenu.refreshPage();
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
 	}
+	
+	/**
+	 * The player that should view the inventory.
+	 */
+	private Player player;
+	
+	/**
+	 * The crafting inventory menu.
+	 */
+	private Inventory menu;
 	
 	/**
 	 * The crafting skill of the player.
@@ -124,11 +113,13 @@ public class CraftingMenu implements WauzInventory {
 	/**
 	 * Creates a new crafting menu instance.
 	 * 
+	 * @param player The player that should view the inventory.
 	 * @param skill The crafting skill of the player.
 	 * @param recipes The recipes of the crafting skill.
 	 * @param page The index of the recipe page, starting at 0.
 	 */
-	public CraftingMenu(AbstractPassiveSkill skill, List<WauzCraftingItem> recipes, int page) {
+	public CraftingMenu(Player player, AbstractPassiveSkill skill, List<WauzCraftingItem> recipes, int page) {
+		this.player = player;
 		this.skill = skill;
 		this.recipes = recipes;
 		this.page = page;
@@ -156,14 +147,46 @@ public class CraftingMenu implements WauzInventory {
 			JobMenu.open(player);
 		}
 		if(slot == 8) {
-			int nextPage = page + 1 < pageCount ? page + 1 : 0;
-			open(player, skill, recipes, nextPage);
+			page = page + 1 < pageCount ? page + 1 : 0;
+			refreshPage();
 		}
 		if(recipeSlots.contains(slot)) {
 			int indexWithOffset = recipeSlots.indexOf(slot) + (page * recipeSlots.size());
 			if(indexWithOffset < recipes.size() && tryToCraft(player, recipes.get(indexWithOffset))) {
 				open(player, skill, recipes, page);
 			}
+		}
+	}
+	
+	/**
+	 * Refreshes the content of the current page.
+	 */
+	private void refreshPage() {
+		ItemStack nextItemStack = GenericIconHeads.getNextItem();
+		nextItemStack.setAmount(page + 1);
+		String pageCountString = nextItemStack.getAmount() + " / " + pageCount;
+		MenuUtils.setItemDisplayName(nextItemStack, ChatColor.YELLOW + "Switch Page (" + pageCountString + ")");
+		menu.setItem(8, nextItemStack);
+		
+		ItemStack lockedItemStack = GenericIconHeads.getUnknownItem();
+		MenuUtils.setItemDisplayName(lockedItemStack, ChatColor.GRAY + "Locked Recipe");
+		
+		ItemStack emptyItemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+		MenuUtils.setItemDisplayName(emptyItemStack, " ");
+		
+		boolean debug = player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString());
+		for(int index = 0; index < recipeSlots.size(); index++) {
+			int indexSlot = recipeSlots.get(index);
+			int indexWithOffset = index + (page * recipeSlots.size());
+			if(indexWithOffset < recipes.size()) {
+				WauzCraftingItem craftingItem = recipes.get(indexWithOffset);
+				if(!craftingItem.isEmpty()) {
+					boolean unlocked = debug || skill.getLevel() >= craftingItem.getCraftingItemLevel();
+					menu.setItem(indexSlot, unlocked ? craftingItem.getInstance(player, false) : lockedItemStack);
+					continue;
+				}
+			}
+			menu.setItem(indexSlot, emptyItemStack);
 		}
 	}
 	
@@ -175,14 +198,18 @@ public class CraftingMenu implements WauzInventory {
 	 * 
 	 * @return If the crafting was successful.
 	 */
-	public boolean tryToCraft(Player player, WauzCraftingItem itemToCraft) {
-		if(skill.getLevel() < itemToCraft.getCraftingItemLevel()) {
+	private boolean tryToCraft(Player player, WauzCraftingItem itemToCraft) {
+		if(itemToCraft.isEmpty()) {
+			return false;
+		}
+		boolean debug = player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString());
+		if(!debug && skill.getLevel() < itemToCraft.getCraftingItemLevel()) {
 			return false;
 		}
 		Inventory inventory = MaterialPouch.getInventory(player, "materials");
 		InventoryItemRemover itemRemover = new InventoryItemRemover(inventory);
 		
-		if(!player.hasPermission(WauzPermission.DEBUG_CRAFTING.toString())) {
+		if(!debug) {
 			for(WauzCraftingRequirement requirement : itemToCraft.getRequirements()) {
 				int materialAmount = 0;
 				int neededMaterialAmount = requirement.getAmount();
@@ -220,6 +247,13 @@ public class CraftingMenu implements WauzInventory {
 		}
 		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 1, 1);
 		return true;
+	}
+	
+	/**
+	 * @param menu The new crafting inventory menu.
+	 */
+	public void setMenu(Inventory menu) {
+		this.menu = menu;
 	}
 
 }

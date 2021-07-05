@@ -35,6 +35,11 @@ public class WauzCraftingItem {
 	private static ItemManager mythicMobs = MythicMobs.inst().getItemManager();
 	
 	/**
+	 * If the crafting item is just an empty slot.
+	 */
+	private boolean isEmpty = false;
+	
+	/**
 	 * A stack of the crafting item.
 	 */
 	private ItemStack craftingItemStack;
@@ -67,6 +72,10 @@ public class WauzCraftingItem {
 	 */
 	public WauzCraftingItem(String craftingCategory, String itemName) {
 		String craftingItemType = CraftingConfigurator.getItemType(craftingCategory, itemName);
+		if(StringUtils.equals(craftingItemType, "_")) {
+			isEmpty = true;
+			return;
+		}
 		String[] nameParts = craftingItemType.split(";");
 		String canonicalName = nameParts[0];
 		String displayNameSuffix = nameParts.length > 1 ? nameParts[1] : null;
@@ -80,6 +89,13 @@ public class WauzCraftingItem {
 		this.craftingItemLevel = CraftingConfigurator.getItemLevel(craftingCategory, itemName);
 		this.shouldIdentify = CraftingConfigurator.shouldIdentifyItem(craftingCategory, itemName);
 		this.requirements = CraftingConfigurator.getItemRequirements(craftingCategory, itemName);
+	}
+
+	/**
+	 * @return If the crafting item is just an empty slot.
+	 */
+	public boolean isEmpty() {
+		return isEmpty;
 	}
 
 	/**

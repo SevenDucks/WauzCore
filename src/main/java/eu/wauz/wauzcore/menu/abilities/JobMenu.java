@@ -79,7 +79,7 @@ public class JobMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Job Skills";
-		Inventory menu = Components.inventory(new JobMenu(), menuTitle, 9);
+		Inventory menu = Components.inventory(new JobMenu(), menuTitle, 27);
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
 		
 		AbstractPassiveSkill miningSkill = playerData.getSkills().getCachedPassive(PassiveMining.PASSIVE_NAME);
@@ -98,7 +98,7 @@ public class JobMenu implements WauzInventory {
 		skillMiningLores.addAll(miningSkill.getProgressLores(ChatColor.YELLOW));
 		Components.lore(skillMiningItemMeta, skillMiningLores);
 		skillMiningItemStack.setItemMeta(skillMiningItemMeta);
-		menu.setItem(1, skillMiningItemStack);
+		menu.setItem(10, skillMiningItemStack);
 		
 		AbstractPassiveSkill herbalismSkill = playerData.getSkills().getCachedPassive(PassiveHerbalism.PASSIVE_NAME);
 		ItemStack skillHerbalismItemStack = SkillIconHeads.getHerbalismItem();
@@ -116,9 +116,9 @@ public class JobMenu implements WauzInventory {
 		skillHerbalismLores.addAll(herbalismSkill.getProgressLores(ChatColor.YELLOW));
 		Components.lore(skillHerbalismItemMeta, skillHerbalismLores);
 		skillHerbalismItemStack.setItemMeta(skillHerbalismItemMeta);
-		menu.setItem(2, skillHerbalismItemStack);
+		menu.setItem(11, skillHerbalismItemStack);
 		
-		MenuUtils.setComingSoon(menu, "Fishing", 3);
+		MenuUtils.setComingSoon(menu, "Fishing", 12);
 		
 		AbstractPassiveSkill breedingSkill = playerData.getSkills().getCachedPassive(PassiveBreeding.PASSIVE_NAME);
 		ItemStack skillBreedingItemStack = SkillIconHeads.getTamesItem();
@@ -136,7 +136,7 @@ public class JobMenu implements WauzInventory {
 		skillBreedingLores.addAll(breedingSkill.getProgressLores(ChatColor.YELLOW));
 		Components.lore(skillBreedingItemMeta, skillBreedingLores);
 		skillBreedingItemStack.setItemMeta(skillBreedingItemMeta);
-		menu.setItem(4, skillBreedingItemStack);
+		menu.setItem(13, skillBreedingItemStack);
 		
 		AbstractPassiveSkill smithingSkill = playerData.getSkills().getCachedPassive(PassiveSmithing.PASSIVE_NAME);
 		ItemStack skillSmithingItemStack = SkillIconHeads.getSmithingItem();
@@ -154,7 +154,7 @@ public class JobMenu implements WauzInventory {
 		skillSmithingLores.addAll(smithingSkill.getProgressLores(ChatColor.YELLOW));
 		Components.lore(skillSmithingItemMeta, skillSmithingLores);
 		skillSmithingItemStack.setItemMeta(skillSmithingItemMeta);
-		menu.setItem(5, skillSmithingItemStack);
+		menu.setItem(14, skillSmithingItemStack);
 		
 		AbstractPassiveSkill cookingSkill = playerData.getSkills().getCachedPassive(PassiveCooking.PASSIVE_NAME);
 		ItemStack skillCookingItemStack = SkillIconHeads.getCookingItem();
@@ -172,7 +172,7 @@ public class JobMenu implements WauzInventory {
 		skillCookingLores.addAll(cookingSkill.getProgressLores(ChatColor.YELLOW));
 		Components.lore(skillCookingItemMeta, skillCookingLores);
 		skillCookingItemStack.setItemMeta(skillCookingItemMeta);
-		menu.setItem(6, skillCookingItemStack);
+		menu.setItem(15, skillCookingItemStack);
 		
 		AbstractPassiveSkill inscriptionSkill = playerData.getSkills().getCachedPassive(PassiveInscription.PASSIVE_NAME);
 		ItemStack skillInscriptionItemStack = SkillIconHeads.getInscriptionItem();
@@ -190,7 +190,7 @@ public class JobMenu implements WauzInventory {
 		skillInscriptionLores.addAll(inscriptionSkill.getProgressLores(ChatColor.YELLOW));
 		Components.lore(skillInscriptionItemMeta, skillInscriptionLores);
 		skillInscriptionItemStack.setItemMeta(skillInscriptionItemMeta);
-		menu.setItem(7, skillInscriptionItemStack);
+		menu.setItem(16, skillInscriptionItemStack);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -223,22 +223,25 @@ public class JobMenu implements WauzInventory {
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
+		int slot = event.getRawSlot();
+		if(slot >= 27) {
+			return;
+		}
+		
 		event.setCancelled(true);
 		Player player = (Player) event.getWhoClicked();
-		int slot = event.getRawSlot();
-		
-		if(slot == 4) {
+		if(slot == 13) {
 			BreedingMenu.open(player, (PassiveBreeding) AbstractPassiveSkillPool.getPassive(player, PassiveBreeding.PASSIVE_NAME));
 		}
-		else if(slot == 5) {
+		else if(slot == 14) {
 			AbstractPassiveSkill skill = AbstractPassiveSkillPool.getPassive(player, PassiveSmithing.PASSIVE_NAME);
 			CraftingMenu.open(player, skill, WauzCraftingRecipes.getSmithingRecipes(), 0);
 		}
-		else if(slot == 6) {
+		else if(slot == 15) {
 			AbstractPassiveSkill skill = AbstractPassiveSkillPool.getPassive(player, PassiveCooking.PASSIVE_NAME);
 			CraftingMenu.open(player, skill, WauzCraftingRecipes.getCookingRecipes(), 0);
 		}
-		else if(slot == 7) {
+		else if(slot == 16) {
 			AbstractPassiveSkill skill = AbstractPassiveSkillPool.getPassive(player, PassiveInscription.PASSIVE_NAME);
 			CraftingMenu.open(player, skill, WauzCraftingRecipes.getInscriptionRecipes(), 0);
 		}

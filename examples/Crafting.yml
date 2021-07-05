@@ -1,23 +1,5 @@
 smithing:
-  # Test Tier
-  Test1:
-    type: 'EquipT1'
-    amount: 1
-    level: 0
-    identify: true
-    cost:
-    - 'Wauzleaf;3'
-    - 'Duckroot;3'
-  Test2:
-    type: 'EquipT1; : Sword'
-    amount: 1
-    level: 1
-    identify: true
-    cost:
-    - 'Wauzleaf;3'
-    - 'Duckroot;3'
-  # Tier 1
-  1:
+  1-1:
     type: 'EquipT1'
     amount: 1
     level: 0
@@ -25,7 +7,7 @@ smithing:
     cost:
     - 'Copper;5'
     - 'Light Leather;3'
-  2:
+  1-2:
     type: 'EquipT1; : Sword'
     amount: 1
     level: 2
@@ -33,7 +15,7 @@ smithing:
     cost:
     - 'Copper;9'
     - 'Light Leather;2'
-  3:
+  1-3:
     type: 'EquipT1; : Axe'
     amount: 1
     level: 2
@@ -41,7 +23,7 @@ smithing:
     cost:
     - 'Copper;9'
     - 'Light Leather;2'
-  4:
+  1-4:
     type: 'EquipT1; : Staff'
     amount: 1
     level: 2
@@ -49,7 +31,7 @@ smithing:
     cost:
     - 'Copper;9'
     - 'Light Leather;2'
-  5:
+  1-5:
     type: 'EquipT1; : Secondary Weapon'
     amount: 1
     level: 3
@@ -57,7 +39,7 @@ smithing:
     cost:
     - 'Copper;7'
     - 'Light Leather;4'
-  6:
+  1-6:
     type: 'EquipT1; : Gathering Tool'
     amount: 1
     level: 3
@@ -65,7 +47,7 @@ smithing:
     cost:
     - 'Copper;8'
     - 'Light Leather;3'
-  7:
+  1-7:
     type: 'EquipT1; : Armor Piece'
     amount: 1
     level: 4
@@ -73,15 +55,28 @@ smithing:
     cost:
     - 'Copper;10'
     - 'Light Leather;5'
-  8:
+  1-8:
     type: 'SkillGem'
     amount: 1
     level: 5
     identify: true
     cost:
     - 'Copper;25'
-  # Tier 2
-  9:
+  1-9:
+    type: _
+  1-10:
+    type: _
+  1-11:
+    type: _
+  1-12:
+    type: _
+  1-13:
+    type: _
+  1-14:
+    type: _
+  1-15:
+    type: _
+  2-1:
     type: 'EquipT2'
     amount: 1
     level: 5
@@ -89,7 +84,7 @@ smithing:
     cost:
     - 'Iron;5'
     - 'Medium Leather;3'
-  10:
+  2-2:
     type: 'EquipT2; : Sword'
     amount: 1
     level: 7
@@ -97,7 +92,7 @@ smithing:
     cost:
     - 'Iron;9'
     - 'Medium Leather;2'
-  11:
+  2-3:
     type: 'EquipT2; : Axe'
     amount: 1
     level: 7
@@ -105,7 +100,7 @@ smithing:
     cost:
     - 'Iron;9'
     - 'Medium Leather;2'
-  12:
+  2-4:
     type: 'EquipT2; : Staff'
     amount: 1
     level: 7
@@ -113,7 +108,7 @@ smithing:
     cost:
     - 'Iron;9'
     - 'Medium Leather;2'
-  13:
+  2-5:
     type: 'EquipT2; : Secondary Weapon'
     amount: 1
     level: 8
@@ -121,7 +116,7 @@ smithing:
     cost:
     - 'Iron;7'
     - 'Medium Leather;4'
-  14:
+  2-6:
     type: 'EquipT2; : Gathering Tool'
     amount: 1
     level: 8
@@ -129,7 +124,7 @@ smithing:
     cost:
     - 'Iron;8'
     - 'Medium Leather;3'
-  15:
+  2-7:
     type: 'EquipT2; : Armor Piece'
     amount: 1
     level: 9
@@ -137,15 +132,28 @@ smithing:
     cost:
     - 'Iron;10'
     - 'Medium Leather;5'
-  16:
+  2-8:
     type: 'SkillGem'
     amount: 1
     level: 10
     identify: true
     cost:
     - 'Iron;23'
-  # Tier 3
-  17:
+  2-9:
+    type: _
+  2-10:
+    type: _
+  2-11:
+    type: _
+  2-12:
+    type: _
+  2-13:
+    type: _
+  2-14:
+    type: _
+  2-15:
+    type: _
+  3-1:
     type: 'EquipT3'
     amount: 1
     level: 10
@@ -153,7 +161,7 @@ smithing:
     cost:
     - 'Gold;5'
     - 'Heavy Leather;3'
-  18:
+  3-2:
     type: 'EquipT3; : Sword'
     amount: 1
     level: 12
@@ -161,7 +169,7 @@ smithing:
     cost:
     - 'Gold;9'
     - 'Heavy Leather;2'
-  19:
+  3-3:
     type: 'EquipT3; : Axe'
     amount: 1
     level: 12
@@ -169,7 +177,7 @@ smithing:
     cost:
     - 'Gold;9'
     - 'Heavy Leather;2'
-  20:
+  3-4:
     type: 'EquipT3; : Staff'
     amount: 1
     level: 12
@@ -177,7 +185,7 @@ smithing:
     cost:
     - 'Gold;9'
     - 'Heavy Leather;2'
-  21:
+  3-5:
     type: 'EquipT3; : Secondary Weapon'
     amount: 1
     level: 13
@@ -185,7 +193,7 @@ smithing:
     cost:
     - 'Gold;7'
     - 'Heavy Leather;4'
-  22:
+  3-6:
     type: 'EquipT3; : Gathering Tool'
     amount: 1
     level: 13
@@ -193,7 +201,7 @@ smithing:
     cost:
     - 'Gold;8'
     - 'Heavy Leather;3'
-  23:
+  3-7:
     type: 'EquipT3; : Armor Piece'
     amount: 1
     level: 14
@@ -201,15 +209,28 @@ smithing:
     cost:
     - 'Gold;10'
     - 'Heavy Leather;5'
-  24:
+  3-8:
     type: 'SkillGem'
     amount: 1
     level: 15
     identify: true
     cost:
     - 'Gold;21'
-  # Tier 4
-  25:
+  3-9:
+    type: _
+  3-10:
+    type: _
+  3-11:
+    type: _
+  3-12:
+    type: _
+  3-13:
+    type: _
+  3-14:
+    type: _
+  3-15:
+    type: _
+  4-1:
     type: 'EquipT4'
     amount: 1
     level: 15
@@ -217,7 +238,7 @@ smithing:
     cost:
     - 'Jade;5'
     - 'Thick Leather;3'
-  26:
+  4-2:
     type: 'EquipT4; : Sword'
     amount: 1
     level: 17
@@ -225,7 +246,7 @@ smithing:
     cost:
     - 'Jade;9'
     - 'Thick Leather;2'
-  27:
+  4-3:
     type: 'EquipT4; : Axe'
     amount: 1
     level: 17
@@ -233,7 +254,7 @@ smithing:
     cost:
     - 'Jade;9'
     - 'Thick Leather;2'
-  28:
+  4-4:
     type: 'EquipT4; : Staff'
     amount: 1
     level: 17
@@ -241,7 +262,7 @@ smithing:
     cost:
     - 'Jade;9'
     - 'Thick Leather;2'
-  29:
+  4-5:
     type: 'EquipT4; : Secondary Weapon'
     amount: 1
     level: 18
@@ -249,7 +270,7 @@ smithing:
     cost:
     - 'Jade;7'
     - 'Thick Leather;4'
-  30:
+  4-6:
     type: 'EquipT4; : Gathering Tool'
     amount: 1
     level: 18
@@ -257,7 +278,7 @@ smithing:
     cost:
     - 'Jade;8'
     - 'Thick Leather;3'
-  31:
+  4-7:
     type: 'EquipT4; : Armor Piece'
     amount: 1
     level: 19
@@ -265,15 +286,28 @@ smithing:
     cost:
     - 'Jade;10'
     - 'Thick Leather;5'
-  32:
+  4-8:
     type: 'SkillGem'
     amount: 1
     level: 20
     identify: true
     cost:
     - 'Jade;19'
-  # Tier 5
-  33:
+  4-9:
+    type: _
+  4-10:
+    type: _
+  4-11:
+    type: _
+  4-12:
+    type: _
+  4-13:
+    type: _
+  4-14:
+    type: _
+  4-15:
+    type: _
+  5-1:
     type: 'EquipT5'
     amount: 1
     level: 20
@@ -281,7 +315,7 @@ smithing:
     cost:
     - 'Diamond;5'
     - 'Rugged Leather;3'
-  34:
+  5-2:
     type: 'EquipT5; : Sword'
     amount: 1
     level: 22
@@ -289,7 +323,7 @@ smithing:
     cost:
     - 'Diamond;9'
     - 'Rugged Leather;2'
-  35:
+  5-3:
     type: 'EquipT5; : Axe'
     amount: 1
     level: 22
@@ -297,7 +331,7 @@ smithing:
     cost:
     - 'Diamond;9'
     - 'Rugged Leather;2'
-  36:
+  5-4:
     type: 'EquipT5; : Staff'
     amount: 1
     level: 22
@@ -305,7 +339,7 @@ smithing:
     cost:
     - 'Diamond;9'
     - 'Rugged Leather;2'
-  37:
+  5-5:
     type: 'EquipT5; : Secondary Weapon'
     amount: 1
     level: 23
@@ -313,7 +347,7 @@ smithing:
     cost:
     - 'Diamond;7'
     - 'Rugged Leather;4'
-  38:
+  5-6:
     type: 'EquipT5; : Gathering Tool'
     amount: 1
     level: 23
@@ -321,7 +355,7 @@ smithing:
     cost:
     - 'Diamond;8'
     - 'Rugged Leather;3'
-  39:
+  5-7:
     type: 'EquipT5; : Armor Piece'
     amount: 1
     level: 24
@@ -329,15 +363,28 @@ smithing:
     cost:
     - 'Diamond;10'
     - 'Rugged Leather;5'
-  40:
+  5-8:
     type: 'SkillGem'
     amount: 1
     level: 25
     identify: true
     cost:
     - 'Diamond;17'
-  # Tier 6
-  41:
+  5-9:
+    type: _
+  5-10:
+    type: _
+  5-11:
+    type: _
+  5-12:
+    type: _
+  5-13:
+    type: _
+  5-14:
+    type: _
+  5-15:
+    type: _
+  6-1:
     type: 'EquipT6'
     amount: 1
     level: 25
@@ -345,7 +392,7 @@ smithing:
     cost:
     - 'Calamitite;5'
     - 'Demonic Leather;3'
-  42:
+  6-2:
     type: 'EquipT6; : Sword'
     amount: 1
     level: 27
@@ -353,7 +400,7 @@ smithing:
     cost:
     - 'Calamitite;9'
     - 'Demonic Leather;2'
-  43:
+  6-3:
     type: 'EquipT6; : Axe'
     amount: 1
     level: 27
@@ -361,7 +408,7 @@ smithing:
     cost:
     - 'Calamitite;9'
     - 'Demonic Leather;2'
-  44:
+  6-4:
     type: 'EquipT6; : Staff'
     amount: 1
     level: 27
@@ -369,7 +416,7 @@ smithing:
     cost:
     - 'Calamitite;9'
     - 'Demonic Leather;2'
-  45:
+  6-5:
     type: 'EquipT6; : Secondary Weapon'
     amount: 1
     level: 28
@@ -377,7 +424,7 @@ smithing:
     cost:
     - 'Calamitite;7'
     - 'Demonic Leather;4'
-  46:
+  6-6:
     type: 'EquipT6; : Gathering Tool'
     amount: 1
     level: 28
@@ -385,7 +432,7 @@ smithing:
     cost:
     - 'Calamitite;8'
     - 'Demonic Leather;3'
-  47:
+  6-7:
     type: 'EquipT6; : Armor Piece'
     amount: 1
     level: 29
@@ -393,12 +440,26 @@ smithing:
     cost:
     - 'Calamitite;10'
     - 'Demonic Leather;5'
-  48:
+  6-8:
     type: 'SkillGem'
     amount: 1
     level: 30
     identify: true
     cost:
     - 'Calamitite;15'
+  6-9:
+    type: _
+  6-10:
+    type: _
+  6-11:
+    type: _
+  6-12:
+    type: _
+  6-13:
+    type: _
+  6-14:
+    type: _
+  6-15:
+    type: _
 cooking:
 inscription:
