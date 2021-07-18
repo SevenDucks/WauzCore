@@ -131,28 +131,6 @@ public abstract class AbstractPassiveSkill {
 	}
 	
 	/**
-	 * Generates a string to display the progress of this skill.
-	 * 
-	 * @return The progress string.
-	 */
-	public String getProgressString() {
-		String progressString = ChatColor.YELLOW + getPassiveName();
-		Long thisMilestone = getThisMilestone();
-		Long nextMilestone = getNextMilestone();
-		if(nextMilestone != null) {
-			long current = getExp() - thisMilestone;
-			long goal = nextMilestone - thisMilestone;
-			progressString += " " + ChatColor.GOLD + getLevel();
-			progressString += " " + UnicodeUtils.createNumberedProgressBar(current, goal, ChatColor.AQUA);
-			progressString += " " + ChatColor.GOLD + (getLevel() + 1);
-		}
-		else {
-			progressString += " " + ChatColor.GOLD + "MAX " + ChatColor.AQUA + Formatters.INT.format(getExp());
-		}
-		return progressString;
-	}
-	
-	/**
 	 * @return The current milestone or 0.
 	 */
 	public Long getThisMilestone() {

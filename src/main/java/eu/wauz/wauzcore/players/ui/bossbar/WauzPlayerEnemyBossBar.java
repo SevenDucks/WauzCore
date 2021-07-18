@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.players.ui;
+package eu.wauz.wauzcore.players.ui.bossbar;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 
 /**
- * An UI class to show the player name and health of the targeted enemy.
+ * An UI class to show name and health of the targeted enemy to the player.
  * 
  * @author Wauzmons
  */

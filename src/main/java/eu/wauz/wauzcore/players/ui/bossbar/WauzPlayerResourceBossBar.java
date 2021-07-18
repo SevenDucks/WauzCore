@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.players.ui;
+package eu.wauz.wauzcore.players.ui.bossbar;
 
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
@@ -9,7 +9,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.professions.WauzResourceCache;
 
 /**
- * An UI class to show the player name and health of the targeted resource.
+ * An UI class to show name and health of the targeted resource to the player.
  * 
  * @author Wauzmons
  */
@@ -31,7 +31,6 @@ public class WauzPlayerResourceBossBar extends WauzPlayerBossBar {
 	public WauzPlayerResourceBossBar(WauzResourceCache resource) {
 		this.resource = resource;
 		this.uuid = resource.getUuid();
-		this.modifiers = "";
 		this.maxHealth = resource.getResourceSpawn().getResource().getNodeHealth();
 		
 		bossBar = Bukkit.createBossBar(getTitle((int) Math.ceil(getHealth())), BarColor.BLUE, BarStyle.SEGMENTED_6);

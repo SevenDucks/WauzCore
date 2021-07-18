@@ -139,33 +139,6 @@ public class UnicodeUtils {
 	}
 	
 	/**
-	 * Creates a progress bar, with the advancement written on it.
-	 * 
-	 * @param progress The current value.
-	 * @param goal The maximum value.
-	 * @param color The color of the bar.
-	 * 
-	 * @return The progress bar string.
-	 */
-	public static String createNumberedProgressBar(long progress, long goal, ChatColor color) {
-		String progressString = Formatters.INT.format(progress);
-		String goalString = Formatters.INT.format(goal);
-		String text = ICON_FULL_BLOCK + progressString + "/" + goalString + ICON_FULL_BLOCK;
-		int characters = text.length();
-		int barPercentage = (int) (progress * characters / goal);
-		
-		String progressBar = String.valueOf(color);
-		for(int bar = 0; bar < barPercentage; bar++) {
-			progressBar += text.charAt(bar);
-		}
-		progressBar += ChatColor.GRAY;
-		for(int bar = barPercentage; bar < characters; bar++) {
-			progressBar += text.charAt(bar);
-		}
-		return progressBar;
-	}
-	
-	/**
 	 * Sends a hoverable message of an item stack to all players.
 	 * 
 	 * @param player The player to send the message.

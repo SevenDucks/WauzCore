@@ -17,8 +17,8 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerDataSectionSkills;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
-import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
-import eu.wauz.wauzcore.players.ui.WauzPlayerEnemyBossBar;
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerBossBar;
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerEnemyBossBar;
 import eu.wauz.wauzcore.system.util.DeprecatedUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -126,6 +126,9 @@ public class CombatMapper {
 			event.setDamage(event.getDamage() * 100);
 		}
 		if(!WauzMode.isMMORPG(event.getEntity())) {
+			if(!event.isCancelled() && event.getDamager() instanceof Player && playerBossBar != null) {
+				playerBossBar.addPlayer((Player) event.getDamager(), event.getDamage());
+			}
 			return;
 		}
 		if(event.getDamager() instanceof Player) {

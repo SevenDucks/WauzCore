@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerSkillBossBar;
+
 /**
  * An abstract passive skill, meant for a job.
  * 
@@ -80,7 +82,7 @@ public abstract class AbstractPassiveJobSkill extends AbstractPassiveSkill {
 	 */
 	@Override
 	protected void onExperienceGain(Player player) {
-		player.sendTitle("", getProgressString(), 2, 32, 4);
+		new WauzPlayerSkillBossBar(this).addPlayer(player, 0);
 	}
 
 }

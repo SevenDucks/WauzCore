@@ -1,11 +1,15 @@
 package eu.wauz.wauzcore.system.listeners;
 
+import java.util.ArrayList;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,7 +43,8 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.oneblock.OneBlock;
 import eu.wauz.wauzcore.oneblock.OnePlotManager;
-import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerBossBar;
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerEnemyBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveBreeding;
@@ -339,7 +344,7 @@ public class PlayerAmbientListener implements Listener {
 	}
 	
 	/**
-	 * Prevents unallowed wither spawns.
+	 * Prevents unallowed wither spawns. And initializes health bars.
 	 * 
 	 * @param event The spawn event.
 	 */
@@ -348,6 +353,11 @@ public class PlayerAmbientListener implements Listener {
 		Entity entity = event.getEntity();
 	    if(WauzMode.inOneBlock(entity) && entity.getType().equals(EntityType.WITHER)) {
 	        event.setCancelled(true);
+	    }
+	    else if(WauzMode.isSurvival(entity) && entity instanceof LivingEntity) {
+	    	LivingEntity livingEntity = (LivingEntity) entity;
+	    	double maxHealth = livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+	    	new WauzPlayerEnemyBossBar(livingEntity, new ArrayList<>(), maxHealth, false);
 	    }
 	}
 

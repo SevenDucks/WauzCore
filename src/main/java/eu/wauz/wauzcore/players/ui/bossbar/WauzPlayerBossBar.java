@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.players.ui;
+package eu.wauz.wauzcore.players.ui.bossbar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
 /**
- * An UI class to show the player name and health of the targeted object.
+ * An UI class to show infos about the targeted object to the player.
  * 
  * @author Wauzmons
  */
@@ -51,7 +51,7 @@ public abstract class WauzPlayerBossBar {
 	/**
 	 * Modifiers shown in the bar.
 	 */
-	protected String modifiers;
+	protected String modifiers = "";
 	
 	/**
 	 * Max health shown in the bar.
@@ -71,10 +71,6 @@ public abstract class WauzPlayerBossBar {
 	 * @param damage The damage the player dealt to see the bar.
 	 */
 	public void addPlayer(Player player, double damage) {
-		if(bossBar.getProgress() <= 0) {
-			return;
-		}
-		
 		if((int) Math.ceil(getHealth()) - damage <= 0) {
 			return;
 		}
@@ -100,7 +96,7 @@ public abstract class WauzPlayerBossBar {
 	
 	/**
 	 * Updates the boss bar, because the entity got damaged.
-	 * If the entity will die from the damage, the bar be destroyed.
+	 * If the entity will die from the damage, the bar will be destroyed.
 	 * 
 	 * @param damage The damage that was dealt to the entity.
 	 */
@@ -164,7 +160,7 @@ public abstract class WauzPlayerBossBar {
 	 * @return If the player is in distance.
 	 */
 	protected boolean inDistance(Player player, Location location) {
-		if(location == null || player == null || !player.isValid()) {
+		if(location == null || !isPlayerValid(player)) {
 			return false;
 		}
 		World playerWorld = player.getWorld();
@@ -173,6 +169,17 @@ public abstract class WauzPlayerBossBar {
 			return false;
 		}
 		return player.getLocation().distance(location) <= 32;
+	}
+	
+	/**
+	 * Checks if the given player is valid.
+	 * 
+	 * @param player The player to check for.
+	 * 
+	 * @return If the player is valid.
+	 */
+	protected boolean isPlayerValid(Player player) {
+		return player != null && player.isValid();
 	}
 	
 	/**

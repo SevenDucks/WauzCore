@@ -10,8 +10,8 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 
 import eu.wauz.wauzcore.items.DurabilityCalculator;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
-import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
-import eu.wauz.wauzcore.players.ui.WauzPlayerEnemyBossBar;
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerBossBar;
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerEnemyBossBar;
 import eu.wauz.wauzcore.system.CombatMapper;
 import eu.wauz.wauzcore.system.util.WauzMode;
 

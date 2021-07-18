@@ -4,8 +4,8 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
-import eu.wauz.wauzcore.players.ui.WauzPlayerResourceBossBar;
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerBossBar;
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerResourceBossBar;
 
 /**
  * A player specific cache of a gatherable resource spawn.

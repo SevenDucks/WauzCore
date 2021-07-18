@@ -18,7 +18,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
-import eu.wauz.wauzcore.players.ui.WauzPlayerBossBar;
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRank;
