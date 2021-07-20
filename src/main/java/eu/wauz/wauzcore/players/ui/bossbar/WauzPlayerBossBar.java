@@ -3,13 +3,14 @@ package eu.wauz.wauzcore.players.ui.bossbar;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
@@ -21,7 +22,12 @@ import eu.wauz.wauzcore.system.util.UnicodeUtils;
 public abstract class WauzPlayerBossBar {
 	
 	/**
-	 * A map of all boss bars, indexed by entity uuid.
+	 * A direct reference to the main class.
+	 */
+	private static WauzCore core = WauzCore.getInstance();
+	
+	/**
+	 * A map of all boss bars, indexed by object uuid.
 	 */
 	protected static Map<String, WauzPlayerBossBar> bossBars = new HashMap<>();
 	
@@ -29,6 +35,20 @@ public abstract class WauzPlayerBossBar {
 	 * A map of boss bars, indexed by the player they are shown to.
 	 */
 	protected static Map<Player, WauzPlayerBossBar> bossBarPlayerLinks = new HashMap<>();
+	
+	
+	/**
+	 * Updates the shown boss bar for the given player.
+	 * 
+	 * @param player The player whose bar should be updated.
+	 */
+	public static void update(Player player) {
+		WauzPlayerBossBar playerBossBar = bossBarPlayerLinks.get(player);
+		if(playerBossBar != null) {
+			playerBossBar.getBar().removePlayer(player);
+			playerBossBar.getBar().addPlayer(player);
+		}
+	}
 	
 	/**
 	 * Removes the shown boss bar for the given player.
@@ -54,24 +74,19 @@ public abstract class WauzPlayerBossBar {
 	protected String modifiers = "";
 	
 	/**
-	 * Max health shown in the bar.
-	 */
-	protected double maxHealth;
-	
-	/**
 	 * The Minecraft boss bar.
 	 */
 	protected BossBar bossBar;
 	
 	/**
 	 * Adds a player that should see this bar.
-	 * If the entity will die from the damage, the bar will not be shown.
+	 * If the object will die from the damage, the bar will not be shown.
 	 * 
 	 * @param player The player that should see this bar.
 	 * @param damage The damage the player dealt to see the bar.
 	 */
 	public void addPlayer(Player player, double damage) {
-		if((int) Math.ceil(getHealth()) - damage <= 0) {
+		if((int) Math.ceil(getHealth() - damage) <= 0) {
 			return;
 		}
 		
@@ -95,38 +110,39 @@ public abstract class WauzPlayerBossBar {
 	}
 	
 	/**
-	 * Updates the boss bar, because the entity got damaged.
-	 * If the entity will die from the damage, the bar will be destroyed.
-	 * 
-	 * @param damage The damage that was dealt to the entity.
+	 * Updates the boss bar, because the object got damaged or healed.
 	 */
-	public void updateBossBar(double damage) {
-		int health = (int) Math.ceil((getHealth() - damage));
-		if(health > maxHealth) {
-			health = (int) maxHealth;
-		}
-		if(health > 0) {
-			for(Player player : bossBar.getPlayers()) {
-				WauzDebugger.log(player, "BossBar: "
-						+ health + " (" + getHealth() + " - "
-						+ damage + ") / " + maxHealth);
+	public void updateBossBar() {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(core, new Runnable() {
+			
+			@Override
+			public void run() {
+				int health = (int) Math.ceil((getHealth()));
+				int maxHealth = (int) Math.ceil(getMaxHealth());
+				if(health > maxHealth) {
+					health = (int) maxHealth;
+				}
+				if(health > 0) {
+					bossBar.setTitle(getTitle(health, maxHealth));
+					bossBar.setProgress((float) health / (float) maxHealth);
+				}
+				else {
+					destroy();
+				}
 			}
-			bossBar.setTitle(getTitle(health));
-			bossBar.setProgress(health / maxHealth);
-		}
-		else {
-			destroy();
-		}
+			
+		});
 	}
 	
 	/**
 	 * Generates a new title for the boss bar.
 	 * 
 	 * @param health How much health is left.
+	 * @param maxHealth The initial amount of health.
 	 * 
 	 * @return The new title.
 	 */
-	public String getTitle(int health) {
+	public String getTitle(int health, int maxHealth) {
 		String currentHealth = ChatColor.RED + Formatters.INT.format(health);
 		String maximumHealth = Formatters.INT.format(maxHealth) + " " + UnicodeUtils.ICON_HEART;
 		String healthString = ChatColor.GRAY + "[ " + currentHealth + " / " + maximumHealth + ChatColor.GRAY + " ]";
@@ -150,6 +166,18 @@ public abstract class WauzPlayerBossBar {
 	 * @return The health of the object, this bar belongs to.
 	 */
 	protected abstract double getHealth();
+	
+	/**
+	 * @return The maximum health of the object, this bar belongs to.
+	 */
+	protected abstract double getMaxHealth();
+	
+	/**
+	 * @return Gets the boss bar instance.
+	 */
+	protected BossBar getBar() {
+		return bossBar;
+	}
 	
 	/**
 	 * Checks if the given player is close enough to see the boss bar.

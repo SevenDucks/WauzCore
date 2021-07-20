@@ -2,7 +2,10 @@ package eu.wauz.wauzcore.skills.passive;
 
 import java.util.List;
 
+import org.bukkit.entity.Player;
+
 import eu.wauz.wauzcore.mobs.pets.WauzPetBreedingLevel;
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerSkillBossBar;
 import eu.wauz.wauzcore.system.annotations.PassiveSkill;
 
 /**
@@ -69,6 +72,16 @@ public class PassiveBreeding extends AbstractPassiveSkill {
 	@Override
 	protected List<Long> getMilestones() {
 		return MILESTONES;
+	}
+	
+	/**
+	 * Method that gets called when skill experience is gained.
+	 * 
+	 * @param player The player who earned the experience.
+	 */
+	@Override
+	protected void onExperienceGain(Player player) {
+		new WauzPlayerSkillBossBar(this).addPlayer(player, 0);
 	}
 	
 	/**

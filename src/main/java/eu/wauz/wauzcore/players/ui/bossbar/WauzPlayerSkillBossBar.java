@@ -49,18 +49,17 @@ public class WauzPlayerSkillBossBar extends WauzPlayerBossBar {
 			
 			progressString += " " + ChatColor.GOLD + passive.getLevel();
 			String currentHealth = ChatColor.AQUA + Formatters.INT.format(current);
-			String maximumHealth = Formatters.INT.format(goal) + " " + UnicodeUtils.ICON_HEART;
+			String maximumHealth = Formatters.INT.format(goal) + " " + UnicodeUtils.ICON_DIAMOND;
 			progressString += " " + ChatColor.GRAY + "[ " + currentHealth + " / " + maximumHealth + ChatColor.GRAY + " ]";
 			progressString += " " + ChatColor.GOLD + (passive.getLevel() + 1);
 			bossBar = Bukkit.createBossBar(progressString, BarColor.GREEN, BarStyle.SEGMENTED_6);
-			bossBar.setProgress(current / goal);
+			bossBar.setProgress((float) current / (float) goal);
 		}
 		else {
 			progressString += " " + ChatColor.GOLD + "MAX";
 			String currentValue = ChatColor.AQUA + Formatters.INT.format(passive.getExp());
 			progressString += " " + ChatColor.GRAY + "[ " + currentValue + ChatColor.GRAY + " ]";
 			bossBar = Bukkit.createBossBar(progressString, BarColor.GREEN, BarStyle.SEGMENTED_6);
-			bossBar.setProgress(1);
 		}
 		
 		doPlayerChecks();
@@ -80,6 +79,10 @@ public class WauzPlayerSkillBossBar extends WauzPlayerBossBar {
 			public void run() {
 	        	try {
 	        		passedSeconds++;
+	        		if(bossBar.getPlayers().isEmpty()) {
+	        			destroy();
+    					return;
+	        		}
         			for(Player player : bossBar.getPlayers()) {
         				if(passedSeconds >= 15 || !isPlayerValid(player)) {
         					destroy();
@@ -110,6 +113,14 @@ public class WauzPlayerSkillBossBar extends WauzPlayerBossBar {
 	 */
 	@Override
 	protected double getHealth() {
+		return 100;
+	}
+	
+	/**
+	 * @return The maximum health of the object, this bar belongs to.
+	 */
+	@Override
+	protected double getMaxHealth() {
 		return 100;
 	}
 

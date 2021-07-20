@@ -17,6 +17,7 @@ import eu.wauz.wauzcore.players.calc.RageCalculator;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.WauzPlayerNotifier;
+import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.professions.WauzResource;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
@@ -61,6 +62,7 @@ public class WauzRepeatingTasks {
 					if(WauzMode.isMMORPG(player)) {
 						WauzResource.highlightResourcesNearPlayer(player);
 					}
+					WauzPlayerBossBar.update(player);
 					WauzPlayerActionBar.update(player);
 					WauzPlayerEffects.progressPlayerEffects(player);
 				}

@@ -86,14 +86,16 @@ public class CombatMapper {
 		if(event.isCancelled()) {
 			return;
 		}
-		if(event.getEntity() instanceof Player && WauzMode.isMMORPG(event.getEntity())) {
-			event.setCancelled(true);
-			CustomWeaponGlider.cancelFallDamage(event);
-			DamageCalculator.defend(event);
+		if(WauzMode.isMMORPG(event.getEntity())) {
+			if(event.getEntity() instanceof Player) {
+				event.setCancelled(true);
+				CustomWeaponGlider.cancelFallDamage(event);
+				DamageCalculator.defend(event);
+			}
+			DeprecatedUtils.removeDamageModifiers(event);
 		}
-		DeprecatedUtils.removeDamageModifiers(event);
 		if(playerBossBar != null) {
-			playerBossBar.updateBossBar(event.getDamage());
+			playerBossBar.updateBossBar();
 		}
 	}
 	

@@ -2,11 +2,31 @@ Patch 7XX: Kingdom Siege
 
 Patch 7XX: Content Extension
 
-Patch 614: Survival Ascended
+Patch 615: Survival Ascended
 
-Patch 613: Cosmetic Chaos
+Patch 614: Cosmetic Chaos
 
-Patch 612: Powerful Professions
+Patch 613: Powerful Professions II
+
+Patch 612: Powerful Professions I
+	Minecraft Update
+      - Waterfall Integration
+      - Waterfall Chat Sync
+      
+	New Feature: Professions
+	  - Leveling System
+	  - Breeding turned into Profession
+	  - Gathering Professions
+	    > Mining, Herbalism (Fishing WIP)
+	    > Leveling Unlocks Tools
+	  - Crafting Professions
+	    > Smithing, Cooking, Inscription
+	    > Leveling Unlocks Recipes
+	    > Replaces old Crafting System
+	    
+	Miscellaneous
+	  - Embedded FTP Server
+	  - Project Structure Refactoring
 
 Patch 611: Things and Stuff
 	Minecraft Update

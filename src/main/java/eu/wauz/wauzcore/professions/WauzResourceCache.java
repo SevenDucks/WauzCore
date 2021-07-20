@@ -61,7 +61,7 @@ public class WauzResourceCache {
 		}
 		health -= damage;
 		playerBossBar.addPlayer(player, 0);
-		playerBossBar.updateBossBar(0);
+		playerBossBar.updateBossBar();
 		return health <= 0;
 	}
 

@@ -1,15 +1,17 @@
 package eu.wauz.wauzcore.players.ui.bossbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
-import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
@@ -30,7 +32,7 @@ public class WauzPlayerEnemyBossBar extends WauzPlayerBossBar {
 	/**
 	 * The entity, this bar belongs to.
 	 */
-	private Damageable damageable;
+	private LivingEntity entity;
 	
 	/**
 	 * The particles circling the entity, this bar belongs to.
@@ -43,20 +45,14 @@ public class WauzPlayerEnemyBossBar extends WauzPlayerBossBar {
 	 * 
 	 * @param entity The entity, this bar belongs to.
 	 * @param modifiers Menacing modifiers shown in the bar.
-	 * @param maxHealth Max health shown in the bar.
 	 * @param raidBoss If the entity is a raid boss.
 	 * 
 	 * @see WauzPlayerBossBar#doPlayerChecks()
 	 */
-	public WauzPlayerEnemyBossBar(Entity entity, List<MenacingModifier> modifiers, double maxHealth, boolean raidBoss) {
-		if(!(entity instanceof Damageable)) {
-			return;
-		}
-		
-		this.damageable = (Damageable) entity;
-		this.uuid = damageable.getUniqueId().toString();
+	private WauzPlayerEnemyBossBar(LivingEntity entity, List<MenacingModifier> modifiers, boolean raidBoss) {
+		this.entity = (LivingEntity) entity;
+		this.uuid = entity.getUniqueId().toString();
 		this.modifiers = modifiers.size() > 0 ? ChatColor.GOLD + StringUtils.join(modifiers, " ") + " " : "";
-		this.maxHealth = maxHealth;
 		
 		BarColor barColor;
 		if(raidBoss) {
@@ -70,19 +66,40 @@ public class WauzPlayerEnemyBossBar extends WauzPlayerBossBar {
 			barColor = BarColor.RED;
 		}
 		
-		bossBar = Bukkit.createBossBar(getTitle((int) Math.ceil(getHealth())), barColor, BarStyle.SEGMENTED_6);
-		bossBar.setProgress(1);
+		int health = (int) Math.ceil(getHealth());
+		int maxHealth = (int) Math.ceil(getMaxHealth());
+		bossBar = Bukkit.createBossBar(getTitle(health, maxHealth), barColor, BarStyle.SEGMENTED_6);
 		bossBars.put(uuid, this);
 		doPlayerChecks();
 	}
 	
 	/**
+	 * Finds or creates a boss bar for the given entity.
+	 * 
 	 * @param entity An entity with a boss bar.
 	 * 
-	 * @return The boss bar of this entity, if existing.
+	 * @return The boss bar of this entity or null, if no bar is possible.
 	 */
 	public static WauzPlayerBossBar getBossBar(Entity entity) {
-		return bossBars.get(entity.getUniqueId().toString());
+		WauzPlayerBossBar bossBar = bossBars.get(entity.getUniqueId().toString());
+		return bossBar != null ? bossBar : createBossBar(entity, new ArrayList<>(), false);
+		
+	}
+	
+	/**
+	 * Creates a boss bar for the given entity.
+	 * 
+	 * @param entity The entity, this bar belongs to.
+	 * @param modifiers Menacing modifiers shown in the bar.
+	 * @param raidBoss If the entity is a raid boss.
+	 * 
+	 * @return The boss bar of this entity or null, if no bar is possible.
+	 */
+	public static WauzPlayerBossBar createBossBar(Entity entity, List<MenacingModifier> modifiers, boolean raidBoss) {
+		if(entity instanceof LivingEntity) {
+			return new WauzPlayerEnemyBossBar((LivingEntity) entity, modifiers, raidBoss);
+		}
+		return null;
 	}
 	
 	/**
@@ -98,21 +115,21 @@ public class WauzPlayerEnemyBossBar extends WauzPlayerBossBar {
 	        @Override
 			public void run() {
 	        	try {
-	        		if(damageable == null || !damageable.isValid()) {
+	        		if(entity == null || !entity.isValid()) {
 	        			destroy();
 	        			return;
 	        		}
 	        		for(Player player : bossBar.getPlayers()) {
-	        			if(!inDistance(player, damageable.getLocation())) {
+	        			if(!inDistance(player, entity.getLocation())) {
 	        				bossBar.removePlayer(player);
 	        				bossBarPlayerLinks.remove(player);
 	        			}
 	        		}
 	        		if(particle != null) {
-	        			ParticleSpawner.spawnParticleCircle(damageable.getLocation(), particle, 1, 8);
+	        			ParticleSpawner.spawnParticleCircle(entity.getLocation(), particle, 1, 8);
 	        		}
-	        		if(MobMetadataUtils.hasMenacingModifier(damageable, MenacingModifier.RAVENOUS)) {
-	        			SkillUtils.addPotionEffect(damageable, PotionEffectType.SPEED, 2, 4);
+	        		if(MobMetadataUtils.hasMenacingModifier(entity, MenacingModifier.RAVENOUS)) {
+	        			SkillUtils.addPotionEffect(entity, PotionEffectType.SPEED, 2, 4);
 	        		}
 	        		doPlayerChecks();
 	        	}
@@ -130,7 +147,7 @@ public class WauzPlayerEnemyBossBar extends WauzPlayerBossBar {
 	 */
 	@Override
 	protected String getName() {
-		return damageable.getName();
+		return entity.getName();
 	}
 	
 	/**
@@ -138,7 +155,15 @@ public class WauzPlayerEnemyBossBar extends WauzPlayerBossBar {
 	 */
 	@Override
 	protected double getHealth() {
-		return damageable.getHealth();
+		return entity.getHealth() + entity.getAbsorptionAmount();
+	}
+	
+	/**
+	 * @return The maximum health of the object, this bar belongs to.
+	 */
+	@Override
+	protected double getMaxHealth() {
+		return entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() + entity.getAbsorptionAmount();
 	}
 
 }

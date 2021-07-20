@@ -93,17 +93,13 @@ public abstract class AbstractPassiveSkill {
 	public void grantExperience(Player player, long earned) {
 		exp += earned;
 		WauzDebugger.log(player, "You earned " + earned + " " + getPassiveName() + " experience!");
-		boolean leveledUp = false;
+		onExperienceGain(player);
 		while(hasReachedMilestone()) {
 			level++;
-			leveledUp = true;
 			player.sendMessage(ChatColor.DARK_AQUA + getPassiveName() + " Up! Your skill reached " + level + "!");
 			player.sendTitle(ChatColor.YELLOW + getPassiveName() + " Up!", "Your skill reached " + level + "!", 10, 70, 20);
 			player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 			onLevelUp(player);
-		}
-		if(!leveledUp) {
-			onExperienceGain(player);
 		}
 	}
 	

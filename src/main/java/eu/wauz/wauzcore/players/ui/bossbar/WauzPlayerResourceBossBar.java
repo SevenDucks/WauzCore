@@ -31,10 +31,10 @@ public class WauzPlayerResourceBossBar extends WauzPlayerBossBar {
 	public WauzPlayerResourceBossBar(WauzResourceCache resource) {
 		this.resource = resource;
 		this.uuid = resource.getUuid();
-		this.maxHealth = resource.getResourceSpawn().getResource().getNodeHealth();
 		
-		bossBar = Bukkit.createBossBar(getTitle((int) Math.ceil(getHealth())), BarColor.BLUE, BarStyle.SEGMENTED_6);
-		bossBar.setProgress(1);
+		int health = (int) Math.ceil(getHealth());
+		int maxHealth = (int) Math.ceil(getMaxHealth());
+		bossBar = Bukkit.createBossBar(getTitle(health, maxHealth), BarColor.BLUE, BarStyle.SEGMENTED_6);
 		bossBars.put(uuid, this);
 		doPlayerChecks();
 	}
@@ -92,6 +92,14 @@ public class WauzPlayerResourceBossBar extends WauzPlayerBossBar {
 	@Override
 	protected double getHealth() {
 		return resource.getHealth();
+	}
+	
+	/**
+	 * @return The maximum health of the object, this bar belongs to.
+	 */
+	@Override
+	protected double getMaxHealth() {
+		return resource.getResourceSpawn().getResource().getNodeHealth();
 	}
 
 }

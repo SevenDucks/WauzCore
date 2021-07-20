@@ -47,7 +47,7 @@ public class MenacingMobsSpawner {
 			}
 		}
 		if(config.isEnableHealthBar()) {
-			new WauzPlayerEnemyBossBar(entity, modifiers, mythicMob.getHealth().get(), config.isEnableRaidHealthBar());
+			WauzPlayerEnemyBossBar.createBossBar(entity, modifiers, config.isEnableRaidHealthBar());
 			MobMetadataUtils.setRaidBoss(entity, config.isEnableRaidHealthBar());
 		}
 		if(StringUtils.isNotBlank(config.getExpDropString())) {
