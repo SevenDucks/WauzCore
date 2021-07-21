@@ -1,21 +1,19 @@
 package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
+import io.lumine.xikage.mythicmobs.utils.shadows.nbt.NBTTagCompound;
 import net.md_5.bungee.api.chat.ItemTag;
-import net.minecraft.server.v1_16_R3.ItemStack;
-import net.minecraft.server.v1_16_R3.MojangsonParser;
-import net.minecraft.server.v1_16_R3.NBTTagCompound;
-import net.minecraft.server.v1_16_R3.PacketPlayInClientCommand;
-import net.minecraft.server.v1_16_R3.PacketPlayInClientCommand.EnumClientCommand;
-import net.minecraft.server.v1_16_R3.PacketPlayOutWorldBorder;
-import net.minecraft.server.v1_16_R3.PacketPlayOutWorldBorder.EnumWorldBorderAction;
-import net.minecraft.server.v1_16_R3.WorldBorder;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.protocol.game.ClientboundInitializeBorderPacket;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.border.WorldBorder;
 
 /**
  * Collection of general net.minecraft.server specific methods.
@@ -30,8 +28,9 @@ public class WauzNmsClient {
 	 * @param player The player that should respawn.
 	 */
 	public static void nmsRepsawn(Player player) {
-		PacketPlayInClientCommand packet = new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN);
-		((CraftPlayer) player).getHandle().playerConnection.a(packet);
+		player.spigot().respawn();
+//		PacketPlayInClientCommand packet = new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN);
+//		((CraftPlayer) player).getHandle().playerConnection.a(packet);
 	}
 	
 	/**
@@ -46,8 +45,8 @@ public class WauzNmsClient {
 		worldBorder.world = ((CraftWorld) location.getWorld()).getHandle();
 		worldBorder.setCenter(location.getBlockX(), location.getBlockZ());
 		worldBorder.setSize(radius * 2);
-		PacketPlayOutWorldBorder packet = new PacketPlayOutWorldBorder(worldBorder, EnumWorldBorderAction.INITIALIZE);
-		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+		ClientboundInitializeBorderPacket packet = new ClientboundInitializeBorderPacket(worldBorder);
+		((CraftPlayer) player).getHandle().connection.send(packet);
 	}
 	
 	/**
@@ -69,7 +68,8 @@ public class WauzNmsClient {
 	 */
 	public static org.bukkit.inventory.ItemStack nmsSerialize(org.bukkit.inventory.ItemStack itemStack) {
 		try {
-			return nmsItemFromString(nmsStringFromItem(itemStack));
+			return org.bukkit.inventory.ItemStack.deserialize(itemStack.serialize());
+//			return nmsItemFromString(nmsStringFromItem(itemStack));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -77,40 +77,31 @@ public class WauzNmsClient {
 		}
 	}
 	
-	/**
-	 * Converts a string into an item stack.
-	 * 
-	 * @param dataString The string to convert.
-	 * 
-	 * @return The created item stack.
-	 * 
-	 * @throws Exception Error while converting.
-	 */
-	public static org.bukkit.inventory.ItemStack nmsItemFromString(String dataString) throws Exception {
-		NBTTagCompound compound = MojangsonParser.parse(dataString);
-		return CraftItemStack.asBukkitCopy(ItemStack.a(compound));
-	}
-	
-	/**
-	 * Conberts an item stack into a string.
-	 * 
-	 * @param itemStack The item to convert.
-	 * 
-	 * @return The created string.
-	 */
-	public static String nmsStringFromItem(org.bukkit.inventory.ItemStack itemStack) {
-		return CraftItemStack.asNMSCopy(itemStack).save(new NBTTagCompound()).asString();
-	}
-	
-	/**
-	 * Conberts an item stack into an item tag.
-	 * 
-	 * @param itemStack The item to convert.
-	 * 
-	 * @return The created tag.
-	 */
-	public static ItemTag getTagFromItem(org.bukkit.inventory.ItemStack itemStack) {
-		return ItemTag.ofNbt(CraftItemStack.asNMSCopy(itemStack).getTag().toString());
-	}
+//	/** TODO
+//	 * Converts a string into an item stack.
+//	 * 
+//	 * @param dataString The string to convert.
+//	 * 
+//	 * @return The created item stack.
+//	 * 
+//	 * @throws Exception Error while converting.
+//	 */
+//	public static org.bukkit.inventory.ItemStack nmsItemFromString(String dataString) throws Exception {
+//		NBTTagCompound compound = MojangsonParser.parse(dataString);
+//		Tag.
+//		new CompoundTag().put(dataString, null)t
+//		return CraftItemStack.asBukkitCopy(ItemStack.of(compound));
+//	}
+//	
+//	/**
+//	 * Converts an item stack into a string.
+//	 * 
+//	 * @param itemStack The item to convert.
+//	 * 
+//	 * @return The created string.
+//	 */
+//	public static String nmsStringFromItem(org.bukkit.inventory.ItemStack itemStack) {
+//		return CraftItemStack.asNMSCopy(itemStack).save(new CompoundTag()).getAsString();
+//	}
 	
 }

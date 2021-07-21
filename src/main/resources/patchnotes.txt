@@ -10,9 +10,9 @@ Patch 613: Powerful Professions II
 
 Patch 612: Powerful Professions I
 	Minecraft Update
-      - Waterfall Integration
-      - Waterfall Chat Sync
-      
+	  - Waterfall Integration
+	  - Waterfall Chat Sync
+	
 	New Feature: Professions
 	  - Leveling System
 	  - Breeding turned into Profession
@@ -23,7 +23,7 @@ Patch 612: Powerful Professions I
 	    > Smithing, Cooking, Inscription
 	    > Leveling Unlocks Recipes
 	    > Replaces old Crafting System
-	    
+	
 	Miscellaneous
 	  - Embedded FTP Server
 	  - Project Structure Refactoring

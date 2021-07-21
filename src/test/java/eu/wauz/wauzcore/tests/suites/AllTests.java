@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.tests.suites;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -14,6 +15,7 @@ import eu.wauz.wauzcore.tests.OneBlockTest;
  * 
  * @author Wauzmons
  */
+@Ignore
 @RunWith(Suite.class)
 @SuiteClasses({CurrencyTest.class, EquipmentTest.class, LevelingTest.class, OneBlockTest.class})
 public class AllTests {

@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.wauz</groupId>
 	<artifactId>wauzcore</artifactId>
-	<version>Behelit.12-SNAPSHOT</version>
+	<version>Behelit.13-SNAPSHOT</version>
 
 
 	<properties>
-		<java.version>11</java.version>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<java.version>16</java.version>
+		<maven.compiler.source>16</maven.compiler.source>
+		<maven.compiler.target>16</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -44,12 +44,6 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 		</repository>
 
-		<!-- Needed for MythicMobsAPI -->
-		<repository>
-			<id>lumine-repo</id>
-			<url>https://mvn.lumine.io/repository/maven-snapshots/</url>
-		</repository>
-
 		<!-- Needed for NoteBlockAPI -->
 		<repository>
 			<id>jitpack.io</id>
@@ -74,24 +68,24 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.destroystokyo.paper</groupId>
+			<groupId>io.papermc.paper</groupId>
 			<artifactId>paper-api</artifactId>
-			<version>1.16.5-R0.1-SNAPSHOT</version>
+			<version>1.17.1-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>craftbukkit</artifactId>
-			<version>1.16.5-R0.1-SNAPSHOT</version>
-			<type>jar</type>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot</artifactId>
+			<version>1.17.1-R0.1-SNAPSHOT</version>
+			<classifier>remapped-mojang</classifier>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>bukkit</artifactId>
-			<version>1.16.5-R0.1-SNAPSHOT</version>
+			<version>1.17.1-R0.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -111,8 +105,8 @@
 		<dependency>
 			<groupId>io.lumine.xikage</groupId>
 			<artifactId>MythicMobs</artifactId>
-			<version>4.11.2</version>
-			<systemPath>${basedir}/libs/MythicMobs-4.11.2.jar</systemPath>
+			<version>5.0.0-SNAPSHOT</version>
+			<systemPath>${basedir}/libs/MythicMobs-5.0.0-SNAPSHOT.jar</systemPath>
 			<scope>system</scope>
 		</dependency>
 
@@ -126,7 +120,7 @@
 		<dependency>
 			<groupId>net.jitse</groupId>
 			<artifactId>npclib-plugin</artifactId>
-			<version>2.11-SNAPSHOT</version>
+			<version>2.12.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -209,7 +203,7 @@
 				<version>3.0.0-M5</version>
 				<configuration>
 					<excludes>
-						<exclude>**/suites/**</exclude>
+						<exclude>**/**</exclude>
 					</excludes>
 					<classpathDependencyExcludes>
 						<classpathDependencyExclude>com.destroystokyo.paper:paper-api</classpathDependencyExclude>

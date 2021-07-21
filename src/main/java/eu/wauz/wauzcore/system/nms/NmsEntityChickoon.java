@@ -1,18 +1,18 @@
 package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 
-import net.minecraft.server.v1_16_R3.EntityChicken;
-import net.minecraft.server.v1_16_R3.EntityTypes;
-import net.minecraft.server.v1_16_R3.WorldServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Chicken;
 
 /**
  * A chickoon (indestructible chicken) entity based on a normal chicken.
  * 
  * @author Wauzmons
  */
-public class NmsEntityChickoon extends EntityChicken {
+public class NmsEntityChickoon extends Chicken {
 	
 	/**
 	 * Creates a chickoon (indestructible chicken) entity.
@@ -22,7 +22,7 @@ public class NmsEntityChickoon extends EntityChicken {
 	 * @return The created entity.
 	 */
 	public static org.bukkit.entity.Entity create(Location location) {
-		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
+		ServerLevel worldServer = ((CraftWorld) location.getWorld()).getHandle();
 		return new NmsEntityChickoon(worldServer, location).getBukkitEntity();
 	}
 
@@ -32,19 +32,20 @@ public class NmsEntityChickoon extends EntityChicken {
 	 * @param worldServer The world server to create the entity on.
 	 * @param location The spawn location.
 	 */
-	private NmsEntityChickoon(WorldServer worldServer, Location location) {
-		super(EntityTypes.CHICKEN, worldServer);
+	private NmsEntityChickoon(ServerLevel worldServer, Location location) {
+		super(EntityType.CHICKEN, worldServer);
 		
 		this.collides = false;
 		this.persist = false;
-		this.canPickUpLoot = false;
+		this.age = 1;
+		this.ageLocked = true;
 		
-		this.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+		this.teleportTo(location.getX(), location.getY(), location.getZ());
 		this.setInvisible(false);
 		this.setInvulnerable(true);
-		this.setAge(1, true);
+		this.setCanPickUpLoot(false);
 		
-		worldServer.addEntity(this);
+		worldServer.addFreshEntity(this);
 	}
 	
 }

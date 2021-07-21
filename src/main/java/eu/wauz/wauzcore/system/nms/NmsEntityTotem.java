@@ -2,21 +2,20 @@ package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
-import org.bukkit.entity.ArmorStand;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import net.minecraft.server.v1_16_R3.ChatMessage;
-import net.minecraft.server.v1_16_R3.EntityArmorStand;
-import net.minecraft.server.v1_16_R3.WorldServer;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.decoration.ArmorStand;
 
 /**
  * A totem entity based on an armor stand.
  * 
  * @author Wauzmons
  */
-public class NmsEntityTotem extends EntityArmorStand {
+public class NmsEntityTotem extends ArmorStand {
 	
 	/**
 	 * Creates a totem entity.
@@ -28,7 +27,7 @@ public class NmsEntityTotem extends EntityArmorStand {
 	 */
 	public static org.bukkit.entity.Entity create(Player player, ItemStack headItemStack) {
 		Location location = player.getLocation();
-		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
+		ServerLevel worldServer = ((CraftWorld) location.getWorld()).getHandle();
 		double x = location.getX();
 		double y = location.getY();
 		double z = location.getZ();
@@ -48,7 +47,7 @@ public class NmsEntityTotem extends EntityArmorStand {
 	 */
 	public static org.bukkit.entity.Entity create(Player player, ItemStack headItemStack, ItemStack bodyItemStack) {
 		Location location = player.getLocation();
-		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
+		ServerLevel worldServer = ((CraftWorld) location.getWorld()).getHandle();
 		double x = location.getX();
 		double y = location.getY();
 		double z = location.getZ();
@@ -68,27 +67,26 @@ public class NmsEntityTotem extends EntityArmorStand {
 	 * @param headItemStack The head of the totem.
 	 * @param bodyItemStack The body of the totem.
 	 */
-	private NmsEntityTotem(WorldServer worldServer, double x, double y, double z, String display, ItemStack headItemStack, ItemStack bodyItemStack) {
+	private NmsEntityTotem(ServerLevel worldServer, double x, double y, double z, String display, ItemStack headItemStack, ItemStack bodyItemStack) {
 		super(worldServer, x, y, z);
 		
 		this.collides = false;
 		this.persist = false;
-		this.canPickUpLoot = false;
 		
 		this.setInvisible(false);
 		this.setInvulnerable(true);
 		this.setSmall(bodyItemStack == null);
-		this.setCustomName(new ChatMessage(display));
+		this.setCustomName(new TextComponent(display));
 		this.setCustomNameVisible(true);
 		
-		this.setArms(false);
-		this.setBasePlate(false);
+		this.setShowArms(false);
+		this.setNoBasePlate(true);
 		
-		ArmorStand armorStand = (ArmorStand) this.getBukkitEntity();
+		org.bukkit.entity.ArmorStand armorStand = (org.bukkit.entity.ArmorStand) this.getBukkitEntity();
 		armorStand.getEquipment().setHelmet(headItemStack);
 		armorStand.getEquipment().setChestplate(bodyItemStack);
 
-		worldServer.addEntity(this);
+		worldServer.addFreshEntity(this);
 	}
 
 }

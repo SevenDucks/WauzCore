@@ -1,18 +1,18 @@
 package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 
-import net.minecraft.server.v1_16_R3.ChatMessage;
-import net.minecraft.server.v1_16_R3.EntityArmorStand;
-import net.minecraft.server.v1_16_R3.WorldServer;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.decoration.ArmorStand;
 
 /**
  * A hologram entity based on an armor stand.
  * 
  * @author Wauzmons
  */
-public class NmsEntityHologram  extends EntityArmorStand {
+public class NmsEntityHologram extends ArmorStand {
 	
 	/**
 	 * Creates a hologram entity.
@@ -23,7 +23,7 @@ public class NmsEntityHologram  extends EntityArmorStand {
 	 * @return The created entity.
 	 */
 	public static org.bukkit.entity.Entity create(Location location, String display) {
-		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
+		ServerLevel worldServer = ((CraftWorld) location.getWorld()).getHandle();
 		double x = location.getX();
 		double y = location.getY();
 		double z = location.getZ();
@@ -40,20 +40,19 @@ public class NmsEntityHologram  extends EntityArmorStand {
 	 * @param z The z coordinate of the spawn location.
 	 * @param display The text of the hologram.
 	 */
-	private NmsEntityHologram(WorldServer worldServer, double x, double y, double z, String display) {
+	private NmsEntityHologram(ServerLevel worldServer, double x, double y, double z, String display) {
 		super(worldServer, x, y, z);
 		
 		this.collides = false;
 		this.persist = false;
-		this.canPickUpLoot = false;
 		
 		this.setInvisible(true);
 		this.setInvulnerable(true);
 		this.setSmall(false);
-		this.setCustomName(new ChatMessage(display));
+		this.setCustomName(new TextComponent(display));
 		this.setCustomNameVisible(true);
 
-		worldServer.addEntity(this);
+		worldServer.addFreshEntity(this);
 	}
 
 }

@@ -2,8 +2,8 @@ name: WauzCore
 description: Advanced Minecraft MMORPG Engine
 main: eu.wauz.wauzcore.WauzCore
 website: http://wauz.eu/
-version: Behelit.12-SNAPSHOT
-api-version: 1.16
+version: Behelit.13-SNAPSHOT
+api-version: 1.17
 author: Wauzmons
 softdepend: [NoteBlockAPI]
 loadbefore: [MythicMobs]

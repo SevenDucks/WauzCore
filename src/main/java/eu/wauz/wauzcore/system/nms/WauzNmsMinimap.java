@@ -3,10 +3,10 @@ package eu.wauz.wauzcore.system.nms;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_16_R3.map.CraftMapRenderer;
-import org.bukkit.craftbukkit.v1_16_R3.map.CraftMapView;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_17_R1.map.CraftMapRenderer;
+import org.bukkit.craftbukkit.v1_17_R1.map.CraftMapView;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
@@ -24,9 +24,9 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
 import eu.wauz.wauzcore.worlds.instances.WauzActiveInstancePool;
-import net.minecraft.server.v1_16_R3.ItemWorldMap;
-import net.minecraft.server.v1_16_R3.WorldMap;
-import net.minecraft.server.v1_16_R3.WorldServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.MapItem;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
 /**
  * Live minimap using net.minecraft.server classes.
@@ -47,12 +47,12 @@ public class WauzNmsMinimap {
 	 */
     public static void init(Player player) {
     	MapView mapView = null;
-    	ItemStack mapItem = player.getInventory().getItem(6);
-		if(mapItem == null || !mapItem.getType().equals(Material.FILLED_MAP)) {
+    	ItemStack mapItemStack = player.getInventory().getItem(6);
+		if(mapItemStack == null || !mapItemStack.getType().equals(Material.FILLED_MAP)) {
 			return;
 		}
 		
-		MapMeta mm = (MapMeta) mapItem.getItemMeta();
+		MapMeta mm = (MapMeta) mapItemStack.getItemMeta();
 		
     	try {
     		mapView = mm.getMapView();
@@ -78,13 +78,12 @@ public class WauzNmsMinimap {
 		mapView.setCenterZ(player.getLocation().getBlockZ());
         mapView.setScale(Scale.CLOSE);
         
-        net.minecraft.server.v1_16_R3.ItemStack craftItemStack = CraftItemStack.asNMSCopy(mapItem);
-		ItemWorldMap itemWorldMap = (ItemWorldMap) craftItemStack.getItem();
+        net.minecraft.world.item.ItemStack craftItemStack = CraftItemStack.asNMSCopy(mapItemStack);
+        MapItem mapItem = (MapItem) craftItemStack.getItem();
+        ServerLevel worldServer = ((CraftWorld) mapView.getWorld()).getHandle();
+        MapItemSavedData mapData = MapItem.getSavedData(craftItemStack, worldServer.getMinecraftWorld());
 		
-		WorldServer worldServer = ((CraftWorld) mapView.getWorld()).getHandle();
-		WorldMap worldMap = ItemWorldMap.getSavedMap(craftItemStack, worldServer.getMinecraftWorld());
-		
-		mapView.addRenderer(new CraftMapRenderer((CraftMapView) mapView, worldMap) {
+		mapView.addRenderer(new CraftMapRenderer((CraftMapView) mapView, mapData) {
 			
 			/**
 			 * If the map is rendered for the first time
@@ -105,8 +104,8 @@ public class WauzNmsMinimap {
 				if (iterator > 10) {
 	                iterator = 0;
 	                
-	    			for (int i = 0; i < worldMap.colors.length; i ++) {
-	                    worldMap.colors[i] = 0;
+	    			for (int i = 0; i < mapData.colors.length; i ++) {
+	                    mapData.colors[i] = 0;
 	                }
 	                
 	    			Location playerLocation = player.getLocation();
@@ -120,7 +119,8 @@ public class WauzNmsMinimap {
 	    				mapView.setCenterZ(player.getLocation().getBlockZ());
 	    				
 	    				NmsEntityMockPlayer mockPlayer = new NmsEntityMockPlayer(worldServer);
-	    				mockPlayer.updateMap(itemWorldMap, worldMap, 128 << worldMap.scale);
+	    				mockPlayer.updateMap(null, null, iterator);
+	    				mockPlayer.updateMap(mapItem, mapData, 128 << mapData.scale);
 	    				super.render(mapView, mapCanvas, player);
 	    				
 	    				for(int x = 0; x <= 128; x++) {

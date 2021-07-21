@@ -2,22 +2,21 @@ package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
-import org.bukkit.entity.Horse;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 
-import net.minecraft.server.v1_16_R3.ChatMessage;
-import net.minecraft.server.v1_16_R3.EntityHorse;
-import net.minecraft.server.v1_16_R3.EntityTypes;
-import net.minecraft.server.v1_16_R3.HorseColor;
-import net.minecraft.server.v1_16_R3.HorseStyle;
-import net.minecraft.server.v1_16_R3.WorldServer;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.animal.horse.Markings;
+import net.minecraft.world.entity.animal.horse.Variant;
 
 /**
  * A horse mount entity based on a normal horse.
  * 
  * @author Wauzmons
  */
-public class NmsEntityHorseMount extends EntityHorse {
+public class NmsEntityHorseMount extends Horse {
 	
 	/**
 	 * Creates a horse mount entity.
@@ -28,10 +27,10 @@ public class NmsEntityHorseMount extends EntityHorse {
 	 * 
 	 * @return The created horse entity.
 	 */
-	public static org.bukkit.entity.Horse create(Location location, Horse.Color color, String name) {
-		WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
-		HorseColor horseColor = HorseColor.valueOf(color.toString());
-		return (Horse) new NmsEntityHorseMount(worldServer, location, horseColor, ChatColor.GREEN + name).getBukkitEntity();
+	public static org.bukkit.entity.Horse create(Location location, org.bukkit.entity.Horse.Color color, String name) {
+		ServerLevel worldServer = ((CraftWorld) location.getWorld()).getHandle();
+		Variant horseColor = Variant.valueOf(color.toString());
+		return (org.bukkit.entity.Horse) new NmsEntityHorseMount(worldServer, location, horseColor, ChatColor.GREEN + name).getBukkitEntity();
 	}
 	
 	/**
@@ -42,22 +41,23 @@ public class NmsEntityHorseMount extends EntityHorse {
 	 * @param color the color of the entity.
 	 * @param name The display name of the entity.
 	 */
-	private NmsEntityHorseMount(WorldServer worldServer, Location location, HorseColor color, String name) {
-		super(EntityTypes.HORSE, worldServer);
+	private NmsEntityHorseMount(ServerLevel worldServer, Location location, Variant color, String name) {
+		super(EntityType.HORSE, worldServer);
 		
 		this.persist = false;
-		this.canPickUpLoot = false;
-		this.jumpPower = 2.0f;
+//		this.jumpPower = 2.0f; TODO
+		this.age = 1;
+		this.ageLocked = true;
 		
-		this.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+		this.teleportTo(location.getX(), location.getY(), location.getZ());
 		this.setInvisible(false);
 		this.setInvulnerable(true);
-		this.setAge(1, true);
-		this.setCustomName(new ChatMessage(name));
+		this.setCanPickUpLoot(false);
+		this.setCustomName(new TextComponent(name));
 		this.setCustomNameVisible(true);
-		this.setVariant(color, HorseStyle.NONE);
+		this.setVariantAndMarkings(color, Markings.NONE);
 		
-		worldServer.addEntity(this);
+		worldServer.addFreshEntity(this);
 	}
 
 }

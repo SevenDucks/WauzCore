@@ -4,31 +4,31 @@ import java.util.UUID;
 
 import com.mojang.authlib.GameProfile;
 
-import net.minecraft.server.v1_16_R3.BlockPosition;
-import net.minecraft.server.v1_16_R3.EntityHuman;
-import net.minecraft.server.v1_16_R3.ItemWorldMap;
-import net.minecraft.server.v1_16_R3.WorldMap;
-import net.minecraft.server.v1_16_R3.WorldServer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.MapItem;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
 /**
  * A human entity used to trigger map rendering.
  * 
  * @author Wauzmons
  */
-public class NmsEntityMockPlayer extends EntityHuman {
+public class NmsEntityMockPlayer extends Player {
 	
 	/**
 	 * The world server the entity is located in.
 	 */
-	private WorldServer worldServer;
+	private ServerLevel worldServer;
 	
 	/**
 	 * Creates a mock player in the given world.
 	 * 
 	 * @param worldServer The world server the entity is located in.
 	 */
-	public NmsEntityMockPlayer(WorldServer worldServer) {
-		super(worldServer.getMinecraftWorld(), new BlockPosition(0, 64, 0), 64, new GameProfile(UUID.randomUUID(), ""));
+	public NmsEntityMockPlayer(ServerLevel worldServer) {
+		super(worldServer.getMinecraftWorld(), new BlockPos(0, 64, 0), 64, new GameProfile(UUID.randomUUID(), ""));
 		this.worldServer = worldServer;
 	}
 	
@@ -51,15 +51,15 @@ public class NmsEntityMockPlayer extends EntityHuman {
 	/**
 	 * Uses the entity to render the given map.
 	 * 
-	 * @param itemWorldMap The map item.
-	 * @param worldMap The world map that should be rendered.
+	 * @param mapItem The map item.
+	 * @param mapData The world map that should be rendered.
 	 * @param size The size of the world map.
 	 */
-	public void updateMap(ItemWorldMap itemWorldMap, WorldMap worldMap, int size) {
-		for (int x = worldMap.centerX - size / 2; x <= worldMap.centerX + size / 2; x += 24) {
-            for (int z = worldMap.centerZ - size / 2; z <= worldMap.centerZ + size / 2; z += 24) {
-                setLocation(x, 64, z, 0, 0);
-                itemWorldMap.a(worldServer, this, worldMap);
+	public void updateMap(MapItem mapItem, MapItemSavedData mapData, int size) {
+		for (int x = mapData.x - size / 2; x <= mapData.x + size / 2; x += 24) {
+            for (int z = mapData.z - size / 2; z <= mapData.z + size / 2; z += 24) {
+                this.teleportTo(x, 64, z);
+                mapItem.update(worldServer, this, mapData);
             }
         }
 	}

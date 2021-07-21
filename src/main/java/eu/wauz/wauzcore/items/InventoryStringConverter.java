@@ -124,47 +124,47 @@ public class InventoryStringConverter {
     	player.getInventory().setContents(playerDataConfig.getList("inventory.items").toArray(new ItemStack[0]));
     }
     
-    /**
-	 * Serializes the given inventory into a string list.
-	 * 
-	 * @param inventory The inventory to save.
-	 * 
-	 * @return The created string list.
-	 */
-	public static List<String> serailizeInventory(Inventory inventory) {
-		List<String> dataStrings = new ArrayList<>();
-		try {
-			for(int index = 0; index < inventory.getContents().length; index++) {
-				ItemStack itemStack = inventory.getItem(index);
-				dataStrings.add(itemStack == null ? null : WauzNmsClient.nmsStringFromItem(itemStack));
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return dataStrings;
-		
-	}
-	
-	/**
-	 * Deserializes the given inventory from a string list.
-	 * 
-	 * @param inventory The inventory to load.
-	 * @param dataStrings The data to insert.
-	 * 
-	 * @return The filled inventory.
-	 */
-	public static Inventory deserializeInventory(Inventory inventory, List<?> dataStrings) {
-		try {
-			for(int index = 0; index < inventory.getContents().length && index < dataStrings.size(); index++) {
-				String dataString = (String) dataStrings.get(index);
-				inventory.setItem(index, dataString == null ? null : WauzNmsClient.nmsItemFromString(dataString));
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return inventory;
-	}
+//    /** TODO
+//	 * Serializes the given inventory into a string list.
+//	 * 
+//	 * @param inventory The inventory to save.
+//	 * 
+//	 * @return The created string list.
+//	 */
+//	public static List<String> serailizeInventory(Inventory inventory) {
+//		List<String> dataStrings = new ArrayList<>();
+//		try {
+//			for(int index = 0; index < inventory.getContents().length; index++) {
+//				ItemStack itemStack = inventory.getItem(index);
+//				dataStrings.add(itemStack == null ? null : WauzNmsClient.nmsStringFromItem(itemStack));
+//			}
+//		}
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return dataStrings;
+//		
+//	}
+//	
+//	/**
+//	 * Deserializes the given inventory from a string list.
+//	 * 
+//	 * @param inventory The inventory to load.
+//	 * @param dataStrings The data to insert.
+//	 * 
+//	 * @return The filled inventory.
+//	 */
+//	public static Inventory deserializeInventory(Inventory inventory, List<?> dataStrings) {
+//		try {
+//			for(int index = 0; index < inventory.getContents().length && index < dataStrings.size(); index++) {
+//				String dataString = (String) dataStrings.get(index);
+//				inventory.setItem(index, dataString == null ? null : WauzNmsClient.nmsItemFromString(dataString));
+//			}
+//		}
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return inventory;
+//	}
     
 }
