@@ -22,7 +22,6 @@ import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRank;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
@@ -155,25 +154,24 @@ public class WauzPlayerRegistrator {
 				if(respawnInCurrentWorld) {
 					Location spawnLocation = player.getBedSpawnLocation();
 					player.setBedSpawnLocation(instance.getSpawnLocation(), true);
-					WauzNmsClient.nmsRepsawn(player);
+					player.spigot().respawn();
 					player.setBedSpawnLocation(spawnLocation, true);
 				}
 				else if(characterSelected && WauzMode.isMMORPG(player) && !StringUtils.isBlank(PlayerConfigurator.getCharacterHearthstoneRegion(player))) {
 					Location spawnLocation = player.getBedSpawnLocation();
 					player.setBedSpawnLocation(PlayerConfigurator.getCharacterHearthstone(player), true);
-					WauzNmsClient.nmsRepsawn(player);
+					player.spigot().respawn();
 					player.setBedSpawnLocation(spawnLocation, true);
 				}
 				else {
 					if(characterSelected) {
 						player.setBedSpawnLocation(PlayerConfigurator.getCharacterSpawn(player), true);
 					}
-					WauzNmsClient.nmsRepsawn(player);
+					player.spigot().respawn();
 				}
 				if(WauzMode.inOneBlock(player)) {
 					OnePlotManager.setUpBorder(player);
 				}
-	        	player.sendTitle(ChatColor.DARK_RED + "" + ChatColor.BOLD + "YOU DIED", "", 10, 70, 20);
 			}
 			
 		});

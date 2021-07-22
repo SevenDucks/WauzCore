@@ -2,7 +2,6 @@ package eu.wauz.wauzcore.data;
 
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiarySpecies;
-import eu.wauz.wauzcore.mobs.citizens.WauzCitizen;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.oneblock.OnePhase;
 import eu.wauz.wauzcore.players.WauzPlayerGuild;
@@ -46,7 +45,7 @@ public class ConfigurationLoader {
 		WauzResource.init();
 		WauzCraftingRecipes.init();
 		WauzBestiarySpecies.init();
-		WauzCitizen.init();
+//		WauzCitizen.init(); TODO
 		WauzPet.init();
 		WauzInstance.init();
 		WauzRank.init();

@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.data.SeasonConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.system.nms.NmsWorldBorder;
 
 /**
  * Used for managing one-block plots.
@@ -68,7 +68,7 @@ public class OnePlotManager {
 	 * @param player The player to create the border for.
 	 */
 	public static void setUpBorder(Player player) {
-		WauzNmsClient.nmsBorder(player, PlayerConfigurator.getCharacterSpawn(player), BORDER_RADIUS);
+		NmsWorldBorder.init(player, PlayerConfigurator.getCharacterSpawn(player), BORDER_RADIUS);
 		WauzDebugger.log(player, "Created World Border");
 	}
 

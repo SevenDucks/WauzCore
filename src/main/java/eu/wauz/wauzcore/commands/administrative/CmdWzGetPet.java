@@ -10,10 +10,10 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.system.annotations.Command;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
  * A command, that can be executed by a player with fitting permissions.<br>
@@ -61,7 +61,7 @@ public class CmdWzGetPet implements WauzCommand {
 			sender.sendMessage(ChatColor.RED + "Unknown player specified!");
 			return false;
 		}
-		player.getInventory().addItem(WauzNmsClient.nmsSerialize(WauzPetEgg.getEggItem(player, pet, null, System.currentTimeMillis())));
+		player.getInventory().addItem(InventorySerializer.serialize(WauzPetEgg.getEggItem(player, pet, null, System.currentTimeMillis())));
 		return true;
 	}
 

@@ -30,13 +30,10 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
 /**
  * Live minimap using net.minecraft.server classes.
- * Extracted from the general classes in the nms client.
  * 
  * @author Wauzmons
- * 
- * @see WauzNmsClient
  */
-public class WauzNmsMinimap {
+public class NmsMinimap {
 	
 	/**
 	 * Initializes the world map in the players inventory and adds a custom renderer.

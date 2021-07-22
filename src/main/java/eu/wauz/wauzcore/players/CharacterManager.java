@@ -20,7 +20,7 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
-import eu.wauz.wauzcore.items.InventoryStringConverter;
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentHelper;
 import eu.wauz.wauzcore.items.runes.RuneHardening;
@@ -42,8 +42,7 @@ import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
-import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
+import eu.wauz.wauzcore.system.nms.NmsMinimap;
 import eu.wauz.wauzcore.system.quests.QuestProcessor;
 import eu.wauz.wauzcore.system.quests.QuestSlot;
 import eu.wauz.wauzcore.system.util.Components;
@@ -76,7 +75,7 @@ public class CharacterManager {
 	 * @param wauzMode The mode of the character.
 	 * 
 	 * @see WauzPlayerDataSectionSelections#getSelectedCharacterSlot()
-	 * @see InventoryStringConverter#loadInventory(Player)
+	 * @see InventorySerializer#loadInventory(Player)
 	 * @see CharacterManager#equipCharacterItems(Player)
 	 */
 	public static void loginCharacter(final Player player, WauzMode wauzMode) {
@@ -98,7 +97,7 @@ public class CharacterManager {
 		player.teleport(destination);
 
 		player.getInventory().clear();
-		InventoryStringConverter.loadInventory(player);
+		InventorySerializer.loadInventory(player);
 		SpeedCalculator.resetWalkSpeed(player);
 		SpeedCalculator.resetFlySpeed(player);
 		
@@ -181,12 +180,12 @@ public class CharacterManager {
 	 * 
 	 * @param player The player that selected the character.
 	 * 
-	 * @see InventoryStringConverter#saveInventory(Player)
+	 * @see InventorySerializer#saveInventory(Player)
 	 * @see PlayerConfigurator#setCharacterLocation(Player, Location)
 	 */
 	public static void saveCharacter(final Player player) {
 		if(WauzPlayerDataPool.isCharacterSelected(player)) {
-			InventoryStringConverter.saveInventory(player);
+			InventorySerializer.saveInventory(player);
 			if(StringUtils.equals(player.getWorld().getName(), PlayerConfigurator.getCharacterWorldString(player))) {
 				PlayerConfigurator.setCharacterLocation(player, player.getLocation());
 			}
@@ -355,8 +354,8 @@ public class CharacterManager {
 			playerDataConfig.set("inventory", new ArrayList<>());
 			persistCharacterFile(playerDataFile, playerDataConfig);
 			
-			player.getInventory().addItem(WauzNmsClient.nmsSerialize(characterClass.getStartingWeapon()));
-			player.getInventory().addItem(WauzNmsClient.nmsSerialize(WauzEquipmentHelper.getRune(new RuneHardening(), false)));
+			player.getInventory().addItem(InventorySerializer.serialize(characterClass.getStartingWeapon()));
+			player.getInventory().addItem(InventorySerializer.serialize(WauzEquipmentHelper.getRune(new RuneHardening(), false)));
 			equipCharacterItems(player);
 			WauzRewards.earnDailyReward(player);
 			QuestProcessor.processQuest(player, "CalamityBeneathWauzland");
@@ -437,7 +436,7 @@ public class CharacterManager {
 		Components.displayName(mapItemMeta, ChatColor.DARK_AQUA + "Map of the Grand Explorer");
 		mapItemStack.setItemMeta(mapItemMeta);
 		player.getInventory().setItem(6, mapItemStack);
-		WauzNmsMinimap.init(player);
+		NmsMinimap.init(player);
 		
 		ItemStack trackerItemStack = new ItemStack(Material.COMPASS);
 		ItemMeta trackerItemMeta = trackerItemStack.getItemMeta();

@@ -12,6 +12,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.items.InventoryItemRemover;
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
@@ -25,7 +26,6 @@ import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Components;
 
 /**
@@ -236,7 +236,7 @@ public class CraftingMenu implements WauzInventory {
 		}
 		
 		itemRemover.execute();
-		player.getInventory().addItem(WauzNmsClient.nmsSerialize(craftedItem));
+		player.getInventory().addItem(InventorySerializer.serialize(craftedItem));
 		AchievementTracker.addProgress(player, WauzAchievementType.CRAFT_ITEMS, 1);
 		if(skill.getLevel() < itemToCraft.getCraftingItemLevel() + 5) {
 			skill.grantExperience(player, 1);

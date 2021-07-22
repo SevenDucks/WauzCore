@@ -16,13 +16,13 @@ import eu.wauz.wauzcore.data.RandomMessageConfiguration;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.EquipmentParameters;
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 import eu.wauz.wauzcore.items.enums.EquipmentType;
 import eu.wauz.wauzcore.items.enums.Rarity;
 import eu.wauz.wauzcore.items.enums.Tier;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Components;
 
@@ -216,7 +216,7 @@ public class WauzEquipmentIdentifier extends EquipmentParameters {
 		
 		String verb = equipPrefixes.get(Chance.randomInt(equipPrefixes.size()));
 		String name = verb + " " + equipmentType.getName();
-		ItemStack generatedItemStack = WauzNmsClient.nmsSerialize(builder.generate(tier, rarity, equipmentType.getType(), name));
+		ItemStack generatedItemStack = InventorySerializer.serialize(builder.generate(tier, rarity, equipmentType.getType(), name));
 		equipmentItemStack.setType(generatedItemStack.getType());
 		equipmentItemStack.setItemMeta(generatedItemStack.getItemMeta());
 		

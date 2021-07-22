@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.events.WauzPlayerEventMaterialsSell;
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.MenuIconHeads;
@@ -28,7 +29,6 @@ import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveWeight;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.economy.WauzShopActions;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -173,18 +173,18 @@ public class MaterialPouch implements WauzInventory {
 	 */
 	public static boolean addItem(Player player, ItemStack itemStack, String inventoryName) {
 		Inventory inventory = MaterialPouch.getInventory(player, inventoryName);
-		if(inventory.addItem(WauzNmsClient.nmsSerialize(itemStack)).isEmpty()) {
+		if(inventory.addItem(InventorySerializer.serialize(itemStack)).isEmpty()) {
 			String displayName = Components.displayName(itemStack.getItemMeta());
 			String message = ChatColor.AQUA + "Found Material: " + displayName;
 			player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
-			player.sendTitle("", message, 2, 16, 4);
+			player.sendTitle(" ", message, 2, 16, 4);
 			AbstractPassiveSkillPool.getPassive(player, PassiveWeight.PASSIVE_NAME).grantExperience(player, 1);
 			return true;
 		}
 		else {
 			String message = ChatColor.RED + "Material Bag is full!";
 			player.playSound(player.getLocation(), Sound.BLOCK_LADDER_BREAK, 1, 1);
-			player.sendTitle("", message, 2, 16, 4);
+			player.sendTitle(" ", message, 2, 16, 4);
 			return false;
 		}
 	}

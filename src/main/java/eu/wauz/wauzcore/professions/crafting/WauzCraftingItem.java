@@ -10,11 +10,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.CraftingConfigurator;
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.items.identifiers.WauzIdentifier;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import io.lumine.xikage.mythicmobs.MythicMobs;
@@ -79,7 +79,7 @@ public class WauzCraftingItem {
 		String[] nameParts = craftingItemType.split(";");
 		String canonicalName = nameParts[0];
 		String displayNameSuffix = nameParts.length > 1 ? nameParts[1] : null;
-		this.craftingItemStack = WauzNmsClient.nmsSerialize(mythicMobs.getItemStack(canonicalName));
+		this.craftingItemStack = InventorySerializer.serialize(mythicMobs.getItemStack(canonicalName));
 		if(StringUtils.isNotBlank(displayNameSuffix) && ItemUtils.hasDisplayName(craftingItemStack)) {
 			ItemMeta craftingItemMeta = craftingItemStack.getItemMeta();
 			Components.displayName(craftingItemMeta, Components.displayName(craftingItemMeta) + displayNameSuffix);

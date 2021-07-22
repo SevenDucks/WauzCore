@@ -169,7 +169,7 @@ public class ArcadeUtils {
 				if(secondsTillStart > 0) {
 					for(Player player : ArcadeLobby.getPlayingPlayers()) {
 						player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1, 1);
-						player.sendTitle("", ChatColor.YELLOW + "" + secondsTillStart, 2, 14, 4);
+						player.sendTitle(" ", ChatColor.YELLOW + "" + secondsTillStart, 2, 14, 4);
 					}
 					runStartTimer(secondsTillStart - 1, secondsTillEnd);
 				}
@@ -179,7 +179,7 @@ public class ArcadeUtils {
 						player.removePotionEffect(PotionEffectType.SLOW);
 						player.removePotionEffect(PotionEffectType.JUMP);
 						player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 1, 1);
-						player.sendTitle("", ChatColor.GOLD + "START", 2, 14, 4);
+						player.sendTitle(" ", ChatColor.GOLD + "START", 2, 14, 4);
 						WauzNoteBlockPlayer.play(player, songName);
 					}
 					ArcadeLobby.handleStartEvent();

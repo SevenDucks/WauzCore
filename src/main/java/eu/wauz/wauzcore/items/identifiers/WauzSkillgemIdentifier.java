@@ -10,9 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Components;
 
@@ -70,7 +70,7 @@ public class WauzSkillgemIdentifier {
 		
 		Components.lore(itemMeta, lores);
 		itemStack.setItemMeta(itemMeta);
-		ItemStack generatedItemStack = WauzNmsClient.nmsSerialize(itemStack);
+		ItemStack generatedItemStack = InventorySerializer.serialize(itemStack);
 		skillgemItemStack.setType(generatedItemStack.getType());
 		skillgemItemStack.setItemMeta(generatedItemStack.getItemMeta());
 		return skillgemItemStack;

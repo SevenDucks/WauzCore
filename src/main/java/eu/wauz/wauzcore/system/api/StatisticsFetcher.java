@@ -299,12 +299,20 @@ public class StatisticsFetcher {
 		long playedHours = 0;
 		try {
 			String line = Files.readFirstLine(file, StandardCharsets.UTF_8);
-			long playedTicks = line.contains("\"stat.playOneMinute\":")
-				? Long.parseLong(StringUtils.substringBetween(line, "\"stat.playOneMinute\":", ","))
-				: Long.parseLong(StringUtils.substringBetween(line, "\"minecraft:play_one_minute\":", ","));
+			long playedTicks;
+			if(line.contains("\"stat.playOneMinute\":")) {
+				playedTicks = Long.parseLong(StringUtils.substringBetween(line, "\"stat.playOneMinute\":", ","));
+			}
+			else if(line.contains("\"minecraft:play_one_minute\":")) {
+				playedTicks = Long.parseLong(StringUtils.substringBetween(line, "\"minecraft:play_one_minute\":", ","));
+			}
+			else {
+				playedTicks = Long.parseLong(StringUtils.substringBetween(line, "\"minecraft:play_time\":", ","));
+			}
 			playedHours = playedTicks / 72000;
 		}
 		catch (Exception e) {
+			WauzDebugger.log("getPlayedHoursFromStatistics " + file.getName());
 			WauzDebugger.catchException(StatisticsFetcher.class, e);
 		}
 		return playedHours;
@@ -331,6 +339,7 @@ public class StatisticsFetcher {
 				: Long.parseLong(StringUtils.substringBetween(line, "\"minecraft:mob_kills\":", ","));
 		}
 		catch (Exception e) {
+			WauzDebugger.log("getKilledMobsFromStatistics " + file.getName());
 			WauzDebugger.catchException(StatisticsFetcher.class, e);
 		}
 		return killedMobs;
@@ -358,6 +367,7 @@ public class StatisticsFetcher {
 			walkedMetres = walkedCentimetres / 100;
 		}
 		catch (Exception e) {
+			WauzDebugger.log("getWalkedMetresFromStatistics " + file.getName());
 			WauzDebugger.catchException(StatisticsFetcher.class, e);
 		}
 		return walkedMetres;

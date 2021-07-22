@@ -149,7 +149,7 @@ public class InstanceMobArena {
 	 */
 	public void broadcastMessage(String message, Sound sound) {
 		for(Player player : world.getPlayers()) {
-			player.sendTitle(message, "", 10, 70, 20);
+			player.sendTitle(message, " ", 10, 70, 20);
 			player.getWorld().playSound(player.getLocation(), sound, 1, 1);
 		}
 	}

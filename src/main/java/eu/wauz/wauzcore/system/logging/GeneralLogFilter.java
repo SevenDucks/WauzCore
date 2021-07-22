@@ -64,6 +64,7 @@ public class GeneralLogFilter extends AbstractLogFilter {
 			"Preparing start region for dimension",
 			"Preparing spawn area:",
 			"Time elapsed:",
+			"Named entity ",
 			"Loaded class io.lumine.xikage.mythicmobs.MythicMobs",
 			"NPCLib Attempting to inject into netty",
 			"NPCLib Enabled for Minecraft");

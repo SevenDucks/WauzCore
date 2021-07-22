@@ -11,7 +11,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.inventory.Inventory;
 
 import eu.wauz.wauzcore.data.OneBlockConfigurator;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.system.util.Chance;
 
 /**
@@ -102,7 +102,7 @@ public class OneChest {
 		Inventory inventory = barrel.getInventory();
 		for(int count = 0; count < stackCount; count++) {
 			OneChestItem randomItem = contentItemStacks.get(Chance.randomInt(contentItemStacks.size()));
-			inventory.addItem(WauzNmsClient.nmsSerialize(randomItem.generateItemStack()));
+			inventory.addItem(InventorySerializer.serialize(randomItem.generateItemStack()));
 		}
 	}
 	

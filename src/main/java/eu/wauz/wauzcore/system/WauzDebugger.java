@@ -42,7 +42,9 @@ public class WauzDebugger {
 	 * @param e The catched exception.
 	 */
 	public static void catchException(Class<?> clazz, Exception e) {
-		WauzCore.getInstance().getLogger().warning("[Catcher] Irrelevant Exception in " + clazz.getName() + ": " + e.getMessage());
+		String trace = e.getStackTrace().length > 0 ? " " + e.getStackTrace()[0] : "";
+		String exceptionString = clazz.getName() + " " + e.getClass().getName() + ": (" + e.getMessage() + ")" + trace;
+		WauzCore.getInstance().getLogger().warning("[Catcher] Exception in " + exceptionString);
 	}
 	
 	/**

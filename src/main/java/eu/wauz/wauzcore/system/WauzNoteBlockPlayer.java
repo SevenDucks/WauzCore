@@ -71,16 +71,16 @@ public class WauzNoteBlockPlayer {
 			if(StringUtils.equals(currentFile.getAbsolutePath(), soundtrackFile.getAbsolutePath())) {
 				return;
 			}
-			currentSongPlayer.destroy();
+			currentSongPlayer.removePlayer(player);
 		}
 		
 		if(soundtrackFile.exists()) {
 			Song song = NBSDecoder.parse(soundtrackFile);
 			SongPlayer songPlayer = new RadioSongPlayer(song);
-			songPlayer.setAutoDestroy(true);
+			songPlayer.setAutoStop(true);
 			songPlayer.setRepeatMode(RepeatMode.ALL);
 			songPlayer.setCategory(SoundCategory.RECORDS);
-			songPlayer.setVolume((byte) 30);
+			songPlayer.setVolume((byte) 25);
 			songPlayer.addPlayer(player);
 			songPlayer.setPlaying(true);
 			

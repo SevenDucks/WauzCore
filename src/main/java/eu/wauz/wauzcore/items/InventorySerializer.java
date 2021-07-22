@@ -2,14 +2,11 @@ package eu.wauz.wauzcore.items;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.bukkit.GameMode;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.WauzCore;
@@ -23,7 +20,6 @@ import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.ExperienceCalculator;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -31,7 +27,7 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * 
  * @author Wauzmons
  */
-public class InventoryStringConverter {
+public class InventorySerializer {
 
 	/**
 	 * A direct reference to the main class.
@@ -123,48 +119,16 @@ public class InventoryStringConverter {
     	player.setSaturation((float) playerDataConfig.getDouble("stats.current.saturation"));
     	player.getInventory().setContents(playerDataConfig.getList("inventory.items").toArray(new ItemStack[0]));
     }
-    
-//    /** TODO
-//	 * Serializes the given inventory into a string list.
-//	 * 
-//	 * @param inventory The inventory to save.
-//	 * 
-//	 * @return The created string list.
-//	 */
-//	public static List<String> serailizeInventory(Inventory inventory) {
-//		List<String> dataStrings = new ArrayList<>();
-//		try {
-//			for(int index = 0; index < inventory.getContents().length; index++) {
-//				ItemStack itemStack = inventory.getItem(index);
-//				dataStrings.add(itemStack == null ? null : WauzNmsClient.nmsStringFromItem(itemStack));
-//			}
-//		}
-//		catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return dataStrings;
-//		
-//	}
-//	
-//	/**
-//	 * Deserializes the given inventory from a string list.
-//	 * 
-//	 * @param inventory The inventory to load.
-//	 * @param dataStrings The data to insert.
-//	 * 
-//	 * @return The filled inventory.
-//	 */
-//	public static Inventory deserializeInventory(Inventory inventory, List<?> dataStrings) {
-//		try {
-//			for(int index = 0; index < inventory.getContents().length && index < dataStrings.size(); index++) {
-//				String dataString = (String) dataStrings.get(index);
-//				inventory.setItem(index, dataString == null ? null : WauzNmsClient.nmsItemFromString(dataString));
-//			}
-//		}
-//		catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return inventory;
-//	}
+
+	/**
+	 * Serializes the nbt data of an item stack, so it equals the default save format.
+	 * 
+	 * @param itemStack The item stack to serialize.
+	 * 
+	 * @return The serialized item stack.
+	 */
+	public static ItemStack serialize(ItemStack itemStack) {
+		return ItemStack.deserialize(itemStack.serialize());
+	}
     
 }

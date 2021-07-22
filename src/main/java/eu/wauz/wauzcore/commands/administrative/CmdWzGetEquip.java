@@ -13,9 +13,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.execution.WauzCommand;
 import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.items.identifiers.WauzEquipmentIdentifier;
 import eu.wauz.wauzcore.system.annotations.Command;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Components;
 
 /**
@@ -68,7 +68,7 @@ public class CmdWzGetEquip implements WauzCommand {
 		equipmentItemStack.setItemMeta(equipmentItemMeta);
 		
 		new WauzEquipmentIdentifier().identifyItem(player, equipmentItemStack, true);
-		player.getInventory().addItem(WauzNmsClient.nmsSerialize(equipmentItemStack));
+		player.getInventory().addItem(InventorySerializer.serialize(equipmentItemStack));
 		return true;
 	}
 

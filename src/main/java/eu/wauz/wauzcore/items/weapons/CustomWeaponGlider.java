@@ -14,7 +14,6 @@ import org.bukkit.Sound;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Chicken;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -32,7 +31,6 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.annotations.Item;
 import eu.wauz.wauzcore.system.nms.NmsEntityChickoon;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -132,9 +130,7 @@ public class CustomWeaponGlider implements CustomWeapon {
 		int damage = (int) (EquipmentUtils.getBaseAtk(gliderItemStack) * 1.5);
 		DurabilityCalculator.damageItem(player, gliderItemStack, 4, false);
 		
-		Entity chicken = origin.getWorld().spawnEntity(origin.clone().add(0, 0.5, 0), EntityType.CHICKEN);
-		WauzNmsClient.nmsEntityPersistence(chicken, false);
-		chicken.setInvulnerable(true);
+		Entity chicken = NmsEntityChickoon.create(origin.clone().add(0, 0.5, 0));
 		chicken.setVelocity(origin.getDirection().multiply(1.25));
 		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {

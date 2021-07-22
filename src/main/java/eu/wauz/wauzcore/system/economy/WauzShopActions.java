@@ -12,6 +12,7 @@ import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
 import eu.wauz.wauzcore.items.DurabilityCalculator;
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.ShopMenu;
@@ -19,7 +20,6 @@ import eu.wauz.wauzcore.mobs.citizens.RelationTracker;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Components;
 
@@ -81,7 +81,7 @@ public class WauzShopActions {
 				return false;
 			}
 			currency.setCurrencyAmount(player, money - currencyCost);
-			player.getInventory().addItem(WauzNmsClient.nmsSerialize(boughtItem));
+			player.getInventory().addItem(InventorySerializer.serialize(boughtItem));
 			player.sendMessage(ChatColor.GREEN + "Your purchase was successful!");
 		}
 		if(StringUtils.isNotBlank(discount.getCitizenName()) && itemToBuy.getShopItemRelationExp() > 0) {

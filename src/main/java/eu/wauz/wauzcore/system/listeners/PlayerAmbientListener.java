@@ -33,6 +33,7 @@ import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.events.PetObtainEvent;
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.util.ItemUtils;
@@ -49,8 +50,7 @@ import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
-import eu.wauz.wauzcore.system.nms.WauzNmsMinimap;
+import eu.wauz.wauzcore.system.nms.NmsMinimap;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
@@ -86,7 +86,7 @@ public class PlayerAmbientListener implements Listener {
 		Player player = event.getPlayer();
 		WauzPlayerBossBar.clearBar(player);
 		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
-		WauzNmsMinimap.init(player);
+		NmsMinimap.init(player);
 		WauzNoteBlockPlayer.play(player);
 		
 		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(player);
@@ -335,7 +335,7 @@ public class PlayerAmbientListener implements Listener {
 		if(OneBlock.isOneBlock(location.getBlock())) {
 			item.teleport(location.add(0, 1.25, 0));
 		}
-		item.setItemStack(WauzNmsClient.nmsSerialize(itemStack));
+		item.setItemStack(InventorySerializer.serialize(itemStack));
 	}
 	
 	/**

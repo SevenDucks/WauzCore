@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancement;
 import eu.wauz.wauzcore.items.enhancements.WauzEnhancementParameters;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
@@ -15,7 +16,6 @@ import eu.wauz.wauzcore.items.runes.insertion.WauzRune;
 import eu.wauz.wauzcore.items.runes.insertion.WauzRuneInserter;
 import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
-import eu.wauz.wauzcore.system.nms.WauzNmsClient;
 
 /**
  * A class to get special equipment items from.
@@ -38,7 +38,7 @@ public class WauzEquipmentHelper {
 			return false;
 		}
 		
-		player.getInventory().addItem(WauzNmsClient.nmsSerialize(getSkillgemWeapon(skill, Material.DIAMOND_HOE, true)));
+		player.getInventory().addItem(InventorySerializer.serialize(getSkillgemWeapon(skill, Material.DIAMOND_HOE, true)));
 		return true;
 	}
 	
@@ -75,7 +75,7 @@ public class WauzEquipmentHelper {
 			return false;
 		}
 		
-		player.getInventory().addItem(WauzNmsClient.nmsSerialize(getEnhancedEquipment(enhancement, enhancementLevel)));
+		player.getInventory().addItem(InventorySerializer.serialize(getEnhancedEquipment(enhancement, enhancementLevel)));
 		return true;
 	}
 	
@@ -123,7 +123,7 @@ public class WauzEquipmentHelper {
 			return false;
 		}
 		
-		player.getInventory().addItem(WauzNmsClient.nmsSerialize(getRune(rune, true)));
+		player.getInventory().addItem(InventorySerializer.serialize(getRune(rune, true)));
 		return true;
 	}
 	
