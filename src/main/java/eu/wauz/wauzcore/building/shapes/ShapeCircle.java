@@ -1,4 +1,4 @@
-package eu.wauz.wauzcore.building;
+package eu.wauz.wauzcore.building.shapes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,54 +11,37 @@ import org.bukkit.util.BlockVector;
 import org.bukkit.util.Vector;
 
 /**
- * A block structure in the shape of a circle.
+ * A block structure blueprint in the shape of a circle.
  * 
  * @author Wauzmons
  */
-public class ShapeCircle {
+public class ShapeCircle extends WauzShape {
 	
-	/**
-	 * The center location of the circle.
-	 */
-	private final Location center;
-	
-	/**
-	 * The radius of the circle.
-	 */
-	private final int radius;
-    
     /**
      * If the circle should be hollow.
      */
     private final boolean hollow;
+    
+    /**
+     * Empty default constructor.
+     */
+    public ShapeCircle() {
+    	super();
+    	this.hollow = false;
+    }
 	
 	/**
-     * Constructs a block structure in the shape of a circle.
+     * Constructs a block structure blueprint in the shape of a circle.
      * 
-     * @param center The center location of the circle.
      * @param radius The radius of the circle.
+     * @param height The height of the circle.
      * @param hollow If the circle should be hollow.
      */
-    public ShapeCircle(Location center, int radius, boolean hollow) {
-        this.center = center;
-        this.radius = radius;
+    public ShapeCircle(int radius, int height, boolean hollow) {
+    	super(radius, height);
         this.hollow = hollow;
     }
     
-    /**
-     * @return The center location of the circle.
-     */
-    public Location getCenter() {
-    	return center;
-    }
-    
-    /**
-     * @return The radius of the circle.
-     */
-    public int getRadius() {
-        return radius;
-    }
-
     /**
      * @return If the circle should be hollow.
      */
@@ -66,7 +49,15 @@ public class ShapeCircle {
 		return hollow;
 	}
 
-	public List<Block> create(Material material) {
+	/**
+	 * Creates the shape as ingame block structure.
+	 * 
+	 * @param center The center location of the circle.
+	 * @param material The block material.
+	 * 
+	 * @return The affected blocks.
+	 */
+	public List<Block> create(Location center, Material material) {
 		List<Block> blocks = new ArrayList<>();
 		World world = center.getWorld();
 		Vector vector = new BlockVector(center.getX(), center.getY(), center.getZ());

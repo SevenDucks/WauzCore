@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.arcade.template.MinigameTemplateBreakingFloor;
-import eu.wauz.wauzcore.building.ShapeHexagon;
+import eu.wauz.wauzcore.building.shapes.ShapeHexagon;
 import eu.wauz.wauzcore.system.annotations.Minigame;
 
 /**

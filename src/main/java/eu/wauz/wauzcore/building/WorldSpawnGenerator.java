@@ -9,6 +9,7 @@ import org.bukkit.block.Sign;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 
+import eu.wauz.wauzcore.building.shapes.ShapeCircle;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.system.util.Components;
 

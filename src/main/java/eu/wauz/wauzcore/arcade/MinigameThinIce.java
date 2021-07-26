@@ -20,7 +20,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.arcade.template.MinigameTemplateBreakingFloor;
-import eu.wauz.wauzcore.building.ShapeHexagon;
+import eu.wauz.wauzcore.building.shapes.ShapeHexagon;
 import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.system.annotations.Minigame;
 import eu.wauz.wauzcore.system.util.Chance;

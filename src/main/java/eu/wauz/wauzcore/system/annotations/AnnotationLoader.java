@@ -56,6 +56,7 @@ public class AnnotationLoader {
 		Rune.RuneAnnotationHelper.init(this);
 		Enhancement.EnhancementAnnotationHelper.init(this);
 		Minigame.MinigameAnnotationHelper.init(this);
+		Brush.BrushAnnotationHelper.init(this);
 	}
 	
 	/**
