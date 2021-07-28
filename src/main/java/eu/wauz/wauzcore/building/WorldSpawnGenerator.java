@@ -28,11 +28,9 @@ public class WorldSpawnGenerator {
 	 * @param location The location to create the spawn circle at.
 	 */
 	public static void createMainSpawnCircle(World world, Location location) {
-		new ShapeCircle(location, 10, false).create(Material.CHISELED_QUARTZ_BLOCK);
-		new ShapeCircle(location, 10, true).create(Material.GOLD_BLOCK);
-		for(int y = 1; y < world.getMaxHeight() - location.getBlockY(); y++) {
-			new ShapeCircle(location.clone().add(0, y, 0), 10, false).create(Material.AIR);
-		}
+		new ShapeCircle(10, 1, false).setMaterial(location, Material.CHISELED_QUARTZ_BLOCK);
+		new ShapeCircle(10, 1, true).setMaterial(location, Material.GOLD_BLOCK);
+		new ShapeCircle(10, 10, false).setMaterial(location.clone().add(0, 1, 0), Material.AIR);
 		location.getBlock().setType(Material.DIAMOND_BLOCK);
 		location.getBlock().getRelative(BlockFace.NORTH).setType(Material.GOLD_BLOCK);
 		location.getBlock().getRelative(BlockFace.SOUTH).setType(Material.GOLD_BLOCK);
@@ -52,11 +50,9 @@ public class WorldSpawnGenerator {
 	 * @param location The location to create the spawn circle at.
 	 */
 	public static void createInstanceSpawnCircle(World world, Location location) {
-		new ShapeCircle(location, 7, false).create(Material.OBSIDIAN);
-		new ShapeCircle(location, 7, true).create(Material.GLOWSTONE);
-		for(int y = 1; y <= 3; y++) {
-			new ShapeCircle(location.clone().add(0, y, 0), 7, false).create(Material.AIR);
-		}
+		new ShapeCircle(7, 1, false).setMaterial(location, Material.OBSIDIAN);
+		new ShapeCircle(7, 1, true).setMaterial(location, Material.GLOWSTONE);
+		new ShapeCircle(7, 3, false).setMaterial(location.clone().add(0, 1, 0), Material.AIR);
 		location.getBlock().setType(Material.BEDROCK);
 		location.getBlock().getRelative(BlockFace.NORTH).setType(Material.GLOWSTONE);
 		location.getBlock().getRelative(BlockFace.SOUTH).setType(Material.GLOWSTONE);

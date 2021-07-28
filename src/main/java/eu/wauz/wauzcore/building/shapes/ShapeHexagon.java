@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 
 /**
@@ -26,22 +25,21 @@ public class ShapeHexagon extends WauzShape {
     }
 
     /**
-     * Creates the shape as ingame block structure.
+     * Creates a selection in this shape.
      * 
-     * @param center The center location of the hexagon.
-     * @param material The block material.
+     * @param center The center location of the selection.
      * 
-     * @return The affected blocks.
+     * @return The selected blocks.
      */
-    public List<Block> create(Location center, Material material) {
+    @Override
+    protected List<Block> select(Location center) {
     	Path2D.Double polygon = createHexagon(center);
     	List<Block> blocks = new ArrayList<>();
     	for(int x = -radius; x <= radius; x++) {
     		for(int z = -radius; z <= radius; z++) {
     			Block block = center.clone().add(x, 0, z).getBlock();
     			if(polygon.intersects(block.getX(), block.getZ(), 1, 1)) {
-    				block.setType(material);
-    				blocks.add(block);
+    				blocks.addAll(getVerticalBlockStack(block));
     			}
     		}
     	}

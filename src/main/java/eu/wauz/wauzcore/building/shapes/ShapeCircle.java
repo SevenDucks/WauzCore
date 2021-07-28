@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.util.BlockVector;
@@ -22,14 +21,6 @@ public class ShapeCircle extends WauzShape {
      */
     private final boolean hollow;
     
-    /**
-     * Empty default constructor.
-     */
-    public ShapeCircle() {
-    	super();
-    	this.hollow = false;
-    }
-	
 	/**
      * Constructs a block structure blueprint in the shape of a circle.
      * 
@@ -50,14 +41,14 @@ public class ShapeCircle extends WauzShape {
 	}
 
 	/**
-	 * Creates the shape as ingame block structure.
-	 * 
-	 * @param center The center location of the circle.
-	 * @param material The block material.
-	 * 
-	 * @return The affected blocks.
-	 */
-	public List<Block> create(Location center, Material material) {
+     * Creates a selection in this shape.
+     * 
+     * @param center The center location of the selection.
+     * 
+     * @return The selected blocks.
+     */
+    @Override
+	protected List<Block> select(Location center) {
 		List<Block> blocks = new ArrayList<>();
 		World world = center.getWorld();
 		Vector vector = new BlockVector(center.getX(), center.getY(), center.getZ());
@@ -70,8 +61,7 @@ public class ShapeCircle extends WauzShape {
 						continue;
 					}
 					Block block = world.getBlockAt(position.getBlockX(), position.getBlockY(), position.getBlockZ());
-					block.setType(material);
-    				blocks.add(block);
+    				blocks.addAll(getVerticalBlockStack(block));
 				}
 			}
 		}

@@ -53,10 +53,10 @@ public class MinigameThinIce extends MinigameTemplateBreakingFloor {
 		World world = ArcadeLobby.getWorld();
 		Location floorLocation = new Location(world, 750.5, 85, 1000.5);
 		breakingBlocks.clear();
-		breakingBlocks.addAll(new ShapeHexagon(floorLocation, 12).create(Material.BLUE_ICE));
-		breakingBlocks.addAll(new ShapeHexagon(floorLocation, 6).create(Material.AIR));
-		breakingBlocks.addAll(new ShapeHexagon(floorLocation.subtract(0, 1, 0), 12).create(Material.BLUE_ICE));
-		breakingBlocks.addAll(new ShapeHexagon(floorLocation.subtract(0, 1, 0), 6).create(Material.BLUE_ICE));
+		breakingBlocks.addAll(new ShapeHexagon(12, 1).setMaterial(floorLocation, Material.BLUE_ICE));
+		breakingBlocks.addAll(new ShapeHexagon(6, 1).setMaterial(floorLocation, Material.AIR));
+		breakingBlocks.addAll(new ShapeHexagon(12, 1).setMaterial(floorLocation.subtract(0, 1, 0), Material.BLUE_ICE));
+		breakingBlocks.addAll(new ShapeHexagon(6, 1).setMaterial(floorLocation.subtract(0, 1, 0), Material.BLUE_ICE));
 		Location spawnLocation = new Location(world, 750.5, 88, 1000.5, 0, 0);
 		ArcadeUtils.placeTeam(players, spawnLocation, 6, 6);
 		for(Player player : ArcadeLobby.getPlayingPlayers()) {

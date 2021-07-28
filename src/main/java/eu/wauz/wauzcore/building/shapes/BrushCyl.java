@@ -8,7 +8,14 @@ import eu.wauz.wauzcore.system.annotations.Brush;
  * @author Wauzmons
  */
 @Brush
-public class BrushCyl implements WauzBrush {
+public class BrushCyl extends WauzBrush {
+	
+	/**
+	 * Creates a new instance of this brush.
+	 */
+	public BrushCyl() {
+		super();
+	}
 	
 	/**
 	 * @return The name of the brush.
@@ -16,6 +23,19 @@ public class BrushCyl implements WauzBrush {
 	@Override
 	public String getName() {
 		return "cyl";
+	}
+	
+	/**
+	 * Gets a new instance of this brush.
+     * 
+     * @param radius The radius of the brush.
+     * @param height The height of the brush.
+     * 
+     * @return The created instance.
+	 */
+	@Override
+	public WauzBrush getInstance(int radius, int height) {
+		return new BrushCyl().withShape(new ShapeCircle(radius, height, false));
 	}
 
 }

@@ -45,11 +45,11 @@ public class MinigameHexAGone extends MinigameTemplateBreakingFloor {
 		World world = ArcadeLobby.getWorld();
 		Location floorLocation = new Location(world, 750.5, 85, 750.5);
 		breakingBlocks.clear();
-		breakingBlocks.addAll(new ShapeHexagon(floorLocation, 12).create(Material.CYAN_CONCRETE));
-		breakingBlocks.addAll(new ShapeHexagon(floorLocation.subtract(0, 10, 0), 12).create(Material.GREEN_CONCRETE));
-		breakingBlocks.addAll(new ShapeHexagon(floorLocation.subtract(0, 10, 0), 12).create(Material.YELLOW_CONCRETE));
-		breakingBlocks.addAll(new ShapeHexagon(floorLocation.subtract(0, 10, 0), 12).create(Material.ORANGE_CONCRETE));
-		breakingBlocks.addAll(new ShapeHexagon(floorLocation.subtract(0, 10, 0), 12).create(Material.RED_CONCRETE));
+		breakingBlocks.addAll(new ShapeHexagon(12, 1).setMaterial(floorLocation, Material.CYAN_CONCRETE));
+		breakingBlocks.addAll(new ShapeHexagon(12, 1).setMaterial(floorLocation.subtract(0, 10, 0), Material.GREEN_CONCRETE));
+		breakingBlocks.addAll(new ShapeHexagon(12, 1).setMaterial(floorLocation.subtract(0, 10, 0), Material.YELLOW_CONCRETE));
+		breakingBlocks.addAll(new ShapeHexagon(12, 1).setMaterial(floorLocation.subtract(0, 10, 0), Material.ORANGE_CONCRETE));
+		breakingBlocks.addAll(new ShapeHexagon(12, 1).setMaterial(floorLocation.subtract(0, 10, 0), Material.RED_CONCRETE));
 		Location spawnLocation = new Location(world, 750.5, 88, 750.5, 0, 0);
 		ArcadeUtils.placeTeam(players, spawnLocation, 6, 6);
 		for(Player player : ArcadeLobby.getPlayingPlayers()) {
