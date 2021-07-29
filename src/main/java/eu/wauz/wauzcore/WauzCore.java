@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.commands.WauzCommandExecutor;
 import eu.wauz.wauzcore.data.ConfigurationLoader;
 import eu.wauz.wauzcore.data.DiscordConfigurator;
 import eu.wauz.wauzcore.data.ServerConfigurator;

@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
-import eu.wauz.wauzcore.commands.administrative.CmdWzTravel;
+import eu.wauz.wauzcore.commands.admins.CmdWzTravel;
 import eu.wauz.wauzcore.system.WauzWaypoint;
 
 /**

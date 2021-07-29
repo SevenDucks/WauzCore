@@ -8,6 +8,8 @@ import java.lang.annotation.Target;
 import org.bukkit.Bukkit;
 
 import eu.wauz.wauzcore.WauzCore;
+import eu.wauz.wauzcore.commands.WauzCommand;
+import eu.wauz.wauzcore.commands.WauzCommandExecutor;
 import eu.wauz.wauzcore.commands.completion.TabCompleterEnhancements;
 import eu.wauz.wauzcore.commands.completion.TabCompleterEquip;
 import eu.wauz.wauzcore.commands.completion.TabCompleterGuilds;
@@ -21,8 +23,6 @@ import eu.wauz.wauzcore.commands.completion.TabCompleterRunes;
 import eu.wauz.wauzcore.commands.completion.TabCompleterSkills;
 import eu.wauz.wauzcore.commands.completion.TabCompleterWaypoints;
 import eu.wauz.wauzcore.commands.completion.TabCompleterWorlds;
-import eu.wauz.wauzcore.commands.execution.WauzCommand;
-import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
 
 /**
  * An annotation to mark classes as commands, to automatically register them on startup.

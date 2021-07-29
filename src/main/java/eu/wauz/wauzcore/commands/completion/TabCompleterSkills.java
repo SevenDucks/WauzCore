@@ -8,8 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
-import eu.wauz.wauzcore.commands.administrative.CmdWzSkill;
-import eu.wauz.wauzcore.commands.administrative.CmdWzSkillWeapon;
+import eu.wauz.wauzcore.commands.admins.CmdWzSkill;
+import eu.wauz.wauzcore.commands.admins.CmdWzSkillWeapon;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 
 /**

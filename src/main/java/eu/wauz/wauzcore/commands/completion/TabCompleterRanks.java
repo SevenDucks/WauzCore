@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
-import eu.wauz.wauzcore.commands.administrative.CmdWzRank;
+import eu.wauz.wauzcore.commands.admins.CmdWzRank;
 import eu.wauz.wauzcore.system.WauzRank;
 
 /**

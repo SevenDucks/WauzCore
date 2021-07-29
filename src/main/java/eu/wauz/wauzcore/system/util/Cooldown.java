@@ -85,6 +85,18 @@ public class Cooldown {
 	}
 	
 	/**
+	 * Returns the brush usage cooldown from the player data.
+	 * Cooldown lasts 0.25 seconds. Resets it, if it is ready.
+	 * 
+	 * @param player The player who owns the player data.
+	 * 
+	 * @return If the cooldown is ready.
+	 */
+	public static boolean playerBrushUse(Player player) {
+		return getAndUpdateCooldownFromCache(player, "BRUSH_USE", 250L, false);
+	}
+	
+	/**
 	 * Returns the food consumtion cooldown from the player data.
 	 * Cooldown lasts 1 second. Resets it, if it is ready.
 	 * 

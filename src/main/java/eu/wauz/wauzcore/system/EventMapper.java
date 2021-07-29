@@ -18,6 +18,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.building.shapes.WauzBrushes;
 import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.items.WauzSigns;
 import eu.wauz.wauzcore.items.util.FoodUtils;
@@ -108,6 +109,7 @@ public class EventMapper {
 			return;
 		}
 		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+			WauzBrushes.tryToUse(event);
 			return;
 		}
 		
@@ -199,6 +201,7 @@ public class EventMapper {
 			return;
 		}
 		if(player.getGameMode().equals(GameMode.CREATIVE)) {
+			WauzBrushes.tryToUse(event);
 			return;
 		}
 		

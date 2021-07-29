@@ -9,7 +9,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
 import eu.wauz.wauzcore.arcade.ArcadeLobby;
-import eu.wauz.wauzcore.commands.administrative.CmdWzStart;
+import eu.wauz.wauzcore.commands.admins.CmdWzStart;
 
 /**
  * A completer for the chat, that suggests minigame names.

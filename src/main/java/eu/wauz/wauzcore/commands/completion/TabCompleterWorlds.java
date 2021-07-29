@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
-import eu.wauz.wauzcore.commands.administrative.CmdWzEnterDev;
+import eu.wauz.wauzcore.commands.admins.CmdWzEnterDev;
 
 /**
  * A completer for the chat, that suggests world names.

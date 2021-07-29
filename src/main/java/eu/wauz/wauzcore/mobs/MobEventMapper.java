@@ -10,7 +10,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-import eu.wauz.wauzcore.commands.administrative.CmdWzTravelEvent;
+import eu.wauz.wauzcore.commands.admins.CmdWzTravelEvent;
 import eu.wauz.wauzcore.mobs.bestiary.ObservationTracker;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;

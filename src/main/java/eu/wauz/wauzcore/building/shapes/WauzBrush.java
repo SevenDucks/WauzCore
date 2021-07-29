@@ -1,13 +1,16 @@
 package eu.wauz.wauzcore.building.shapes;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 
 /**
- * A generic brush to paint block structures.
+ * An abstract brush to paint block structures.
  * 
  * @author Wauzmons
  */
@@ -48,6 +51,25 @@ public abstract class WauzBrush {
 	}
 	
 	/**
+	 * @return The item stack lore of the brush.
+	 */
+	public final List<String> getLore() {
+		List<String> info = new ArrayList<>();
+		info.add(ChatColor.WHITE + "Shape:" + ChatColor.LIGHT_PURPLE + " " + getName().toUpperCase());
+		if(material != null) {
+			info.add(ChatColor.WHITE + "Material:" + ChatColor.GREEN + " " + material);
+		}
+		if(biome != null) {
+			info.add(ChatColor.WHITE + "Biome:" + ChatColor.GREEN + " " + biome);
+		}
+		info.add(ChatColor.WHITE + "Radius:" + ChatColor.YELLOW + " " + shape.getRadius());
+		info.add(ChatColor.WHITE + "Height:" + ChatColor.YELLOW + " " + shape.getHeightString());
+		info.add("");
+		info.add(ChatColor.DARK_GRAY + "Brush UUID: " + uuid);
+		return info;
+	}
+	
+	/**
 	 * @return The name of the brush.
 	 */
 	public abstract String getName();
@@ -81,7 +103,7 @@ public abstract class WauzBrush {
 	 * 
 	 * @return The modified brush.
 	 */
-	protected final WauzBrush withMaterial(Material material) {
+	public final WauzBrush withMaterial(Material material) {
 		this.material = material;
 		return this;
 	}
@@ -93,7 +115,7 @@ public abstract class WauzBrush {
 	 * 
 	 * @return The modified brush.
 	 */
-	protected final WauzBrush withBiome(Biome biome) {
+	public final WauzBrush withBiome(Biome biome) {
 		this.biome = biome;
 		return this;
 	}

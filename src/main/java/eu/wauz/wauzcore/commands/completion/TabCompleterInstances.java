@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
-import eu.wauz.wauzcore.commands.administrative.CmdWzEnter;
+import eu.wauz.wauzcore.commands.admins.CmdWzEnter;
 import eu.wauz.wauzcore.worlds.instances.WauzInstance;
 
 /**

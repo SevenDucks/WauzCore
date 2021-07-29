@@ -16,10 +16,10 @@ import org.bukkit.inventory.ItemStack;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
 import eu.wauz.wauzcore.WauzCore;
-import eu.wauz.wauzcore.commands.CmdRename;
-import eu.wauz.wauzcore.commands.administrative.CmdWzGetPet;
+import eu.wauz.wauzcore.commands.WauzCommandExecutor;
+import eu.wauz.wauzcore.commands.admins.CmdWzGetPet;
 import eu.wauz.wauzcore.commands.completion.TabCompleterPets;
-import eu.wauz.wauzcore.commands.execution.WauzCommandExecutor;
+import eu.wauz.wauzcore.commands.players.CmdRename;
 import eu.wauz.wauzcore.events.PetObtainEvent;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.items.util.PetEggUtils;

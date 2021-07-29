@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
-import eu.wauz.wauzcore.commands.administrative.CmdWzGetEquipEnhanced;
+import eu.wauz.wauzcore.commands.admins.CmdWzGetEquipEnhanced;
 import eu.wauz.wauzcore.items.enhancements.WauzEquipmentEnhancer;
 
 /**

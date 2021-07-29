@@ -1,13 +1,18 @@
 package eu.wauz.wauzcore.building.shapes;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+
+import eu.wauz.wauzcore.system.nms.NmsChunkUpdate;
 
 /**
  * A block structure blueprint in an abstract shape.
@@ -62,9 +67,14 @@ public abstract class WauzShape {
      * @return The affected blocks.
      */
     public List<Block> setBiome(Location center, Biome biome) {
+    	Set<Chunk> chunks = new HashSet<>();
     	List<Block> blocks = select(center);
     	for(Block block : blocks) {
     		block.setBiome(biome);
+    		chunks.add(block.getChunk());
+    	}
+    	for(Chunk chunk : chunks) {
+    		NmsChunkUpdate.init(chunk);
     	}
     	return blocks;
     }
@@ -84,6 +94,13 @@ public abstract class WauzShape {
     }
     
     /**
+     * @return The height of the circle as string.
+     */
+    public String getHeightString() {
+    	return height >= 0 ? String.valueOf(height) : "Max";
+    }
+    
+    /**
      * Creates a selection in this shape.
      * 
      * @param center The center location of the selection.
@@ -100,8 +117,17 @@ public abstract class WauzShape {
      * @return The stack of blocks.
      */
     protected List<Block> getVerticalBlockStack(Block baseBlock) {
+    	int maxHeight = height;
+    	if(height < 0) {
+    		maxHeight = baseBlock.getWorld().getMaxHeight();
+    		
+    		Location location = baseBlock.getLocation();
+			location.setY(0);
+    		baseBlock = location.getBlock();
+    	}
+    	
     	List<Block> blocks = new ArrayList<>();
-    	for(int y = 1; y <= height; y++) {
+    	for(int y = 0; y < maxHeight; y++) {
 			Block block = y == 0 ? baseBlock : baseBlock.getRelative(BlockFace.UP, y);
 			if(block.getY() >= block.getWorld().getMaxHeight()) {
 				break;

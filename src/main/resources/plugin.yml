@@ -266,6 +266,16 @@ commands:
     description: Start Specific Arcade Game
     usage: /wzStart [gamename]
     permission: wauz.system
+  weMaterialBrush:
+    description: Get Material Brush
+    aliases: [mbrush]
+    usage: /weMaterialBrush [shape] [material] [radius] [height]
+    permission: wauz.system
+  weBiomeBrush:
+    description: Get Biome Brush
+    aliases: [bbrush]
+    usage: /weBiomeBrush [shape] [biome] [radius]
+    permission: wauz.system
 permissions:
   wauz.system:
     description: Gives access to system commands.
