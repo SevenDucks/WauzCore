@@ -53,7 +53,7 @@ public class CmdWeBiomeBrush implements WauzCommand {
 		WauzBrush brushTemplate = WauzBrushes.getBrush(args[0].toLowerCase());
 		if(brushTemplate == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown brush shape specified!");
-			return false;
+			return true;
 		}
 		
 		Biome biome;
@@ -62,7 +62,7 @@ public class CmdWeBiomeBrush implements WauzCommand {
 		}
 		catch (Exception e) {
 			sender.sendMessage(ChatColor.RED + "Invalid biome specified!");
-			return false;
+			return true;
 		}
 		
 		int radius;
@@ -74,7 +74,7 @@ public class CmdWeBiomeBrush implements WauzCommand {
 		}
 		catch (Exception e) {
 			sender.sendMessage(ChatColor.RED + "Invalid radius specified!");
-			return false;
+			return true;
 		}
 		
 		WauzBrush brush = brushTemplate.getInstance(radius, -1).withBiome(biome);

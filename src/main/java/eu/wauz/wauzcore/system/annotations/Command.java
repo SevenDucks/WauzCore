@@ -10,10 +10,12 @@ import org.bukkit.Bukkit;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.WauzCommand;
 import eu.wauz.wauzcore.commands.WauzCommandExecutor;
+import eu.wauz.wauzcore.commands.completion.TabCompleterBiomeBrush;
 import eu.wauz.wauzcore.commands.completion.TabCompleterEnhancements;
 import eu.wauz.wauzcore.commands.completion.TabCompleterEquip;
 import eu.wauz.wauzcore.commands.completion.TabCompleterGuilds;
 import eu.wauz.wauzcore.commands.completion.TabCompleterInstances;
+import eu.wauz.wauzcore.commands.completion.TabCompleterMaterialBrush;
 import eu.wauz.wauzcore.commands.completion.TabCompleterMenus;
 import eu.wauz.wauzcore.commands.completion.TabCompleterMinigames;
 import eu.wauz.wauzcore.commands.completion.TabCompleterPetAbilities;
@@ -62,8 +64,10 @@ public @interface Command {
 		 * Initializes all predefined command completers.
 		 */
 		private static void addCompleters() {
-			Bukkit.getPluginCommand("menu").setTabCompleter(new TabCompleterMenus());
 			Bukkit.getPluginCommand("apply").setTabCompleter(new TabCompleterGuilds());
+			Bukkit.getPluginCommand("menu").setTabCompleter(new TabCompleterMenus());
+			Bukkit.getPluginCommand("weBiomeBrush").setTabCompleter(new TabCompleterBiomeBrush());
+			Bukkit.getPluginCommand("weMaterialBrush").setTabCompleter(new TabCompleterMaterialBrush());
 			Bukkit.getPluginCommand("wzEnter").setTabCompleter(new TabCompleterInstances());
 			Bukkit.getPluginCommand("wzEnter.dev").setTabCompleter(new TabCompleterWorlds());
 			Bukkit.getPluginCommand("wzGetEquip").setTabCompleter(new TabCompleterEquip());

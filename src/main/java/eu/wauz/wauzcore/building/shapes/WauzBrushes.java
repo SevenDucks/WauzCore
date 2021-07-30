@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.items.util.BrushUtils;
 import eu.wauz.wauzcore.items.util.ItemUtils;
+import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Cooldown;
 
@@ -142,7 +143,7 @@ public class WauzBrushes {
 			return;
 		}
 		String uuid = BrushUtils.getBrushId(brushItemStack);
-		if(uuid == null) {
+		if(uuid == null || !Cooldown.playerBrushUse(player)) {
 			return;
 		}
 		WauzBrush brush = brushInstanceMap.get(uuid);
@@ -155,7 +156,8 @@ public class WauzBrushes {
 			player.sendMessage(ChatColor.RED + "Invalid brush removed!");
 			return;
 		}
-		if(!Cooldown.playerBrushUse(player)) {
+		if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString())) {
+			player.sendMessage(ChatColor.RED + "Brushes only work in /build mode!");
 			return;
 		}
 		for(Block block : player.getLineOfSight(null, 50)) {
