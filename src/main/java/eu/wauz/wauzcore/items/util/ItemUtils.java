@@ -19,6 +19,7 @@ import eu.wauz.wauzcore.system.util.UnicodeUtils;
  * 
  * @author Wauzmons
  * 
+ * @see BrushUtils
  * @see EquipmentUtils
  * @see FoodUtils
  * @see PetEggUtils

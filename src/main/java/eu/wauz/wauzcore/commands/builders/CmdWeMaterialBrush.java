@@ -50,7 +50,7 @@ public class CmdWeMaterialBrush implements WauzCommand {
 			return false;
 		}
 		
-		WauzBrush brushTemplate = WauzBrushes.getBrush(args[0]);
+		WauzBrush brushTemplate = WauzBrushes.getBrush(args[0].toLowerCase());
 		if(brushTemplate == null) {
 			sender.sendMessage(ChatColor.RED + "Unknown brush shape specified!");
 			return false;
@@ -58,7 +58,7 @@ public class CmdWeMaterialBrush implements WauzCommand {
 		
 		Material material;
 		try {
-			material = Material.valueOf(args[1]);
+			material = Material.valueOf(args[1].toUpperCase());
 		}
 		catch (Exception e) {
 			sender.sendMessage(ChatColor.RED + "Invalid material specified!");
@@ -70,7 +70,7 @@ public class CmdWeMaterialBrush implements WauzCommand {
 		try {
 			radius = Integer.parseInt(args[2]);
 			height = Integer.parseInt(args[3]);
-			if(radius < 0) {
+			if(radius < 0 || radius > 50) {
 				throw new IllegalArgumentException();
 			}
 		}
