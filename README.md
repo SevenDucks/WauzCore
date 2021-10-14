@@ -1,5 +1,5 @@
 # WauzCore
-[![Build Status](https://github.com/SevenDucks/WauzCore/actions/workflows/maven.yml/badge.svg)](https://github.com/SevenDucks/WauzCore/actions/workflows/maven.yml)
+[![Build Status](https://github.com/SevenDucks/WauzCore/actions/workflows/maven-build.yml/badge.svg)](https://github.com/SevenDucks/WauzCore/actions/workflows/maven-build.yml)
 [![Discord](https://img.shields.io/discord/212147184999596032)](https://discord.gg/dhHJp5a)
 [![CodeFactor](https://www.codefactor.io/repository/github/sevenducks/wauzcore/badge)](https://www.codefactor.io/repository/github/sevenducks/wauzcore)
 [![Codebeat](https://codebeat.co/badges/54809851-9b0b-4970-a486-754de395c884)](https://codebeat.co/projects/github-com-sevenducks-wauzcore-master)
