@@ -88,7 +88,7 @@ public class Backpack implements WauzInventory {
 		Inventory backpack = backpackMap.get(player);
 		if(backpack == null) {
 			String backpackTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Backpack";
-			backpack = Components.inventory(null, backpackTitle, 36);
+			backpack = Components.inventory(new Backpack(), backpackTitle, 36);
 			backpack.setContents(PlayerCollectionConfigurator.getCharacterInventoryContents(player, "backpack"));
 			backpackMap.put(player, backpack);
 			updateLockedSlots(player);
