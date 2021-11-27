@@ -50,7 +50,6 @@ import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.WauzTeleporter;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
-import eu.wauz.wauzcore.system.nms.NmsMinimap;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 import eu.wauz.wauzcore.worlds.instances.WauzActiveInstance;
@@ -76,7 +75,7 @@ public class PlayerAmbientListener implements Listener {
 
 	/**
 	 * Reloads most custom UI if the player changes their current world.
-	 * This assures that the correct scoreboard, minimap etc. are shown.
+	 * This assures that the correct boss bar, scoreboard etc. are shown.
 	 * Also checks for a new music track and instance title.
 	 * 
 	 * @param event The change world event.
@@ -86,7 +85,6 @@ public class PlayerAmbientListener implements Listener {
 		Player player = event.getPlayer();
 		WauzPlayerBossBar.clearBar(player);
 		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
-		NmsMinimap.init(player);
 		WauzNoteBlockPlayer.play(player);
 		
 		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(player);

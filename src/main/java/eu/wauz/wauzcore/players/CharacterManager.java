@@ -42,7 +42,6 @@ import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
-import eu.wauz.wauzcore.system.nms.NmsMinimap;
 import eu.wauz.wauzcore.system.quests.QuestProcessor;
 import eu.wauz.wauzcore.system.quests.QuestSlot;
 import eu.wauz.wauzcore.system.util.Components;
@@ -59,7 +58,7 @@ public class CharacterManager {
 	/**
 	 * The current schema version of character files.
 	 */
-	public static final int SCHEMA_VERSION = 8;
+	public static final int SCHEMA_VERSION = 9;
 	
 	/**
 	 * A direct reference to the main class.
@@ -422,7 +421,7 @@ public class CharacterManager {
 	
 	/**
 	 * Equips a player with default mmorpg character items.
-	 * Contains minimap, quest tracker, main menu and selected tabard.
+	 * Contains quest tracker, main menu and selected tabard.
 	 * Additionally trashcan, materials and backpack are placed inside the inventory.
 	 * 
 	 * @param player The player that should receive the items.
@@ -431,13 +430,6 @@ public class CharacterManager {
 	 * @see TabardMenu#equipSelectedTabard(Player)
 	 */
 	public static void equipCharacterItems(Player player) {
-		ItemStack mapItemStack = new ItemStack(Material.FILLED_MAP);
-		ItemMeta mapItemMeta = mapItemStack.getItemMeta();
-		Components.displayName(mapItemMeta, ChatColor.DARK_AQUA + "Map of the Grand Explorer");
-		mapItemStack.setItemMeta(mapItemMeta);
-		player.getInventory().setItem(6, mapItemStack);
-		NmsMinimap.init(player);
-		
 		ItemStack trackerItemStack = new ItemStack(Material.COMPASS);
 		ItemMeta trackerItemMeta = trackerItemStack.getItemMeta();
 		Components.displayName(trackerItemMeta, ChatColor.DARK_AQUA + "Tracked: " + PlayerConfigurator.getTrackerDestinationName(player));
