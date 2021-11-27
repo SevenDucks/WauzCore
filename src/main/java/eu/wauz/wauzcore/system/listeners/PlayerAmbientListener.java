@@ -89,7 +89,7 @@ public class PlayerAmbientListener implements Listener {
 		
 		WauzActiveInstance instance = WauzActiveInstancePool.getInstance(player);
 		if(instance != null) {
-			player.sendTitle(ChatColor.RED + instance.getDisplayTitle(), instance.getDisplaySubtitle(), 10, 70, 20);
+			Components.title(player, ChatColor.RED + instance.getDisplayTitle(), instance.getDisplaySubtitle());
 		}
 		else {
 			if(WauzMode.inOneBlock(player)) {

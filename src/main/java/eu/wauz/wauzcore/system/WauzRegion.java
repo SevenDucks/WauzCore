@@ -20,6 +20,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -363,7 +364,7 @@ public class WauzRegion {
 	public void enter(Player player) {
 		WauzDebugger.log(player, "Entered Region: " + this);
 		if(StringUtils.isNotBlank(title)) {
-			player.sendTitle(ChatColor.GREEN + title, subtitle != null ? subtitle : "", 10, 70, 20);
+			Components.title(player, ChatColor.GREEN + title, subtitle != null ? subtitle : " ");
 			AchievementTracker.checkForAchievement(player, WauzAchievementType.EXPLORE_REGIONS, title);
 		}
 		

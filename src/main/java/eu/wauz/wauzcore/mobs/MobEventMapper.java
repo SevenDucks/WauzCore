@@ -6,14 +6,10 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import eu.wauz.wauzcore.commands.admins.CmdWzTravelEvent;
 import eu.wauz.wauzcore.mobs.bestiary.ObservationTracker;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
-import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
@@ -157,8 +153,7 @@ public class MobEventMapper {
 		for(Player player : players) {
 			WauzDebugger.log(player, "Hit by Mob Explosion!");
 			int damage = (int) ((double) mythicMob.getDamage().get() * (double) 5);
-			EntityDamageEvent event = new EntityDamageByEntityEvent(entity, player, DamageCause.ENTITY_EXPLOSION, damage);
-			DamageCalculator.defend(event);
+			player.damage(damage, entity);
 		}
 	}
 	

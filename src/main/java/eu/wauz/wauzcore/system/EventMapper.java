@@ -246,7 +246,7 @@ public class EventMapper {
 		if(player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
-		String inventoryName = ChatColor.stripColor(Components.title(player.getOpenInventory()));
+		String inventoryName = ChatColor.stripColor(Components.inventoryTitle(player.getOpenInventory()));
 		String inventoryType = event.getInventory().getType().toString();
 		WauzDebugger.log(player, "You clicked in Inventory: " + inventoryName + " " + inventoryType);
 		
@@ -290,7 +290,7 @@ public class EventMapper {
 		if(player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
-		String inventoryName = ChatColor.stripColor(Components.title(player.getOpenInventory()));
+		String inventoryName = ChatColor.stripColor(Components.inventoryTitle(player.getOpenInventory()));
 		String inventoryType = event.getInventory().getType().toString();
 		WauzDebugger.log(player, "You closed the Inventory: " + inventoryName + " " + inventoryType);
 		

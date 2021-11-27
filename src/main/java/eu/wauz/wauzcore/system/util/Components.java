@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.system.util;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,8 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.title.Title;
+import net.kyori.adventure.title.Title.Times;
 
 /**
  * Util class for interacting with adventure components.
@@ -43,7 +46,7 @@ public class Components {
 	 * 
 	 * @return The title.
 	 */
-	public static String title(InventoryView inventory) {
+	public static String inventoryTitle(InventoryView inventory) {
 		return fromComponent(inventory.title());
 	}
 
@@ -78,6 +81,30 @@ public class Components {
 	 */
 	public static void kickMessage(AsyncPlayerPreLoginEvent event, String message) {
 		event.kickMessage(toComponent(message));
+	}
+	
+	/**
+	 * Sets the screen title of the given player.
+	 * 
+	 * @param player The player to set the title for.
+	 * @param title The title text to set.
+	 * @param subtitle The subtitle text to set.
+	 */
+	public static void title(Player player, String title, String subtitle) {
+		Times times = Times.of(Duration.ofMillis(500), Duration.ofMillis(3500), Duration.ofMillis(1000));
+		player.showTitle(Title.title(toComponent(title), toComponent(subtitle), times));
+	}
+	
+	/**
+	 * Sets the screen title of the given player.
+	 * 
+	 * @param player The player to set the title for.
+	 * @param title The title text to set.
+	 * @param subtitle The subtitle text to set.
+	 */
+	public static void titleShort(Player player, String title, String subtitle) {
+		Times times = Times.of(Duration.ofMillis(100), Duration.ofMillis(800), Duration.ofMillis(200));
+		player.showTitle(Title.title(toComponent(title), toComponent(subtitle), times));
 	}
 	
 	/**

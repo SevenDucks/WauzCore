@@ -19,6 +19,7 @@ import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.skills.SkillUtils;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * An util class for the arcade gamemode.
@@ -169,7 +170,7 @@ public class ArcadeUtils {
 				if(secondsTillStart > 0) {
 					for(Player player : ArcadeLobby.getPlayingPlayers()) {
 						player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1, 1);
-						player.sendTitle(" ", ChatColor.YELLOW + "" + secondsTillStart, 2, 14, 4);
+						Components.titleShort(player, " ", ChatColor.YELLOW + "" + secondsTillStart);
 					}
 					runStartTimer(secondsTillStart - 1, secondsTillEnd);
 				}
@@ -179,7 +180,7 @@ public class ArcadeUtils {
 						player.removePotionEffect(PotionEffectType.SLOW);
 						player.removePotionEffect(PotionEffectType.JUMP);
 						player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 1, 1);
-						player.sendTitle(" ", ChatColor.GOLD + "START", 2, 14, 4);
+						Components.titleShort(player, " ", ChatColor.GOLD + "START");
 						WauzNoteBlockPlayer.play(player, songName);
 					}
 					ArcadeLobby.handleStartEvent();

@@ -14,6 +14,7 @@ import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzRegion;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -75,13 +76,13 @@ public class ClimateCalculator {
 				DamageCalculator.setHealth(player, playerData.getStats().getHealth() - 2);
 				PotionEffect effect = new PotionEffect(PotionEffectType.HUNGER, 100, 2);
 				player.addPotionEffect(effect);
-				player.sendTitle(ChatColor.DARK_RED + "Critical Heat!", "Find a colder place asap!", 10, 70, 20);
+				Components.title(player, ChatColor.DARK_RED + "Critical Heat!", "Find a colder place asap!");
 			}
 			else if(playerTemperature < 2 && !playerData.getStats().getEffects().hasEffect(WauzPlayerEffectType.COLD_RESISTANCE)) {
 				DamageCalculator.setHealth(player, playerData.getStats().getHealth() - 2);
 				PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 100, 2);
 				player.addPotionEffect(effect);
-				player.sendTitle(ChatColor.DARK_BLUE + "Critical Cold!", "Find a warmer place asap!", 10, 70, 20);
+				Components.title(player, ChatColor.DARK_BLUE + "Critical Cold!", "Find a warmer place asap!");
 			}
 		}
 	}

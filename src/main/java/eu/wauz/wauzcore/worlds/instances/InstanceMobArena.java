@@ -13,6 +13,7 @@ import eu.wauz.wauzcore.data.InstanceConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.mobs.MobSpawn;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * An arena that spawns waves of mobs in an instance world.
@@ -149,7 +150,7 @@ public class InstanceMobArena {
 	 */
 	public void broadcastMessage(String message, Sound sound) {
 		for(Player player : world.getPlayers()) {
-			player.sendTitle(message, " ", 10, 70, 20);
+			Components.title(player, message, " ");
 			player.getWorld().playSound(player.getLocation(), sound, 1, 1);
 		}
 	}

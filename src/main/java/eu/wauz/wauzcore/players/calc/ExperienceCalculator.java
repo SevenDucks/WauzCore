@@ -19,6 +19,7 @@ import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffects;
 import eu.wauz.wauzcore.players.ui.ValueIndicator;
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -132,8 +133,8 @@ public class ExperienceCalculator {
 			double leftoverExp = 0;
 			if(currentExp >= neededExp) {
 				player.setLevel(nextLevel);
-				player.sendTitle(ChatColor.GOLD + "Level Up!", "You reached level " + nextLevel + "!", 10, 70, 20);
 				player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+				Components.title(player, ChatColor.GOLD + "Level Up!", "You reached level " + nextLevel + "!");
 				PlayerCollectionConfigurator.levelUpCharacter(player);
 				leftoverExp = currentExp - neededExp;
 				currentExp = 0;

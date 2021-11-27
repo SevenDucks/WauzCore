@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.AchievementConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
@@ -186,7 +187,6 @@ public class WauzAchievement {
 		long soulstones = PlayerCollectionConfigurator.getCharacterSoulstones(player);
 		PlayerCollectionConfigurator.setCharacterSoulstones(player, soulstones + reward);
 		
-		player.sendTitle(ChatColor.GOLD + "Achievement Earned", name, 10, 70, 20);
 		player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 		player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
 		String goalDisplay;
@@ -200,6 +200,7 @@ public class WauzAchievement {
 		player.sendMessage(ChatColor.YELLOW + "You received " + reward + " soulstones as reward!");
 		UnicodeUtils.sendChatCommand(player, "menu achievements", ChatColor.YELLOW + "To view your achievements:", false);
 		player.sendMessage(ChatColor.DARK_BLUE + "------------------------------");
+		Components.title(player, ChatColor.GOLD + "Achievement Earned", name);
 	}
 
 	/**

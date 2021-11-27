@@ -354,7 +354,7 @@ public class GroupMenu implements WauzInventory {
 		
 		// Password Input
 		else if(clicked.getType().equals(Material.GRAY_CONCRETE)) {
-			String passwordString = Components.title(player.getOpenInventory()).split(" ")[2].replace("" + ChatColor.DARK_RED, "");
+			String passwordString = Components.inventoryTitle(player.getOpenInventory()).split(" ")[2].replace("" + ChatColor.DARK_RED, "");
 			passwordString += Components.displayName(clicked.getItemMeta()).replace("" + ChatColor.RESET, "");
 			
 			if(ItemUtils.hasLore(clicked)) {
@@ -428,7 +428,7 @@ public class GroupMenu implements WauzInventory {
 				return;
 			}
 			
-			String inventoryName = Components.title(player.getOpenInventory());
+			String inventoryName = Components.inventoryTitle(player.getOpenInventory());
 			if(inventoryName.contains("Promote")) {
 				promotePlayer(player, target);
 			}

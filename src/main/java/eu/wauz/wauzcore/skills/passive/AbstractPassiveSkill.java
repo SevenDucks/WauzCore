@@ -8,6 +8,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.system.WauzDebugger;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
@@ -97,7 +98,7 @@ public abstract class AbstractPassiveSkill {
 		while(hasReachedMilestone()) {
 			level++;
 			player.sendMessage(ChatColor.DARK_AQUA + getPassiveName() + " Up! Your skill reached " + level + "!");
-			player.sendTitle(ChatColor.YELLOW + getPassiveName() + " Up!", "Your skill reached " + level + "!", 10, 70, 20);
+			Components.title(player, ChatColor.YELLOW + getPassiveName() + " Up!", "Your skill reached " + level + "!");
 			player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 			onLevelUp(player);
 		}

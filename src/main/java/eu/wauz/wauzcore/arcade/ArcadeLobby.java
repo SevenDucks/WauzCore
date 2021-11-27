@@ -24,6 +24,7 @@ import org.bukkit.potion.PotionEffectType;
 import eu.wauz.wauzcore.items.WauzRewards;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
 
 /**
@@ -135,11 +136,11 @@ public class ArcadeLobby {
 			player.removePotionEffect(PotionEffectType.JUMP);
 			addPlayerToQueue(player);
 			if(winners.contains(player)) {
-				player.sendTitle(ChatColor.DARK_GREEN + "Qualified", "You WON the minigame round!", 10, 70, 20);
+				Components.title(player, ChatColor.DARK_GREEN + "Qualified", "You WON the minigame round!");
 				WauzRewards.earnArcadeToken(player);
 			}
 			else {
-				player.sendTitle(ChatColor.DARK_PURPLE + "Eliminated", "You LOST the minigame round!", 10, 70, 20);
+				Components.title(player, ChatColor.DARK_PURPLE + "Eliminated", "You LOST the minigame round!");
 			}
 		}
 		ArcadeUtils.runNextTimer(30);
