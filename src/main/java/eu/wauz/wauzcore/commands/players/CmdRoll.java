@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.commands.WauzCommand;
 import eu.wauz.wauzcore.commands.WauzCommandExecutor;
-import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.annotations.Command;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Components;
@@ -64,9 +63,7 @@ public class CmdRoll implements WauzCommand {
 		int value = Chance.minMax(1, maximum);
 		String result = player.getName() + " rolls " + value + " (1-" + maximum + ")";
 		Components.broadcastGlobally(player, result);
-		if(WauzModules.isMainModuleActive()) {
-			WauzCore.getDiscordBot().sendMessageFromMinecraft(result, false);
-		}
+		WauzCore.getDiscordBot().sendMessageFromMinecraft(result, false);
 		return true;
 	}
 

@@ -37,13 +37,6 @@ public class ServerConfigurator extends GlobalConfigurationUtils {
 		return mainConfigGetString("Server", "key");
 	}
 	
-	/**
-	 * @return All modules that are activated on the server.
-	 */
-	public static List<String> getModules() {
-		return mainConfigGetStringList("Server", "modules");
-	}
-	
 // Embedded Servers
 	
 	/**

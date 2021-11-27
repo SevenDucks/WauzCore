@@ -16,7 +16,6 @@ import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.players.calc.SpeedCalculator;
 import eu.wauz.wauzcore.system.WauzDebugger;
-import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.util.Components;
 
 /**
@@ -72,9 +71,7 @@ public class WauzActivePet {
 		}
 		petOwnerMap.put(petEntity.getUniqueId().toString(), player);
 		ownerPetMap.put(player, new WauzActivePet(player, petEntity, pet, eggItemStack));
-		if(!WauzModules.isPetsModuleStandalone()) {
-			SpeedCalculator.resetWalkSpeed(player);
-		}
+		SpeedCalculator.resetWalkSpeed(player);
 	}
 	
 	/**
@@ -86,9 +83,7 @@ public class WauzActivePet {
 	public static void removeOwner(String petId, Player player) {
 		petOwnerMap.remove(petId);
 		ownerPetMap.remove(player);
-		if(!WauzModules.isPetsModuleStandalone()) {
-			SpeedCalculator.resetWalkSpeed(player);
-		}
+		SpeedCalculator.resetWalkSpeed(player);
 	}
 	
 	/**

@@ -20,7 +20,6 @@ import eu.wauz.wauzcore.data.DiscordConfigurator;
 import eu.wauz.wauzcore.data.ServerConfigurator;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
-import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.WauzRepeatingTasks;
 import eu.wauz.wauzcore.system.WauzRestartScheduler;
 import eu.wauz.wauzcore.system.annotations.AnnotationLoader;
@@ -28,12 +27,10 @@ import eu.wauz.wauzcore.system.api.FtpServerManager;
 import eu.wauz.wauzcore.system.api.WauzDiscordBot;
 import eu.wauz.wauzcore.system.api.WebServerManager;
 import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
-import eu.wauz.wauzcore.system.listeners.BaseModuleListener;
 import eu.wauz.wauzcore.system.listeners.BlockProtectionListener;
 import eu.wauz.wauzcore.system.listeners.CitizenListener;
 import eu.wauz.wauzcore.system.listeners.InventoryListener;
 import eu.wauz.wauzcore.system.listeners.MythicMobsListener;
-import eu.wauz.wauzcore.system.listeners.PetModuleListener;
 import eu.wauz.wauzcore.system.listeners.PlayerAmbientListener;
 import eu.wauz.wauzcore.system.listeners.PlayerCombatListener;
 import eu.wauz.wauzcore.system.listeners.PlayerInteractionListener;
@@ -113,67 +110,58 @@ public class WauzCore extends JavaPlugin {
 		getLogger().info("");
 		getLogger().info("O-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~O");
 		
-		if(WauzModules.isMainModuleActive()) {
-			WorldLoader.init();
-			getLogger().info("Finished Loading World Saves!");
-		}
+		WorldLoader.init();
+		getLogger().info("Finished Loading World Saves!");
+		
 		getServer().getPluginManager().registerEvents(new PreJoinListener(), this);
 		getServer().getScheduler().scheduleSyncDelayedTask(this, instance::setupModules);
 	}
 	
 	/**
-	 * Sets up all enabled modules.
+	 * Sets up all the modules of the engine.
 	 */
 	private void setupModules() {
+		ConfigurationLoader.init();
+		getLogger().info("Finished Loading Data from Files!");
+		
+		AnnotationLoader.init();
+		getLogger().info("Finished Loading Data from Predefined Classes!");
+		
 		PluginManager pluginManager = getServer().getPluginManager();
-		if(WauzModules.isMainModuleActive()) {
-			ConfigurationLoader.init();
-			getLogger().info("Finished Loading Data from Files!");
-			
-			AnnotationLoader.init();
-			getLogger().info("Finished Loading Data from Predefined Classes!");
-			
-			getServer().getMessenger().registerOutgoingPluginChannel(this, BungeeUtils.BUNGEE_CHANNEL);
-			pluginManager.registerEvents(new ArmorEquipEventListener(), this);
-			pluginManager.registerEvents(new BlockProtectionListener(), this);
-			pluginManager.registerEvents(new CitizenListener(), this);
-			pluginManager.registerEvents(new InventoryListener(), this);
-			pluginManager.registerEvents(new MythicMobsListener(), this);
-			pluginManager.registerEvents(new PlayerAmbientListener(), this);
-			pluginManager.registerEvents(new PlayerCombatListener(), this);
-			pluginManager.registerEvents(new PlayerInteractionListener(), this);
-			pluginManager.registerEvents(new ProjectileMovementListener(), this);
-			getLogger().info("Registered EventListeners!");
-			
-			discordBot = new WauzDiscordBot();
-			LogFilterManager.enableDiscordFilter();
-			pluginManager.registerEvents(new WauzDiscordListener(), this);
-			getLogger().info("Enabled Discord Integration!");
-			
-			int apiPort = ServerConfigurator.getServerApiPort();
-			webServerManager = new WebServerManager(apiPort);
-			getLogger().info("Started WebServerManager on port " + apiPort + "!");
-			
-			int ftpPort = ServerConfigurator.getServerFtpPort();
-			ftpServerManager = new FtpServerManager(ftpPort);
-			getLogger().info("Started FtpServerManager on port " + ftpPort + "!");
-			
-			WauzRepeatingTasks.schedule(this);
-			getLogger().info("Scheduled Repeating Tasks!");
-			
-			WauzRestartScheduler.schedule(this);
-			getLogger().info("Scheduled Next Restart!");
-			
-			if(DiscordConfigurator.showStartStopNotification()) {
-				discordBot.sendEmbedFromMinecraft(null, ":white_check_mark: " + WauzCore.getServerKey()
-						+ " has been started!", null, Color.GREEN, false);
-			}
-		}
-		else {
-			pluginManager.registerEvents(new BaseModuleListener(), this);
-			if(WauzModules.isPetsModuleActive()) {
-				pluginManager.registerEvents(new PetModuleListener(), this);
-			}
+		getServer().getMessenger().registerOutgoingPluginChannel(this, BungeeUtils.BUNGEE_CHANNEL);
+		pluginManager.registerEvents(new ArmorEquipEventListener(), this);
+		pluginManager.registerEvents(new BlockProtectionListener(), this);
+		pluginManager.registerEvents(new CitizenListener(), this);
+		pluginManager.registerEvents(new InventoryListener(), this);
+		pluginManager.registerEvents(new MythicMobsListener(), this);
+		pluginManager.registerEvents(new PlayerAmbientListener(), this);
+		pluginManager.registerEvents(new PlayerCombatListener(), this);
+		pluginManager.registerEvents(new PlayerInteractionListener(), this);
+		pluginManager.registerEvents(new ProjectileMovementListener(), this);
+		getLogger().info("Registered EventListeners!");
+		
+		discordBot = new WauzDiscordBot();
+		LogFilterManager.enableDiscordFilter();
+		pluginManager.registerEvents(new WauzDiscordListener(), this);
+		getLogger().info("Enabled Discord Integration!");
+		
+		int apiPort = ServerConfigurator.getServerApiPort();
+		webServerManager = new WebServerManager(apiPort);
+		getLogger().info("Started WebServerManager on port " + apiPort + "!");
+		
+		int ftpPort = ServerConfigurator.getServerFtpPort();
+		ftpServerManager = new FtpServerManager(ftpPort);
+		getLogger().info("Started FtpServerManager on port " + ftpPort + "!");
+		
+		WauzRepeatingTasks.schedule(this);
+		getLogger().info("Scheduled Repeating Tasks!");
+		
+		WauzRestartScheduler.schedule(this);
+		getLogger().info("Scheduled Next Restart!");
+		
+		if(DiscordConfigurator.showStartStopNotification()) {
+			discordBot.sendEmbedFromMinecraft(null, ":white_check_mark: " + WauzCore.getServerKey()
+					+ " has been started!", null, Color.GREEN, false);
 		}
 		isStarted = true;
 	}
@@ -184,31 +172,30 @@ public class WauzCore extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		isStarted = false;
-		if(WauzModules.isMainModuleActive()) {
-			if(DiscordConfigurator.showStartStopNotification()) {
-				discordBot.sendEmbedFromMinecraft(null, ":octagonal_sign: " + WauzCore.getServerKey()
-						+ " has been stopped!", null, Color.RED, false);
-			}
-			LogFilterManager.disableDiscordFilter();
-			discordBot.stop();
-			getLogger().info("Disabled Discord Integration!");
-			
-			webServerManager.stop();
-			getLogger().info("Stopped WebServerManager!");
-			
-			ftpServerManager.stop();
-			getLogger().info("Stopped FtpServerManager!");
-			
-			for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-				WauzPlayerRegistrator.logout(player);
-			}
-			getLogger().info("Logged Out Players!");
-			
-			for(World world : Bukkit.getWorlds()) {
-				InstanceManager.closeInstance(world);
-			}
-			getLogger().info("Closed Active Instances!");
+		if(DiscordConfigurator.showStartStopNotification()) {
+			discordBot.sendEmbedFromMinecraft(null, ":octagonal_sign: " + WauzCore.getServerKey()
+					+ " has been stopped!", null, Color.RED, false);
 		}
+		LogFilterManager.disableDiscordFilter();
+		discordBot.stop();
+		getLogger().info("Disabled Discord Integration!");
+		
+		webServerManager.stop();
+		getLogger().info("Stopped WebServerManager!");
+		
+		ftpServerManager.stop();
+		getLogger().info("Stopped FtpServerManager!");
+		
+		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
+			WauzPlayerRegistrator.logout(player);
+		}
+		getLogger().info("Logged Out Players!");
+		
+		for(World world : Bukkit.getWorlds()) {
+			InstanceManager.closeInstance(world);
+		}
+		getLogger().info("Closed Active Instances!");
+		
 		LogFilterManager.disableGeneralFilter();
 	}
 

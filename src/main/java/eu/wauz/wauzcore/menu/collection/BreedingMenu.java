@@ -34,7 +34,6 @@ import eu.wauz.wauzcore.mobs.pets.WauzPetBreedingLevel;
 import eu.wauz.wauzcore.mobs.pets.WauzPetEgg;
 import eu.wauz.wauzcore.mobs.pets.WauzPetRarity;
 import eu.wauz.wauzcore.skills.passive.PassiveBreeding;
-import eu.wauz.wauzcore.system.WauzModules;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -109,29 +108,27 @@ public class BreedingMenu implements WauzInventory {
 		levelItemStack.setItemMeta(levelItemMeta);
 		menu.setItem(2, levelItemStack);
 		
-		if(!WauzModules.isPetsModuleStandalone()) {
-			ItemStack backItemStack = MenuIconHeads.getCraftItem();
-			MenuUtils.setItemDisplayName(backItemStack, ChatColor.YELLOW + "Back to Jobs");
-			menu.setItem(0, backItemStack);
-			
-			ItemStack abilityItemStack = GenericIconHeads.getColorCubeItem();
-			ItemMeta abilityItemMeta = abilityItemStack.getItemMeta();
-			Components.displayName(abilityItemMeta, ChatColor.YELLOW + "Obtainable Abilities");
-			List<String> abilityLores = new ArrayList<>();
-			List<WauzPetAbility> abilities = WauzPetAbilities.getAbilitiesForLevel(breedingMenu.getLevel());
-			if(abilities.isEmpty()) {
-				abilityLores.add(ChatColor.GREEN + "None yet...");
-			}
-			for(WauzPetAbility ability : abilities) {
-				String description = ChatColor.YELLOW + ability.getAbilityDescription();
-				abilityLores.add(ChatColor.GREEN + ability.getAbilityName() + " " + description);
-			}
-			abilityLores.add(ChatColor.GRAY + "Hatched Pets can have special Abilities");
-			abilityLores.add(ChatColor.GRAY + "which they will use once a minute.");
-			Components.lore(abilityItemMeta, abilityLores);
-			abilityItemStack.setItemMeta(abilityItemMeta);
-			menu.setItem(8, abilityItemStack);
+		ItemStack backItemStack = MenuIconHeads.getCraftItem();
+		MenuUtils.setItemDisplayName(backItemStack, ChatColor.YELLOW + "Back to Jobs");
+		menu.setItem(0, backItemStack);
+		
+		ItemStack abilityItemStack = GenericIconHeads.getColorCubeItem();
+		ItemMeta abilityItemMeta = abilityItemStack.getItemMeta();
+		Components.displayName(abilityItemMeta, ChatColor.YELLOW + "Obtainable Abilities");
+		List<String> abilityLores = new ArrayList<>();
+		List<WauzPetAbility> abilities = WauzPetAbilities.getAbilitiesForLevel(breedingMenu.getLevel());
+		if(abilities.isEmpty()) {
+			abilityLores.add(ChatColor.GREEN + "None yet...");
 		}
+		for(WauzPetAbility ability : abilities) {
+			String description = ChatColor.YELLOW + ability.getAbilityDescription();
+			abilityLores.add(ChatColor.GREEN + ability.getAbilityName() + " " + description);
+		}
+		abilityLores.add(ChatColor.GRAY + "Hatched Pets can have special Abilities");
+		abilityLores.add(ChatColor.GRAY + "which they will use once a minute.");
+		Components.lore(abilityItemMeta, abilityLores);
+		abilityItemStack.setItemMeta(abilityItemMeta);
+		menu.setItem(8, abilityItemStack);
 		
 		MenuUtils.setBorders(menu);
 		menu.setItem(4, null);
@@ -327,7 +324,7 @@ public class BreedingMenu implements WauzInventory {
 				return;
 			}
 			long hatchTime = System.currentTimeMillis() + (newPetSeconds * 1000);
-			WauzPetAbility petAbility = WauzModules.isPetsModuleStandalone() ? null : WauzPetAbilities.getAbilityForLevel(level);
+			WauzPetAbility petAbility = WauzPetAbilities.getAbilityForLevel(level);
 			ItemStack newPetItemStack = WauzPetEgg.getEggItem(player, newPet, petAbility, hatchTime);
 			PetObtainEvent.call(player, newPet);
 			LootContainer.open(player, Collections.singletonList(newPetItemStack));

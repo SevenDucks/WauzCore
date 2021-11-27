@@ -1,5 +1,4 @@
 key: DelseyriaReborn
-modules: [main, pets]
 apiport: 7069
 ftpport: 7070
 ftpusers:
