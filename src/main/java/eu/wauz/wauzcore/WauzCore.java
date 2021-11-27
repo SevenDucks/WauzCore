@@ -44,7 +44,6 @@ import eu.wauz.wauzcore.system.logging.LogFilterManager;
 import eu.wauz.wauzcore.system.util.BungeeUtils;
 import eu.wauz.wauzcore.worlds.WorldLoader;
 import eu.wauz.wauzcore.worlds.instances.InstanceManager;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 /**
  * The main class of the plugin and holder of system information.
@@ -81,11 +80,6 @@ public class WauzCore extends JavaPlugin {
 	private static boolean isStarted;
 	
 	/**
-	 * The audience provider for adventure components.
-	 */
-	private static BukkitAudiences audiences;
-	
-	/**
 	 * The Discord bot running on the server.
 	 */
 	private static WauzDiscordBot discordBot;
@@ -107,7 +101,6 @@ public class WauzCore extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		isStarted = false;
-		audiences = BukkitAudiences.create(this);
 		LogFilterManager.enableGeneralFilter();
 		
 		getLogger().info("O~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-O");
@@ -242,13 +235,6 @@ public class WauzCore extends JavaPlugin {
 	 */
 	public static boolean isStarted() {
 		return isStarted;
-	}
-
-	/**
-	 * @return The audience provider for adventure components.
-	 */
-	public static BukkitAudiences getAudiences() {
-		return audiences;
 	}
 
 	/**

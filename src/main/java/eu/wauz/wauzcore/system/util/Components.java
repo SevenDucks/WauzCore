@@ -18,7 +18,6 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.menu.util.WauzInventoryHolder;
@@ -302,7 +301,7 @@ public class Components {
 	 * @param component The component to send.
 	 */
 	public static void broadcastLocally(Component component) {
-		WauzCore.getAudiences().all().sendMessage(component);
+		Bukkit.getServer().broadcast(component);
 	}
 	
 	/**
