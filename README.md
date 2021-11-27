@@ -17,8 +17,7 @@ It will feature Equipment, Skills, Quests, Shops, Dungeons, Bosses, Pets, Achiev
 all without the need for mods or data packs.
 Unlike Wynncraft or other RPG projects, the code will be completely open source.
 
-:orange_book: Javadoc: https://sevenducks.github.io/WauzCore/
-
-:speech_balloon: Developer Discord: https://discord.gg/dhHJp5a
-
-:bird: Developer Twitter: https://twitter.com/wauzmons
+<a href="https://www.seven-ducks.com">🦆 Seven Ducks Studios</a> |
+<a href="https://discordapp.com/invite/dhHJp5a">💬 Discord</a> |
+<a href="https://twitter.com/wauzmons">🐦 Twitter</a> |
+<a href="https://sevenducks.github.io/WauzCore/">📙 Javadoc</a>
