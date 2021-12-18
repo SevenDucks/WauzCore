@@ -56,7 +56,7 @@ public class CharacterSlotMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player, WauzMode wauzMode) {
-		if(wauzMode.equals(WauzMode.MMORPG) || wauzMode.equals(WauzMode.ARCADE)) {
+		if(wauzMode.equals(WauzMode.MMORPG) || wauzMode.equals(WauzMode.SURVIVAL) || wauzMode.equals(WauzMode.ARCADE)) {
 			if(!WauzRank.getRank(player).isStaff()) {
 				player.sendMessage(ChatColor.RED + "This gamemode isn't public yet!");
 				return;

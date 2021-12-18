@@ -1,6 +1,9 @@
 package eu.wauz.wauzcore.menu;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -8,9 +11,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
+import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.util.BungeeUtils;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -43,31 +48,43 @@ public class WauzModeMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Select a Gamemode!";
-		Inventory menu = Components.inventory(new WauzModeMenu(), menuTitle, 9);
+		Inventory menu = Components.inventory(new WauzModeMenu(), menuTitle, 45);
+		
+		ItemStack hubMainItemStack = new ItemStack(Material.BEACON);
+		ItemMeta hubMainItemMeta = hubMainItemStack.getItemMeta();
+		Components.displayName(hubMainItemMeta, ChatColor.DARK_AQUA + "Visit the Nexus");
+		hubMainItemStack.setItemMeta(hubMainItemMeta);
+		menu.setItem(11, hubMainItemStack);
+		
+		ItemStack hubShiganshinaItemStack = new ItemStack(Material.BRICKS);
+		ItemMeta hubshiganshinaItemMeta = hubShiganshinaItemStack.getItemMeta();
+		Components.displayName(hubshiganshinaItemMeta, ChatColor.DARK_AQUA + "Visit Shiganshina");
+		hubShiganshinaItemStack.setItemMeta(hubshiganshinaItemMeta);
+		menu.setItem(15, hubShiganshinaItemStack);
 		
 		ItemStack modeDropGuysItemStack = new ItemStack(Material.HOPPER);
 		ItemMeta modeDropGuysItemMeta = modeDropGuysItemStack.getItemMeta();
 		Components.displayName(modeDropGuysItemMeta, ChatColor.DARK_RED + "ALPHA " + ChatColor.RED + "DropGuys");
 		modeDropGuysItemStack.setItemMeta(modeDropGuysItemMeta);
-		menu.setItem(1, modeDropGuysItemStack);
+		menu.setItem(28, modeDropGuysItemStack);
 		
 		ItemStack modeMmoRpgItemStack = new ItemStack(Material.DRAGON_HEAD);
 		ItemMeta modeMmoRpgItemMeta = modeMmoRpgItemStack.getItemMeta();
 		Components.displayName(modeMmoRpgItemMeta, ChatColor.DARK_RED + "ALPHA " + ChatColor.DARK_PURPLE + "MMORPG");
 		modeMmoRpgItemStack.setItemMeta(modeMmoRpgItemMeta);
-		menu.setItem(3, modeMmoRpgItemStack);
+		menu.setItem(30, modeMmoRpgItemStack);
 		
 		ItemStack modeOneBlockItemStack = new ItemStack(Material.GRASS_BLOCK);
 		ItemMeta modeOneBlockItemMeta = modeOneBlockItemStack.getItemMeta();
-		Components.displayName(modeOneBlockItemMeta, ChatColor.GOLD + "OneBlock and Survival");
+		Components.displayName(modeOneBlockItemMeta, ChatColor.DARK_RED + "ALPHA " + ChatColor.GOLD + "OneBlock and Survival");
 		modeOneBlockItemStack.setItemMeta(modeOneBlockItemMeta);
-		menu.setItem(5, modeOneBlockItemStack);
+		menu.setItem(32, modeOneBlockItemStack);
 		
 		ItemStack modeEyiorielItemStack = new ItemStack(Material.END_PORTAL_FRAME);
 		ItemMeta modeEyiorielItemMeta = modeEyiorielItemStack.getItemMeta();
 		Components.displayName(modeEyiorielItemMeta, ChatColor.GOLD + "Connection Test");
 		modeEyiorielItemStack.setItemMeta(modeEyiorielItemMeta);
-		menu.setItem(7, modeEyiorielItemStack);
+		menu.setItem(34, modeEyiorielItemStack);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -109,7 +126,17 @@ public class WauzModeMenu implements WauzInventory {
 			return;
 		}
 		modeName = modeName.replace("ALPHA ", "");
-		if(modeName.equals("MMORPG")) {
+		if(modeName.equals("Visit the Nexus")) {
+			player.closeInventory();
+			player.teleport(WauzCore.getHubLocation());
+			player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
+		}
+		else if(modeName.equals("Visit Shiganshina")) {
+			player.closeInventory();
+			player.teleport(new Location(Bukkit.getWorld("HubShiganshina"), -353.5, 24, 78.5));
+			player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
+		}
+		else if(modeName.equals("MMORPG")) {
 			CharacterSlotMenu.open(player, WauzMode.MMORPG);
 		}
 		else if(modeName.equals("OneBlock and Survival")) {
@@ -119,7 +146,12 @@ public class WauzModeMenu implements WauzInventory {
 			CharacterSlotMenu.open(player, WauzMode.ARCADE);
 		}
 		else if(modeName.equals("Connection Test")) {
-			BungeeUtils.connect(player, "test");
+			if(WauzRank.getRank(player).isStaff()) {
+				BungeeUtils.connect(player, "test");
+			}
+			else {
+				player.sendMessage(ChatColor.RED + "This feature is for staff only!");
+			}
 		}
 	}
 

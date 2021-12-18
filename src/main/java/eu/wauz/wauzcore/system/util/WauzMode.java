@@ -106,7 +106,7 @@ public enum WauzMode {
 	 * @return If the world is the hub.
 	 */
 	public static boolean inHub(World world) {
-		return world.getName().equals("HubNexus");
+		return world.getName().startsWith("Hub");
 	}
 	
 	/**
@@ -152,7 +152,7 @@ public enum WauzMode {
 	 */
 	public static boolean isMMORPG(String worldName) {
 		return isInstanceOfType(worldName, "MMORPG") ||
-				StringUtils.equalsAny(worldName, "HubNexus", "MMORPG");
+				StringUtils.startsWithAny(worldName, "Hub", "MMORPG");
 	}
 	
 	/**
