@@ -11,6 +11,8 @@ import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import com.google.common.io.Files;
+
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.building.WorldSpawnGenerator;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -24,9 +26,19 @@ import eu.wauz.wauzcore.system.util.WauzFileUtils;
 public class SurvivalSeason {
 	
 	/**
+	 * A direct reference to the main class.
+	 */
+	private static WauzCore core = WauzCore.getInstance();
+	
+	/**
 	 * The creator for the world.
 	 */
 	private WorldCreator worldCreator;
+	
+	/**
+	 * The directory of data packs to use. Can be null.
+	 */
+	private String dataPackDir;
 	
 	/**
 	 * If a spawn circle should be created automatically.
@@ -52,10 +64,12 @@ public class SurvivalSeason {
 	 * Creates a season for the given world.
 	 * 
 	 * @param worldCreator The creator for the world.
+	 * @param dataPackDir The directory of data packs to use. Can be null.
 	 * @param createSpawn If a spawn circle should be created automatically.
 	 */
-	public SurvivalSeason(WorldCreator worldCreator, boolean createSpawn) {
+	public SurvivalSeason(WorldCreator worldCreator, String dataPackDir, boolean createSpawn) {
 		this.worldCreator = worldCreator;
+		this.dataPackDir = dataPackDir;
 		this.createSpawn = createSpawn;
 		worldName = worldCreator.name();
 		currentSeason = WauzDateUtils.getSurvivalSeason();
@@ -71,19 +85,26 @@ public class SurvivalSeason {
 			FileConfiguration seasonConfig = YamlConfiguration.loadConfiguration(seasonFile);
 			String season = seasonConfig.getString("season");
 			if(currentSeason.equals(season)) {
-				WauzCore.getInstance().getLogger().info(worldName + ": Season is running! Loading world...");
+				core.getLogger().info(worldName + ": Season is running! Loading world...");
 			}
 			else {
-				WauzCore.getInstance().getLogger().info(worldName + ": Season has ended! Creating new world...");
+				core.getLogger().info(worldName + ": Season has ended! Creating new world...");
 				String filePath = seasonFile.getParentFile().getAbsolutePath();
 				WauzFileUtils.removeFilesRecursive(new File(filePath));
 				WauzFileUtils.removeFilesRecursive(new File(filePath.replace(worldName, worldName + "_nether")));
 				WauzFileUtils.removeFilesRecursive(new File(filePath.replace(worldName, worldName + "_the_end")));
 			}
 		}
-		worldCreator.createWorld();
 		
 		try {
+			if(dataPackDir != null) {
+				File target = new File(core.getServer().getWorldContainer(), worldName + "/datapacks");
+				target.mkdirs();
+				for(File dataPack : new File(core.getDataFolder(), dataPackDir).listFiles()) {
+					Files.copy(dataPack, new File(target, dataPack.getName()));
+				}
+			}
+			worldCreator.createWorld();
 			initWorld();
 		}
 		catch (Exception e) {
@@ -107,13 +128,14 @@ public class SurvivalSeason {
 		seasonConfig.set("lastplot", 1);
 		seasonConfig.save(seasonFile);
 		
-		World world = WauzCore.getInstance().getServer().getWorld(worldName);
-		Location spawnLocation = new Location(world, 0.5, 71, 0.5);
+		World world = core.getServer().getWorld(worldName);
+		Location spawnLocation = world.getHighestBlockAt(new Location(world, 0, 0, 0)).getLocation();
 		if(createSpawn) {
+			world.getWorldBorder().setCenter(spawnLocation);
 			world.getWorldBorder().setSize(5000);
-			WorldSpawnGenerator.createMainSpawnCircle(world, spawnLocation.clone().add(0, -1, 0));
+			WorldSpawnGenerator.createMainSpawnCircle(world, spawnLocation);
 		}
-		world.setSpawnLocation(spawnLocation);
+		world.setSpawnLocation(spawnLocation.add(0, 1, 0));
 		world.setGameRule(GameRule.DO_INSOMNIA, false);
 		world.setGameRule(GameRule.MOB_GRIEFING, false);
 		world.setGameRule(GameRule.SPAWN_RADIUS, 0);

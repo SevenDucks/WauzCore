@@ -18,8 +18,8 @@ public class WorldLoader {
 	public static void init() {
 		loadNormalWorld(new WorldCreator("HubShiganshina"));
 		loadNormalWorld(new WorldCreator("MMORPG"));
-		loadSeasonalWorld(new WorldCreator("Survival"), true);
-		loadSeasonalWorld(new EmptyWorldCreator("SurvivalOneBlock"), false);
+		loadSeasonalWorld(new WorldCreator("Survival"), null, true);
+		loadSeasonalWorld(new EmptyWorldCreator("SurvivalOneBlock"), null, false);
 	}
 	
 	/**
@@ -36,10 +36,11 @@ public class WorldLoader {
 	 * Loads the given world as season.
 	 * 
 	 * @param worldCreator The creator for the world.
+	 * @param dataPackDir The directory of data packs to use. Can be null.
 	 * @param createSpawn If a spawn circle should be created automatically.
 	 */
-	private static void loadSeasonalWorld(WorldCreator worldCreator, boolean createSpawn) {
-		SurvivalSeason season = new SurvivalSeason(worldCreator, createSpawn);
+	private static void loadSeasonalWorld(WorldCreator worldCreator, String dataPackDir, boolean createSpawn) {
+		SurvivalSeason season = new SurvivalSeason(worldCreator, dataPackDir, createSpawn);
 		season.createWorld();
 	}
 

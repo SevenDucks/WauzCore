@@ -23,6 +23,7 @@ import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
+import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerRecipeDiscoverEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
@@ -44,6 +45,7 @@ import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
 import eu.wauz.wauzcore.skills.passive.PassiveBreeding;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzNoteBlockPlayer;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRegion;
@@ -113,6 +115,17 @@ public class PlayerAmbientListener implements Listener {
 		}
 	}
 	
+	
+	/**
+	 * Checks if a player wants to change worlds by entering a portal.
+	 * 
+	 * @param event The portal event.
+	 */
+	@EventHandler
+	public void onPortalEnter(PlayerPortalEvent event) {
+		WauzDebugger.log(event.getPlayer(), "Entered Portal");
+	}
+	
 	/**
 	 * Prevents players to break blocks in certain regions.
 	 * 
@@ -156,14 +169,14 @@ public class PlayerAmbientListener implements Listener {
 	}
 	
 	/**
-	 * Prevents players to empty bukkets in certain regions.
+	 * Prevents players to empty buckets in certain regions.
 	 * 
 	 * @param event The bukket empty event.
 	 * 
 	 * @see WauzRegion#disallowBuild(Block)
 	 */
 	@EventHandler
-	public void onBukketEmpty(PlayerBucketEmptyEvent event) {
+	public void onBucketEmpty(PlayerBucketEmptyEvent event) {
 		Player player = event.getPlayer();
 		Block block = event.getBlock();
 		if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString()) && WauzRegion.disallowBuild(block)) {
@@ -173,14 +186,14 @@ public class PlayerAmbientListener implements Listener {
 	}
 	
 	/**
-	 * Prevents players to fill bukkets in certain regions.
+	 * Prevents players to fill buckets in certain regions.
 	 * 
 	 * @param event The bukket fill event.
 	 * 
 	 * @see WauzRegion#disallowBuild(Block)
 	 */
 	@EventHandler
-	public void onBukketFill(PlayerBucketFillEvent event) {
+	public void onBucketFill(PlayerBucketFillEvent event) {
 		Player player = event.getPlayer();
 		Block block = event.getBlock();
 		if(!player.hasPermission(WauzPermission.DEBUG_BUILDING.toString()) && WauzRegion.disallowBuild(block)) {
