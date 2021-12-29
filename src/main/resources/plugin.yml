@@ -5,7 +5,7 @@ website: http://wauz.eu/
 version: 2021.0-SNAPSHOT
 api-version: 1.17
 author: Wauzmons
-softdepend: [NoteBlockAPI]
+softdepend: [NoteBlockAPI, Iris]
 loadbefore: [MythicMobs]
 commands:
   hub:
