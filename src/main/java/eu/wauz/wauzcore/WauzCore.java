@@ -110,17 +110,17 @@ public class WauzCore extends JavaPlugin {
 		getLogger().info("");
 		getLogger().info("O-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~O");
 		
-		WorldLoader.init();
-		getLogger().info("Finished Loading World Saves!");
-		
 		getServer().getPluginManager().registerEvents(new PreJoinListener(), this);
-		getServer().getScheduler().scheduleSyncDelayedTask(this, instance::setupModules);
+		getServer().getScheduler().scheduleSyncDelayedTask(this, instance::setupModules, 100);
 	}
 	
 	/**
 	 * Sets up all the modules of the engine.
 	 */
 	private void setupModules() {
+		WorldLoader.init();
+		getLogger().info("Finished Loading World Saves!");
+		
 		ConfigurationLoader.init();
 		getLogger().info("Finished Loading Data from Files!");
 		

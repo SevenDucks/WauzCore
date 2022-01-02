@@ -56,7 +56,7 @@ public class CharacterSlotMenu implements WauzInventory {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player, WauzMode wauzMode) {
-		if(wauzMode.equals(WauzMode.MMORPG) || wauzMode.equals(WauzMode.SURVIVAL) || wauzMode.equals(WauzMode.ARCADE)) {
+		if(wauzMode.equals(WauzMode.MMORPG) || wauzMode.equals(WauzMode.ARCADE)) {
 			if(!WauzRank.getRank(player).isStaff()) {
 				player.sendMessage(ChatColor.RED + "This gamemode isn't public yet!");
 				return;
@@ -72,8 +72,8 @@ public class CharacterSlotMenu implements WauzInventory {
 		}
 		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
 			int season = WauzDateUtils.getSurvivalSeasonInteger();
-			menu.setItem(3, getCharacterSlot(player, "OneBlock-Survival-" + season, true));
-			menu.setItem(5, getCharacterSlot(player, "Classic-Survival-" + season, true));
+			menu.setItem(3, getCharacterSlot(player, "Classic-Survival-" + season, true));
+			menu.setItem(5, getCharacterSlot(player, "OneBlock-Survival-" + season, true));
 		}
 		else if(wauzMode.equals(WauzMode.ARCADE)) {
 			ItemStack slotItemStack = new ItemStack(Material.CLOCK);

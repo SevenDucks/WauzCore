@@ -2,11 +2,10 @@ name: WauzCore
 description: Advanced Minecraft MMORPG Engine
 main: eu.wauz.wauzcore.WauzCore
 website: http://wauz.eu/
-version: 2021.0-SNAPSHOT
+version: 2022.0-SNAPSHOT
 api-version: 1.17
 author: Wauzmons
-softdepend: [NoteBlockAPI, Iris]
-loadbefore: [MythicMobs]
+softdepend: [MythicMobs, NoteBlockAPI, Iris]
 commands:
   hub:
     description: Teleport to Hub

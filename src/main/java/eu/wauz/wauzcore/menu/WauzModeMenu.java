@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.util.ItemUtils;
@@ -40,7 +39,7 @@ public class WauzModeMenu implements WauzInventory {
 	
 	/**
 	 * Opens the menu for the given player.
-	 * Shows three hardcoded modes to choose: "DropGuys", "MMORPG", "OneBlock".
+	 * Shows hardcoded modes to choose from.
 	 * 
 	 * @param player The player that should view the inventory.
 	 * 
@@ -48,43 +47,31 @@ public class WauzModeMenu implements WauzInventory {
 	 */
 	public static void open(Player player) {
 		String menuTitle = ChatColor.BLACK + "" + ChatColor.BOLD + "Select a Gamemode!";
-		Inventory menu = Components.inventory(new WauzModeMenu(), menuTitle, 45);
+		Inventory menu = Components.inventory(new WauzModeMenu(), menuTitle, 27);
 		
 		ItemStack hubMainItemStack = new ItemStack(Material.BEACON);
-		ItemMeta hubMainItemMeta = hubMainItemStack.getItemMeta();
-		Components.displayName(hubMainItemMeta, ChatColor.DARK_AQUA + "Visit the Nexus");
-		hubMainItemStack.setItemMeta(hubMainItemMeta);
-		menu.setItem(11, hubMainItemStack);
+		MenuUtils.setItemDisplayName(hubMainItemStack, ChatColor.DARK_AQUA + "Visit the Nexus (Hub 1)");
+		menu.setItem(2, hubMainItemStack);
 		
 		ItemStack hubShiganshinaItemStack = new ItemStack(Material.BRICKS);
-		ItemMeta hubshiganshinaItemMeta = hubShiganshinaItemStack.getItemMeta();
-		Components.displayName(hubshiganshinaItemMeta, ChatColor.DARK_AQUA + "Visit Shiganshina");
-		hubShiganshinaItemStack.setItemMeta(hubshiganshinaItemMeta);
-		menu.setItem(15, hubShiganshinaItemStack);
+		MenuUtils.setItemDisplayName(hubShiganshinaItemStack, ChatColor.DARK_AQUA + "Visit Shiganshina (Hub 2)");
+		menu.setItem(6, hubShiganshinaItemStack);
 		
 		ItemStack modeDropGuysItemStack = new ItemStack(Material.HOPPER);
-		ItemMeta modeDropGuysItemMeta = modeDropGuysItemStack.getItemMeta();
-		Components.displayName(modeDropGuysItemMeta, ChatColor.DARK_RED + "ALPHA " + ChatColor.RED + "DropGuys");
-		modeDropGuysItemStack.setItemMeta(modeDropGuysItemMeta);
-		menu.setItem(28, modeDropGuysItemStack);
+		MenuUtils.setItemDisplayName(modeDropGuysItemStack, ChatColor.DARK_RED + "ALPHA " + ChatColor.RED + "DropGuys");
+		menu.setItem(19, modeDropGuysItemStack);
 		
 		ItemStack modeMmoRpgItemStack = new ItemStack(Material.DRAGON_HEAD);
-		ItemMeta modeMmoRpgItemMeta = modeMmoRpgItemStack.getItemMeta();
-		Components.displayName(modeMmoRpgItemMeta, ChatColor.DARK_RED + "ALPHA " + ChatColor.DARK_PURPLE + "MMORPG");
-		modeMmoRpgItemStack.setItemMeta(modeMmoRpgItemMeta);
-		menu.setItem(30, modeMmoRpgItemStack);
+		MenuUtils.setItemDisplayName(modeMmoRpgItemStack, ChatColor.DARK_RED + "ALPHA " + ChatColor.DARK_PURPLE + "MMORPG");
+		menu.setItem(21, modeMmoRpgItemStack);
 		
 		ItemStack modeOneBlockItemStack = new ItemStack(Material.GRASS_BLOCK);
-		ItemMeta modeOneBlockItemMeta = modeOneBlockItemStack.getItemMeta();
-		Components.displayName(modeOneBlockItemMeta, ChatColor.DARK_RED + "ALPHA " + ChatColor.GOLD + "OneBlock and Survival");
-		modeOneBlockItemStack.setItemMeta(modeOneBlockItemMeta);
-		menu.setItem(32, modeOneBlockItemStack);
+		MenuUtils.setItemDisplayName(modeOneBlockItemStack, ChatColor.DARK_RED + "BETA " + ChatColor.GOLD + "Survival (+ OneBlock)");
+		menu.setItem(23, modeOneBlockItemStack);
 		
 		ItemStack modeEyiorielItemStack = new ItemStack(Material.END_PORTAL_FRAME);
-		ItemMeta modeEyiorielItemMeta = modeEyiorielItemStack.getItemMeta();
-		Components.displayName(modeEyiorielItemMeta, ChatColor.GOLD + "Connection Test");
-		modeEyiorielItemStack.setItemMeta(modeEyiorielItemMeta);
-		menu.setItem(34, modeEyiorielItemStack);
+		MenuUtils.setItemDisplayName(modeEyiorielItemStack, ChatColor.GOLD + "Connection Test");
+		menu.setItem(25, modeEyiorielItemStack);
 		
 		MenuUtils.setBorders(menu);
 		player.openInventory(menu);
@@ -126,12 +113,13 @@ public class WauzModeMenu implements WauzInventory {
 			return;
 		}
 		modeName = modeName.replace("ALPHA ", "");
-		if(modeName.equals("Visit the Nexus")) {
+		modeName = modeName.replace("BETA ", "");
+		if(modeName.equals("Visit the Nexus (Hub 1)")) {
 			player.closeInventory();
 			player.teleport(WauzCore.getHubLocation());
 			player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
 		}
-		else if(modeName.equals("Visit Shiganshina")) {
+		else if(modeName.equals("Visit Shiganshina (Hub 2)")) {
 			player.closeInventory();
 			player.teleport(new Location(Bukkit.getWorld("HubShiganshina"), -353.5, 24, 78.5));
 			player.getWorld().playEffect(player.getLocation(), Effect.PORTAL_TRAVEL, 0);
@@ -139,7 +127,7 @@ public class WauzModeMenu implements WauzInventory {
 		else if(modeName.equals("MMORPG")) {
 			CharacterSlotMenu.open(player, WauzMode.MMORPG);
 		}
-		else if(modeName.equals("OneBlock and Survival")) {
+		else if(modeName.equals("Survival (+ OneBlock)")) {
 			CharacterSlotMenu.open(player, WauzMode.SURVIVAL);
 		}
 		else if(modeName.equals("DropGuys")) {

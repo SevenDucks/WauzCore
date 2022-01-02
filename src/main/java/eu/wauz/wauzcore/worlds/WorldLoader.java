@@ -18,7 +18,7 @@ public class WorldLoader {
 	public static void init() {
 		loadNormalWorld(new WorldCreator("HubShiganshina"));
 		loadNormalWorld(new WorldCreator("MMORPG"));
-		loadSeasonalWorld(new WorldCreator("Survival"), true);
+		loadSeasonalWorld(new IrisWorldCreator("Survival"), true);
 		loadSeasonalWorld(new EmptyWorldCreator("SurvivalOneBlock"), false);
 	}
 	

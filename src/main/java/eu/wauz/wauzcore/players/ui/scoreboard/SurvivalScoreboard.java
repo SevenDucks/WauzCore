@@ -40,15 +40,16 @@ public class SurvivalScoreboard extends BaseScoreboard {
 	@Override
 	public void fillScoreboard(Player player) {
 		rowStrings.add("");
-		rowStrings.add("" + ChatColor.WHITE + ChatColor.BOLD + "Survival Season " + WauzDateUtils.getSurvivalSeason());
+		rowStrings.add("" + ChatColor.WHITE + ChatColor.BOLD + "Season " + WauzDateUtils.getSurvivalSeason());
 		rowStrings.add("" + ChatColor.WHITE + ChatColor.BOLD + "IP: play.wauz.eu");
 		rowStrings.add(" ");
 		rowStrings.add("Survival Score: " + ChatColor.AQUA + Formatters.INT.format(PlayerConfigurator.getSurvivalScore(player)));
-		rowStrings.add("One point and a free Token");
-		rowStrings.add("for each Level beyond 30");
+		rowStrings.add("You earn a Token for");
+		rowStrings.add("each Level beyond 30");
 		rowStrings.add("  ");
 		rowStrings.add("Tokens: " + ChatColor.GOLD + Formatters.INT.format(PlayerCollectionConfigurator.getTokens(player)));
-		rowStrings.add("Use an Ender Chest to Spend");
+		rowStrings.add("Use an Ender Chest");
+		rowStrings.add("to Spend Tokens");
 		rowStrings.add("   ");
 		rowStrings.add(ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "hub " + ChatColor.LIGHT_PURPLE + "/" + ChatColor.WHITE + "spawn");
 		rowStrings.add(ChatColor.RED + "/" + ChatColor.WHITE + "home " + ChatColor.RED + "/" + ChatColor.WHITE + "sethome");
