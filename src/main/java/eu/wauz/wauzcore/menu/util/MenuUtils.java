@@ -279,7 +279,7 @@ public class MenuUtils {
 		}
 		if(staticItems.contains(itemStack.getType())) {
 			if(itemStack.getType().equals(Material.NETHER_STAR)) {
-				WauzMenu.open((Player) event.getWhoClicked());
+				WauzMenu.openDelayed((Player) event.getWhoClicked());
 			}
 			event.setCancelled(true);
 			return;

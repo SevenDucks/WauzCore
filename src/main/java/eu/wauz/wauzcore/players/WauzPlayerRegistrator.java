@@ -169,6 +169,7 @@ public class WauzPlayerRegistrator {
 					}
 					player.spigot().respawn();
 				}
+				
 				if(WauzMode.inOneBlock(player)) {
 					OnePlotManager.setUpBorder(player);
 				}

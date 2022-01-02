@@ -48,7 +48,7 @@ Survival:
   areas:
     SurvivalSpawn:
       type: ellipse
-      radius: '0;0;80'
+      radius: '0;0;20'
       title: Heart of Nature
       subtitle: Build Protected Zone
       temperature: 6

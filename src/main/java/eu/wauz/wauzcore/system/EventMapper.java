@@ -264,10 +264,10 @@ public class EventMapper {
 					player.setItemOnCursor(null);
 				}
 				else if(HeadUtils.isHeadMenuItem(clicked, "Materials")) {
-					MaterialPouch.open(player);
+					MaterialPouch.openDelayed(player);
 				}
 				else if(HeadUtils.isHeadMenuItem(clicked, "Backpack")) {
-					Backpack.open(player);
+					Backpack.openDelayed(player);
 				}
 			}
 			MenuUtils.onSpecialItemInventoryClick(event);

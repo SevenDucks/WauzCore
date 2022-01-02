@@ -171,7 +171,7 @@ public class WauzEquipmentEnhancer {
 			builder.addEnhancementString("Enhancement:" + ChatColor.RED + " " + enhancementLore, enhancementSuffix);
 		}
 		else if(equipmentType.equals(EquipmentType.ARMOR)) {
-			builder.addEnhancementString("Enhancement:" + ChatColor.RED + " " + enhancementLore, enhancementSuffix);
+			builder.addEnhancementString("Enhancement:" + ChatColor.BLUE + " " + enhancementLore, enhancementSuffix);
 		}
 		return parameters;
 	}

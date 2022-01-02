@@ -3,6 +3,7 @@ package eu.wauz.wauzcore.menu;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.items.CustomItem;
 import eu.wauz.wauzcore.menu.abilities.AbilityMenuParts;
 import eu.wauz.wauzcore.menu.collection.CollectionMenuParts;
@@ -78,6 +80,22 @@ public class WauzMenu implements WauzInventory, CustomItem {
 	@Override
 	public List<Material> getCustomItemMaterials() {
 		return Arrays.asList(Material.NETHER_STAR);
+	}
+	
+	/**
+	 * Opens the menu for the given player during the next tick.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public static void openDelayed(Player player) {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+			
+	        @Override
+			public void run() {
+	        	open(player);
+	        }
+	        
+		});
 	}
 	
 	/**

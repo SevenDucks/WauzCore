@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,6 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
@@ -65,6 +67,22 @@ public class Backpack implements WauzInventory {
 	@Override
 	public void openInstance(Player player) {
 		Backpack.open(player);
+	}
+	
+	/**
+	 * Opens the menu for the given player during the next tick.
+	 * 
+	 * @param player The player that should view the inventory.
+	 */
+	public static void openDelayed(Player player) {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(WauzCore.getInstance(), new Runnable() {
+			
+	        @Override
+			public void run() {
+	        	open(player);
+	        }
+	        
+		});
 	}
 	
 	/**
