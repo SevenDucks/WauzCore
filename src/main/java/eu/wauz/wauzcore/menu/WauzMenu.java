@@ -19,6 +19,7 @@ import eu.wauz.wauzcore.menu.collection.CollectionMenuParts;
 import eu.wauz.wauzcore.menu.social.SocialMenuParts;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.menu.util.WauzInventory;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.annotations.Item;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
@@ -113,6 +114,9 @@ public class WauzMenu implements WauzInventory, CustomItem {
 	 * @see MenuUtils#setBorders(Inventory)
 	 */
 	public static void open(Player player) {
+		if(WauzPlayerDataPool.getPlayer(player) == null) {
+			return;
+		}
 		if(WauzMode.inHub(player)) {
 			WauzModeMenu.open(player);
 			return;

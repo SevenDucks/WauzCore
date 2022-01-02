@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.GameMode;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -112,7 +113,9 @@ public class InventorySerializer {
     		if(WauzMode.inOneBlock(player)) {
 				OneBlockProgression.getPlayerOneBlock(player).load(playerDataConfig);
 			}
-    		player.setHealth(playerDataConfig.getInt("stats.current.health"));
+    		int currentHealth = playerDataConfig.getInt("stats.current.health");
+    		double maximumHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+    		player.setHealth(currentHealth > maximumHealth ? maximumHealth : currentHealth);
     	}
     	ExperienceCalculator.updateExperienceBar(player);
     	player.setFoodLevel(playerDataConfig.getInt("stats.current.hunger"));

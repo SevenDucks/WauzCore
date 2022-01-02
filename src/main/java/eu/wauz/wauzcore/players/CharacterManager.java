@@ -125,6 +125,9 @@ public class CharacterManager {
 	 */
 	public static void logoutCharacter(final Player player) {
 		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
+		if(playerData == null) {
+			return;
+		}
 		
 		if(WauzMode.isMMORPG(player)) {
 			WauzActivePet.tryToUnsummon(player, false);

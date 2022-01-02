@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
@@ -86,7 +87,7 @@ public class WauzPlayerRegistrator {
             
 			@Override
 			public void run() {
-        		player.setHealth(20);
+        		player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
         		player.setFoodLevel(20);
         		player.setSaturation(20);
         		player.getInventory().clear();
@@ -103,7 +104,7 @@ public class WauzPlayerRegistrator {
         		CharacterManager.equipHubItems(player);
             }
             
-		}, 10);
+		});
 	}
 	
 	/**

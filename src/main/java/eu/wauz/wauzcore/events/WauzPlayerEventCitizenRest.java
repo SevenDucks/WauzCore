@@ -1,6 +1,7 @@
 package eu.wauz.wauzcore.events;
 
 import org.bukkit.ChatColor;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
@@ -44,7 +45,7 @@ public class WauzPlayerEventCitizenRest implements WauzPlayerEvent {
 				DamageCalculator.setHealth(player, WauzPlayerDataPool.getPlayer(player).getStats().getMaxHealth());
 			}
 			else {
-				player.setHealth(20);
+				player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
 			}
 			player.setFoodLevel(20);
 			player.setSaturation(20);

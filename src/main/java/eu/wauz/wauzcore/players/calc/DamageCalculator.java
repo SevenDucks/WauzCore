@@ -2,6 +2,7 @@ package eu.wauz.wauzcore.players.calc;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -165,7 +166,8 @@ public class DamageCalculator {
 		if(hp == 20 && playerData.getStats().getHealth() > playerData.getStats().getMaxHealth()) {
 			hp = 19;
 		}
-		player.setHealth(hp);
+		double maximumHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+		player.setHealth(hp > maximumHealth ? maximumHealth : hp);
 		WauzPlayerActionBar.update(player);
 	}
 	
