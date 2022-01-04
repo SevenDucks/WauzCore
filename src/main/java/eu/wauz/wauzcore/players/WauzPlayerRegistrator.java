@@ -21,6 +21,7 @@ import eu.wauz.wauzcore.oneblock.OnePlotManager;
 import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
+import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.WauzPermission;
 import eu.wauz.wauzcore.system.WauzRank;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
@@ -53,6 +54,7 @@ public class WauzPlayerRegistrator {
 	 * @see CharacterManager#equipHubItems(Player)
 	 */
 	public static void login(final Player player) throws Exception {
+		WauzDebugger.log("Login " + player.getName());
 		File playerDirectory = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/");
 		playerDirectory.mkdir();
 		File playerDataFile = new File(playerDirectory, "global.yml");
@@ -102,6 +104,7 @@ public class WauzPlayerRegistrator {
         		WauzPlayerDataPool.regPlayer(player);
         		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
         		CharacterManager.equipHubItems(player);
+        		WauzDebugger.log("Logged in " + player.getName());
             }
             
 		});
@@ -119,10 +122,12 @@ public class WauzPlayerRegistrator {
 	 * @see WauzPlayerDataPool#unregPlayer(Player)
 	 */
 	public static void logout(Player player) {
+		WauzDebugger.log("Logout " + player.getName());
 		WauzPlayerBossBar.clearBar(player);
 		PlayerConfigurator.setLastPlayed(player);
 		CharacterManager.logoutCharacter(player);
 		WauzPlayerDataPool.unregPlayer(player);
+		WauzDebugger.log("Logged out " + player.getName());
 	}
 	
 	/**
@@ -133,6 +138,7 @@ public class WauzPlayerRegistrator {
 	 * @param player The player that is respawning.
 	 */
 	public static void respawn(final Player player) {
+		WauzDebugger.log("Respawn " + player.getName());
 		boolean allowRespawn = false;
 		World world = player.getWorld();
 		final WauzActiveInstance instance = WauzActiveInstancePool.getInstance(world);
@@ -174,6 +180,7 @@ public class WauzPlayerRegistrator {
 				if(WauzMode.inOneBlock(player)) {
 					OnePlotManager.setUpBorder(player);
 				}
+				WauzDebugger.log("Respawned " + player.getName());
 			}
 			
 		});

@@ -85,6 +85,7 @@ public class PlayerAmbientListener implements Listener {
 	@EventHandler
 	public void onWorldEnter(PlayerChangedWorldEvent event) {
 		Player player = event.getPlayer();
+		WauzDebugger.log(player.getName() + " entered " + player.getWorld().getName());
 		WauzPlayerBossBar.clearBar(player);
 		WauzPlayerScoreboard.scheduleScoreboardRefresh(player);
 		WauzNoteBlockPlayer.play(player);

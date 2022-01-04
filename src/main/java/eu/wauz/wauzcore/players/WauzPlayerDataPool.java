@@ -2,6 +2,7 @@ package eu.wauz.wauzcore.players;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
@@ -20,7 +21,18 @@ public class WauzPlayerDataPool {
 	/**
 	 * A map of cached player datas by player.
 	 */
-	private static Map<Player, WauzPlayerData> storage = new HashMap<>();
+	private static Map<UUID, WauzPlayerData> storage = new HashMap<>();
+	
+	/**
+	 * Checks if the player data for the given uuid is stored.
+	 * 
+	 * @param uuid The uuid.
+	 * 
+	 * @return If it refers to a player data.
+	 */
+	public static boolean contains(UUID uuid) {
+		return storage.containsKey(uuid);
+	}
 
 	/**
 	 * Fetches a cached player data.
@@ -30,7 +42,7 @@ public class WauzPlayerDataPool {
 	 * @return The requested player data.
 	 */
 	public static WauzPlayerData getPlayer(Player player) {
-		return storage.get(player);
+		return storage.get(player.getUniqueId());
 	}
 
 	/**
@@ -42,7 +54,7 @@ public class WauzPlayerDataPool {
 	 */
 	public static WauzPlayerData regPlayer(Player player) {
 		WauzPlayerData playerData = new WauzPlayerData(player, storage.size() + 1);
-		storage.put(player, playerData);
+		storage.put(player.getUniqueId(), playerData);
 		DamageCalculator.setHealth(player, 20);
 		return playerData;
 	}
@@ -53,7 +65,7 @@ public class WauzPlayerDataPool {
 	 * @param player The player to remove.
 	 */
 	public static void unregPlayer(Player player) {
-		storage.remove(player);
+		storage.remove(player.getUniqueId());
 	}
 	
 	/**
