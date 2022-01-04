@@ -20,6 +20,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
@@ -43,6 +44,7 @@ import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
+import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
@@ -97,6 +99,19 @@ public class PlayerInteractionListener implements Listener {
 	public void onPing(ServerListPingEvent event) {
 		String playerName = getNameFromAddress(event.getAddress());
 		Components.motd(event, ServerConfigurator.getServerMotd(playerName));
+	}
+	
+	/**
+	 * Checks if a player has no active session before logging in.
+	 * 
+	 * @param event The pre login event.
+	 */
+	@EventHandler
+	public void onPreLogin(AsyncPlayerPreLoginEvent event) {
+		if(WauzPlayerDataPool.contains(event.getPlayerProfile().getId())) {
+			event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
+			Components.kickMessage(event, "Already Connected");
+		}
 	}
 
 	/**
