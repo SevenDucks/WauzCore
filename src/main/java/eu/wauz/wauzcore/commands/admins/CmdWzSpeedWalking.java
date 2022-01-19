@@ -32,7 +32,7 @@ public class CmdWzSpeedWalking implements WauzCommand {
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzSpeed.walking", "wspeed");
+		return Arrays.asList("wzSpeed.walking", "wspeed", "ws");
 	}
 
 	/**

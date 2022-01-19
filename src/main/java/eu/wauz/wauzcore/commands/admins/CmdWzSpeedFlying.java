@@ -32,7 +32,7 @@ public class CmdWzSpeedFlying implements WauzCommand {
 	 */
 	@Override
 	public List<String> getCommandIds() {
-		return Arrays.asList("wzSpeed.flying", "fspeed");
+		return Arrays.asList("wzSpeed.flying", "fspeed", "fs");
 	}
 
 	/**

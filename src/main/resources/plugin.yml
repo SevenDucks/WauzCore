@@ -172,12 +172,12 @@ commands:
     permission: wauz.normal
   wzSpeed.walking:
     description: Change Walking Speed
-    aliases: [wspeed]
+    aliases: [wspeed, ws]
     usage: /wzSpeed.walking [speed (1-10)] [player]
     permission: wauz.system
   wzSpeed.flying:
     description: Change Flying Speed
-    aliases: [fspeed]
+    aliases: [fspeed, fs]
     usage: /wzSpeed.flying [speed (1-10)] [player]
     permission: wauz.system
   wzRank:
