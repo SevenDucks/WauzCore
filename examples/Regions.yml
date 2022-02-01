@@ -29,15 +29,6 @@ Hub:
   temperature: 6
   flags: 'protected'
   areas:
-Shiganshina:
-  type: world
-  world: HubShiganshina
-  title: Shiganshina District
-  subtitle: Wall Maria
-  music: Sasageyo
-  temperature: 6
-  flags: 'protected'
-  areas:
 Survival:
   type: world
   world: Survival

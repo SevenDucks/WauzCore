@@ -16,7 +16,6 @@ public class WorldLoader {
 	 * Only called once per server run.
 	 */
 	public static void init() {
-		loadNormalWorld(new WorldCreator("HubShiganshina"));
 		loadNormalWorld(new WorldCreator("MMORPG"));
 		loadSeasonalWorld(new IrisWorldCreator("Survival"), true);
 		loadSeasonalWorld(new EmptyWorldCreator("SurvivalOneBlock"), false);
