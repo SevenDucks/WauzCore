@@ -242,7 +242,6 @@ public class WauzTeleporter {
 	 * Teleports the player per command.
 	 * The player can manually call this method.
 	 * Not usable when mounted.
-	 * Not usable when in hub.
 	 * Not usable when location is in another gamemode.
 	 * Not usable when location is in another (non instance) world.
 	 * 
@@ -260,12 +259,8 @@ public class WauzTeleporter {
 		World targetWorld = event.getTo().getWorld();
 		String sourceWorldName = sourceWorld.getName();
 		String targetWorldName = targetWorld.getName();
-		if(WauzMode.inHub(sourceWorld)) {
-			event.setCancelled(true);
-			player.sendMessage(ChatColor.RED + "You can't do that in this world!");
-			return;
-		}
-		if(!Objects.equals(WauzMode.getMode(sourceWorldName), WauzMode.getMode(targetWorldName))) {
+		boolean outOfHub = WauzMode.inHub(sourceWorld) != WauzMode.inHub(targetWorld);
+		if(outOfHub || !Objects.equals(WauzMode.getMode(sourceWorldName), WauzMode.getMode(targetWorldName))) {
 			event.setCancelled(true);
 			player.sendMessage(ChatColor.RED + "You can only teleport to locations in the same gamemode!");
 			return;
@@ -311,25 +306,26 @@ public class WauzTeleporter {
 	/**
 	 * Teleports the player to a waypoint.
 	 * The player can manually call this method.
+	 * Not usable with invalid waypoint key.
 	 * Not usable when player is in a not MMORPG world.
 	 * Not usable when mounted.
-	 * Not usable with invalid waypoint key.
 	 * 
 	 * @param player The player to teleport.
 	 * @param waypointKey The key of the waypoint.
 	 */
 	public static void waypointTeleport(Player player, String waypointKey) {
-		if(!WauzMode.isMMORPG(player) || WauzMode.inHub(player)) {
+		WauzWaypoint waypoint = WauzWaypoint.getWaypoint(waypointKey);
+		if(waypoint == null) {
+			player.sendMessage(ChatColor.RED + "This waypoint is unknown!");
+			return;
+		}
+		boolean outOfHub = WauzMode.inHub(player) != WauzMode.inHub(waypoint.getWaypointLocation().getWorld());
+		if(outOfHub || !WauzMode.isMMORPG(player)) {
 			player.sendMessage(ChatColor.RED + "You can't do that in this world!");
 			return;
 		}
 		if(player.isInsideVehicle()) {
 			player.sendMessage(ChatColor.RED + "You can't warp while mounted!");
-			return;
-		}
-		WauzWaypoint waypoint = WauzWaypoint.getWaypoint(waypointKey);
-		if(waypoint == null) {
-			player.sendMessage(ChatColor.RED + "This waypoint is unknown!");
 			return;
 		}
 		WauzActivePet.tryToUnsummon(player, true);

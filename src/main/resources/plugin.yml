@@ -166,6 +166,11 @@ commands:
     aliases: [warp]
     usage: /wzTravel [waypoint]
     permission: wauz.system
+  wzTravel.add:
+    description: Add Travel Waypoint
+    aliases: [addwarp]
+    usage: /wzTravel.add [waypoint]
+    permission: wauz.system
   wzTravelEvent:
     description: Event-Travel to Location per UUID
     usage: /wzTravelEvent [uuid]

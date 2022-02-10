@@ -50,5 +50,18 @@ public class WaypointConfigurator extends GlobalConfigurationUtils {
 		String worldName = getWaypointWorldName(waypoint);
 		return mainConfigGetLocation("Waypoints", waypoint + ".coords", worldName);
 	}
+	
+	/**
+	 * Adds a new waypoint.
+	 * 
+	 * @param waypoint The key of the waypoint.
+	 * @param location The location of the waypoint.
+	 */
+	public static void addWaypoint(String waypoint, Location location) {
+		mainConfigSet("Waypoints", waypoint + ".name", waypoint);
+		mainConfigSet("Waypoints", waypoint + ".world", location.getWorld().getName());
+		String locationString = location.getX() + " " + location.getY() + " " + location.getZ();
+		mainConfigSet("Waypoints", waypoint + ".coords", locationString);
+	}
 
 }

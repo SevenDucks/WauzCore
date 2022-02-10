@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.WaypointConfigurator;
@@ -49,6 +51,22 @@ public class WauzWaypoint {
 	 */
 	public static List<String> getAllWaypointKeys() {
 		return new ArrayList<>(waypointMap.keySet());
+	}
+	
+	/**
+	 * Adds a new waypoint.
+	 * 
+	 * @param player The player adding the waypoint.
+	 * @param waypointKey The key of the waypoint.
+	 */
+	public static void addWaypoint(Player player, String waypointKey) {
+		if(waypointMap.containsKey(waypointKey)) {
+			player.sendMessage(ChatColor.RED + "A waypoint with this key already exists!");
+			return;
+		}
+		WaypointConfigurator.addWaypoint(waypointKey, player.getLocation());
+		waypointMap.put(waypointKey, new WauzWaypoint(waypointKey));
+		player.sendMessage(ChatColor.GREEN + "A new waypoint was added!");
 	}
 	
 	/**
