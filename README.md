@@ -9,15 +9,12 @@
 
 Advanced Minecraft MMORPG Engine
 
-<a href="https://seven-ducks.com"><img src="https://seven-ducks.com/assets/images/banner-delseyria.png"/></a> 
-
 [Seven Ducks](https://github.com/SevenDucks) plans to create Delseyria,
 a full MMORPG experience in Minecraft powered by WauzCore.
 It will feature Equipment, Skills, Quests, Shops, Dungeons, Bosses, Pets, Achievements and much more,
 all without the need for mods or data packs.
 Unlike Wynncraft or other RPG projects, the code will be completely open source.
 
-<a href="https://www.seven-ducks.com">🦆 Seven Ducks Studios</a> |
-<a href="https://discordapp.com/invite/dhHJp5a">💬 Discord</a> |
+<a href="https://discord.gg/dhHJp5a">💬 Discord</a> |
 <a href="https://twitter.com/wauzmons">🐦 Twitter</a> |
 <a href="https://sevenducks.github.io/WauzCore/">📙 Javadoc</a>
