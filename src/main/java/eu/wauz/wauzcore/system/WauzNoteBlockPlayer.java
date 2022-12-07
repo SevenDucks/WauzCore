@@ -77,7 +77,7 @@ public class WauzNoteBlockPlayer {
 		if(soundtrackFile.exists()) {
 			Song song = NBSDecoder.parse(soundtrackFile);
 			SongPlayer songPlayer = new RadioSongPlayer(song);
-			songPlayer.setAutoStop(true);
+			songPlayer.setAutoDestroy(true);
 			songPlayer.setRepeatMode(RepeatMode.ALL);
 			songPlayer.setCategory(SoundCategory.RECORDS);
 			songPlayer.setVolume((byte) 25);

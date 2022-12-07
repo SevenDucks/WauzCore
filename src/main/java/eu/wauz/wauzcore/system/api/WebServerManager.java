@@ -25,7 +25,6 @@ import eu.wauz.wauzcore.system.quests.WauzQuest;
  * 
  * @author Wauzmons
  */
-@SuppressWarnings("restriction")
 public class WebServerManager implements HttpHandler {
 
 	/**
