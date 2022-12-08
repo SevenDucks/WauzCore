@@ -2,7 +2,7 @@ name: WauzCore
 description: Advanced Minecraft MMORPG Engine
 main: eu.wauz.wauzcore.WauzCore
 website: http://wauz.eu/
-version: 2022.0-SNAPSHOT
+version: 2.0-SNAPSHOT
 api-version: 1.17
 author: Wauzmons
 softdepend: [MythicMobs, NoteBlockAPI, Iris]
