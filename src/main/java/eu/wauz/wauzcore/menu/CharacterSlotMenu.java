@@ -75,8 +75,7 @@ public class CharacterSlotMenu implements WauzInventory {
 		}
 		else if(wauzMode.equals(WauzMode.SURVIVAL)) {
 			int season = WauzDateUtils.getSurvivalSeasonInteger();
-			menu.setItem(3, getCharacterSlot(player, "Classic-Survival-" + season, true));
-			menu.setItem(5, getCharacterSlot(player, "OneBlock-Survival-" + season, true));
+			menu.setItem(4, getCharacterSlot(player, "OneBlock-Survival-" + season, true));
 		}
 		else if(wauzMode.equals(WauzMode.ARCADE)) {
 			ItemStack slotItemStack = new ItemStack(Material.CLOCK);

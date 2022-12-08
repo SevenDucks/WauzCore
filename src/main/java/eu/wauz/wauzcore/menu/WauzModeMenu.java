@@ -106,7 +106,7 @@ public class WauzModeMenu implements WauzInventory {
 		if(modeName.equals("MMORPG")) {
 			CharacterSlotMenu.open(player, WauzMode.MMORPG);
 		}
-		else if(modeName.equals("Survival (+ OneBlock)")) {
+		else if(modeName.equals("OneBlock")) {
 			CharacterSlotMenu.open(player, WauzMode.SURVIVAL);
 		}
 		else if(modeName.equals("DropGuys")) {

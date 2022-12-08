@@ -19,7 +19,6 @@ public class WorldLoader {
 		loadNormalWorld(new WorldCreator("MMORPG"));
 		loadNormalWorld(new WorldCreator("HubFlat1"));
 		loadNormalWorld(new WorldCreator("HubFlat2"));
-		loadSeasonalWorld(new IrisWorldCreator("Survival"), true);
 		loadSeasonalWorld(new EmptyWorldCreator("SurvivalOneBlock"), false);
 	}
 	

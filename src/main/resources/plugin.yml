@@ -5,7 +5,7 @@ website: http://wauz.eu/
 version: 2.0-SNAPSHOT
 api-version: 1.17
 author: Wauzmons
-softdepend: [MythicMobs, NoteBlockAPI, Iris]
+softdepend: [MythicMobs, NoteBlockAPI]
 commands:
   hub:
     description: Teleport to Hub
