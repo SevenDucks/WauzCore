@@ -2,7 +2,6 @@ package eu.wauz.wauzcore.system.quests;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.inventory.ItemStack;
@@ -13,9 +12,8 @@ import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Components;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.items.ItemManager;
-import io.lumine.xikage.mythicmobs.items.MythicItem;
+import eu.wauz.wauzcore.system.util.MythicUtils;
+import io.lumine.mythic.api.items.ItemManager;
 
 /**
  * The loot reward of a quest.
@@ -25,11 +23,6 @@ import io.lumine.xikage.mythicmobs.items.MythicItem;
  * @see WauzQuest
  */
 public class WauzQuestLoot {
-	
-	/**
-	 * Access to the MythicMobs API item manager.
-	 */
-	private static ItemManager mythicMobs = MythicMobs.inst().getItemManager();
 	
 	/**
 	 * The name of the quest.
@@ -92,18 +85,15 @@ public class WauzQuestLoot {
 			String canonicalName = nameParts[0];
 			String displayNameSuffix = nameParts.length > 1 ? nameParts[1] : null;
 			
-			Optional<MythicItem> mythicItemOptional = mythicMobs.getItem(canonicalName);
-			if(mythicItemOptional.isPresent()) {
-				ItemStack rewardItemStack = InventorySerializer.serialize(mythicMobs.getItemStack(canonicalName));
+			ItemStack rewardItemStack = MythicUtils.getItemStack(canonicalName, "Quest " + questName);
+			if(rewardItemStack != null) {
+				rewardItemStack = InventorySerializer.serialize(rewardItemStack);
 				if(StringUtils.isNotBlank(displayNameSuffix) && ItemUtils.hasDisplayName(rewardItemStack)) {
 					ItemMeta rewardItemMeta = rewardItemStack.getItemMeta();
 					Components.displayName(rewardItemMeta, Components.displayName(rewardItemMeta) + displayNameSuffix);
 					rewardItemStack.setItemMeta(rewardItemMeta);
 				}
 				itemStacks.add(rewardItemStack);
-			}
-			else {
-				WauzDebugger.log("Invalid MythicMobs Item in Quest \"" + questName + "\": " + rewardItemName);
 			}
 		}
 		return itemStacks;

@@ -4,10 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 import eu.wauz.wauzcore.system.util.Chance;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
-import io.lumine.xikage.mythicmobs.api.exceptions.InvalidMobTypeException;
-import io.lumine.xikage.mythicmobs.mobs.MythicMob;
+import eu.wauz.wauzcore.system.util.MythicUtils;
 
 /**
  * A cached spawn trigger for a mythic mob.
@@ -17,9 +14,14 @@ import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 public class MobSpawn {
 	
 	/**
-	 * Access to the MythicMobs API.
+	 * The name of the instance where the mythic mob spawns.
 	 */
-	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
+	private String instanceName;
+	
+	/**
+	 * The mythic mob type to spawn.
+	 */
+	private String type;
 	
 	/**
 	 * The x position to spawn the mob.
@@ -37,44 +39,17 @@ public class MobSpawn {
 	private float z = 0;
 	
 	/**
-	 * The level of the mob to spawn.
-	 */
-	private int lvl = 1;
-	
-	/**
-	 * The mythic mob to spawn.
-	 */
-	private MythicMob mob;
-	
-	/**
 	 * Creates a new mythic mob spawn trigger.
 	 * 
+	 * @param instanceName The name of the instance where the mythic mob spawns.
 	 * @param mobString The string to parse the mob from: "name x y z".
 	 */
-	public MobSpawn(String mobString) {
+	public MobSpawn(String instanceName, String mobString) {
 		String[] mobSpawnParams = mobString.split(" ");
-		mob = mythicMobs.getMythicMob(mobSpawnParams[0]);
+		type = mobSpawnParams[0];
 		x = Float.parseFloat(mobSpawnParams[1]);
 		y = Float.parseFloat(mobSpawnParams[2]);
 		z = Float.parseFloat(mobSpawnParams[3]);
-	}
-	
-	/**
-	 * Creates a new mythic mob spawn trigger.
-	 * 
-	 * @param mob The mythic mob to spawn when triggered.
-	 */
-	public MobSpawn(MythicMob mob) {
-		this.mob = mob;
-	}
-	
-	/**
-	 * Sets the level for the mob to spawn.
-	 * 
-	 * @param lvl The level of the mob to spawn.
-	 */
-	public void setLevel(int lvl) {
-		this.lvl = lvl;
 	}
 	
 	/**
@@ -107,12 +82,7 @@ public class MobSpawn {
 	 * @param location The location to spawn the mob at.
 	 */
 	public void spawn(Location location) {
-		try {
-			mythicMobs.spawnMythicMob(mob, location, lvl);
-		}
-		catch (InvalidMobTypeException e) {
-			e.printStackTrace();
-		}
+		MythicUtils.spawnMob(type, location, "Instance " + instanceName);
 	}
 
 }

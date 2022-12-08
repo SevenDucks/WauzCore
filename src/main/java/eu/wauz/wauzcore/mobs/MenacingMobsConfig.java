@@ -5,7 +5,7 @@ import java.util.List;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
 import eu.wauz.wauzcore.system.util.Chance;
-import io.lumine.xikage.mythicmobs.io.MythicConfig;
+import io.lumine.mythic.api.config.MythicConfig;
 
 /**
  * This is the place, where metadata is generated from the MythicMobs config,

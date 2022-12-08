@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * An util class for stuff like unicode icons.
+ * An util class to format text.
  * 
  * @author Wauzmons
  */

@@ -3,7 +3,7 @@ package eu.wauz.wauzcore.building;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.tuple.Pair;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.tuple.Pair;
 
 import eu.wauz.wauzcore.system.util.Chance;
 

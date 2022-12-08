@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * An util class for calculating dates.
+ * An util class to calculate dates.
  * 
  * @author Wauzmons
  */

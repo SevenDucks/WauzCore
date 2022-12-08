@@ -96,7 +96,7 @@ public class WauzInstance extends WauzBaseInstance {
 		setSoundtrackName(InstanceConfigurator.getSoundtrack(instanceName));
 		
 		for(String mobString : InstanceConfigurator.getMobSpawns(instanceName)) {
-			mobs.add(new MobSpawn(mobString));
+			mobs.add(new MobSpawn(instanceName, mobString));
 		}
 		for(String citizenString : InstanceConfigurator.getCitizenSpawns(instanceName)) {
 			citizens.add(new WauzInstanceCitizen(citizenString));

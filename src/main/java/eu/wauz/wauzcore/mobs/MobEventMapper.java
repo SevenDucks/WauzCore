@@ -15,14 +15,12 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.MythicUtils;
 import eu.wauz.wauzcore.worlds.instances.InstanceMobArena;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
-import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
-import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDespawnEvent;
-import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobSpawnEvent;
-import io.lumine.xikage.mythicmobs.api.exceptions.InvalidMobTypeException;
-import io.lumine.xikage.mythicmobs.mobs.MythicMob;
+import io.lumine.mythic.api.mobs.MythicMob;
+import io.lumine.mythic.bukkit.events.MythicMobDeathEvent;
+import io.lumine.mythic.bukkit.events.MythicMobDespawnEvent;
+import io.lumine.mythic.bukkit.events.MythicMobSpawnEvent;
 
 /**
  * A mapper class, that decides what to do, when a (mythic) mob spawns or dies.
@@ -31,11 +29,6 @@ import io.lumine.xikage.mythicmobs.mobs.MythicMob;
  * @author Wauzmons
  */
 public class MobEventMapper {
-	
-	/**
-	 * Access to the MythicMobs API.
-	 */
-	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
 	
 	/**
 	 * When a mob spawns, modifiers, loot and boss bars are initialized.
@@ -165,17 +158,15 @@ public class MobEventMapper {
 	 * @param location The location the splitting takes place.
 	 */
 	private static void splitMob(MythicMob mythicMob, Location location) {
-		try {
-			for(int iterator = 1; iterator <= 4; iterator++) {
-				Location offsetLocation = location.clone();
-				offsetLocation.setX(offsetLocation.getX() + Chance.negativePositive(2.4f));
-				offsetLocation.setZ(offsetLocation.getZ() + Chance.negativePositive(2.4f));
-				Entity entity = mythicMobs.spawnMythicMob(mythicMob, location, 1);
-				SkillUtils.throwBackEntity(entity, offsetLocation, 0.5);
+		for(int iterator = 1; iterator <= 4; iterator++) {
+			Location offsetLocation = location.clone();
+			offsetLocation.setX(offsetLocation.getX() + Chance.negativePositive(2.4f));
+			offsetLocation.setZ(offsetLocation.getZ() + Chance.negativePositive(2.4f));
+			Entity entity = MythicUtils.spawnMob(mythicMob.getInternalName(), location, "Split");
+			if(entity == null) {
+				return;
 			}
-		}
-		catch (InvalidMobTypeException e) {
-			e.printStackTrace();
+			SkillUtils.throwBackEntity(entity, offsetLocation, 0.5);
 		}
 	}
 

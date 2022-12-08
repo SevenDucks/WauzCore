@@ -7,7 +7,7 @@ import java.util.Locale;
 import org.bukkit.ChatColor;
 
 /**
- * A collection of different decimal formatters.
+ * An util class to format numbers.
  * 
  * @author Wauzmons
  */

@@ -9,7 +9,7 @@ import org.bukkit.entity.Entity;
 
 import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerEnemyBossBar;
 import eu.wauz.wauzcore.system.util.Chance;
-import io.lumine.xikage.mythicmobs.mobs.MythicMob;
+import io.lumine.mythic.api.mobs.MythicMob;
 
 /**
  * Responsible for spawning mobs with menacing modifiers

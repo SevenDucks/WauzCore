@@ -12,14 +12,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.system.util.Chance;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.adapters.bukkit.BukkitAdapter;
-import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
-import io.lumine.xikage.mythicmobs.api.bukkit.events.MythicMobDeathEvent;
-import io.lumine.xikage.mythicmobs.api.exceptions.InvalidMobTypeException;
-import io.lumine.xikage.mythicmobs.drops.DropMetadata;
-import io.lumine.xikage.mythicmobs.drops.DropTable;
-import io.lumine.xikage.mythicmobs.drops.LootBag;
+import eu.wauz.wauzcore.system.util.MythicUtils;
+import io.lumine.mythic.bukkit.events.MythicMobDeathEvent;
 
 /**
  * Strongboxes are special mobs, that when destroyed spawn strongbox guards.
@@ -30,11 +24,6 @@ import io.lumine.xikage.mythicmobs.drops.LootBag;
  * @author Wauzmons
  */
 public class Strongbox {
-	
-	/**
-	 * Access to the MythicMobs API.
-	 */
-	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
 	
 	/**
 	 * Maps all stronbox UUIDs to their displays.
@@ -81,7 +70,10 @@ public class Strongbox {
 					offsetLocation.setZ(offsetLocation.getZ() + Chance.negativePositive(1.2f));
 					
 					String mobSuffix = Chance.percent(40) ? "-Elite" : "";
-					Entity mob = mythicMobs.spawnMythicMob("StrongboxGuardT" + strongboxTier + mobSuffix, offsetLocation);
+					Entity mob = MythicUtils.spawnMob("StrongboxGuardT" + strongboxTier + mobSuffix, offsetLocation, "Strongbox");
+					if(mob == null) {
+						return;
+					}
 					MobMetadataUtils.setStrongboxMob(mob, strongbox);
 				}
 				
@@ -89,7 +81,7 @@ public class Strongbox {
 					player.sendMessage(ChatColor.GOLD + "Remaining Strongbox Guards: " + ChatColor.DARK_RED + enemyAmount);
 				}
 			}
-			catch (InvalidMobTypeException e) {
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -104,10 +96,11 @@ public class Strongbox {
 				activeStrongboxMap.remove(uuidString);
 				
 				int strongboxTier = MobMetadataUtils.getStrongboxTier(strongbox);
-				DropTable dropTable = MythicMobs.inst().getDropManager().getDropTable("StrongboxDropsT" + strongboxTier).get();
-				LootBag lootBag = dropTable.generate(new DropMetadata(event.getMob(), BukkitAdapter.adapt(event.getKiller())));
-				lootBag.drop(BukkitAdapter.adapt(strongbox.getLocation()));
-				
+				MythicUtils.drop("StrongboxDropsT" + strongboxTier,
+						strongbox.getLocation(),
+						event.getMob(),
+						event.getKiller(),
+						"Strongbox");
 				strongbox.getWorld().playEffect(strongbox.getLocation(), Effect.DRAGON_BREATH, 0);
 				strongbox.remove();
 			}

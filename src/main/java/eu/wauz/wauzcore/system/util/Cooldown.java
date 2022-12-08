@@ -10,7 +10,7 @@ import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 
 /**
- * An util class for getting and setting cooldowns.
+ * An util class to get and set cooldowns.
  * 
  * @author Wauzmons
  */

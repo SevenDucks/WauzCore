@@ -12,8 +12,7 @@ import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.items.ItemManager;
+import eu.wauz.wauzcore.system.util.MythicUtils;
 
 /**
  * An item of a shop.
@@ -23,11 +22,6 @@ import io.lumine.xikage.mythicmobs.items.ItemManager;
  * @see WauzShop
  */
 public class WauzShopItem {
-	
-	/**
-	 * Access to the MythicMobs API item manager.
-	 */
-	private static ItemManager mythicMobs = MythicMobs.inst().getItemManager();
 	
 	/**
 	 * A stack of the shop item.
@@ -65,11 +59,14 @@ public class WauzShopItem {
 		String[] nameParts = shopItemType.split(";");
 		String canonicalName = nameParts[0];
 		String displayNameSuffix = nameParts.length > 1 ? nameParts[1] : null;
-		this.shopItemStack = InventorySerializer.serialize(mythicMobs.getItemStack(canonicalName));
-		if(StringUtils.isNotBlank(displayNameSuffix) && ItemUtils.hasDisplayName(shopItemStack)) {
-			ItemMeta shopItemMeta = shopItemStack.getItemMeta();
-			Components.displayName(shopItemMeta, Components.displayName(shopItemMeta) + displayNameSuffix);
-			shopItemStack.setItemMeta(shopItemMeta);
+		this.shopItemStack = MythicUtils.getItemStack(canonicalName, "Shop " + shopName);
+		if(this.shopItemStack != null) {
+			this.shopItemStack = InventorySerializer.serialize(this.shopItemStack);
+			if(StringUtils.isNotBlank(displayNameSuffix) && ItemUtils.hasDisplayName(shopItemStack)) {
+				ItemMeta shopItemMeta = shopItemStack.getItemMeta();
+				Components.displayName(shopItemMeta, Components.displayName(shopItemMeta) + displayNameSuffix);
+				shopItemStack.setItemMeta(shopItemMeta);
+			}
 		}
 		this.shopItemAmount = ShopConfigurator.getItemAmount(shopName, itemIndex);
 		this.shopItemPrice = ShopConfigurator.getItemPrice(shopName, itemIndex);

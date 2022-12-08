@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * An util class for usage of unsave or deprecated methods.
+ * An util class to use unsave or deprecated methods.
  * 
  * @author Wauzmons
  */

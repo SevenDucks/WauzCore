@@ -26,8 +26,7 @@ import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.annotations.Item;
 import eu.wauz.wauzcore.system.util.Chance;
 import eu.wauz.wauzcore.system.util.Cooldown;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
+import eu.wauz.wauzcore.system.util.MythicUtils;
 
 /**
  * A collection of methods for using the shield weapon.
@@ -36,11 +35,6 @@ import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
  */
 @Item
 public class CustomWeaponShield implements CustomWeapon {
-	
-	/**
-	 * Access to the MythicMobs API.
-	 */
-	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
 	
 	/**
 	 * A particle, used to create the taunt circle.
@@ -141,7 +135,7 @@ public class CustomWeaponShield implements CustomWeapon {
 		List<Entity> targets = SkillUtils.getTargetsInRadius(origin, 5);
 		for(Entity target : targets) {
 			ParticleSpawner.spawnParticleCircle(target.getLocation().clone().add(0, 2, 0), tauntEntityParticle, 1, 5);
-			mythicMobs.taunt(target, player);
+			MythicUtils.taunt(target, player);
 		}
 		DurabilityCalculator.damageItem(player, player.getEquipment().getItemInMainHand(), 3, false);
 	}

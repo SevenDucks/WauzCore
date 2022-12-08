@@ -3,7 +3,7 @@ package eu.wauz.wauzcore.system.util;
 import java.util.Random;
 
 /**
- * An util class for getting values for rng stuff.
+ * An util class to get values for RNG stuff.
  * 
  * @author Wauzmons
  */

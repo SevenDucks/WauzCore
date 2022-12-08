@@ -13,9 +13,6 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.ResourceConfigurator;
 import eu.wauz.wauzcore.system.util.ChunkKeyMap;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.drops.DropManager;
-import io.lumine.xikage.mythicmobs.drops.DropTable;
 
 /**
  * A gatherable resource, generated from a resource config file.
@@ -23,11 +20,6 @@ import io.lumine.xikage.mythicmobs.drops.DropTable;
  * @author Wauzmons
  */
 public class WauzResource {
-	
-	/**
-	 * Access to the MythicMobs API.
-	 */
-	private static DropManager mythicMobs = MythicMobs.inst().getDropManager();
 	
 	/**
 	 * A map with lists of resource spawns, indexed by chunk keys.
@@ -128,11 +120,6 @@ public class WauzResource {
 	private WauzResourceType type;
 	
 	/**
-	 * The drop table of the resource.
-	 */
-	private DropTable dropTable;
-	
-	/**
 	 * The respawn minutes of the resource.
 	 */
 	private int respawnMins;
@@ -166,7 +153,6 @@ public class WauzResource {
 		this.resourceName = resourceName;
 		
 		type = ResourceConfigurator.getResourceType(resourceName);
-		dropTable = mythicMobs.getDropTable(ResourceConfigurator.getResourceDropTable(resourceName)).get();
 		respawnMins = ResourceConfigurator.getResourceRespawnMinutes(resourceName);
 		
 		if(type.equals(WauzResourceType.NODE)) {
@@ -189,13 +175,6 @@ public class WauzResource {
 	 */
 	public WauzResourceType getType() {
 		return type;
-	}
-
-	/**
-	 * @return The drop table of the resource.
-	 */
-	public DropTable getDropTable() {
-		return dropTable;
 	}
 
 	/**

@@ -17,8 +17,7 @@ import eu.wauz.wauzcore.menu.MaterialPouch;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.items.ItemManager;
+import eu.wauz.wauzcore.system.util.MythicUtils;
 
 /**
  * A craftable item.
@@ -28,11 +27,6 @@ import io.lumine.xikage.mythicmobs.items.ItemManager;
  * @see WauzCraftingRecipes
  */
 public class WauzCraftingItem {
-	
-	/**
-	 * Access to the MythicMobs API item manager.
-	 */
-	private static ItemManager mythicMobs = MythicMobs.inst().getItemManager();
 	
 	/**
 	 * If the crafting item is just an empty slot.
@@ -79,11 +73,14 @@ public class WauzCraftingItem {
 		String[] nameParts = craftingItemType.split(";");
 		String canonicalName = nameParts[0];
 		String displayNameSuffix = nameParts.length > 1 ? nameParts[1] : null;
-		this.craftingItemStack = InventorySerializer.serialize(mythicMobs.getItemStack(canonicalName));
-		if(StringUtils.isNotBlank(displayNameSuffix) && ItemUtils.hasDisplayName(craftingItemStack)) {
-			ItemMeta craftingItemMeta = craftingItemStack.getItemMeta();
-			Components.displayName(craftingItemMeta, Components.displayName(craftingItemMeta) + displayNameSuffix);
-			craftingItemStack.setItemMeta(craftingItemMeta);
+		this.craftingItemStack = MythicUtils.getItemStack(canonicalName, "Crafting " + craftingCategory);
+		if(this.craftingItemStack != null) {
+			this.craftingItemStack = InventorySerializer.serialize(this.craftingItemStack);
+			if(StringUtils.isNotBlank(displayNameSuffix) && ItemUtils.hasDisplayName(craftingItemStack)) {
+				ItemMeta craftingItemMeta = craftingItemStack.getItemMeta();
+				Components.displayName(craftingItemMeta, Components.displayName(craftingItemMeta) + displayNameSuffix);
+				craftingItemStack.setItemMeta(craftingItemMeta);
+			}
 		}
 		this.craftingItemAmount = CraftingConfigurator.getItemAmount(craftingCategory, itemName);
 		this.craftingItemLevel = CraftingConfigurator.getItemLevel(craftingCategory, itemName);

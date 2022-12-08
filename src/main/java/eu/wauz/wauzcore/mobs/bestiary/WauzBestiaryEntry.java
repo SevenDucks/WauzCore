@@ -9,10 +9,9 @@ import org.bukkit.ChatColor;
 
 import eu.wauz.wauzcore.data.BestiaryConfigurator;
 import eu.wauz.wauzcore.mobs.MenacingMobsConfig;
+import eu.wauz.wauzcore.system.util.MythicUtils;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
-import io.lumine.xikage.mythicmobs.mobs.MythicMob;
+import io.lumine.mythic.api.mobs.MythicMob;
 
 /**
  * An entry of a bestiary species, generated from a bestiary config and a mythic mobs config file.
@@ -22,11 +21,6 @@ import io.lumine.xikage.mythicmobs.mobs.MythicMob;
  * @see WauzBestiarySpecies
  */
 public class WauzBestiaryEntry {
-	
-	/**
-	 * Access to the MythicMobs API.
-	 */
-	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
 	
 	/**
 	 * The species the entry belongs to.
@@ -80,7 +74,7 @@ public class WauzBestiaryEntry {
 		WauzBestiaryCategory category = entrySpecies.getSpeciesCategory();
 		String species = entrySpecies.getSpeciesName();
 		entryMobName = BestiaryConfigurator.getEntryMobName(category, species, entryName);
-		entryMob = mythicMobs.getMythicMob(entryMobName);
+		entryMob = MythicUtils.getMob(entryMobName);
 		entryMobDisplayName = entryMob.getDisplayName().get();
 		entryMobDescription = BestiaryConfigurator.getEntryMobDescription(category, species, entryName);
 		addRankCLores();

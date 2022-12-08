@@ -33,7 +33,7 @@ import net.kyori.adventure.title.Title;
 import net.kyori.adventure.title.Title.Times;
 
 /**
- * Util class for interacting with adventure components.
+ * An util class to interact with adventure components.
  * 
  * @author Wauzmons
  */

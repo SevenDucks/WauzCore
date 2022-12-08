@@ -17,9 +17,7 @@ import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.system.util.Cooldown;
-import io.lumine.xikage.mythicmobs.adapters.bukkit.BukkitAdapter;
-import io.lumine.xikage.mythicmobs.drops.DropMetadata;
-import io.lumine.xikage.mythicmobs.drops.LootBag;
+import eu.wauz.wauzcore.system.util.MythicUtils;
 
 /**
  * An instanced block of a gatherable resource.
@@ -135,8 +133,11 @@ public class WauzResourceSpawn {
 	 * @param player The player collecting the resource.
 	 */
 	public void collectResource(Player player) {
-		LootBag lootBag = resource.getDropTable().generate(new DropMetadata(null, BukkitAdapter.adapt(player)));
-		lootBag.drop(BukkitAdapter.adapt(location.clone().add(0, 1, 0)));
+		MythicUtils.drop(resource.getResourceName(),
+				location.clone().add(0, 1, 0),
+				null,
+				player,
+				"Resource");
 		long cooldown = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(resource.getRespawnMins());
 		getPlayerResourceCache(player).setCooldown(cooldown);
 	}

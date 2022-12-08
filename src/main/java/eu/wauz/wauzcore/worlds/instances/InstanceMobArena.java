@@ -58,7 +58,7 @@ public class InstanceMobArena {
 		for(int wave = 1; wave <= maximumWave; wave++) {
 			List<MobSpawn> waveMobs = new ArrayList<>();
 			for(String mobString : InstanceConfigurator.getWaveMobSpawns(instanceName, wave)) {
-				waveMobs.add(new MobSpawn(mobString));
+				waveMobs.add(new MobSpawn(instanceName, mobString));
 			}
 			waves.add(waveMobs);
 		}

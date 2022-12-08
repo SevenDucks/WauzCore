@@ -11,14 +11,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.skills.SkillUtils;
+import eu.wauz.wauzcore.skills.SkillUtils.TotemRunnable;
 import eu.wauz.wauzcore.skills.WauzPlayerSkill;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillType;
-import eu.wauz.wauzcore.skills.SkillUtils.TotemRunnable;
 import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.annotations.Skillgem;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
+import eu.wauz.wauzcore.system.util.MythicUtils;
 
 /**
  * A skill, that can be executed by a player.
@@ -106,8 +105,6 @@ public class SkillTheFool implements WauzPlayerSkill {
 		player.getWorld().playSound(player.getLocation(), Sound.ITEM_TOTEM_USE, 1, 1.5f);
 		SkillUtils.spawnTotem(player, Material.CARVED_PUMPKIN, new TotemRunnable() {
 			
-			private BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
-			
 			private SkillParticle particle = new SkillParticle(Particle.TOTEM);
 			
 			@Override
@@ -116,7 +113,7 @@ public class SkillTheFool implements WauzPlayerSkill {
 				List<Entity> targets = SkillUtils.getTargetsInRadius(totem.getLocation(), 10);
 				
 				for(Entity target : targets) {
-					mythicMobs.taunt(target, (LivingEntity) totem);
+					MythicUtils.taunt(target, (LivingEntity) totem);
 				}
 			}
 			

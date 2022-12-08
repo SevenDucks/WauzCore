@@ -19,10 +19,8 @@ import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.items.util.PetEggUtils;
 import eu.wauz.wauzcore.system.nms.NmsEntityHorseMount;
 import eu.wauz.wauzcore.system.util.Components;
+import eu.wauz.wauzcore.system.util.MythicUtils;
 import eu.wauz.wauzcore.system.util.WauzDateUtils;
-import io.lumine.xikage.mythicmobs.MythicMobs;
-import io.lumine.xikage.mythicmobs.api.bukkit.BukkitAPIHelper;
-import io.lumine.xikage.mythicmobs.mobs.MythicMob;
 
 /**
  * A pet egg that can be used to interact with pets.
@@ -30,11 +28,6 @@ import io.lumine.xikage.mythicmobs.mobs.MythicMob;
  * @author Wauzmons
  */
 public class WauzPetEgg {
-	
-	/**
-	 * Access to the MythicMobs API.
-	 */
-	private static BukkitAPIHelper mythicMobs = MythicMobs.inst().getAPIHelper();
 	
 	/**
 	 * Generates an egg item stack for the given pet.
@@ -109,11 +102,7 @@ public class WauzPetEgg {
 			}
 			String petType = PetEggUtils.getPetType(eggItemStack);
 			WauzPet pet = WauzPet.getPet(petType);
-			MythicMob mob = null;
-			if(pet != null && !pet.isHorse()) {
-				mob = mythicMobs.getMythicMob(pet.getName());
-			}
-			if(pet == null || (!pet.isHorse() && mob == null)) {
+			if(pet == null) {
 				player.sendMessage(ChatColor.RED + "Your pet is invalid or outdated!");
 				return;
 			}
@@ -137,7 +126,11 @@ public class WauzPetEgg {
 				horse.addPassenger(player);
 			}
 			else {
-				Entity entity = mythicMobs.spawnMythicMob(mob, player.getLocation(), 1);
+				Entity entity = MythicUtils.spawnMob(pet.getName(), player.getLocation(), "Pet Egg");
+				if(entity == null) {
+					player.sendMessage(ChatColor.RED + "Your pet is invalid or outdated!");
+					return;
+				}
 				entity.setCustomName(ChatColor.GREEN + petName);
 				WauzActivePet.setOwner(player, entity, pet, eggItemStack);
 			}
