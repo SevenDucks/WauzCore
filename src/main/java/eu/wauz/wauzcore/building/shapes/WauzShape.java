@@ -12,8 +12,6 @@ import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
-import eu.wauz.wauzcore.system.nms.NmsChunkUpdate;
-
 /**
  * A block structure blueprint in an abstract shape.
  * 
@@ -74,7 +72,7 @@ public abstract class WauzShape {
     		chunks.add(block.getChunk());
     	}
     	for(Chunk chunk : chunks) {
-    		NmsChunkUpdate.init(chunk);
+    		chunk.getWorld().refreshChunk(chunk.getX(), chunk.getZ());
     	}
     	return blocks;
     }

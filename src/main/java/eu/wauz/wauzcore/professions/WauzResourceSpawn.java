@@ -133,7 +133,7 @@ public class WauzResourceSpawn {
 	 * @param player The player collecting the resource.
 	 */
 	public void collectResource(Player player) {
-		MythicUtils.drop(resource.getResourceName(),
+		MythicUtils.drop(resource.getDropTable(),
 				location.clone().add(0, 1, 0),
 				null,
 				player,

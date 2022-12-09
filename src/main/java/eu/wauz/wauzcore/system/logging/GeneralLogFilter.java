@@ -59,6 +59,7 @@ public class GeneralLogFilter extends AbstractLogFilter {
 			"Item Merge Radius:",
 			"Item Despawn Rate:",
 			"View Distance:",
+			"Simulation Distance:",
 			"Arrow Despawn Rate:",
 			"Zombie Aggressive Towards Villager:",
 			"Nerfing mobs spawned from spawners:",
@@ -71,7 +72,8 @@ public class GeneralLogFilter extends AbstractLogFilter {
 			"Named entity ",
 			"Loaded class io.lumine.xikage.mythicmobs.MythicMobs",
 			"NPCLib Attempting to inject into netty",
-			"NPCLib Enabled for Minecraft");
+			"NPCLib Enabled for Minecraft",
+			"Now looking for update on Github");
 
 	/**
 	 * Applies the filter to the given log event.

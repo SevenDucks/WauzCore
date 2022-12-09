@@ -120,6 +120,11 @@ public class WauzResource {
 	private WauzResourceType type;
 	
 	/**
+	 * The drop table of the resource.
+	 */
+	private String dropTable;
+	
+	/**
 	 * The respawn minutes of the resource.
 	 */
 	private int respawnMins;
@@ -153,6 +158,7 @@ public class WauzResource {
 		this.resourceName = resourceName;
 		
 		type = ResourceConfigurator.getResourceType(resourceName);
+		dropTable = ResourceConfigurator.getResourceDropTable(resourceName);
 		respawnMins = ResourceConfigurator.getResourceRespawnMinutes(resourceName);
 		
 		if(type.equals(WauzResourceType.NODE)) {
@@ -175,6 +181,13 @@ public class WauzResource {
 	 */
 	public WauzResourceType getType() {
 		return type;
+	}
+	
+	/**
+	 * @return The drop table of the resource.
+	 */
+	public String getDropTable() {
+		return dropTable;
 	}
 
 	/**
