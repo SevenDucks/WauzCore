@@ -33,13 +33,11 @@ import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.ManaCalculator;
 import eu.wauz.wauzcore.players.calc.RageCalculator;
 import eu.wauz.wauzcore.players.calc.SpeedCalculator;
-import eu.wauz.wauzcore.players.classes.WauzPlayerClass;
-import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
-import eu.wauz.wauzcore.players.classes.WauzPlayerClassStats;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffectSource;
 import eu.wauz.wauzcore.players.effects.WauzPlayerEffectType;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkillPool;
+import eu.wauz.wauzcore.skills.skillgems.SkillTheChariot;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.quests.QuestProcessor;
@@ -88,7 +86,6 @@ public class CharacterManager {
 		if(wauzMode.equals(WauzMode.MMORPG)) {
 			playerData.getStats().setMaxMana(PlayerSkillConfigurator.getMana(player));
 			playerData.getStats().setMaxRage(RageCalculator.MAX_RAGE);
-			playerData.getSkills().refreshUnlockedCastables();
 			PlayerConfigurator.setTrackerDestination(player, spawn, "Spawn");
 		}
 		player.setCompassTarget(spawn);
@@ -150,7 +147,6 @@ public class CharacterManager {
 		
 		playerData.getSelections().setSelectedCharacterSlot(null);
 		playerData.getSelections().setSelectedCharacterWorld(null);
-		playerData.getSelections().setSelectedCharacterClass(null);
 		
 		player.setGameMode(GameMode.ADVENTURE);
 	    player.setExp(0);
@@ -162,7 +158,6 @@ public class CharacterManager {
 		playerData.getStats().setMana(0);
 		playerData.getStats().setMaxRage(0);
 		playerData.getStats().setRage(0);
-		playerData.getSkills().setActionBar(0);
 		
 		player.setFoodLevel(20);
 		player.setSaturation(20);
@@ -213,8 +208,7 @@ public class CharacterManager {
 		}
 		String characterSlot = playerData.getSelections().getSelectedCharacterSlot();
 		String characterWorldString = playerData.getSelections().getSelectedCharacterWorld();
-		String characterClassString = playerData.getSelections().getSelectedCharacterClass();
-		if(characterSlot == null || characterWorldString == null || characterClassString == null) {
+		if(characterSlot == null || characterWorldString == null) {
 			return;
 		}
 		File playerDataFile = new File(core.getDataFolder(), "PlayerData/" + player.getUniqueId() + "/" + characterSlot + ".yml");
@@ -245,7 +239,6 @@ public class CharacterManager {
 		playerDataConfig.set("exists", true);
 		playerDataConfig.set("schemaversion", SCHEMA_VERSION);
 		playerDataConfig.set("lastplayed", System.currentTimeMillis());
-		playerDataConfig.set("class", characterClassString);
 		playerDataConfig.set("level", wauzMode.equals(WauzMode.MMORPG) ? 1 : 0);
 		playerDataConfig.set("exp", 0);
 		playerDataConfig.set("pos.world", characterWorldString);
@@ -270,9 +263,6 @@ public class CharacterManager {
 			for(AbstractPassiveSkill passive : AbstractPassiveSkillPool.getPassives()) {
 				playerData.getSkills().cachePassive(passive.getInstance(0));
 			}
-			
-			WauzPlayerClass characterClass = WauzPlayerClassPool.getClass(characterClassString);
-			WauzPlayerClassStats startingStats = characterClass.getStartingStats();
 			
 			playerDataConfig.set("tracker.coords", characterPosition);
 			playerDataConfig.set("tracker.name", "Spawn");
@@ -300,26 +290,12 @@ public class CharacterManager {
 			playerDataConfig.set("stats.agility", 0);
 			playerDataConfig.set("stats.agilitypts", 0);
 			
-			playerDataConfig.set("skills.sword", startingStats.getSwordSkill());
-			playerDataConfig.set("skills.swordmax", startingStats.getSwordSkillMax());
-			playerDataConfig.set("skills.axe", startingStats.getAxeSkill());
-			playerDataConfig.set("skills.axemax", startingStats.getAxeSkillMax());
-			playerDataConfig.set("skills.staff", startingStats.getStaffSkill());
-			playerDataConfig.set("skills.staffmax", startingStats.getStaffSkillMax());
-			
-			playerDataConfig.set("skills.active.1", "none");
-			playerDataConfig.set("skills.active.2", "none");
-			playerDataConfig.set("skills.active.3", "none");
-			playerDataConfig.set("skills.active.4", "none");
-			playerDataConfig.set("skills.active.5", "none");
-			playerDataConfig.set("skills.active.6", "none");
-			playerDataConfig.set("skills.active.7", "none");
-			playerDataConfig.set("skills.active.8", "none");
-			
-			playerDataConfig.set("masteries.1", 0);
-			playerDataConfig.set("masteries.2", 0);
-			playerDataConfig.set("masteries.3", 0);
-			playerDataConfig.set("masteries.4", 0);
+			playerDataConfig.set("skills.sword", 100000);
+			playerDataConfig.set("skills.swordmax", 200000);
+			playerDataConfig.set("skills.axe", 100000);
+			playerDataConfig.set("skills.axemax", 200000);
+			playerDataConfig.set("skills.staff", 100000);
+			playerDataConfig.set("skills.staffmax", 200000);
 			
 			playerDataConfig.set("currencies", new ArrayList<>());
 				
@@ -356,7 +332,8 @@ public class CharacterManager {
 			playerDataConfig.set("inventory", new ArrayList<>());
 			persistCharacterFile(playerDataFile, playerDataConfig);
 			
-			player.getInventory().addItem(InventorySerializer.serialize(characterClass.getStartingWeapon()));
+			ItemStack weapon = WauzEquipmentHelper.getSkillgemWeapon(new SkillTheChariot(), Material.DIAMOND_AXE, false);
+			player.getInventory().addItem(InventorySerializer.serialize(weapon));
 			player.getInventory().addItem(InventorySerializer.serialize(WauzEquipmentHelper.getRune(new RuneHardening(), false)));
 			equipCharacterItems(player);
 			WauzRewards.earnDailyReward(player);

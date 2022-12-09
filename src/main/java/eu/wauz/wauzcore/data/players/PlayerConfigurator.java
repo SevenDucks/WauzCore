@@ -127,16 +127,6 @@ public class PlayerConfigurator extends PlayerConfigurationUtils {
 	 * @param player The player that owns the config file.
 	 * @param slot The slot of the character.
 	 * 
-	 * @return The class of the character.
-	 */
-	public static String getClassString(OfflinePlayer player, String slot) {
-		return playerConfigGetString(player, "char" + slot + ".class", false);
-	}
-	
-	/**
-	 * @param player The player that owns the config file.
-	 * @param slot The slot of the character.
-	 * 
 	 * @return The world of the character.
 	 */
 	public static String getWorldString(OfflinePlayer player, String slot) {

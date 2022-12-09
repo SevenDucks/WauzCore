@@ -112,7 +112,6 @@ public class GuildApplicationMenu implements WauzInventory {
 				String slotId = "MMORPG-" + character;
 				if(PlayerConfigurator.doesCharacterExist(applicant, slotId)) {
 					skullLores.add(ChatColor.WHITE 
-							+ PlayerConfigurator.getClassString(applicant, slotId) + ", "
 							+ PlayerConfigurator.getWorldString(applicant, slotId) + ", "
 							+ PlayerConfigurator.getLevelString(applicant, slotId));
 				}

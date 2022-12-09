@@ -8,11 +8,6 @@ import java.util.Map;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
-import eu.wauz.wauzcore.players.classes.Learnable;
-import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
-import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
-import eu.wauz.wauzcore.skills.Castable;
 import eu.wauz.wauzcore.skills.WauzPlayerSkillExecutor;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.system.WauzDebugger;
@@ -31,26 +26,6 @@ public class WauzPlayerDataSectionSkills {
 	 * The player data the section belongs to.
 	 */
 	private final WauzPlayerData playerData;
-	
-	/**
-	 * The number of the currently shown action bar.
-	 */
-	private int actionBar = 0;
-	
-	/**
-	 * The list of selected castables.
-	 */
-	private List<Castable> selectedCastables = new ArrayList<>();
-	
-	/**
-	 * The list of unlocked castables.
-	 */
-	private List<Castable> unlockedCastables = new ArrayList<>();
-	
-	/**
-	 * A map of the unlocked castables, indexed by castable key.
-	 */
-	private Map<String, Castable> castableMap = new HashMap<>();
 	
 	/**
 	 * The skill cooldown times by id.
@@ -89,74 +64,6 @@ public class WauzPlayerDataSectionSkills {
 	}
 	
 	/**
-	 * @return The number of the currently shown action bar.
-	 */
-	public int getActionBar() {
-		return actionBar;
-	}
-
-	/**
-	 * @param actionBar The new number of the currently shown action bar.
-	 */
-	public void setActionBar(int actionBar) {
-		this.actionBar = actionBar;
-	}
-	
-	/**
-	 * @return The list of selected castables.
-	 */
-	public List<Castable> getSelectedCastables() {
-		return selectedCastables;
-	}
-
-	/**
-	 * @return The list of unlocked castables.
-	 */
-	public List<Castable> getUnlockedCastables() {
-		return unlockedCastables;
-	}
-	
-	/**
-	 * Gets an unlocked castable of the player.
-	 * 
-	 * @param castableKey The key of the castable.
-	 * 
-	 * @return The requested castable or null.
-	 */
-	public Castable getCastable(String castableKey) {
-		return castableMap.get(castableKey);
-	}
-
-	/**
-	 * Refreshes the list of unlocked castables. Also refreshes selected castables.
-	 */
-	public void refreshUnlockedCastables() {
-		unlockedCastables.clear();
-		castableMap.clear();
-		Player player = playerData.getPlayer();
-		List<WauzPlayerSubclass> subclasses = WauzPlayerClassPool.getClass(player).getSubclasses();
-		for(int index = 0; index < subclasses.size(); index++) {
-			WauzPlayerSubclass subclass = subclasses.get(index);
-			int masteryLevel = PlayerSkillConfigurator.getMasteryStatpoints(player, index + 1);
-			for(Learnable learnable : subclass.getLearned(masteryLevel)) {
-				Castable castable = new Castable(subclass.getSubclassItemStack(), learnable.getSkill());
-				unlockedCastables.add(castable);
-				castableMap.put("Skill :: " + learnable.getSkill().getSkillId(), castable);
-			}
-		}
-		refreshSelectedCastables();
-	}
-	
-	/**
-	 * Refreshes the list of selected castables.
-	 */
-	public void refreshSelectedCastables() {
-		selectedCastables.clear();
-		for(int slot = 1; slot <= 8; slot++) {
-			String castableKey = PlayerSkillConfigurator.getQuickSlotSkill(playerData.getPlayer(), slot);
-			selectedCastables.add(castableMap.get(castableKey));
-		}
-	}
 	
 	/**
 	 * Gets the remaining cooldown milliseconds for the given skill.

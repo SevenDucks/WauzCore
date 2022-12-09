@@ -45,7 +45,6 @@ public class AnnotationLoader {
 	private void run() throws Exception {
 		PublicMenu.MenuAnnotationHelper.init(this);
 		Command.CommandAnnotationHelper.init(this);
-		CharacterClass.ClassAnnotationHelper.init(this);
 		Item.ItemAnnotationHelper.init(this);
 		Scroll.ScrollAnnotationHelper.init(this);
 		Tower.TowerAnnotationHelper.init(this);

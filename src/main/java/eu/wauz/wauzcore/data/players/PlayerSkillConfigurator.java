@@ -14,28 +14,6 @@ import eu.wauz.wauzcore.players.calc.DamageCalculator;
  */
 public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 	
-// Quick Slot Skills
-	
-	/**
-	 * @param player The player that owns the config file.
-	 * @param slot The id of the quick slot.
-	 * 
-	 * @return The name of the skill in the quick slot.
-	 */
-	public static String getQuickSlotSkill(Player player, int slot) {
-		return playerConfigGetString(player, "skills.active." + slot, true);
-	}
-	
-	/**
-	 * @param player The player that owns the config file.
-	 * @param slot The id of the quick slot.
-	 * @param skill The name of the new skill in the quick slot.
-	 */
-	public static void setQuickSlotSkill(Player player, int slot, String skill) {
-		playerConfigSet(player, "skills.active." + slot, skill, true);
-		WauzPlayerDataPool.getPlayer(player).getSkills().refreshSelectedCastables();
-	}
-	
 // Passive Skills
 
 	/**
@@ -297,31 +275,6 @@ public class PlayerSkillConfigurator extends PlayerConfigurationUtils {
 		if(statpoints <= 40) {
 			playerConfigSet(player, "stats.agility", getAgility(player) + 1, true);
 		}
-	}
-	
-// Passive Skill - Mastery
-	
-	/**
-	 * @param player The player that owns the config file.
-	 * @param mastery The number of the mastery.
-	 * 
-	 * @return The amount of statpoints spent in that mastery.
-	 */
-	public static int getMasteryStatpoints(Player player, int mastery) {
-		return playerConfigGetInt(player, "masteries." + mastery, true);
-	}
-	
-	/**
-	 * Spents 1 statpoint and increases the given mastery by 1.
-	 * 
-	 * @param player The player that owns the config file.
-	 * @param mastery The number of the mastery.
-	 */
-	public static void increaseMastery(Player player, int mastery) {
-		increaseSpentStatpoints(player);
-		int statpoints = getMasteryStatpoints(player, mastery) + 1;
-		playerConfigSet(player, "masteries." + mastery, statpoints, true);
-		WauzPlayerDataPool.getPlayer(player).getSkills().refreshUnlockedCastables();
 	}
 	
 // Crafting Skill

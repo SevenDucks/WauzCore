@@ -123,7 +123,6 @@ public class CharacterSlotMenu implements WauzInventory {
 		
 		if(characterExists) {
 			lores.add(ChatColor.WHITE 
-					+ PlayerConfigurator.getClassString(player, slotId) + ", "
 					+ PlayerConfigurator.getWorldString(player, slotId) + ", "
 					+ PlayerConfigurator.getLevelString(player, slotId));
 			lores.add("");
@@ -190,12 +189,11 @@ public class CharacterSlotMenu implements WauzInventory {
 		if(clickedName.contains("" + ChatColor.RED)) {
 			if(slotId.contains("Survival")) {
 				playerData.getSelections().setSelectedCharacterWorld(slotId.startsWith("OneBlock") ? "SurvivalOneBlock" : "Survival");
-				playerData.getSelections().setSelectedCharacterClass(WauzDateUtils.getSurvivalSeason());
 				CharacterManager.createCharacter(player, WauzMode.SURVIVAL);
 			}
 			else {
 				playerData.getSelections().setSelectedCharacterWorld("MMORPG");
-				CharacterClassMenu.open(player);
+				CharacterManager.createCharacter(player, WauzMode.MMORPG);
 			}
 		}
 		else if(event.getClick().toString().contains("RIGHT")) {

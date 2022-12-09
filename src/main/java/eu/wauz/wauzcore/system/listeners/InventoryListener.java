@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 
 import eu.wauz.wauzcore.menu.util.MenuUtils;
 import eu.wauz.wauzcore.players.ui.scoreboard.WauzPlayerScoreboard;
-import eu.wauz.wauzcore.system.CombatMapper;
 import eu.wauz.wauzcore.system.EventMapper;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
@@ -82,19 +81,13 @@ public class InventoryListener implements Listener {
 	}
 	
 	/**
-	 * Handles swapping action bars, instead of items in MMORPG mode.
-	 * A combat mapper is used for mapping casting bar events to WauzCore functionalities.
+	 * Prevents swapping items in MMORPG or Arcade mode.
 	 * 
 	 * @param event The swap event.
-	 * 
-	 * @see CombatMapper#handleSwapEvent(PlayerSwapHandItemsEvent)
 	 */
 	@EventHandler
 	public void onSwapItem(PlayerSwapHandItemsEvent event) {
-		if(WauzMode.isMMORPG(event.getPlayer())) {
-			CombatMapper.handleSwapEvent(event);
-		}
-		else if(WauzMode.isArcade(event.getPlayer())) {
+		if(WauzMode.isMMORPG(event.getPlayer()) || WauzMode.isArcade(event.getPlayer())) {
 			event.setCancelled(true);
 		}
 	}

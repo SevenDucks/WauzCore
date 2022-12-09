@@ -42,11 +42,6 @@ public class WauzPlayerDataSectionSelections {
 	private String selectedCharacterWorld;
 	
 	/**
-	 * The currently selected character class.
-	 */
-	private String selectedCharacterClass;
-	
-	/**
 	 * The uuid of this players group.
 	 */
 	private String groupUuidString;
@@ -153,20 +148,6 @@ public class WauzPlayerDataSectionSelections {
 	 */
 	public void setSelectedCharacterWorld(String selectedCharacterWorld) {
 		this.selectedCharacterWorld = selectedCharacterWorld;
-	}
-
-	/**
-	 * @return The currently selected character class.
-	 */
-	public String getSelectedCharacterClass() {
-		return selectedCharacterClass;
-	}
-
-	/**
-	 * @param selectedCharacterClass The new currently selected character class.
-	 */
-	public void setSelectedCharacterClass(String selectedCharacterClass) {
-		this.selectedCharacterClass = selectedCharacterClass;
 	}
 
 	/**

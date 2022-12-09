@@ -35,7 +35,6 @@ import eu.wauz.wauzcore.players.WauzPlayerSit;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
 import eu.wauz.wauzcore.players.calc.FoodCalculator;
 import eu.wauz.wauzcore.professions.WauzResource;
-import eu.wauz.wauzcore.skills.SkillQuickSlots;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Cooldown;
 import eu.wauz.wauzcore.system.util.WauzMode;
@@ -92,7 +91,6 @@ public class EventMapper {
 	 * 
 	 * @param event The interact event.
 	 * 
-	 * @see SkillQuickSlots#tryToUse(Player)
 	 * @see Cooldown#playerWeaponUse(Player)
 	 * @see CustomItem#use(PlayerInteractEvent)
 	 * @see WauzTeleporter#enterInstanceTeleportManual(PlayerInteractEvent)
@@ -110,11 +108,6 @@ public class EventMapper {
 		}
 		if(player.getGameMode().equals(GameMode.CREATIVE)) {
 			WauzBrushes.tryToUse(event);
-			return;
-		}
-		
-		if(event.getAction().toString().contains("CLICK") && !WauzMode.inHub(player) && SkillQuickSlots.tryToUse(player)) {
-			event.setCancelled(true);
 			return;
 		}
 		

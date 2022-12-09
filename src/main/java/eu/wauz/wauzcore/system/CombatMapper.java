@@ -1,22 +1,16 @@
 package eu.wauz.wauzcore.system;
 
-import org.bukkit.GameMode;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 import eu.wauz.wauzcore.arcade.ArcadeLobby;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponBow;
 import eu.wauz.wauzcore.items.weapons.CustomWeaponGlider;
 import eu.wauz.wauzcore.mobs.pets.WauzActivePet;
-import eu.wauz.wauzcore.players.WauzPlayerData;
-import eu.wauz.wauzcore.players.WauzPlayerDataPool;
-import eu.wauz.wauzcore.players.WauzPlayerDataSectionSkills;
 import eu.wauz.wauzcore.players.calc.DamageCalculator;
-import eu.wauz.wauzcore.players.ui.WauzPlayerActionBar;
 import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerBossBar;
 import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerEnemyBossBar;
 import eu.wauz.wauzcore.system.util.DeprecatedUtils;
@@ -28,32 +22,6 @@ import eu.wauz.wauzcore.system.util.WauzMode;
  * @author Wauzmons
  */
 public class CombatMapper {
-	
-	/**
-	 * Handles swapping action bars.
-	 * 
-	 * @param event The swap event.
-	 * 
-	 * @see WauzPlayerDataSectionSkills#setActionBar(int)
-	 */
-	public static void handleSwapEvent(PlayerSwapHandItemsEvent event) {
-		event.setCancelled(true);
-		Player player = event.getPlayer();
-		if(WauzMode.inHub(player) || player.getGameMode().equals(GameMode.CREATIVE)) {
-			return;
-		}
-		
-		WauzPlayerData playerData = WauzPlayerDataPool.getPlayer(player);
-		if(playerData == null) {
-			return;
-		}
-		
-		int actionBar = playerData.getSkills().getActionBar();
-		actionBar = actionBar == 2 ? 0 : actionBar + 1;
-		playerData.getSkills().setActionBar(actionBar);
-		WauzDebugger.log(player, "Action Bar: " + actionBar);
-		WauzPlayerActionBar.update(player);
-	}
 	
 	/**
 	 * Handles general damage calculation.

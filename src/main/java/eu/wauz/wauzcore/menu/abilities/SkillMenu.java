@@ -14,9 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import eu.wauz.wauzcore.data.players.PlayerSkillConfigurator;
-import eu.wauz.wauzcore.items.util.ItemUtils;
 import eu.wauz.wauzcore.menu.Backpack;
-import eu.wauz.wauzcore.menu.heads.GenericIconHeads;
 import eu.wauz.wauzcore.menu.heads.HeadUtils;
 import eu.wauz.wauzcore.menu.heads.SkillIconHeads;
 import eu.wauz.wauzcore.menu.util.MenuUtils;
@@ -24,9 +22,6 @@ import eu.wauz.wauzcore.menu.util.WauzInventory;
 import eu.wauz.wauzcore.players.WauzPlayerData;
 import eu.wauz.wauzcore.players.WauzPlayerDataPool;
 import eu.wauz.wauzcore.players.WauzPlayerDataSectionSkills;
-import eu.wauz.wauzcore.players.classes.Learnable;
-import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
-import eu.wauz.wauzcore.players.classes.WauzPlayerSubclass;
 import eu.wauz.wauzcore.skills.passive.AbstractPassiveSkill;
 import eu.wauz.wauzcore.skills.passive.PassiveBreath;
 import eu.wauz.wauzcore.skills.passive.PassiveNutrition;
@@ -34,7 +29,6 @@ import eu.wauz.wauzcore.skills.passive.PassiveWeight;
 import eu.wauz.wauzcore.system.annotations.PublicMenu;
 import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
-import eu.wauz.wauzcore.system.util.UnicodeUtils;
 import eu.wauz.wauzcore.system.util.WauzMode;
 
 /**
@@ -201,15 +195,6 @@ public class SkillMenu implements WauzInventory {
 		skillAgilityItemStack.setItemMeta(skillAgilityItemMeta);
 		menu.setItem(5, skillAgilityItemStack);
 		
-		for(int index = 1; index <= skillMenu.getSubclassCount(); index++) {
-			menu.setItem(index + 8, skillMenu.getMasteryItemStack(index));
-		}
-		
-		ItemStack skillAssignmentItemStack = GenericIconHeads.getColorCubeItem();
-		MenuUtils.setItemDisplayName(skillAssignmentItemStack, ChatColor.DARK_AQUA + "Assign Abilities");
-		MenuUtils.addItemLore(skillAssignmentItemStack, ChatColor.WHITE + "Select Skills to use in Combat", true);
-		menu.setItem(14, skillAssignmentItemStack);
-		
 		ItemStack skillWeaponStaffItemStack = new ItemStack(Material.IRON_HOE, 1);
 		ItemMeta skillWeaponStaffItemMeta = skillWeaponStaffItemStack.getItemMeta();
 		Components.displayName(skillWeaponStaffItemMeta, ChatColor.DARK_RED + "Staff Fighting");
@@ -334,11 +319,6 @@ public class SkillMenu implements WauzInventory {
 	private Player player;
 	
 	/**
-	 * The subclasses of the player.
-	 */
-	private List<WauzPlayerSubclass> subclasses;
-	
-	/**
 	 * Creates an empty skill menu.
 	 */
 	public SkillMenu() {
@@ -352,55 +332,6 @@ public class SkillMenu implements WauzInventory {
 	 */
 	public SkillMenu(Player player) {
 		this.player = player;
-		this.subclasses = WauzPlayerClassPool.getClass(player).getSubclasses();
-	}
-
-	/**
-	 * @return The number of subclasses, of the player's class.
-	 */
-	public int getSubclassCount() {
-		return subclasses.size();
-	}
-	
-	/**
-	 * Creates an item stack, showing information about the given mastery.
-	 * 
-	 * @param mastery The number of the mastery.
-	 * 
-	 * @return The created item stack.
-	 */
-	public ItemStack getMasteryItemStack(int mastery) {
-		WauzPlayerSubclass subclass = subclasses.get(mastery - 1);
-		int spent = PlayerSkillConfigurator.getMasteryStatpoints(player, mastery);
-		ItemStack masteryItemStack;
-		if(spent > 0) {
-			masteryItemStack = subclass.getSubclassItemStack();
-			masteryItemStack.setAmount(spent);
-		}
-		else {
-			masteryItemStack = GenericIconHeads.getUnknownItem();
-		}
-		
-		ItemMeta masteryItemMeta = masteryItemStack.getItemMeta();
-		Components.displayName(masteryItemMeta, ChatColor.DARK_AQUA + "Mastery: " + subclass.getSubclassName());
-		List<String> masteryLores = new ArrayList<String>();
-		masteryLores.add(ChatColor.WHITE + "Spent Points: " + ChatColor.GREEN + spent);
-		masteryLores.add("");
-		masteryLores.add(ChatColor.GRAY + "Unlocks new Skills every few Points.");
-		masteryLores.add(subclass.getSublassColor() + subclass.getSublassDescription());
-		masteryLores.add("");
-		Learnable learnable = subclass.getNextLearnable(spent);
-		if(learnable != null) {
-			masteryLores.add(ChatColor.WHITE + "Needed Points: " + learnable.getLevel());
-			masteryLores.add(UnicodeUtils.createProgressBar(spent, learnable.getLevel(), 50, ChatColor.DARK_AQUA));
-			masteryLores.add(ChatColor.WHITE + "Unlocks Skill: " + learnable.getSkill().getSkillId());
-		}
-		else {
-			masteryLores.add(ChatColor.WHITE + "ALL SKILLS UNLOCKED");
-		}
-		Components.lore(masteryItemMeta, masteryLores);
-		masteryItemStack.setItemMeta(masteryItemMeta);
-		return masteryItemStack;
 	}
 	
 	/**
@@ -411,7 +342,6 @@ public class SkillMenu implements WauzInventory {
 	 * 
 	 * @see PlayerSkillConfigurator#getTotalStatpoints(Player)
 	 * @see PlayerSkillConfigurator#getSpentStatpoints(Player)
-	 * @see SkillAssignMenu#open(Player)
 	 * 
 	 * @see PlayerSkillConfigurator#increaseHealth(Player)
 	 * @see PlayerSkillConfigurator#increaseTrading(Player)
@@ -419,7 +349,6 @@ public class SkillMenu implements WauzInventory {
 	 * @see PlayerSkillConfigurator#increaseMana(Player)
 	 * @see PlayerSkillConfigurator#increaseStrength(Player)
 	 * @see PlayerSkillConfigurator#increaseAgility(Player)
-	 * @see SkillMenu#tryToIncreaseMastery(ItemStack, int)
 	 */
 	@Override
 	public void selectMenuPoint(InventoryClickEvent event) {
@@ -434,10 +363,7 @@ public class SkillMenu implements WauzInventory {
 		Integer pts = total - spent;
 
 		try {
-			if(HeadUtils.isHeadMenuItem(clicked, "Assign Abilities")) {
-				SkillAssignMenu.open(player);
-			}
-			else if(pts < 1) {
+			if(pts < 1) {
 				player.sendMessage(ChatColor.RED + "You don't have Skillpoints left!");
 				player.closeInventory();
 			}
@@ -465,34 +391,9 @@ public class SkillMenu implements WauzInventory {
 				PlayerSkillConfigurator.increaseAgility(player);
 				SkillMenu.open(player);
 			}
-			else {
-				tryToIncreaseMastery(clicked, event.getRawSlot());
-			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Increases the level of a valid mastery, if not maxed already.
-	 * 
-	 * @param clicked The clicked mastery item stack.
-	 * @param slot The inventory slot of the mastery item stack.
-	 * 
-	 * @see PlayerSkillConfigurator#increaseMastery(Player, int)
-	 */
-	private void tryToIncreaseMastery(ItemStack clicked, int slot) {
-		if(slot < 9 || slot > 13) {
-			return;
-		}
-		
-		if(ItemUtils.doesLoreContain(clicked, "ALL SKILLS UNLOCKED")) {
-			player.sendMessage(ChatColor.RED + "This Mastery has already reached max level!");
-		}
-		else {
-			PlayerSkillConfigurator.increaseMastery(player, slot - 8);
-			SkillMenu.open(player);
 		}
 	}
 	

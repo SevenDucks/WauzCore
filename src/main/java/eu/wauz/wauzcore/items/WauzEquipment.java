@@ -25,7 +25,6 @@ import eu.wauz.wauzcore.items.runes.insertion.WauzRuneRemover;
 import eu.wauz.wauzcore.items.runes.insertion.WauzSkillgemInserter;
 import eu.wauz.wauzcore.items.util.EquipmentUtils;
 import eu.wauz.wauzcore.players.calc.SpeedCalculator;
-import eu.wauz.wauzcore.players.classes.WauzPlayerClassPool;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.util.Components;
 
@@ -71,7 +70,6 @@ public class WauzEquipment {
 	 * @param event The armor equip event.
 	 * 
 	 * @see WauzEquipment#doesLevelMatch(Player, ItemStack)
-	 * @see WauzEquipment#doesClassMatch(Player, ItemStack)
 	 * @see WauzEquipment#equipArmor(Player, ItemStack)
 	 */
 	public static void equipArmor(ArmorEquipEvent event) {
@@ -85,7 +83,7 @@ public class WauzEquipment {
 		WauzDebugger.log(player, "New: " + (armorItemStack != null ? armorItemStack.getType() : "none"));
 		WauzDebugger.log(player, "Old: " + (oldItemStack != null ? oldItemStack.getType() : "none"));
 		
-		if(!doesLevelMatch(player, armorItemStack) || !doesClassMatch(player, armorItemStack)) {
+		if(!doesLevelMatch(player, armorItemStack)) {
 			event.setCancelled(true);
 			return;
 		}
@@ -161,25 +159,6 @@ public class WauzEquipment {
 		}
 		WauzDebugger.log(player, "Required Level: " + requiredLevel);
 		return levelMatches;
-	}
-	
-	/**
-	 * Checks if the player has the right class to equip an item.
-	 * 
-	 * @param player The player to check.
-	 * @param armorItemStack The item, that the player wants to equip.
-	 * 
-	 * @return If the class matches.
-	 */
-	private static boolean doesClassMatch(Player player, ItemStack armorItemStack) {
-		ArmorCategory armorCategory = EquipmentUtils.getArmorCategory(armorItemStack);
-		ArmorCategory classArmorCategory = WauzPlayerClassPool.getClass(player).getArmorCategory();
-		boolean classMatches = armorCategory.getWeight() <= classArmorCategory.getWeight();
-		if(!classMatches) {
-			player.sendMessage(ChatColor.RED + "Your class can't wear " + armorCategory.toString().toLowerCase() + " items!");
-		}
-		WauzDebugger.log(player, "Armor Category: " + armorCategory);
-		return classMatches;
 	}
 	
 	/**
