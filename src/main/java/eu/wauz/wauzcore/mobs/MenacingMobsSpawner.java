@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 
 import eu.wauz.wauzcore.players.ui.bossbar.WauzPlayerEnemyBossBar;

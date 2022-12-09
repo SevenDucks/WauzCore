@@ -3,16 +3,17 @@ package eu.wauz.wauzcore.oneblock;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.inventory.Inventory;
 
 import eu.wauz.wauzcore.data.OneBlockConfigurator;
 import eu.wauz.wauzcore.items.InventorySerializer;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * A reward chest of a phase of the one-block gamemode.
@@ -97,7 +98,7 @@ public class OneChest {
 	public void spawnRandomFilledChest(Block block) {
 		block.setType(Material.BARREL);
 		Barrel barrel = (Barrel) block.getState();
-		barrel.setCustomName(ChatColor.BLUE + StringUtils.capitalize(type.toString()) + " Crate");
+		Components.customName(barrel, ChatColor.BLUE + StringUtils.capitalize(type.toString()) + " Crate");
 		barrel.update();
 		Inventory inventory = barrel.getInventory();
 		for(int count = 0; count < stackCount; count++) {

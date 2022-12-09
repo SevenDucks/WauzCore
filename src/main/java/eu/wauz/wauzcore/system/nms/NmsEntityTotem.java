@@ -2,11 +2,12 @@ package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.decoration.ArmorStand;
 
@@ -76,7 +77,7 @@ public class NmsEntityTotem extends ArmorStand {
 		this.setInvisible(false);
 		this.setInvulnerable(true);
 		this.setSmall(bodyItemStack == null);
-		this.setCustomName(new TextComponent(display));
+		this.setCustomName(MutableComponent.create(new LiteralContents(display)));
 		this.setCustomNameVisible(true);
 		
 		this.setShowArms(false);

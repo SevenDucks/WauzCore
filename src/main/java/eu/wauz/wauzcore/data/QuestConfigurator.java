@@ -2,7 +2,7 @@ package eu.wauz.wauzcore.data;
 
 import java.util.List;
 
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import eu.wauz.wauzcore.data.api.QuestConfigurationUtils;
 

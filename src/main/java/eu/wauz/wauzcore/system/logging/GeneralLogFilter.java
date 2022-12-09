@@ -3,9 +3,9 @@ package eu.wauz.wauzcore.system.logging;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.LogEvent;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
 import eu.wauz.wauzcore.WauzCore;
 

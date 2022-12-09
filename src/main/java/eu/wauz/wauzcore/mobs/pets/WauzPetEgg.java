@@ -116,7 +116,7 @@ public class WauzPetEgg {
 			String petName = ChatColor.stripColor(Components.displayName(eggItemStack.getItemMeta()));
 			if(pet.isHorse()) {
 				Horse horse = NmsEntityHorseMount.create(player.getLocation(), pet.getHorseColor(), petType);
-				horse.setCustomName(ChatColor.GREEN + petName);
+				Components.customName(horse, ChatColor.GREEN + petName);
 				WauzActivePet.setOwner(player, horse, pet, eggItemStack);
 				int petSpd = WauzActivePet.getPetStat(player, WauzPetStat.getPetStat("Speed"));
 				horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.2 + (float) petSpd * 0.003f);
@@ -131,7 +131,7 @@ public class WauzPetEgg {
 					player.sendMessage(ChatColor.RED + "Your pet is invalid or outdated!");
 					return;
 				}
-				entity.setCustomName(ChatColor.GREEN + petName);
+				Components.customName(entity, ChatColor.GREEN + petName);
 				WauzActivePet.setOwner(player, entity, pet, eggItemStack);
 			}
 			player.sendMessage(ChatColor.GREEN + petName + " was summoned!");

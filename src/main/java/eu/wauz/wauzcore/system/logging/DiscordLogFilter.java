@@ -5,8 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.core.LogEvent;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
 import eu.wauz.wauzcore.WauzCore;
 import eu.wauz.wauzcore.data.DiscordConfigurator;

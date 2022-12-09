@@ -2,7 +2,7 @@ package eu.wauz.wauzcore.system;
 
 import java.io.File;
 
-import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import com.xxmicloxx.NoteBlockAPI.model.RepeatMode;

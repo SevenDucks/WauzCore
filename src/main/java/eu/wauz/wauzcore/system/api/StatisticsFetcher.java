@@ -8,13 +8,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.io.Files;
 
@@ -298,7 +298,7 @@ public class StatisticsFetcher {
 	private static long getPlayedHoursFromStatistics(File file) {
 		long playedHours = 0;
 		try {
-			String line = Files.readFirstLine(file, StandardCharsets.UTF_8);
+			String line = Files.asCharSource(file, StandardCharsets.UTF_8).readFirstLine();
 			long playedTicks;
 			if(line.contains("\"stat.playOneMinute\":")) {
 				playedTicks = Long.parseLong(StringUtils.substringBetween(line, "\"stat.playOneMinute\":", ","));
@@ -333,7 +333,7 @@ public class StatisticsFetcher {
 	private static long getKilledMobsFromStatistics(File file) {
 		long killedMobs = 0;
 		try {
-			String line = Files.readFirstLine(file, StandardCharsets.UTF_8);
+			String line = Files.asCharSource(file, StandardCharsets.UTF_8).readFirstLine();
 			killedMobs = line.contains("\"stat.mobKills\":")
 				? Long.parseLong(StringUtils.substringBetween(line, "\"stat.mobKills\":", ","))
 				: Long.parseLong(StringUtils.substringBetween(line, "\"minecraft:mob_kills\":", ","));
@@ -360,7 +360,7 @@ public class StatisticsFetcher {
 	private static long getWalkedMetresFromStatistics(File file) {
 		long walkedMetres = 0;
 		try {
-			String line = Files.readFirstLine(file, StandardCharsets.UTF_8);
+			String line = Files.asCharSource(file, StandardCharsets.UTF_8).readFirstLine();
 			long walkedCentimetres = line.contains("\"stat.walkOneCm\":")
 				? Long.parseLong(StringUtils.substringBetween(line, "\"stat.walkOneCm\":", ","))
 				: Long.parseLong(StringUtils.substringBetween(line, "\"minecraft:walk_one_cm\":", ","));

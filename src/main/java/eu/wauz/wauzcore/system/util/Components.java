@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Nameable;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.SignChangeEvent;
@@ -15,6 +16,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
@@ -31,6 +33,7 @@ import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.title.Title;
 import net.kyori.adventure.title.Title.Times;
+import net.kyori.adventure.translation.Translatable;
 
 /**
  * An util class to interact with adventure components.
@@ -150,8 +153,40 @@ public class Components {
 	 * 
 	 * @return The created objective.
 	 */
-	public static Objective objective(Scoreboard scoreboard, String name, String criteria, String displayName) {
+	public static Objective objective(Scoreboard scoreboard, String name, Criteria criteria, String displayName) {
 		return scoreboard.registerNewObjective(name, criteria, toComponent(displayName));
+	}
+	
+	/**
+	 * Gets the translated name of a translatable object.
+	 * 
+	 * @param translatable The translatable to translate.
+	 * 
+	 * @return The translated name.
+	 */
+	public static String translate(Translatable translatable) {
+		return fromComponent(Component.translatable(translatable));
+	}
+	
+	/**
+	 * Gets the custom name of the given nameable.
+	 * 
+	 * @param nameable The nameable to get the custom name from.
+	 * 
+	 * @return The custom name.
+	 */
+	public static String customName(Nameable nameable) {
+		return fromComponent(nameable.customName());
+	}
+	
+	/**
+	 * Sets the custom name of the given nameable.
+	 * 
+	 * @param nameable The nameable to set the custom name for.
+	 * @param customName The custom name to set.
+	 */
+	public static void customName(Nameable nameable, String customName) {
+		nameable.customName(toComponent(customName));
 	}
 	
 	/**

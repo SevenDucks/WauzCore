@@ -54,7 +54,7 @@ public class WauzModeMenu implements WauzInventory {
 		menu.setItem(12, modeMmoRpgItemStack);
 		
 		ItemStack modeOneBlockItemStack = new ItemStack(Material.GRASS_BLOCK);
-		MenuUtils.setItemDisplayName(modeOneBlockItemStack, ChatColor.DARK_RED + "BETA " + ChatColor.GOLD + "Survival (+ OneBlock)");
+		MenuUtils.setItemDisplayName(modeOneBlockItemStack, ChatColor.DARK_RED + "BETA " + ChatColor.GOLD + "OneBlock");
 		menu.setItem(14, modeOneBlockItemStack);
 		
 		ItemStack modeEyiorielItemStack = new ItemStack(Material.END_PORTAL_FRAME);

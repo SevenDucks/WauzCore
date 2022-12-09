@@ -340,7 +340,7 @@ public class PlayerAmbientListener implements Listener {
 		Item item = event.getEntity();
 		ItemStack itemStack = item.getItemStack();
 		if(ItemUtils.hasDisplayName(itemStack)) {
-			item.setCustomName(Components.displayName(itemStack.getItemMeta()));
+			Components.customName(item, Components.displayName(itemStack.getItemMeta()));
 			item.setCustomNameVisible(true);
 		}
 		Location location = event.getLocation();

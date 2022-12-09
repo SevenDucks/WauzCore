@@ -3,10 +3,10 @@ package eu.wauz.wauzcore.commands.completion;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 
 import eu.wauz.wauzcore.commands.players.CmdMenu;
 import eu.wauz.wauzcore.menu.util.MenuRegister;

@@ -2,10 +2,11 @@ package eu.wauz.wauzcore.players.ui.scoreboard;
 
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.RenderType;
@@ -83,7 +84,7 @@ public class WauzPlayerTablist {
 	 * @return The created objective.
 	 */
 	private Objective registerHealthObjective(String name, DisplaySlot slot) {
-		Objective healthObjective = Components.objective(scoreboard, name, "health", ChatColor.RED + UnicodeUtils.ICON_HEART);
+		Objective healthObjective = Components.objective(scoreboard, name, Criteria.HEALTH, ChatColor.RED + UnicodeUtils.ICON_HEART);
 		healthObjective.setDisplaySlot(slot);
 		healthObjective.setRenderType(RenderType.HEARTS);
 		return healthObjective;

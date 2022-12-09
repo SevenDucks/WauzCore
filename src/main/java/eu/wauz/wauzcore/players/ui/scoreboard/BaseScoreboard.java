@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -38,7 +39,7 @@ public abstract class BaseScoreboard {
 	public BaseScoreboard(Player player) {
 		ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 		scoreboard = scoreboardManager.getNewScoreboard();
-		Objective objective = Components.objective(scoreboard, "row", "dummy", "-*-*-*-" + getTitleText() + "-*-*-*-");
+		Objective objective = Components.objective(scoreboard, "row", Criteria.DUMMY, "-*-*-*-" + getTitleText() + "-*-*-*-");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		rowStrings = new ArrayList<>();
 		fillScoreboard(player);

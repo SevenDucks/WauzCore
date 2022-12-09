@@ -1,7 +1,7 @@
 package eu.wauz.wauzcore.items.util;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.inventory.ItemStack;
 
 /**

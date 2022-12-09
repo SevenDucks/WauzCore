@@ -3,8 +3,8 @@ package eu.wauz.wauzcore.commands.players;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.commands.WauzCommand;

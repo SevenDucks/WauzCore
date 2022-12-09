@@ -3,7 +3,7 @@ description: Advanced Minecraft MMORPG Engine
 main: eu.wauz.wauzcore.WauzCore
 website: http://wauz.eu/
 version: 2.0-SNAPSHOT
-api-version: 1.17
+api-version: 1.19
 author: Wauzmons
 softdepend: [MythicMobs, NoteBlockAPI]
 commands:

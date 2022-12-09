@@ -3,15 +3,16 @@ package eu.wauz.wauzcore.mobs;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.MythicUtils;
 import io.lumine.mythic.bukkit.events.MythicMobDeathEvent;
 
@@ -56,7 +57,7 @@ public class Strongbox {
 			strongbox.setVisible(false);
 			
 			int enemyAmount = Chance.randomInt(5) + 3;
-			strongbox.setCustomName(ChatColor.GOLD + "Strongbox Guards Left: ["
+			Components.customName(strongbox, ChatColor.GOLD + "Strongbox Guards Left: ["
 					+ ChatColor.DARK_RED + enemyAmount + ChatColor.GOLD + "]");
 			strongbox.setCustomNameVisible(true);
 			
@@ -89,7 +90,7 @@ public class Strongbox {
 			String uuidString = MobMetadataUtils.getStronboxMob(entity);
 			ArmorStand strongbox = activeStrongboxMap.get(uuidString);
 			int enemyAmount = Integer.parseInt(StringUtils.substringBetween(
-					strongbox.getCustomName(), "[" + ChatColor.DARK_RED, ChatColor.GOLD + "]"));
+					Components.customName(strongbox), "[" + ChatColor.DARK_RED, ChatColor.GOLD + "]"));
 			enemyAmount--;
 			
 			if(enemyAmount < 1) {
@@ -105,7 +106,7 @@ public class Strongbox {
 				strongbox.remove();
 			}
 			else {
-				strongbox.setCustomName(ChatColor.GOLD + "Strongbox Guards Left: ["
+				Components.customName(strongbox, ChatColor.GOLD + "Strongbox Guards Left: ["
 						+ ChatColor.DARK_RED + enemyAmount + ChatColor.GOLD + "]");
 			}
 			for(Player player : strongbox.getWorld().getPlayers()) {

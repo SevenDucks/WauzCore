@@ -1,7 +1,7 @@
 package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;

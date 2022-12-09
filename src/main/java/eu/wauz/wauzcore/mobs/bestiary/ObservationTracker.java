@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import eu.wauz.wauzcore.data.players.PlayerBestiaryConfigurator;
 import eu.wauz.wauzcore.data.players.PlayerCollectionConfigurator;
 import eu.wauz.wauzcore.mobs.MobMetadataUtils;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.Formatters;
 import eu.wauz.wauzcore.system.util.UnicodeUtils;
 
@@ -36,7 +37,7 @@ public class ObservationTracker {
 		int oldProgress = PlayerBestiaryConfigurator.getBestiaryKills(player, entry);
 		int newProgress = oldProgress + 1;
 		boolean isBoss = MobMetadataUtils.isRaidBoss(entity);
-		String mobName = entity.getCustomName() + ChatColor.YELLOW;
+		String mobName = Components.customName(entity) + ChatColor.YELLOW;
 		ObservationRank oldObservationRank = ObservationRank.getObservationRank(oldProgress, isBoss);
 		ObservationRank newObservationRank = ObservationRank.getObservationRank(newProgress, isBoss);
 		PlayerBestiaryConfigurator.setBestiaryKills(player, entry, newProgress);

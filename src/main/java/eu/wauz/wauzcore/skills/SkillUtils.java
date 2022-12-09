@@ -27,6 +27,7 @@ import eu.wauz.wauzcore.skills.particles.ParticleSpawner;
 import eu.wauz.wauzcore.skills.particles.SkillParticle;
 import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.nms.NmsEntityTotem;
+import eu.wauz.wauzcore.system.util.Components;
 
 /**
  * An util class for working with skill and weapon meachanics.
@@ -46,7 +47,8 @@ public class SkillUtils {
 	 */
 	public static boolean isValidAttackTarget(Entity entity) {
 		boolean isNoArmorStand = !entity.getType().equals(EntityType.ARMOR_STAND);
-		boolean hasLevel = entity.getCustomName() != null && entity.getCustomName().contains("" + ChatColor.AQUA);
+		String customName = Components.customName(entity);
+		boolean hasLevel = customName != null && customName.contains("" + ChatColor.AQUA);
 		return isNoArmorStand && hasLevel;
 	}
 	

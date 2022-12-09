@@ -1,9 +1,10 @@
 package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
 
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.decoration.ArmorStand;
 
@@ -49,7 +50,7 @@ public class NmsEntityHologram extends ArmorStand {
 		this.setInvisible(true);
 		this.setInvulnerable(true);
 		this.setSmall(false);
-		this.setCustomName(new TextComponent(display));
+		this.setCustomName(MutableComponent.create(new LiteralContents(display)));
 		this.setCustomNameVisible(true);
 
 		worldServer.addFreshEntity(this);

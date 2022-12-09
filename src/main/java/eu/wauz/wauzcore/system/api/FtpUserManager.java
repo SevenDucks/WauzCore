@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ftpserver.ftplet.Authentication;
 import org.apache.ftpserver.ftplet.AuthenticationFailedException;
 import org.apache.ftpserver.ftplet.FtpException;
@@ -14,7 +15,6 @@ import org.apache.ftpserver.usermanager.impl.BaseUser;
 import org.apache.ftpserver.usermanager.impl.ConcurrentLoginPermission;
 import org.apache.ftpserver.usermanager.impl.WritePermission;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.StringUtils;
 
 import eu.wauz.wauzcore.data.ServerConfigurator;
 

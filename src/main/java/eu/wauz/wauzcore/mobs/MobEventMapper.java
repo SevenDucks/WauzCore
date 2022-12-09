@@ -2,8 +2,8 @@ package eu.wauz.wauzcore.mobs;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -15,6 +15,7 @@ import eu.wauz.wauzcore.system.WauzDebugger;
 import eu.wauz.wauzcore.system.achievements.AchievementTracker;
 import eu.wauz.wauzcore.system.achievements.WauzAchievementType;
 import eu.wauz.wauzcore.system.util.Chance;
+import eu.wauz.wauzcore.system.util.Components;
 import eu.wauz.wauzcore.system.util.MythicUtils;
 import eu.wauz.wauzcore.worlds.instances.InstanceMobArena;
 import io.lumine.mythic.api.mobs.MythicMob;
@@ -110,9 +111,9 @@ public class MobEventMapper {
 			Player player = (Player) event.getKiller();
 			ObservationTracker.tryToAddProgress(player, entity);
 			AchievementTracker.addProgress(player, WauzAchievementType.KILL_ENEMIES, 1);
-			AchievementTracker.checkForAchievement(player, WauzAchievementType.DEFEAT_BOSSES, entity.getCustomName());
+			AchievementTracker.checkForAchievement(player, WauzAchievementType.DEFEAT_BOSSES, Components.customName(entity));
 		}
-		if(StringUtils.contains(event.getEntity().getCustomName(), "Strongbox")) {
+		if(StringUtils.contains(Components.customName(entity), "Strongbox")) {
 			Strongbox.destroy(event);
 		}
 		if(CmdWzTravelEvent.getEventTravelMap().containsKey(mobId)) {

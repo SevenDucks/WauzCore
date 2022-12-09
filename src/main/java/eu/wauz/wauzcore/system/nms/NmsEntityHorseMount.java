@@ -2,10 +2,11 @@ package eu.wauz.wauzcore.system.nms;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
 import org.bukkit.entity.Horse.Color;
 
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.horse.Horse;
@@ -51,7 +52,7 @@ public class NmsEntityHorseMount extends Horse {
 		this.setInvisible(false);
 		this.setInvulnerable(true);
 		this.setCanPickUpLoot(false);
-		this.setCustomName(new TextComponent(name));
+		this.setCustomName(MutableComponent.create(new LiteralContents(name)));
 		this.setCustomNameVisible(true);
 		
 		org.bukkit.entity.Horse horse = (org.bukkit.entity.Horse) this.getBukkitEntity();
