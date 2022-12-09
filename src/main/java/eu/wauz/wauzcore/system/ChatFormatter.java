@@ -38,7 +38,7 @@ public class ChatFormatter {
 				ChatColor.GRAY + Components.message(event);
 		
 		Components.broadcastGlobally(player, msg);
-		WauzCore.getInstance().getLogger().getParent().info(msg);
+		WauzCore.getInstance().getLogger().getParent().info(ChatColor.stripColor(msg));
 		WauzCore.getDiscordBot().sendMessageFromMinecraft(msg, false);
 	}
 	

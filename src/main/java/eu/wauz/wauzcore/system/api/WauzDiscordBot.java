@@ -18,9 +18,9 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -67,7 +67,7 @@ public class WauzDiscordBot extends ListenerAdapter {
 		intents.remove(GatewayIntent.GUILD_MEMBERS);
 		intents.remove(GatewayIntent.GUILD_PRESENCES);
 		JDABuilder jdaBuilder = JDABuilder.create(DiscordConfigurator.getToken(), intents);
-		jdaBuilder.disableCache(CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS);
+		jdaBuilder.disableCache(CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ONLINE_STATUS);
 		jdaBuilder.setAutoReconnect(true);
 		jdaBuilder.setStatus(OnlineStatus.ONLINE);
 		jdaBuilder.setActivity(Activity.playing(DiscordConfigurator.getPlaysMessage()));
@@ -146,7 +146,7 @@ public class WauzDiscordBot extends ListenerAdapter {
 			embedBuilder.setDescription(description);
 		}
 		embedBuilder.setColor(color != null ? color : new Color(250, 250, 250));
-		textChannel.sendMessage(embedBuilder.build()).queue();
+		textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
 	}
 	
 	/**
