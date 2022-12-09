@@ -1,7 +1,6 @@
 package eu.wauz.wauzcore.data;
 
 import java.util.List;
-import java.util.Set;
 
 import eu.wauz.wauzcore.data.api.GlobalConfigurationUtils;
 import eu.wauz.wauzcore.system.util.Chance;
@@ -37,45 +36,11 @@ public class ServerConfigurator extends GlobalConfigurationUtils {
 		return mainConfigGetString("Server", "key");
 	}
 	
-// Embedded Servers
-	
 	/**
 	 * @return The port for the embedded HTTP server.
 	 */
 	public static int getServerApiPort() {
 		return mainConfigGetInt("Server", "apiport");
-	}
-	
-	/**
-	 * @return The port for the embedded FTP server.
-	 */
-	public static int getServerFtpPort() {
-		return mainConfigGetInt("Server", "ftpport");
-	}
-	
-	/**
-	 * @return A list of all FTP users.
-	 */
-	public static Set<String> getServerFtpUsers() {
-		return mainConfigGetKeys("Server", "ftpusers");
-	}
-	
-	/**
-	 * @param user The name of the FTP user.
-	 * 
-	 * @return The password of the user.
-	 */
-	public static String getFtpUserPassword(String user) {
-		return mainConfigGetString("Server", "ftpusers." + user + ".pass");
-	}
-	
-	/**
-	 * @param user The name of the FTP user.
-	 * 
-	 * @return The home path of the user.
-	 */
-	public static String getFtpUserHomePath(String user) {
-		return mainConfigGetString("Server", "ftpusers." + user + ".path");
 	}
 	
 // Message of the Day

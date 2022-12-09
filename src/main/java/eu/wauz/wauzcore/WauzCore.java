@@ -23,7 +23,6 @@ import eu.wauz.wauzcore.players.WauzPlayerRegistrator;
 import eu.wauz.wauzcore.system.WauzRepeatingTasks;
 import eu.wauz.wauzcore.system.WauzRestartScheduler;
 import eu.wauz.wauzcore.system.annotations.AnnotationLoader;
-import eu.wauz.wauzcore.system.api.FtpServerManager;
 import eu.wauz.wauzcore.system.api.WauzDiscordBot;
 import eu.wauz.wauzcore.system.api.WebServerManager;
 import eu.wauz.wauzcore.system.listeners.ArmorEquipEventListener;
@@ -87,11 +86,6 @@ public class WauzCore extends JavaPlugin {
 	private static WebServerManager webServerManager;
 	
 	/**
-	 * The FtpServerManager used for tranfering data.
-	 */
-	private static FtpServerManager ftpServerManager;
-	
-	/**
 	 * Gets called when the server is started.
 	 */
 	@Override
@@ -149,10 +143,6 @@ public class WauzCore extends JavaPlugin {
 		webServerManager = new WebServerManager(apiPort);
 		getLogger().info("Started WebServerManager on port " + apiPort + "!");
 		
-		int ftpPort = ServerConfigurator.getServerFtpPort();
-		ftpServerManager = new FtpServerManager(ftpPort);
-		getLogger().info("Started FtpServerManager on port " + ftpPort + "!");
-		
 		WauzRepeatingTasks.schedule(this);
 		getLogger().info("Scheduled Repeating Tasks!");
 		
@@ -182,9 +172,6 @@ public class WauzCore extends JavaPlugin {
 		
 		webServerManager.stop();
 		getLogger().info("Stopped WebServerManager!");
-		
-		ftpServerManager.stop();
-		getLogger().info("Stopped FtpServerManager!");
 		
 		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
 			WauzPlayerRegistrator.logout(player);
