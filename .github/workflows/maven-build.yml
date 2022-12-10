@@ -28,13 +28,11 @@ jobs:
     - name: Build with Maven
       run: |
         wget -O BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-        java -jar BuildTools.jar --rev 1.17.1 --remapped > /dev/null 2>&1
+        java -jar BuildTools.jar --rev 1.19.2 --remapped > /dev/null 2>&1
         ls
         cd Bukkit
         mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
         cd ../CraftBukkit
-        mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
-        cd ../Spigot
         mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
         cd ..
         mvn install -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
