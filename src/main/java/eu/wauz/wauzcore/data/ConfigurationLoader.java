@@ -1,5 +1,6 @@
 package eu.wauz.wauzcore.data;
 
+import eu.wauz.wauzcore.building.WauzCommandChain;
 import eu.wauz.wauzcore.items.WauzEquipment;
 import eu.wauz.wauzcore.mobs.bestiary.WauzBestiarySpecies;
 import eu.wauz.wauzcore.mobs.pets.WauzPet;
@@ -51,6 +52,7 @@ public class ConfigurationLoader {
 		WauzRank.init();
 		WauzTitle.init();
 		WauzPlayerGuild.init();
+		WauzCommandChain.init();
 		OnePhase.init();
 		
 		InstanceManager.removeInactiveInstances();

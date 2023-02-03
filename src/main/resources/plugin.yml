@@ -280,6 +280,11 @@ commands:
     aliases: [bbrush]
     usage: /weBiomeBrush [shape] [biome] [radius]
     permission: wauz.system
+  weCommandChain:
+    description: Execute Command Chain
+    aliases: [chain]
+    usage: /weCommandChain [chainname]
+    permission: wauz.system
 permissions:
   wauz.system:
     description: Gives access to system commands.
