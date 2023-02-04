@@ -283,7 +283,7 @@ commands:
   weCommandChain:
     description: Execute Command Chain
     aliases: [chain]
-    usage: /weCommandChain [chainname]
+    usage: /weCommandChain [chainname] [timeout]
     permission: wauz.system
 permissions:
   wauz.system:

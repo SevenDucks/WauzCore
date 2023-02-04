@@ -56,9 +56,17 @@ public class CmdWeCommandChain implements WauzCommand {
 			return false;
 		}
 		
+		int timeout;
+		if(args.length >= 2) {
+			timeout = Integer.parseInt(args[1]);
+		}
+		else {
+			timeout = commandChain.getTimeout();
+		}
+		
 		Player player = (Player) sender;
-		player.sendMessage(ChatColor.GREEN + "Starting command chain, do not move!");
-		scheduleNextCommand(player, commandChain.getCommands(), commandChain.getTimeout(), true);
+		player.sendMessage(ChatColor.GREEN + "Starting command chain with " + timeout + " second interval!");
+		scheduleNextCommand(player, commandChain.getCommands(), timeout, true);
 		return true;
 	}
 	
